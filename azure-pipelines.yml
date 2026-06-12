@@ -232,7 +232,11 @@ stages:
         failOnStdErr: false
         commands: |
           bash /root/smart-proxy/infra-proxy/bootstrap-oracle.sh --caddy-only
-          curl -sf https://flashcard.theruby.lat/api/health >/dev/null || echo "WARN: API health via Caddy not ready yet"
+          if [ "$(Build.SourceBranch)" = "refs/heads/qa" ]; then
+            curl -sf -k -H "Host: qa.flashcard.theruby.lat" https://127.0.0.1/api/health || echo "WARN: QA API health via Caddy not ready yet"
+          else
+            curl -sf https://flashcard.theruby.lat/api/health >/dev/null || echo "WARN: API health via Caddy not ready yet"
+          fi
           echo "Frontend deploy OK"
 
 # ───────────────────────────────────────────────────────────────────────
@@ -363,8 +367,29 @@ stages:
 
           rm -f /tmp/gcp-deploy-key.json /tmp/flashcard-backend.env
           bash /root/smart-proxy/infra-proxy/bootstrap-oracle.sh --backend-only --no-monitors
-          curl -sf $HEALTH_URL
-          curl -sf $EXTERNAL_HEALTH_URL
+          
+          echo "Verifying local container health..."
+          curl -sf "$HEALTH_URL"
+          
+          echo "Verifying local Caddy proxy routing (bypassing DNS)..."
+          if [ "$(Build.SourceBranch)" = "refs/heads/qa" ]; then
+            curl -sf -k -H "Host: qa.flashcard.theruby.lat" https://127.0.0.1/api/health || \
+            curl -sf -H "Host: qa.flashcard.theruby.lat" http://127.0.0.1/api/health
+          else
+            curl -sf -k -H "Host: flashcard.theruby.lat" https://127.0.0.1/api/health || \
+            curl -sf -H "Host: flashcard.theruby.lat" http://127.0.0.1/api/health
+          fi
+
+          echo "Verifying external DNS health check..."
+          if curl -sf --connect-timeout 5 "$EXTERNAL_HEALTH_URL"; then
+            echo "External health check OK"
+          else
+            echo "WARNING: External health check failed (this is expected if DNS has not propagated yet for QA)."
+            if [ "$(Build.SourceBranch)" != "refs/heads/qa" ]; then
+              echo "ERROR: Production external health check must pass."
+              exit 1
+            fi
+          fi
           echo "Oracle Mirror OK"
 
   # ── B. OCI-1 Mirror ────────────────────────────────────────────────
