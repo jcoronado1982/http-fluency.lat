@@ -81,3 +81,21 @@ Una vez que el pipeline termine con éxito:
 > [!NOTE]
 > **Aislamiento de Base de Datos**
 > Recuerda que la base de datos de producción (`flashcard`) es independiente de la de QA (`qa_flashcard`). Si tus cambios requerían de alguna migración de datos o inserción inicial manual, asegúrate de tenerla lista en producción antes de completar el merge.
+
+---
+
+## ❓ Preguntas Frecuentes y Detalles de Infraestructura
+
+### 1. ¿Cada ambiente tiene su propia base de datos?
+**Sí, de forma 100% aislada.** Aunque físicamente corren bajo el mismo motor SurrealDB en el servidor Oracle, se utiliza separación lógica por **Namespaces**:
+* **Producción (`main`):** Usa el namespace `flashcard`.
+* **QA (`qa`):** Usa el namespace `qa_flashcard`.
+
+Cualquier cambio, prueba de carga o eliminación de datos en QA **no afectará** en absoluto a tus usuarios en producción.
+
+### 2. ¿Se reinicia Caddy durante el despliegue? ¿Se cae producción?
+**No hay caída de servicio (Zero-Downtime).**
+Caddy gestiona las recargas de la siguiente manera:
+* **Recarga en Caliente (Hot Reload):** Caddy está configurado para que al detectar cambios en el `Caddyfile`, aplique la nueva configuración instantáneamente sin cerrar el servidor ni cortar las conexiones activas de producción.
+* **Optimización en el Pipeline:** El pipeline solo toca Caddy si detecta cambios específicos en los archivos de configuración de infraestructura, protegiendo así el entorno de producción de reinicios innecesarios.
+
