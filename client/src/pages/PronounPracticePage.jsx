@@ -4,7 +4,7 @@ import {
   FiChevronLeft, FiChevronRight, FiRefreshCw, FiCheck, FiPlay,
   FiBookOpen, FiClock, FiChevronDown, FiChevronUp, FiCpu, FiHelpCircle, FiX
 } from 'react-icons/fi';
-import './StoryArcade.css';
+import './PronounPractice.css';
 
 // Zustand & TanStack Query imports
 import { useAuth } from '../context/AuthContext';
@@ -32,7 +32,7 @@ const isPlaceholderImageUrl = (url) => {
   return url.includes('unsplash.com');
 };
 
-export default function StoryArcadePage() {
+export default function PronounPracticePage() {
   const { user } = useAuth();
   
   // Configuración de Identidad
@@ -346,14 +346,14 @@ export default function StoryArcadePage() {
   };
 
   if (loadingProgress || loadingScreens) {
-    return <div className="arcadeContainer flex items-center justify-center">Cargando modo arcade...</div>;
+    return <div className="arcadeContainer flex items-center justify-center">Loading pronoun practice mode...</div>;
   }
 
   if (progressError || screensError || !progress || !screens?.length) {
-    const detail = progressQueryError?.message || screensQueryError?.message || 'Datos de Story Arcade no disponibles';
+    const detail = progressQueryError?.message || screensQueryError?.message || 'Datos de Pronoun Practice no disponibles';
     return (
       <div className="arcadeContainer flex flex-col items-center justify-center gap-4 p-8 text-center">
-        <h2 className="text-xl font-semibold text-slate-200">No se pudo cargar Story Arcade</h2>
+        <h2 className="text-xl font-semibold text-slate-200">No se pudo cargar Pronoun Practice</h2>
         <p className="text-slate-400 max-w-lg">
           En producción la base SurrealDB no tiene episodios cargados o el API falló al responder.
           En local funciona porque tu SurrealDB ya tiene la historia sembrada.

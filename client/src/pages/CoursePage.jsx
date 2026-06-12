@@ -19,7 +19,7 @@ export default function CoursePage() {
       <main className="courseMain">
 
         <header className="courseHeader">
-          <h1 className="courseTitle" style={{ letterSpacing: '-1.5px' }}>Pronombres en Inglés</h1>
+          <h1 className="courseTitle" style={{ letterSpacing: '-1.5px' }}>Pronouns in English</h1>
         </header>
 
         <div className="courseCard">

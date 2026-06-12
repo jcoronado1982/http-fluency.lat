@@ -1,11 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { httpClient } from '../services/httpClient';
 
+const storyQueryOptions = { retry: 1 };
+
 export const useStoryProgress = (userId, storyId) => {
   return useQuery({
     queryKey: ['progress', userId, storyId],
     queryFn: () => httpClient.get(`/api/progress?user_id=${encodeURIComponent(userId)}&story_id=${storyId}`),
     enabled: !!userId && !!storyId,
+    ...storyQueryOptions,
   });
 };
 
@@ -14,6 +17,7 @@ export const useEpisodeScreens = (episodeId, options = {}) => {
     queryKey: ['screens', episodeId],
     queryFn: () => httpClient.get(`/api/episodes/${episodeId}/screens`),
     enabled: !!episodeId,
+    ...storyQueryOptions,
     ...options
   });
 };

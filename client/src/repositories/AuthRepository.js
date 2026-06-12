@@ -2,6 +2,11 @@ import axios from 'axios';
 import { API_URL } from '../config/api';
 
 class AuthRepository {
+    async loginAsDevGuest() {
+        const response = await axios.post(`${API_URL}/api/auth/dev-guest`);
+        return response.data;
+    }
+
     async loginWithGoogle(idToken) {
         try {
             const response = await axios.post(`${API_URL}/api/auth/google`, {

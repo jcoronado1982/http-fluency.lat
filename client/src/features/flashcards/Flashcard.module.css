@@ -88,17 +88,20 @@
 
 .name {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    font-size: 2.5em;
+    font-size: clamp(1.5rem, 5vw, 2.5em);
     font-weight: 800;
     color: #ffffff;
     margin: 0 0 10px 0;
     text-transform: capitalize;
     letter-spacing: -0.02em;
-    line-height: 1.1;
+    line-height: 1.2;
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
     width: 100%;
     border-bottom: none;
     padding-bottom: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: center;
 }
 
 .phonetic {
@@ -153,7 +156,7 @@
     margin-bottom: 0;
 }
 
-.allExamplesContainer li button {
+.allExamplesContainer li > button {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
@@ -173,7 +176,7 @@
     /* Fix for mobile visibility issue */
 }
 
-.allExamplesContainer li button:hover {
+.allExamplesContainer li > button:hover {
     background: rgba(77, 171, 247, 0.15);
     border-color: #4dabf7;
     color: #4dabf7;
@@ -185,8 +188,7 @@
     line-height: 1.4;
     font-size: 1.15em;
     white-space: normal;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: visible;
     color: #b8b8b8;
 }
 
@@ -428,6 +430,38 @@
     color: #a0a0a0;
     /* Gris claro para español */
     margin: 0;
+}
+
+.spanishExampleContainer {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.playEsBtn {
+    background: transparent;
+    border: none;
+    color: #4ade80;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.playEsBtn:hover {
+    background-color: rgba(74, 222, 128, 0.15);
+    transform: scale(1.1);
+}
+
+.playEsBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
 }
 
 /* Bloque de Alternativa (She is nice and smart...) */
@@ -754,76 +788,79 @@
     }
 }
 
-.deleteAudioBtn {
-    background: none;
-    border: none;
-    color: #94a3b8;
+.rotateVoiceBtn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    margin-left: 14px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.45);
     cursor: pointer;
-    padding: 2px 6px;
-    margin-left: 8px;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-    opacity: 0;
-    /* Invisible por defecto */
+    transition: all 0.3s ease;
+    opacity: 0.55;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     vertical-align: middle;
+    flex-shrink: 0;
+    backface-visibility: hidden;
 }
 
 .phraseContainer {
-    display: block;
     flex: 1;
+    min-width: 0;
     position: relative;
     white-space: normal;
-    height: 40px;
+    line-height: 1.4;
+    overflow: visible;
 }
 
-.phraseContainer .deleteAudioBtn {
-    display: inline-flex;
-    opacity: 0;
-    transition: all 0.2s ease;
+.phraseContainer .rotateVoiceBtn {
     vertical-align: middle;
-}
-
-.phraseContainer:hover .deleteAudioBtn {
-    opacity: 0.4;
+    margin-left: 16px;
 }
 
 .titleContainer {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
     position: relative;
+    max-width: 100%;
+    flex-wrap: wrap;
 }
 
-.titleContainer .deleteAudioBtn {
-    display: inline-flex;
-    opacity: 0;
-    transition: all 0.2s ease;
-    vertical-align: middle;
-}
-
-.titleContainer:hover .deleteAudioBtn {
-    opacity: 0.6;
+.titleContainer .rotateVoiceBtn {
+    margin-left: 4px;
 }
 
 .phraseText {
-    flex: 1;
+    display: inline;
     text-align: left;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
-.deleteAudioBtn:hover {
-    color: #ef4444 !important;
-    background: rgba(239, 68, 68, 0.1);
-    opacity: 1 !important;
-    transform: scale(1.2);
+.rotateVoiceBtn:hover {
+    opacity: 1;
+    background: rgba(77, 171, 247, 0.12);
+    border-color: rgba(77, 171, 247, 0.35);
+    color: #4dabf7;
+    transform: scale(1.08);
+    box-shadow: 0 0 10px rgba(77, 171, 247, 0.2);
 }
 
-.deleteAudioBtn:disabled {
+.phraseContainer:hover .rotateVoiceBtn {
+    opacity: 0.75;
+}
+
+.rotateVoiceBtn:disabled {
     cursor: not-allowed;
-    opacity: 0 !important;
+    opacity: 0.4 !important;
+    transform: none;
+    box-shadow: none;
 }
 
 /* --- Progress Counter Styles (Top Right Global) --- */
@@ -971,7 +1008,7 @@
         font-size: 1.2rem !important; /* Reducido de 1.3em */
     }
 
-    .allExamplesContainer li button {
+    .allExamplesContainer li > button {
         width: 48px !important;
         height: 48px !important;
         margin-right: 12px !important;
@@ -993,26 +1030,16 @@
 
     .phraseContainer {
         height: auto !important;
-        min-height: 36px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important; /* Separar texto y botón */
+        min-height: unset !important;
+        display: block !important;
         width: 100% !important;
     }
 
-    .phraseContainer .deleteAudioBtn {
-        opacity: 0.7 !important; /* Siempre visible en móviles al no haber hover */
-        width: 36px !important; /* Área táctil ampliada */
-        height: 36px !important;
-        background: rgba(255, 255, 255, 0.05) !important;
-        border-radius: 50% !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        color: #94a3b8 !important;
-        margin-left: 10px !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        flex-shrink: 0 !important;
+    .phraseContainer .rotateVoiceBtn {
+        width: 48px !important;
+        height: 48px !important;
+        margin-left: 18px !important;
+        opacity: 0.6 !important;
     }
 
     .titleContainer {
@@ -1024,21 +1051,12 @@
         width: auto !important;
     }
 
-    .titleContainer .deleteAudioBtn {
-        opacity: 0.6 !important;
-        position: absolute !important;
-        right: -36px !important; /* Posicionado al lado sin empujar la palabra */
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        width: 28px !important;
-        height: 28px !important;
-        background: rgba(255, 255, 255, 0.05) !important;
-        border-radius: 50% !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        color: #94a3b8 !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
+    .titleContainer .rotateVoiceBtn {
+        position: static !important;
+        transform: none !important;
+        width: 48px !important;
+        height: 48px !important;
+        opacity: 1 !important;
     }
 }
 

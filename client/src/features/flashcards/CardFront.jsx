@@ -4,9 +4,10 @@ import HighlightedText from './HighlightedText';
 import ConjugationTable from './ConjugationTable';
 import ImageViewer from './ImageViewer';
 import DefinitionList from './DefinitionList';
-import { FaTimes, FaSpinner } from 'react-icons/fa';
-import { FiPlay, FiHeadphones, FiZap } from 'react-icons/fi';
+import { FaSpinner } from 'react-icons/fa';
+import { FiPlay, FiHeadphones, FiZap, FiRefreshCw } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
+import { getCardTitle } from './cardLanguageUtils';
 
 // ---------------------------------------------------------------------------
 // Mapa de formas verbales → datos a mostrar (OCP: extensible sin modificar)
@@ -62,6 +63,7 @@ function CardFront({
     isGeneratingAudio,
     activeForm,
     setActiveForm,
+    currentLanguage,
 }) {
     const [isUploading, setIsUploading] = useState(false);
     const uploadInputRef = useRef(null);
@@ -87,22 +89,24 @@ function CardFront({
         uploadInputRef.current?.click();
     };
 
-    const confirmDeleteAudio = (e, text) => {
+    const handleRotateVoice = (e, text, lang = 'en') => {
         e.stopPropagation();
-        if (window.confirm(`¿Borrar y regenerar audio de: "${text}"?`)) deleteAudio(text);
+        deleteAudio(text, lang);
     };
 
     if (!displayData) return null;
+
+    const title = getCardTitle(displayData, currentLanguage);
 
     return (
         <div className={styles.cardFront}>
             {/* Botón de sonido principal */}
             <button
-                className={`${styles.soundButton} ${isGeneratingAudio && activeAudioText === displayData.name ? styles.loadingAudioBtn : ''}`}
-                onClick={(e) => { e.stopPropagation(); playDefinitionMedia(0, displayData.name); }}
+                className={`${styles.soundButton} ${isGeneratingAudio && activeAudioText === title ? styles.loadingAudioBtn : ''}`}
+                onClick={(e) => { e.stopPropagation(); playDefinitionMedia(0, title, currentLanguage); }}
                 disabled={isGeneratingAudio}
             >
-                {isGeneratingAudio && activeAudioText === displayData.name
+                {isGeneratingAudio && activeAudioText === title
                     ? <FaSpinner className={styles.spinner} />
                     : <FiPlay size={18} />}
             </button>
@@ -113,18 +117,18 @@ function CardFront({
                     {cardData.irregular && <FiZap className={styles.irregularIcon} title="Verbo Irregular" />}
                     <div className={styles.titleContainer}>
                         <HighlightedText
-                            text={displayData.name}
+                            text={title}
                             activeAudioText={activeAudioText}
                             highlightedWordIndex={highlightedWordIndex}
                         />
                         {isAdmin && (
                             <button
-                                className={styles.deleteAudioBtn}
-                                onClick={(e) => confirmDeleteAudio(e, displayData.name)}
-                                title="Borrar y regenerar audio"
+                                className={styles.rotateVoiceBtn}
+                                onClick={(e) => handleRotateVoice(e, title, currentLanguage)}
+                                title="Actualizar voz aleatoria"
                                 disabled={isDisabled}
                             >
-                                <FaTimes size={12} />
+                                <FiRefreshCw size={14} />
                             </button>
                         )}
                     </div>
@@ -132,12 +136,14 @@ function CardFront({
             </h2>
 
             {/* Fonética */}
-            <div className={styles.phoneticContainer}>
-                <p className={styles.phonetic}>{displayData.phonetic}</p>
-                <button className={styles.ipaChartBtn} onClick={(e) => { e.stopPropagation(); onOpenIpaModal(); }} disabled={isDisabled}>
-                    <FiHeadphones size={16} />
-                </button>
-            </div>
+            {currentLanguage !== 'es' && (
+                <div className={styles.phoneticContainer}>
+                    <p className={styles.phonetic}>{displayData.phonetic}</p>
+                    <button className={styles.ipaChartBtn} onClick={(e) => { e.stopPropagation(); onOpenIpaModal(); }} disabled={isDisabled}>
+                        <FiHeadphones size={16} />
+                    </button>
+                </div>
+            )}
 
             {/* Tabla de conjugación (componente propio) */}
             <ConjugationTable
@@ -147,6 +153,7 @@ function CardFront({
                 playAudio={playAudio}
                 activeAudioText={activeAudioText}
                 isGeneratingAudio={isGeneratingAudio}
+                currentLanguage={currentLanguage}
             />
 
             {/* Lista de definiciones (componente propio) */}
@@ -160,6 +167,7 @@ function CardFront({
                 highlightedWordIndex={highlightedWordIndex}
                 isDisabled={isDisabled}
                 isGeneratingAudio={isGeneratingAudio}
+                currentLanguage={currentLanguage}
             />
 
             {/* Input oculto para upload */}
@@ -181,7 +189,7 @@ function CardFront({
                 imageUrl={imageUrl}
                 imageKey={activeForm}
                 imageRef={imageRef}
-                altText={displayData.name}
+                altText={title}
                 onDelete={deleteImage}
                 onUploadClick={triggerUpload}
                 onImageError={handleImageError}

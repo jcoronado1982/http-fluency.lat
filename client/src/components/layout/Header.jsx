@@ -1,6 +1,5 @@
 import React from 'react';
 import './Layout.css';
-import ToneSelector from '../../features/flashcards/ToneSelector';
 import FloatingMenu from '../../components/layout/FloatingMenu';
 import { FaBars } from 'react-icons/fa';
 import LanguageSelector from '../common/LanguageSelector';
@@ -30,10 +29,6 @@ export default function Header() {
             <AppLogo />
 
             <div className="header-controls">
-                <div className="tone-selector-wrapper">
-                    <ToneSelector />
-                </div>
-
                 <div className="language-selector-wrapper">
                     <LanguageSelector
                         currentLanguage={language}

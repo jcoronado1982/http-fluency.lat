@@ -1,22 +1,20 @@
 import React from 'react';
 import styles from './Flashcard.module.css';
 import HighlightedText from './HighlightedText';
-import { FaTimes, FaSpinner } from 'react-icons/fa';
-import { FiPlay } from 'react-icons/fi';
+import { FaSpinner } from 'react-icons/fa';
+import { FiPlay, FiRefreshCw } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 
 /**
  * DefinitionList — responsable ÚNICAMENTE de renderizar la lista de ejemplos de uso.
  * SRP: no maneja estado de imagen ni lógica de formas verbales.
  */
-function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionMedia, deleteAudio, activeAudioText, highlightedWordIndex, isDisabled, isGeneratingAudio }) {
+function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionMedia, deleteAudio, activeAudioText, highlightedWordIndex, isDisabled, isGeneratingAudio, currentLanguage }) {
     const { user } = useAuth();
     const isAdmin = user?.role === 'admin';
-    const confirmDeleteAudio = (e, text) => {
+    const handleRotateVoice = (e, text, lang = 'en') => {
         e.stopPropagation();
-        if (window.confirm(`¿Borrar y regenerar audio de: "${text}"?`)) {
-            deleteAudio(text);
-        }
+        deleteAudio(text, lang);
     };
 
     return (
@@ -25,11 +23,11 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
                 {definitions?.map((def, di) => (
                     <li key={di}>
                         <button
-                            className={isGeneratingAudio && activeAudioText === def.usage_example ? styles.loadingAudioBtn : ''}
-                            onClick={(e) => { e.stopPropagation(); playDefinitionMedia(di, def.usage_example); }}
+                            className={isGeneratingAudio && activeAudioText === (currentLanguage === 'es' ? def.usage_example_es : def.usage_example) ? styles.loadingAudioBtn : ''}
+                            onClick={(e) => { e.stopPropagation(); playDefinitionMedia(di, currentLanguage === 'es' ? def.usage_example_es : def.usage_example, currentLanguage); }}
                             disabled={isDisabled}
                         >
-                            {isGeneratingAudio && activeAudioText === def.usage_example
+                            {isGeneratingAudio && activeAudioText === (currentLanguage === 'es' ? def.usage_example_es : def.usage_example)
                                 ? <FaSpinner className={styles.spinner} />
                                 : <FiPlay size={14} />}
                         </button>
@@ -40,24 +38,24 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
                         >
                             <div className={styles.phraseText}>
                                 <HighlightedText
-                                    text={def.usage_example}
+                                    text={currentLanguage === 'es' ? def.usage_example_es : def.usage_example}
                                     activeAudioText={activeAudioText}
                                     highlightedWordIndex={highlightedWordIndex}
                                 />
+                                {isAdmin && (
+                                    <button
+                                        className={styles.rotateVoiceBtn}
+                                        onClick={(e) => handleRotateVoice(e, currentLanguage === 'es' ? def.usage_example_es : def.usage_example, currentLanguage)}
+                                        title="Actualizar voz aleatoria"
+                                        disabled={isDisabled}
+                                    >
+                                            <FiRefreshCw size={14} />
+                                    </button>
+                                )}
                             </div>
-                            {isAdmin && (
-                                <button
-                                    className={styles.deleteAudioBtn}
-                                    onClick={(e) => confirmDeleteAudio(e, def.usage_example)}
-                                    title="Borrar y regenerar audio"
-                                    disabled={isDisabled}
-                                >
-                                    <FaTimes size={10} />
-                                </button>
-                            )}
                         </div>
 
-                        {def.pronunciation_guide_es && (
+                        {currentLanguage !== 'es' && def.pronunciation_guide_es && (
                             <span className={styles.customTooltip}>{def.pronunciation_guide_es}</span>
                         )}
                     </li>

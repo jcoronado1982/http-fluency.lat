@@ -3,16 +3,19 @@ import styles from './PhonicsModal.module.css';
 import { useAudioPlayback } from './useAudioPlayback.jsx';
 import { httpClient } from '../../services/httpClient';
 import { useAppContext } from '../../context/AppContext';
+import { translations } from '../../config/translations';
 
 function PhonicsModal() {
-    const { setAppMessage, setIsAudioLoading, selectedTone, setIsPhonicsModalOpen } = useAppContext();
+    const { setAppMessage, setIsAudioLoading, setIsPhonicsModalOpen, language = 'en' } = useAppContext();
     const [phonicsData, setPhonicsData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    
+    const t = translations[language].phonicsModal;
 
     const { playAudio, isAudioPlaying, activeAudioText } = useAudioPlayback({
         setAppMessage, setIsAudioLoading, currentCategory: "phonics",
-        currentDeckName: "phonics", selectedTone, verbName: 'phonics_sample'
+        currentDeckName: "phonics", verbName: 'phonics_sample'
     });
 
     useEffect(() => {
@@ -33,9 +36,9 @@ function PhonicsModal() {
     const onClose = () => setIsPhonicsModalOpen(false);
 
     const renderContent = () => {
-        if (isLoading) return <div className={styles.loading}>Cargando reglas de fonética...</div>;
+        if (isLoading) return <div className={styles.loading}>{t.loading}</div>;
         if (error) return <div className={styles.error}>{error}</div>;
-        if (phonicsData.length === 0) return <div className={styles.error}>No se encontraron reglas.</div>;
+        if (phonicsData.length === 0) return <div className={styles.error}>{t.errorEmpty}</div>;
 
         return (
             <div className={styles.rulesContainer}>

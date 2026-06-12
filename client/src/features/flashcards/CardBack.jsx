@@ -1,10 +1,9 @@
 // src/features/flashcards/CardBack.jsx
 import React from 'react';
-import styles from './Flashcard.module.css'; // Reutilizamos los mismos estilos
+import styles from './Flashcard.module.css';
+import { getCardTitle } from './cardLanguageUtils';
 
-// Solo necesita los datos de la tarjeta para mostrar
-function CardBack({ cardData, activeForm }) {
-    // Determinar qué definiciones mostrar según la forma activa
+function CardBack({ cardData, activeForm, currentLanguage }) {
     const getDisplayDefinitions = () => {
         if (activeForm === 'v1' || !cardData.irregular) {
             return {
@@ -40,6 +39,7 @@ function CardBack({ cardData, activeForm }) {
     };
 
     const displayData = getDisplayDefinitions();
+    const title = getCardTitle(displayData, currentLanguage);
 
     return (
         <div className={styles.cardBack}>
@@ -47,31 +47,34 @@ function CardBack({ cardData, activeForm }) {
                 <div key={i} className={styles.definitionBlockBack}>
                     <p className={styles.meaningSentence}>
                         <span className={styles.phrasalVerbBack}>
-                            {displayData.name}
+                            {currentLanguage === 'es' ? title : displayData.name}
                         </span>{' '}
-                        significa{' '}
+                        {currentLanguage === 'es' ? 'means' : 'significa'}{' '}
                         <strong className={styles.meaningBack}>
-                            {def.meaning}
+                            {currentLanguage === 'es' ? displayData.name : def.meaning}
                         </strong>
                     </p>
                     <p
                         className={styles.usageExampleEn}
                         dangerouslySetInnerHTML={{
-                            __html: `"${def.usage_example
+                            __html: `"${(currentLanguage === 'es' ? def.usage_example : def.usage_example)
                                 ?.replace(
                                     new RegExp(`\\b(${displayData.name.split(' / ')[0]})\\b`, 'gi'),
                                     '<strong>$1</strong>'
                                 )}" `
                         }}
                     />
-                    {def.alternative_example && (
+                    {def.alternative_example && currentLanguage !== 'es' && (
                         <p className={styles.alternativeExample}>
                             <em>Alternativa:</em> "{def.alternative_example}"
                         </p>
                     )}
-                    <p className={styles.usageExampleEs}>
-                        {def.usage_example_es}
-                    </p>
+
+                    {def.usage_example_es && (
+                        <p className={styles.usageExampleEs}>
+                            {def.usage_example_es}
+                        </p>
+                    )}
                 </div>
             ))}
         </div>

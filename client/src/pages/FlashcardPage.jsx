@@ -9,15 +9,15 @@ import styles from '../features/flashcards/Flashcard.module.css';
 
 import { useAppContext } from '../context/AppContext';
 import { useFlashcardContext } from '../context/FlashcardContext';
-
-const formatCategory = (name) => name ? name.replace(/[_-]/g, ' ').toUpperCase() : '';
+import { getProgressLabel } from '../features/flashcards/categoryDisplay';
 
 export default function FlashcardPage() {
 
     const {
         currentCategory, isLoading, isCatalogVisible,
         isIpaModalOpen, isPhonicsModalOpen,
-        isFloatingMenuOpen, isSidebarOpen
+        isFloatingMenuOpen, isSidebarOpen,
+        language = 'en',
     } = useAppContext();
 
     const {
@@ -44,9 +44,7 @@ export default function FlashcardPage() {
     const groupCards = selectedGroup ? masterData.filter(c => c.group_name === selectedGroup) : masterData;
     const displayTotal = groupCards.length;
     const displayLearned = groupCards.filter(c => c.learned).length;
-    const displayLabel = selectedGroup 
-        ? `${formatCategory(currentCategory)} • ${selectedGroup.toUpperCase()}`
-        : formatCategory(currentCategory);
+    const displayLabel = getProgressLabel(currentCategory, selectedGroup, language);
 
     if (isLoading) return <div className="loading-container"><img src="/loading.gif" alt="Cargando..." /></div>;
 
@@ -87,7 +85,7 @@ export default function FlashcardPage() {
                         filteredData.length === 0 && masterData.length > 0 ? (
                             <div className="all-done-message">¡Deck '{currentDeckName}' completado! 🎉</div>
                         ) : (
-                            <Flashcard key={`${currentCategory}-${currentDeckName}-${currentCard.id}`} />
+                            <Flashcard key={`${currentCategory}-${currentDeckName}-${currentCard.id}-${language}`} />
                         )
                     )}
 

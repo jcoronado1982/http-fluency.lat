@@ -80,7 +80,8 @@ stages:
         export PATH=$HOME/.bun/bin:$PATH
         cd client
         bun install --frozen-lockfile
-        VITE_API_URL='https://flashcard.theruby.lat' bun run build
+        # Vacío → same-origin: /api va al mismo dominio (prod, QA o cualquier subdominio)
+        VITE_API_URL='' bun run build
       displayName: 'Bun install + Vite build'
 
     - task: PublishPipelineArtifact@1

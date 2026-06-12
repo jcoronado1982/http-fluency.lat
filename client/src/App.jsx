@@ -18,7 +18,7 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 import AdminRoute from './components/common/AdminRoute';
 import config from './config';
 
-const StoryArcadePage = React.lazy(() => import('./pages/StoryArcadePage'));
+const PronounPracticePage = React.lazy(() => import('./pages/PronounPracticePage'));
 
 
 import { AppProvider, useAppContext } from './context/AppContext';
@@ -55,13 +55,13 @@ function AppContent() {
             <Route path="/flashcard" element={<ProtectedRoute><FlashcardPage /></ProtectedRoute>} />
             <Route path="/grammar" element={<ProtectedRoute><GrammarPage /></ProtectedRoute>} />
             <Route path="/test" element={<ProtectedRoute><TestPage /></ProtectedRoute>} />
-            <Route path="/courses" element={<ProtectedRoute><CoursePage /></ProtectedRoute>} />
+            <Route path="/pronoun-reference" element={<ProtectedRoute><CoursePage /></ProtectedRoute>} />
             {config.features.storyArcade && (
               <Route 
-                path="/story-arcade" 
+                path="/pronoun-practice" 
                 element={
-                  <React.Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Cargando Story Arcade...</div>}>
-                    <ProtectedRoute><StoryArcadePage /></ProtectedRoute>
+                  <React.Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Loading Pronoun Practice...</div>}>
+                    <ProtectedRoute><PronounPracticePage /></ProtectedRoute>
                   </React.Suspense>
                 } 
               />

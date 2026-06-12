@@ -12,19 +12,18 @@ export function useAudioPlayback({
     setIsAudioLoading,
     currentCategory,
     currentDeckName,
-    selectedTone,
     verbName,
 }) {
     const [isAudioPlaying,    setIsAudioPlaying]    = useState(false);
     const [activeAudioText,   setActiveAudioText]   = useState(null);
+    const [activeVoiceName,   setActiveVoiceName]   = useState(null);
     const [highlightedWordIndex, setHighlightedWordIndex] = useState(-1);
     const [isGeneratingAudio, setIsGeneratingAudio] = useState(false);
 
-    const playAudio = useCallback(async (originalText) => {
+    const playAudio = useCallback(async (originalText, lang = 'en', excludeVoice = null, forceRegenerate = false) => {
         if (!originalText || !currentCategory) return;
 
         const finalVerbName = currentDeckName === 'phonics' ? originalText : verbName;
-        const tone = selectedTone?.trim().replace(/:$/, '') || '';
 
         if (isAudioPlaying && audioPlayer.src) {
             audioPlayer.pause();
@@ -46,13 +45,14 @@ export function useAudioPlayback({
                 try {
                     setAppMessage({ text: `⏳ Verificando audio... (${attempt}/${MAX_ATTEMPTS})`, isError: false });
 
-                    // DIP: delega al repositorio
                     data = await audioRepository.synthesize({
                         category: currentCategory,
                         deck: currentDeckName,
                         text: originalText,
-                        tone,
                         verbName: finalVerbName,
+                        lang,
+                        excludeVoice,
+                        forceRegenerate,
                     });
 
                     success = true;
@@ -66,20 +66,24 @@ export function useAudioPlayback({
 
             if (!success) throw new Error('No se pudo generar el audio.');
 
-            // Usamos forceCacheBust=true porque acabamos de llamar a la API para generar/obtener el audio,
-            // asegurando que si lo acabamos de eliminar, el navegador no reproduzca la caché vieja.
-            const audioUrl = audioRepository.buildUrl(data.audio_url, true);
-            
-            // Unificar origen y establecer el tipo MIME correcto (audio/ogg)
+            const voiceLabel = data.voice_name || '—';
+            setActiveVoiceName(voiceLabel);
+
+            audioPlayer.pause();
+            audioPlayer.removeAttribute('src');
             while (audioPlayer.firstChild) {
                 audioPlayer.removeChild(audioPlayer.firstChild);
             }
+            audioPlayer.load();
+
+            const audioUrl = audioRepository.buildUrl(data.audio_url, true);
+            const audioMime = audioUrl.endsWith('.wav') ? 'audio/wav' : 'audio/ogg';
+
             const source = document.createElement('source');
             source.src = audioUrl;
-            source.type = 'audio/ogg';
+            source.type = audioMime;
             audioPlayer.appendChild(source);
 
-            // Esperar a que el archivo sea accesible antes de reproducir
             await new Promise((resolve, reject) => {
                 const onReady = () => {
                     audioPlayer.removeEventListener('canplaythrough', onReady);
@@ -96,17 +100,15 @@ export function useAudioPlayback({
                 audioPlayer.load();
             });
 
-            // Calcular pesos basados en la longitud de caracteres de cada palabra para aproximar el ritmo
             const words = originalText.trim().split(/\s+/);
             const wordLengths = words.map(w => w.replace(/[.,/#!$%^&*;:{}=\-_`~()?]/g,"").length || 1);
             const totalChars = wordLengths.reduce((a, b) => a + b, 0);
-            
-            const SYNC_OFFSET_ADJUSTED = 0.02; // Reducido para evitar que el resaltado se adelante a la voz
-            
+
+            const SYNC_OFFSET_ADJUSTED = 0.02;
+
             const wordIntervals = [];
             let cumulativeFraction = 0;
             for (let i = 0; i < words.length; i++) {
-                // Reducimos la constante a 1.2 para que la longitud de caracteres tenga más impacto en el ritmo
                 const weight = (wordLengths[i] + 1.2) / (totalChars + words.length * 1.2);
                 const start = cumulativeFraction;
                 const end = cumulativeFraction + weight;
@@ -136,7 +138,6 @@ export function useAudioPlayback({
                 }
             };
 
-            // Aseguramos que la actualización ocurra en alta frecuencia al reproducir
             audioPlayer.onplay = () => {
                 if (animationFrameId) cancelAnimationFrame(animationFrameId);
                 animationFrameId = requestAnimationFrame(trackHighlight);
@@ -161,51 +162,65 @@ export function useAudioPlayback({
                 setIsAudioLoading(false);
             };
 
-            // Limpiamos listener antiguo de ontimeupdate
             audioPlayer.ontimeupdate = null;
 
             await audioPlayer.play();
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
             animationFrameId = requestAnimationFrame(trackHighlight);
-            setAppMessage({ text: '▶️ Reproduciendo...', isError: false });
+            setAppMessage({ text: `▶️ Reproduciendo (voz: ${voiceLabel})...`, isError: false });
 
         } catch (err) {
             console.error('Error en playAudio:', err);
             setAppMessage({ text: `Error: ${err.message}`, isError: true });
             setIsAudioPlaying(false);
             setActiveAudioText(null);
+            setActiveVoiceName(null);
             setHighlightedWordIndex(-1);
             setIsAudioLoading(false);
         } finally {
             setIsGeneratingAudio(false);
         }
-    }, [isAudioPlaying, setAppMessage, setIsAudioLoading, currentCategory, currentDeckName, selectedTone, verbName]);
+    }, [isAudioPlaying, setAppMessage, setIsAudioLoading, currentCategory, currentDeckName, verbName]);
 
-    const deleteAudio = useCallback(async (textToDelete) => {
+    const deleteAudio = useCallback(async (textToDelete, lang = 'en') => {
         if (!textToDelete || !currentCategory) return;
 
         const finalVerbName = currentDeckName === 'phonics' ? textToDelete : verbName;
-        const tone = selectedTone?.trim().replace(/:$/, '') || '';
 
         try {
-            setAppMessage({ text: '⏳ Eliminando audio...', isError: false });
+            setAppMessage({ text: '⏳ Actualizando voz (archivando audio anterior)...', isError: false });
 
-            // DIP: delega al repositorio
-            await audioRepository.delete({
-                category: currentCategory,
-                deck: currentDeckName,
-                text: textToDelete,
-                tone,
-                verbName: finalVerbName,
-            });
+            let previousVoice = null;
+            try {
+                const rotateResult = await audioRepository.rotate({
+                    category: currentCategory,
+                    deck: currentDeckName,
+                    text: textToDelete,
+                    verbName: finalVerbName,
+                    lang,
+                });
+                previousVoice = rotateResult?.previous_voice || null;
+            } catch (rotateErr) {
+                const msg = rotateErr?.message || '';
+                if (!msg.includes('404')) throw rotateErr;
+            }
 
-            setAppMessage({ text: '✅ Audio eliminado. Regenerando...', isError: false });
-            await playAudio(textToDelete);
+            setActiveVoiceName(null);
+            setAppMessage({ text: '🎲 Generando nueva voz aleatoria...', isError: false });
+            await playAudio(textToDelete, lang, previousVoice, true);
         } catch (err) {
-            console.error('Error deleting audio:', err);
-            setAppMessage({ text: `Error al eliminar: ${err.message}`, isError: true });
+            console.error('Error rotating audio:', err);
+            setAppMessage({ text: `Error al actualizar voz: ${err.message}`, isError: true });
         }
-    }, [currentCategory, currentDeckName, selectedTone, verbName, setAppMessage, playAudio]);
+    }, [currentCategory, currentDeckName, verbName, setAppMessage, playAudio]);
 
-    return { playAudio, deleteAudio, isAudioPlaying, activeAudioText, highlightedWordIndex, isGeneratingAudio };
+    return {
+        playAudio,
+        deleteAudio,
+        isAudioPlaying,
+        activeAudioText,
+        activeVoiceName,
+        highlightedWordIndex,
+        isGeneratingAudio,
+    };
 }

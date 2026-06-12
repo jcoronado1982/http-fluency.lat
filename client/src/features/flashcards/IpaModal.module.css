@@ -1,248 +1,284 @@
+/* --- Unified System Dark Theme Vowel Chart --- */
+
 .modal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     position: fixed;
+    inset: 0;
+    /* Oscurecimiento profundo en armonía con #0f172a */
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(3px);
+    animation: fadeInBg 0.25s ease-out;
+}
+
+@keyframes fadeInBg {
+    from { background-color: rgba(15, 23, 42, 0); }
+    to { background-color: rgba(15, 23, 42, 0.75); }
 }
 
 .modalContent {
-    background: linear-gradient(135deg, #F7F5F0 0%, #FDFCFA 100%);
-    padding: 12px 20px 20px 20px;
-    border: none;
-    width: 92%;
-    max-width: 420px;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
     position: relative;
-    animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Fondo principal del sistema (Slate 900/800) */
+    background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 32px 32px 24px;
+    width: min(580px, 94vw);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     box-sizing: border-box;
+    /* Tipografía global del sistema */
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .closeButton {
-    color: #CBD5E0;
-    font-size: 24px;
-    font-weight: 600;
     position: absolute;
-    top: 16px;
+    top: 20px;
     right: 20px;
-    cursor: pointer;
-    line-height: 1;
-    background: none;
-    border: none;
-    padding: 0;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     width: 32px;
     height: 32px;
+    border-radius: 50%;
+    font-size: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    color: #94a3b8;
+    cursor: pointer;
     transition: all 0.2s ease;
 }
 
-.closeButton:hover,
-.closeButton:focus {
-    color: #2D3748;
-    background-color: #F7FAFC;
-    outline: none;
+.closeButton:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
+.modalTitle {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin: 0 0 24px;
+    letter-spacing: -0.02em;
+}
+
+.chartWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Eje superior */
+.axisTop {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5% 0 calc(46px + 5%);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #64748b;
+}
+
+.chartRow {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+}
+
+/* Eje izquierdo */
+.axisLeft {
+    width: 40px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8% 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #64748b;
+    text-align: right;
+}
+
+/* Contenedor del trapecio */
 .ipaChart {
     position: relative;
-    width: 100%;
-    max-width: 364px;
-    /* Reduced by 35% (65% of 560px) */
-    aspect-ratio: 530 / 370;
-    /* Asegúrate de tener esta imagen en tu carpeta public */
-    background: url('/vowel_trapezoid.png') no-repeat center center / contain;
-    margin: 0px auto;
-    filter: brightness(0.96) contrast(1.05);
+    flex: 1;
+    aspect-ratio: 4 / 3;
 }
 
+.chartSvg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.chartLineOuter {
+    /* Relleno translúcido para el trapecio */
+    fill: rgba(30, 41, 59, 0.5);
+    stroke: #475569;
+    stroke-width: 2;
+    stroke-linejoin: round;
+}
+
+.chartLineInner {
+    stroke: #334155;
+    stroke-width: 1.5;
+    stroke-dasharray: 6 6;
+}
+
+/* Botones de símbolos IPA (Teclas unificadas al estilo Flashcard) */
 .ipaBtn {
     position: absolute;
-    background: #0066CC;
-    border: 1.5px solid rgba(0, 102, 204, 0.3);
-    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    font-size: 15px;
     font-weight: 600;
-    font-size: 11px;
-    /* Scaled down */
-    padding: 4px 7px;
-    /* Scaled down */
+    font-family: 'Inter', system-ui, sans-serif;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 102, 204, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    text-align: center;
-    min-width: 22px;
-    /* Scaled down */
-    line-height: 1;
-    margin: 0;
-    font-family: inherit;
-    color: #ffffff;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 2;
+    padding: 0;
+    /* Estilo Glassmorphic oscuro */
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #f1f5f9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
 }
 
 .ipaBtn:hover {
-    background-color: #0052A3;
-    transform: scale(1.18) translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3), 0 2px 6px rgba(0, 0, 0, 0.15);
-    border-color: rgba(0, 102, 204, 0.5);
+    transform: translate(-50%, -50%) scale(1.12) translateY(-2px);
+    z-index: 10;
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+}
+
+/* Vocales largas / tensas (Toque azul neón) */
+.ipaBtnLong {
+    background: rgba(14, 165, 233, 0.15);
+    border-color: rgba(14, 165, 233, 0.3);
+    color: #38bdf8;
+}
+
+.ipaBtnLong:hover {
+    background: rgba(14, 165, 233, 0.25);
+    border-color: #38bdf8;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
+}
+
+/* Vocales cortas / relajadas (Toque gris/blanco puro) */
+.ipaBtnShort {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #e2e8f0;
+}
+
+.ipaBtnShort:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Estado: sonando */
+.ipaBtnActive {
+    transform: translate(-50%, -50%) scale(1.15);
+    background: #10b981 !important;
+    border-color: #34d399 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.25), 0 0 20px rgba(16, 185, 129, 0.5) !important;
     z-index: 10;
 }
 
-/* --- Positioning IDs (:global para CSS Modules) --- */
-:global {
-
-    /* Front Vowels (Izquierda) - ESTÁN BIEN */
-    #ipa-i-long {
-        top: 3.5%;
-        left: 7.5%;
-    }
-
-    #ipa-i-short {
-        top: 16.2%;
-        left: 24.5%;
-    }
-
-    #ipa-e {
-        top: 60.5%;
-        left: 34.0%;
-    }
-
-    #ipa-ae {
-        top: 88.6%;
-        left: 46.8%;
-    }
-
-    /* Central Vowels (Centro) - AQUÍ ESTABA EL ERROR */
-    /* El Schwa neutro (About) */
-    #ipa-schwa {
-        top: 44.6%;
-        left: 52.8%;
-    }
-
-    /* CORRECCIÓN: El Schwa Rótico (Butter) - Lo movemos al centro junto al Schwa */
-    #ipa-schwa-r {
-        top: 44.6%;
-        left: 64.1%;
-    }
-
-    /* La R fuerte (Bird) - REMOVED */
-
-    /* La 'uh' (Cup) */
-    #ipa-uh {
-        top: 60.5%;
-        left: 68.7%;
-    }
-
-    /* Back Vowels (Derecha) - ESTÁN BIEN */
-    #ipa-u-long {
-        top: 3.5%;
-        left: 87.2%;
-    }
-
-    #ipa-u-short {
-        top: 16.2%;
-        left: 77.4%;
-    }
-
-    #ipa-o-long {
-        top: 48.6%;
-        left: 87.2%;
-    }
-
-    /* Bajé un pelín la 'ɔ' para separarla de la de arriba */
-    #ipa-a-long {
-        top: 89.2%;
-        left: 86.8%;
-    }
+/* Estado: error de audio */
+.ipaBtnError {
+    background: rgba(220, 38, 38, 0.2) !important;
+    border-color: #ef4444 !important;
+    color: #fca5a5 !important;
+    animation: shake 0.4s ease-in-out;
 }
 
-@media (max-width: 768px) {
-    .ipaBtn {
+@keyframes shake {
+    0%, 100% { transform: translate(-50%, -50%); }
+    25% { transform: translate(calc(-50% - 4px), -50%); }
+    50% { transform: translate(calc(-50% + 4px), -50%); }
+    75% { transform: translate(calc(-50% - 4px), -50%); }
+}
+
+/* Leyenda */
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 24px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #94a3b8;
+}
+
+.legendItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legendDot {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+}
+
+.legendDotLong {
+    background: rgba(14, 165, 233, 0.15);
+    border: 1px solid rgba(14, 165, 233, 0.3);
+}
+
+.legendDotShort {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Responsividad para móviles */
+@media (max-width: 600px) {
+    .modalContent {
+        padding: 24px 20px 20px;
+    }
+    
+    .axisTop {
         font-size: 10px;
-        padding: 3px 6px;
-        min-width: 20px;
+        padding: 0 2% 0 calc(36px + 2%);
     }
 
-    :global {
-        /* Fine-tune positions for mobile if needed */
-        /* Example: Adjusting top/left slightly to match visual alignment */
+    .axisLeft {
+        width: 32px;
+        font-size: 10px;
+    }
 
-        #ipa-i-long {
-            top: 3%;
-            left: 7%;
-        }
-
-        #ipa-i-short {
-            top: 16%;
-            left: 24%;
-        }
-
-        #ipa-e {
-            top: 60%;
-            left: 34%;
-        }
-
-        #ipa-ae {
-            top: 88%;
-            left: 46%;
-        }
-
-        #ipa-schwa {
-            top: 44%;
-            left: 52%;
-        }
-
-        #ipa-schwa-r {
-            top: 44%;
-            left: 64%;
-        }
-
-        #ipa-uh {
-            top: 60%;
-            left: 68%;
-        }
-
-        #ipa-u-long {
-            top: 3%;
-            left: 87%;
-        }
-
-        #ipa-u-short {
-            top: 16%;
-            left: 77%;
-        }
-
-        #ipa-o-long {
-            top: 48%;
-            left: 87%;
-        }
-
-        #ipa-a-long {
-            top: 89%;
-            left: 86%;
-        }
+    .ipaBtn {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+        border-radius: 10px;
     }
 }

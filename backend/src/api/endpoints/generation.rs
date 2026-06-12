@@ -22,11 +22,17 @@ pub struct SynthesizeSpeechBody {
     pub voice_name: String,
     pub verb_name: Option<String>,
     pub tone: Option<String>,
+    pub lang: Option<String>,
+    #[serde(default)]
+    pub exclude_voice: Option<String>,
+    #[serde(default)]
+    pub force_regenerate: Option<bool>,
 }
 
 #[derive(Serialize)]
 pub struct SynthesizeSpeechResponse {
     pub audio_url: String,
+    pub voice_name: String,
 }
 
 #[derive(Deserialize)]
@@ -67,6 +73,9 @@ pub struct DeleteAudioBody {
     pub voice_name: String,
     pub verb_name: Option<String>,
     pub tone: Option<String>,
+    pub lang: Option<String>,
+    #[serde(default)]
+    pub exclude_voice: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -103,13 +112,21 @@ pub async fn synthesize_speech(
         voice_name: body.voice_name,
         verb_name: body.verb_name.filter(|s| !s.is_empty()),
         tone: body.tone.filter(|s| !s.is_empty()),
+        lang: body.lang.filter(|s| !s.is_empty()),
+        exclude_voice: body.exclude_voice.filter(|s| !s.is_empty()),
+        force_regenerate: body.force_regenerate.unwrap_or(false),
     };
 
     state
         .audio_use_cases
         .get_or_synthesize_audio(&req, &claims.email, &role)
         .await
-        .map(|audio_url| Json(SynthesizeSpeechResponse { audio_url }))
+        .map(|result| {
+            Json(SynthesizeSpeechResponse {
+                audio_url: result.audio_url,
+                voice_name: result.voice_name,
+            })
+        })
         .map_err(|e| {
             if e.to_string() == "audio_not_found" {
                 (StatusCode::NOT_FOUND, "Audio no disponible (requiere plan Premium para generar)".to_string())
@@ -194,13 +211,24 @@ pub async fn delete_audio(
         voice_name: body.voice_name,
         verb_name: body.verb_name.filter(|s| !s.is_empty()),
         tone: body.tone.filter(|s| !s.is_empty()),
+        lang: body.lang.filter(|s| !s.is_empty()),
+        exclude_voice: body.exclude_voice.filter(|s| !s.is_empty()),
+        force_regenerate: false,
     };
 
-    match state.audio_use_cases.delete_audio(&req, &claims.email, is_admin).await {
-        Ok(true)  => Ok(Json(serde_json::json!({ "success": true,  "message": "Audio eliminado" })).into_response()),
-        Ok(false) => Ok((
+    match state
+        .audio_use_cases
+        .rotate_audio(&req, &claims.email, is_admin)
+        .await
+    {
+        Ok(Some(previous)) => Ok(Json(serde_json::json!({
+            "success": true,
+            "message": "Audio archivado; se generará otra voz aleatoria",
+            "previous_voice": previous
+        })).into_response()),
+        Ok(None) => Ok((
             StatusCode::NOT_FOUND,
-            Json(serde_json::json!({ "success": false, "message": "No se encontró audio para eliminar" })),
+            Json(serde_json::json!({ "success": false, "message": "No hay audio activo para rotar" })),
         ).into_response()),
         Err(e) => Err((StatusCode::INTERNAL_SERVER_ERROR, e.to_string())),
     }

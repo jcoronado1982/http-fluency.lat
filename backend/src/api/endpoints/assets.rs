@@ -1,8 +1,7 @@
 use axum::{
     extract::{Path, State},
-    http::{header, StatusCode},
-    response::{IntoResponse, Redirect},
-    body::Body,
+    http::{header, HeaderValue, StatusCode},
+    response::IntoResponse,
 };
 use crate::AppState;
 
@@ -31,6 +30,16 @@ pub async fn redirect_images(
     StatusCode::NOT_FOUND.into_response()
 }
 
+fn audio_content_type(file_path: &str) -> &'static str {
+    if file_path.ends_with(".wav") {
+        "audio/wav"
+    } else {
+        "audio/ogg"
+    }
+}
+
+/// Sirve audio siempre desde storage (Oracle/local), sin redirect al CDN.
+/// Misma ruta de archivo tras rotar voz → evita caché del navegador/CDN.
 pub async fn redirect_audio(
     Path(file_path): Path<String>,
     State(state): State<AppState>,
@@ -41,20 +50,22 @@ pub async fn redirect_audio(
 
     let blob_path = format!("{}/{}", state.settings.gcs_audio_prefix, file_path);
 
-    // Serve local file via streaming to protect RAM
-    let local_file_path =
-        std::path::PathBuf::from(&state.settings.local_storage_path).join(&blob_path);
-    if let Ok(file) = tokio::fs::File::open(&local_file_path).await {
-        let stream = tokio_util::io::ReaderStream::new(file);
-        let body = Body::from_stream(stream);
-        return ([(header::CONTENT_TYPE, "audio/ogg")], body).into_response();
+    match state.audio_use_cases.download_blob(&blob_path).await {
+        Ok(bytes) => {
+            let content_type = audio_content_type(&file_path);
+            (
+                [
+                    (header::CONTENT_TYPE, HeaderValue::from_static(content_type)),
+                    (
+                        header::CACHE_CONTROL,
+                        HeaderValue::from_static("no-store, no-cache, must-revalidate"),
+                    ),
+                    (header::PRAGMA, HeaderValue::from_static("no-cache")),
+                ],
+                bytes,
+            )
+                .into_response()
+        }
+        Err(_) => StatusCode::NOT_FOUND.into_response(),
     }
-
-    // Redirect to the public CDN / Oracle if audio was already synced
-    if state.settings.sync_to_oracle {
-        let url = format!("{}/{}/{}", state.settings.public_base_url, state.settings.gcs_audio_prefix, file_path);
-        return Redirect::temporary(&url).into_response();
-    }
-
-    StatusCode::NOT_FOUND.into_response()
 }

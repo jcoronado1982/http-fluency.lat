@@ -14,6 +14,8 @@ pub trait StorageRepository: Send + Sync {
     async fn blob_exists(&self, blob_path: &str) -> Result<bool>;
     async fn find_blob_by_prefix(&self, prefix: &str) -> Result<Option<String>>;
     async fn delete_blob(&self, blob_path: &str) -> Result<()>;
+    /// Mueve/renombra un blob (p. ej. archivar audio activo sin borrarlo).
+    async fn rename_blob(&self, from_path: &str, to_path: &str) -> Result<()>;
     /// Lista nombres de archivo en un directorio relativo (sin HEAD por archivo).
     async fn list_files_in_dir(&self, rel_dir: &str) -> Result<Vec<String>>;
 }

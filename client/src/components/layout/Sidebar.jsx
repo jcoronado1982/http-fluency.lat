@@ -5,24 +5,24 @@ import './Layout.css';
 import { useAppContext } from '../../context/AppContext';
 import { useAuth } from '../../context/AuthContext';
 import config from '../../config';
-
+import { translations } from '../../config/translations';
 
 export default function Sidebar() {
-    const { isSidebarOpen: isOpen } = useAppContext();
+    const { isSidebarOpen: isOpen, language = 'en' } = useAppContext();
     const { isAdmin } = useAuth();
     const location = useLocation();
+    
+    const t = translations[language].sidebar;
 
     // 🎯 Determina si la ruta actual es /flashcard o una subruta de flashcards
     const isFlashcardsPath = location.pathname.startsWith('/flashcard');
-
-
 
     return (
         <aside className={`app-sidebar ${isOpen ? 'open' : 'closed'}`}>
             <nav>
                 <ul className="mainNav">
                     {/* ── APRENDER ── */}
-                    <span className="menuSectionLabel">Aprender</span>
+                    <span className="menuSectionLabel">{t.learn}</span>
                     <li>
                         <NavLink 
                             to="/flashcard" 
@@ -30,8 +30,8 @@ export default function Sidebar() {
                         >
                             <span className="sidebarIcon teal"><FiLayers /></span>
                             <span className="optionText">
-                                <span className="optionName">Flashcards</span>
-                                <span className="optionSub">Colecciones de palabras</span>
+                                <span className="optionName">{t.flashcards}</span>
+                                <span className="optionSub">{t.wordCollections}</span>
                             </span>
                         </NavLink>
                     </li>
@@ -39,29 +39,29 @@ export default function Sidebar() {
                     <div className="menuDivider" />
 
                     {/* ── PRONOMBRES ── */}
-                    <span className="menuSectionLabel">Pronombres</span>
+                    <span className="menuSectionLabel">{t.pronouns}</span>
                     <li>
                         <NavLink
-                            to="/courses"
+                            to="/pronoun-reference"
                             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
                         >
                             <span className="sidebarIcon purple"><FiBook /></span>
                             <span className="optionText">
-                                <span className="optionName">Tabla</span>
-                                <span className="optionSub">Referencia de pronombres</span>
+                                <span className="optionName">{t.table}</span>
+                                <span className="optionSub">{t.pronounsReference}</span>
                             </span>
                         </NavLink>
                     </li>
                     {config.features.storyArcade && (
                         <li>
                             <NavLink
-                                to="/story-arcade"
+                                to="/pronoun-practice"
                                 className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
                             >
                                 <span className="sidebarIcon amber"><FiCheckSquare /></span>
                                 <span className="optionText">
-                                    <span className="optionName">Práctica</span>
-                                    <span className="optionSub">Story Arcade</span>
+                                    <span className="optionName">{t.practiceMenu}</span>
+                                    <span className="optionSub">{t.pronounPractice}</span>
                                 </span>
                             </NavLink>
                         </li>
@@ -70,7 +70,7 @@ export default function Sidebar() {
                     {isAdmin && (
                         <>
                             <div className="menuDivider" />
-                            <span className="menuSectionLabel">Admin</span>
+                            <span className="menuSectionLabel">{t.admin}</span>
                             <li>
                                 <NavLink
                                     to="/admin"
@@ -78,8 +78,8 @@ export default function Sidebar() {
                                 >
                                     <span className="sidebarIcon rose"><FiShield /></span>
                                     <span className="optionText">
-                                        <span className="optionName">Users</span>
-                                        <span className="optionSub">Real-time activity</span>
+                                        <span className="optionName">{t.users}</span>
+                                        <span className="optionSub">{t.realtimeActivity}</span>
                                     </span>
                                 </NavLink>
                             </li>
