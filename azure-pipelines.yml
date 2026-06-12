@@ -228,9 +228,9 @@ stages:
       displayName: 'Bootstrap Oracle proxy (Caddy + monitors)'
       inputs:
         sshEndpoint: $(sshConn)
-        runOptions: 'commands'
+        runOptions: 'inline'
         failOnStdErr: false
-        commands: |
+        inline: |
           bash /root/smart-proxy/infra-proxy/bootstrap-oracle.sh --caddy-only
           if [ "$(Build.SourceBranch)" = "refs/heads/qa" ]; then
             curl -sf -k -H "Host: qa.flashcard.theruby.lat" https://127.0.0.1/api/health || echo "WARN: QA API health via Caddy not ready yet"
@@ -238,6 +238,7 @@ stages:
             curl -sf https://flashcard.theruby.lat/api/health >/dev/null || echo "WARN: API health via Caddy not ready yet"
           fi
           echo "Frontend deploy OK"
+
 
 # ───────────────────────────────────────────────────────────────────────
 # STAGE 4: DEPLOY BACKEND → GCP Cloud Run
