@@ -11,21 +11,24 @@ trigger:
       - infra/**
 
 variables:
-  sshConn: 'SrvPortfolio'
-  gcpProject: 'launch-490115'
-  gcpRegion: 'us-east1'
-  imageName: 'gcr.io/launch-490115/flashcard-backend'
-  dockerRegistryConn: 'GCP-Registry-Connection'
-  ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/qa') }}:
-    remotePath: '/root/smart-proxy/qa_flashcard'
-  ${{ elseif eq(variables['Build.SourceBranch'], 'refs/heads/main') }}:
-    remotePath: '/root/smart-proxy/flashcard'
-  ${{ else }}:
-    remotePath: '/root/smart-proxy/flashcard'
-
-  # Cache de capas Docker persistido en GCR entre runs
-  # Cold build (~15 min), warm build (~3-5 min, solo recompila cambios)
-  cacheRef: 'gcr.io/launch-490115/flashcard-backend:buildcache'
+  - name: sshConn
+    value: 'SrvPortfolio'
+  - name: gcpProject
+    value: 'launch-490115'
+  - name: gcpRegion
+    value: 'us-east1'
+  - name: imageName
+    value: 'gcr.io/launch-490115/flashcard-backend'
+  - name: dockerRegistryConn
+    value: 'GCP-Registry-Connection'
+  - name: cacheRef
+    value: 'gcr.io/launch-490115/flashcard-backend:buildcache'
+  - ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/qa') }}:
+    - name: remotePath
+      value: '/root/smart-proxy/qa_flashcard'
+  - ${{ else }}:
+    - name: remotePath
+      value: '/root/smart-proxy/flashcard'
 
 # ═══════════════════════════════════════════════════════════════════════
 # ARQUITECTURA DEL PIPELINE (Jun 2026 — 2 pools)
