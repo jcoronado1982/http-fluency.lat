@@ -1,0 +1,36 @@
+{
+  "mcpServers": {
+    "azure-official": {
+      "command": "npx",
+      "args": ["-y", "@azure/mcp@latest", "server", "start"],
+      "env": {
+        "AZURE_CLIENT_ID": "YOUR_AZURE_CLIENT_ID",
+        "AZURE_CLIENT_SECRET": "YOUR_AZURE_CLIENT_SECRET",
+        "AZURE_TENANT_ID": "YOUR_AZURE_TENANT_ID",
+        "AZURE_SUBSCRIPTION_ID": "YOUR_AZURE_SUBSCRIPTION_ID"
+      }
+    },
+    "gcp-official": {
+      "command": "npx",
+      "args": ["-y", "@google-cloud/gcloud-mcp"],
+      "env": {
+        "GOOGLE_CLOUD_PROJECT": "YOUR_GCP_PROJECT_ID"
+      }
+    },
+    "custom-rust-infra": {
+      "command": "/home/jcoronado/Desktop/dev/flashcard/infra/mcp-server/target/debug/mcp-server",
+      "args": [],
+      "env": {
+        "DATABASE_URL": "postgresql://user:pass@0.0.0.0:5432/db",
+        "SENTINEL_IP": "0.0.0.0",
+        "AZURE_CLIENT_ID": "YOUR_AZURE_CLIENT_ID",
+        "AZURE_CLIENT_SECRET": "YOUR_AZURE_CLIENT_SECRET",
+        "AZURE_TENANT_ID": "YOUR_AZURE_TENANT_ID",
+        "AZURE_SUBSCRIPTION_ID": "YOUR_AZURE_SUBSCRIPTION_ID",
+        "AWS_ACCESS_KEY_ID": "YOUR_AWS_ACCESS_KEY_ID",
+        "AWS_SECRET_ACCESS_KEY": "YOUR_AWS_SECRET_ACCESS_KEY",
+        "AWS_DEFAULT_REGION": "us-east-1"
+      }
+    }
+  }
+}

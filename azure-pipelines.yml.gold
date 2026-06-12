@@ -1,0 +1,207 @@
+trigger:
+  branches:
+    include:
+      - main
+      - master
+  paths:
+    include:
+      - client/**
+      - backend/**
+      - infra/**
+
+variables:
+  sshConn: 'SrvPortfolio'
+  remotePath: '/root/smart-proxy/flashcard'
+  gcpProject: 'launch-490115'
+  gcpRegion: 'us-east1'
+  imageName: 'gcr.io/launch-490115/flashcard-backend'
+  dockerRegistryConn: 'GCP-Registry-Connection'
+
+stages:
+# --- STAGE 1: BUILD FRONTEND ---
+- stage: Build_Frontend
+  displayName: '🏗️ 1. Build Front'
+  jobs:
+  - job: BuildJob
+    pool: { name: 'Default' }
+    steps:
+    - script: |
+        cd client
+        curl -fsSL https://bun.sh/install | bash
+        export PATH=$HOME/.bun/bin:$PATH
+        export VITE_API_URL='https://flashcard.theruby.lat'
+        bun install && bun run build
+      displayName: 'Vite Build (Bun)'
+
+    - task: CopyFiles@2
+      displayName: 'Stage Files'
+      inputs:
+        SourceFolder: 'client/dist'
+        Contents: '**'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Artifact'
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)'
+        artifact: 'flashcard-site'
+
+# --- STAGE 2: DEPLOY FRONTEND (Oracle Proxy) ---
+- stage: Deploy_Frontend
+  displayName: '🚀 2. Deploy Front (Oracle Proxy)'
+  dependsOn: Build_Frontend
+  condition: succeeded()
+  jobs:
+  - job: DeployJob
+    pool: { name: 'Default' }
+    steps:
+    - task: DownloadPipelineArtifact@1
+      inputs:
+        artifactName: 'flashcard-site'
+        targetPath: '$(Pipeline.Workspace)/site'
+
+    - task: CopyFilesOverSSH@0
+      displayName: 'Upload to Oracle Volume'
+      inputs:
+        sshEndpoint: $(sshConn)
+        sourceFolder: '$(Pipeline.Workspace)/site'
+        contents: '**'
+        targetFolder: $(remotePath)
+        cleanTargetFolder: true
+
+    - task: SSH@0
+      displayName: 'Ajustar Permisos'
+      inputs:
+        sshEndpoint: $(sshConn)
+        runOptions: 'commands'
+        commands: |
+          chown -R 101:101 $(remotePath)
+          chmod -R 755 $(remotePath)
+
+    # Paso A: Copiar archivos del proxy (Caddyfile, scripts) al servidor
+    - task: CopyFilesOverSSH@0
+      displayName: 'Copiar config proxy a Oracle'
+      inputs:
+        sshEndpoint: $(sshConn)
+        sourceFolder: 'infra/proxy'
+        contents: |
+          Caddyfile
+          Dockerfile
+          entrypoint.sh
+          oracle-ram-monitor.sh
+          sentinel-handler
+          traffic-manager
+        targetFolder: '/root/smart-proxy/infra-proxy'
+        cleanTargetFolder: false
+
+    # Paso B: Build imagen, reiniciar proxy, y lanzar monitor RAM
+    - task: SSH@0
+      displayName: 'Build & Restart Proxy + RAM Monitor'
+      inputs:
+        sshEndpoint: $(sshConn)
+        runOptions: 'commands'
+        failOnStdErr: false
+        commands: |
+          chmod +x /root/smart-proxy/infra-proxy/oracle-ram-monitor.sh
+          cp /root/smart-proxy/infra-proxy/oracle-ram-monitor.sh /usr/local/bin/oracle-ram-monitor.sh
+          chmod +x /usr/local/bin/oracle-ram-monitor.sh
+          cd /root/smart-proxy/infra-proxy && docker build -t theruby-proxy . 2>&1
+          docker rm -f caddy-smart 2>/dev/null || true
+          docker run -d --name caddy-smart --network host -v /root/smart-proxy/portfolio:/usr/share/caddy/portfolio -v /root/smart-proxy/flashcard:/usr/share/caddy/flashcard -v caddy_data:/data -v caddy_config:/config --restart always theruby-proxy
+          sleep 5
+          docker ps -f name=caddy-smart
+          docker logs --tail 20 caddy-smart
+          pkill -f oracle-ram-monitor.sh 2>/dev/null || true
+          nohup /usr/local/bin/oracle-ram-monitor.sh > /var/log/oracle-ram-monitor.log 2>&1 &
+          echo "Proxy y monitor RAM OK"
+
+# --- STAGE 3: BACKEND (Google Cloud Run) ---
+- stage: Deploy_Backend
+  displayName: '☁️ 3. Deploy Back (GCP)'
+  dependsOn: []
+  jobs:
+  - job: BuildAndPushDocker
+    pool: { name: 'Default' }
+    steps:
+    - task: Docker@2
+      displayName: 'Build and Push to GCR'
+      inputs:
+        containerRegistry: $(dockerRegistryConn)
+        repository: 'launch-490115/flashcard-backend'
+        command: 'buildAndPush'
+        Dockerfile: 'backend/Dockerfile'
+        tags: |
+          latest
+          $(Build.BuildId)
+
+    - script: |
+        gcloud run deploy flashcard-backend \
+          --project $(gcpProject) \
+          --image $(imageName):latest \
+          --region $(gcpRegion) \
+          --platform managed \
+          --allow-unauthenticated \
+          --cpu 1 \
+          --memory 512Mi \
+          --concurrency 80 \
+          --set-env-vars "DATABASE_URL=postgresql://postgres:Privado02*@172.202.197.64:5432/flashcard_db?sslmode=disable,GEMINI_API_KEY=AIzaSyCNS3qibVq91qJkhrdDVDKMBPNEmmZrRME,RUST_LOG=info"
+      displayName: 'Google Cloud Run Deploy'
+
+# --- STAGE 4: REPLICATE BACKEND (Oracle Mirror) ---
+- stage: Replicate_Oracle
+  displayName: '🔁 4. Replicate Oracle Mirror (Backend)'
+  dependsOn: Deploy_Backend
+  condition: succeeded()
+  variables:
+    - group: Flashcard-Secrets
+  jobs:
+  - job: ReplicateJob
+    pool: { name: 'Default' }
+    steps:
+    # A. Escribir la llave GCP desde la variable secreta y generar script de despliegue
+    - script: |
+        echo '$(GCP_KEY_JSON)' > $(Agent.TempDirectory)/gcp-deploy-key.json
+        cat > $(Agent.TempDirectory)/deploy-oracle.sh << 'DEPLOY_SCRIPT'
+        #!/bin/bash
+        set -e
+        IMAGE="gcr.io/launch-490115/flashcard-backend:latest"
+        CONTAINER="flashcard-backend-node"
+        cat /tmp/gcp-deploy-key.json | docker login -u _json_key --password-stdin https://gcr.io 2>/dev/null
+        echo "Login OK"
+        docker pull "$IMAGE"
+        docker stop "$CONTAINER" 2>/dev/null || echo "Container not running (ok)"
+        docker rm "$CONTAINER" 2>/dev/null || echo "Container not found (ok)"
+        docker run -d \
+          --name "$CONTAINER" \
+          -p 8080:8080 \
+          --restart always \
+          -e DATABASE_URL="postgresql://postgres:Privado02*@172.202.197.64:5432/flashcard_db?sslmode=disable" \
+          -e GEMINI_API_KEY="AIzaSyCNS3qibVq91qJkhrdDVDKMBPNEmmZrRME" \
+          -e RUST_LOG="info" \
+          "$IMAGE"
+        rm -f /tmp/gcp-deploy-key.json
+        echo "Deploy Oracle Mirror: SUCCESS"
+        DEPLOY_SCRIPT
+        chmod +x $(Agent.TempDirectory)/deploy-oracle.sh
+      displayName: 'Preparar llave GCP y script de deploy'
+
+    # B. Enviar llave y script al servidor Oracle
+    - task: CopyFilesOverSSH@0
+      displayName: 'Enviar archivos a Oracle (SrvPortfolio)'
+      inputs:
+        sshEndpoint: $(sshConn)
+        sourceFolder: '$(Agent.TempDirectory)'
+        contents: |
+          gcp-deploy-key.json
+          deploy-oracle.sh
+        targetFolder: '/tmp'
+        cleanTargetFolder: false
+
+    # C. Ejecutar script de deploy en Oracle
+    - task: SSH@0
+      displayName: 'Ejecutar deploy en Oracle Mirror'
+      inputs:
+        sshEndpoint: $(sshConn)
+        runOptions: 'commands'
+        failOnStdErr: false
+        commands: 'bash /tmp/deploy-oracle.sh'

@@ -1,0 +1,39 @@
+---
+description: Reglas principales para el desarrollo y gestión del proyecto Flashcard AI
+globs: **/*
+---
+
+# 📜 Flashcard AI - Global Rules
+
+Eres un Ingeniero de Infraestructura Senior trabajando en el proyecto Flashcard AI. Debes seguir estas reglas en todo momento:
+
+## 🏗️ Arquitectura y Stack
+- **Backend**: Rust (Axum). Localizado en `backend/`.
+- **Frontend**: React + Vite. Localizado en `client/`.
+- **Infraestructura (Jun 2026)**: Oracle es primario — Caddy + `flashcard-backend-node :8080` + disco local. AWS/GCP son espejos.
+- **Pipeline / CI/CD**: **Leer `docs/infrastructure/pipeline-and-deploy.md` antes de editar `azure-pipelines.yml` o flujos de deploy.** LocalBuild compila en PC; Default solo despliega; stages 3→4→5 en serie.
+- **Runtime Oracle**: **Leer `docs/infrastructure/oracle-local-backend-deploy.md` antes de tocar Caddy, audio o backend Oracle.**
+- **Secretos en deploy**: Azure DevOps `Flashcard-Secrets` → SSH `runOptions: inline`. **NO** copiar `gcp-deploy-key.json` ni `flashcard-backend.env` a Oracle.
+- **NO** poner `SYNC_TO_ORACLE=true` ni routing AWS para `/api/*` en Oracle (servidor 1 GB RAM).
+- **Seguridad**: Sistema **Sentinel** (RAM Monitoring) es crítico. No modifiques el flujo de tráfico sin validar el estado del centinela.
+
+## 🛠️ Herramientas y MCP
+- Tienes acceso a servidores MCP para:
+    1. **Azure**: Oficial y Custom (`az_cli`).
+    2. **GCP**: Oficial (`run_gcloud_command`).
+    3. **OCI (Oracle)**: Custom (`oci_cli`).
+    4. **Custom Rust MCP**: Para Base de Datos y Sentinel.
+- Consulta siempre `scripts/cloud_connections.skill.md`, `scripts/infrastructure_operations.skill.md`, `scripts/software_architecture.skill.md`, `scripts/troubleshooting_library.skill.md` y `scripts/routine_operations.skill.md` antes de operar.
+
+## 🔐 Manejo de Secretos y Pipeline
+- **PROHIBIDO** escribir secretos (passwords, keys) directamente en el código.
+- **PROTECCIÓN DE PIPELINE:** Antes de editar `azure-pipelines.yml`, la IA debe:
+    1. Crear un backup (`cp azure-pipelines.yml azure-pipelines.yml.bak`).
+    2. Comparar con `azure-pipelines.yml.gold` (la versión maestra).
+    3. Si la build falla tras el cambio, REVERTIR inmediatamente usando la versión `.gold`.
+- Usa variables de entorno (`.env`).
+- Consulta `SECRETS_MAP.md` (local) para ver las credenciales activas, pero nunca las subas al repositorio.
+
+## 📂 Convenciones de Archivos
+- Mantén el archivo `llms.txt` actualizado con los cambios significativos.
+- Sigue el **Protocolo de Atención Modular**: Enfócate solo en el dominio (client, backend o infra) necesario para la tarea.

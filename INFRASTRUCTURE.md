@@ -1,0 +1,80 @@
+# INFRASTRUCTURE & PIPELINE — Flashcard AI
+
+Este documento provee una descripción detallada y actualizada (al 2026) sobre cómo está creada la infraestructura del proyecto, qué servicios posee, cómo se ejecuta todo, y cómo se configura el ciclo de integración y despliegue continuo (CI/CD).
+
+---
+
+## 1. Topología y Servicios de Infraestructura
+
+La infraestructura de producción está distribuida para separar estrictamente el proceso intensivo de *build* (compilación) del proceso de *run* (ejecución pública y servicio de la API).
+
+### Oracle Proxy (157.151.199.170) — Servidor Principal y Fuente de Verdad
+Es el nodo más importante en tiempo de ejecución. Sirve como punto de entrada público seguro (SSL) a través de `flashcard.theruby.lat`.
+*   **Hardware/SO:** Oracle Cloud (OCI) ARM Ampere A1 (1 GB RAM, 2 vCPUs, Ubuntu 22.04).
+*   **Servicios Activos:**
+    *   **Caddy (`caddy-smart`)**: Actúa como proxy inverso. Sirve el SPA de React, gestiona SSL, maneja rutas estáticas e intercepta `/api/*` hacia el backend local.
+    *   **Backend Rust (`flashcard-backend-node`)**: Ejecuta en el puerto 8080. Escribe directamente los activos (archivos de audio, imágenes generadas y JSON) en el volumen del sistema.
+    *   **SurrealDB (`surrealdb`)**: Base de datos en memoria y disco, mapeado en puertos para las operaciones persistentes del backend.
+*   **Almacenamiento (Fuente de Verdad):** Todos los activos (`card_images/`, `card_audio/`, `json/`) viven y se consumen localmente desde `/root/smart-proxy/repository/flashcard/`. El backend elimina demoras por SCP al escribir en el disco local directamente.
+
+### Nodos Espejo y de Respaldo (Mirrors & Overflow)
+Estos servidores mantienen el servicio disponible como respaldo, pero **no procesan la ruta pública principal** en tiempo de operación normal. Todos los mirrors reciben copias idénticas en el pipeline tirando la imagen desde Google Container Registry (GCR).
+*   **AWS (34.229.229.255)**: EC2 t3.micro (Alpine Linux, 1 GB RAM). Corre SurrealDB y el Backend Rust en red host. Sincroniza activos de vuelta hacia el nodo central Oracle vía SCP (`SYNC_TO_ORACLE=true`).
+*   **OCI-1 (129.158.214.227)**: Otro servidor ARM para correr otra réplica del backend Rust puro.
+*   **GCP Cloud Run**: Backend de overflow alojado en us-east1 (proyecto `launch-490115`). Escala a cero y se mantiene como fallback sin estado (usa llamadas remotas para guardar archivos).
+
+### Servidor de Compilación (LocalBuild / PC Dev)
+*   **Uso exclusivo:** Compilación de artefactos y empuje de imágenes a registros de Docker (no expone la aplicación al público).
+*   **Características:** ~30 GB RAM. Utiliza cachés de Bun y Docker (`cacheRef: gcr.io/launch-490115/flashcard-backend:buildcache`) acelerando los despliegues posteriores significativamente.
+
+---
+
+## 2. Pipeline de CI/CD (Azure Pipelines)
+
+El ciclo de despliegue se divide en 6 *stages* bien definidos dentro del archivo `azure-pipelines.yml`. La regla de oro del diseño es **que la compilación ocurre en la PC de desarrollo (pool `LocalBuild`)**, mientras que los servidores como Oracle (pool `Default`, limitados de RAM) solo ejecutan los binarios compilados y distribuyen archivos.
+
+### Stage 1: Build Frontend (🏗️ Build Front - LocalBuild)
+1.  **Entorno:** Nodo con alta RAM (`LocalBuild`).
+2.  **Operación:** 
+    *   Recupera dependencias cacheadas usando `bun`.
+    *   Instala los paquetes en la carpeta `client`.
+    *   Construye el frontend de Vite configurando la API hacia producción (`VITE_API_URL='https://flashcard.theruby.lat'`).
+3.  **Salida:** Publica un artefacto llamado `flashcard-site` con la carpeta `dist/`.
+
+### Stage 2: Build Backend (🦀 Cross-Compile Backend - LocalBuild)
+1.  **Entorno:** Nodo `LocalBuild`.
+2.  **Operación:**
+    *   Se encarga de la *compilación cruzada* usando `docker buildx` para plataformas `amd64` y `arm64`.
+    *   Utiliza el `Dockerfile` optimizado en `/backend`. Esta optimización permite que un mismo contenedor sirva tanto a servidores X86 (AWS/GCP) como a servidores ARM (Oracle).
+    *   Se usan *caches* alojados en Google Container Registry (GCR) para que las subsecuentes recompilaciones solo afecten el código alterado.
+3.  **Salida:** Sube la imagen Docker etiquetada en múltiples formatos a `gcr.io/launch-490115/flashcard-backend`.
+
+### Stage 3: Deploy Frontend (🚀 Deploy Front → Oracle Caddy)
+1.  **Entorno:** Pool `Default` (Agente hospedado en el mismo Oracle).
+2.  **Operación:**
+    *   Descarga el artefacto SPA (`flashcard-site`) del Stage 1.
+    *   Despliega (vía SCP/SSH) los archivos directamente al disco de Oracle en `/root/smart-proxy/flashcard`, ajustando sus permisos a 101:101.
+    *   Copia los *scripts* de infraestructura canónicos (en `/infra/proxy/`) hacia `/root/smart-proxy/infra-proxy/`.
+    *   Bootstrapea Caddy proxy para asegurar que los estáticos están listos para servirse.
+
+### Stage 4: Deploy GCP (☁️ Deploy Backend → GCP Cloud Run)
+1.  **Entorno:** Pool `Default`.
+2.  **Operación:** 
+    *   Lanza un comando `gcloud run deploy` apuntando a la nueva imagen subida en el Stage 2.
+    *   Carga todas las variables de entorno necesarias secretas y de conexión (GCP, Gemini, base de datos de Oracle vía WSS).
+
+### Stage 5: Deploy Mirrors (🔁 Replicate Mirrors: Oracle / OCI-1 / AWS)
+Esta etapa ocurre en cascada.
+1.  **Oracle Proxy Mirror:** Levanta el backend Rust de producción nativamente y se enlaza con Caddy. Usa variables de entorno embebidas por SSH sin tocar archivos locales vulnerables.
+2.  **OCI-1 Mirror & AWS Mirror:** Se envían *scripts* remotos (a través de `sshpass` a sus respectivas IPs) para que autentiquen con GCR, apaguen el backend viejo, hagan un `docker pull` nativo (sin recompilar gracias al arm64/amd64 bundle) y hagan un `docker run` con los comandos de sincronización (`SYNC_TO_ORACLE=true`) hacia el servidor central.
+
+### Stage 6: Cleanup (🧹 Cleanup artifacts + logs)
+1.  **Operación:** Asegura la limpieza en ambos agentes (LocalBuild y Default). Borra workspaces (`site/`, `dist/`), archivos bash temporales, e invoca al API de Azure DevOps para **eliminar el artefacto de pipeline** generado, lo que previene saturación en el disco del servidor CI/CD.
+
+---
+
+## 3. Entorno de Desarrollo Local
+
+Para trabajar de manera local en el código, existe un entorno provisto en la raíz:
+- **Docker Compose:** `docker-compose.yml` provee un motor local de PostgreSQL 15 en el puerto 5432 para que el backend Rust local se acople mientras el desarrollador itera en código en modo host.
+- **Frontend Local:** En `client/`, usando los `.env.development` y los comandos convencionales de Node/Bun.

@@ -1,0 +1,282 @@
+/* ---
+ * --- 1. NUEVOS ESTILOS DE LAYOUT (AÑADIDOS) ---
+ * --- (Controlan el Sidebar y el Contenido Principal) ---
+ --- */
+
+.app-layout {
+    display: flex;
+    width: 100%;
+    max-width: 100vw;
+    min-height: 100vh;
+    background-color: #0f172a;
+    overflow-x: hidden;
+}
+
+.flashcard-page-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.main-content {
+    flex-grow: 1;
+    min-width: 0; /* Important for flex-grow to prevent overflow */
+    margin-left: 0;
+    transition: all 0.3s ease;
+    background: #0f172a;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content {
+    flex-grow: 1; /* Pushes the footer to the bottom */
+    transition: padding-top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding-top: 4px;
+    /* Initial peek space */
+}
+
+/* Cuando el sidebar está abierto, empuja el contenido */
+.main-content.sidebar-open {
+    padding-left: 260px;
+}
+
+/* No necesita padding superior, porque el Header
+   * (que está dentro de .main-content) usa position: sticky
+   */
+
+
+/* ---
+ * --- 2. ESTILOS EXISTENTES (MODIFICADOS) ---
+ --- */
+
+/* --- CONTENEDOR PRINCIPAL (MODIFICADO) --- */
+/* Esta clase ahora aplica al contenido de FlashcardPage, no a toda la app */
+.app-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; <-- ¡ELIMINADO! Esto ahora lo maneja .main-content */
+    position: relative;
+    /* background: ... <-- ¡ELIMINADO! Movido a .main-content */
+    /* overflow: hidden; <-- REMOVED to prevent layout clipping/stickiness issues */
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 60px 20px 20px 20px;
+    /* Increased top padding */
+    box-sizing: border-box;
+    /* Ocupa al menos la altura de la página (viewport menos el header de 80px) */
+    /* min-height: calc(100vh - 80px); <-- REMOVED */
+    padding-bottom: 40px;
+    /* Ensure space at bottom */
+}
+
+/* --- FLASHCARD CENTRADA (Sin Cambios) --- */
+.flashcard-main-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 600px;
+    width: 100%;
+    z-index: 2;
+}
+
+/* --- CARRUSEL VERTICAL (MODIFICADO) --- */
+.category-selector-wrapper {
+    position: absolute;
+    /* ¡MODIFICADO! Ajustado para el header de 60px + 20px de padding */
+    top: 80px;
+    left: 20px;
+    width: 400px;
+    max-height: 60vh;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 3;
+}
+
+/* --- SCROLL (Sin Cambios) --- */
+.category-selector-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.category-selector-wrapper::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+/* --- MENSAJE DE ESTADO --- */
+#message {
+    text-align: center;
+    font-size: 0.9em;
+    color: #555;
+    transition: color 0.3s ease;
+}
+
+.error-message {
+    margin-top: 10px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    text-align: center;
+    width: 95%;
+    max-width: 580px;
+    font-weight: 500;
+    font-size: 0.9em;
+    background-color: rgba(255, 68, 68, 0.15);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    color: #ff8787;
+}
+
+.info-message {
+    margin-top: 10px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    text-align: center;
+    width: 95%;
+    max-width: 580px;
+    font-weight: 500;
+    font-size: 0.9em;
+    background-color: transparent;
+    border: none;
+    color: #94a3b8;
+}
+
+/* --- MENSAJE DE DECK COMPLETADO (Sin Cambios) --- */
+.all-done-message {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #28a745;
+    text-align: center;
+    padding: 50px;
+}
+
+/* --- IDs para Posicionamiento Botones IPA (Sin Cambios) --- */
+/* (Se mantienen igual, ya que son relativos al modal) */
+#ipa-i-long {
+    top: 3px;
+    left: 25px;
+}
+
+#ipa-i-short {
+    top: 60px;
+    left: 100px;
+}
+
+#ipa-e {
+    top: 140px;
+    left: 125px;
+}
+
+#ipa-ae {
+    top: 226px;
+    left: 176px;
+}
+
+/* Central Vowels (Centro) - AQUÍ ESTABA EL ERROR */
+/* El Schwa neutro (About) */
+#ipa-schwa {
+    top: 108px;
+    left: 211px;
+}
+
+/* CORRECCIÓN: El Schwa Rótico (Butter) - Lo movemos al centro junto al Schwa */
+#ipa-schwa-r {
+    top: 115px;
+    left: 210px;
+}
+
+#ipa-o-short {
+    top: 106px;
+    left: 300px;
+}
+
+/* La R fuerte (Bird) - Ajustado ligeramente para dar aire */
+#ipa-er {
+    top: 126px;
+    left: 214px;
+}
+
+/* La 'uh' (Cup) */
+#ipa-uh {
+    top: 188px;
+    left: 262px;
+}
+
+/* Back Vowels (Derecha) - ESTÁN BIEN */
+#ipa-u-long {
+    top: 3px;
+    left: 310px;
+}
+
+#ipa-u-short {
+    top: 50px;
+    left: 270px;
+}
+
+#ipa-o-long {
+    top: 174px;
+    left: 320px;
+}
+
+/* Bajé un pelín la 'ɔ' para separarla de la de arriba */
+#ipa-a-long {
+    top: 232px;
+    left: 250px;
+}
+
+/* --- CONTENEDOR DE ENLACES DE AYUDA (MODIFICADO) --- */
+.links-container {
+    position: absolute;
+    /* ¡MODIFICADO! Ajustado para el header de 60px + 20px de padding */
+    top: 80px;
+    right: 20px;
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+/* --- ENLACES DE TUTORIALES (Sin Cambios) --- */
+.tutorial-link {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: #007bff;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 5px 10px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.tutorial-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* --- SPINNER DE CARGA (Sin Cambios) --- */
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+}
+
+.loading-container img {
+    width: 80px;
+    height: 80px;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .app-container {
+        padding: 65px 10px 0px 10px !important;
+        padding-bottom: 20px;
+    }
+}

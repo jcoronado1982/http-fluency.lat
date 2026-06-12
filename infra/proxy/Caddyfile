@@ -1,0 +1,168 @@
+(db_protection) {
+    forward_auth localhost:8888 {
+        uri /check
+    }
+}
+
+# ============================================================
+# SNIPPET DE OVERFLOW: AWS Primario → GCP Cloud Run como respaldo
+# El archivo /tmp/AWS_HEALTHY lo gestiona aws-health-monitor.sh
+# Si existe → AWS responde OK → sirve desde AWS (free 24/7)
+# Si no existe → AWS caído → overflow a GCP Cloud Run (pay-per-use)
+# ============================================================
+(api_with_overflow) {
+    @aws_healthy {
+        file {
+            root /tmp
+            try_files AWS_HEALTHY
+        }
+    }
+
+    handle @aws_healthy {
+        header +X-Backend "AWS-Primary"
+        reverse_proxy http://34.229.229.255:8080 {
+            # h2c: HTTP/2 cleartext hacia Axum.
+            # Hyper (usado por Axum) negocia automáticamente h2c cuando recibe
+            # la trama PRI * HTTP/2.0 de Caddy, sin necesidad de TLS.
+            transport http {
+                versions h2c 1.1
+            }
+        }
+    }
+
+    handle {
+        header +X-Backend "GCP-Overflow"
+        reverse_proxy https://flashcard-backend-977952175712.us-east1.run.app {
+            header_up Host {upstream_hostport}
+            # Cloud Run ya termina TLS y soporta HTTP/2 nativo (gRPC/h2)
+            transport http {
+                versions 2 1.1
+                tls
+            }
+        }
+    }
+}
+
+# ============================================================
+# SNIPPET DE COMPRESIÓN: Brotli → zstd → gzip (orden de preferencia)
+# Se aplica a todo tipo de contenido comprimible.
+# ============================================================
+(compression) {
+    encode {
+        zstd best
+        gzip 6
+        minimum_length 512
+    }
+}
+
+theruby.lat {
+    handle /rojo* {
+        reverse_proxy localhost:8888
+    }
+    handle /amarillo* {
+        reverse_proxy localhost:8888
+    }
+    handle /normal* {
+        reverse_proxy localhost:8888
+    }
+    handle /status* {
+        reverse_proxy localhost:8888
+    }
+
+    handle {
+        root * /usr/share/caddy/portfolio
+        try_files {path} /index.html
+        file_server
+    }
+}
+
+flashcard.theruby.lat {
+    # Exponer SurrealDB de forma segura para los servidores espejo (AWS y Cloud Run)
+    handle /db/* {
+        uri strip_prefix /db
+        reverse_proxy localhost:8001
+    }
+
+    # Resto de rutas protegidas por el centinela
+    handle {
+        route {
+            import db_protection
+
+            # ------------------------------------------------------------------
+            # ASSETS ESTÁTICOS — imágenes y audio (servidos desde disco)
+            # ------------------------------------------------------------------
+            handle /card_images/* {
+                root * /usr/share/caddy/repository
+
+                # Normalizar extensiones legacy → .avif
+                @try_avif {
+                    path_regexp avif ^(.+)\.(jpg|jpeg|png)$
+                }
+                rewrite @try_avif {re.avif.1}.avif
+
+                header +X-Content-Type-Options "nosniff"
+                file_server
+            }
+
+            handle /card_audio/* {
+                root * /usr/share/caddy/repository
+                file_server
+            }
+
+            handle /json/* {
+                root * /usr/share/caddy/repository
+                file_server browse
+            }
+
+            # ------------------------------------------------------------------
+            # API → backend Oracle local (sin SSH, sin red, directo a disco)
+            # ------------------------------------------------------------------
+            @backend_routes {
+                path /api/*
+            }
+            handle @backend_routes {
+                import compression
+                reverse_proxy localhost:8080
+            }
+
+            # ------------------------------------------------------------------
+            # FRONTEND ESTÁTICO (SPA)
+            # JS/CSS/HTML se versionan con hashes en Vite → cache largo.
+            # index.html no se puede cachear agresivamente (es el entry point).
+            # ------------------------------------------------------------------
+            handle {
+                root * /usr/share/caddy/flashcard
+                import compression
+                try_files {path} /index.html
+                file_server
+            }
+        }
+    }
+}
+
+bill.theruby.lat {
+    route {
+        import db_protection
+        root * /usr/share/caddy/bill
+        import compression
+        try_files {path} /index.html
+        file_server
+    }
+}
+
+talent.theruby.lat {
+    route {
+        import db_protection
+        root * /usr/share/caddy/talent
+        import compression
+        try_files {path} /index.html
+        file_server
+    }
+}
+
+map.theruby.lat {
+    root * /usr/share/caddy/map
+    import compression
+    try_files {path} /index.html
+    file_server
+}

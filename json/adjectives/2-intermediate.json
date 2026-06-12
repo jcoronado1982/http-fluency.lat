@@ -1,0 +1,1301 @@
+[
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "friendly",
+    "phonetic": "/ˈfrɛndli/",
+    "spoken_phonetic_us": "/ˈfrɛndli/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality & Social",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Amigable / Amable",
+        "usage_example": "He is a friendly person.",
+        "pronunciation_guide_es": "/hi_is_a_FREND-li_PER-son/",
+        "usage_example_es": "Es una persona amigable.",
+        "char_count": "5",
+        "usage_context_en": "Kind and pleasant.",
+        "usage_context_es": "Amable y agradable.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_0_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "funny",
+    "phonetic": "/ˈfʌni/",
+    "spoken_phonetic_us": "/ˈfʌni/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality & Social",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Divertido / Gracioso",
+        "usage_example": "That joke was funny.",
+        "pronunciation_guide_es": "/dat_YOUK_uas_FO-ni/",
+        "usage_example_es": "Ese chiste fue gracioso.",
+        "char_count": "4",
+        "usage_context_en": "Causing laughter or amusement; humorous.",
+        "usage_context_es": "Que causa risa o diversión; humorístico.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_1_def0.avif"
+      },
+      {
+        "meaning": "Extraño / Raro",
+        "usage_example": "That's a funny situation.",
+        "pronunciation_guide_es": "/dats_a_FO-ni_si-chu-EI-shon/",
+        "usage_example_es": "Esa es una situación extraña.",
+        "char_count": "4",
+        "usage_context_en": "Difficult to explain or understand; strange.",
+        "usage_context_es": "Difícil de explicar o entender; extraño.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_1_def1.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "kind",
+    "phonetic": "/kaɪnd/",
+    "spoken_phonetic_us": "/kaɪnd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality & Social",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Amable / Bondadoso",
+        "usage_example": "He is very kind.",
+        "pronunciation_guide_es": "/hi_is_VE-ri_KAIND/",
+        "usage_example_es": "Él es muy amable.",
+        "char_count": "4",
+        "usage_context_en": "Having a friendly, generous, and considerate nature.",
+        "usage_context_es": "Tener una naturaleza amigable, generosa y considerada.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_2_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "lazy",
+    "phonetic": "/ˈleɪzi/",
+    "spoken_phonetic_us": "/ˈleɪzi/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality & Social",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Perezoso/a",
+        "usage_example": "The lazy dog is sleeping.",
+        "pronunciation_guide_es": "/de_LEI-si_DOG_is_SLI-ping/",
+        "usage_example_es": "El perro perezoso está durmiendo.",
+        "char_count": "5",
+        "usage_context_en": "Unwilling to work or use energy.",
+        "usage_context_es": "Reacio a trabajar o usar energía.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_3_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "clever",
+    "phonetic": "/ˈklɛvər/",
+    "spoken_phonetic_us": "/ˈklɛvər/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality & Social",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Inteligente / Listo / Astuto",
+        "usage_example": "She is a clever student.",
+        "pronunciation_guide_es": "/shi_is_a_CLE-ver_STU-dent/",
+        "usage_example_es": "Ella es una estudiante inteligente.",
+        "char_count": "5",
+        "usage_context_en": "Quick to understand, learn, and devise or apply ideas.",
+        "usage_context_es": "Rápido para entender, aprender e idear o aplicar ideas.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_4_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "brave",
+    "phonetic": "/breɪv/",
+    "spoken_phonetic_us": "/breɪv/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality & Social",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Valiente",
+        "usage_example": "The firefighter is brave.",
+        "pronunciation_guide_es": "/de_FAIR-fai-ter_is_BREIV/",
+        "usage_example_es": "El bombero es valiente.",
+        "char_count": "4",
+        "usage_context_en": "Ready to face and endure danger or pain.",
+        "usage_context_es": "Listo para enfrentar y soportar el peligro o el dolor.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_5_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "calm",
+    "phonetic": "/kɑːm/",
+    "spoken_phonetic_us": "/kɑm/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Calmado/a / Tranquilo/a",
+        "usage_example": "The sea is calm today.",
+        "pronunciation_guide_es": "/de_SI_is_CAM_tu-DEI/",
+        "usage_example_es": "El mar está en calma hoy.",
+        "char_count": "5",
+        "usage_context_en": "Not showing or feeling nervousness, anger, or other strong emotions.",
+        "usage_context_es": "No mostrar o sentir nerviosismo, ira u otras emociones fuertes.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_6_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "nervous",
+    "phonetic": "/ˈnɜːrvəs/",
+    "spoken_phonetic_us": "/ˈnɜrvəs/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Nervioso/a",
+        "usage_example": "I am nervous about the exam.",
+        "pronunciation_guide_es": "/ai_am_NER-vos_a-BAUT_di_eg-SAM/",
+        "usage_example_es": "Estoy nervioso por el examen.",
+        "char_count": "6",
+        "usage_context_en": "Easily agitated or alarmed; anxious or apprehensive.",
+        "usage_context_es": "Fácilmente agitado o alarmado; ansioso o aprensivo.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_7_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "healthy",
+    "phonetic": "/ˈhɛlθi/",
+    "spoken_phonetic_us": "/ˈhɛlθi/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Health & Well-being",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Saludable / Sano/a",
+        "usage_example": "Fruit is healthy food.",
+        "pronunciation_guide_es": "/FRUT_is_HEL-zi_FUD/",
+        "usage_example_es": "La fruta es comida saludable.",
+        "char_count": "4",
+        "usage_context_en": "In a good physical or mental condition; good for health.",
+        "usage_context_es": "En buena condición física o mental; bueno para la salud.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_8_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "sick",
+    "phonetic": "/sɪk/",
+    "spoken_phonetic_us": "/sɪk/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Health & Well-being",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Enfermo/a",
+        "usage_example": "I feel sick today.",
+        "pronunciation_guide_es": "/ai_FIL_SIK_tu-DEI/",
+        "usage_example_es": "Me siento enfermo hoy.",
+        "char_count": "4",
+        "usage_context_en": "Affected by a physical or mental illness.",
+        "usage_context_es": "Afectado por una enfermedad física o mental.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_9_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "rich",
+    "phonetic": "/rɪtʃ/",
+    "spoken_phonetic_us": "/rɪtʃ/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Value & Wealth",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Rico/a (dinero)",
+        "usage_example": "He is a rich man.",
+        "pronunciation_guide_es": "/hi_is_a_RICH_MAN/",
+        "usage_example_es": "Él es un hombre rico.",
+        "char_count": "5",
+        "usage_context_en": "Having a great deal of money or assets.",
+        "usage_context_es": "Tener una gran cantidad de dinero o activos.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_10_def0.avif"
+      },
+      {
+        "meaning": "Rico/a (sabor)",
+        "usage_example": "This chocolate cake is rich.",
+        "pronunciation_guide_es": "/dis_CHO-co-let_KEIK_is_RICH/",
+        "usage_example_es": "Este pastel de chocolate es rico (intenso).",
+        "char_count": "5",
+        "usage_context_en": "Having a strong, full flavor (often with high fat/sugar).",
+        "usage_context_es": "Tener un sabor fuerte y pleno (a menudo con alta grasa/azúcar).",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_10_def1.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "poor",
+    "phonetic": "/pʊər/",
+    "spoken_phonetic_us": "/pʊr/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Value & Wealth",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Pobre",
+        "usage_example": "They are poor but happy.",
+        "pronunciation_guide_es": "/dei_ar_PUR_bot_HA-pi/",
+        "usage_example_es": "Son pobres pero felices.",
+        "char_count": "5",
+        "usage_context_en": "Having little or no money or possessions.",
+        "usage_context_es": "Tener poco o nada de dinero o posesiones.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_11_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "comfortable",
+    "phonetic": "/ˈkʌmfərtəbəl/",
+    "spoken_phonetic_us": "/ˈkʌmfərtəbəl/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical & Sensory",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Cómodo/a",
+        "usage_example": "This chair is very comfortable.",
+        "pronunciation_guide_es": "/dis_CHER_is_VE-ri_COMF-tor-bol/",
+        "usage_example_es": "Esta silla es muy cómoda.",
+        "char_count": "5",
+        "usage_context_en": "Providing physical ease and relaxation.",
+        "usage_context_es": "Que proporciona facilidad física y relajación.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_12_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "noisy",
+    "phonetic": "/ˈnɔɪzi/",
+    "spoken_phonetic_us": "/ˈnɔɪzi/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical & Sensory",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Ruidoso/a",
+        "usage_example": "The party was too noisy.",
+        "pronunciation_guide_es": "/de_PAR-ti_uas_TU_NOI-si/",
+        "usage_example_es": "La fiesta era demasiado ruidosa.",
+        "char_count": "5",
+        "usage_context_en": "Making a lot of noise.",
+        "usage_context_es": "Que hace mucho ruido.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_13_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "quiet",
+    "phonetic": "/ˈkwaɪət/",
+    "spoken_phonetic_us": "/ˈkwaɪət/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical & Sensory",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Silencioso/a / Tranquilo/a",
+        "usage_example": "The library is a quiet place.",
+        "pronunciation_guide_es": "/de_LAI-bre-ri_is_a_CUAI-et_PLEIS/",
+        "usage_example_es": "La biblioteca es un lugar silencioso.",
+        "char_count": "6",
+        "usage_context_en": "Making little or no noise.",
+        "usage_context_es": "Que hace poco o ningún ruido.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_14_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "famous",
+    "phonetic": "/ˈfeɪməs/",
+    "spoken_phonetic_us": "/ˈfeɪməs/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Social & Status",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Famoso/a",
+        "usage_example": "He is a famous actor.",
+        "pronunciation_guide_es": "/hi_is_a_FEI-mos_AK-tor/",
+        "usage_example_es": "Él es un actor famoso.",
+        "char_count": "5",
+        "usage_context_en": "Known about by many people.",
+        "usage_context_es": "Conocido por mucha gente.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_15_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "serious",
+    "phonetic": "/ˈsɪəriəs/",
+    "spoken_phonetic_us": "/ˈsɪriəs/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Mind & Attitude",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Serio/a (personalidad)",
+        "usage_example": "Why are you so serious?",
+        "pronunciation_guide_es": "/uai_ar_iu_sou_SI-ri-os/",
+        "usage_example_es": "¿Por qué estás tan serio?",
+        "char_count": "5",
+        "usage_context_en": "Not joking or lighthearted; thoughtful.",
+        "usage_context_es": "Que no bromea o es alegre; pensativo.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_16_def0.avif"
+      },
+      {
+        "meaning": "Serio/a / Grave (situación)",
+        "usage_example": "This is a serious problem.",
+        "pronunciation_guide_es": "/dis_is_a_SI-ri-os_PRO-blem/",
+        "usage_example_es": "Este es un problema grave.",
+        "char_count": "5",
+        "usage_context_en": "Important; demanding consideration; not trivial.",
+        "usage_context_es": "Importante; que exige consideración; no trivial.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_16_def1.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "boring",
+    "phonetic": "/ˈbɔːrɪŋ/",
+    "spoken_phonetic_us": "/ˈbɔrɪŋ/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Mind & Attitude",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Aburrido/a",
+        "usage_example": "This book is boring.",
+        "pronunciation_guide_es": "/dis_BUK_is_BOR-ing/",
+        "usage_example_es": "Este libro es aburrido.",
+        "char_count": "4",
+        "usage_context_en": "Not interesting; tedious.",
+        "usage_context_es": "No interesante; tedioso.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_17_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "exciting",
+    "phonetic": "/ɪkˈsaɪtɪŋ/",
+    "spoken_phonetic_us": "/ɪkˈsaɪtɪŋ/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Mind & Attitude",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Emocionante",
+        "usage_example": "The game was exciting.",
+        "pronunciation_guide_es": "/de_GUEIM_uas_ek-SAI-ting/",
+        "usage_example_es": "El partido fue emocionante.",
+        "char_count": "4",
+        "usage_context_en": "Causing great enthusiasm and eagerness.",
+        "usage_context_es": "Que causa gran entusiasmo y ganas.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_18_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "different",
+    "phonetic": "/ˈdɪfərənt/",
+    "spoken_phonetic_us": "/ˈdɪfərənt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Mind & Attitude",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Diferente",
+        "usage_example": "My car is different from yours.",
+        "pronunciation_guide_es": "/mai_CAR_is_DI-fe-rent_from_IURS/",
+        "usage_example_es": "Mi carro es diferente al tuyo.",
+        "char_count": "6",
+        "usage_context_en": "Not the same as another or each other.",
+        "usage_context_es": "No igual a otro o entre sí.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_19_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "similar",
+    "phonetic": "/ˈsɪmələr/",
+    "spoken_phonetic_us": "/ˈsɪmələr/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Mind & Attitude",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Similar / Parecido/a",
+        "usage_example": "Our cars are similar.",
+        "pronunciation_guide_es": "/aur_CARS_ar_SI-mi-lar/",
+        "usage_example_es": "Nuestros carros son similares.",
+        "char_count": "4",
+        "usage_context_en": "Resembling without being identical.",
+        "usage_context_es": "Que se parece sin ser idéntico.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_20_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "important",
+    "phonetic": "/ɪmˈpɔːrtənt/",
+    "spoken_phonetic_us": "/ɪmˈpɔrtənt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Social & Status",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Importante",
+        "usage_example": "This is an important meeting.",
+        "pronunciation_guide_es": "/dis_is_an_im-POR-tant_MI-ting/",
+        "usage_example_es": "Esta es una reunión importante.",
+        "char_count": "5",
+        "usage_context_en": "Of great significance or value.",
+        "usage_context_es": "De gran significancia o valor.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_21_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "popular",
+    "phonetic": "/ˈpɒpjələr/",
+    "spoken_phonetic_us": "/ˈpɑpjələr/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Social & Status",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Popular",
+        "usage_example": "This song is very popular.",
+        "pronunciation_guide_es": "/dis_SONG_is_VE-ri_PO-piu-lar/",
+        "usage_example_es": "Esta canción es muy popular.",
+        "char_count": "5",
+        "usage_context_en": "Liked, admired, or enjoyed by many people.",
+        "usage_context_es": "Apreciado, admirado o disfrutado por mucha gente.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_22_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "interesting",
+    "phonetic": "/ˈɪntrəstɪŋ/",
+    "spoken_phonetic_us": "/ˈɪntrəstɪŋ/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Mind & Attitude",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Interesante",
+        "usage_example": "That is an interesting book.",
+        "pronunciation_guide_es": "/dat_is_an_IN-tres-ting_BUK/",
+        "usage_example_es": "Ese es un libro interesante.",
+        "char_count": "5",
+        "usage_context_en": "Arousing curiosity or holding one's attention.",
+        "usage_context_es": "Que despierta curiosidad o mantiene la atención.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_23_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "cheap",
+    "phonetic": "/tʃiːp/",
+    "spoken_phonetic_us": "/tʃiːp/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Value & Wealth",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Barato/a",
+        "usage_example": "The tickets are cheap.",
+        "pronunciation_guide_es": "/de_TI-kets_ar_CHIP/",
+        "usage_example_es": "Los boletos están baratos.",
+        "char_count": "4",
+        "usage_context_en": "Low in price; not expensive.",
+        "usage_context_es": "Bajo en precio; no caro.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_24_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "expensive",
+    "phonetic": "/ɪkˈspɛnsɪv/",
+    "spoken_phonetic_us": "/ɪkˈspɛnsɪv/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Value & Wealth",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Caro/a / Costoso/a",
+        "usage_example": "A new car is expensive.",
+        "pronunciation_guide_es": "/a_NIU_CAR_is_ex-PEN-siv/",
+        "usage_example_es": "Un carro nuevo es costoso.",
+        "char_count": "5",
+        "usage_context_en": "Costing a lot of money.",
+        "usage_context_es": "Que cuesta mucho dinero.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_25_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "ready",
+    "phonetic": "/ˈrɛdi/",
+    "spoken_phonetic_us": "/ˈrɛdi/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Mind & Attitude",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Listo/a (preparado)",
+        "usage_example": "Are you ready to go?",
+        "pronunciation_guide_es": "/ar_iu_RE-di_tu_GOU/",
+        "usage_example_es": "¿Estás listo para ir?",
+        "char_count": "5",
+        "usage_context_en": "In a suitable state for an activity, action, or situation; prepared.",
+        "usage_context_es": "En un estado adecuado para una actividad, acción o situación; preparado.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_26_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "busy",
+    "phonetic": "/ˈbɪzi/",
+    "spoken_phonetic_us": "/ˈbɪzi/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Mind & Attitude",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Ocupado/a",
+        "usage_example": "I am busy right now.",
+        "pronunciation_guide_es": "/ai_am_BI-si_RAIT_NAU/",
+        "usage_example_es": "Estoy ocupado ahora mismo.",
+        "char_count": "5",
+        "usage_context_en": "Having a great deal to do.",
+        "usage_context_es": "Tener mucho que hacer.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_27_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "polite",
+    "phonetic": "/pəˈlaɪt/",
+    "spoken_phonetic_us": "/pəˈlaɪt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality & Social",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Educado/a / Cortés",
+        "usage_example": "It is important to be polite.",
+        "pronunciation_guide_es": "/it_is_im-POR-tant_tu_bi_po-LAIT/",
+        "usage_example_es": "Es importante ser educado.",
+        "char_count": "6",
+        "usage_context_en": "Having or showing behavior that is respectful and considerate of other people.",
+        "usage_context_es": "Tener o mostrar un comportamiento respetuoso y considerado con otras personas.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_28_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "rude",
+    "phonetic": "/ruːd/",
+    "spoken_phonetic_us": "/ruːd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality & Social",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Grosero/a / Maleducado/a",
+        "usage_example": "That was a rude comment.",
+        "pronunciation_guide_es": "/dat_uas_a_RUD_CO-ment/",
+        "usage_example_es": "Ese fue un comentario grosero.",
+        "char_count": "5",
+        "usage_context_en": "Offensively impolite or bad-mannered.",
+        "usage_context_es": "Ofensivamente descortés o de malos modales.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_29_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "safe",
+    "phonetic": "/seɪf/",
+    "spoken_phonetic_us": "/seɪf/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical & Sensory",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Seguro/a (sin peligro)",
+        "usage_example": "Is this neighborhood safe?",
+        "pronunciation_guide_es": "/is_dis_NEI-bor-hud_SEIF/",
+        "usage_example_es": "¿Es este barrio seguro?",
+        "char_count": "4",
+        "usage_context_en": "Protected from or not exposed to danger or risk.",
+        "usage_context_es": "Protegido de o no expuesto a peligro o riesgo.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_30_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "dangerous",
+    "phonetic": "/ˈdeɪndʒərəs/",
+    "spoken_phonetic_us": "/ˈdeɪndʒərəs/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical & Sensory",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Peligroso/a",
+        "usage_example": "Driving fast is dangerous.",
+        "pronunciation_guide_es": "/DRAI-ving_FAST_is_DEIN-yer-os/",
+        "usage_example_es": "Conducir rápido es peligroso.",
+        "char_count": "4",
+        "usage_context_en": "Able or likely to cause harm or injury.",
+        "usage_context_es": "Capaz o propenso a causar daño o lesión.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_31_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "smart",
+    "phonetic": "/smɑːrt/",
+    "spoken_phonetic_us": "/smɑːrt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality & Social",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Inteligente / Listo/a",
+        "usage_example": "She is a very smart student.",
+        "pronunciation_guide_es": "/SHI_is_a_VE-ri_SMART_STU-dent/",
+        "usage_example_es": "Ella es una estudiante muy inteligente.",
+        "char_count": "6",
+        "usage_context_en": "Having or showing a quick-witted intelligence.",
+        "usage_context_es": "Que tiene o muestra una inteligencia aguda.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_32_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "honest",
+    "phonetic": "/ˈɒnɪst/",
+    "spoken_phonetic_us": "/ˈɑːnɪst/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality & Social",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Honesto/a / Sincero/a",
+        "usage_example": "He is an honest person.",
+        "pronunciation_guide_es": "/JI_is_an_O-nest_PER-son/",
+        "usage_example_es": "Él es una persona honesta.",
+        "char_count": "5",
+        "usage_context_en": "Free of deceit; truthful and sincere.",
+        "usage_context_es": "Libre de engaño; veraz y sincero.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_33_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "shy",
+    "phonetic": "/ʃaɪ/",
+    "spoken_phonetic_us": "/ʃaɪ/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality & Social",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Tímido/a",
+        "usage_example": "The shy student didn't speak.",
+        "pronunciation_guide_es": "/de_SHAI_STU-dent_dident_SPIK/",
+        "usage_example_es": "El estudiante tímido no habló.",
+        "char_count": "5",
+        "usage_context_en": "Being reserved or having a lack of confidence in social situations.",
+        "usage_context_es": "Ser reservado o tener falta de confianza en situaciones sociales.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_34_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "proud",
+    "phonetic": "/praʊd/",
+    "spoken_phonetic_us": "/praʊd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality & Social",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Orgulloso/a",
+        "usage_example": "She is proud of her work.",
+        "pronunciation_guide_es": "/SHI_is_PRAUD_ov_her_UORK/",
+        "usage_example_es": "Ella está orgullosa de su trabajo.",
+        "char_count": "6",
+        "usage_context_en": "Feeling deep pleasure or satisfaction as a result of one's own achievements.",
+        "usage_context_es": "Sentir gran placer o satisfacción por los propios logros.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_35_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "excited",
+    "phonetic": "/ɪkˈsaɪtɪd/",
+    "spoken_phonetic_us": "/ɪkˈsaɪtɪd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Emocionado/a",
+        "usage_example": "I am excited about the concert.",
+        "pronunciation_guide_es": "/ai_am_ek-SAI-ted_a-BAUT_de_KON-sert/",
+        "usage_example_es": "Estoy emocionado por el concierto.",
+        "char_count": "6",
+        "usage_context_en": "Very enthusiastic and eager.",
+        "usage_context_es": "Muy entusiasta y con muchas ganas.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_36_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "stressed",
+    "phonetic": "/strɛst/",
+    "spoken_phonetic_us": "/strɛst/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Estresado/a",
+        "usage_example": "I am very stressed at work.",
+        "pronunciation_guide_es": "/ai_am_VE-ri_STREST_at_UORK/",
+        "usage_example_es": "Estoy muy estresado en el trabajo.",
+        "char_count": "6",
+        "usage_context_en": "Feeling pressure or worry.",
+        "usage_context_es": "Sentir presión o preocupación.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_37_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "fit",
+    "phonetic": "/fɪt/",
+    "spoken_phonetic_us": "/fɪt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Health & Well-being",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "En forma / Saludable",
+        "usage_example": "She exercises to stay fit.",
+        "pronunciation_guide_es": "/SHI_EK-ser-sai-ses_tu_STEI_FIT/",
+        "usage_example_es": "Ella hace ejercicio para mantenerse en forma.",
+        "char_count": "5",
+        "usage_context_en": "In good health; physically strong and active.",
+        "usage_context_es": "En buena salud; físicamente fuerte y activo.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_38_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "tired",
+    "phonetic": "/ˈtaɪərd/",
+    "spoken_phonetic_us": "/ˈtaɪərd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Health & Well-being",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Agotado/a (cansancio profundo)",
+        "usage_example": "He looks tired after the marathon.",
+        "pronunciation_guide_es": "/JI_LUKS_TAI-erd_AF-ter_de_MA-ra-ton/",
+        "usage_example_es": "Él parece agotado tras el maratón.",
+        "char_count": "6",
+        "usage_context_en": "In need of rest after physical or mental effort.",
+        "usage_context_es": "Necesitado de descanso tras esfuerzo físico o mental.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_39_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "warm",
+    "phonetic": "/wɔːrm/",
+    "spoken_phonetic_us": "/wɔːrm/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical & Sensory",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Cálido/a / Tibio/a",
+        "usage_example": "The soup is warm.",
+        "pronunciation_guide_es": "/de_SUP_is_UORM/",
+        "usage_example_es": "La sopa está tibia.",
+        "char_count": "4",
+        "usage_context_en": "Of a moderately high temperature.",
+        "usage_context_es": "De temperatura moderadamente alta.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_40_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "bright",
+    "phonetic": "/braɪt/",
+    "spoken_phonetic_us": "/braɪt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical & Sensory",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Brillante / Luminoso/a",
+        "usage_example": "The room is bright and sunny.",
+        "pronunciation_guide_es": "/de_RUM_is_BRAIT_and_SO-ni/",
+        "usage_example_es": "La habitación es luminosa y soleada.",
+        "char_count": "6",
+        "usage_context_en": "Giving out or reflecting a lot of light.",
+        "usage_context_es": "Que emite o refleja mucha luz.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_41_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "dark",
+    "phonetic": "/dɑːrk/",
+    "spoken_phonetic_us": "/dɑːrk/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical & Sensory",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Oscuro/a",
+        "usage_example": "The room is very dark.",
+        "pronunciation_guide_es": "/de_RUM_is_VE-ri_DARK/",
+        "usage_example_es": "La habitación es muy oscura.",
+        "char_count": "5",
+        "usage_context_en": "With little or no light.",
+        "usage_context_es": "Con poca o ninguna luz.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_42_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "useful",
+    "phonetic": "/ˈjuːsfəl/",
+    "spoken_phonetic_us": "/ˈjuːsfəl/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Mind & Attitude",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Útil",
+        "usage_example": "This app is very useful.",
+        "pronunciation_guide_es": "/dis_AP_is_VE-ri_IUS-ful/",
+        "usage_example_es": "Esta aplicación es muy útil.",
+        "char_count": "5",
+        "usage_context_en": "Able to be used for a practical purpose.",
+        "usage_context_es": "Capaz de usarse para un propósito práctico.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_43_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "strange",
+    "phonetic": "/streɪndʒ/",
+    "spoken_phonetic_us": "/streɪndʒ/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Mind & Attitude",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Extraño/a",
+        "usage_example": "That is a strange situation.",
+        "pronunciation_guide_es": "/dat_is_a_STREINDCH_si-tchu-EI-sion/",
+        "usage_example_es": "Esa es una situación extraña.",
+        "char_count": "5",
+        "usage_context_en": "Unusual or surprising in a way that is unsettling.",
+        "usage_context_es": "Inusual o sorprendente de manera desconcertante.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_44_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "modern",
+    "phonetic": "/ˈmɒdərn/",
+    "spoken_phonetic_us": "/ˈmɑːdərn/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Mind & Attitude",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Moderno/a",
+        "usage_example": "She has a modern lifestyle.",
+        "pronunciation_guide_es": "/SHI_has_a_MO-dern_LAIF-stail/",
+        "usage_example_es": "Ella tiene un estilo de vida moderno.",
+        "char_count": "5",
+        "usage_context_en": "Relating to the present or recent times; up to date.",
+        "usage_context_es": "Relativo al presente; actualizado.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_45_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "free",
+    "phonetic": "/friː/",
+    "spoken_phonetic_us": "/friː/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Value & Wealth",
+    "category": "Intermediate",
+    "definitions": [
+      {
+        "meaning": "Gratis / Sin costo",
+        "usage_example": "The museum is free on Sundays.",
+        "pronunciation_guide_es": "/de_MIU-zi-em_is_FRI_on_SON-deis/",
+        "usage_example_es": "El museo es gratis los domingos.",
+        "char_count": "6",
+        "usage_context_en": "Costing nothing.",
+        "usage_context_es": "Sin costo.",
+        "imagePath": "/card_images/adjectives/2-intermediate/2-intermediate_card_46_def0.avif"
+      }
+    ]
+  }
+]

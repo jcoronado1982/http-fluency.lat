@@ -1,0 +1,1407 @@
+[
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "big",
+    "phonetic": "/bɪɡ/",
+    "spoken_phonetic_us": "/bɪɡ/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Size & Dimension",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Grande",
+        "usage_example": "That is a big house.",
+        "pronunciation_guide_es": "/dat_is_a_BIG_HAUS/",
+        "usage_example_es": "Esa es una casa grande.",
+        "char_count": "5",
+        "usage_context_en": "Of considerable size or extent.",
+        "usage_context_es": "De tamaño o extensión considerable.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_0_def0.avif",
+        "imageMetadata": {
+          "source": "local_comfyui",
+          "model": "flux-1-schnell",
+          "generatedAt": "2026-02-13T09:40:12.520878"
+        }
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "small",
+    "phonetic": "/smɔːl/",
+    "spoken_phonetic_us": "/smɔːl/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Size & Dimension",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Pequeño/a",
+        "usage_example": "I have a small car.",
+        "pronunciation_guide_es": "/ai_HAV_a_SMOL_CAR/",
+        "usage_example_es": "Tengo un carro pequeño.",
+        "char_count": "5",
+        "usage_context_en": "Of a size that is less than normal or average.",
+        "usage_context_es": "De un tamaño menor al normal o promedio.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_1_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "good",
+    "phonetic": "/ɡʊd/",
+    "spoken_phonetic_us": "/ɡʊd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Quality & Value",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Bueno/a",
+        "usage_example": "This is a good book.",
+        "pronunciation_guide_es": "/dis_is_a_GUD_BUK/",
+        "usage_example_es": "Este es un buen libro.",
+        "char_count": "5",
+        "usage_context_en": "Of a high standard or quality; positive.",
+        "usage_context_es": "De alto estándar o calidad; positivo.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_2_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "bad",
+    "phonetic": "/bæd/",
+    "spoken_phonetic_us": "/bæd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Quality & Value",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Malo/a",
+        "usage_example": "That was a bad movie.",
+        "pronunciation_guide_es": "/dat_uas_a_BAD_MU-vi/",
+        "usage_example_es": "Esa fue una película mala.",
+        "char_count": "5",
+        "usage_context_en": "Of a low standard or quality; negative.",
+        "usage_context_es": "De bajo estándar o calidad; negativo.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_3_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "happy",
+    "phonetic": "/ˈhæpi/",
+    "spoken_phonetic_us": "/ˈhæpi/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Feliz",
+        "usage_example": "I feel happy today.",
+        "pronunciation_guide_es": "/ai_FIL_HA-pi_tu-DEI/",
+        "usage_example_es": "Me siento feliz hoy.",
+        "char_count": "4",
+        "usage_context_en": "Feeling or showing pleasure or contentment.",
+        "usage_context_es": "Sentir o mostrar placer o contentamiento.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_4_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "sad",
+    "phonetic": "/sæd/",
+    "spoken_phonetic_us": "/sæd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Triste",
+        "usage_example": "The movie made me sad.",
+        "pronunciation_guide_es": "/de_MU-vi_meid_mi_SAD/",
+        "usage_example_es": "La película me puso triste.",
+        "char_count": "5",
+        "usage_context_en": "Feeling or showing sorrow or unhappiness.",
+        "usage_context_es": "Sentir o mostrar pena o infelicidad.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_5_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "hot",
+    "phonetic": "/hɒt/",
+    "spoken_phonetic_us": "/hɑt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical State",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Caliente",
+        "usage_example": "The coffee is too hot.",
+        "pronunciation_guide_es": "/de_CO-fi_is_TU_HOT/",
+        "usage_example_es": "El café está demasiado caliente.",
+        "char_count": "5",
+        "usage_context_en": "Having a high degree of heat or a high temperature.",
+        "usage_context_es": "Tener un alto grado de calor o una alta temperatura.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_6_def0.avif"
+      },
+      {
+        "meaning": "Picante",
+        "usage_example": "This salsa is very hot.",
+        "pronunciation_guide_es": "/dis_SAL-sa_is_VE-ri_HOT/",
+        "usage_example_es": "Esta salsa es muy picante.",
+        "char_count": "5",
+        "usage_context_en": "Containing spices that cause a burning sensation in the mouth.",
+        "usage_context_es": "Que contiene especias que causan sensación de ardor en la boca.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_6_def1.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "cold",
+    "phonetic": "/koʊld/",
+    "spoken_phonetic_us": "/koʊld/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical State",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Frío/a",
+        "usage_example": "My hands are cold.",
+        "pronunciation_guide_es": "/mai_HANDS_ar_COLD/",
+        "usage_example_es": "Mis manos están frías.",
+        "char_count": "4",
+        "usage_context_en": "Having a low temperature.",
+        "usage_context_es": "Tener una temperatura baja.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_7_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "new",
+    "phonetic": "/njuː/",
+    "spoken_phonetic_us": "/nuː/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Age & Novelty",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Nuevo/a",
+        "usage_example": "I bought a new car.",
+        "pronunciation_guide_es": "/ai_BOT_a_NIU_CAR/",
+        "usage_example_es": "Compré un carro nuevo.",
+        "char_count": "5",
+        "usage_context_en": "Produced, introduced, or discovered recently; not existing before.",
+        "usage_context_es": "Producido, introducido o descubierto recientemente; que no existía antes.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_8_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "old",
+    "phonetic": "/oʊld/",
+    "spoken_phonetic_us": "/oʊld/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Age & Novelty",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Viejo/a / Anciano/a",
+        "usage_example": "He is an old man.",
+        "pronunciation_guide_es": "/hi_is_an_OLD_MAN/",
+        "usage_example_es": "Él es un hombre anciano.",
+        "char_count": "5",
+        "usage_context_en": "Having lived for a long time; advanced in age.",
+        "usage_context_es": "Haber vivido por mucho tiempo; de edad avanzada.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_9_def0.avif"
+      },
+      {
+        "meaning": "Viejo/a (objeto)",
+        "usage_example": "This is my old phone.",
+        "pronunciation_guide_es": "/dis_is_mai_OLD_FOUN/",
+        "usage_example_es": "Este es mi teléfono viejo.",
+        "char_count": "5",
+        "usage_context_en": "Having existed for a long time; not new.",
+        "usage_context_es": "Que ha existido por mucho tiempo; no nuevo.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_9_def1.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "young",
+    "phonetic": "/jʌŋ/",
+    "spoken_phonetic_us": "/jʌŋ/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Age & Novelty",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Joven",
+        "usage_example": "She is a young woman.",
+        "pronunciation_guide_es": "/shi_is_a_IONG_WU-man/",
+        "usage_example_es": "Ella es una mujer joven.",
+        "char_count": "5",
+        "usage_context_en": "Having lived for only a short time; not old.",
+        "usage_context_es": "Haber vivido solo por un corto tiempo; no viejo.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_10_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "easy",
+    "phonetic": "/ˈiːzi/",
+    "spoken_phonetic_us": "/ˈiːzi/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Difficulty & Effort",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Fácil",
+        "usage_example": "The test was very easy.",
+        "pronunciation_guide_es": "/de_TEST_uas_VE-ri_I-si/",
+        "usage_example_es": "El examen fue muy fácil.",
+        "char_count": "5",
+        "usage_context_en": "Achieved without great effort; presenting no difficulty.",
+        "usage_context_es": "Logrado sin gran esfuerzo; que no presenta dificultad.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_11_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "hard",
+    "phonetic": "/hɑːrd/",
+    "spoken_phonetic_us": "/hɑrd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Difficulty & Effort",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Difícil",
+        "usage_example": "The test was very hard.",
+        "pronunciation_guide_es": "/de_TEST_uas_VE-ri_HARD/",
+        "usage_example_es": "El examen fue muy difícil.",
+        "char_count": "5",
+        "usage_context_en": "Requiring a great deal of effort; difficult.",
+        "usage_context_es": "Que requiere una gran cantidad de esfuerzo; difícil.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_12_def0.avif"
+      },
+      {
+        "meaning": "Duro/a (textura)",
+        "usage_example": "The rock is hard.",
+        "pronunciation_guide_es": "/de_ROK_is_HARD/",
+        "usage_example_es": "La roca es dura.",
+        "char_count": "4",
+        "usage_context_en": "Solid, firm, and rigid; not easily broken or bent.",
+        "usage_context_es": "Sólido, firme y rígido; que no se rompe o dobla fácilmente.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_12_def1.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "long",
+    "phonetic": "/lɒŋ/",
+    "spoken_phonetic_us": "/lɔŋ/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Size & Dimension",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Largo/a",
+        "usage_example": "It's a long road.",
+        "pronunciation_guide_es": "/its_a_LONG_ROUD/",
+        "usage_example_es": "Es un camino largo.",
+        "char_count": "4",
+        "usage_context_en": "Measuring a great distance from end to end.",
+        "usage_context_es": "Que mide una gran distancia de extremo a extremo.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_13_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "short",
+    "phonetic": "/ʃɔːrt/",
+    "spoken_phonetic_us": "/ʃɔrt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Size & Dimension",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Corto/a",
+        "usage_example": "This is a short movie.",
+        "pronunciation_guide_es": "/dis_is_a_SHORT_MU-vi/",
+        "usage_example_es": "Esta es una película corta.",
+        "char_count": "5",
+        "usage_context_en": "Measuring a small distance from end to end.",
+        "usage_context_es": "Que mide una distancia pequeña de extremo a extremo.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_14_def0.avif"
+      },
+      {
+        "meaning": "Bajo/a (estatura)",
+        "usage_example": "He is short.",
+        "pronunciation_guide_es": "/hi_is_SHORT/",
+        "usage_example_es": "Él es bajo (de estatura).",
+        "char_count": "3",
+        "usage_context_en": "Of little height.",
+        "usage_context_es": "De poca altura.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_14_def1.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "fast",
+    "phonetic": "/fæst/",
+    "spoken_phonetic_us": "/fæst/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Speed & Time",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Rápido/a",
+        "usage_example": "A cheetah is a fast animal.",
+        "pronunciation_guide_es": "/a_CHI-ta_is_a_FAST_A-ni-mal/",
+        "usage_example_es": "Un guepardo es un animal rápido.",
+        "char_count": "6",
+        "usage_context_en": "Moving or capable of moving at high speed.",
+        "usage_context_es": "Que se mueve o es capaz de moverse a alta velocidad.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_15_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "slow",
+    "phonetic": "/sloʊ/",
+    "spoken_phonetic_us": "/sloʊ/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Speed & Time",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Lento/a",
+        "usage_example": "The turtle is very slow.",
+        "pronunciation_guide_es": "/de_TOR-tol_is_VE-ri_SLOU/",
+        "usage_example_es": "La tortuga es muy lenta.",
+        "char_count": "5",
+        "usage_context_en": "Moving or operating at a low speed.",
+        "usage_context_es": "Que se mueve u opera a baja velocidad.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_16_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "strong",
+    "phonetic": "/strɒŋ/",
+    "spoken_phonetic_us": "/strɔŋ/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical State",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Fuerte",
+        "usage_example": "He is a strong man.",
+        "pronunciation_guide_es": "/hi_is_a_STRONG_MAN/",
+        "usage_example_es": "Él es un hombre fuerte.",
+        "char_count": "5",
+        "usage_context_en": "Having the power to move heavy weights or perform physically demanding tasks.",
+        "usage_context_es": "Tener el poder de mover pesos pesados o realizar tareas físicamente exigentes.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_17_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "weak",
+    "phonetic": "/wiːk/",
+    "spoken_phonetic_us": "/wiːk/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical State",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Débil",
+        "usage_example": "I feel weak after the illness.",
+        "pronunciation_guide_es": "/ai_FIL_UIK_AF-ter_de_IL-nes/",
+        "usage_example_es": "Me siento débil después de la enfermedad.",
+        "char_count": "6",
+        "usage_context_en": "Having little physical power or energy.",
+        "usage_context_es": "Tener poco poder físico o energía.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_18_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "nice",
+    "phonetic": "/naɪs/",
+    "spoken_phonetic_us": "/naɪs/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Quality & Value",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Agradable / Amable",
+        "usage_example": "She is a nice person.",
+        "pronunciation_guide_es": "/shi_is_a_NAIS_PER-son/",
+        "usage_example_es": "Ella es una persona agradable.",
+        "char_count": "5",
+        "usage_context_en": "Pleasant, attractive, or kind.",
+        "usage_context_es": "Placentero, atractivo o amable.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_19_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "angry",
+    "phonetic": "/ˈæŋɡri/",
+    "spoken_phonetic_us": "/ˈæŋɡri/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Enojado/a",
+        "usage_example": "The boss is angry.",
+        "pronunciation_guide_es": "/de_BOS_is_AN-gri/",
+        "usage_example_es": "El jefe está enojado.",
+        "char_count": "4",
+        "usage_context_en": "Feeling or showing strong annoyance or displeasure.",
+        "usage_context_es": "Sentir o mostrar gran molestia o disgusto.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_20_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "tired",
+    "phonetic": "/ˈtaɪərd/",
+    "spoken_phonetic_us": "/ˈtaɪərd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Cansado/a",
+        "usage_example": "I am tired from work.",
+        "pronunciation_guide_es": "/ai_am_TAI-erd_from_UORK/",
+        "usage_example_es": "Estoy cansado del trabajo.",
+        "char_count": "5",
+        "usage_context_en": "In need of sleep or rest; weary.",
+        "usage_context_es": "Necesitado de dormir o descansar; fatigado.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_21_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "hungry",
+    "phonetic": "/ˈhʌŋɡri/",
+    "spoken_phonetic_us": "/ˈhʌŋɡri/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Hambriento/a",
+        "usage_example": "I am hungry, let's eat.",
+        "pronunciation_guide_es": "/ai_am_HON-gri_lets_IT/",
+        "usage_example_es": "Tengo hambre, comamos.",
+        "char_count": "5",
+        "usage_context_en": "Feeling or displaying the need for food.",
+        "usage_context_es": "Sentir o mostrar la necesidad de comida.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_22_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "beautiful",
+    "phonetic": "/ˈbjuːtɪfəl/",
+    "spoken_phonetic_us": "/ˈbjuːtɪfəl/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Quality & Value",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Hermoso/a / Bonito/a",
+        "usage_example": "That is a beautiful painting.",
+        "pronunciation_guide_es": "/dat_is_a_BIU-ti-ful_PEIN-ting/",
+        "usage_example_es": "Esa es una pintura hermosa.",
+        "char_count": "5",
+        "usage_context_en": "Pleasing the senses or mind aesthetically.",
+        "usage_context_es": "Agradable a los sentidos o a la mente estéticamente.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_23_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "ugly",
+    "phonetic": "/ˈʌɡli/",
+    "spoken_phonetic_us": "/ˈʌɡli/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Quality & Value",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Feo/a",
+        "usage_example": "That is an ugly sweater.",
+        "pronunciation_guide_es": "/dat_is_an_OG-li_SUE-ter/",
+        "usage_example_es": "Ese es un suéter feo.",
+        "char_count": "5",
+        "usage_context_en": "Unpleasant or repulsive to look at.",
+        "usage_context_es": "Desagradable o repulsivo a la vista.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_24_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "early",
+    "phonetic": "/ˈɜːrli/",
+    "spoken_phonetic_us": "/ˈɜrli/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Speed & Time",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Temprano",
+        "usage_example": "I have an early meeting.",
+        "pronunciation_guide_es": "/ai_HAV_an_ER-li_MI-ting/",
+        "usage_example_es": "Tengo una reunión temprano.",
+        "char_count": "5",
+        "usage_context_en": "Happening or done before the usual or expected time.",
+        "usage_context_es": "Que sucede o se hace antes de la hora habitual o esperada.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_25_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "late",
+    "phonetic": "/leɪt/",
+    "spoken_phonetic_us": "/leɪt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Speed & Time",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Tarde",
+        "usage_example": "The train is late.",
+        "pronunciation_guide_es": "/de_TREIN_is_LEIT/",
+        "usage_example_es": "El tren está retrasado (llega tarde).",
+        "char_count": "4",
+        "usage_context_en": "Happening or done after the usual or expected time.",
+        "usage_context_es": "Que sucede o se hace después de la hora habitual o esperada.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_26_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "clean",
+    "phonetic": "/kliːn/",
+    "spoken_phonetic_us": "/kliːn/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical State",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Limpio/a",
+        "usage_example": "My room is clean.",
+        "pronunciation_guide_es": "/mai_RUM_is_CLIN/",
+        "usage_example_es": "Mi cuarto está limpio.",
+        "char_count": "4",
+        "usage_context_en": "Free from dirt, marks, or stains.",
+        "usage_context_es": "Libre de suciedad, marcas o manchas.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_27_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "dirty",
+    "phonetic": "/ˈdɜːrti/",
+    "spoken_phonetic_us": "/ˈdɜrti/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical State",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Sucio/a",
+        "usage_example": "Your shoes are dirty.",
+        "pronunciation_guide_es": "/iur_SHUS_ar_DER-ti/",
+        "usage_example_es": "Tus zapatos están sucios.",
+        "char_count": "4",
+        "usage_context_en": "Covered or marked with an unclean substance.",
+        "usage_context_es": "Cubierto o marcado con una sustancia no limpia.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_28_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "right",
+    "phonetic": "/raɪt/",
+    "spoken_phonetic_us": "/raɪt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Logic & Evaluation",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Correcto/a",
+        "usage_example": "That is the right answer.",
+        "pronunciation_guide_es": "/dat_is_de_RAIT_AN-ser/",
+        "usage_example_es": "Esa es la respuesta correcta.",
+        "char_count": "5",
+        "usage_context_en": "True or correct as a fact.",
+        "usage_context_es": "Verdadero o correcto como un hecho.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_29_def0.avif"
+      },
+      {
+        "meaning": "Derecho/a",
+        "usage_example": "Turn at the right corner.",
+        "pronunciation_guide_es": "/TERN_at_de_RAIT_COR-ner/",
+        "usage_example_es": "Gira en la esquina derecha.",
+        "char_count": "5",
+        "usage_context_en": "On or relating to the side of the body opposite the left.",
+        "usage_context_es": "En o relativo al lado del cuerpo opuesto al izquierdo.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_29_def1.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "wrong",
+    "phonetic": "/rɒŋ/",
+    "spoken_phonetic_us": "/rɔŋ/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Logic & Evaluation",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Incorrecto/a / Equivocado/a",
+        "usage_example": "That is the wrong answer.",
+        "pronunciation_guide_es": "/dat_is_de_RONG_AN-ser/",
+        "usage_example_es": "Esa es la respuesta incorrecta.",
+        "char_count": "5",
+        "usage_context_en": "Not correct or true; incorrect.",
+        "usage_context_es": "No correcto o verdadero; incorrecto.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_30_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "open",
+    "phonetic": "/ˈoʊpən/",
+    "spoken_phonetic_us": "/ˈoʊpən/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical State",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Abierto/a",
+        "usage_example": "The door is open.",
+        "pronunciation_guide_es": "/de_DOR_is_OU-pen/",
+        "usage_example_es": "La puerta está abierta.",
+        "char_count": "4",
+        "usage_context_en": "Not closed or blocked up.",
+        "usage_context_es": "No cerrado o bloqueado.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_31_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "closed",
+    "phonetic": "/kloʊzd/",
+    "spoken_phonetic_us": "/kloʊzd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical State",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Cerrado/a",
+        "usage_example": "The store is closed.",
+        "pronunciation_guide_es": "/de_STOR_is_CLOUSD/",
+        "usage_example_es": "La tienda está cerrada.",
+        "char_count": "4",
+        "usage_context_en": "Not open; shut.",
+        "usage_context_es": "No abierto; cerrado.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_32_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "tall",
+    "phonetic": "/tɔːl/",
+    "spoken_phonetic_us": "/tɔːl/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Size & Dimension",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Alto/a",
+        "usage_example": "She is very tall.",
+        "pronunciation_guide_es": "/SHI_is_VE-ri_TOL/",
+        "usage_example_es": "Ella es muy alta.",
+        "char_count": "4",
+        "usage_context_en": "Having a greater than average height.",
+        "usage_context_es": "De estatura mayor al promedio.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_33_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "wide",
+    "phonetic": "/waɪd/",
+    "spoken_phonetic_us": "/waɪd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Size & Dimension",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Ancho/a",
+        "usage_example": "The river is very wide.",
+        "pronunciation_guide_es": "/de_RI-ver_is_VE-ri_UAID/",
+        "usage_example_es": "El río es muy ancho.",
+        "char_count": "5",
+        "usage_context_en": "Having a large distance from side to side.",
+        "usage_context_es": "De gran distancia de lado a lado.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_34_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "heavy",
+    "phonetic": "/ˈhɛvi/",
+    "spoken_phonetic_us": "/ˈhɛvi/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Size & Dimension",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Pesado/a",
+        "usage_example": "This bag is very heavy.",
+        "pronunciation_guide_es": "/dis_BAG_is_VE-ri_JE-vi/",
+        "usage_example_es": "Esta bolsa es muy pesada.",
+        "char_count": "5",
+        "usage_context_en": "Of great weight.",
+        "usage_context_es": "De gran peso.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_35_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "light",
+    "phonetic": "/laɪt/",
+    "spoken_phonetic_us": "/laɪt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Size & Dimension",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Ligero/a",
+        "usage_example": "The box is light.",
+        "pronunciation_guide_es": "/de_BOKS_is_LAIT/",
+        "usage_example_es": "La caja es ligera.",
+        "char_count": "4",
+        "usage_context_en": "Of little weight; easy to lift.",
+        "usage_context_es": "De poco peso; fácil de levantar.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_36_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "great",
+    "phonetic": "/ɡreɪt/",
+    "spoken_phonetic_us": "/ɡreɪt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Quality & Value",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Genial / Excelente",
+        "usage_example": "That is a great idea.",
+        "pronunciation_guide_es": "/dat_is_a_GREIT_ai-DI-a/",
+        "usage_example_es": "Esa es una gran idea.",
+        "char_count": "5",
+        "usage_context_en": "Of an extent, amount, or intensity considerably above the normal.",
+        "usage_context_es": "De un nivel, cantidad o intensidad considerablemente superior al normal.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_37_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "free",
+    "phonetic": "/friː/",
+    "spoken_phonetic_us": "/friː/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Quality & Value",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Libre / Gratis",
+        "usage_example": "The entry is free.",
+        "pronunciation_guide_es": "/de_EN-tri_is_FRI/",
+        "usage_example_es": "La entrada es gratis.",
+        "char_count": "4",
+        "usage_context_en": "Not under the control of another; not costing anything.",
+        "usage_context_es": "No bajo el control de otro; sin costo.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_38_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "excited",
+    "phonetic": "/ɪkˈsaɪtɪd/",
+    "spoken_phonetic_us": "/ɪkˈsaɪtɪd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Emocionado/a",
+        "usage_example": "She is excited about the trip.",
+        "pronunciation_guide_es": "/SHI_is_ek-SAI-ted_a-BAUT_de_TRIP/",
+        "usage_example_es": "Ella está emocionada por el viaje.",
+        "char_count": "6",
+        "usage_context_en": "Very enthusiastic and eager.",
+        "usage_context_es": "Muy entusiasta y con ganas.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_39_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "scared",
+    "phonetic": "/skɛrd/",
+    "spoken_phonetic_us": "/skɛrd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Asustado/a",
+        "usage_example": "The child is scared of the dark.",
+        "pronunciation_guide_es": "/de_CHAILD_is_SKERD_ov_de_DARK/",
+        "usage_example_es": "El niño tiene miedo a la oscuridad.",
+        "char_count": "7",
+        "usage_context_en": "Feeling frightened.",
+        "usage_context_es": "Que siente miedo.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_40_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "bored",
+    "phonetic": "/bɔːrd/",
+    "spoken_phonetic_us": "/bɔːrd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Aburrido/a",
+        "usage_example": "I am bored at home.",
+        "pronunciation_guide_es": "/ai_am_BORD_at_JOUM/",
+        "usage_example_es": "Estoy aburrido en casa.",
+        "char_count": "5",
+        "usage_context_en": "Feeling weary because one is unoccupied or lacks interest.",
+        "usage_context_es": "Sentirse hastiado por estar desocupado o sin interés.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_41_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "wet",
+    "phonetic": "/wɛt/",
+    "spoken_phonetic_us": "/wɛt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical State",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Mojado/a",
+        "usage_example": "My shoes are wet.",
+        "pronunciation_guide_es": "/mai_SHUS_ar_UET/",
+        "usage_example_es": "Mis zapatos están mojados.",
+        "char_count": "4",
+        "usage_context_en": "Covered or saturated with water or another liquid.",
+        "usage_context_es": "Cubierto o saturado de agua u otro líquido.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_42_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "dry",
+    "phonetic": "/draɪ/",
+    "spoken_phonetic_us": "/draɪ/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical State",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Seco/a",
+        "usage_example": "The towel is dry.",
+        "pronunciation_guide_es": "/de_TAU-el_is_DRAI/",
+        "usage_example_es": "La toalla está seca.",
+        "char_count": "4",
+        "usage_context_en": "Free from moisture or liquid.",
+        "usage_context_es": "Libre de humedad o líquido.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_43_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "full",
+    "phonetic": "/fʊl/",
+    "spoken_phonetic_us": "/fʊl/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical State",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Lleno/a",
+        "usage_example": "The glass is full.",
+        "pronunciation_guide_es": "/de_GLAS_is_FUL/",
+        "usage_example_es": "El vaso está lleno.",
+        "char_count": "4",
+        "usage_context_en": "Containing or holding as much as possible.",
+        "usage_context_es": "Que contiene o sostiene tanto como es posible.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_44_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "empty",
+    "phonetic": "/ˈɛmpti/",
+    "spoken_phonetic_us": "/ˈɛmpti/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Physical State",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Vacío/a",
+        "usage_example": "The bottle is empty.",
+        "pronunciation_guide_es": "/de_BO-tel_is_EMP-ti/",
+        "usage_example_es": "La botella está vacía.",
+        "char_count": "4",
+        "usage_context_en": "Containing nothing; not filled.",
+        "usage_context_es": "Que no contiene nada; no lleno.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_45_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "modern",
+    "phonetic": "/ˈmɒdərn/",
+    "spoken_phonetic_us": "/ˈmɑːdərn/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Age & Novelty",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Moderno/a",
+        "usage_example": "This is a modern building.",
+        "pronunciation_guide_es": "/dis_is_a_MO-dern_BIL-ding/",
+        "usage_example_es": "Este es un edificio moderno.",
+        "char_count": "5",
+        "usage_context_en": "Relating to the present or recent times.",
+        "usage_context_es": "Relativo al presente o épocas recientes.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_46_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "quick",
+    "phonetic": "/kwɪk/",
+    "spoken_phonetic_us": "/kwɪk/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Speed & Time",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Rápido/a / Veloz",
+        "usage_example": "He gave a quick answer.",
+        "pronunciation_guide_es": "/JI_geiv_a_KUIK_AN-ser/",
+        "usage_example_es": "Él dio una respuesta rápida.",
+        "char_count": "5",
+        "usage_context_en": "Moving fast or doing something in a short time.",
+        "usage_context_es": "Que se mueve rápido o hace algo en poco tiempo.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_47_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "true",
+    "phonetic": "/truː/",
+    "spoken_phonetic_us": "/truː/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Logic & Evaluation",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Verdadero/a",
+        "usage_example": "That story is true.",
+        "pronunciation_guide_es": "/dat_STO-ri_is_TRU/",
+        "usage_example_es": "Esa historia es verdadera.",
+        "char_count": "4",
+        "usage_context_en": "In accordance with fact or reality.",
+        "usage_context_es": "De acuerdo con un hecho o la realidad.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_48_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "false",
+    "phonetic": "/fɔːls/",
+    "spoken_phonetic_us": "/fɔːls/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Logic & Evaluation",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Falso/a",
+        "usage_example": "That information is false.",
+        "pronunciation_guide_es": "/dat_in-for-MEI-sion_is_FOLS/",
+        "usage_example_es": "Esa información es falsa.",
+        "char_count": "4",
+        "usage_context_en": "Not according with truth or fact; incorrect.",
+        "usage_context_es": "No conforme con la verdad o los hechos; incorrecto.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_49_def0.avif"
+      }
+    ]
+  }
+]

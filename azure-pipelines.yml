@@ -1,0 +1,512 @@
+trigger:
+  branches:
+    include:
+      - main
+      - master
+  paths:
+    include:
+      - azure-pipelines.yml
+      - client/**
+      - backend/**
+      - infra/**
+
+variables:
+  sshConn: 'SrvPortfolio'
+  remotePath: '/root/smart-proxy/flashcard'
+  gcpProject: 'launch-490115'
+  gcpRegion: 'us-east1'
+  imageName: 'gcr.io/launch-490115/flashcard-backend'
+  dockerRegistryConn: 'GCP-Registry-Connection'
+  # Cache de capas Docker persistido en GCR entre runs
+  # Cold build (~15 min), warm build (~3-5 min, solo recompila cambios)
+  cacheRef: 'gcr.io/launch-490115/flashcard-backend:buildcache'
+
+# ═══════════════════════════════════════════════════════════════════════
+# ARQUITECTURA DEL PIPELINE (Jun 2026 — 2 pools)
+#
+#  Stage 1 Build_Frontend  ──┐  PARALELO en LocalBuild (PC dev, ~30 GB RAM)
+#  Stage 2 Build_Backend   ──┘  docker buildx amd64+arm64 → push GCR
+#                                    │
+#                    ┌───────────────┼────────────────┐
+#                    ▼               ▼                ▼
+#            Stage 3 Deploy_Front  Stage 4 Deploy_GCP  Stage 5 Deploy_Mirrors
+#            (Default / Oracle)    (Default)           (Default)
+#                                    │
+#                                    ▼
+#                          Stage 6 Cleanup (limpia workspace agente + artefacto actual)
+#
+# REGLA DE ORO: Oracle ARM (1 GB) NUNCA compila — solo recibe artefactos.
+# Agente LocalBuild: infra/ci/install-local-agent.sh
+#
+# Oracle (flashcard.theruby.lat):
+#   • API → Caddy reverse_proxy localhost:8080 (sin SSH, sin overflow AWS)
+#   • Backend escribe en /root/smart-proxy/repository/flashcard montado en /data
+#   • Scripts canónicos en infra/proxy/*.sh — el pipeline solo los copia y ejecuta
+# ═══════════════════════════════════════════════════════════════════════
+
+stages:
+
+# ───────────────────────────────────────────────────────────────────────
+# STAGE 1: BUILD FRONTEND
+# Agente: LocalBuild (PC dev self-hosted, siempre encendida)
+# ───────────────────────────────────────────────────────────────────────
+- stage: Build_Frontend
+  displayName: '🏗️ 1. Build Front (LocalBuild)'
+  dependsOn: []
+  jobs:
+  - job: BuildFront
+    pool:
+      name: 'LocalBuild'
+    steps:
+    # Cache de módulos bun entre pipeline runs (~30 s ahorrados)
+    - task: Cache@2
+      displayName: 'Cache bun modules'
+      inputs:
+        key: 'bun | "$(Agent.OS)" | client/package.json'
+        restoreKeys: 'bun | "$(Agent.OS)"'
+        path: '$(HOME)/.bun/install/cache'
+
+    - script: |
+        curl -fsSL https://bun.sh/install | bash
+        export PATH=$HOME/.bun/bin:$PATH
+        cd client
+        bun install --frozen-lockfile
+        VITE_API_URL='https://flashcard.theruby.lat' bun run build
+      displayName: 'Bun install + Vite build'
+
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish dist/'
+      inputs:
+        targetPath: 'client/dist'
+        artifact: 'flashcard-site'
+
+# ───────────────────────────────────────────────────────────────────────
+# STAGE 2: BUILD BACKEND — Cross-Compilación cruzada amd64 + arm64
+#
+# Por qué LocalBuild (PC dev) y no Oracle ARM:
+#   • PC dev → ~30 GB RAM, Docker buildx, cache local persistente
+#   • Oracle ARM 1 GB → solo deploy (pool Default), nunca compila
+#
+# Cómo funciona la cross-compilación:
+#   • Dockerfile usa FROM --platform=$BUILDPLATFORM → el builder corre NATIVO en x86_64
+#   • Para arm64 usa aarch64-linux-gnu-gcc (cross-linker, no QEMU)
+#   • QEMU solo se usa para el FROM final (debian:bookworm-slim, trivial)
+#   • cache-to/from GCR → las ~300 crates de dependencias se reutilizan entre runs
+# ───────────────────────────────────────────────────────────────────────
+- stage: Build_Backend
+  displayName: '🦀 2. Cross-Compile Backend (amd64 + arm64)'
+  dependsOn: []
+  variables:
+    - group: Flashcard-Secrets
+  jobs:
+  - job: CrossCompile
+    pool:
+      name: 'LocalBuild'
+    timeoutInMinutes: 45
+    steps:
+    - script: |
+        docker run --privileged --rm tonistiigi/binfmt --install arm64 2>/dev/null || true
+      displayName: 'Registrar binfmt arm64 (si falta)'
+    - task: Docker@2
+      displayName: 'Login GCR'
+      inputs:
+        containerRegistry: $(dockerRegistryConn)
+        command: 'login'
+
+    - script: |
+        set -e
+        export DOCKER_CLIENT_TIMEOUT=300
+        export COMPOSE_HTTP_TIMEOUT=300
+
+        docker run --privileged --rm tonistiigi/binfmt --install arm64
+
+        docker buildx create --use --name ci-builder \
+          --driver docker-container \
+          --driver-opt network=host \
+          2>/dev/null || docker buildx use ci-builder
+        docker buildx inspect --bootstrap
+
+        build_push() {
+          docker buildx build \
+            --provenance=false --sbom=false \
+            --platform linux/amd64,linux/arm64 \
+            -f backend/Dockerfile \
+            -t $(imageName):latest \
+            -t $(imageName):$(Build.BuildId) \
+            --cache-from type=registry,ref=$(cacheRef) \
+            --cache-to   type=registry,ref=$(cacheRef),mode=min \
+            --push \
+            backend
+        }
+
+        gcr_login() {
+          printf '%s' '$(GCP_KEY_JSON)' | docker login -u _json_key --password-stdin https://gcr.io
+        }
+
+        for attempt in 1 2 3; do
+          echo "=== Push GCR intento ${attempt}/3 ==="
+          gcr_login
+          if build_push; then
+            echo "Push GCR OK"
+            exit 0
+          fi
+          echo "Intento ${attempt} falló; reintento en 45s..."
+          sleep 45
+        done
+        echo "Push GCR falló tras 3 intentos"
+        exit 1
+      displayName: 'Buildx cross-compile + push (cache GCR, 3 reintentos)'
+
+# ───────────────────────────────────────────────────────────────────────
+# STAGE 3: DEPLOY FRONTEND → Oracle Caddy
+# Agente: Default (Oracle ARM) — solo sube archivos y reinicia Caddy
+# ───────────────────────────────────────────────────────────────────────
+- stage: Deploy_Frontend
+  displayName: '🚀 3. Deploy Front → Oracle Caddy'
+  dependsOn: Build_Frontend
+  condition: succeeded('Build_Frontend')
+  jobs:
+  - job: DeployFront
+    pool: { name: 'Default' }
+    steps:
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download dist/'
+      inputs:
+        artifact: 'flashcard-site'
+        targetPath: '$(Pipeline.Workspace)/site'
+
+    - task: CopyFilesOverSSH@0
+      displayName: 'Upload SPA → Oracle'
+      inputs:
+        sshEndpoint: $(sshConn)
+        sourceFolder: '$(Pipeline.Workspace)/site'
+        contents: '**'
+        targetFolder: $(remotePath)
+        cleanTargetFolder: true
+
+    - task: SSH@0
+      displayName: 'Ajustar permisos'
+      inputs:
+        sshEndpoint: $(sshConn)
+        runOptions: 'commands'
+        commands: |
+          chown -R 101:101 $(remotePath)
+          chmod -R 755 $(remotePath)
+
+    - task: CopyFilesOverSSH@0
+      displayName: 'Sync infra/proxy → Oracle'
+      inputs:
+        sshEndpoint: $(sshConn)
+        sourceFolder: 'infra/proxy'
+        contents: |
+          Caddyfile
+          Dockerfile
+          entrypoint.sh
+          deploy.sh
+          deploy-caddy.sh
+          deploy-oracle-backend.sh
+          deploy-surrealdb.sh
+          docker-gcr-auth.sh
+          bootstrap-oracle.sh
+          oracle-ram-monitor.sh
+          aws-health-monitor.sh
+          sentinel-handler
+          traffic-manager
+        targetFolder: '/root/smart-proxy/infra-proxy'
+        cleanTargetFolder: false
+
+    - task: SSH@0
+      displayName: 'Bootstrap Oracle proxy (Caddy + monitors)'
+      inputs:
+        sshEndpoint: $(sshConn)
+        runOptions: 'commands'
+        failOnStdErr: false
+        commands: |
+          bash /root/smart-proxy/infra-proxy/bootstrap-oracle.sh --caddy-only
+          curl -sf https://flashcard.theruby.lat/api/health >/dev/null || echo "WARN: API health via Caddy not ready yet"
+          echo "Frontend deploy OK"
+
+# ───────────────────────────────────────────────────────────────────────
+# STAGE 4: DEPLOY BACKEND → GCP Cloud Run
+# Agente: Default (Oracle ARM) — gcloud ya instalado, solo un comando
+# ───────────────────────────────────────────────────────────────────────
+- stage: Deploy_GCP
+  displayName: '☁️ 4. Deploy Backend → GCP Cloud Run'
+  dependsOn:
+    - Build_Backend
+    - Deploy_Frontend
+  condition: succeeded('Build_Backend')
+  variables:
+    - group: Flashcard-Secrets
+  jobs:
+  - job: CloudRunDeploy
+    pool: { name: 'Default' }
+    steps:
+    - script: |
+        gcloud run deploy flashcard-backend \
+          --project $(gcpProject) \
+          --image $(imageName):latest \
+          --region $(gcpRegion) \
+          --platform managed \
+          --allow-unauthenticated \
+          --cpu 1 --memory 512Mi \
+          --concurrency 80 \
+          --set-env-vars "SURREAL_URL=wss://flashcard.theruby.lat/db,GEMINI_API_KEY=$(GEMINI_API_KEY),GCP_API_KEY=$(GCP_API_KEY),RUST_LOG=info,GOOGLE_CLIENT_ID=$(GOOGLE_CLIENT_ID),JWT_SECRET=$(JWT_SECRET),SUPER_ADMIN_EMAIL=$(SUPER_ADMIN_EMAIL),SYNC_TO_ORACLE=true,ORACLE_HOST=$(ORACLE_HOST),ORACLE_SSH_PASSWORD=$(ORACLE_SSH_PASSWORD),ORACLE_REMOTE_PATH=/root/smart-proxy/repository/flashcard,LOCAL_STORAGE_PATH=/tmp,GCS_JSON_PREFIX=json,GCS_IMAGES_PREFIX=card_images,GCS_AUDIO_PREFIX=card_audio"
+      displayName: 'gcloud run deploy'
+
+# ───────────────────────────────────────────────────────────────────────
+# STAGE 5: REPLICATE MIRRORS — Oracle + OCI-1 + AWS
+#
+# Cada servidor solo hace: docker pull + docker run
+# SIN compilar nada — la imagen ya incluye el binario arm64/amd64 correcto
+# ───────────────────────────────────────────────────────────────────────
+- stage: Deploy_Mirrors
+  displayName: '🔁 5. Replicate Mirrors (Oracle / OCI-1 / AWS)'
+  dependsOn:
+    - Build_Backend
+    - Deploy_Frontend
+    - Deploy_GCP
+  condition: |
+    and(
+      succeeded('Deploy_Frontend'),
+      in(dependencies.Deploy_GCP.result, 'Succeeded', 'Skipped')
+    )
+  variables:
+    - group: Flashcard-Secrets
+  jobs:
+
+  # ── A. Oracle Proxy Mirror ──────────────────────────────────────────
+  - job: Mirror_Oracle
+    displayName: 'Oracle Proxy Mirror'
+    pool: { name: 'Default' }
+    steps:
+    - script: |
+        set -euo pipefail
+        GCP_CREDS_B64="$(printf '%s' '$(GCP_KEY_JSON)' | base64 -w0)"
+        echo "##vso[task.setvariable variable=GCP_CREDS_B64;issecret=true]${GCP_CREDS_B64}"
+        SUPER_ADMIN_EMAIL_VAL='$(SUPER_ADMIN_EMAIL)'
+        if [ -z "$SUPER_ADMIN_EMAIL_VAL" ]; then
+          echo "##vso[task.logissue type=error]SUPER_ADMIN_EMAIL no está definido en Flashcard-Secrets"
+          exit 1
+        fi
+        echo "##vso[task.setvariable variable=SUPER_ADMIN_EMAIL_VAL]${SUPER_ADMIN_EMAIL_VAL}"
+      displayName: 'Preparar creds para deploy Oracle (GCP + SUPER_ADMIN_EMAIL)'
+
+    - task: CopyFilesOverSSH@0
+      displayName: 'Sync infra/proxy scripts → Oracle'
+      inputs:
+        sshEndpoint: $(sshConn)
+        sourceFolder: 'infra/proxy'
+        contents: |
+          Caddyfile
+          Dockerfile
+          entrypoint.sh
+          deploy.sh
+          deploy-caddy.sh
+          deploy-oracle-backend.sh
+          deploy-surrealdb.sh
+          docker-gcr-auth.sh
+          bootstrap-oracle.sh
+          oracle-ram-monitor.sh
+          aws-health-monitor.sh
+          sentinel-handler
+          traffic-manager
+        targetFolder: '/root/smart-proxy/infra-proxy'
+        cleanTargetFolder: false
+
+    - task: SSH@0
+      displayName: 'Deploy Oracle backend (env en memoria vía SSH)'
+      inputs:
+        sshEndpoint: $(sshConn)
+        runOptions: inline
+        failOnStdErr: false
+        inline: |
+          set -euo pipefail
+          export DATABASE_URL="$(DATABASE_URL)"
+          export GEMINI_API_KEY="$(GEMINI_API_KEY)"
+          export GCP_API_KEY="$(GCP_API_KEY)"
+          export GOOGLE_CLIENT_ID="$(GOOGLE_CLIENT_ID)"
+          export JWT_SECRET="$(JWT_SECRET)"
+          export SUPER_ADMIN_EMAIL="$(SUPER_ADMIN_EMAIL_VAL)"
+          export GOOGLE_CREDENTIALS_JSON="$(GCP_CREDS_B64)"
+          export RUST_LOG=info
+          export SURREAL_URL=127.0.0.1:8001
+          export SURREAL_NS=flashcard
+          export SURREAL_DB=flashcard
+          export SURREAL_USER=root
+          export SURREAL_PASS=root
+          rm -f /tmp/gcp-deploy-key.json /tmp/flashcard-backend.env
+          bash /root/smart-proxy/infra-proxy/bootstrap-oracle.sh --backend-only --no-monitors
+          curl -sf http://127.0.0.1:8080/api/health
+          curl -sf https://flashcard.theruby.lat/api/health
+          echo "Oracle Mirror OK"
+
+  # ── B. OCI-1 Mirror ────────────────────────────────────────────────
+  - job: Mirror_OCI1
+    displayName: 'OCI-1 Mirror (129.158.214.227)'
+    dependsOn: Mirror_Oracle
+    pool: { name: 'Default' }
+    steps:
+    - script: |
+        set -euo pipefail
+        command -v sshpass >/dev/null || { echo "sshpass no instalado en el agente"; exit 1; }
+        GCP_CREDS_B64="$(printf '%s' '$(GCP_KEY_JSON)' | base64 -w0)"
+        cat > $(Agent.TempDirectory)/deploy-oci1.sh << EOF
+        #!/bin/bash
+        set -euo pipefail
+        IMAGE="gcr.io/launch-490115/flashcard-backend:latest"
+        CONTAINER="flashcard-backend-node"
+        GOOGLE_CREDENTIALS_JSON="${GCP_CREDS_B64}"
+        KEY_TMP="\$(mktemp /tmp/gcp-key-XXXXXX)"
+        AUTH_TMP="\$(mktemp -d /tmp/docker-auth-XXXXXX)"
+        chmod 600 "\$KEY_TMP"
+        chmod 700 "\$AUTH_TMP"
+        trap 'rm -rf "\$AUTH_TMP" "\$KEY_TMP" /tmp/gcp-deploy-key.json' EXIT
+        printf '%s' "\$GOOGLE_CREDENTIALS_JSON" | base64 -d > "\$KEY_TMP"
+        export DOCKER_CONFIG="\$AUTH_TMP"
+        cat "\$KEY_TMP" | docker login -u _json_key --password-stdin https://gcr.io >/dev/null
+        docker pull "\$IMAGE"
+        rm -rf "\$AUTH_TMP"
+        unset DOCKER_CONFIG
+        docker stop "\$CONTAINER" 2>/dev/null || true
+        docker rm   "\$CONTAINER" 2>/dev/null || true
+        docker run -d --name "\$CONTAINER" -p 8080:8080 --restart always \
+          -e DATABASE_URL="$(DATABASE_URL)" \
+          -e GEMINI_API_KEY="$(GEMINI_API_KEY)" \
+          -e GCP_API_KEY="$(GCP_API_KEY)" \
+          -e GOOGLE_CREDENTIALS_JSON="\$GOOGLE_CREDENTIALS_JSON" \
+          -e RUST_LOG="info" \
+          -e GOOGLE_CLIENT_ID="$(GOOGLE_CLIENT_ID)" \
+          -e JWT_SECRET="$(JWT_SECRET)" \
+          "\$IMAGE"
+        rm -f "\$KEY_TMP" /tmp/gcp-deploy-key.json
+        echo "OCI-1 Mirror OK"
+        EOF
+        chmod +x $(Agent.TempDirectory)/deploy-oci1.sh
+        sshpass -p '$(OCI_PASSWORD)' scp -o StrictHostKeyChecking=no \
+          $(Agent.TempDirectory)/deploy-oci1.sh \
+          root@129.158.214.227:/tmp/
+        sshpass -p '$(OCI_PASSWORD)' ssh -o StrictHostKeyChecking=no \
+          root@129.158.214.227 'bash /tmp/deploy-oci1.sh'
+      displayName: 'Deploy OCI-1'
+
+  # ── C. AWS Mirror ───────────────────────────────────────────────────
+  - job: Mirror_AWS
+    displayName: 'AWS Mirror (34.229.229.255)'
+    dependsOn: Mirror_OCI1
+    pool: { name: 'Default' }
+    steps:
+    - script: |
+        set -euo pipefail
+        command -v sshpass >/dev/null || { echo "sshpass no instalado en el agente"; exit 1; }
+        GCP_CREDS_B64="$(printf '%s' '$(GCP_KEY_JSON)' | base64 -w0)"
+        SUPER_ADMIN_EMAIL_VAL='$(SUPER_ADMIN_EMAIL)'
+        ORACLE_HOST_VAL='$(ORACLE_HOST)'
+        ORACLE_SSH_PASSWORD_VAL='$(ORACLE_SSH_PASSWORD)'
+        cat > $(Agent.TempDirectory)/deploy-aws.sh << EOF
+        #!/bin/sh
+        set -eu
+        IMAGE="gcr.io/launch-490115/flashcard-backend:latest"
+        CONTAINER="flashcard-backend-node"
+        GOOGLE_CREDENTIALS_JSON="${GCP_CREDS_B64}"
+        KEY_TMP="\$(mktemp /tmp/gcp-key-XXXXXX)"
+        AUTH_TMP="\$(mktemp -d /tmp/docker-auth-XXXXXX)"
+        chmod 600 "\$KEY_TMP"
+        chmod 700 "\$AUTH_TMP"
+        trap 'rm -rf "\$AUTH_TMP" "\$KEY_TMP" /tmp/gcp-deploy-key.json' EXIT
+        printf '%s' "\$GOOGLE_CREDENTIALS_JSON" | base64 -d > "\$KEY_TMP"
+        export DOCKER_CONFIG="\$AUTH_TMP"
+        cat "\$KEY_TMP" | doas docker login -u _json_key --password-stdin https://gcr.io >/dev/null
+        doas docker pull "\$IMAGE"
+        rm -rf "\$AUTH_TMP"
+        unset DOCKER_CONFIG
+        doas docker stop "\$CONTAINER" 2>/dev/null || true
+        doas docker rm   "\$CONTAINER" 2>/dev/null || true
+        doas docker run -d --name "\$CONTAINER" \
+          --network host --restart always \
+          -e DATABASE_URL="$(DATABASE_URL)" \
+          -e SURREAL_URL="wss://flashcard.theruby.lat/db" \
+          -e SURREAL_NS="flashcard" -e SURREAL_DB="flashcard" \
+          -e SURREAL_USER="root" -e SURREAL_PASS="root" \
+          -e GEMINI_API_KEY="$(GEMINI_API_KEY)" \
+          -e GCP_API_KEY="$(GCP_API_KEY)" \
+          -e GOOGLE_CREDENTIALS_JSON="\$GOOGLE_CREDENTIALS_JSON" \
+          -e RUST_LOG="info" -e PORT="8080" \
+          -e GOOGLE_CLIENT_ID="$(GOOGLE_CLIENT_ID)" \
+          -e JWT_SECRET="$(JWT_SECRET)" \
+          -e SUPER_ADMIN_EMAIL="${SUPER_ADMIN_EMAIL_VAL}" \
+          -e SYNC_TO_ORACLE="true" \
+          -e ORACLE_HOST="${ORACLE_HOST_VAL}" \
+          -e ORACLE_SSH_PASSWORD="${ORACLE_SSH_PASSWORD_VAL}" \
+          -e ORACLE_REMOTE_PATH="/root/smart-proxy/repository/flashcard" \
+          -e LOCAL_STORAGE_PATH="/tmp" \
+          -e GCS_JSON_PREFIX="json" \
+          -e GCS_IMAGES_PREFIX="card_images" \
+          -e GCS_AUDIO_PREFIX="card_audio" \
+          "\$IMAGE"
+        rm -f "\$KEY_TMP" /tmp/gcp-deploy-key.json
+        echo "AWS Mirror OK"
+        EOF
+        chmod +x $(Agent.TempDirectory)/deploy-aws.sh
+        sshpass -p '$(OCI_PASSWORD)' scp -o StrictHostKeyChecking=no \
+          $(Agent.TempDirectory)/deploy-aws.sh \
+          alpine@34.229.229.255:/tmp/
+        sshpass -p '$(OCI_PASSWORD)' ssh -o StrictHostKeyChecking=no \
+          -o PreferredAuthentications=password \
+          alpine@34.229.229.255 'sh /tmp/deploy-aws.sh'
+      displayName: 'Deploy AWS'
+
+# ───────────────────────────────────────────────────────────────────────
+# STAGE 6: CLEANUP — Borrar artefactos ADO y logs del agente tras deploy
+# ───────────────────────────────────────────────────────────────────────
+- stage: Cleanup
+  displayName: '🧹 6. Cleanup (artifacts + logs)'
+  dependsOn: Deploy_Mirrors
+  condition: |
+    in(dependencies.Deploy_Mirrors.result, 'Succeeded', 'Skipped')
+  jobs:
+
+  - job: Cleanup_Default
+    displayName: 'Cleanup agent Default + delete ADO artifact'
+    pool: { name: 'Default' }
+    steps:
+    - checkout: none
+    - script: |
+        set -euo pipefail
+        echo "Cleaning Default agent workspace..."
+        rm -rf "$(Pipeline.Workspace)/site" "$(Pipeline.Workspace)/s" 2>/dev/null || true
+        rm -f /tmp/deploy-oci1.sh /tmp/deploy-aws.sh 2>/dev/null || true
+        find "$(Pipeline.Workspace)" -maxdepth 5 -name "*.log" -type f -delete 2>/dev/null || true
+        find "$(Agent.TempDirectory)" -maxdepth 3 -type f -delete 2>/dev/null || true
+
+        echo "Deleting pipeline artifact flashcard-site (build $(Build.BuildId))..."
+        ORG_URL="$(System.CollectionUri)"
+        PROJECT="$(System.TeamProject)"
+        BUILD_ID="$(Build.BuildId)"
+        HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X DELETE \
+          -H "Authorization: Bearer $(System.AccessToken)" \
+          "${ORG_URL}${PROJECT}/_apis/build/builds/${BUILD_ID}/artifacts?artifactName=flashcard-site&api-version=7.1" || echo "000")
+        if [ "$HTTP_CODE" = "204" ] || [ "$HTTP_CODE" = "200" ]; then
+          echo "ADO artifact flashcard-site deleted (HTTP $HTTP_CODE)"
+        else
+          echo "WARN: could not delete ADO artifact (HTTP $HTTP_CODE)"
+        fi
+        echo "Default cleanup OK"
+      displayName: 'Clean workspace + delete current ADO artifact'
+      env:
+        SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+
+  - job: Cleanup_LocalBuild
+    displayName: 'Cleanup agent LocalBuild'
+    pool: { name: 'LocalBuild' }
+    steps:
+    - checkout: none
+    - script: |
+        set -euo pipefail
+        echo "Cleaning LocalBuild agent workspace..."
+        rm -rf "$(Pipeline.Workspace)/site" "$(Pipeline.Workspace)/s/client/dist" 2>/dev/null || true
+        find "$(Pipeline.Workspace)" -maxdepth 6 -name "*.log" -type f -delete 2>/dev/null || true
+        find "$(Agent.TempDirectory)" -maxdepth 3 -type f -delete 2>/dev/null || true
+        docker buildx prune -f --filter "until=24h" 2>/dev/null || true
+        echo "LocalBuild cleanup OK"
+      displayName: 'Clean build artifacts and logs'

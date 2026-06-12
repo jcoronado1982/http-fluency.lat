@@ -1,0 +1,153 @@
+/* src/features/reference/PronounTable.css */
+
+.tableContainer {
+    min-height: 100vh;
+    background: radial-gradient(circle at top left, #f8faff 0%, #eef2ff 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #1e293b;
+}
+
+.tableHeader {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.mainTitle {
+    font-family: 'Playfair Display', serif; /* Elegant Serif Title */
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin: 0;
+    color: #0f172a;
+    text-transform: uppercase;
+}
+
+.subTitle {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-top: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.glassCard {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 32px;
+    padding: 20px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.04),
+        0 0 0 1px rgba(0, 0, 0, 0.02);
+    width: 100%;
+    max-width: 1000px;
+    overflow-x: auto;
+}
+
+.pronounTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.pronounTable th {
+    text-align: left;
+    padding: 20px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #94a3b8;
+    letter-spacing: 1px;
+    font-weight: 700;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.pronounTable td {
+    padding: 20px;
+    background: transparent;
+    transition: all 0.2s ease;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.pronounTable tr:hover td {
+    background: #ffffff;
+    transform: scale(1.01);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.pronounTable tr td:first-child {
+    border-radius: 16px 0 0 16px;
+}
+
+.pronounTable tr td:last-child {
+    border-radius: 0 16px 16px 0;
+}
+
+.personCell {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.engDesc {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.spaDesc {
+    font-size: 0.8rem;
+    color: #0066CC;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.cellInput {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.03);
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: #0f172a;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.cellInput:focus {
+    background: #ffffff;
+    border-color: #0066CC;
+    box-shadow: 0 0 10px rgba(0, 102, 204, 0.15);
+}
+
+.cellInput::placeholder {
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+.highlightCell {
+    color: #0f172a;
+    font-weight: 800;
+}
+
+.tableFooter {
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.glassCard {
+    animation: fadeIn 0.8s ease-out;
+}

@@ -1,0 +1,1313 @@
+[
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "confident",
+    "phonetic": "/ˈkɒnfɪdənt/",
+    "spoken_phonetic_us": "/ˈkɑnfɪdənt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Seguro/a (de sí mismo)",
+        "usage_example": "She is confident about the presentation.",
+        "pronunciation_guide_es": "/shi_is_CON-fi-dent_a-BAUT_de_pre-sen-TEI-shon/",
+        "usage_example_es": "Ella está segura de la presentación.",
+        "char_count": "6",
+        "usage_context_en": "Feeling or showing self-assurance and certainty.",
+        "usage_context_es": "Sentir o mostrar seguridad en uno mismo y certeza.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_0_def0.avif",
+        "imageMetadata": {
+          "source": "local_comfyui",
+          "model": "flux-1-schnell",
+          "generatedAt": "2026-02-13T09:40:16.695026"
+        }
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "reliable",
+    "phonetic": "/rɪˈlaɪəbəl/",
+    "spoken_phonetic_us": "/rɪˈlaɪəbəl/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Fiable / Confiable",
+        "usage_example": "He is a reliable employee.",
+        "pronunciation_guide_es": "/hi_is_a_ri-LAI-a-bol_em-ploi-I/",
+        "usage_example_es": "Él es un empleado confiable.",
+        "char_count": "5",
+        "usage_context_en": "Consistently good in quality or performance; trustworthy.",
+        "usage_context_es": "Consistentemente bueno en calidad o desempeño; digno de confianza.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_1_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "honest",
+    "phonetic": "/ˈɒnɪst/",
+    "spoken_phonetic_us": "/ˈɑnɪst/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Honesto/a / Sincero/a",
+        "usage_example": "Please be honest with me.",
+        "pronunciation_guide_es": "/PLIS_bi_O-nest_uiz_MI/",
+        "usage_example_es": "Por favor, sé honesto conmigo.",
+        "char_count": "5",
+        "usage_context_en": "Truthful and sincere; not lying or cheating.",
+        "usage_context_es": "Veraz y sincero; que no miente ni engaña.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_2_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "responsible",
+    "phonetic": "/rɪˈspɒnsəbəl/",
+    "spoken_phonetic_us": "/rɪˈspɑnsəbəl/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Responsable",
+        "usage_example": "You are responsible for this task.",
+        "pronunciation_guide_es": "/iu_ar_ris-PON-si-bol_for_dis_TASK/",
+        "usage_example_es": "Tú eres responsable de esta tarea.",
+        "char_count": "6",
+        "usage_context_en": "Having a duty to deal with something; accountable.",
+        "usage_context_es": "Tener el deber de lidiar con algo; ser responsable.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_3_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "independent",
+    "phonetic": "/ˌɪndɪˈpɛndənt/",
+    "spoken_phonetic_us": "/ˌɪndɪˈpɛndənt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Independiente",
+        "usage_example": "He is a very independent person.",
+        "pronunciation_guide_es": "/hi_is_a_VE-ri_in-di-PEN-dent_PER-son/",
+        "usage_example_es": "Él es una persona muy independiente.",
+        "char_count": "6",
+        "usage_context_en": "Not depending on another for help or money.",
+        "usage_context_es": "Que no depende de otro para ayuda o dinero.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_4_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "creative",
+    "phonetic": "/kriˈeɪtɪv/",
+    "spoken_phonetic_us": "/kriˈeɪtɪv/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Creativo/a",
+        "usage_example": "The artist is very creative.",
+        "pronunciation_guide_es": "/di_AR-tist_is_VE-ri_cri-EI-tiv/",
+        "usage_example_es": "El artista es muy creativo.",
+        "char_count": "5",
+        "usage_context_en": "Involving imagination or original ideas.",
+        "usage_context_es": "Que involucra imaginación o ideas originales.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_5_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "generous",
+    "phonetic": "/ˈdʒɛnərəs/",
+    "spoken_phonetic_us": "/ˈdʒɛnərəs/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Generoso/a",
+        "usage_example": "Thank you, that is very generous.",
+        "pronunciation_guide_es": "/ZANK_iu_dat_is_VE-ri_YE-ne-ros/",
+        "usage_example_es": "Gracias, eso es muy generoso.",
+        "char_count": "6",
+        "usage_context_en": "Willing to give more money, help, or time than is usual or expected.",
+        "usage_context_es": "Dispuesto a dar más dinero, ayuda o tiempo de lo habitual o esperado.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_6_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "selfish",
+    "phonetic": "/ˈsɛlfɪʃ/",
+    "spoken_phonetic_us": "/ˈsɛlfɪʃ/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Egoísta",
+        "usage_example": "Don't be selfish, share your toys.",
+        "pronunciation_guide_es": "/DONT_bi_SEL-fish_SHER_iur_TOIS/",
+        "usage_example_es": "No seas egoísta, comparte tus juguetes.",
+        "char_count": "6",
+        "usage_context_en": "Lacking consideration for others; concerned chiefly with one's own profit or pleasure.",
+        "usage_context_es": "Falto de consideración por los demás; preocupado principalmente por el beneficio o placer propio.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_7_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "ambitious",
+    "phonetic": "/æmˈbɪʃəs/",
+    "spoken_phonetic_us": "/æmˈbɪʃəs/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Ambicioso/a",
+        "usage_example": "She is an ambitious student.",
+        "pronunciation_guide_es": "/shi_is_an_am-BI-shos_STU-dent/",
+        "usage_example_es": "Ella es una estudiante ambiciosa.",
+        "char_count": "5",
+        "usage_context_en": "Having or showing a strong desire and determination to succeed.",
+        "usage_context_es": "Tener o mostrar un fuerte deseo y determinación para triunfar.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_8_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "organized",
+    "phonetic": "/ˈɔːɡənaɪzd/",
+    "spoken_phonetic_us": "/ˈɔrɡənaɪzd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Organizado/a",
+        "usage_example": "Her desk is always organized.",
+        "pronunciation_guide_es": "/her_DESK_is_OL-ueis_OR-ga-naizd/",
+        "usage_example_es": "Su escritorio está siempre organizado.",
+        "char_count": "5",
+        "usage_context_en": "Arranged or structured in a systematic way.",
+        "usage_context_es": "Arreglado o estructurado de forma sistemática.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_9_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "sensitive",
+    "phonetic": "/ˈsɛnsɪtɪv/",
+    "spoken_phonetic_us": "/ˈsɛnsɪtɪv/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Sensible (emocionalmente)",
+        "usage_example": "He is very sensitive to criticism.",
+        "pronunciation_guide_es": "/hi_is_VE-ri_SEN-si-tiv_tu_CRI-ti-si-som/",
+        "usage_example_es": "Él es muy sensible a las críticas.",
+        "char_count": "6",
+        "usage_context_en": "Quick to detect or respond to slight changes; easily hurt or offended.",
+        "usage_context_es": "Rápido para detectar o responder a pequeños cambios; fácil de herir u ofender.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_10_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "sensible",
+    "phonetic": "/ˈsɛnsəbəl/",
+    "spoken_phonetic_us": "/ˈsɛnsəbəl/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Sensato/a / Razonable",
+        "usage_example": "That is a sensible decision.",
+        "pronunciation_guide_es": "/dat_is_a_SEN-si-bol_de-SI-shon/",
+        "usage_example_es": "Esa es una decisión sensata.",
+        "char_count": "5",
+        "usage_context_en": "Having or showing common sense and good judgment; practical.",
+        "usage_context_es": "Tener o mostrar sentido común y buen juicio; práctico.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_11_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "hardworking",
+    "phonetic": "/ˌhɑːdˈwɜːkɪŋ/",
+    "spoken_phonetic_us": "/ˌhɑrdˈwɜrkɪŋ/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Trabajador/a",
+        "usage_example": "She is a hardworking employee.",
+        "pronunciation_guide_es": "/shi_is_a_HARD-uor-king_em-ploi-I/",
+        "usage_example_es": "Ella es una empleada trabajadora.",
+        "char_count": "5",
+        "usage_context_en": "Tending to work with energy and commitment.",
+        "usage_context_es": "Que tiende a trabajar con energía y compromiso.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_12_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "careful",
+    "phonetic": "/ˈkɛəfəl/",
+    "spoken_phonetic_us": "/ˈkɛrfəl/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Cuidadoso/a",
+        "usage_example": "Please be careful with the glass.",
+        "pronunciation_guide_es": "/PLIS_bi_KER-ful_uiz_de_GLAS/",
+        "usage_example_es": "Por favor, sé cuidadoso con el vaso.",
+        "char_count": "6",
+        "usage_context_en": "Making sure to avoid potential danger, harm, or mistakes.",
+        "usage_context_es": "Asegurarse de evitar peligros, daños o errores potenciales.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_13_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "relaxed",
+    "phonetic": "/rɪˈlækst/",
+    "spoken_phonetic_us": "/rɪˈlækst/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Relajado/a",
+        "usage_example": "I feel relaxed after the vacation.",
+        "pronunciation_guide_es": "/ai_FIL_ri-LAKST_AF-ter_de_ve-KEI-shon/",
+        "usage_example_es": "Me siento relajado después de las vacaciones.",
+        "char_count": "6",
+        "usage_context_en": "Free from tension and anxiety.",
+        "usage_context_es": "Libre de tensión y ansiedad.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_14_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "worried",
+    "phonetic": "/ˈwʌrid/",
+    "spoken_phonetic_us": "/ˈwɜrid/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Preocupado/a",
+        "usage_example": "He is worried about the test.",
+        "pronunciation_guide_es": "/hi_is_UOR-rid_a-BAUT_de_TEST/",
+        "usage_example_es": "Él está preocupado por el examen.",
+        "char_count": "6",
+        "usage_context_en": "Feeling or showing anxiety about actual or potential problems.",
+        "usage_context_es": "Sentir o mostrar ansiedad por problemas reales o potenciales.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_15_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "surprised",
+    "phonetic": "/səˈpraɪzd/",
+    "spoken_phonetic_us": "/sərˈpraɪzd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Sorprendido/a",
+        "usage_example": "I was surprised by the news.",
+        "pronunciation_guide_es": "/ai_uas_sor-PRAISD_bai_de_NIUS/",
+        "usage_example_es": "Me sorprendieron las noticias.",
+        "char_count": "6",
+        "usage_context_en": "Feeling or showing mild shock or astonishment.",
+        "usage_context_es": "Sentir o mostrar un leve shock o asombro.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_16_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "disappointed",
+    "phonetic": "/ˌdɪsəˈpɔɪntɪd/",
+    "spoken_phonetic_us": "/ˌdɪsəˈpɔɪntɪd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Decepcionado/a",
+        "usage_example": "She was disappointed with her grade.",
+        "pronunciation_guide_es": "/shi_uas_dis-a-POIN-ted_uiz_her_GREID/",
+        "usage_example_es": "Ella estaba decepcionada con su nota.",
+        "char_count": "6",
+        "usage_context_en": "Sad or displeased because someone or something has failed to fulfill one's hopes or expectations.",
+        "usage_context_es": "Triste o disgustado porque alguien o algo no ha cumplido las esperanzas o expectativas.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_17_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "confused",
+    "phonetic": "/kənˈfjuːzd/",
+    "spoken_phonetic_us": "/kənˈfjuːzd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Confundido/a",
+        "usage_example": "I am confused by the instructions.",
+        "pronunciation_guide_es": "/ai_am_con-FIUSD_bai_de_in-STROK-shons/",
+        "usage_example_es": "Estoy confundido por las instrucciones.",
+        "char_count": "6",
+        "usage_context_en": "Unable to think clearly or to understand something.",
+        "usage_context_es": "Incapaz de pensar con claridad o de entender algo.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_18_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "curious",
+    "phonetic": "/ˈkjʊəriəs/",
+    "spoken_phonetic_us": "/ˈkjʊriəs/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Curioso/a",
+        "usage_example": "The cat is curious about the box.",
+        "pronunciation_guide_es": "/de_CAT_is_KIU-ri-os_a-BAUT_de_BOX/",
+        "usage_example_es": "El gato tiene curiosidad por la caja.",
+        "char_count": "7",
+        "usage_context_en": "Eager to know or learn something.",
+        "usage_context_es": "Ansioso por saber o aprender algo.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_19_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "lucky",
+    "phonetic": "/ˈlʌki/",
+    "spoken_phonetic_us": "/ˈlʌki/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "State & Fortune",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Afortunado/a / Con suerte",
+        "usage_example": "You are lucky to win.",
+        "pronunciation_guide_es": "/iu_ar_LO-ki_tu_UIN/",
+        "usage_example_es": "Eres afortunado de ganar.",
+        "char_count": "5",
+        "usage_context_en": "Having, bringing, or resulting from good luck.",
+        "usage_context_es": "Tener, traer o resultar de la buena suerte.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_20_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "unlucky",
+    "phonetic": "/ʌnˈlʌki/",
+    "spoken_phonetic_us": "/ʌnˈlʌki/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "State & Fortune",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Desafortunado/a / Sin suerte",
+        "usage_example": "He was unlucky in the game.",
+        "pronunciation_guide_es": "/hi_uas_on-LO-ki_in_de_GUEIM/",
+        "usage_example_es": "Él tuvo mala suerte en el juego.",
+        "char_count": "6",
+        "usage_context_en": "Having, bringing, or resulting from bad luck.",
+        "usage_context_es": "Tener, traer o resultar de la mala suerte.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_21_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "afraid",
+    "phonetic": "/əˈfreɪd/",
+    "spoken_phonetic_us": "/əˈfreɪd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Asustado/a / Con miedo (de)",
+        "usage_example": "The child is afraid of the dark.",
+        "pronunciation_guide_es": "/de_CHAILD_is_a-FREID_of_de_DARK/",
+        "usage_example_es": "El niño le tiene miedo a la oscuridad.",
+        "char_count": "7",
+        "usage_context_en": "Feeling fear or anxiety; frightened.",
+        "usage_context_es": "Sentir miedo o ansiedad; asustado.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_22_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "interested",
+    "phonetic": "/ˈɪntrəstɪd/",
+    "spoken_phonetic_us": "/ˈɪntrəstɪd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Interesado/a",
+        "usage_example": "I am interested in history.",
+        "pronunciation_guide_es": "/ai_am_IN-tres-ted_in_HIS-to-ri/",
+        "usage_example_es": "Estoy interesado en la historia.",
+        "char_count": "5",
+        "usage_context_en": "Showing curiosity or concern about something or someone.",
+        "usage_context_es": "Mostrar curiosidad o preocupación por algo o alguien.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_23_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "thoughtful",
+    "phonetic": "/ˈθɔːtfəl/",
+    "spoken_phonetic_us": "/ˈθɔtfəl/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Considerado/a / Atento/a",
+        "usage_example": "That was a thoughtful gift.",
+        "pronunciation_guide_es": "/dat_uas_a_ZOT-ful_GUIFT/",
+        "usage_example_es": "Ese fue un regalo muy considerado.",
+        "char_count": "5",
+        "usage_context_en": "Showing consideration for the needs of other people.",
+        "usage_context_es": "Mostrar consideración por las necesidades de otras personas.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_24_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "serious",
+    "phonetic": "/ˈsɪəriəs/",
+    "spoken_phonetic_us": "/ˈsɪriəs/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Serio/a (personalidad)",
+        "usage_example": "Why are you so serious?",
+        "pronunciation_guide_es": "/uai_ar_iu_sou_SI-ri-os/",
+        "usage_example_es": "¿Por qué estás tan serio?",
+        "char_count": "5",
+        "usage_context_en": "Not joking or lighthearted; thoughtful.",
+        "usage_context_es": "Que no bromea o es alegre; pensativo.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_25_def0.avif"
+      },
+      {
+        "meaning": "Grave (situación)",
+        "usage_example": "This is a serious problem.",
+        "pronunciation_guide_es": "/dis_is_a_SI-ri-os_PRO-blem/",
+        "usage_example_es": "Este es un problema grave.",
+        "char_count": "5",
+        "usage_context_en": "Important; demanding consideration; not trivial.",
+        "usage_context_es": "Importante; que exige consideración; no trivial.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_25_def1.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "patient",
+    "phonetic": "/ˈpeɪʃənt/",
+    "spoken_phonetic_us": "/ˈpeɪʃənt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Paciente",
+        "usage_example": "The teacher is patient with the students.",
+        "pronunciation_guide_es": "/de_TI-cher_is_PEI-shent_uiz_de_STU-dents/",
+        "usage_example_es": "La profesora es paciente con los estudiantes.",
+        "char_count": "7",
+        "usage_context_en": "Able to accept or tolerate delays or problems without becoming annoyed or anxious.",
+        "usage_context_es": "Capaz de aceptar o tolerar retrasos o problemas sin molestarse o ponerse ansioso.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_26_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "shy",
+    "phonetic": "/ʃaɪ/",
+    "spoken_phonetic_us": "/ʃaɪ/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Tímido/a",
+        "usage_example": "The shy child hid behind his mother.",
+        "pronunciation_guide_es": "/de_SHAI_CHAILD_hid_bi-HAIND_his_MO-der/",
+        "usage_example_es": "El niño tímido se escondió detrás de su madre.",
+        "char_count": "7",
+        "usage_context_en": "Being nervous or timid in the company of other people.",
+        "usage_context_es": "Estar nervioso o tímido en compañía de otras personas.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_27_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "proud",
+    "phonetic": "/praʊd/",
+    "spoken_phonetic_us": "/praʊd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Orgulloso/a",
+        "usage_example": "I am proud of your work.",
+        "pronunciation_guide_es": "/ai_am_PRAUD_of_iur_UORK/",
+        "usage_example_es": "Estoy orgulloso de tu trabajo.",
+        "char_count": "6",
+        "usage_context_en": "Feeling deep pleasure or satisfaction as a result of one's own achievements or qualities.",
+        "usage_context_es": "Sentir profundo placer o satisfacción como resultado de los propios logros o cualidades.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_28_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "embarrassed",
+    "phonetic": "/ɪmˈbærəst/",
+    "spoken_phonetic_us": "/ɪmˈbærəst/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Avergonzado/a",
+        "usage_example": "He was embarrassed by his mistake.",
+        "pronunciation_guide_es": "/hi_uas_em-BA-rast_bai_his_mis-TEIK/",
+        "usage_example_es": "Estaba avergonzado por su error.",
+        "char_count": "6",
+        "usage_context_en": "Feeling awkward, self-conscious, or ashamed.",
+        "usage_context_es": "Sentirse incómodo, cohibido o avergonzado.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_29_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "annoyed",
+    "phonetic": "/əˈnɔɪd/",
+    "spoken_phonetic_us": "/əˈnɔɪd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Molesto/a / Irritado/a",
+        "usage_example": "She was annoyed by the noise.",
+        "pronunciation_guide_es": "/shi_uas_a-NOID_bai_de_NOIS/",
+        "usage_example_es": "Ella estaba molesta por el ruido.",
+        "char_count": "6",
+        "usage_context_en": "Slightly angry; irritated.",
+        "usage_context_es": "Ligeramente enojado; irritado.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_30_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "upset",
+    "phonetic": "/ʌpˈsɛt/",
+    "spoken_phonetic_us": "/ʌpˈsɛt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Molesto/a / Afligido/a",
+        "usage_example": "He is upset about the bad news.",
+        "pronunciation_guide_es": "/hi_is_op-SET_a-BAUT_de_BAD_NIUS/",
+        "usage_example_es": "Él está molesto por las malas noticias.",
+        "char_count": "7",
+        "usage_context_en": "Unhappy, disappointed, or worried.",
+        "usage_context_es": "Infeliz, decepcionado o preocupado.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_31_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "flexible",
+    "phonetic": "/ˈflɛksɪbəl/",
+    "spoken_phonetic_us": "/ˈflɛksɪbəl/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Flexible / Adaptable",
+        "usage_example": "A good leader must be flexible.",
+        "pronunciation_guide_es": "/a_GUD_LI-der_most_bi_FLEK-si-bel/",
+        "usage_example_es": "Un buen líder debe ser flexible.",
+        "char_count": "6",
+        "usage_context_en": "Ready and able to change so as to adapt to different circumstances.",
+        "usage_context_es": "Dispuesto y capaz de cambiar para adaptarse a diferentes circunstancias.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_32_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "tolerant",
+    "phonetic": "/ˈtɒlərənt/",
+    "spoken_phonetic_us": "/ˈtɑːlərənt/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Tolerante",
+        "usage_example": "She is very tolerant of other opinions.",
+        "pronunciation_guide_es": "/SHI_is_VE-ri_TO-le-rant_ov_O-der_o-PI-nions/",
+        "usage_example_es": "Ella es muy tolerante con las opiniones de los demás.",
+        "char_count": "7",
+        "usage_context_en": "Showing willingness to allow the existence of opinions different from one's own.",
+        "usage_context_es": "Que muestra disposición a permitir la existencia de opiniones distintas.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_33_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "stubborn",
+    "phonetic": "/ˈstʌbərn/",
+    "spoken_phonetic_us": "/ˈstʌbərn/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Terco/a / Obstinado/a",
+        "usage_example": "He is too stubborn to apologize.",
+        "pronunciation_guide_es": "/JI_is_TU_STOB-ern_tu_a-PO-lo-yais/",
+        "usage_example_es": "Él es demasiado terco para disculparse.",
+        "char_count": "6",
+        "usage_context_en": "Having or showing dogged determination not to change one's attitude.",
+        "usage_context_es": "Tener o mostrar determinación obstinada de no cambiar de actitud.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_34_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "optimistic",
+    "phonetic": "/ˌɒptɪˈmɪstɪk/",
+    "spoken_phonetic_us": "/ˌɑːptɪˈmɪstɪk/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Optimista",
+        "usage_example": "She always has an optimistic attitude.",
+        "pronunciation_guide_es": "/SHI_OL-ueis_has_an_op-ti-MIS-tik_A-ti-tud/",
+        "usage_example_es": "Ella siempre tiene una actitud optimista.",
+        "char_count": "6",
+        "usage_context_en": "Hopeful and confident about the future.",
+        "usage_context_es": "Con esperanza y confianza en el futuro.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_35_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "pessimistic",
+    "phonetic": "/ˌpɛsɪˈmɪstɪk/",
+    "spoken_phonetic_us": "/ˌpɛsɪˈmɪstɪk/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Pesimista",
+        "usage_example": "He tends to be pessimistic about the future.",
+        "pronunciation_guide_es": "/JI_tends_tu_bi_pe-si-MIS-tik_a-BAUT_de_FIU-cher/",
+        "usage_example_es": "Él tiende a ser pesimista sobre el futuro.",
+        "char_count": "8",
+        "usage_context_en": "Tending to see the worst aspect of things.",
+        "usage_context_es": "Con tendencia a ver el peor aspecto de las cosas.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_36_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "disciplined",
+    "phonetic": "/ˈdɪsɪplɪnd/",
+    "spoken_phonetic_us": "/ˈdɪsɪplɪnd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Personality Traits",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Disciplinado/a",
+        "usage_example": "She is disciplined in her studies.",
+        "pronunciation_guide_es": "/SHI_is_DI-si-plind_in_her_STO-dis/",
+        "usage_example_es": "Ella es disciplinada en sus estudios.",
+        "char_count": "6",
+        "usage_context_en": "Showing a controlled form of behavior or way of working.",
+        "usage_context_es": "Que muestra una forma controlada de comportarse o trabajar.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_37_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "overwhelmed",
+    "phonetic": "/ˌoʊvərˈwɛlmd/",
+    "spoken_phonetic_us": "/ˌoʊvərˈwɛlmd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Abrumado/a",
+        "usage_example": "She felt overwhelmed by the workload.",
+        "pronunciation_guide_es": "/SHI_felt_ou-ver-UELMD_bai_de_UORK-loud/",
+        "usage_example_es": "Ella se sintió abrumada por la carga de trabajo.",
+        "char_count": "6",
+        "usage_context_en": "Buried or drowned beneath a huge mass of something.",
+        "usage_context_es": "Enterrado o ahogado bajo una gran cantidad de algo.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_38_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "frustrated",
+    "phonetic": "/ˈfrʌstreɪtɪd/",
+    "spoken_phonetic_us": "/ˈfrʌstreɪtɪd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Frustrado/a",
+        "usage_example": "He felt frustrated with the slow progress.",
+        "pronunciation_guide_es": "/JI_felt_FROS-trei-tid_uid_de_SLOU_PRO-gres/",
+        "usage_example_es": "Él se sintió frustrado con el lento progreso.",
+        "char_count": "7",
+        "usage_context_en": "Feeling or expressing distress and annoyance resulting from an inability to change a situation.",
+        "usage_context_es": "Sentir o expresar angustia y molestia por no poder cambiar una situación.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_39_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "grateful",
+    "phonetic": "/ˈɡreɪtfəl/",
+    "spoken_phonetic_us": "/ˈɡreɪtfəl/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Agradecido/a",
+        "usage_example": "I am grateful for your help.",
+        "pronunciation_guide_es": "/ai_am_GREIT-ful_for_ior_JELP/",
+        "usage_example_es": "Estoy agradecido por tu ayuda.",
+        "char_count": "6",
+        "usage_context_en": "Feeling or showing thanks.",
+        "usage_context_es": "Que siente o muestra gratitud.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_40_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "jealous",
+    "phonetic": "/ˈdʒɛləs/",
+    "spoken_phonetic_us": "/ˈdʒɛləs/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Celoso/a / Envidioso/a",
+        "usage_example": "He felt jealous of his brother's success.",
+        "pronunciation_guide_es": "/JI_felt_YCHE-les_ov_his_BRO-der_SOK-ses/",
+        "usage_example_es": "Él sintió celos del éxito de su hermano.",
+        "char_count": "7",
+        "usage_context_en": "Feeling or showing resentment of someone's success or advantages.",
+        "usage_context_es": "Sentir o mostrar resentimiento por el éxito o las ventajas de alguien.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_41_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "anxious",
+    "phonetic": "/ˈæŋkʃəs/",
+    "spoken_phonetic_us": "/ˈæŋkʃəs/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Ansioso/a",
+        "usage_example": "She felt anxious before the exam.",
+        "pronunciation_guide_es": "/SHI_felt_ANK-shos_bi-FOR_de_EK-sam/",
+        "usage_example_es": "Ella se sintió ansiosa antes del examen.",
+        "char_count": "6",
+        "usage_context_en": "Experiencing worry, unease, or nervousness.",
+        "usage_context_es": "Que experimenta preocupación, malestar o nerviosismo.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_42_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "ashamed",
+    "phonetic": "/əˈʃeɪmd/",
+    "spoken_phonetic_us": "/əˈʃeɪmd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Avergonzado/a",
+        "usage_example": "He was ashamed of his behavior.",
+        "pronunciation_guide_es": "/JI_uos_a-SHEIMD_ov_his_bi-JEIV-ior/",
+        "usage_example_es": "Él estaba avergonzado de su comportamiento.",
+        "char_count": "6",
+        "usage_context_en": "Embarrassed or guilty because of one's actions.",
+        "usage_context_es": "Avergonzado o culpable por las propias acciones.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_43_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "motivated",
+    "phonetic": "/ˈmoʊtɪveɪtɪd/",
+    "spoken_phonetic_us": "/ˈmoʊtɪveɪtɪd/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Feelings & Emotions",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Motivado/a",
+        "usage_example": "The team is very motivated.",
+        "pronunciation_guide_es": "/de_TIM_is_VE-ri_MOU-ti-vei-tid/",
+        "usage_example_es": "El equipo está muy motivado.",
+        "char_count": "5",
+        "usage_context_en": "Having a strong reason to act or accomplish something.",
+        "usage_context_es": "Con una razón sólida para actuar o lograr algo.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_44_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "successful",
+    "phonetic": "/səkˈsɛsfəl/",
+    "spoken_phonetic_us": "/səkˈsɛsfəl/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "State & Fortune",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Exitoso/a",
+        "usage_example": "She is a successful entrepreneur.",
+        "pronunciation_guide_es": "/SHI_is_a_sek-SES-ful_en-tre-pre-NER/",
+        "usage_example_es": "Ella es una empresaria exitosa.",
+        "char_count": "5",
+        "usage_context_en": "Having achieved popularity, profit, or distinction.",
+        "usage_context_es": "Haber logrado popularidad, beneficio o distinción.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_45_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "capable",
+    "phonetic": "/ˈkeɪpəbəl/",
+    "spoken_phonetic_us": "/ˈkeɪpəbəl/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "State & Fortune",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Capaz",
+        "usage_example": "She is capable of great things.",
+        "pronunciation_guide_es": "/SHI_is_KEI-pa-bel_ov_GREIT_THINGS/",
+        "usage_example_es": "Ella es capaz de grandes cosas.",
+        "char_count": "6",
+        "usage_context_en": "Having the ability, fitness, or quality necessary to do something.",
+        "usage_context_es": "Con la habilidad, aptitud o calidad necesaria para hacer algo.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_46_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "experienced",
+    "phonetic": "/ɪkˈspɪriənst/",
+    "spoken_phonetic_us": "/ɪkˈspɪriənst/",
+    "search_term": "adjective/describing/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "State & Fortune",
+    "category": "Advanced",
+    "definitions": [
+      {
+        "meaning": "Experimentado/a",
+        "usage_example": "The company hired an experienced engineer.",
+        "pronunciation_guide_es": "/de_KOM-pa-ni_JAIRD_an_ek-SPI-ri-enst_en-yi-NI-er/",
+        "usage_example_es": "La empresa contrató a un ingeniero experimentado.",
+        "char_count": "6",
+        "usage_context_en": "Having knowledge or skill in a particular field over time.",
+        "usage_context_es": "Con conocimiento o habilidad en un campo particular a lo largo del tiempo.",
+        "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_47_def0.avif"
+      }
+    ]
+  }
+]

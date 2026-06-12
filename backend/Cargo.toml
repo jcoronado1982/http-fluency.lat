@@ -1,0 +1,57 @@
+[package]
+name = "backend_rust"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = { version = "0.7", features = ["multipart"] }
+tokio = { version = "1", features = ["full"] }
+tokio-stream = "0.1"
+tokio-util = { version = "0.7", features = ["io"] }
+futures = "0.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tower-http = { version = "0.5", features = ["cors", "fs", "trace", "timeout", "compression-gzip", "compression-br"] }
+google-cloud-storage = "0.15"
+dotenvy = "0.15"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+reqwest = { version = "0.11", features = ["json", "stream", "rustls-tls"] }
+# gRPC binario para Gemini + TTS (sin protoc del sistema — prost derive inline)
+tonic = { version = "0.12", features = ["tls", "tls-roots"] }
+prost = "0.13"
+http = "1"
+# Caché en memoria con TTL y tamaño acotado (no consume RAM ilimitada)
+moka = { version = "0.12", features = ["future"] }
+chrono = { version = "0.4", features = ["serde"] }
+anyhow = "1.0"
+async-trait = "0.1"
+tower = "0.4"
+sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "postgres", "chrono", "json"] }
+google-cloud-token = "0.1"
+jsonwebtoken = "9.1"
+base64 = "0.21"
+uuid = { version = "1.0", features = ["v4"] }
+rand = "0.8"
+num_cpus = "1"
+gcp_auth = "0.12.6"
+dashmap = "5.5"
+surrealdb = "1.5.5"
+image = { version = "0.25", default-features = false, features = ["avif", "png", "jpeg"] }
+openssl = { version = "0.10", features = ["vendored"] }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
+[features]
+default = ["flashcards", "auth"]
+flashcards = []
+auth = []
+story_arcade = []
+payments = []
+subscriptions = ["payments"]
+

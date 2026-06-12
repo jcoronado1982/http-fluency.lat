@@ -1,0 +1,132 @@
+[
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "consequently",
+    "phonetic": "/ˈkɒnsɪkwəntli/",
+    "spoken_phonetic_us": "/ˈkɑnsəkwɛntli/",
+    "search_term": "connector/result",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Connectors: Cause & Effect",
+    "definitions": [
+      {
+        "meaning": "Por consiguiente / En consecuencia",
+        "usage_example": "It rained heavily; consequently, the match was canceled.",
+        "pronunciation_guide_es": "/it_reind_je-vi-li_con-se-kuent-li_de_mach_uas_can-seld/",
+        "usage_example_es": "Llovió mucho; por consiguiente, el partido fue cancelado.",
+        "char_count": "12",
+        "usage_context_en": "As a result.",
+        "usage_context_es": "Como resultado.",
+        "imagePath": "/card_images/connectors/3-advanced/3-advanced_card_0_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "hence",
+    "phonetic": "/hɛns/",
+    "spoken_phonetic_us": "/hɛns/",
+    "search_term": "connector/result",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Connectors: Cause & Effect",
+    "definitions": [
+      {
+        "meaning": "De ahí que / Por lo tanto",
+        "usage_example": "He didn't study; hence his failure.",
+        "pronunciation_guide_es": "/ji_di-dent_sta-di_jens_jis_fei-liur/",
+        "usage_example_es": "No estudió; de ahí su fracaso.",
+        "char_count": "5",
+        "usage_context_en": "As a consequence; for this reason.",
+        "usage_context_es": "Como consecuencia; por esta razón.",
+        "imagePath": "/card_images/connectors/3-advanced/3-advanced_card_1_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "albeit",
+    "phonetic": "/ɔlˈbiɪt/",
+    "spoken_phonetic_us": "/ɔlˈbiɪt/",
+    "search_term": "connector/contrast",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Connectors: Contrast",
+    "definitions": [
+      {
+        "meaning": "Aunque / Si bien",
+        "usage_example": "He was making progress, albeit slowly.",
+        "pronunciation_guide_es": "/ji_uas_mei-king_pro-gres_ol-bi-it_slou-li/",
+        "usage_example_es": "Estaba haciendo progreso, si bien lentamente.",
+        "char_count": "6",
+        "usage_context_en": "Even though; although.",
+        "usage_context_es": "Aunque; a pesar de que.",
+        "imagePath": "/card_images/connectors/3-advanced/3-advanced_card_2_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "conversely",
+    "phonetic": "/kənˈvɜrsli/",
+    "spoken_phonetic_us": "/kənˈvɜrsli/",
+    "search_term": "connector/contrast",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Connectors: Contrast",
+    "definitions": [
+      {
+        "meaning": "Por el contrario / A la inversa",
+        "usage_example": "Some people like it hot; conversely, others prefer it cold.",
+        "pronunciation_guide_es": "/som_pi-pol_laik_it_jot_con-vers-li_o-ders_pre-fer_it_cold/",
+        "usage_example_es": "A algunas personas les gusta el calor; por el contrario, otras lo prefieren frío.",
+        "char_count": "10",
+        "usage_context_en": "Introducing a statement or idea which reverses one that has just been made or referred to.",
+        "usage_context_es": "Introducir una declaración o idea que invierte una que se acaba de hacer o a la que se hace referencia.",
+        "imagePath": "/card_images/connectors/3-advanced/3-advanced_card_3_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "nevertheless",
+    "phonetic": "/ˌnɛvərðəˈlɛs/",
+    "spoken_phonetic_us": "/ˌnɛvərðəˈlɛs/",
+    "search_term": "connector/contrast",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Connectors: Contrast",
+    "definitions": [
+      {
+        "meaning": "Sin embargo / No obstante",
+        "usage_example": "It was raining; nevertheless, we went for a walk.",
+        "pronunciation_guide_es": "/it_uas_rei-ning_ne-ver-de-les_ui_uent_for_a_uok/",
+        "usage_example_es": "Estaba lloviendo; no obstante, salimos a caminar.",
+        "char_count": "12",
+        "usage_context_en": "In spite of that; however.",
+        "usage_context_es": "A pesar de eso; sin embargo.",
+        "imagePath": "/card_images/connectors/3-advanced/3-advanced_card_4_def0.avif"
+      }
+    ]
+  }
+]
