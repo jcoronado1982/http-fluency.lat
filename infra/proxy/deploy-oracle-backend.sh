@@ -59,7 +59,7 @@ docker run -d \
   -v "$REPO_PATH:/data" \
   -e LOCAL_STORAGE_PATH="/data" \
   -e SYNC_TO_ORACLE="false" \
-  -e PORT="8080" \
+  -e PORT="${BACKEND_PORT:-8080}" \
   -e RUST_LOG="${RUST_LOG:-info}" \
   -e DATABASE_URL="$DATABASE_URL" \
   -e GEMINI_API_KEY="$GEMINI_API_KEY" \
@@ -78,5 +78,5 @@ docker run -d \
 rm -f /tmp/gcp-deploy-key.json /tmp/flashcard-backend.env
 
 sleep 2
-curl -sf http://127.0.0.1:8080/api/health >/dev/null
+curl -sf "http://127.0.0.1:${BACKEND_PORT:-8080}/api/health" >/dev/null
 echo "Oracle backend deploy OK"

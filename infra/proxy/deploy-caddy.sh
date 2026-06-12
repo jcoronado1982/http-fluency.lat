@@ -15,6 +15,8 @@ docker run -d \
   -v "$REPO_ROOT/portfolio:/usr/share/caddy/portfolio" \
   -v "$REPO_ROOT/flashcard:/usr/share/caddy/flashcard" \
   -v "$REPO_ROOT/repository/flashcard:/usr/share/caddy/repository" \
+  -v "$REPO_ROOT/qa_flashcard:/usr/share/caddy/qa_flashcard" \
+  -v "$REPO_ROOT/repository/qa_flashcard:/usr/share/caddy/qa_repository" \
   -v caddy_data:/data \
   -v caddy_config:/config \
   -v /tmp:/tmp \

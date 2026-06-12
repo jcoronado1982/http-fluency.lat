@@ -2,7 +2,7 @@ trigger:
   branches:
     include:
       - main
-      - master
+      - qa
   paths:
     include:
       - azure-pipelines.yml
@@ -12,7 +12,8 @@ trigger:
 
 variables:
   sshConn: 'SrvPortfolio'
-  remotePath: '/root/smart-proxy/flashcard'
+  # Si es QA, usa qa_flashcard, de lo contrario flashcard
+  remotePath: $[ coalesce( variables['DeployPathOverride'], if(eq(variables['Build.SourceBranch'], 'refs/heads/qa'), '/root/smart-proxy/qa_flashcard', '/root/smart-proxy/flashcard') ) ]
   gcpProject: 'launch-490115'
   gcpRegion: 'us-east1'
   imageName: 'gcr.io/launch-490115/flashcard-backend'
@@ -235,7 +236,7 @@ stages:
   dependsOn:
     - Build_Backend
     - Deploy_Frontend
-  condition: succeeded('Build_Backend')
+  condition: and(succeeded('Build_Backend'), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
   variables:
     - group: Flashcard-Secrets
   jobs:
@@ -331,20 +332,38 @@ stages:
           export GOOGLE_CREDENTIALS_JSON="$(GCP_CREDS_B64)"
           export RUST_LOG=info
           export SURREAL_URL=127.0.0.1:8001
-          export SURREAL_NS=flashcard
-          export SURREAL_DB=flashcard
           export SURREAL_USER=root
           export SURREAL_PASS=root
+          
+          if [ "$(Build.SourceBranch)" = "refs/heads/qa" ]; then
+            export SURREAL_NS=qa_flashcard
+            export SURREAL_DB=qa_flashcard
+            export FLASHCARD_BACKEND_CONTAINER=qa-flashcard-backend-node
+            export FLASHCARD_REPO_PATH=/root/smart-proxy/repository/qa_flashcard
+            export BACKEND_PORT=8081
+            export HEALTH_URL="http://127.0.0.1:8081/api/health"
+            export EXTERNAL_HEALTH_URL="https://qa.flashcard.theruby.lat/api/health"
+          else
+            export SURREAL_NS=flashcard
+            export SURREAL_DB=flashcard
+            export FLASHCARD_BACKEND_CONTAINER=flashcard-backend-node
+            export FLASHCARD_REPO_PATH=/root/smart-proxy/repository/flashcard
+            export BACKEND_PORT=8080
+            export HEALTH_URL="http://127.0.0.1:8080/api/health"
+            export EXTERNAL_HEALTH_URL="https://flashcard.theruby.lat/api/health"
+          fi
+
           rm -f /tmp/gcp-deploy-key.json /tmp/flashcard-backend.env
           bash /root/smart-proxy/infra-proxy/bootstrap-oracle.sh --backend-only --no-monitors
-          curl -sf http://127.0.0.1:8080/api/health
-          curl -sf https://flashcard.theruby.lat/api/health
+          curl -sf $HEALTH_URL
+          curl -sf $EXTERNAL_HEALTH_URL
           echo "Oracle Mirror OK"
 
   # ── B. OCI-1 Mirror ────────────────────────────────────────────────
   - job: Mirror_OCI1
     displayName: 'OCI-1 Mirror (129.158.214.227)'
     dependsOn: Mirror_Oracle
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
     pool: { name: 'Default' }
     steps:
     - script: |
@@ -394,6 +413,7 @@ stages:
   - job: Mirror_AWS
     displayName: 'AWS Mirror (34.229.229.255)'
     dependsOn: Mirror_OCI1
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
     pool: { name: 'Default' }
     steps:
     - script: |

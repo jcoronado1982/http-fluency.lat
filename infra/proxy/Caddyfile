@@ -166,3 +166,55 @@ map.theruby.lat {
     try_files {path} /index.html
     file_server
 }
+
+qa.flashcard.theruby.lat {
+    # Exponer SurrealDB de forma segura
+    handle /db/* {
+        uri strip_prefix /db
+        reverse_proxy localhost:8001
+    }
+
+    handle {
+        route {
+            import db_protection
+
+            # ASSETS ESTÁTICOS QA
+            handle /card_images/* {
+                root * /usr/share/caddy/qa_repository
+                @try_avif {
+                    path_regexp avif ^(.+)\.(jpg|jpeg|png)$
+                }
+                rewrite @try_avif {re.avif.1}.avif
+                header +X-Content-Type-Options "nosniff"
+                file_server
+            }
+
+            handle /card_audio/* {
+                root * /usr/share/caddy/qa_repository
+                file_server
+            }
+
+            handle /json/* {
+                root * /usr/share/caddy/qa_repository
+                file_server browse
+            }
+
+            # API QA
+            @backend_routes {
+                path /api/*
+            }
+            handle @backend_routes {
+                import compression
+                reverse_proxy localhost:8081
+            }
+
+            # FRONTEND ESTÁTICO QA
+            handle {
+                root * /usr/share/caddy/qa_flashcard
+                import compression
+                try_files {path} /index.html
+                file_server
+            }
+        }
+    }
+}
