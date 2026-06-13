@@ -13,8 +13,8 @@ fi
 
 mkdir -p "$DEST"
 
-echo "Sync json/ → $DEST (incremental)..."
-rsync -a --update --delete "$SOURCE/" "$DEST/"
+echo "Sync json/ → $DEST (incremental, sin borrar decks solo en Oracle)..."
+rsync -a --update "$SOURCE/" "$DEST/"
 
 JSON_COUNT=$(find "$DEST" -name '*.json' | wc -l | tr -d ' ')
 CAT_COUNT=$(find "$DEST" -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')
