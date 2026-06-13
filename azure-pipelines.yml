@@ -353,6 +353,7 @@ stages:
           set -euo pipefail
           export DATABASE_URL="$(DATABASE_URL)"
           export GEMINI_API_KEY="$(GEMINI_API_KEY)"
+          export GEMINI_TTS_API_KEY="$(GEMINI_TTS_API_KEY)"
           export GCP_API_KEY="$(GCP_API_KEY)"
           export GOOGLE_CLIENT_ID="$(GOOGLE_CLIENT_ID)"
           export JWT_SECRET="$(JWT_SECRET)"

@@ -40,7 +40,13 @@ impl AudioGenerator for RoutingTtsProvider {
             );
             self.cloud.synthesize(text, voice_name, lang).await
         } else {
-            self.gemini.synthesize(text, voice_name, lang).await
+            match self.gemini.synthesize(text, voice_name, lang).await {
+                Ok(bytes) => Ok(bytes),
+                Err(e) => {
+                    tracing::warn!("⚠️ Gemini TTS EN falló ({}), fallback Cloud TTS", e);
+                    self.cloud.synthesize(text, voice_name, lang).await
+                }
+            }
         }
     }
 
@@ -52,7 +58,13 @@ impl AudioGenerator for RoutingTtsProvider {
             );
             self.cloud.synthesize_ssml(ssml, voice_name, lang).await
         } else {
-            self.gemini.synthesize_ssml(ssml, voice_name, lang).await
+            match self.gemini.synthesize_ssml(ssml, voice_name, lang).await {
+                Ok(bytes) => Ok(bytes),
+                Err(e) => {
+                    tracing::warn!("⚠️ Gemini TTS EN (SSML) falló ({}), fallback Cloud TTS", e);
+                    self.cloud.synthesize_ssml(ssml, voice_name, lang).await
+                }
+            }
         }
     }
 }
