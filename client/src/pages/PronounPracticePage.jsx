@@ -4,14 +4,15 @@ import {
   FiChevronLeft, FiChevronRight, FiRefreshCw, FiCheck, FiPlay,
   FiBookOpen, FiClock, FiChevronDown, FiChevronUp, FiCpu, FiHelpCircle, FiX
 } from 'react-icons/fi';
-import './StoryArcade.css';
+import './PronounPractice.css';
 
 // Zustand & TanStack Query imports
 import { useAuth } from '../context/AuthContext';
 import { useGameStore } from '../store/useGameStore';
 import {
   useStoryProgress, useEpisodeScreens, useUpdateProgress,
-  useNextEpisode, useStoryHistory, useResetStoryProgress
+  useNextEpisode, useStoryHistory, useResetStoryProgress,
+  useBackendFeatures,
 } from '../api/storyApi';
 import { API_URL, AI_ENABLED } from '../config/api';
 import { tutorRepository } from '../repositories/tutorRepository';
@@ -32,7 +33,7 @@ const isPlaceholderImageUrl = (url) => {
   return url.includes('unsplash.com');
 };
 
-export default function StoryArcadePage() {
+export default function PronounPracticePage() {
   const { user } = useAuth();
   
   // Configuración de Identidad
@@ -63,6 +64,7 @@ export default function StoryArcadePage() {
   const { data: historyData } = useStoryHistory(storyId);
   const updateProgressMutation = useUpdateProgress();
   const resetProgressMutation = useResetStoryProgress();
+  const { data: backendFeatures } = useBackendFeatures();
 
   // 3. UI Local State
   const [userInput, setUserInput] = useState('');
@@ -346,23 +348,32 @@ export default function StoryArcadePage() {
   };
 
   if (loadingProgress || loadingScreens) {
-    return <div className="arcadeContainer flex items-center justify-center">Cargando modo arcade...</div>;
+    return (
+      <div className="arcadeStatePanel">
+        <p className="arcadeStateLoading">Cargando Pronoun Practice…</p>
+      </div>
+    );
   }
 
   if (progressError || screensError || !progress || !screens?.length) {
-    const detail = progressQueryError?.message || screensQueryError?.message || 'Datos de Story Arcade no disponibles';
+    const detail = progressQueryError?.message || screensQueryError?.message || 'Datos de Pronoun Practice no disponibles';
+    const storyArcadeDisabled = backendFeatures && backendFeatures.story_arcade === false;
+    const isNotFound = detail.includes('HTTP 404');
+
+    let helpMessage = 'En producción la base SurrealDB no tiene episodios cargados o el API falló al responder. En local funciona si SurrealDB tiene la historia sembrada.';
+    if (storyArcadeDisabled || isNotFound) {
+      helpMessage = 'El backend no expone las rutas de Story Arcade. Reinicia con ./start.sh o compila con cargo build --features story_arcade y vuelve a levantar el servidor en el puerto 8081.';
+    }
+
     return (
-      <div className="arcadeContainer flex flex-col items-center justify-center gap-4 p-8 text-center">
-        <h2 className="text-xl font-semibold text-slate-200">No se pudo cargar Story Arcade</h2>
-        <p className="text-slate-400 max-w-lg">
-          En producción la base SurrealDB no tiene episodios cargados o el API falló al responder.
-          En local funciona porque tu SurrealDB ya tiene la historia sembrada.
-        </p>
-        <p className="text-sm text-red-300/80">{detail}</p>
+      <div className="arcadeStatePanel">
+        <h2 className="arcadeStateTitle">No se pudo cargar Pronoun Practice</h2>
+        <p className="arcadeStateMessage">{helpMessage}</p>
+        <p className="arcadeStateDetail">{detail}</p>
         <button
           type="button"
           onClick={() => window.location.reload()}
-          className="btnPrimary mt-2"
+          className="btnPrimary"
         >
           Reintentar
         </button>

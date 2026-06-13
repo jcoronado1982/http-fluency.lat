@@ -2,24 +2,34 @@ trigger:
   branches:
     include:
       - main
-      - master
+      - qa
   paths:
     include:
       - azure-pipelines.yml
       - client/**
       - backend/**
       - infra/**
+      - json/**
 
 variables:
-  sshConn: 'SrvPortfolio'
-  remotePath: '/root/smart-proxy/flashcard'
-  gcpProject: 'launch-490115'
-  gcpRegion: 'us-east1'
-  imageName: 'gcr.io/launch-490115/flashcard-backend'
-  dockerRegistryConn: 'GCP-Registry-Connection'
-  # Cache de capas Docker persistido en GCR entre runs
-  # Cold build (~15 min), warm build (~3-5 min, solo recompila cambios)
-  cacheRef: 'gcr.io/launch-490115/flashcard-backend:buildcache'
+  - name: sshConn
+    value: 'SrvPortfolio'
+  - name: gcpProject
+    value: 'launch-490115'
+  - name: gcpRegion
+    value: 'us-east1'
+  - name: imageName
+    value: 'gcr.io/launch-490115/flashcard-backend'
+  - name: dockerRegistryConn
+    value: 'GCP-Registry-Connection'
+  - name: cacheRef
+    value: 'gcr.io/launch-490115/flashcard-backend:buildcache'
+  - ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/qa') }}:
+    - name: remotePath
+      value: '/root/smart-proxy/qa_flashcard'
+  - ${{ else }}:
+    - name: remotePath
+      value: '/root/smart-proxy/flashcard'
 
 # ═══════════════════════════════════════════════════════════════════════
 # ARQUITECTURA DEL PIPELINE (Jun 2026 — 2 pools)
@@ -71,7 +81,8 @@ stages:
         export PATH=$HOME/.bun/bin:$PATH
         cd client
         bun install --frozen-lockfile
-        VITE_API_URL='https://flashcard.theruby.lat' bun run build
+        # Vacío → same-origin: /api va al mismo dominio (prod, QA o cualquier subdominio)
+        VITE_API_URL='' bun run build
       displayName: 'Bun install + Vite build'
 
     - task: PublishPipelineArtifact@1
@@ -208,6 +219,8 @@ stages:
           deploy-surrealdb.sh
           docker-gcr-auth.sh
           bootstrap-oracle.sh
+          sync-json-to-oracle.sh
+          sync-qa-repository.sh
           oracle-ram-monitor.sh
           aws-health-monitor.sh
           sentinel-handler
@@ -219,12 +232,17 @@ stages:
       displayName: 'Bootstrap Oracle proxy (Caddy + monitors)'
       inputs:
         sshEndpoint: $(sshConn)
-        runOptions: 'commands'
+        runOptions: 'inline'
         failOnStdErr: false
-        commands: |
+        inline: |
           bash /root/smart-proxy/infra-proxy/bootstrap-oracle.sh --caddy-only
-          curl -sf https://flashcard.theruby.lat/api/health >/dev/null || echo "WARN: API health via Caddy not ready yet"
+          if [ "$(Build.SourceBranch)" = "refs/heads/qa" ]; then
+            curl -sf -k -H "Host: qa.flashcard.theruby.lat" https://127.0.0.1/api/health || echo "WARN: QA API health via Caddy not ready yet"
+          else
+            curl -sf https://flashcard.theruby.lat/api/health >/dev/null || echo "WARN: API health via Caddy not ready yet"
+          fi
           echo "Frontend deploy OK"
+
 
 # ───────────────────────────────────────────────────────────────────────
 # STAGE 4: DEPLOY BACKEND → GCP Cloud Run
@@ -235,7 +253,7 @@ stages:
   dependsOn:
     - Build_Backend
     - Deploy_Frontend
-  condition: succeeded('Build_Backend')
+  condition: and(succeeded('Build_Backend'), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
   variables:
     - group: Flashcard-Secrets
   jobs:
@@ -307,12 +325,23 @@ stages:
           deploy-surrealdb.sh
           docker-gcr-auth.sh
           bootstrap-oracle.sh
+          sync-json-to-oracle.sh
+          sync-qa-repository.sh
           oracle-ram-monitor.sh
           aws-health-monitor.sh
           sentinel-handler
           traffic-manager
         targetFolder: '/root/smart-proxy/infra-proxy'
         cleanTargetFolder: false
+
+    - task: CopyFilesOverSSH@0
+      displayName: 'Stage json/ del repo → Oracle'
+      inputs:
+        sshEndpoint: $(sshConn)
+        sourceFolder: 'json'
+        contents: '**'
+        targetFolder: '/tmp/flashcard-json-staging'
+        cleanTargetFolder: true
 
     - task: SSH@0
       displayName: 'Deploy Oracle backend (env en memoria vía SSH)'
@@ -331,20 +360,80 @@ stages:
           export GOOGLE_CREDENTIALS_JSON="$(GCP_CREDS_B64)"
           export RUST_LOG=info
           export SURREAL_URL=127.0.0.1:8001
-          export SURREAL_NS=flashcard
-          export SURREAL_DB=flashcard
           export SURREAL_USER=root
           export SURREAL_PASS=root
+
+          echo "Applying json/ from repo to Oracle production repository..."
+          bash /root/smart-proxy/infra-proxy/sync-json-to-oracle.sh \
+            /tmp/flashcard-json-staging \
+            /root/smart-proxy/repository/flashcard/json
+          
+          if [ "$(Build.SourceBranch)" = "refs/heads/qa" ]; then
+            export SURREAL_NS=qa_flashcard
+            export SURREAL_DB=qa_flashcard
+            export FLASHCARD_BACKEND_CONTAINER=qa-flashcard-backend-node
+            export FLASHCARD_REPO_PATH=/root/smart-proxy/repository/qa_flashcard
+            export BACKEND_PORT=8081
+            export HEALTH_URL="http://127.0.0.1:8081/api/health"
+            export EXTERNAL_HEALTH_URL="https://qa.flashcard.theruby.lat/api/health"
+            echo "Syncing QA content repository from production..."
+            bash /root/smart-proxy/infra-proxy/sync-qa-repository.sh
+          else
+            export SURREAL_NS=flashcard
+            export SURREAL_DB=flashcard
+            export FLASHCARD_BACKEND_CONTAINER=flashcard-backend-node
+            export FLASHCARD_REPO_PATH=/root/smart-proxy/repository/flashcard
+            export BACKEND_PORT=8080
+            export HEALTH_URL="http://127.0.0.1:8080/api/health"
+            export EXTERNAL_HEALTH_URL="https://flashcard.theruby.lat/api/health"
+          fi
+
           rm -f /tmp/gcp-deploy-key.json /tmp/flashcard-backend.env
           bash /root/smart-proxy/infra-proxy/bootstrap-oracle.sh --backend-only --no-monitors
-          curl -sf http://127.0.0.1:8080/api/health
-          curl -sf https://flashcard.theruby.lat/api/health
+          
+          echo "Verifying local container health..."
+          curl -sf "$HEALTH_URL"
+          
+          echo "Verifying local Caddy proxy routing (bypassing DNS)..."
+          if [ "$(Build.SourceBranch)" = "refs/heads/qa" ]; then
+            curl -sf -k -H "Host: qa.flashcard.theruby.lat" https://127.0.0.1/api/health || \
+            curl -sf -H "Host: qa.flashcard.theruby.lat" http://127.0.0.1/api/health
+            echo "Verifying QA categories are loaded..."
+            QA_CATS=$(curl -sf -H "Host: qa.flashcard.theruby.lat" http://127.0.0.1:8081/api/categories | python3 -c "import json,sys; d=json.load(sys.stdin); print(len(d.get('categories',[])))")
+            if [ "${QA_CATS:-0}" -eq 0 ]; then
+              echo "ERROR: QA /api/categories returned empty list — check /root/smart-proxy/repository/qa_flashcard/json"
+              exit 1
+            fi
+            echo "QA categories OK (${QA_CATS})"
+          else
+            curl -sf -k -H "Host: flashcard.theruby.lat" https://127.0.0.1/api/health || \
+            curl -sf -H "Host: flashcard.theruby.lat" http://127.0.0.1/api/health
+            echo "Verifying production categories are loaded..."
+            PROD_CATS=$(curl -sf http://127.0.0.1:8080/api/categories | python3 -c "import json,sys; d=json.load(sys.stdin); print(len(d.get('categories',[])))")
+            if [ "${PROD_CATS:-0}" -eq 0 ]; then
+              echo "ERROR: production /api/categories returned empty list — check /root/smart-proxy/repository/flashcard/json"
+              exit 1
+            fi
+            echo "Production categories OK (${PROD_CATS})"
+          fi
+
+          echo "Verifying external DNS health check..."
+          if curl -sf --connect-timeout 5 "$EXTERNAL_HEALTH_URL"; then
+            echo "External health check OK"
+          else
+            echo "WARNING: External health check failed (this is expected if DNS has not propagated yet for QA)."
+            if [ "$(Build.SourceBranch)" != "refs/heads/qa" ]; then
+              echo "ERROR: Production external health check must pass."
+              exit 1
+            fi
+          fi
           echo "Oracle Mirror OK"
 
   # ── B. OCI-1 Mirror ────────────────────────────────────────────────
   - job: Mirror_OCI1
     displayName: 'OCI-1 Mirror (129.158.214.227)'
     dependsOn: Mirror_Oracle
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
     pool: { name: 'Default' }
     steps:
     - script: |
@@ -394,6 +483,7 @@ stages:
   - job: Mirror_AWS
     displayName: 'AWS Mirror (34.229.229.255)'
     dependsOn: Mirror_OCI1
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
     pool: { name: 'Default' }
     steps:
     - script: |

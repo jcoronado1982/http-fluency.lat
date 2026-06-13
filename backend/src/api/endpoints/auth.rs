@@ -14,6 +14,33 @@ pub struct GoogleLoginRequest {
     pub id_token: String,
 }
 
+/// POST /api/auth/dev-guest — solo desarrollo; emite JWT válido para Story Arcade local.
+pub async fn dev_guest_login(State(state): State<AppState>) -> impl IntoResponse {
+    if !AuthUseCases::dev_guest_token_allowed() {
+        return (
+            StatusCode::NOT_FOUND,
+            Json(serde_json::json!({ "success": false, "detail": "Not available" })),
+        )
+            .into_response();
+    }
+    match state.auth_use_cases.dev_guest_login() {
+        Ok(response) => (
+            StatusCode::OK,
+            Json(serde_json::json!({
+                "success": true,
+                "token": response.token,
+                "user": response.user
+            })),
+        )
+            .into_response(),
+        Err(e) => (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            Json(serde_json::json!({ "success": false, "detail": e.to_string() })),
+        )
+            .into_response(),
+    }
+}
+
 pub async fn google_login(
     State(state): State<AppState>,
     Json(payload): Json<GoogleLoginRequest>,

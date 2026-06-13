@@ -23,7 +23,7 @@ use crate::infrastructure::storage::local_repository::LocalStorageRepository;
 use crate::infrastructure::storage::surreal_repository::SurrealRepository;
 use crate::infrastructure::storage::null_db_repository::NullDbRepository;
 use crate::infrastructure::ai::gemini_grpc_provider::GeminiGrpcProvider;
-use crate::infrastructure::ai::tts_grpc_provider::TtsGrpcProvider;
+use crate::infrastructure::ai::routing_tts_provider::RoutingTtsProvider;
 use crate::infrastructure::ai::comfy_provider::ComfyUIProvider;
 use crate::domain::repositories::storage::StorageRepository;
 use crate::domain::repositories::db_repository::{
@@ -163,7 +163,7 @@ async fn async_main() -> anyhow::Result<()> {
     };
 
     let ai_tutor: Arc<dyn AITutor> = Arc::new(GeminiGrpcProvider::new(&settings)?);
-    let audio_gen: Arc<dyn AudioGenerator> = Arc::new(TtsGrpcProvider::new(&settings).await?);
+    let audio_gen: Arc<dyn AudioGenerator> = Arc::new(RoutingTtsProvider::new(&settings).await?);
     let image_gen: Arc<dyn ImageGenerator> = Arc::new(ComfyUIProvider::new(&settings));
 
     // 1000 slots: soporte para ráfagas de imágenes generadas en batch sin perder eventos SSE.
@@ -285,6 +285,7 @@ async fn async_main() -> anyhow::Result<()> {
     {
         app = app
             .route("/api/auth/google", post(api::endpoints::auth::google_login))
+            .route("/api/auth/dev-guest", post(api::endpoints::auth::dev_guest_login))
             .route("/api/auth/me", get(api::endpoints::auth::get_me))
             .route("/api/presence/heartbeat", post(api::endpoints::presence::heartbeat))
             .route("/api/presence/leave", post(api::endpoints::presence::leave))

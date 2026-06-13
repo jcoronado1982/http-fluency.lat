@@ -15,6 +15,51 @@
     padding-top: 20px;
 }
 
+/* Pantallas de carga / error (centradas, legibles sobre fondo oscuro) */
+.arcadeStatePanel {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    background-color: #0f172a;
+    color: #e2e8f0;
+    box-sizing: border-box;
+}
+
+.arcadeStateTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin: 0;
+}
+
+.arcadeStateMessage {
+    font-size: 1rem;
+    color: #94a3b8;
+    max-width: 32rem;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.arcadeStateDetail {
+    font-size: 0.875rem;
+    color: #fca5a5;
+    margin: 0;
+    max-width: 36rem;
+    word-break: break-word;
+}
+
+.arcadeStateLoading {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    margin: 0;
+}
+
 .historySidebar {
     width: 30%;
     display: flex;

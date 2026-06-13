@@ -148,11 +148,17 @@
 
 .google-btn-container {
     width: 100%;
+    max-width: 320px;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 44px; /* Evita saltos de layout mientras carga el script de Google */
+    overflow: hidden; /* El iframe de Google no debe desbordar en pantallas estrechas */
     transition: transform 0.2s ease;
+}
+
+.google-btn-container iframe {
+    max-width: 100% !important;
 }
 
 .google-btn-container:hover {

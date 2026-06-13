@@ -482,7 +482,10 @@ impl StorageRepository for LocalStorageRepository {
         if self.sync_to_oracle {
             let entries = self.list_oracle_entries(&dir_str, false).await.unwrap_or_default();
             for name in entries {
-                if name.starts_with(&file_prefix) {
+                if name.starts_with(&file_prefix)
+                    && !name.contains(".archive.")
+                    && !name.ends_with(".meta.json")
+                {
                     let result = if dir_str.is_empty() {
                         name
                     } else {
@@ -499,7 +502,10 @@ impl StorageRepository for LocalStorageRepository {
             while let Some(entry) = entries.next_entry().await? {
                 if entry.file_type().await?.is_file() {
                     if let Some(name) = entry.file_name().to_str() {
-                        if name.starts_with(&file_prefix) {
+                        if name.starts_with(&file_prefix)
+                            && !name.contains(".archive.")
+                            && !name.ends_with(".meta.json")
+                        {
                             let result = if dir_str.is_empty() {
                                 name.to_string()
                             } else {
@@ -515,6 +521,55 @@ impl StorageRepository for LocalStorageRepository {
         Ok(None)
     }
     
+    async fn rename_blob(&self, from_path: &str, to_path: &str) -> Result<()> {
+        let remote_from = format!("{}/{}", self.oracle_remote_path, from_path.trim_start_matches('/'));
+        let remote_to = format!("{}/{}", self.oracle_remote_path, to_path.trim_start_matches('/'));
+
+        if self.sync_to_oracle && !self.oracle_host.is_empty() {
+            let cp = self.control_path();
+            let parent = Path::new(to_path.trim_start_matches('/'))
+                .parent()
+                .and_then(|p| p.to_str())
+                .unwrap_or("");
+            let remote_parent = if parent.is_empty() {
+                self.oracle_remote_path.clone()
+            } else {
+                format!("{}/{}", self.oracle_remote_path, parent)
+            };
+            let script = format!(
+                "mkdir -p '{}' && mv -f '{}' '{}'",
+                remote_parent, remote_from, remote_to
+            );
+            let status = tokio::process::Command::new("sshpass")
+                .env("SSHPASS", &self.oracle_ssh_password)
+                .args([
+                    "-e", "ssh",
+                    "-o", "StrictHostKeyChecking=no",
+                    "-o", "ControlMaster=auto",
+                    "-o", &format!("ControlPath={}", cp),
+                    &format!("root@{}", self.oracle_host),
+                    &script,
+                ])
+                .status()
+                .await?;
+            if !status.success() {
+                anyhow::bail!("Oracle rename falló: {} → {}", from_path, to_path);
+            }
+            tracing::info!("📦 Archivado en Oracle: {} → {}", from_path, to_path);
+        }
+
+        let from = self.get_full_path(from_path);
+        let to = self.get_full_path(to_path);
+        if from.exists() {
+            if let Some(parent) = to.parent() {
+                fs::create_dir_all(parent).await?;
+            }
+            fs::rename(&from, &to).await?;
+        }
+
+        Ok(())
+    }
+
     async fn delete_blob(&self, blob_path: &str) -> Result<()> {
         // Borrar local si existe (backends efímeros pueden tener copia temporal)
         let path = self.get_full_path(blob_path);

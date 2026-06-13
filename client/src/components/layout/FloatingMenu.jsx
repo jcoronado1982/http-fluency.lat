@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "./FloatingMenu.css";
 import { useAppContext } from "../../context/AppContext";
 import { useAuth } from "../../context/AuthContext";
+import { translations } from "../../config/translations";
 
 const VOWELS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=60s";
 const DIPHTHONGS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=421s";
@@ -50,12 +51,15 @@ const FloatingMenu = () => {
         setIsPhonicsModalOpen,
         isFloatingMenuOpen: isOpen,
         setIsFloatingMenuOpen: setIsOpen,
+        language = 'en'
     } = useAppContext();
     const { user, logout } = useAuth();
     const [showPronun, setShowPronun] = useState(false);
     const containerRef = useRef(null);
     const navigate = useNavigate();
     const location = useLocation();
+    
+    const t = translations[language].floatingMenu;
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -90,7 +94,7 @@ const FloatingMenu = () => {
             <div className={`floatingOptions ${isOpen ? "show" : ""}`}>
 
                 {/* ── APRENDER ── */}
-                <span className="menuSectionLabel">Aprender</span>
+                <span className="menuSectionLabel">{t.learn}</span>
 
                 <button
                     className="floatingOption"
@@ -102,8 +106,8 @@ const FloatingMenu = () => {
                 >
                     <span className="optionIcon teal"><IconFlashcard /></span>
                     <span className="optionText">
-                        <span className="optionName">Categorías</span>
-                        <span className="optionSub">Colecciones de palabras</span>
+                        <span className="optionName">{t.categories}</span>
+                        <span className="optionSub">{t.wordCollections}</span>
                     </span>
                 </button>
 
@@ -117,30 +121,15 @@ const FloatingMenu = () => {
                 >
                     <span className="optionIcon purple"><IconPronouns /></span>
                     <span className="optionText">
-                        <span className="optionName">Tabla de vocales</span>
-                        <span className="optionSub">Tabla de referencia</span>
+                        <span className="optionName">{t.vowelChart}</span>
+                        <span className="optionSub">{t.referenceChart}</span>
                     </span>
                 </button>
 
                 <div className="menuDivider" />
 
-                {/* ── PRACTICAR ── */}
-                <span className="menuSectionLabel">Practicar</span>
-
-                <button
-                    className="floatingOption"
-                    onClick={() => { 
-                        if (location.pathname !== '/flashcard') navigate('/flashcard');
-                        setIsPhonicsModalOpen(true); 
-                        close(); 
-                    }}
-                >
-                    <span className="optionIcon amber"><IconStory /></span>
-                    <span className="optionText">
-                        <span className="optionName">Story Arcade</span>
-                        <span className="optionSub">Practica con historias</span>
-                    </span>
-                </button>
+                {/* ── REFERENCIAS ── */}
+                <span className="menuSectionLabel">{t.practice}</span>
 
                 {/* Pronunciación con submenu inline */}
                 <button
@@ -149,9 +138,9 @@ const FloatingMenu = () => {
                 >
                     <span className="optionIcon blue"><IconPronunciation /></span>
                     <span className="optionText">
-                        <span className="optionName">Pronunciación</span>
+                        <span className="optionName">{t.pronunciation}</span>
                         <span className="optionSub">
-                            {showPronun ? "Cerrar ▲" : "Vocales · Diptongos · Consonantes"}
+                            {showPronun ? t.close : t.pronunciationSub}
                         </span>
                     </span>
                 </button>
@@ -163,7 +152,7 @@ const FloatingMenu = () => {
                             onClick={() => openExternal(VOWELS_URL)}
                         >
                             <span className="optionText">
-                                <span className="optionName">Vocales</span>
+                                <span className="optionName">{t.vowels}</span>
                             </span>
                         </button>
                         <button
@@ -171,7 +160,7 @@ const FloatingMenu = () => {
                             onClick={() => openExternal(DIPHTHONGS_URL)}
                         >
                             <span className="optionText">
-                                <span className="optionName">Diptongos</span>
+                                <span className="optionName">{t.diphthongs}</span>
                             </span>
                         </button>
                         <button
@@ -179,7 +168,7 @@ const FloatingMenu = () => {
                             onClick={() => openExternal(CONSONANTS_URL)}
                         >
                             <span className="optionText">
-                                <span className="optionName">Consonantes</span>
+                                <span className="optionName">{t.consonants}</span>
                             </span>
                         </button>
                     </>
@@ -188,7 +177,7 @@ const FloatingMenu = () => {
                 <div className="menuDivider" />
 
                 {/* ── CUENTA ── */}
-                <span className="menuSectionLabel">Cuenta</span>
+                <span className="menuSectionLabel">{t.account}</span>
                 
                 <div className="userProfileItem">
                     <img src={user?.picture} alt="User" className="userAvatar" />
@@ -210,7 +199,7 @@ const FloatingMenu = () => {
                         </svg>
                     </span>
                     <span className="optionText">
-                        <span className="optionName">Cerrar sesión</span>
+                        <span className="optionName">{t.logout}</span>
                     </span>
                 </button>
 

@@ -45,24 +45,20 @@ export const AuthProvider = ({ children }) => {
         return data;
     };
 
-    const loginAsGuest = () => {
+    const loginAsGuest = async () => {
         if (!import.meta.env.DEV) {
             console.warn('Guest login is only available in development mode.');
             return;
         }
-        const guestData = {
-            success: true,
-            token: "guest-token-123",
-            user: {
-                id: "guest",
-                email: "guest@local.dev",
-                name: "Invitado Local",
-                picture: "",
-                role: "admin"
+        try {
+            const data = await authRepository.loginAsDevGuest();
+            if (data.success) {
+                authRepository.saveAuthData(data);
+                setUser(data.user);
             }
-        };
-        authRepository.saveAuthData(guestData);
-        setUser(guestData.user);
+        } catch (err) {
+            console.error('Dev guest login failed:', err);
+        }
     };
 
     const logout = () => {

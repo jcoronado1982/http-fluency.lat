@@ -86,7 +86,7 @@ cd backend || exit
 
 # Aseguramos que esté compilado
 echo "⚙️  Compilando backend en Rust (esto puede tardar si es la primera vez)..."
-if ! cargo build; then
+if ! cargo build --features story_arcade; then
     echo "❌ ERROR: cargo build falló."
     exit 1
 fi

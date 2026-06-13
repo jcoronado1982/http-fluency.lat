@@ -48,9 +48,13 @@ fi
 mkdir -p \
   "$ROOT/portfolio" \
   "$ROOT/flashcard" \
+  "$ROOT/qa_flashcard" \
   "$ROOT/repository/flashcard/card_audio" \
   "$ROOT/repository/flashcard/card_images" \
   "$ROOT/repository/flashcard/json" \
+  "$ROOT/repository/qa_flashcard/card_audio" \
+  "$ROOT/repository/qa_flashcard/card_images" \
+  "$ROOT/repository/qa_flashcard/json" \
   "$PROXY_DIR"
 
 # ───────────────────────────────────────────────────────────────────────
@@ -90,6 +94,8 @@ chmod +x \
   "$PROXY_DIR/deploy-oracle-backend.sh" \
   "$PROXY_DIR/deploy-surrealdb.sh" \
   "$PROXY_DIR/bootstrap-oracle.sh" \
+  "$PROXY_DIR/sync-json-to-oracle.sh" \
+  "$PROXY_DIR/sync-qa-repository.sh" \
   "$PROXY_DIR/oracle-ram-monitor.sh" \
   "$PROXY_DIR/aws-health-monitor.sh"
 
@@ -119,7 +125,7 @@ if $DEPLOY_CADDY; then
 fi
 
 if $DEPLOY_BACKEND; then
-  curl -sf http://127.0.0.1:8080/api/health >/dev/null
+  curl -sf "http://127.0.0.1:${BACKEND_PORT:-8080}/api/health" >/dev/null
   echo "Backend health OK"
 fi
 

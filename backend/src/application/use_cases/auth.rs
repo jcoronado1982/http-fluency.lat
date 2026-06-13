@@ -299,7 +299,34 @@ impl AuthUseCases {
         Ok(token)
     }
 
+    /// Login de invitado solo para desarrollo local (JWT real con rol admin).
+    pub fn dev_guest_login(&self) -> Result<AuthResponse> {
+        let now = Utc::now();
+        let user = User {
+            id: Some("guest".to_string()),
+            email: "guest@local.dev".to_string(),
+            name: "Invitado Local".to_string(),
+            picture: None,
+            role: "admin".to_string(),
+            created_at: now,
+            last_login: now,
+        };
+        let token = self.generate_jwt(&user, None)?;
+        Ok(AuthResponse { token, user })
+    }
+
     pub fn validate_jwt(&self, token: &str) -> Result<Claims> {
+        // Compatibilidad con sesiones guest antiguas en desarrollo.
+        if Self::dev_guest_token_allowed() && token == "guest-token-123" {
+            return Ok(Claims {
+                sub: "guest@local.dev".to_string(),
+                email: "guest@local.dev".to_string(),
+                name: "Invitado Local".to_string(),
+                role: "admin".to_string(),
+                exp: usize::MAX,
+            });
+        }
+
         let mut validation = Validation::new(Algorithm::HS256);
         validation.validate_exp = true;
         validation.required_spec_claims.clear();
@@ -310,5 +337,12 @@ impl AuthUseCases {
             &validation,
         )?;
         Ok(token_data.claims)
+    }
+
+    pub fn dev_guest_token_allowed() -> bool {
+        cfg!(debug_assertions)
+            || std::env::var("ALLOW_DEV_GUEST")
+                .map(|v| v == "true" || v == "1")
+                .unwrap_or(false)
     }
 }

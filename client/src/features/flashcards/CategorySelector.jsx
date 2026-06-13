@@ -3,6 +3,7 @@ import styles from './CategorySelector.module.css';
 import { useAppContext } from '../../context/AppContext';
 import { useFlashcardContext } from '../../context/FlashcardContext';
 import { useCategoryContext } from '../../context/CategoryContext';
+import { translations } from '../../config/translations';
 
 // Los totales son dinámicos — vienen del contexto que obtiene el conteo real del backend
 
@@ -18,25 +19,21 @@ const categoryColors = {
     phrasal_verbs: '#ef4444' // red
 };
 
-const formatName = (name) => {
+const formatName = (name, t) => {
     if (!name) return '';
     const clean = name.replace(/^\.\//, '');
-    if (clean === 'preposition') return 'Prepositions';
-    if (clean === 'nouns') return 'Nouns';
-    if (clean === 'verbs') return 'Verbs';
-    if (clean === 'adjectives') return 'Adjectives';
-    if (clean === 'adverbs') return 'Adverbs';
-    if (clean === 'pronouns') return 'Pronouns';
-    if (clean === 'connectors') return 'Connectors';
-    if (clean === 'determinant') return 'Determinants';
-    if (clean === 'phrasal_verbs') return 'Phrasal Verbs';
+    if (t && t.categories && t.categories[clean]) {
+        return t.categories[clean];
+    }
     return clean.replace(/[_-]/g, ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 };
 
 function CategorySelector() {
     const { 
-        categories, currentCategory, changeCategory, setIsCatalogVisible 
+        categories, currentCategory, changeCategory, setIsCatalogVisible, language = 'en'
     } = useAppContext();
+    
+    const t = translations[language].categorySelector;
 
     const { categoryTotals } = useCategoryContext();
 
@@ -102,7 +99,7 @@ function CategorySelector() {
 
                 {/* Sidebar Izquierda */}
                 <aside className={styles.sidebar}>
-                    <h3 className={styles.sidebarTitle}>CATEGORÍA</h3>
+                    <h3 className={styles.sidebarTitle}>{t.categoryTitle}</h3>
                     <nav className={styles.categoryNav}>
                         {categories.map(cat => {
                             const isActive = cat === currentCategory;
@@ -116,7 +113,7 @@ function CategorySelector() {
                                 >
                                     <span className={styles.categoryInfo}>
                                         <span className={styles.dot} style={{ backgroundColor: dotColor }} />
-                                        <span className={styles.categoryName}>{formatName(cat)}</span>
+                                        <span className={styles.categoryName}>{formatName(cat, t)}</span>
                                     </span>
                                     <span className={styles.categoryCount}>{count}</span>
                                 </button>
@@ -130,19 +127,19 @@ function CategorySelector() {
                     {/* Header superior */}
                     <div className={styles.header}>
                         <div className={styles.levelSelector}>
-                            <span className={styles.selectorLabel}>Nivel</span>
+                            <span className={styles.selectorLabel}>{t.level}</span>
                             <div className={styles.levelButtons}>
                                 {['basic', 'intermediate', 'advanced'].map(lvl => {
                                     const isActive = activeLevel === lvl;
                                     const isAvailable = deckNames.some((name) => getLevelFromDeckName(name) === lvl);
                                     return (
-                                        <button
+                                            <button
                                             key={lvl}
                                             disabled={!isAvailable}
                                             className={`${styles.levelBtn} ${isActive ? styles.activeLevel : ''}`}
                                             onClick={() => handleLevelChange(lvl)}
                                         >
-                                            {lvl}
+                                            {t.levels ? t.levels[lvl] : lvl.charAt(0).toUpperCase() + lvl.slice(1)}
                                         </button>
                                     );
                                 })}
@@ -150,9 +147,9 @@ function CategorySelector() {
                         </div>
 
                         <div className={styles.stats}>
-                            <span className={styles.statTotal}>{totalCards} cartas</span>
+                            <span className={styles.statTotal}>{totalCards} {t.cardsInLevel}</span>
                             <span className={styles.statSeparator}>·</span>
-                            <span className={styles.statLearned}>{learnedCards} aprendidas</span>
+                            <span className={styles.statLearned}>{learnedCards} {t.learned}</span>
                         </div>
                     </div>
 
@@ -172,7 +169,7 @@ function CategorySelector() {
                                     style={{ '--card-accent': categoryColor }}
                                 >
                                     <div className={styles.groupHeader}>
-                                        <h4 className={styles.groupName}>{group.name}</h4>
+                                        <h4 className={styles.groupName}>{t.groups && t.groups[group.name] ? t.groups[group.name] : group.name}</h4>
                                         <span className={styles.groupCountBadge}>{group.total}</span>
                                     </div>
 
@@ -190,9 +187,9 @@ function CategorySelector() {
                                     {/* Estado inferior */}
                                     <div className={styles.groupStatus}>
                                         {isComplete ? (
-                                            <span className={styles.statusCompleted}>✓ completo</span>
+                                            <span className={styles.statusCompleted}>{t.complete}</span>
                                         ) : isNew ? (
-                                            <span className={styles.statusNew}>nuevo</span>
+                                            <span className={styles.statusNew}>{t.newStr}</span>
                                         ) : (
                                             <span className={styles.statusProgress}>{group.learned} / {group.total}</span>
                                         )}

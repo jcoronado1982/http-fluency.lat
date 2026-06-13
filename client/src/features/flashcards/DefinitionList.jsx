@@ -1,67 +1,69 @@
 import React from 'react';
 import styles from './Flashcard.module.css';
 import HighlightedText from './HighlightedText';
-import { FaTimes, FaSpinner } from 'react-icons/fa';
-import { FiPlay } from 'react-icons/fi';
+import { FaSpinner } from 'react-icons/fa';
+import { FiPlay, FiRefreshCw } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 
 /**
  * DefinitionList — responsable ÚNICAMENTE de renderizar la lista de ejemplos de uso.
  * SRP: no maneja estado de imagen ni lógica de formas verbales.
  */
-function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionMedia, deleteAudio, activeAudioText, highlightedWordIndex, isDisabled, isGeneratingAudio }) {
+function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionMedia, deleteAudio, activeAudioText, highlightedWordIndex, isDisabled, isGeneratingAudio, currentLanguage }) {
     const { user } = useAuth();
     const isAdmin = user?.role === 'admin';
-    const confirmDeleteAudio = (e, text) => {
+    const handleRotateVoice = (e, text, lang = 'en') => {
         e.stopPropagation();
-        if (window.confirm(`¿Borrar y regenerar audio de: "${text}"?`)) {
-            deleteAudio(text);
-        }
+        deleteAudio(text, lang);
     };
 
     return (
         <div className={styles.allExamplesContainer}>
             <ul>
-                {definitions?.map((def, di) => (
-                    <li key={di}>
+                {definitions?.map((def, di) => {
+                    const exampleText = currentLanguage === 'es' ? def.usage_example_es : def.usage_example;
+                    return (
+                    <li key={di} className={styles.exampleRow}>
                         <button
-                            className={isGeneratingAudio && activeAudioText === def.usage_example ? styles.loadingAudioBtn : ''}
-                            onClick={(e) => { e.stopPropagation(); playDefinitionMedia(di, def.usage_example); }}
+                            type="button"
+                            className={`${styles.examplePlayBtn} ${isGeneratingAudio && activeAudioText === exampleText ? styles.loadingAudioBtn : ''}`}
+                            onClick={(e) => { e.stopPropagation(); playDefinitionMedia(di, exampleText, currentLanguage); }}
                             disabled={isDisabled}
                         >
-                            {isGeneratingAudio && activeAudioText === def.usage_example
+                            {isGeneratingAudio && activeAudioText === exampleText
                                 ? <FaSpinner className={styles.spinner} />
-                                : <FiPlay size={14} />}
+                                : <FiPlay size={18} />}
                         </button>
 
                         <div
                             className={`${styles.phraseContainer} ${blurredState[di] ? styles.blurredText : ''}`}
                             onClick={(e) => { e.stopPropagation(); toggleBlur(di); }}
                         >
-                            <div className={styles.phraseText}>
-                                <HighlightedText
-                                    text={def.usage_example}
-                                    activeAudioText={activeAudioText}
-                                    highlightedWordIndex={highlightedWordIndex}
-                                />
-                            </div>
-                            {isAdmin && (
-                                <button
-                                    className={styles.deleteAudioBtn}
-                                    onClick={(e) => confirmDeleteAudio(e, def.usage_example)}
-                                    title="Borrar y regenerar audio"
-                                    disabled={isDisabled}
-                                >
-                                    <FaTimes size={10} />
-                                </button>
-                            )}
+                            <HighlightedText
+                                text={exampleText}
+                                activeAudioText={activeAudioText}
+                                highlightedWordIndex={highlightedWordIndex}
+                            />
                         </div>
 
-                        {def.pronunciation_guide_es && (
+                        {isAdmin && !(isGeneratingAudio && activeAudioText === exampleText) && (
+                            <button
+                                type="button"
+                                className={styles.rotateVoiceBtn}
+                                onClick={(e) => handleRotateVoice(e, exampleText, currentLanguage)}
+                                title="Actualizar voz aleatoria"
+                                disabled={isDisabled}
+                            >
+                                <FiRefreshCw size={18} />
+                            </button>
+                        )}
+
+                        {currentLanguage !== 'es' && def.pronunciation_guide_es && (
                             <span className={styles.customTooltip}>{def.pronunciation_guide_es}</span>
                         )}
                     </li>
-                ))}
+                    );
+                })}
             </ul>
         </div>
     );

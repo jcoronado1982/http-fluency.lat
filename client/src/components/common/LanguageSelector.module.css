@@ -62,12 +62,34 @@
 
 @media (max-width: 768px) {
     .container {
-        height: 32px;
-        padding: 2px 8px;
-        min-width: 80px;
+        height: 44px;
+        padding: 4px 5px;
+        min-width: 112px;
     }
 
     .option {
-        font-size: 0.8em;
+        font-size: 1.15rem;
+        font-weight: 600;
+        padding: 0 10px;
+        min-width: 36px;
+        min-height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .option.active {
+        font-weight: 700;
+    }
+
+    .separator {
+        font-size: 1.05rem;
+        margin: 0 6px;
+    }
+
+    .indicator {
+        bottom: 5px;
+        height: 3px;
+        width: 28%;
     }
 }

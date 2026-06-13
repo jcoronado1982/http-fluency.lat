@@ -7,12 +7,20 @@
 ///   - HTTP/2 con TLS session persistente entre síntesis consecutivas
 use async_trait::async_trait;
 use anyhow::{anyhow, Context, Result};
+use base64::{engine::general_purpose::STANDARD, Engine};
+use serde::Deserialize;
 use std::time::Duration;
 use tonic::transport::{Channel, ClientTlsConfig, Uri};
 use tonic::Request;
 
 use crate::config::Settings;
 use crate::domain::repositories::audio::AudioGenerator;
+use crate::infrastructure::ai::gemini_voices::normalize_gemini_voice;
+
+/// Gemini-TTS on Cloud Text-to-Speech (not AI Studio).
+pub const GEMINI_CLOUD_TTS_MODEL: &str = "gemini-2.5-flash-tts";
+/// Latin American Spanish locale (Preview in Gemini-TTS docs).
+pub const SPANISH_GEMINI_LOCALE: &str = "es-419";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Tipos protobuf inline  (google.cloud.texttospeech.v1)
@@ -50,6 +58,9 @@ struct TtsAudioConfig {
     /// OGG_OPUS = 3
     #[prost(int32, tag = "1")]
     audio_encoding: i32,
+    /// 0.25–4.0; ~0.92 sounds less robotic for short phrases
+    #[prost(double, optional, tag = "2")]
+    speaking_rate: Option<f64>,
 }
 
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -66,6 +77,13 @@ struct TtsSynthResponse {
 pub struct TtsGrpcProvider {
     channel: Channel,
     api_key: Option<String>,
+    http: reqwest::Client,
+}
+
+#[derive(Deserialize)]
+struct RestSynthResponse {
+    #[serde(rename = "audioContent")]
+    audio_content: Option<String>,
 }
 
 impl TtsGrpcProvider {
@@ -87,30 +105,108 @@ impl TtsGrpcProvider {
         Ok(Self {
             channel,
             api_key,
+            http: reqwest::Client::new(),
         })
     }
 
-    fn map_voice(voice_name: &str) -> &'static str {
-        match voice_name {
+    fn is_spanish(lang: Option<&str>) -> bool {
+        lang.map(|l| l.eq_ignore_ascii_case("es") || l.starts_with("es-"))
+            .unwrap_or(false)
+    }
+
+    /// Gemini-TTS via Cloud REST (`modelName` + `languageCode`). Requires OAuth.
+    async fn synthesize_gemini_cloud_spanish(&self, text: &str, voice_name: &str) -> Result<Vec<u8>> {
+        let token = self
+            .get_oauth_token()
+            .await?
+            .context("Gemini-TTS Cloud (es-419) requiere GOOGLE_APPLICATION_CREDENTIALS o metadata GCP")?;
+
+        let gemini_voice = normalize_gemini_voice(voice_name);
+        tracing::info!(
+            "🇪🇸 Gemini-TTS Cloud: locale='{}', model='{}', voz='{}', texto='{}'",
+            SPANISH_GEMINI_LOCALE,
+            GEMINI_CLOUD_TTS_MODEL,
+            gemini_voice,
+            text
+        );
+
+        let body = serde_json::json!({
+            "input": { "text": text },
+            "voice": {
+                "languageCode": SPANISH_GEMINI_LOCALE,
+                "modelName": GEMINI_CLOUD_TTS_MODEL,
+                "name": gemini_voice
+            },
+            "audioConfig": {
+                "audioEncoding": "OGG_OPUS",
+                "speakingRate": 0.92
+            }
+        });
+
+        let resp = self
+            .http
+            .post("https://texttospeech.googleapis.com/v1/text:synthesize")
+            .header("Authorization", format!("Bearer {}", token))
+            .json(&body)
+            .send()
+            .await
+            .context("Gemini-TTS Cloud request failed")?;
+
+        if !resp.status().is_success() {
+            let status = resp.status();
+            let err_body = resp.text().await.unwrap_or_default();
+            return Err(anyhow!("Gemini-TTS Cloud error {}: {}", status, err_body));
+        }
+
+        let parsed: RestSynthResponse = resp.json().await.context("Gemini-TTS Cloud parse failed")?;
+        let b64 = parsed
+            .audio_content
+            .ok_or_else(|| anyhow!("Gemini-TTS Cloud: sin audioContent"))?;
+        let bytes = STANDARD.decode(b64).context("Gemini-TTS Cloud base64 decode failed")?;
+        if bytes.is_empty() {
+            return Err(anyhow!("Gemini-TTS Cloud: audio vacío"));
+        }
+        Ok(bytes)
+    }
+
+    fn map_voice(voice_name: &str, lang: Option<&str>) -> (&'static str, &'static str) {
+        if let Some(l) = lang {
+            if l.starts_with("es") {
+                // Chirp 3 HD: más natural que Neural2 (foros: Neural2 suena robótico)
+                let _ = voice_name;
+                return ("es-US", "es-US-Chirp3-HD-Kore");
+            }
+        }
+        
+        let voice = match voice_name {
             "Aoede" | "Callirrhoe" | "Gacrux" => "en-US-Standard-C",
             "Zephyr" | "Iapetus" | "Achernar" => "en-US-Standard-B",
             "Charon" => "en-US-Standard-D",
             _ => "en-US-Standard-A",
-        }
+        };
+        ("en-US", voice)
     }
 
-    async fn synthesize_raw(&self, input: TtsSynthInput, voice_name: &str) -> Result<Vec<u8>> {
+    async fn synthesize_raw(&self, input: TtsSynthInput, voice_name: &str, lang: Option<&str>) -> Result<Vec<u8>> {
         use tonic::codec::ProstCodec;
         use tonic::Code;
+
+        let (language_code, name) = Self::map_voice(voice_name, lang);
+        let speaking_rate = if lang.map(|l| l.starts_with("es")).unwrap_or(false) {
+            Some(0.92)
+        } else {
+            None
+        };
 
         let proto_req = TtsSynthRequest {
             input: Some(input),
             voice: Some(TtsVoiceParams {
-                language_code: "en-US".into(),
-                name: Self::map_voice(voice_name).into(),
+                language_code: language_code.into(),
+                name: name.into(),
             }),
             audio_config: Some(TtsAudioConfig {
                 audio_encoding: 3, // OGG_OPUS
+                speaking_rate,
             }),
         };
 
@@ -192,11 +288,50 @@ impl TtsGrpcProvider {
 
 #[async_trait]
 impl AudioGenerator for TtsGrpcProvider {
-    async fn synthesize(&self, text: &str, voice_name: &str) -> Result<Vec<u8>> {
-        self.synthesize_raw(TtsSynthInput { text: Some(text.into()), ssml: None }, voice_name).await
+    async fn synthesize(&self, text: &str, voice_name: &str, lang: Option<&str>) -> Result<Vec<u8>> {
+        if Self::is_spanish(lang) {
+            match self.synthesize_gemini_cloud_spanish(text, voice_name).await {
+                Ok(bytes) => return Ok(bytes),
+                Err(e) => {
+                    tracing::warn!(
+                        "⚠️ Gemini-TTS Cloud es-419 falló ({}), fallback Chirp3 es-US",
+                        e
+                    );
+                }
+            }
+        }
+        self.synthesize_raw(TtsSynthInput { text: Some(text.into()), ssml: None }, voice_name, lang).await
     }
 
-    async fn synthesize_ssml(&self, ssml: &str, voice_name: &str) -> Result<Vec<u8>> {
-        self.synthesize_raw(TtsSynthInput { text: None, ssml: Some(ssml.into()) }, voice_name).await
+    async fn synthesize_ssml(&self, ssml: &str, voice_name: &str, lang: Option<&str>) -> Result<Vec<u8>> {
+        if Self::is_spanish(lang) {
+            let text = Self::strip_ssml(ssml);
+            match self.synthesize_gemini_cloud_spanish(&text, voice_name).await {
+                Ok(bytes) => return Ok(bytes),
+                Err(e) => {
+                    tracing::warn!(
+                        "⚠️ Gemini-TTS Cloud es-419 (SSML) falló ({}), fallback Chirp3 es-US",
+                        e
+                    );
+                }
+            }
+        }
+        self.synthesize_raw(TtsSynthInput { text: None, ssml: Some(ssml.into()) }, voice_name, lang).await
+    }
+}
+
+impl TtsGrpcProvider {
+    fn strip_ssml(ssml: &str) -> String {
+        let mut out = String::with_capacity(ssml.len());
+        let mut in_tag = false;
+        for ch in ssml.chars() {
+            match ch {
+                '<' => in_tag = true,
+                '>' => in_tag = false,
+                _ if !in_tag => out.push(ch),
+                _ => {}
+            }
+        }
+        out.split_whitespace().collect::<Vec<_>>().join(" ")
     }
 }

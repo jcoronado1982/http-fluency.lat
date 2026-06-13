@@ -8,7 +8,7 @@ import { useAppContext } from '../../context/AppContext';
 import { useFlashcardContext } from '../../context/FlashcardContext';
 
 function Flashcard() {
-    const { setAppMessage, setIsAudioLoading, selectedTone, currentCategory, setIsIpaModalOpen } = useAppContext();
+    const { setAppMessage, setIsAudioLoading, currentCategory, setIsIpaModalOpen, language = 'en' } = useAppContext();
     const { currentCard: cardData, currentDeckName, updateCardImagePath } = useFlashcardContext();
     const [prevCardId, setPrevCardId] = useState(null);
 
@@ -20,7 +20,7 @@ function Flashcard() {
         playAudio, deleteAudio, activeAudioText, highlightedWordIndex, isGeneratingAudio
     } = useAudioPlayback({
         setAppMessage, setIsAudioLoading, currentCategory, currentDeckName,
-        selectedTone, verbName: cardData?.name
+        verbName: cardData?.name
     });
 
     const {
@@ -31,10 +31,10 @@ function Flashcard() {
         cardData, currentCategory, currentDeckName, setAppMessage, updateCardImagePath, activeForm
     });
 
-    const playDefinitionMedia = useCallback(async (defIndex, text) => {
+    const playDefinitionMedia = useCallback(async (defIndex, text, lang = 'en') => {
         await Promise.all([
             ensureImageForDefinition(defIndex),
-            playAudio(text),
+            playAudio(text, lang),
         ]);
     }, [ensureImageForDefinition, playAudio]);
 
@@ -91,10 +91,12 @@ function Flashcard() {
                     canCustomizeImages={canCustomizeImages}
                     deleteAudio={deleteAudio}
                     isGeneratingAudio={isGeneratingAudio}
+                    currentLanguage={language}
                 />
                 <CardBack 
                     cardData={cardData} 
                     activeForm={activeForm}
+                    currentLanguage={language}
                 />
             </div>
         </div>
