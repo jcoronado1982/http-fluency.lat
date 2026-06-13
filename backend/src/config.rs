@@ -11,6 +11,8 @@ pub struct Settings {
     pub gcs_audio_prefix: String,
     pub database_url: String,
     pub gemini_api_key: Option<String>,
+    /// Clave AI Studio solo para Gemini TTS (inglés). Si falta, cae en gemini_api_key.
+    pub gemini_tts_api_key: Option<String>,
     /// API key de Google Cloud Platform con permiso para Text-to-Speech.
     /// Si no se define, se usa gemini_api_key como fallback.
     pub gcp_api_key: Option<String>,
@@ -36,6 +38,7 @@ impl Settings {
             gcs_audio_prefix: env::var("GCS_AUDIO_PREFIX").unwrap_or_else(|_| "card_audio".to_string()),
             database_url: env::var("DATABASE_URL").unwrap_or_else(|_| "postgresql://postgres:postgres@localhost:5432/flashcard_db".to_string()),
             gemini_api_key: env::var("GEMINI_API_KEY").ok(),
+            gemini_tts_api_key: env::var("GEMINI_TTS_API_KEY").ok(),
             gcp_api_key: env::var("GCP_API_KEY").ok(),
             comfy_url: env::var("COMFY_URL").unwrap_or_else(|_| "http://localhost:8188".to_string()),
             local_storage_path: env::var("LOCAL_STORAGE_PATH").unwrap_or_else(|_| ".".to_string()),

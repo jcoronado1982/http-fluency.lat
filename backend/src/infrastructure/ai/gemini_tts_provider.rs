@@ -89,11 +89,12 @@ struct InlineData {
 impl GeminiTtsProvider {
     pub fn new(settings: &Settings) -> Result<Self> {
         let api_key = settings
-            .gemini_api_key
+            .gemini_tts_api_key
             .clone()
+            .or(settings.gemini_api_key.clone())
             .or(settings.gcp_api_key.clone())
             .filter(|k| k != "DISABLED")
-            .context("GEMINI_API_KEY requerida para Gemini TTS")?;
+            .context("GEMINI_TTS_API_KEY o GEMINI_API_KEY requerida para Gemini TTS")?;
 
         Ok(Self {
             client: reqwest::Client::new(),
