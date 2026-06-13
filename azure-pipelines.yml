@@ -9,6 +9,7 @@ trigger:
       - client/**
       - backend/**
       - infra/**
+      - json/**
 
 variables:
   - name: sshConn
@@ -218,6 +219,7 @@ stages:
           deploy-surrealdb.sh
           docker-gcr-auth.sh
           bootstrap-oracle.sh
+          sync-json-to-oracle.sh
           sync-qa-repository.sh
           oracle-ram-monitor.sh
           aws-health-monitor.sh
@@ -323,6 +325,7 @@ stages:
           deploy-surrealdb.sh
           docker-gcr-auth.sh
           bootstrap-oracle.sh
+          sync-json-to-oracle.sh
           sync-qa-repository.sh
           oracle-ram-monitor.sh
           aws-health-monitor.sh
@@ -330,6 +333,15 @@ stages:
           traffic-manager
         targetFolder: '/root/smart-proxy/infra-proxy'
         cleanTargetFolder: false
+
+    - task: CopyFilesOverSSH@0
+      displayName: 'Stage json/ del repo → Oracle'
+      inputs:
+        sshEndpoint: $(sshConn)
+        sourceFolder: 'json'
+        contents: '**'
+        targetFolder: '/tmp/flashcard-json-staging'
+        cleanTargetFolder: true
 
     - task: SSH@0
       displayName: 'Deploy Oracle backend (env en memoria vía SSH)'
@@ -350,6 +362,11 @@ stages:
           export SURREAL_URL=127.0.0.1:8001
           export SURREAL_USER=root
           export SURREAL_PASS=root
+
+          echo "Applying json/ from repo to Oracle production repository..."
+          bash /root/smart-proxy/infra-proxy/sync-json-to-oracle.sh \
+            /tmp/flashcard-json-staging \
+            /root/smart-proxy/repository/flashcard/json
           
           if [ "$(Build.SourceBranch)" = "refs/heads/qa" ]; then
             export SURREAL_NS=qa_flashcard
