@@ -53,7 +53,7 @@ strip = true
 opt-level = 3
 
 [features]
-default = ["flashcards", "auth"]
+default = ["flashcards", "auth", "story_arcade"]
 flashcards = []
 auth = []
 story_arcade = []

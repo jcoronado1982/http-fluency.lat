@@ -62,8 +62,8 @@
     background: rgba(148, 163, 184, 0.1);
     border: 1px solid rgba(148, 163, 184, 0.2);
     border-radius: 12px;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -90,8 +90,8 @@
     background: rgba(56, 189, 248, 0.15);
     border: 1px solid rgba(56, 189, 248, 0.3);
     border-radius: 12px;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -157,8 +157,8 @@
     background: rgba(239, 68, 68, 0.1);
     border: 1px solid rgba(239, 68, 68, 0.2);
     border-radius: 12px;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -183,8 +183,8 @@
     background: rgba(16, 185, 129, 0.1);
     border: 1px solid rgba(16, 185, 129, 0.2);
     border-radius: 12px;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -212,7 +212,7 @@
     margin: 0;
     min-width: 60px;
     text-align: center;
-    line-height: 46px;
+    line-height: 48px;
 }
 
 @media (max-width: 768px) {
@@ -223,8 +223,8 @@
     .actionBtn,
     .resetButton,
     .correctButton {
-        width: 48px;
-        height: 48px;
+        width: 52px;
+        height: 52px;
     }
 
     .nav svg,
@@ -238,7 +238,7 @@
     }
 
     .cardCounter {
-        line-height: 48px;
+        line-height: 52px;
         font-size: 1.3em;
     }
 }

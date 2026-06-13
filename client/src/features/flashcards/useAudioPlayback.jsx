@@ -7,6 +7,34 @@ const SYNC_OFFSET  = 0.15;
 
 const audioPlayer = new Audio();
 
+function getPlaybackDuration(player) {
+    const duration = player.duration;
+    if (Number.isFinite(duration) && duration > 0) return duration;
+    // Safari/iOS a menudo devuelve Infinity en WAV; usar rangos seekable/buffered
+    for (const range of [player.seekable, player.buffered]) {
+        if (range?.length > 0) {
+            const end = range.end(range.length - 1);
+            if (Number.isFinite(end) && end > 0) return end;
+        }
+    }
+    return null;
+}
+
+function resolveWordIndex(currentTime, duration, wordIntervals, offset = 0.02) {
+    if (!duration || wordIntervals.length === 0) return 0;
+    const currentFraction = (currentTime + offset) / duration;
+    let idx = 0;
+    for (let i = 0; i < wordIntervals.length; i++) {
+        if (currentFraction >= wordIntervals[i].start && currentFraction < wordIntervals[i].end) {
+            return i;
+        }
+        if (i === wordIntervals.length - 1 && currentFraction >= wordIntervals[i].start) {
+            idx = i;
+        }
+    }
+    return idx;
+}
+
 export function useAudioPlayback({
     setAppMessage,
     setIsAudioLoading,
@@ -29,6 +57,7 @@ export function useAudioPlayback({
             audioPlayer.pause();
             audioPlayer.currentTime = 0;
             if (audioPlayer.src.startsWith('blob:')) URL.revokeObjectURL(audioPlayer.src);
+            audioPlayer.ontimeupdate = null;
         }
 
         setHighlightedWordIndex(-1);
@@ -39,6 +68,7 @@ export function useAudioPlayback({
 
         let success = false;
         let data;
+        let durationCleanup = null;
 
         try {
             for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
@@ -117,23 +147,47 @@ export function useAudioPlayback({
             }
 
             let animationFrameId = null;
+            let cachedDuration = getPlaybackDuration(audioPlayer);
+            let maxSeenTime = 0;
+            const estimatedDuration = Math.max(0.8, words.length * 0.42);
+
+            const syncDurationFromMetadata = () => {
+                const d = getPlaybackDuration(audioPlayer);
+                if (d) cachedDuration = d;
+            };
+
+            const cleanupDurationListeners = () => {
+                audioPlayer.removeEventListener('durationchange', syncDurationFromMetadata);
+                audioPlayer.removeEventListener('loadedmetadata', syncDurationFromMetadata);
+                audioPlayer.removeEventListener('progress', syncDurationFromMetadata);
+            };
+            durationCleanup = cleanupDurationListeners;
+
+            audioPlayer.addEventListener('durationchange', syncDurationFromMetadata);
+            audioPlayer.addEventListener('loadedmetadata', syncDurationFromMetadata);
+            audioPlayer.addEventListener('progress', syncDurationFromMetadata);
+
+            const resolveDuration = () => {
+                cachedDuration = getPlaybackDuration(audioPlayer) ?? cachedDuration;
+                maxSeenTime = Math.max(maxSeenTime, audioPlayer.currentTime || 0);
+                return cachedDuration ?? Math.max(maxSeenTime * 1.08, estimatedDuration);
+            };
+
+            const updateHighlight = () => {
+                const duration = resolveDuration();
+                if (!duration || duration <= 0) return;
+                const idx = resolveWordIndex(
+                    audioPlayer.currentTime,
+                    duration,
+                    wordIntervals,
+                    SYNC_OFFSET_ADJUSTED
+                );
+                setHighlightedWordIndex((p) => (p !== idx ? idx : p));
+            };
+
             const trackHighlight = () => {
                 if (!audioPlayer.paused) {
-                    const { duration, currentTime } = audioPlayer;
-                    if (duration && isFinite(duration)) {
-                        const currentFraction = (currentTime + SYNC_OFFSET_ADJUSTED) / duration;
-                        let idx = 0;
-                        for (let i = 0; i < wordIntervals.length; i++) {
-                            if (currentFraction >= wordIntervals[i].start && currentFraction < wordIntervals[i].end) {
-                                idx = i;
-                                break;
-                            }
-                            if (i === wordIntervals.length - 1 && currentFraction >= wordIntervals[i].start) {
-                                idx = i;
-                            }
-                        }
-                        setHighlightedWordIndex((p) => (p !== idx ? idx : p));
-                    }
+                    updateHighlight();
                     animationFrameId = requestAnimationFrame(trackHighlight);
                 }
             };
@@ -155,6 +209,8 @@ export function useAudioPlayback({
                     cancelAnimationFrame(animationFrameId);
                     animationFrameId = null;
                 }
+                cleanupDurationListeners();
+                audioPlayer.ontimeupdate = null;
                 setIsAudioPlaying(false);
                 setAppMessage({ text: 'Audio finalizado.', isError: false });
                 setHighlightedWordIndex(-1);
@@ -162,7 +218,8 @@ export function useAudioPlayback({
                 setIsAudioLoading(false);
             };
 
-            audioPlayer.ontimeupdate = null;
+            // timeupdate: fallback fiable en Safari/iOS cuando duration tarda o rAF se limita
+            audioPlayer.ontimeupdate = updateHighlight;
 
             await audioPlayer.play();
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
@@ -171,6 +228,8 @@ export function useAudioPlayback({
 
         } catch (err) {
             console.error('Error en playAudio:', err);
+            durationCleanup?.();
+            audioPlayer.ontimeupdate = null;
             setAppMessage({ text: `Error: ${err.message}`, isError: true });
             setIsAudioPlaying(false);
             setActiveAudioText(null);

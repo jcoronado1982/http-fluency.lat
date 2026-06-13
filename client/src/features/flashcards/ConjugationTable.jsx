@@ -30,12 +30,16 @@ function ConjugationTable({ cardData, activeForm, setActiveForm, playAudio, acti
                         <span className={styles.conjugationForm}>{form}</span>
                         <button
                             className={`${styles.conjugationAudioBtn} ${isGeneratingAudio && activeAudioText === form ? styles.loadingAudioBtn : ''}`}
-                            onClick={(e) => { e.stopPropagation(); playAudio(form, currentLanguage); }}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setActiveForm(key);
+                                playAudio(form, currentLanguage);
+                            }}
                             disabled={isGeneratingAudio}
                         >
                             {isGeneratingAudio && activeAudioText === form
                                 ? <FaSpinner className={styles.spinner} />
-                                : <FiPlay size={10} />}
+                                : <FiPlay size={15} />}
                         </button>
                     </div>
                     <span className={styles.conjugationPhonetic}>{phonetic}</span>

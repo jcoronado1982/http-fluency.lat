@@ -5,8 +5,9 @@ import styles from './Flashcard.module.css'; // Reutilizamos los estilos de Flas
 function HighlightedText({ text, activeAudioText, highlightedWordIndex }) {
     if (!text) return null;
 
-    const words = text.split(' ');
-    const isActive = activeAudioText === text;
+    const normalizedText = text.trim();
+    const words = normalizedText.split(/\s+/);
+    const isActive = activeAudioText?.trim() === normalizedText;
 
     return (
         <>
@@ -16,10 +17,10 @@ function HighlightedText({ text, activeAudioText, highlightedWordIndex }) {
                     className={
                         isActive && highlightedWordIndex === index
                             ? styles.highlightedWord
-                            : ''
+                            : undefined
                     }
                 >
-                    {word}{' '}
+                    {word}{index < words.length - 1 ? ' ' : ''}
                 </span>
             ))}
         </>

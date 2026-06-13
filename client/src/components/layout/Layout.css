@@ -377,7 +377,7 @@
     }
 
     .header-controls {
-        gap: 14px;
+        gap: 0px;
         /* width: 100%;  <-- Removed to allow logo to share space */
         justify-content: flex-end;
         flex: 1;

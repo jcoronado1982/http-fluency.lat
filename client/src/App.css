@@ -276,7 +276,7 @@
 
 @media (max-width: 768px) {
     .app-container {
-        padding: 65px 10px 0px 10px !important;
+        padding: 50px 10px 0px 10px !important;
         padding-bottom: 20px;
     }
 }

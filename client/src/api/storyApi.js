@@ -3,6 +3,14 @@ import { httpClient } from '../services/httpClient';
 
 const storyQueryOptions = { retry: 1 };
 
+export const useBackendFeatures = () => {
+  return useQuery({
+    queryKey: ['features'],
+    queryFn: () => httpClient.get('/api/features'),
+    staleTime: 60_000,
+  });
+};
+
 export const useStoryProgress = (userId, storyId) => {
   return useQuery({
     queryKey: ['progress', userId, storyId],

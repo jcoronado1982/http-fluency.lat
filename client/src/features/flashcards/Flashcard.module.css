@@ -91,10 +91,10 @@
     font-size: clamp(1.5rem, 5vw, 2.5em);
     font-weight: 800;
     color: #ffffff;
-    margin: 0 0 10px 0;
+    margin: 0 0 2px 0;
     text-transform: capitalize;
     letter-spacing: -0.02em;
-    line-height: 1.2;
+    line-height: 1.05;
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
     width: 100%;
     border-bottom: none;
@@ -131,14 +131,18 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.allExamplesContainer li {
+.allExamplesContainer li,
+.exampleRow {
     display: flex;
-    align-items: flex-start;
-    margin-bottom: 5px;
-    padding: 5px;
-    /* Agregamos un poco de padding para facilitar el hover */
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0;
+    padding: 5px 8px;
     border-radius: 10px;
     transition: all 0.3s ease;
     position: relative;
@@ -147,36 +151,34 @@
     pointer-events: auto;
 }
 
-.allExamplesContainer li:hover {
+.allExamplesContainer li:hover,
+.exampleRow:hover {
     background: rgba(255, 255, 255, 0.05);
-    /* Feedback visual del hover */
 }
 
 .allExamplesContainer li:last-child {
     margin-bottom: 0;
 }
 
-.allExamplesContainer li > button {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+.examplePlayBtn {
+    background: transparent;
+    border: 1px solid transparent;
     border-radius: 50%;
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     font-size: 1em;
     cursor: pointer;
     flex-shrink: 0;
-    margin-right: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 4px;
-    transition: all 0.3s ease;
-    color: #ffffff;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    color: #4dabf7;
+    box-shadow: none;
     backface-visibility: hidden;
-    /* Fix for mobile visibility issue */
 }
 
-.allExamplesContainer li > button:hover {
+.examplePlayBtn:hover {
     background: rgba(77, 171, 247, 0.15);
     border-color: #4dabf7;
     color: #4dabf7;
@@ -323,23 +325,23 @@
 .soundButton {
     padding: 0;
     font-size: 1.2em;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid transparent;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
     z-index: 10;
     position: absolute;
-    background-color: rgba(255, 255, 255, 0.08);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: transparent;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     top: 25px;
     right: 20px;
     color: #4dabf7;
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(5px);
+    backdrop-filter: none;
     backface-visibility: hidden;
 }
 
@@ -350,23 +352,39 @@
     box-shadow: 0 0 20px rgba(77, 171, 247, 0.3);
 }
 
-.highlightedWord {
-    background-color: #FFC107;
-    color: #333333;
-    font-weight: 700;
-    /* Un poco menos grueso que 900 */
-    font-size: 1.05em;
-    /* Reducido de 1.25em */
-    text-shadow: none;
-    transform: scale(1.02);
-    /* Reducido de 1.05 */
+.highlightedWord,
+.allExamplesContainer li div span.highlightedWord {
+    position: relative;
     display: inline-block;
+    color: #333333 !important;
+    font-weight: 700 !important;
+    font-size: 1.05em;
+    text-shadow: none;
+    /* translate3d en lugar de scale: Safari no pinta fondos dentro de tarjetas 3D con scale */
+    transform: translate3d(0, 0, 1px);
+    -webkit-transform: translate3d(0, 0, 1px);
     padding: 2px 6px !important;
-    /* Mucho más compacto que 7px */
     margin: 0 2px;
     border-radius: 6px;
-    /* Bordes un poco más suaves */
-    transition: all 0.2s ease-out;
+    background: transparent !important;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    isolation: isolate;
+    transition: color 0.15s ease-out;
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
+}
+
+.highlightedWord::before,
+.allExamplesContainer li div span.highlightedWord::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: #FFC107;
+    border-radius: 6px;
+    z-index: -1;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 /* ------------------------------------------------------------------- */
@@ -499,33 +517,43 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 2px;
+    margin: 0 auto 16px;
+    width: fit-content;
+    max-width: 100%;
 }
 
 .phoneticContainer .phonetic {
     margin: 0;
+    padding: 0;
+    display: inline;
+    line-height: 1;
 }
 
 .ipaChartBtn {
     background-color: transparent;
     border: none;
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    font-size: 1.3em;
+    width: auto;
+    height: auto;
+    min-width: 0;
+    padding: 0 !important;
+    margin: 0;
+    font-size: 1em;
     cursor: pointer;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s;
+    flex-shrink: 0;
+    transition: transform 0.2s, background 0.2s ease;
     color: #838b9d;
     backface-visibility: hidden;
-    /* Fix for mobile visibility issue */
+    line-height: 0;
 }
 
 .ipaChartBtn:hover {
-    background-color: #d0e8ff;
-    transform: scale(1.2);
+    background-color: rgba(77, 171, 247, 0.15);
+    transform: scale(1.15);
 }
 
 .allExamplesContainer li div.blurredText {
@@ -789,22 +817,23 @@
 }
 
 .rotateVoiceBtn {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     padding: 0;
     margin-left: 14px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.45);
+    background: transparent;
+    border: 1px solid transparent;
+    color: #838b9d;
     cursor: pointer;
-    transition: all 0.3s ease;
-    opacity: 0.55;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    opacity: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     vertical-align: middle;
     flex-shrink: 0;
+    box-shadow: none;
     backface-visibility: hidden;
 }
 
@@ -815,11 +844,14 @@
     white-space: normal;
     line-height: 1.4;
     overflow: visible;
+    /* Promueve capa de composición para que Safari pinte el resaltado dentro de la tarjeta 3D */
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
 }
 
-.phraseContainer .rotateVoiceBtn {
-    vertical-align: middle;
-    margin-left: 16px;
+.exampleRow .rotateVoiceBtn {
+    margin-left: 0;
+    flex-shrink: 0;
 }
 
 .titleContainer {
@@ -830,6 +862,8 @@
     position: relative;
     max-width: 100%;
     flex-wrap: wrap;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
 }
 
 .titleContainer .rotateVoiceBtn {
@@ -837,23 +871,18 @@
 }
 
 .phraseText {
-    display: inline;
+    display: block;
     text-align: left;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
 
-.rotateVoiceBtn:hover {
-    opacity: 1;
-    background: rgba(77, 171, 247, 0.12);
-    border-color: rgba(77, 171, 247, 0.35);
+.rotateVoiceBtn:hover:not(:disabled) {
+    background: rgba(77, 171, 247, 0.15);
+    border-color: #4dabf7;
     color: #4dabf7;
-    transform: scale(1.08);
-    box-shadow: 0 0 10px rgba(77, 171, 247, 0.2);
-}
-
-.phraseContainer:hover .rotateVoiceBtn {
-    opacity: 0.75;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(77, 171, 247, 0.3);
 }
 
 .rotateVoiceBtn:disabled {
@@ -967,7 +996,7 @@
 
     .cardFront,
     .cardBack {
-        padding: 10px 5px 0px 5px !important;
+        padding: 2px 5px 0px 5px !important;
         border-radius: 0 !important;
         border: none !important;
         background: #0f172a !important;
@@ -976,14 +1005,30 @@
 
     .name {
         font-size: 1.8rem !important;
-        margin-bottom: 4px !important;
-        padding-right: 48px !important;
-        padding-left: 48px !important; /* Centrado perfecto */
+        margin-top: -6px !important;
+        margin-bottom: 0 !important;
+        line-height: 1.05 !important;
+        padding-right: 52px !important;
+        padding-left: 52px !important; /* Centrado perfecto */
+    }
+
+    .phoneticContainer {
+        gap: 2px !important;
+        margin-top: 0 !important;
+        margin-bottom: 8px !important;
+        width: fit-content !important;
+    }
+
+    .phoneticContainer .phonetic {
+        margin-bottom: 0 !important;
     }
 
     .phonetic {
         font-size: 1.05rem !important;
-        margin-bottom: 10px !important;
+    }
+
+    .ipaChartBtn {
+        padding: 0 !important;
     }
 
     .imagePlaceholder {
@@ -997,49 +1042,52 @@
         margin-bottom: 5px !important;
     }
 
-    .allExamplesContainer li {
+    .allExamplesContainer ul {
+        gap: 5px !important;
+    }
+
+    .allExamplesContainer li,
+    .exampleRow {
         display: flex !important;
-        align-items: center !important; /* Centrado vertical de botón y texto */
-        margin-bottom: 4px !important;
-        padding: 3px 6px !important;
+        align-items: center !important;
+        gap: 10px !important;
+        margin-bottom: 0 !important;
+        padding: 4px 6px !important;
     }
 
     .allExamplesContainer li div span {
-        font-size: 1.2rem !important; /* Reducido de 1.3em */
+        font-size: 1.2rem !important;
     }
 
-    .allExamplesContainer li > button {
-        width: 48px !important;
-        height: 48px !important;
-        margin-right: 12px !important;
-        margin-top: 2px !important;
+    .allExamplesContainer li div span.highlightedWord {
+        color: #333333 !important;
+        font-weight: 700 !important;
+    }
+
+    .examplePlayBtn {
+        width: 52px !important;
+        height: 52px !important;
+    }
+
+    .exampleRow .rotateVoiceBtn {
+        width: 52px !important;
+        height: 52px !important;
     }
 
     .soundButton {
-        top: 15px !important;
+        top: 6px !important;
         right: 15px !important;
-        width: 48px !important;
-        height: 48px !important;
-    }
-
-    .ipaChartBtn {
-        width: 28px !important;
-        height: 28px !important;
-        font-size: 1.1em !important;
+        width: 52px !important;
+        height: 52px !important;
     }
 
     .phraseContainer {
         height: auto !important;
         min-height: unset !important;
+        flex: 1 !important;
+        min-width: 0 !important;
         display: block !important;
-        width: 100% !important;
-    }
-
-    .phraseContainer .rotateVoiceBtn {
-        width: 48px !important;
-        height: 48px !important;
-        margin-left: 18px !important;
-        opacity: 0.6 !important;
+        width: auto !important;
     }
 
     .titleContainer {
@@ -1054,9 +1102,12 @@
     .titleContainer .rotateVoiceBtn {
         position: static !important;
         transform: none !important;
-        width: 48px !important;
-        height: 48px !important;
-        opacity: 1 !important;
+        width: 52px !important;
+        height: 52px !important;
+    }
+
+    .titleContainer .rotateVoiceBtn:hover:not(:disabled) {
+        transform: scale(1.1) !important;
     }
 }
 
@@ -1144,22 +1195,23 @@
 }
 
 .conjugationAudioBtn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    border: 1px solid transparent;
     border-radius: 50%;
-    width: 22px;
-    height: 22px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     color: #4dabf7;
-    transition: all 0.2s ease;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
     flex-shrink: 0;
+    box-shadow: none;
 }
 
 .conjugationAudioBtn:hover {
-    background: rgba(77, 171, 247, 0.1);
+    background: rgba(77, 171, 247, 0.15);
     border-color: #4dabf7;
     transform: scale(1.1);
 }
@@ -1172,7 +1224,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     /* Ajuste para compartir espacio con el botón */
-    max-width: calc(100% - 30px);
+    max-width: calc(100% - 40px);
     text-align: center;
 }
 

@@ -108,7 +108,7 @@ function CardFront({
             >
                 {isGeneratingAudio && activeAudioText === title
                     ? <FaSpinner className={styles.spinner} />
-                    : <FiPlay size={18} />}
+                    : <FiPlay size={22} />}
             </button>
 
             {/* Nombre + botón borrar audio */}
@@ -121,14 +121,14 @@ function CardFront({
                             activeAudioText={activeAudioText}
                             highlightedWordIndex={highlightedWordIndex}
                         />
-                        {isAdmin && (
+                        {isAdmin && !(isGeneratingAudio && activeAudioText === title) && (
                             <button
                                 className={styles.rotateVoiceBtn}
                                 onClick={(e) => handleRotateVoice(e, title, currentLanguage)}
                                 title="Actualizar voz aleatoria"
                                 disabled={isDisabled}
                             >
-                                <FiRefreshCw size={14} />
+                                <FiRefreshCw size={18} />
                             </button>
                         )}
                     </div>
@@ -138,9 +138,15 @@ function CardFront({
             {/* Fonética */}
             {currentLanguage !== 'es' && (
                 <div className={styles.phoneticContainer}>
-                    <p className={styles.phonetic}>{displayData.phonetic}</p>
-                    <button className={styles.ipaChartBtn} onClick={(e) => { e.stopPropagation(); onOpenIpaModal(); }} disabled={isDisabled}>
-                        <FiHeadphones size={16} />
+                    <span className={styles.phonetic}>{displayData.phonetic}</span>
+                    <button
+                        type="button"
+                        className={styles.ipaChartBtn}
+                        onClick={(e) => { e.stopPropagation(); onOpenIpaModal(); }}
+                        disabled={isDisabled}
+                        title="Tabla IPA"
+                    >
+                        <FiHeadphones size={18} />
                     </button>
                 </div>
             )}

@@ -20,46 +20,50 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
     return (
         <div className={styles.allExamplesContainer}>
             <ul>
-                {definitions?.map((def, di) => (
-                    <li key={di}>
+                {definitions?.map((def, di) => {
+                    const exampleText = currentLanguage === 'es' ? def.usage_example_es : def.usage_example;
+                    return (
+                    <li key={di} className={styles.exampleRow}>
                         <button
-                            className={isGeneratingAudio && activeAudioText === (currentLanguage === 'es' ? def.usage_example_es : def.usage_example) ? styles.loadingAudioBtn : ''}
-                            onClick={(e) => { e.stopPropagation(); playDefinitionMedia(di, currentLanguage === 'es' ? def.usage_example_es : def.usage_example, currentLanguage); }}
+                            type="button"
+                            className={`${styles.examplePlayBtn} ${isGeneratingAudio && activeAudioText === exampleText ? styles.loadingAudioBtn : ''}`}
+                            onClick={(e) => { e.stopPropagation(); playDefinitionMedia(di, exampleText, currentLanguage); }}
                             disabled={isDisabled}
                         >
-                            {isGeneratingAudio && activeAudioText === (currentLanguage === 'es' ? def.usage_example_es : def.usage_example)
+                            {isGeneratingAudio && activeAudioText === exampleText
                                 ? <FaSpinner className={styles.spinner} />
-                                : <FiPlay size={14} />}
+                                : <FiPlay size={18} />}
                         </button>
 
                         <div
                             className={`${styles.phraseContainer} ${blurredState[di] ? styles.blurredText : ''}`}
                             onClick={(e) => { e.stopPropagation(); toggleBlur(di); }}
                         >
-                            <div className={styles.phraseText}>
-                                <HighlightedText
-                                    text={currentLanguage === 'es' ? def.usage_example_es : def.usage_example}
-                                    activeAudioText={activeAudioText}
-                                    highlightedWordIndex={highlightedWordIndex}
-                                />
-                                {isAdmin && (
-                                    <button
-                                        className={styles.rotateVoiceBtn}
-                                        onClick={(e) => handleRotateVoice(e, currentLanguage === 'es' ? def.usage_example_es : def.usage_example, currentLanguage)}
-                                        title="Actualizar voz aleatoria"
-                                        disabled={isDisabled}
-                                    >
-                                            <FiRefreshCw size={14} />
-                                    </button>
-                                )}
-                            </div>
+                            <HighlightedText
+                                text={exampleText}
+                                activeAudioText={activeAudioText}
+                                highlightedWordIndex={highlightedWordIndex}
+                            />
                         </div>
+
+                        {isAdmin && !(isGeneratingAudio && activeAudioText === exampleText) && (
+                            <button
+                                type="button"
+                                className={styles.rotateVoiceBtn}
+                                onClick={(e) => handleRotateVoice(e, exampleText, currentLanguage)}
+                                title="Actualizar voz aleatoria"
+                                disabled={isDisabled}
+                            >
+                                <FiRefreshCw size={18} />
+                            </button>
+                        )}
 
                         {currentLanguage !== 'es' && def.pronunciation_guide_es && (
                             <span className={styles.customTooltip}>{def.pronunciation_guide_es}</span>
                         )}
                     </li>
-                ))}
+                    );
+                })}
             </ul>
         </div>
     );
