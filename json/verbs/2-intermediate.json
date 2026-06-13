@@ -28,7 +28,8 @@
         "usage_context_en": "lists/elements",
         "usage_context_es": "listas/elementos"
       }
-    ]
+    ],
+    "group_name": "Managing & Control"
   },
   {
     "name": "continue",
@@ -59,7 +60,8 @@
         "usage_context_en": "discussion/path",
         "usage_context_es": "discusión/camino"
       }
-    ]
+    ],
+    "group_name": "Social & Daily Life"
   },
   {
     "name": "set",
@@ -140,7 +142,8 @@
           }
         ]
       }
-    }
+    },
+    "group_name": "Managing & Control"
   },
   {
     "name": "create",
@@ -171,7 +174,8 @@
         "usage_context_en": "effect/innovation",
         "usage_context_es": "efecto/innovación"
       }
-    ]
+    ],
+    "group_name": "Building & Creating"
   },
   {
     "name": "allow",
@@ -202,7 +206,8 @@
         "usage_context_en": "time/contingency",
         "usage_context_es": "tiempo/contingencia"
       }
-    ]
+    ],
+    "group_name": "Managing & Control"
   },
   {
     "name": "add",
@@ -233,7 +238,8 @@
         "usage_context_en": "lists/speech",
         "usage_context_es": "listas/discurso"
       }
-    ]
+    ],
+    "group_name": "Daily Tasks"
   },
   {
     "name": "spend",
@@ -312,7 +318,8 @@
           }
         ]
       }
-    }
+    },
+    "group_name": "Social & Daily Life"
   },
   {
     "name": "grow",
@@ -391,7 +398,8 @@
           }
         ]
       }
-    }
+    },
+    "group_name": "Building & Creating"
   },
   {
     "name": "offer",
@@ -422,7 +430,8 @@
         "usage_context_en": "suggestions/aid",
         "usage_context_es": "sugerencias/ayuda"
       }
-    ]
+    ],
+    "group_name": "Social & Daily Life"
   },
   {
     "name": "remember",
@@ -453,7 +462,8 @@
         "usage_context_en": "greetings/past",
         "usage_context_es": "saludos/pasado"
       }
-    ]
+    ],
+    "group_name": "Thinking & Deciding"
   },
   {
     "name": "consider",
@@ -484,7 +494,8 @@
         "usage_context_en": "judgment/reputation",
         "usage_context_es": "juicio/reputación"
       }
-    ]
+    ],
+    "group_name": "Thinking & Deciding"
   },
   {
     "name": "expect",
@@ -517,7 +528,8 @@
         "usage_context_es": "demanda/reembolso",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_11_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Thinking & Deciding"
   },
   {
     "name": "serve",
@@ -548,7 +560,8 @@
         "usage_context_en": "utility/duty",
         "usage_context_es": "utilidad/deber"
       }
-    ]
+    ],
+    "group_name": "Social & Daily Life"
   },
   {
     "name": "build",
@@ -627,7 +640,8 @@
           }
         ]
       }
-    }
+    },
+    "group_name": "Building & Creating"
   },
   {
     "name": "reach",
@@ -658,7 +672,8 @@
         "usage_context_en": "arrival/agreements",
         "usage_context_es": "llegada/acuerdos"
       }
-    ]
+    ],
+    "group_name": "Body & Movement"
   },
   {
     "name": "kill",
@@ -689,7 +704,8 @@
         "usage_context_en": "plans/time",
         "usage_context_es": "planes/tiempo"
       }
-    ]
+    ],
+    "group_name": "Daily Tasks"
   },
   {
     "name": "remain",
@@ -722,7 +738,8 @@
         "usage_context_es": "tiempo/cantidad",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_16_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Body & Movement"
   },
   {
     "name": "suggest",
@@ -753,7 +770,8 @@
         "usage_context_en": "clues/implication",
         "usage_context_es": "pistas/implicación"
       }
-    ]
+    ],
+    "group_name": "Communication"
   },
   {
     "name": "raise",
@@ -786,7 +804,8 @@
         "usage_context_es": "familia/agricultura",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_18_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Managing & Control"
   },
   {
     "name": "require",
@@ -817,7 +836,8 @@
         "usage_context_en": "laws/safety",
         "usage_context_es": "leyes/seguridad"
       }
-    ]
+    ],
+    "group_name": "Managing & Control"
   },
   {
     "name": "report",
@@ -848,7 +868,8 @@
         "usage_context_en": "attendance/duty",
         "usage_context_es": "asistencia/deber"
       }
-    ]
+    ],
+    "group_name": "Social & Daily Life"
   },
   {
     "name": "decide",
@@ -879,7 +900,8 @@
         "usage_context_en": "law/plans",
         "usage_context_es": "ley/planes"
       }
-    ]
+    ],
+    "group_name": "Thinking & Deciding"
   },
   {
     "name": "wear",
@@ -910,7 +932,8 @@
         "usage_context_en": "materials/time",
         "usage_context_es": "materiales/tiempo"
       }
-    ]
+    ],
+    "group_name": "Daily Routine"
   },
   {
     "name": "wish",
@@ -941,7 +964,8 @@
         "usage_context_en": "longing/formal request",
         "usage_context_es": "anhelo/petición formal"
       }
-    ]
+    ],
+    "group_name": "Feelings & Reactions"
   },
   {
     "name": "develop",
@@ -972,7 +996,8 @@
         "usage_context_en": "projects/growth",
         "usage_context_es": "proyectos/crecimiento"
       }
-    ]
+    ],
+    "group_name": "Building & Creating"
   },
   {
     "name": "carry",
@@ -1005,7 +1030,8 @@
         "usage_context_es": "responsabilidad/planes",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_25_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Daily Tasks"
   },
   {
     "name": "agree",
@@ -1038,7 +1064,8 @@
         "usage_context_es": "gramática/negociación",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_26_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Feelings & Reactions"
   },
   {
     "name": "form",
@@ -1069,7 +1096,8 @@
         "usage_context_en": "structure/basis",
         "usage_context_es": "estructura/base"
       }
-    ]
+    ],
+    "group_name": "Building & Creating"
   },
   {
     "name": "provide",
@@ -1100,7 +1128,8 @@
         "usage_context_en": "law/agreements",
         "usage_context_es": "ley/acuerdos"
       }
-    ]
+    ],
+    "group_name": "Social & Daily Life"
   },
   {
     "name": "represent",
@@ -1131,7 +1160,8 @@
         "usage_context_en": "art/description",
         "usage_context_es": "arte/descripción"
       }
-    ]
+    ],
+    "group_name": "Social & Daily Life"
   },
   {
     "name": "understand",
@@ -1210,7 +1240,8 @@
           }
         ]
       }
-    }
+    },
+    "group_name": "Thinking & Deciding"
   },
   {
     "name": "explain",
@@ -1241,7 +1272,8 @@
         "usage_context_en": "opinion/description",
         "usage_context_es": "opinión/descripción"
       }
-    ]
+    ],
+    "group_name": "Communication"
   },
   {
     "name": "appear",
@@ -1274,7 +1306,8 @@
         "usage_context_es": "impresión/juicio",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_32_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Feelings & Reactions"
   },
   {
     "name": "buy",
@@ -1353,7 +1386,8 @@
           }
         ]
       }
-    }
+    },
+    "group_name": "Social & Daily Life"
   },
   {
     "name": "join",
@@ -1384,7 +1418,8 @@
         "usage_context_en": "connection/objects",
         "usage_context_es": "conexión/objetos"
       }
-    ]
+    ],
+    "group_name": "Daily Tasks"
   },
   {
     "name": "choose",
@@ -1463,7 +1498,8 @@
           }
         ]
       }
-    }
+    },
+    "group_name": "Thinking & Deciding"
   },
   {
     "name": "break",
@@ -1494,7 +1530,8 @@
         "usage_context_en": "rest/interruption",
         "usage_context_es": "descanso/interrupción"
       }
-    ]
+    ],
+    "group_name": "Daily Tasks"
   },
   {
     "name": "speak",
@@ -1573,7 +1610,8 @@
           }
         ]
       }
-    }
+    },
+    "group_name": "Communication"
   },
   {
     "name": "catch",
@@ -1604,7 +1642,8 @@
         "usage_context_en": "transport/discovery",
         "usage_context_es": "transporte/descubrimiento"
       }
-    ]
+    ],
+    "group_name": "Daily Tasks"
   },
   {
     "name": "throw",
@@ -1637,7 +1676,8 @@
         "usage_context_es": "fiesta/modismo",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_39_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Daily Tasks"
   },
   {
     "name": "forget",
@@ -1668,7 +1708,8 @@
         "usage_context_en": "past events/actions",
         "usage_context_es": "eventos pasados/acciones"
       }
-    ]
+    ],
+    "group_name": "Thinking & Deciding"
   },
   {
     "name": "drive",
@@ -1699,7 +1740,8 @@
         "usage_context_en": "motivation/emotion",
         "usage_context_es": "motivación/emoción"
       }
-    ]
+    ],
+    "group_name": "Daily Routine"
   },
   {
     "name": "eat",
@@ -1778,7 +1820,8 @@
           }
         ]
       }
-    }
+    },
+    "group_name": "Daily Routine"
   },
   {
     "name": "drink",
@@ -1857,7 +1900,8 @@
           }
         ]
       }
-    }
+    },
+    "group_name": "Daily Routine"
   },
   {
     "name": "sleep",
@@ -1936,7 +1980,8 @@
           }
         ]
       }
-    }
+    },
+    "group_name": "Daily Routine"
   },
   {
     "name": "swim",
@@ -1967,7 +2012,8 @@
         "usage_context_en": "dizziness/sensation",
         "usage_context_es": "mareo/sensación"
       }
-    ]
+    ],
+    "group_name": "Daily Tasks"
   },
   {
     "name": "fly",
@@ -1998,7 +2044,8 @@
         "usage_context_en": "time/speed",
         "usage_context_es": "tiempo/velocidad"
       }
-    ]
+    ],
+    "group_name": "Daily Tasks"
   },
   {
     "name": "cost",
@@ -2029,7 +2076,8 @@
         "usage_context_en": "loss/consequence",
         "usage_context_es": "pérdida/consecuencia"
       }
-    ]
+    ],
+    "group_name": "Managing & Control"
   },
   {
     "name": "support",
@@ -2060,7 +2108,8 @@
         "usage_context_en": "physical/structure",
         "usage_context_es": "físico/estructura"
       }
-    ]
+    ],
+    "group_name": "Social & Daily Life"
   },
   {
     "name": "discuss",
@@ -2093,7 +2142,8 @@
         "usage_context_es": "conversación/decisiones",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_49_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Social & Daily Life"
   },
   {
     "name": "describe",
@@ -2124,7 +2174,8 @@
         "usage_context_en": "information/narration",
         "usage_context_es": "información/narración"
       }
-    ]
+    ],
+    "group_name": "Communication"
   },
   {
     "name": "promise",
@@ -2155,7 +2206,8 @@
         "usage_context_en": "future/potential",
         "usage_context_es": "futuro/potencial"
       }
-    ]
+    ],
+    "group_name": "Feelings & Reactions"
   },
   {
     "name": "realize",
@@ -2186,7 +2238,8 @@
         "usage_context_en": "achievement/dreams",
         "usage_context_es": "logro/sueños"
       }
-    ]
+    ],
+    "group_name": "Thinking & Deciding"
   },
   {
     "name": "guess",
@@ -2219,7 +2272,8 @@
         "usage_context_es": "opinión/suposición",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_53_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Thinking & Deciding"
   },
   {
     "name": "wonder",
@@ -2252,7 +2306,8 @@
         "usage_context_es": "admiración/asombro",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_54_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Thinking & Deciding"
   },
   {
     "name": "recognize",
@@ -2283,7 +2338,8 @@
         "usage_context_en": "acceptance/official",
         "usage_context_es": "aceptación/oficial"
       }
-    ]
+    ],
+    "group_name": "Thinking & Deciding"
   },
   {
     "name": "mention",
@@ -2314,7 +2370,8 @@
         "usage_context_en": "politeness/reference",
         "usage_context_es": "cortesía/referencia"
       }
-    ]
+    ],
+    "group_name": "Social & Daily Life"
   },
   {
     "name": "argue",
@@ -2347,7 +2404,8 @@
         "usage_context_es": "razonamiento/debate",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_57_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Feelings & Reactions"
   },
   {
     "name": "doubt",
@@ -2378,7 +2436,8 @@
         "usage_context_en": "confidence/trust",
         "usage_context_es": "confianza/confianza"
       }
-    ]
+    ],
+    "group_name": "Thinking & Deciding"
   },
   {
     "name": "plan",
@@ -2411,7 +2470,8 @@
         "usage_context_es": "intención/estrategia",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_59_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Thinking & Deciding"
   },
   {
     "name": "check",
@@ -2442,7 +2502,8 @@
         "usage_context_en": "travel/hotel",
         "usage_context_es": "viaje/hotel"
       }
-    ]
+    ],
+    "group_name": "Managing & Control"
   },
   {
     "name": "fix",
@@ -2475,7 +2536,8 @@
         "usage_context_es": "horario/solución",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_61_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Building & Creating"
   },
   {
     "name": "clean",
@@ -2506,7 +2568,8 @@
         "usage_context_en": "dirt/tidiness",
         "usage_context_es": "suciedad/orden"
       }
-    ]
+    ],
+    "group_name": "Daily Routine"
   },
   {
     "name": "cook",
@@ -2537,7 +2600,8 @@
         "usage_context_en": "meals/routine",
         "usage_context_es": "comidas/rutina"
       }
-    ]
+    ],
+    "group_name": "Daily Routine"
   },
   {
     "name": "wash",
@@ -2568,7 +2632,8 @@
         "usage_context_en": "laundry/movement",
         "usage_context_es": "lavandería/movimiento"
       }
-    ]
+    ],
+    "group_name": "Daily Routine"
   },
   {
     "name": "shop",
@@ -2601,7 +2666,8 @@
         "usage_context_es": "tiendas/comparación",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_65_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Daily Routine"
   },
   {
     "name": "search",
@@ -2632,7 +2698,8 @@
         "usage_context_en": "objects/rescue",
         "usage_context_es": "objetos/rescate"
       }
-    ]
+    ],
+    "group_name": "Daily Tasks"
   },
   {
     "name": "share",
@@ -2663,7 +2730,8 @@
         "usage_context_en": "commonality/collaboration",
         "usage_context_es": "comunalidad/colaboración"
       }
-    ]
+    ],
+    "group_name": "Social & Daily Life"
   },
   {
     "name": "order",
@@ -2696,7 +2764,8 @@
         "usage_context_es": "comando/secuencia",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_68_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Communication"
   },
   {
     "name": "practice",
@@ -2727,7 +2796,8 @@
         "usage_context_en": "profession/habit",
         "usage_context_es": "profesión/hábito"
       }
-    ]
+    ],
+    "group_name": "Communication"
   },
   {
     "name": "manage",
@@ -2758,7 +2828,8 @@
         "usage_context_en": "succeed/difficulty",
         "usage_context_es": "lograr/dificultad"
       }
-    ]
+    ],
+    "group_name": "Managing & Control"
   },
   {
     "name": "travel",
@@ -2789,7 +2860,8 @@
         "usage_context_en": "physics/movement",
         "usage_context_es": "física/movimiento"
       }
-    ]
+    ],
+    "group_name": "Daily Tasks"
   },
   {
     "name": "arrive",
@@ -2820,7 +2892,8 @@
         "usage_context_en": "time/occurrence",
         "usage_context_es": "tiempo/ocurrencia"
       }
-    ]
+    ],
+    "group_name": "Body & Movement"
   },
   {
     "name": "return",
@@ -2851,7 +2924,8 @@
         "usage_context_en": "give back/objects",
         "usage_context_es": "devolver/objetos"
       }
-    ]
+    ],
+    "group_name": "Body & Movement"
   },
   {
     "name": "control",
@@ -2882,7 +2956,8 @@
         "usage_context_en": "function/regulation",
         "usage_context_es": "función/regulación"
       }
-    ]
+    ],
+    "group_name": "Managing & Control"
   },
   {
     "name": "avoid",
@@ -2915,7 +2990,8 @@
         "usage_context_es": "personas/peligro",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_75_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Body & Movement"
   },
   {
     "name": "enjoy",
@@ -2946,7 +3022,8 @@
         "usage_context_en": "advantage/possession",
         "usage_context_es": "ventaja/posesión"
       }
-    ]
+    ],
+    "group_name": "Feelings & Reactions"
   },
   {
     "name": "prefer",
@@ -2977,7 +3054,8 @@
         "usage_context_en": "decision/action",
         "usage_context_es": "decisión/acción"
       }
-    ]
+    ],
+    "group_name": "Feelings & Reactions"
   },
   {
     "name": "worry",
@@ -3010,6 +3088,7 @@
         "usage_context_es": "molestia/preocupación",
         "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_78_def1.jpg"
       }
-    ]
+    ],
+    "group_name": "Thinking & Deciding"
   }
 ]
