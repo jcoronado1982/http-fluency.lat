@@ -218,6 +218,7 @@ stages:
           deploy-surrealdb.sh
           docker-gcr-auth.sh
           bootstrap-oracle.sh
+          sync-qa-repository.sh
           oracle-ram-monitor.sh
           aws-health-monitor.sh
           sentinel-handler
@@ -322,6 +323,7 @@ stages:
           deploy-surrealdb.sh
           docker-gcr-auth.sh
           bootstrap-oracle.sh
+          sync-qa-repository.sh
           oracle-ram-monitor.sh
           aws-health-monitor.sh
           sentinel-handler
@@ -357,6 +359,8 @@ stages:
             export BACKEND_PORT=8081
             export HEALTH_URL="http://127.0.0.1:8081/api/health"
             export EXTERNAL_HEALTH_URL="https://qa.flashcard.theruby.lat/api/health"
+            echo "Syncing QA content repository from production..."
+            bash /root/smart-proxy/infra-proxy/sync-qa-repository.sh
           else
             export SURREAL_NS=flashcard
             export SURREAL_DB=flashcard
@@ -377,6 +381,13 @@ stages:
           if [ "$(Build.SourceBranch)" = "refs/heads/qa" ]; then
             curl -sf -k -H "Host: qa.flashcard.theruby.lat" https://127.0.0.1/api/health || \
             curl -sf -H "Host: qa.flashcard.theruby.lat" http://127.0.0.1/api/health
+            echo "Verifying QA categories are loaded..."
+            QA_CATS=$(curl -sf -H "Host: qa.flashcard.theruby.lat" http://127.0.0.1:8081/api/categories | python3 -c "import json,sys; d=json.load(sys.stdin); print(len(d.get('categories',[])))")
+            if [ "${QA_CATS:-0}" -eq 0 ]; then
+              echo "ERROR: QA /api/categories returned empty list — check /root/smart-proxy/repository/qa_flashcard/json"
+              exit 1
+            fi
+            echo "QA categories OK (${QA_CATS})"
           else
             curl -sf -k -H "Host: flashcard.theruby.lat" https://127.0.0.1/api/health || \
             curl -sf -H "Host: flashcard.theruby.lat" http://127.0.0.1/api/health

@@ -94,6 +94,7 @@ chmod +x \
   "$PROXY_DIR/deploy-oracle-backend.sh" \
   "$PROXY_DIR/deploy-surrealdb.sh" \
   "$PROXY_DIR/bootstrap-oracle.sh" \
+  "$PROXY_DIR/sync-qa-repository.sh" \
   "$PROXY_DIR/oracle-ram-monitor.sh" \
   "$PROXY_DIR/aws-health-monitor.sh"
 
