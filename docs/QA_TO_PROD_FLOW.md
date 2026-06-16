@@ -1,6 +1,8 @@
 # Flujo de Despliegue: De QA a Producción
 
-Este documento detalla el procedimiento estándar y seguro para promover cambios que ya han sido probados y validados en el entorno de **QA** (`https://qa.flashcard.theruby.lat`) hacia el entorno de **Producción** (`https://flashcard.theruby.lat`).
+Este documento detalla el procedimiento estándar y seguro para promover cambios que ya han sido probados y validados en el entorno de **QA** (`https://qa.fluency.lat`) hacia el entorno de **Producción** (`https://fluency.lat`).
+
+*Nota: Durante el periodo de transición, los dominios `theruby.lat` también siguen operativos.*
 
 ---
 
@@ -11,10 +13,10 @@ El repositorio utiliza un modelo de ramas protegido para evitar caídas en produ
 ```mermaid
 graph LR
     Developer[Desarrollo / Developer-1] -->|Push / PR| QA_Branch[Rama: qa]
-    QA_Branch -->|Deploy Automático| QA_Env[Entorno QA: qa.flashcard.theruby.lat]
+    QA_Branch -->|Deploy Automático| QA_Env[Entorno QA: qa.fluency.lat]
     QA_Env -->|Pruebas Exitosas| PR[Pull Request qa -> main]
     PR -->|Merge / Aprobación| Main_Branch[Rama: main]
-    Main_Branch -->|Deploy Automático| Prod_Env[Entorno Prod: flashcard.theruby.lat]
+    Main_Branch -->|Deploy Automático| Prod_Env[Entorno Prod: fluency.lat]
 ```
 
 ---
@@ -23,7 +25,7 @@ graph LR
 
 ### Paso 1: Validación en QA
 Antes de mover cualquier código a producción, asegúrate de que el comportamiento en el entorno de QA sea el esperado:
-1. Navega a [https://qa.flashcard.theruby.lat](https://qa.flashcard.theruby.lat).
+1. Navega a [https://qa.fluency.lat](https://qa.fluency.lat).
 2. Realiza pruebas funcionales de la nueva característica o corrección.
 3. Verifica que las llamadas a la API y el almacenamiento en la base de datos (`qa_flashcard` en SurrealDB) funcionen correctamente.
 
@@ -67,7 +69,7 @@ Al completarse el Merge en la rama `main`, el Azure Pipeline iniciará un despli
 
 ### Paso 5: Verificación en Producción
 Una vez que el pipeline termine con éxito:
-1. Entra a [https://flashcard.theruby.lat](https://flashcard.theruby.lat).
+1. Entra a [https://fluency.lat](https://fluency.lat).
 2. Comprueba que los cambios estén aplicados correctamente en vivo.
 
 ---

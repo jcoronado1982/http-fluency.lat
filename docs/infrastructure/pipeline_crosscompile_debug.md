@@ -183,7 +183,9 @@ for r in sorted(json.load(sys.stdin).get('records',[]), key=lambda x: x.get('ord
 ## Contexto de arquitectura (resumen)
 
 ```
-Browser → flashcard.theruby.lat (Oracle ARM 1GB = Caddy proxy)
+Browser → fluency.lat (Oracle ARM 1GB = Caddy proxy)
+
+*Nota: Durante el periodo de transición, `flashcard.theruby.lat` sigue operativo.*
   └── /api/* → AWS EC2 Alpine (backend primario)
              → GCP Cloud Run (fallback)
 

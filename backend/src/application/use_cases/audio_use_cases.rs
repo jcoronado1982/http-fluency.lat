@@ -72,6 +72,50 @@ impl AudioUseCases {
         }
     }
 
+    /// Misma instancia con otro generador TTS (p. ej. batch local con clave de respaldo).
+    pub fn with_audio_generator(&self, audio_gen: Arc<dyn AudioGenerator>) -> Self {
+        Self {
+            storage_repo: Arc::clone(&self.storage_repo),
+            audio_gen,
+            settings: Arc::clone(&self.settings),
+        }
+    }
+
+    /// Comprueba si el audio global (capa admin) ya está en storage.
+    pub async fn global_audio_exists(&self, req: &AudioSynthRequest) -> Result<bool> {
+        let blob_path = self.global_audio_blob_path(req);
+        self.storage_repo.blob_exists(&blob_path).await
+    }
+
+    /// Nombre de archivo OGG global (sin prefijo `card_audio/`).
+    pub fn global_audio_basename(&self, req: &AudioSynthRequest) -> String {
+        self.deterministic_audio_filename(req, None)
+            .rsplit('/')
+            .next()
+            .unwrap_or("")
+            .to_string()
+    }
+
+    /// Ruta completa del blob global (p. ej. para logs del batch).
+    pub fn global_audio_blob_path(&self, req: &AudioSynthRequest) -> String {
+        let file_name = self.deterministic_audio_filename(req, None);
+        format!("{}/{}", self.settings.gcs_audio_prefix, file_name)
+    }
+
+    /// Precarga audio en la **capa global compartida** (misma ruta que si un admin lo genera desde la UI).
+    ///
+    /// - Guarda bajo `card_audio/{category}/{deck}/...` (sin `users/…`).
+    /// - Viewer / premium lo reciben vía fallback global en `get_or_synthesize_audio`.
+    /// - Equivalente al batch de imágenes con rol `admin`.
+    pub async fn get_or_synthesize_shared_global_audio(
+        &self,
+        req: &AudioSynthRequest,
+    ) -> Result<(AudioSynthResult, bool)> {
+        let is_new = !self.global_audio_exists(req).await.unwrap_or(false);
+        let result = self.get_or_synthesize_audio(req, "batch", "admin").await?;
+        Ok((result, is_new))
+    }
+
     /// Devuelve URL + voz activa. Si existe audio, no regenera.
     pub async fn get_or_synthesize_audio(
         &self,

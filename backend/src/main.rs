@@ -243,6 +243,7 @@ async fn async_main() -> anyhow::Result<()> {
     // Uso:
     //   --batch-link-images [categoría] [deck]
     //   --batch-gen-images  [categoría] [deck]
+    //   --batch-gen-audio   [categoría] [deck]   ← audio EN → Oracle (SYNC_TO_ORACLE=true)
     // Ejemplo rápido: --batch-link-images adjectives 1-basic
     let args: Vec<String> = std::env::args().collect();
     if args.iter().any(|arg| arg == "--batch-link-images") {
@@ -252,6 +253,10 @@ async fn async_main() -> anyhow::Result<()> {
     if args.iter().any(|arg| arg == "--batch-gen-images") {
         let filter = crate::application::batch::parse_batch_filter(&args, "--batch-gen-images");
         return crate::application::batch::run_batch_image_generation(state, filter).await;
+    }
+    if args.iter().any(|arg| arg == "--batch-gen-audio") {
+        let filter = crate::application::batch::parse_batch_filter(&args, "--batch-gen-audio");
+        return crate::application::batch_audio::run_batch_audio_generation(state, filter).await;
     }
     // ------------------
 

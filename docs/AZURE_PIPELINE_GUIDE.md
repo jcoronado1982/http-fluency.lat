@@ -45,8 +45,8 @@ El pipeline corre en dos ramas:
 
 | Rama | URL destino | Puerto | DB Namespace | Mirrors |
 |------|------------|--------|--------------|---------|
-| `main` | `flashcard.theruby.lat` | `8080` | `flashcard` | Oracle + OCI-1 + AWS |
-| `qa` | `qa.flashcard.theruby.lat` | `8081` | `qa_flashcard` | Solo Oracle |
+| `main` | `fluency.lat` | `8080` | `flashcard` | Oracle + OCI-1 + AWS |
+| `qa` | `qa.fluency.lat` | `8081` | `qa_flashcard` | Solo Oracle |
 
 ### Variables compile-time con `${{ if }}`
 
@@ -234,8 +234,8 @@ Cuando el subdominio aún no tiene DNS propagado (ej: QA recién creado):
 
 ```bash
 # HTTPS con -k para certificado local
-curl -sf -k -H "Host: qa.flashcard.theruby.lat" https://127.0.0.1/api/health \
-  || curl -sf -H "Host: qa.flashcard.theruby.lat" http://127.0.0.1/api/health
+curl -sf -k -H "Host: qa.fluency.lat" https://127.0.0.1/api/health \
+  || curl -sf -H "Host: qa.fluency.lat" http://127.0.0.1/api/health
 ```
 
 ### ✅ Verificar DNS externo — no bloqueante en QA, obligatorio en main
@@ -261,7 +261,7 @@ fi
 |-------------|-------|----------|
 | `syntax error: unexpected end of file (expecting "then")` | `runOptions: 'commands'` con `if/then/fi` multilínea | Cambiar a `runOptions: 'inline'` |
 | `did not find expected key` / `mapping values are not allowed here` | Mezcla de sintaxis map y sequence en `variables:` | Usar solo `- name: / value:` (sequence) con condicionales `${{ if }}` |
-| `Could not resolve host: qa.flashcard.theruby.lat` | DNS del subdominio QA no propagado | Usar `curl -H "Host: ..."` contra `127.0.0.1` para el check local |
+| `Could not resolve host: qa.fluency.lat` | DNS del subdominio QA no propagado | Usar `curl -H "Host: ..."` contra `127.0.0.1` para el check local |
 | `SUPER_ADMIN_EMAIL no está definido` | El grupo `Flashcard-Secrets` no importado en el stage | Agregar `- group: Flashcard-Secrets` en `variables:` del stage |
 | `sshpass no instalado en el agente` | El agente Oracle no tiene `sshpass` instalado | Instalar con `apt-get install -y sshpass` en bootstrap |
 | Pipeline no se dispara en rama `qa` | La rama no está en el `trigger:` | Agregar `- qa` en `trigger.branches.include` |
@@ -312,10 +312,10 @@ fi
 ## 🚦 Flujo Git → Pipeline → Servidores
 
 ```
-feature/x  →  PR → qa  →  [Azure Pipelines]  →  qa.flashcard.theruby.lat
+feature/x  →  PR → qa  →  [Azure Pipelines]  →  qa.fluency.lat
                                                   (puerto 8081, DB: qa_flashcard)
                                 ↓ aprobado
-              qa  →  PR → main  →  [Azure Pipelines]  →  flashcard.theruby.lat
+              qa  →  PR → main  →  [Azure Pipelines]  →  fluency.lat
                                                           (puerto 8080, DB: flashcard)
                                                           + OCI-1 + AWS mirrors
 ```

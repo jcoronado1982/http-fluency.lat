@@ -95,7 +95,9 @@ El backend soporta dos configuraciones controladas por la variable `SYNC_TO_ORAC
 
 *   **En desarrollo (`SYNC_TO_ORACLE=false`):** Los archivos se leen y escriben localmente en el disco de desarrollo.
 *   **En producción (`SYNC_TO_ORACLE=true`):**
-    *   **Lectura:** El backend realiza peticiones directas al balanceador Caddy (`https://flashcard.theruby.lat/json/...`).
+    *   **Lectura:** El backend realiza peticiones directas al balanceador Caddy (`https://fluency.lat/json/...`).
+
+*Nota: Durante el periodo de transición, `flashcard.theruby.lat` sigue operativo.*
     *   **Escritura:** El backend genera el archivo temporalmente en disco local (`/tmp`), lo transfiere de forma segura mediante SCP a Oracle utilizando `sshpass` y variables de entorno, y finalmente elimina el archivo temporal.
 
 ---
@@ -109,6 +111,8 @@ El backend soporta dos configuraciones controladas por la variable `SYNC_TO_ORAC
 | `SUPER_ADMIN_EMAIL` | Sí | Correo electrónico con privilegios de administrador automático |
 | `GCP_API_KEY` | Sí | Llave de Google Cloud con accesos a la API Text-to-Speech |
 | `GEMINI_API_KEY` | Sí | Llave para habilitar el tutor y explicaciones de Gemini 2.0 |
+| `GEMINI_TTS_API_KEY` | Sí (audio EN) | Clave primaria Google AI Studio para Gemini TTS (inglés) |
+| `GEMINI_TTS_API_KEY_BACKUP` | Solo local batch | Respaldo en `backend/.env` para `--batch-gen-audio`; **no** se usa en producción |
 | `SYNC_TO_ORACLE` | Sí | Habilita la copia remota mediante SCP (`true` en producción) |
 | `ORACLE_HOST` | Sí | Dirección IP pública de la máquina proxy de Oracle |
 | `ORACLE_SSH_PASSWORD` | Sí | Contraseña de acceso SSH seguro para realizar transferencias SCP |

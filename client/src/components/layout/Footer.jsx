@@ -12,7 +12,7 @@ const Footer = () => {
                 <div className="footer-links">
                     <a href="/documentation" className="footer-link">Documentation</a>
                     <span className="divider">|</span>
-                    <a href="https://www.theruby.lat/" target="_blank" rel="noopener noreferrer" className="footer-link">Portfolio</a>
+                    <a href="https://www.fluency.lat/" target="_blank" rel="noopener noreferrer" className="footer-link">Portfolio</a>
                     <span className="divider">|</span>
                     <a href="https://github.com/jcoronado1982/flashcard-client" target="_blank" rel="noopener noreferrer" className="footer-link">GitHub</a>
                 </div>
