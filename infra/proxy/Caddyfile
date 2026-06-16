@@ -76,7 +76,7 @@ theruby.lat {
     }
 }
 
-fluency.lat, www.fluency.lat, flashcard.theruby.lat {
+fluency.lat, www.fluency.lat {
     # Exponer SurrealDB de forma segura para los servidores espejo (AWS y Cloud Run)
     handle /db/* {
         uri strip_prefix /db
@@ -167,7 +167,7 @@ map.theruby.lat, map.fluency.lat {
     file_server
 }
 
-qa.flashcard.theruby.lat, qa.fluency.lat {
+qa.fluency.lat {
     # Exponer SurrealDB de forma segura
     handle /db/* {
         uri strip_prefix /db

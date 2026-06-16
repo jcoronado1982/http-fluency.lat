@@ -59,8 +59,6 @@ Cuando el usuario solicita generar recursos para una flashcard:
    - Si está en producción (`SYNC_TO_ORACLE=true`), el backend escribe el archivo temporal en `/tmp`, realiza un traspaso seguro mediante **SCP** a la máquina de **Oracle Proxy** en `/root/smart-proxy/repository/flashcard/`, y borra el temporal.
 6. **Respuesta:** Se devuelve la URL pública del recurso servido por Caddy (`https://fluency.lat/card_audio/...`).
 
-*Nota: Durante el periodo de transición, `flashcard.theruby.lat` sigue operativo.*
-
 ### B. Modo conversacional Story Arcade
 Cuando el usuario chatea en una historia:
 1. **Cliente:** React envía la respuesta textual del usuario y el ID de la pantalla actual a `/api/analyze-error`.

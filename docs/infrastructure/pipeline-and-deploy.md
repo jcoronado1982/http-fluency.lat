@@ -70,8 +70,6 @@ Stages 1 y 2 **siguen en paralelo** (correcto: usan `LocalBuild`, no compiten co
 - `VITE_API_URL=https://fluency.lat` (**sin** `/api` al final)
 - Publica artefacto `flashcard-site` (`client/dist`)
 
-*Nota: Durante la transición, `https://flashcard.theruby.lat` sigue operativo.*
-
 ---
 
 ## Stage 2 — Cross-Compile Backend (`LocalBuild`)

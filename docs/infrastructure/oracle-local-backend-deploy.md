@@ -24,8 +24,6 @@ Usuario
               ├── /json/*          → disco (mismo path)
               ├── /test/*          → proyecto independiente test1 en :8083 (NO es flashcard)
               └── /api/*           → reverse_proxy localhost:8080  ← BACKEND ORACLE LOCAL
-
-*Nota: Durante el periodo de transición, `https://flashcard.theruby.lat` sigue operativo.*
 ```
 
 ### Flujo de audio TTS (flashcard)
@@ -141,8 +139,6 @@ Reglas que aplican aquí (el resto del pipeline está en el otro doc):
 ---
 
 ## AWS y GCP (rol actual — secundario para fluency.lat)
-
-*Nota: Durante el periodo de transición, `theruby.lat` sigue operativo como espejo.*
 
 | Servidor | Rol hoy | SYNC_TO_ORACLE | Notas |
 |----------|---------|----------------|-------|

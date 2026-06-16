@@ -10,8 +10,6 @@ La infraestructura de producción está distribuida para separar estrictamente e
 
 ### Oracle Proxy (157.151.199.170) — Servidor Principal y Fuente de Verdad
 Es el nodo más importante en tiempo de ejecución. Sirve como punto de entrada público seguro (SSL) a través de `fluency.lat`.
-
-*Nota: Durante el periodo de transición, `flashcard.theruby.lat` sigue operativo.*
 *   **Hardware/SO:** Oracle Cloud (OCI) ARM Ampere A1 (1 GB RAM, 2 vCPUs, Ubuntu 22.04).
 *   **Servicios Activos:**
     *   **Caddy (`caddy-smart`)**: Actúa como proxy inverso. Sirve el SPA de React, gestiona SSL, maneja rutas estáticas e intercepta `/api/*` hacia el backend local.

@@ -96,8 +96,6 @@ El backend soporta dos configuraciones controladas por la variable `SYNC_TO_ORAC
 *   **En desarrollo (`SYNC_TO_ORACLE=false`):** Los archivos se leen y escriben localmente en el disco de desarrollo.
 *   **En producción (`SYNC_TO_ORACLE=true`):**
     *   **Lectura:** El backend realiza peticiones directas al balanceador Caddy (`https://fluency.lat/json/...`).
-
-*Nota: Durante el periodo de transición, `flashcard.theruby.lat` sigue operativo.*
     *   **Escritura:** El backend genera el archivo temporalmente en disco local (`/tmp`), lo transfiere de forma segura mediante SCP a Oracle utilizando `sshpass` y variables de entorno, y finalmente elimina el archivo temporal.
 
 ---

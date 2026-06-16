@@ -2,8 +2,6 @@
 
 Este documento detalla el procedimiento estándar y seguro para promover cambios que ya han sido probados y validados en el entorno de **QA** (`https://qa.fluency.lat`) hacia el entorno de **Producción** (`https://fluency.lat`).
 
-*Nota: Durante el periodo de transición, los dominios `theruby.lat` también siguen operativos.*
-
 ---
 
 ## 🔄 Resumen del Flujo de Trabajo (Git Branching)
