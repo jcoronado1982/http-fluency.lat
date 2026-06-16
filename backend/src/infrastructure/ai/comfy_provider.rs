@@ -125,6 +125,103 @@ impl ImageGenerator for ComfyUIProvider {
             }
         });
 
+        /*
+        let workflow = json!({
+            "prompt": {
+                "3": {
+                    "class_type": "KSampler",
+                    "inputs": {
+                        "cfg": 3.0,
+                        "denoise": 1.0,
+                        "latent_image": ["5", 0],
+                        "model": ["10", 0],
+                        "negative": ["23", 0],
+                        "positive": ["22", 0],
+                        "sampler_name": "euler",
+                        "scheduler": "simple",
+                        "seed": rand::random::<u32>(),
+                        "steps": 25
+                    }
+                },
+                "5": {
+                    "class_type": "EmptySanaLatentImage",
+                    "inputs": {
+                        "batch_size": 1,
+                        "height": 1024,
+                        "width": 1024
+                    }
+                },
+                "8": {
+                    "class_type": "VAEDecode",
+                    "inputs": {
+                        "samples": ["3", 0],
+                        "vae": ["12", 0]
+                    }
+                },
+                "9": {
+                    "class_type": "SaveImage",
+                    "inputs": {
+                        "filename_prefix": format!("rust_gen_{}", client_id),
+                        "images": ["8", 0]
+                    }
+                },
+                "10": {
+                    "class_type": "SanaCheckpointLoader",
+                    "inputs": {
+                        "ckpt_name": "Sana_1600M_1024px.pth",
+                        "model": "SanaMS_1600M_P1_D20"
+                    }
+                },
+                "11": {
+                    "class_type": "GemmaLoader",
+                    "inputs": {
+                        "model_name": "Efficient-Large-Model/gemma-2-2b-it",
+                        "device": "cpu",
+                        "dtype": "default"
+                    }
+                },
+                "12": {
+                    "class_type": "ExtraVAELoader",
+                    "inputs": {
+                        "vae_name": "sana_vae.safetensors",
+                        "vae_type": "dcae-f32c32-sana-1.0",
+                        "dtype": "auto"
+                    }
+                },
+                "20": {
+                    "class_type": "SanaTextEncode",
+                    "inputs": {
+                        "text": prompt,
+                        "GEMMA": ["11", 0]
+                    }
+                },
+                "21": {
+                    "class_type": "SanaTextEncode",
+                    "inputs": {
+                        "text": "cartoon, illustration, drawing, painting, anime, graphic, digital art, vector, 3d render, CGI, outline, white outline, text, words, letters, font, typography, watermark, signature, blurry, low quality",
+                        "GEMMA": ["11", 0]
+                    }
+                },
+                "22": {
+                    "class_type": "SanaResolutionCond",
+                    "inputs": {
+                        "cond": ["20", 0],
+                        "width": 1024,
+                        "height": 1024
+                    }
+                },
+                "23": {
+                    "class_type": "SanaResolutionCond",
+                    "inputs": {
+                        "cond": ["21", 0],
+                        "width": 1024,
+                        "height": 1024
+                    }
+                }
+            }
+        });
+        */
+
         let url = format!("{}/prompt", self.url);
         let resp = self.client.post(&url)
             .json(&workflow)
