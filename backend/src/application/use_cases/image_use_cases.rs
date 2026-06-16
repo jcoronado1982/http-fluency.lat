@@ -4,6 +4,7 @@ use anyhow::Result;
 use crate::application::use_cases::auth::AuthUseCases;
 use crate::config::Settings;
 use crate::domain::repositories::image::ImageGenerator;
+use crate::domain::repositories::image_compressor::ImageCompressor;
 use crate::domain::repositories::storage::StorageRepository;
 use crate::domain::repositories::tutor::AITutor;
 
@@ -50,6 +51,7 @@ pub struct UploadImageRequest {
 pub struct ImageUseCases {
     storage_repo: Arc<dyn StorageRepository>,
     image_gen: Arc<dyn ImageGenerator>,
+    image_compressor: Arc<dyn ImageCompressor>,
     ai_tutor: Arc<dyn AITutor>,
     settings: Arc<Settings>,
 }
@@ -58,12 +60,14 @@ impl ImageUseCases {
     pub fn new(
         storage_repo: Arc<dyn StorageRepository>,
         image_gen: Arc<dyn ImageGenerator>,
+        image_compressor: Arc<dyn ImageCompressor>,
         ai_tutor: Arc<dyn AITutor>,
         settings: Arc<Settings>,
     ) -> Self {
         Self {
             storage_repo,
             image_gen,
+            image_compressor,
             ai_tutor,
             settings,
         }
@@ -160,7 +164,7 @@ impl ImageUseCases {
         );
 
         let visual_description = match self.ai_tutor
-            .improve_prompt_for_image(&req.prompt, req.meaning.as_deref(), req.usage_example.as_deref())
+            .improve_prompt_for_image(&req.prompt, &req.category, req.meaning.as_deref(), req.usage_example.as_deref())
             .await
         {
             Ok(desc) => {
@@ -183,9 +187,8 @@ impl ImageUseCases {
         };
 
         let final_prompt = format!(
-            "A clear, realistic, and literal photograph showing exactly this scene: {}. \
-            The image MUST have NO TEXT, NO WORDS, NO CAPTIONS, NO LETTERS. \
-            Avoid any user interface elements or labels. Purely visual scene.",
+            "Candid photorealistic DSLR photograph, 512x512, natural indoor lighting, authentic textures: {}. \
+            A realistic, unposed, everyday life scene. No text, no words, no letters, no captions, no signage, no watermarks.",
             visual_description
         );
 
@@ -206,7 +209,21 @@ impl ImageUseCases {
             "img-gen:comfy-ok"
         );
 
-        self.storage_repo.upload_blob(&blob_path, raw_bytes, "image/png").await.map_err(|e| {
+        // Compresión a AVIF para optimización de almacenamiento en Oracle
+        let compressed_bytes = self.image_compressor
+            .compress_to_avif(&raw_bytes, 80) // 80 es un buen balance calidad/peso
+            .map_err(|e| {
+                tracing::error!(trace_id = %trace_short, error = %e, "img-gen:compression-failed");
+                anyhow::anyhow!("[trace={trace_short}] compression: {e}")
+            })?;
+
+        tracing::info!(
+            trace_id = %trace_short,
+            compressed_bytes = compressed_bytes.len(),
+            "img-gen:compression-ok"
+        );
+
+        self.storage_repo.upload_blob(&blob_path, compressed_bytes, "image/avif").await.map_err(|e| {
             tracing::error!(trace_id = %trace_short, error = %e, blob_path = %blob_path, "img-gen:upload-failed");
             anyhow::anyhow!("[trace={trace_short}] upload: {e}")
         })?;

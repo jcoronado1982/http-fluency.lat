@@ -48,7 +48,7 @@ az devops invoke --area build --resource timeline \
 ### Verificar post-deploy
 
 ```bash
-curl -sf https://flashcard.theruby.lat/api/health
+curl -sf https://fluency.lat/api/health
 ```
 
 ## 🔐 Secretos en deploy Oracle (patrón actual)

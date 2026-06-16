@@ -9,7 +9,7 @@ Este documento provee una descripción detallada y actualizada (al 2026) sobre c
 La infraestructura de producción está distribuida para separar estrictamente el proceso intensivo de *build* (compilación) del proceso de *run* (ejecución pública y servicio de la API).
 
 ### Oracle Proxy (157.151.199.170) — Servidor Principal y Fuente de Verdad
-Es el nodo más importante en tiempo de ejecución. Sirve como punto de entrada público seguro (SSL) a través de `flashcard.theruby.lat`.
+Es el nodo más importante en tiempo de ejecución. Sirve como punto de entrada público seguro (SSL) a través de `fluency.lat`.
 *   **Hardware/SO:** Oracle Cloud (OCI) ARM Ampere A1 (1 GB RAM, 2 vCPUs, Ubuntu 22.04).
 *   **Servicios Activos:**
     *   **Caddy (`caddy-smart`)**: Actúa como proxy inverso. Sirve el SPA de React, gestiona SSL, maneja rutas estáticas e intercepta `/api/*` hacia el backend local.
@@ -38,7 +38,7 @@ El ciclo de despliegue se divide en 6 *stages* bien definidos dentro del archivo
 2.  **Operación:** 
     *   Recupera dependencias cacheadas usando `bun`.
     *   Instala los paquetes en la carpeta `client`.
-    *   Construye el frontend de Vite configurando la API hacia producción (`VITE_API_URL='https://flashcard.theruby.lat'`).
+    *   Construye el frontend de Vite configurando la API hacia producción (`VITE_API_URL='https://fluency.lat'`).
 3.  **Salida:** Publica un artefacto llamado `flashcard-site` con la carpeta `dist/`.
 
 ### Stage 2: Build Backend (🦀 Cross-Compile Backend - LocalBuild)

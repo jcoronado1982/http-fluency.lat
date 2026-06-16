@@ -43,8 +43,8 @@ Aplicación Full-Stack de aprendizaje de inglés con flashcards inteligentes. Ge
 
 ```bash
 # Verificar la salud de la API en producción
-curl -s https://flashcard.theruby.lat/api/health
-curl -sI https://flashcard.theruby.lat/api/health | grep x-backend
+curl -s https://fluency.lat/api/health
+curl -sI https://fluency.lat/api/health | grep x-backend
 
 # Sincronizar localmente los JSONs de tarjetas al proxy en Oracle
 sshpass -p 'Privado01*' rsync -avz json/ root@157.151.199.170:/root/smart-proxy/repository/flashcard/json/

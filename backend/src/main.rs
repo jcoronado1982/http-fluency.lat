@@ -33,6 +33,8 @@ use crate::domain::repositories::db_repository::{
 use crate::domain::repositories::tutor::AITutor;
 use crate::domain::repositories::audio::AudioGenerator;
 use crate::domain::repositories::image::ImageGenerator;
+use crate::domain::repositories::image_compressor::ImageCompressor;
+use crate::infrastructure::ai::avif_compressor::AvifCompressor;
 use crate::application::use_cases::deck_use_cases::DeckUseCases;
 use crate::application::use_cases::tutor_use_cases::TutorUseCases;
 use crate::application::use_cases::audio_use_cases::AudioUseCases;
@@ -165,6 +167,7 @@ async fn async_main() -> anyhow::Result<()> {
     let ai_tutor: Arc<dyn AITutor> = Arc::new(GeminiGrpcProvider::new(&settings)?);
     let audio_gen: Arc<dyn AudioGenerator> = Arc::new(RoutingTtsProvider::new(&settings).await?);
     let image_gen: Arc<dyn ImageGenerator> = Arc::new(ComfyUIProvider::new(&settings));
+    let image_compressor: Arc<dyn ImageCompressor> = Arc::new(AvifCompressor);
 
     // 1000 slots: soporte para ráfagas de imágenes generadas en batch sin perder eventos SSE.
     let (notification_sender, _) = broadcast::channel(1000);
@@ -181,6 +184,7 @@ async fn async_main() -> anyhow::Result<()> {
     let image_use_cases = Arc::new(ImageUseCases::new(
         storage_repo.clone(),
         image_gen.clone(),
+        image_compressor.clone(),
         ai_tutor.clone(),
         settings.clone(),
     ));
@@ -188,6 +192,7 @@ async fn async_main() -> anyhow::Result<()> {
     let story_use_cases = Arc::new(StoryUseCases::new(
         story_repo.clone(),
         Some(image_gen.clone()),
+        Some(image_compressor.clone()),
         Some(ai_tutor.clone()),
         Some(storage_repo.clone()),
         Some(notification_sender.clone()),
@@ -243,6 +248,7 @@ async fn async_main() -> anyhow::Result<()> {
     // Uso:
     //   --batch-link-images [categoría] [deck]
     //   --batch-gen-images  [categoría] [deck]
+    //   --batch-gen-audio   [categoría] [deck]   ← audio EN → Oracle (SYNC_TO_ORACLE=true)
     // Ejemplo rápido: --batch-link-images adjectives 1-basic
     let args: Vec<String> = std::env::args().collect();
     if args.iter().any(|arg| arg == "--batch-link-images") {
@@ -252,6 +258,10 @@ async fn async_main() -> anyhow::Result<()> {
     if args.iter().any(|arg| arg == "--batch-gen-images") {
         let filter = crate::application::batch::parse_batch_filter(&args, "--batch-gen-images");
         return crate::application::batch::run_batch_image_generation(state, filter).await;
+    }
+    if args.iter().any(|arg| arg == "--batch-gen-audio") {
+        let filter = crate::application::batch::parse_batch_filter(&args, "--batch-gen-audio");
+        return crate::application::batch_audio::run_batch_audio_generation(state, filter).await;
     }
     // ------------------
 

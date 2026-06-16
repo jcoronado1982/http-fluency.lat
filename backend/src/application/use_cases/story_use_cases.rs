@@ -1,6 +1,7 @@
 use std::sync::Arc;
 use crate::domain::repositories::db_repository::StoryArcadeRepository;
 use crate::domain::repositories::image::ImageGenerator;
+use crate::domain::repositories::image_compressor::ImageCompressor;
 use crate::domain::repositories::tutor::AITutor;
 use crate::domain::repositories::storage::StorageRepository;
 use crate::domain::models::story::{StoryScreen, ProgressResponse, ProgressUpdate};
@@ -13,6 +14,7 @@ use dashmap::DashMap;
 pub struct StoryUseCases {
     db_repo: Arc<dyn StoryArcadeRepository>,
     image_gen: Option<Arc<dyn ImageGenerator>>,
+    image_compressor: Option<Arc<dyn ImageCompressor>>,
     ai_tutor: Option<Arc<dyn AITutor>>,
     storage_repo: Option<Arc<dyn StorageRepository>>,
     notification_sender: Option<broadcast::Sender<String>>,
@@ -25,6 +27,7 @@ impl StoryUseCases {
     pub fn new(
         db_repo: Arc<dyn StoryArcadeRepository>,
         image_gen: Option<Arc<dyn ImageGenerator>>,
+        image_compressor: Option<Arc<dyn ImageCompressor>>,
         ai_tutor: Option<Arc<dyn AITutor>>,
         storage_repo: Option<Arc<dyn StorageRepository>>,
         notification_sender: Option<broadcast::Sender<String>>,
@@ -34,6 +37,7 @@ impl StoryUseCases {
         Self {
             db_repo,
             image_gen,
+            image_compressor,
             ai_tutor,
             storage_repo,
             notification_sender,
@@ -56,6 +60,7 @@ impl StoryUseCases {
         let story_id_clone = story_id;
         let db_repo = self.db_repo.clone();
         let image_gen = self.image_gen.clone();
+        let image_compressor = self.image_compressor.clone();
         let ai_tutor = self.ai_tutor.clone();
         let storage_repo = self.storage_repo.clone();
         let sender = self.notification_sender.clone();
@@ -69,11 +74,11 @@ impl StoryUseCases {
             }
             active_prefetches.insert(story_id_clone, true);
 
-            if let (Some(gen), Some(tutor), Some(storage)) =
-                (image_gen, ai_tutor, storage_repo)
+            if let (Some(gen), Some(comp), Some(tutor), Some(storage)) =
+                (image_gen, image_compressor, ai_tutor, storage_repo)
             {
                 if let Err(e) = Self::prefetch_images_internal(
-                    story_id_clone, db_repo, gen, tutor, storage, sender, gcs_prefix, public_base_url,
+                    story_id_clone, db_repo, gen, comp, tutor, storage, sender, gcs_prefix, public_base_url,
                 )
                 .await
                 {
@@ -104,6 +109,7 @@ impl StoryUseCases {
         story_id: i32,
         db_repo: Arc<dyn StoryArcadeRepository>,
         image_gen: Arc<dyn ImageGenerator>,
+        image_compressor: Arc<dyn ImageCompressor>,
         ai_tutor: Arc<dyn AITutor>,
         storage_repo: Arc<dyn StorageRepository>,
         sender: Option<broadcast::Sender<String>>,
@@ -162,13 +168,22 @@ impl StoryUseCases {
 
                 match image_gen.generate(&visual_prompt).await {
                     Ok(raw_bytes) => {
-                        let blob_path = format!(
-                            "{}/story_arcade/story_{}/ep_{}_step_{}.png",
-                            gcs_prefix, story_id, screen.episode_id, screen.step_order
-                        );
-                        storage_repo.upload_blob(&blob_path, raw_bytes, "image/png").await?;
+                        let (final_bytes, extension, content_type) = match image_compressor.compress_to_avif(&raw_bytes, 80) {
+                            Ok(avif) => (avif, ".avif", "image/avif"),
+                            Err(e) => {
+                                error!("Compression failed for story image, using raw PNG: {}", e);
+                                (raw_bytes, ".png", "image/png")
+                            }
+                        };
 
-                        let public_url = format!("/card_images/story_arcade/story_{}/ep_{}_step_{}.png", story_id, screen.episode_id, screen.step_order);
+                        let blob_path = format!(
+                            "{}/story_arcade/story_{}/ep_{}_step_{}{}",
+                            gcs_prefix, story_id, screen.episode_id, screen.step_order, extension
+                        );
+                        
+                        storage_repo.upload_blob(&blob_path, final_bytes, content_type).await?;
+
+                        let public_url = format!("/card_images/story_arcade/story_{}/ep_{}_step_{}{}", story_id, screen.episode_id, screen.step_order, extension);
 
                         let mut new_content = screen.content.clone();
                         new_content["image_url"] = json!(public_url);

@@ -50,7 +50,7 @@ impl TutorUseCases {
         ).await
     }
 
-    pub async fn improve_prompt_for_image(&self, phrase: &str, meaning: Option<&str>, usage_example: Option<&str>) -> Result<String> {
-        self.ai_tutor.improve_prompt_for_image(phrase, meaning, usage_example).await
+    pub async fn improve_prompt_for_image(&self, phrase: &str, pos_category: &str, meaning: Option<&str>, usage_example: Option<&str>) -> Result<String> {
+        self.ai_tutor.improve_prompt_for_image(phrase, pos_category, meaning, usage_example).await
     }
 }

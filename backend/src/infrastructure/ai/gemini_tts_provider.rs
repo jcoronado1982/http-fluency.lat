@@ -1,20 +1,33 @@
-/// Gemini 2.5 Flash Preview TTS via REST generateContent.
+/// Gemini TTS via REST generateContent (AI Studio).
 use async_trait::async_trait;
 use anyhow::{anyhow, Context, Result};
 use base64::{engine::general_purpose::STANDARD, Engine};
+use reqwest::StatusCode;
 use serde::{Deserialize, Serialize};
+use tokio::time::{sleep, Duration};
+use tracing::warn;
 
 use crate::config::Settings;
 use crate::domain::repositories::audio::AudioGenerator;
 use crate::infrastructure::ai::pcm_ogg::pcm_s16le_mono_to_ogg;
 use crate::infrastructure::ai::gemini_voices::normalize_gemini_voice;
 
+/// Modelo canónico para hashes de caché de audio (no cambia aunque se use fallback).
 pub const GEMINI_TTS_MODEL: &str = "gemini-2.5-flash-preview-tts";
+
+/// Modelo activo para síntesis. Flash/Pro comentados: cuota agotada en TESTAI.
+/// GEMINI_TTS_MODEL se mantiene para hashes de caché (nombres de archivo sin cambios).
+pub const GEMINI_TTS_MODEL_CHAIN: &[&str] = &[
+    "gemini-3.1-flash-tts-preview",
+    // "gemini-2.5-flash-preview-tts",
+    // "gemini-2.5-pro-preview-tts",
+];
+
 const SAMPLE_RATE: u32 = 24000;
 
 pub struct GeminiTtsProvider {
     client: reqwest::Client,
-    api_key: String,
+    api_keys: Vec<String>,
 }
 
 #[derive(Serialize)]
@@ -87,18 +100,23 @@ struct InlineData {
 }
 
 impl GeminiTtsProvider {
+    /// Producción y API HTTP — sin clave de respaldo.
     pub fn new(settings: &Settings) -> Result<Self> {
-        let api_key = settings
-            .gemini_tts_api_key
-            .clone()
-            .or(settings.gemini_api_key.clone())
-            .or(settings.gcp_api_key.clone())
-            .filter(|k| k != "DISABLED")
-            .context("GEMINI_TTS_API_KEY o GEMINI_API_KEY requerida para Gemini TTS")?;
+        Self::from_keys(collect_tts_api_keys(settings, TtsKeyProfile::Production))
+    }
 
+    /// Solo `--batch-gen-audio` local: respaldo primero, sin GCP_API_KEY (403 en TTS).
+    pub fn new_for_batch(settings: &Settings) -> Result<Self> {
+        Self::from_keys(collect_tts_api_keys(settings, TtsKeyProfile::BatchLocal))
+    }
+
+    fn from_keys(api_keys: Vec<String>) -> Result<Self> {
+        if api_keys.is_empty() {
+            anyhow::bail!("GEMINI_TTS_API_KEY o GEMINI_API_KEY requerida para Gemini TTS");
+        }
         Ok(Self {
             client: reqwest::Client::new(),
-            api_key,
+            api_keys,
         })
     }
 
@@ -116,13 +134,21 @@ impl GeminiTtsProvider {
         out.split_whitespace().collect::<Vec<_>>().join(" ")
     }
 
+    fn should_retry(status: StatusCode) -> bool {
+        matches!(
+            status,
+            StatusCode::UNAUTHORIZED
+                | StatusCode::FORBIDDEN
+                | StatusCode::TOO_MANY_REQUESTS
+                | StatusCode::INTERNAL_SERVER_ERROR
+                | StatusCode::BAD_GATEWAY
+                | StatusCode::SERVICE_UNAVAILABLE
+                | StatusCode::GATEWAY_TIMEOUT
+        )
+    }
+
     async fn synthesize_internal(&self, text: &str, voice_name: &str) -> Result<Vec<u8>> {
         let voice = normalize_gemini_voice(voice_name);
-        let url = format!(
-            "https://generativelanguage.googleapis.com/v1beta/models/{}:generateContent",
-            GEMINI_TTS_MODEL
-        );
-
         let body = GenerateContentRequest {
             contents: vec![Content {
                 parts: vec![Part {
@@ -141,39 +167,158 @@ impl GeminiTtsProvider {
             },
         };
 
-        let resp = self
-            .client
-            .post(&url)
-            .header("x-goog-api-key", &self.api_key)
-            .json(&body)
-            .send()
-            .await
-            .context("Gemini TTS request failed")?;
+        let mut last_err: Option<anyhow::Error> = None;
 
-        if !resp.status().is_success() {
-            let status = resp.status();
-            let body = resp.text().await.unwrap_or_default();
-            return Err(anyhow!("Gemini TTS error {}: {}", status, body));
+        for (model_idx, model) in GEMINI_TTS_MODEL_CHAIN.iter().enumerate() {
+            let url = format!(
+                "https://generativelanguage.googleapis.com/v1beta/models/{}:generateContent",
+                model
+            );
+            let mut model_exhausted = false;
+
+            for (key_idx, api_key) in self.api_keys.iter().enumerate() {
+                let resp = match self
+                    .client
+                    .post(&url)
+                    .header("x-goog-api-key", api_key)
+                    .json(&body)
+                    .send()
+                    .await
+                {
+                    Ok(r) => r,
+                    Err(e) => {
+                        last_err = Some(e.into());
+                        if key_idx + 1 < self.api_keys.len() {
+                            warn!(
+                                "Gemini TTS [{model}]: clave {} falló (red), probando otra clave…",
+                                key_idx + 1
+                            );
+                            continue;
+                        }
+                        model_exhausted = true;
+                        break;
+                    }
+                };
+
+                if !resp.status().is_success() {
+                    let status = resp.status();
+                    let body_text = resp.text().await.unwrap_or_default();
+                    last_err = Some(anyhow!("Gemini TTS [{model}] error {}: {}", status, body_text));
+
+                    let has_next_key = key_idx + 1 < self.api_keys.len();
+                    if Self::should_retry(status) && has_next_key {
+                        if status == StatusCode::TOO_MANY_REQUESTS {
+                            warn!(
+                                "Gemini TTS [{model}]: clave {} → 429, esperando 5s…",
+                                key_idx + 1
+                            );
+                            sleep(Duration::from_secs(5)).await;
+                        }
+                        warn!(
+                            "Gemini TTS [{model}]: clave {} → {}, probando otra clave…",
+                            key_idx + 1,
+                            status
+                        );
+                        continue;
+                    }
+
+                    if Self::should_retry(status) && model_idx + 1 < GEMINI_TTS_MODEL_CHAIN.len() {
+                        warn!(
+                            "Gemini TTS [{model}]: cuota/agotada ({status}), cambiando a {}…",
+                            GEMINI_TTS_MODEL_CHAIN[model_idx + 1]
+                        );
+                        if status == StatusCode::TOO_MANY_REQUESTS {
+                            sleep(Duration::from_secs(2)).await;
+                        }
+                        model_exhausted = true;
+                        break;
+                    }
+
+                    return Err(last_err.unwrap());
+                }
+
+                let parsed: GenerateContentResponse =
+                    resp.json().await.context("Gemini TTS parse failed")?;
+                let b64 = parsed
+                    .candidates
+                    .and_then(|c| c.into_iter().next())
+                    .and_then(|c| c.content)
+                    .and_then(|c| c.parts)
+                    .and_then(|p| p.into_iter().next())
+                    .and_then(|p| p.inline_data)
+                    .and_then(|d| d.data);
+
+                let Some(b64) = b64 else {
+                    last_err = Some(anyhow!("Gemini TTS [{model}]: no audio in response"));
+                    if model_idx + 1 < GEMINI_TTS_MODEL_CHAIN.len() {
+                        warn!(
+                            "Gemini TTS [{model}]: respuesta sin audio, probando {}…",
+                            GEMINI_TTS_MODEL_CHAIN[model_idx + 1]
+                        );
+                        model_exhausted = true;
+                        break;
+                    }
+                    return Err(last_err.unwrap());
+                };
+
+                let pcm = STANDARD.decode(b64).context("Gemini TTS base64 decode failed")?;
+                if pcm.is_empty() {
+                    last_err = Some(anyhow!("Gemini TTS [{model}]: audio vacío"));
+                    if model_idx + 1 < GEMINI_TTS_MODEL_CHAIN.len() {
+                        warn!(
+                            "Gemini TTS [{model}]: audio vacío, probando {}…",
+                            GEMINI_TTS_MODEL_CHAIN[model_idx + 1]
+                        );
+                        model_exhausted = true;
+                        break;
+                    }
+                    return Err(last_err.unwrap());
+                }
+
+                if model_idx > 0 {
+                    warn!("Gemini TTS: audio generado con modelo fallback [{model}]");
+                }
+
+                return pcm_s16le_mono_to_ogg(&pcm, SAMPLE_RATE)
+                    .context("Gemini TTS OGG encode failed");
+            }
+
+            if model_exhausted && model_idx + 1 < GEMINI_TTS_MODEL_CHAIN.len() {
+                continue;
+            }
         }
 
-        let parsed: GenerateContentResponse = resp.json().await.context("Gemini TTS parse failed")?;
-        let b64 = parsed
-            .candidates
-            .and_then(|c| c.into_iter().next())
-            .and_then(|c| c.content)
-            .and_then(|c| c.parts)
-            .and_then(|p| p.into_iter().next())
-            .and_then(|p| p.inline_data)
-            .and_then(|d| d.data)
-            .ok_or_else(|| anyhow!("Gemini TTS: no audio in response"))?;
-
-        let pcm = STANDARD.decode(b64).context("Gemini TTS base64 decode failed")?;
-        if pcm.is_empty() {
-            return Err(anyhow!("Gemini TTS: audio vacío"));
-        }
-
-        pcm_s16le_mono_to_ogg(&pcm, SAMPLE_RATE).context("Gemini TTS OGG encode failed")
+        Err(last_err.unwrap_or_else(|| anyhow!("Gemini TTS: todos los modelos y claves agotados")))
     }
+}
+
+enum TtsKeyProfile {
+    Production,
+    BatchLocal,
+}
+
+fn collect_tts_api_keys(settings: &Settings, profile: TtsKeyProfile) -> Vec<String> {
+    let mut keys = Vec::new();
+    let mut push = |value: Option<String>| {
+        if let Some(key) = value {
+            if key != "DISABLED" && !keys.iter().any(|existing| existing == &key) {
+                keys.push(key);
+            }
+        }
+    };
+
+    match profile {
+        TtsKeyProfile::Production => {
+            push(settings.gemini_tts_api_key.clone());
+            push(settings.gemini_api_key.clone());
+        }
+        TtsKeyProfile::BatchLocal => {
+            // push(settings.gemini_tts_api_key_backup.clone()); // launch: prepago agotado
+            push(settings.gemini_tts_api_key.clone()); // TESTAI — única con cuota activa
+            // push(settings.gemini_api_key.clone());
+        }
+    }
+    keys
 }
 
 #[async_trait]
@@ -185,5 +330,44 @@ impl AudioGenerator for GeminiTtsProvider {
     async fn synthesize_ssml(&self, ssml: &str, voice_name: &str, lang: Option<&str>) -> Result<Vec<u8>> {
         let text = Self::strip_ssml(ssml);
         self.synthesize(&text, voice_name, lang).await
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn model_chain_uses_3_1_flash_tts_only() {
+        assert_eq!(GEMINI_TTS_MODEL_CHAIN, &["gemini-3.1-flash-tts-preview"]);
+    }
+
+    #[test]
+    fn collect_tts_api_keys_batch_uses_primary_only() {
+        let settings = sample_settings();
+        let keys = collect_tts_api_keys(&settings, TtsKeyProfile::BatchLocal);
+        assert_eq!(keys, vec!["primary-tts".to_string()]);
+    }
+
+    fn sample_settings() -> Settings {
+        Settings {
+            project_id: String::new(),
+            region: String::new(),
+            gcs_json_prefix: String::new(),
+            gcs_images_prefix: String::new(),
+            gcs_audio_prefix: String::new(),
+            database_url: String::new(),
+            gemini_api_key: Some("fallback-gemini".into()),
+            gemini_tts_api_key: Some("primary-tts".into()),
+            gemini_tts_api_key_backup: Some("backup-tts".into()),
+            gcp_api_key: Some("gcp-key".into()),
+            comfy_url: String::new(),
+            local_storage_path: String::new(),
+            sync_to_oracle: false,
+            oracle_host: String::new(),
+            oracle_ssh_password: String::new(),
+            oracle_remote_path: String::new(),
+            public_base_url: String::new(),
+        }
     }
 }

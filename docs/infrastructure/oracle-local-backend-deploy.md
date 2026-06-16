@@ -16,7 +16,7 @@
 
 ```
 Usuario
-  └── https://flashcard.theruby.lat
+  └── https://fluency.lat
         └── Caddy (caddy-smart, Oracle 157.151.199.170)
               ├── /flashcard/*     → SPA React (disco)
               ├── /card_audio/*    → disco /root/smart-proxy/repository/flashcard
@@ -59,7 +59,7 @@ Contenedor: `flashcard-backend-node`
 docker inspect flashcard-backend-node --format '{{range .Mounts}}{{.Source}} -> {{.Destination}}\n{{end}}'
 docker inspect flashcard-backend-node --format '{{range .Config.Env}}{{println .}}{{end}}' | grep -E 'SYNC|LOCAL_STORAGE|PORT'
 curl -sf http://127.0.0.1:8080/api/health
-curl -sf https://flashcard.theruby.lat/api/health
+curl -sf https://fluency.lat/api/health
 ```
 
 Valores esperados:
@@ -138,7 +138,7 @@ Reglas que aplican aquí (el resto del pipeline está en el otro doc):
 
 ---
 
-## AWS y GCP (rol actual — secundario para flashcard.theruby.lat)
+## AWS y GCP (rol actual — secundario para fluency.lat)
 
 | Servidor | Rol hoy | SYNC_TO_ORACLE | Notas |
 |----------|---------|----------------|-------|
@@ -154,7 +154,7 @@ El snippet `api_with_overflow` (AWS → GCP) **sigue en Caddyfile** pero **ya no
 
 ## Proyecto independiente `/test` (test1)
 
-- URL: `https://flashcard.theruby.lat/test`
+- URL: `https://fluency.lat/test`
 - Contenedor: `audio-clone-rust` en puerto **8083**
 - **NO** mezclar con flashcard-backend-node
 - Despliegue: **manual** (no usa pipeline flashcard)
@@ -166,7 +166,7 @@ El snippet `api_with_overflow` (AWS → GCP) **sigue en Caddyfile** pero **ya no
 
 ```bash
 # 1. API responde
-curl -sf https://flashcard.theruby.lat/api/health
+curl -sf https://fluency.lat/api/health
 
 # 2. Backend Oracle bien configurado
 ssh root@157.151.199.170 \

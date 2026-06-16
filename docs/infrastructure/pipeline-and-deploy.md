@@ -67,7 +67,7 @@ Stages 1 y 2 **siguen en paralelo** (correcto: usan `LocalBuild`, no compiten co
 ## Stage 1 — Build Frontend (`LocalBuild`)
 
 - Cache de módulos bun (`Cache@2`)
-- `VITE_API_URL=https://flashcard.theruby.lat` (**sin** `/api` al final)
+- `VITE_API_URL=https://fluency.lat` (**sin** `/api` al final)
 - Publica artefacto `flashcard-site` (`client/dist`)
 
 ---
@@ -136,7 +136,9 @@ Ejecuta `bootstrap-oracle.sh --backend-only --no-monitors`
 
 **Azure DevOps → Variable Group `Flashcard-Secrets`**
 
-Variables clave: `GCP_KEY_JSON`, `DATABASE_URL`, `GEMINI_API_KEY`, `JWT_SECRET`, `GOOGLE_CLIENT_ID`, `GCP_API_KEY`, `OCI_PASSWORD`, `ORACLE_HOST`, `ORACLE_SSH_PASSWORD`, `SUPER_ADMIN_EMAIL`
+Variables clave: `GCP_KEY_JSON`, `DATABASE_URL`, `GEMINI_API_KEY`, `GEMINI_TTS_API_KEY`, `JWT_SECRET`, `GOOGLE_CLIENT_ID`, `GCP_API_KEY`, `OCI_PASSWORD`, `ORACLE_HOST`, `ORACLE_SSH_PASSWORD`, `SUPER_ADMIN_EMAIL`
+
+> `GEMINI_TTS_API_KEY_BACKUP` es **solo local** (`backend/.env`) para `--batch-gen-audio`; no va en Azure ni en el contenedor de producción.
 
 ### Oracle backend deploy (sin archivos en disco)
 
@@ -211,7 +213,7 @@ az pipelines build queue \
 ## Verificación post-deploy
 
 ```bash
-curl -sf https://flashcard.theruby.lat/api/health
+curl -sf https://fluency.lat/api/health
 # {"status":"ok","service":"flashcard-rust-backend",...}
 
 ssh root@157.151.199.170 "docker ps --format 'table {{.Names}}\t{{.Status}}'"

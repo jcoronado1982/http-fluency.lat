@@ -1,0 +1,14 @@
+{
+  "allowed_directories": [
+    "/home/jcoronado/Desktop/dev/flashcard"
+  ],
+  "forbidden_commands": [
+    "rm -rf /",
+    "rm -rf .git",
+    "curl",
+    "wget",
+    "ssh",
+    "scp"
+  ],
+  "default_timeout_seconds": 300
+}

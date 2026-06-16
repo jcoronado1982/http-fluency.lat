@@ -205,15 +205,49 @@ RESPONDE EXCLUSIVAMENTE EN ESTE FORMATO JSON:
         serde_json::from_str(&raw).context("Error parseando JSON de prompts visuales")
     }
 
-    async fn improve_prompt_for_image(&self, phrase: &str, meaning: Option<&str>, usage_example: Option<&str>) -> Result<String> {
+    async fn improve_prompt_for_image(&self, phrase: &str, pos_category: &str, meaning: Option<&str>, usage_example: Option<&str>) -> Result<String> {
         if self.api_key == "DISABLED" {
             return Ok(phrase.to_string());
         }
-        let system = r#"Visual prompt engineer. Descripción física literal, máx 30 palabras. SOLO el texto, nada más."#;
-        let mut user = format!("Phrase: \"{}\"", phrase);
-        if let Some(m) = meaning       { user.push_str(&format!("\nMeaning: \"{}\"", m)); }
-        if let Some(u) = usage_example { user.push_str(&format!("\nExample: \"{}\"", u)); }
-        self.call(system, &user, 0.4, "gemini-3.1-flash-lite", None).await
+        let system = r#"You are a "Real-Life Context" Visual Prompt Engineer for FLUX 2.
+
+INPUT FORMAT (always provided):
+WORD/PHRASE: [word]
+POS/CATEGORY: [category]
+MEANING: [meaning]
+EXAMPLE: [example sentence]
+
+STEP 0 — SELECT VISUAL STRATEGY based on POS/CATEGORY:
+- nouns (concrete)  -> show the object in natural human use (hands, body, setting)
+- nouns (abstract)  -> show a scene that EMBODIES the concept emotionally
+- verbs             -> freeze the person MID-ACTION — not before, not after
+- adjectives        -> use contrast or an extreme example to make the quality unmistakable
+- adverbs           -> show someone doing an action in that specific WAY
+- pronouns/possessives -> The word has NO visual meaning alone. You MUST show PEOPLE and their RELATIONSHIP to the object:
+                     1st person (my, our) = owners IN frame, seen from behind or reaching for it
+                     2nd person (you, your) = subject looks directly at camera
+                     3rd person (his, her, their) = owners OBSERVED from outside, at a distance
+- prepositions      -> make the spatial/relational concept the visual star
+- articles          -> show specificity (the) vs generality (a) through selection/pointing
+
+If the POS is not perfectly matched by the category, infer the best visual strategy.
+
+STEP 1 — BRAINSTORM: What is the most common, everyday slice-of-life scenario using the strategy above?
+STEP 2 — DESCRIBE: Write a candid, unposed photograph description.
+- Focus on EXPRESSIONS, authentic DETAILS (messy rooms, real textures), and realistic lighting.
+- Avoid studio perfection. Look like a candid documentary shot.
+- Absolutely NO TEXT, words, signs, or labels in the image.
+
+Output ONLY the final scene description (60-85 words) in English."#;
+
+        let mut user = format!("WORD/PHRASE: \"{}\"\nPOS/CATEGORY: \"{}\"", phrase, pos_category);
+        if let Some(m) = meaning {
+            user.push_str(&format!("\nMEANING: \"{}\"", m));
+        }
+        if let Some(u) = usage_example {
+            user.push_str(&format!("\nEXAMPLE: \"{}\"", u));
+        }
+        self.call(system, &user, 0.5, "gemini-3.1-flash-lite", None).await
     }
 
     async fn refine_audio_ssml(&self, text: &str, tone: &str) -> Result<String> {

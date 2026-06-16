@@ -76,7 +76,7 @@ theruby.lat {
     }
 }
 
-flashcard.theruby.lat {
+fluency.lat, www.fluency.lat {
     # Exponer SurrealDB de forma segura para los servidores espejo (AWS y Cloud Run)
     handle /db/* {
         uri strip_prefix /db
@@ -140,7 +140,7 @@ flashcard.theruby.lat {
     }
 }
 
-bill.theruby.lat {
+bill.theruby.lat, bill.fluency.lat {
     route {
         import db_protection
         root * /usr/share/caddy/bill
@@ -150,7 +150,7 @@ bill.theruby.lat {
     }
 }
 
-talent.theruby.lat {
+talent.theruby.lat, talent.fluency.lat {
     route {
         import db_protection
         root * /usr/share/caddy/talent
@@ -160,14 +160,14 @@ talent.theruby.lat {
     }
 }
 
-map.theruby.lat {
+map.theruby.lat, map.fluency.lat {
     root * /usr/share/caddy/map
     import compression
     try_files {path} /index.html
     file_server
 }
 
-qa.flashcard.theruby.lat {
+qa.fluency.lat {
     # Exponer SurrealDB de forma segura
     handle /db/* {
         uri strip_prefix /db
