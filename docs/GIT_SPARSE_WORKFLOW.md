@@ -29,17 +29,11 @@ git checkout -b qa
 git push -u origin qa
 ```
 
-### Flujo de ramas (canónico)
+### Flujo de publicación (Jun 2026)
 
-Ver **[GIT_BRANCHES.md](GIT_BRANCHES.md)**:
+**Solo `dev-flashcards` → `qa` → `main`.** Ver [GIT_BRANCHES.md](GIT_BRANCHES.md).
 
-```
-dev-flashcards ──┐
-dev-pronoun ─────┼──► dev-full ──► qa ──► main
-dev-admin ───────┘
-```
-
-Atajo: `./scripts/dev-module.sh flashcards` (rama + sparse a la vez).
+`dev-full` tiene todos los módulos en disco (`sparse full`); **no** es la rama que publica por ahora.
 
 ---
 

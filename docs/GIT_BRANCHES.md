@@ -1,128 +1,124 @@
 # Ramas Git — Fluency
 
-> **Fuente de verdad:** flujo modular `dev-*` → `dev-full` → `qa` → `main`.  
+> **Repo:** `https://github.com/jcoronado1982/http-fluency.lat.git`  
 > Cada rama `dev-<módulo>` va pareada con su perfil **sparse** en disco.
 
-**Repo:** `https://github.com/jcoronado1982/http-fluency.lat.git`
-
 ---
 
-## Modelo de ramas
+## Qué se publica (Jun 2026)
 
 ```mermaid
-graph TB
-    subgraph dev_modular [Desarrollo por módulo]
-        DF[dev-flashcards]
-        DP[dev-pronoun]
-        DA[dev-admin]
-    end
-    FULL[dev-full — integración]
-    QA[qa — pre-producción]
-    MAIN[main — producción]
+graph LR
+    DF[dev-flashcards] -->|única línea de publicación| QA[qa]
+    QA -->|PR / merge| MAIN[main → fluency.lat]
+    FULL[dev-full — todos los módulos en disco]
+    DP[dev-pronoun]
+    DA[dev-admin]
 
-    DF -->|merge / PR| FULL
-    DP -->|merge / PR| FULL
-    DA -->|merge / PR| FULL
-    FULL -->|merge / PR| QA
-    QA -->|PR| MAIN
+    DF -.->|integración opcional| FULL
+    DP -.->|no publica aún| FULL
+    DA -.->|no publica aún| FULL
 ```
 
-| Rama Git | Perfil sparse pareado | Rol | Deploy |
-|----------|----------------------|-----|--------|
-| **`dev-flashcards`** | `./scripts/sparse-module.sh flashcards` | Trabajo aislado flashcards | No |
-| **`dev-pronoun`** | `./scripts/sparse-module.sh pronoun` | Trabajo aislado pronombres | No |
-| **`dev-admin`** | `./scripts/sparse-module.sh admin` | Shell + admin | No |
-| **`dev-full`** | `./scripts/sparse-module.sh full` | **Integración** — todo mergeado antes de QA | No |
-| **`qa`** | `full` (validar integrado) | Pre-prod | Sí → `qa.fluency.lat` |
-| **`main`** | — | Producción | Sí → `fluency.lat` |
+| Rama | Rol | ¿Publica? |
+|------|-----|-----------|
+| **`dev-flashcards`** | Producto flashcards — trabajo y **releases** | **Sí** → `qa` → `main` |
+| **`dev-full`** | Monorepo completo en disco, **todos los módulos activos** para desarrollar/validar | **No** (no merge directo a `qa` por ahora) |
+| **`dev-pronoun`** / **`dev-admin`** | Módulos en preparación | **No** (aún) |
+| **`qa`** | Pre-producción | Deploy → `qa.fluency.lat` |
+| **`main`** | Producción | Deploy → `fluency.lat` |
+
+**Regla actual:** lo que llega a usuarios es lo probado en **`dev-flashcards`**, sincronizado a **`qa`** y luego **`main`**. Pronoun y admin viven en `dev-full` / sus ramas hasta que decidas publicarlos.
 
 ---
 
-## Flujo recomendado (por módulo)
+## Modelo en disco (sparse)
+
+| Rama Git | Perfil sparse | Qué hay en disco |
+|----------|---------------|------------------|
+| `dev-flashcards` | `./scripts/sparse-module.sh flashcards` | Shell + flashcards (pronoun **no existe** en disco) |
+| `dev-pronoun` | `./scripts/sparse-module.sh pronoun` | Shell + pronoun |
+| `dev-full` | `./scripts/sparse-module.sh full` | **Todo** — todos los módulos y crates |
+
+---
+
+## Flujo diario (flashcards)
 
 ```bash
-# 1. Rama + sparse del mismo módulo
+git checkout dev-flashcards
+./scripts/dev-module.sh flashcards   # rama + sparse
+
+# trabajar, validar
+./scripts/validate-module.sh flashcards
+
+git commit && git push origin dev-flashcards
+```
+
+## Flujo full (integración local — todos los módulos)
+
+```bash
+git checkout dev-full
+./scripts/sparse-module.sh full
+
+# Validar monorepo completo; pronoun + flashcards en disco
+cargo check --manifest-path backend/Cargo.toml
+cd client && npm run build
+```
+
+Opcional: mergear `dev-flashcards` en `dev-full` para tener el mismo código con todos los módulos visibles:
+
+```bash
+git checkout dev-full && git merge dev-flashcards
+```
+
+---
+
+## Publicar (solo desde dev-flashcards)
+
+```bash
 git checkout dev-flashcards
 git pull origin dev-flashcards
-./scripts/sparse-module.sh flashcards    # IA y editor solo ven flashcards
-
-# 2. Trabajar, validar
 ./scripts/validate-module.sh flashcards
-cargo check --manifest-path backend/Cargo.toml
-
-# 3. Commit en la rama del módulo
-git add -A && git commit -m "feat(flashcards): ..."
-git push origin dev-flashcards
-
-# 4. Integrar en dev-full
-git checkout dev-full
-git pull origin dev-full
-git merge dev-flashcards
-./scripts/sparse-module.sh full
-./scripts/validate-module.sh flashcards   # repetir por cada módulo tocado
-git push origin dev-full
-```
-
-Cambias de módulo:
-
-```bash
-git checkout dev-pronoun
-./scripts/sparse-module.sh pronoun
-```
-
----
-
-## Escalar a QA y producción
-
-```bash
-# Antes de QA: siempre desde dev-full con repo completo en disco
-git checkout dev-full
-./scripts/sparse-module.sh full
-cargo check --manifest-path backend/Cargo.toml
-cd client && npm run build && cd ..
 
 git checkout qa && git pull origin qa
-git merge dev-full
-git push origin qa          # pipeline → qa.fluency.lat
+git merge dev-flashcards
+git push origin qa                    # pipeline → qa.fluency.lat
 
-# Producción: PR qa → main (ver QA_TO_PROD_FLOW.md)
+# Tras probar QA:
+git checkout main && git pull origin main
+git merge qa
+git push origin main                  # pipeline → fluency.lat
 ```
+
+**No usar `dev-full → qa`** mientras solo flashcards esté en producción.
 
 ---
 
-## Wrappers sparse (mismo mapeo)
+## Wrappers sparse
 
-| Script rápido | Perfil | Rama Git sugerida |
-|---------------|--------|-------------------|
-| `./scripts/sparse-flashcards.sh` | flashcards | `dev-flashcards` |
-| `./scripts/sparse-pronoun.sh` | pronoun | `dev-pronoun` |
-| `./scripts/sparse-admin.sh` | admin | `dev-admin` |
-| `./scripts/sparse-full.sh` | full | `dev-full` |
+| Script | Perfil | Rama |
+|--------|--------|------|
+| `./scripts/dev-module.sh flashcards` | flashcards | `dev-flashcards` |
+| `./scripts/dev-module.sh pronoun` | pronoun | `dev-pronoun` |
+| `./scripts/dev-module.sh full` | full | `dev-full` |
 
 ---
 
 ## Reglas
 
-1. **No push directo a `main`** — solo PR desde `qa`.
-2. **`dev-full` es la única rama dev que mergea a `qa`.**
-3. **Rama Git + sparse deben coincidir** (ej. `dev-flashcards` + `sparse-module.sh flashcards`).
-4. **`sparse full` en disco** antes de merge a `qa`, aunque estés en rama `dev-full`.
-
-5. **Módulos inactivos no existen en disco** — al activar un perfil, `sparse-cargo-sync.sh` **borra** carpetas del otro módulo (`mod_pronoun`, `pronounPractice`, etc.) y ajusta `Cargo.toml` local. La IA no los ve. `sparse-module.sh full` restaura todo.
-
----
-
-## Ramas obsoletas
-
-| Rama | Estado |
-|------|--------|
-| `dev` | Renombrada → **`dev-full`** |
-| `refactor/arquitectura-workspaces` | Integrada; eliminada |
+1. **Publicación actual:** solo `dev-flashcards` → `qa` → `main`.
+2. **`dev-full`** = todos los módulos en disco; no es la rama de release.
+3. **Rama Git + sparse deben coincidir** en trabajo diario.
+4. **Sparse poda** módulos inactivos del disco (`sparse-cargo-sync.sh`); `full` restaura todo.
+5. **No push directo a `main`** sin pasar por `qa`.
 
 ---
 
-## Resumen
+## Estado sincronizado (último release)
 
-**Trabajas en `dev-<módulo>` → integras en `dev-full` → pruebas en `qa` → usuarios en `main`.**
+Todas las ramas de release apuntan al mismo commit cuando flashcards se publicó:
 
-Ver también: [GIT_SPARSE_WORKFLOW.md](GIT_SPARSE_WORKFLOW.md), [ARQUITECTURA_MODULAR.md](ARQUITECTURA_MODULAR.md).
+- `dev-flashcards`, `qa`, `main` → mismo tip (`3d3b67e2` al sincronizar)
+- `dev-full` puede ir igual en código, pero su uso es **full en disco**, no publicar
+
+Ver también: [GIT_SPARSE_WORKFLOW.md](GIT_SPARSE_WORKFLOW.md), [QA_TO_PROD_FLOW.md](QA_TO_PROD_FLOW.md).
