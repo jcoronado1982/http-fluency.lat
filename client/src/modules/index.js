@@ -1,8 +1,43 @@
-const moduleEntries = import.meta.glob('./*/index.jsx', { eager: true });
+import flashcardsModule from './flashcards/index.jsx';
 
-export const modules = Object.values(moduleEntries)
-  .map((entry) => entry.default || entry.module)
-  .filter(Boolean);
+/** @type {Array<{ id: string, enabled?: Function, routes?: Function, [key: string]: unknown }>} */
+let modules = [];
+
+function flashcardsBuildEnabled() {
+  return import.meta.env.VITE_ENABLE_FLASHCARDS !== 'false';
+}
+
+function pronounBuildEnabled() {
+  if (
+    import.meta.env.VITE_ENABLE_PRONOUN_PRACTICE === 'false'
+    && import.meta.env.VITE_ENABLE_PRONOUN_REFERENCE === 'false'
+  ) {
+    return false;
+  }
+  if (
+    import.meta.env.VITE_ENABLE_PRONOUN_PRACTICE === 'true'
+    || import.meta.env.VITE_ENABLE_PRONOUN === 'true'
+  ) {
+    return true;
+  }
+  return import.meta.env.VITE_ENABLE_PRONOUN_REFERENCE !== 'false';
+}
+
+/** Carga solo los módulos activos según VITE_* (evita importar pronoun en perfil flashcards). */
+export async function initModules() {
+  modules = [];
+
+  if (flashcardsBuildEnabled()) {
+    modules.push(flashcardsModule);
+  }
+
+  if (pronounBuildEnabled()) {
+    const { default: pronounModule } = await import('./pronounPractice/index.jsx');
+    modules.push(pronounModule);
+  }
+
+  return modules;
+}
 
 function normalizeRoute(route) {
   return {

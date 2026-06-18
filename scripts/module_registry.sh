@@ -130,6 +130,13 @@ client/src/pages/LoginPage.css
 client/src/pages/LoginPage.jsx
 client/src/pages/TestPage.jsx
 client/src/services/httpClient.js
+client/src/services/imageCompressionService.js
+client/src/services/wasm_lib.d.ts
+client/src/services/wasm_lib.js
+client/src/services/wasm_lib_bg.wasm
+client/src/services/wasm_lib_bg.wasm.d.ts
+client/src/services/apiService.js
+client/src/config/api.js
 client/src/repositories/AuthRepository.js
 client/src/repositories/adminRepository.js
 client/src/utils
@@ -154,8 +161,6 @@ EOF
       cat <<'EOF'
 client/src/features/reference
 client/src/modules/pronounPractice
-client/src/pages/CoursePage.css
-client/src/pages/CoursePage.jsx
 EOF
       ;;
     admin)

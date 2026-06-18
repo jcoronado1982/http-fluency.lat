@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiBook, FiEdit3 } from 'react-icons/fi';
 import ProtectedRoute from '../../components/common/ProtectedRoute';
-import CoursePage from '../../pages/CoursePage';
+import CoursePage from './CoursePage';
 import PracticePage from './PracticePage';
 import { isDefaultHomeModule } from '../index';
 
