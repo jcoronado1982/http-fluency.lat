@@ -96,14 +96,14 @@ shared_sparse_patterns() {
 README.md
 CODEBASE.md
 docs/ARQUITECTURA_MODULAR.md
+docs/GIT_BRANCHES.md
+docs/GIT_SPARSE_WORKFLOW.md
 modules
 scripts
 backend/Cargo.toml
 backend/Cargo.lock
 backend/api_main
 backend/core
-backend/mod_flashcards
-backend/mod_pronoun
 client/bun.lock
 client/eslint.config.js
 client/index.html
@@ -130,13 +130,6 @@ client/src/pages/LoginPage.css
 client/src/pages/LoginPage.jsx
 client/src/pages/TestPage.jsx
 client/src/services/httpClient.js
-client/src/services/imageCompressionService.js
-client/src/services/wasm_lib.d.ts
-client/src/services/wasm_lib.js
-client/src/services/wasm_lib_bg.wasm
-client/src/services/wasm_lib_bg.wasm.d.ts
-client/src/services/apiService.js
-client/src/config/api.js
 client/src/repositories/AuthRepository.js
 client/src/repositories/adminRepository.js
 client/src/utils
@@ -150,15 +143,24 @@ module_sparse_patterns() {
   case "${1:-}" in
     flashcards)
       cat <<'EOF'
+backend/mod_flashcards
 client/src/features/flashcards
 client/src/modules/flashcards
 client/src/repositories/imageRepository.js
 client/src/repositories/audioRepository.js
+client/src/services/imageCompressionService.js
+client/src/services/wasm_lib.d.ts
+client/src/services/wasm_lib.js
+client/src/services/wasm_lib_bg.wasm
+client/src/services/wasm_lib_bg.wasm.d.ts
+client/src/services/apiService.js
+client/src/config/api.js
 json
 EOF
       ;;
     pronoun)
       cat <<'EOF'
+backend/mod_pronoun
 client/src/features/reference
 client/src/modules/pronounPractice
 EOF
@@ -179,6 +181,54 @@ module_all_patterns() {
   for module in "$@"; do
     module_sparse_patterns "$module"
   done
+}
+
+# Rutas de disco que pertenecen a un modulo (para podar al cambiar perfil sparse)
+module_disk_paths() {
+  case "${1:-}" in
+    flashcards)
+      printf '%s\n' \
+        backend/mod_flashcards \
+        client/src/features/flashcards \
+        client/src/modules/flashcards \
+        client/src/repositories/imageRepository.js \
+        client/src/repositories/audioRepository.js \
+        json
+      ;;
+    pronoun)
+      printf '%s\n' \
+        backend/mod_pronoun \
+        client/src/features/reference \
+        client/src/modules/pronounPractice \
+        client/src/modules/pronoun
+      ;;
+    *) return 1 ;;
+  esac
+}
+
+# Crates Rust del workspace segun modulos activos
+module_workspace_members() {
+  local modules=("$@")
+  local members=('"core"' '"api_main"')
+  local module
+  for module in "${modules[@]}"; do
+    case "$module" in
+      flashcards) members+=('"mod_flashcards"') ;;
+      pronoun) members+=('"mod_pronoun"') ;;
+    esac
+  done
+  local IFS=', '
+  echo "${members[*]}"
+}
+
+module_selected_contains() {
+  local needle="${1:-}"
+  local item
+  shift
+  for item in "$@"; do
+    [[ "$item" == "$needle" ]] && return 0
+  done
+  return 1
 }
 
 print_modules_table() {

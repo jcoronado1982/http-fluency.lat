@@ -108,6 +108,8 @@ git push origin qa          # pipeline → qa.fluency.lat
 3. **Rama Git + sparse deben coincidir** (ej. `dev-flashcards` + `sparse-module.sh flashcards`).
 4. **`sparse full` en disco** antes de merge a `qa`, aunque estés en rama `dev-full`.
 
+5. **Módulos inactivos no existen en disco** — al activar un perfil, `sparse-cargo-sync.sh` **borra** carpetas del otro módulo (`mod_pronoun`, `pronounPractice`, etc.) y ajusta `Cargo.toml` local. La IA no los ve. `sparse-module.sh full` restaura todo.
+
 ---
 
 ## Ramas obsoletas

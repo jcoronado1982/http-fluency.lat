@@ -71,6 +71,7 @@ case "$mode" in
   full)
     git -C "$REPO_ROOT" sparse-checkout disable
     clear_sparse_state
+    bash "$SCRIPT_DIR/sparse-cargo-sync.sh" full
     echo "Sparse checkout desactivado. Workspace completo restaurado."
     exit 0
     ;;
@@ -97,6 +98,8 @@ git -C "$REPO_ROOT" sparse-checkout init --no-cone
 git -C "$REPO_ROOT" sparse-checkout set --stdin < "$tmp_patterns"
 
 write_sparse_state "${selected_modules[@]}"
+
+bash "$SCRIPT_DIR/sparse-cargo-sync.sh" "${selected_modules[@]}"
 
 echo "Sparse checkout activo para modulos: ${selected_modules[*]}"
 echo "Rama Git actual: $(git -C "$REPO_ROOT" branch --show-current)"
