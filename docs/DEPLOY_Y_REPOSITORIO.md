@@ -21,15 +21,17 @@
 |-------|--------|
 | **Repo canónico** | `https://github.com/jcoronado1982/http-fluency.lat.git` |
 | **Repo obsoleto** | `jcoronado1982/flashcard` — ya no recibe deploys |
-| **Rama producción** | `main` → `/root/smart-proxy/flashcard` en Oracle |
+| **Rama desarrollo** | `dev` — trabajo diario (sin deploy automático) |
 | **Rama pre-prod** | `qa` → `/root/smart-proxy/qa_flashcard` |
+| **Rama producción** | `main` → `/root/smart-proxy/flashcard` en Oracle |
 
 ```bash
 git remote -v
 # origin  https://github.com/jcoronado1982/http-fluency.lat.git
 ```
 
-Push a `main` o `qa` dispara el pipeline si cambian `client/**`, `backend/**`, `infra/**` o `azure-pipelines.yml`.
+Push a `qa` o `main` dispara el pipeline si cambian `client/**`, `backend/**`, `infra/**` o `azure-pipelines.yml`.  
+**`dev` no despliega** — ver [GIT_BRANCHES.md](GIT_BRANCHES.md).
 
 ---
 
@@ -101,6 +103,6 @@ Documentación: [`ARQUITECTURA_MODULAR.md`](ARQUITECTURA_MODULAR.md), [`GIT_SPAR
 
 | Fecha | Cambio |
 |-------|--------|
-| 2026-06-18 | Repo movido a `http-fluency.lat`; pipeline reconectado y renombrado a `jcoronado1982.fluency` |
+| 2026-06-18 | Rama `dev` como desarrollo principal; flujo `dev` → `qa` → `main` |
 | 2026-06-18 | Arquitectura modular (workspaces + registry frontend) en `main` y `qa` |
 | 2026-06-08 | Pipeline serializado validado (build #165) — ver `pipeline-and-deploy.md` |

@@ -10,12 +10,14 @@ El repositorio utiliza un modelo de ramas protegido para evitar caídas en produ
 
 ```mermaid
 graph LR
-    Developer[Desarrollo / Developer-1] -->|Push / PR| QA_Branch[Rama: qa]
-    QA_Branch -->|Deploy Automático| QA_Env[Entorno QA: qa.fluency.lat]
-    QA_Env -->|Pruebas Exitosas| PR[Pull Request qa -> main]
-    PR -->|Merge / Aprobación| Main_Branch[Rama: main]
-    Main_Branch -->|Deploy Automático| Prod_Env[Entorno Prod: fluency.lat]
+    Dev[dev — desarrollo] -->|PR / merge| QA_Branch[qa]
+    QA_Branch -->|Deploy Automático| QA_Env[qa.fluency.lat]
+    QA_Env -->|Pruebas OK| PR[PR qa → main]
+    PR -->|Merge| Main_Branch[main]
+    Main_Branch -->|Deploy Automático| Prod_Env[fluency.lat]
 ```
+
+> Trabajo diario en **`dev`**. Ver [GIT_BRANCHES.md](GIT_BRANCHES.md).
 
 ---
 

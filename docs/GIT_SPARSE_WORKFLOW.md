@@ -29,14 +29,20 @@ git checkout -b qa
 git push -u origin qa
 ```
 
-### Flujo recomendado
+### Flujo de ramas (canónico)
+
+Ver **[GIT_BRANCHES.md](GIT_BRANCHES.md)** — resumen:
 
 ```
-main  ──► producción (fluency.lat)
-qa    ──► pre-producción (pruebas integradas antes de merge a main)
+dev  ──► qa  ──► main
+     (día a día)  (pre-prod)  (fluency.lat)
 ```
 
-Trabajo diario en `qa` o en ramas feature (`feature/...`) que mergean a `qa` y luego a `main`.
+**`dev`** es la rama principal de desarrollo. **`full`** es perfil sparse local (`./scripts/sparse-module.sh full`), no una rama Git.
+
+### Flujo anterior (obsoleto)
+
+~~Trabajo diario en `qa`~~ — usar `dev` y promover a `qa` cuando esté listo.
 
 ---
 
@@ -125,7 +131,7 @@ VITE_ENABLE_PRONOUN_PRACTICE=false
 ## Flujo típico de un desarrollador
 
 ```bash
-git checkout qa
+git checkout dev
 ./scripts/sparse-module.sh flashcards    # solo trabajo flashcards
 # ... editar, probar ...
 ./scripts/validate-module.sh flashcards
@@ -155,7 +161,7 @@ Genera `.tar.gz` con shell + módulo para cliente o IA aislada.
 ## Preguntas frecuentes
 
 **¿Creo una rama `flashcards` en Git?**  
-No hace falta. Usa `qa` (o tu feature branch) + `./scripts/sparse-module.sh flashcards`.
+No hace falta. Usa `dev` + `./scripts/sparse-module.sh flashcards`.
 
 **¿El sparse se sube al remoto?**  
 No. Es configuración local de tu working copy. Cada clon ejecuta el script que necesite.
