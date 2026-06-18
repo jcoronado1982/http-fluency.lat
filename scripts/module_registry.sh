@@ -102,6 +102,8 @@ backend/Cargo.toml
 backend/Cargo.lock
 backend/api_main
 backend/core
+backend/mod_flashcards
+backend/mod_pronoun
 client/bun.lock
 client/eslint.config.js
 client/index.html
@@ -141,7 +143,6 @@ module_sparse_patterns() {
   case "${1:-}" in
     flashcards)
       cat <<'EOF'
-backend/mod_flashcards
 client/src/features/flashcards
 client/src/modules/flashcards
 client/src/repositories/imageRepository.js
@@ -151,7 +152,6 @@ EOF
       ;;
     pronoun)
       cat <<'EOF'
-backend/mod_pronoun
 client/src/features/reference
 client/src/modules/pronounPractice
 client/src/pages/CoursePage.css
