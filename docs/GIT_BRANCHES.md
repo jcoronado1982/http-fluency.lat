@@ -1,93 +1,126 @@
 # Ramas Git — Fluency
 
-> **Fuente de verdad** del flujo `dev` → `qa` → `main`.  
-> No confundir con perfiles **sparse** (`full`, `flashcards`, …) — esos son locales en disco, no ramas.
+> **Fuente de verdad:** flujo modular `dev-*` → `dev-full` → `qa` → `main`.  
+> Cada rama `dev-<módulo>` va pareada con su perfil **sparse** en disco.
+
+**Repo:** `https://github.com/jcoronado1982/http-fluency.lat.git`
 
 ---
 
 ## Modelo de ramas
 
 ```mermaid
-graph LR
-    DEV[dev — desarrollo diario] -->|PR / merge| QA[qa — pre-producción]
-    QA -->|PR / merge| MAIN[main — producción]
-    FEAT[feature/*] -->|PR| DEV
+graph TB
+    subgraph dev_modular [Desarrollo por módulo]
+        DF[dev-flashcards]
+        DP[dev-pronoun]
+        DA[dev-admin]
+    end
+    FULL[dev-full — integración]
+    QA[qa — pre-producción]
+    MAIN[main — producción]
+
+    DF -->|merge / PR| FULL
+    DP -->|merge / PR| FULL
+    DA -->|merge / PR| FULL
+    FULL -->|merge / PR| QA
+    QA -->|PR| MAIN
 ```
 
-| Rama | Rol | Deploy automático | URL |
-|------|-----|-------------------|-----|
-| **`dev`** | **Rama principal de desarrollo** — todo el trabajo diario y merges de features | No | — |
-| **`qa`** | Integración y pruebas antes de prod | Sí (pipeline Azure) | `qa.fluency.lat` |
-| **`main`** | Producción estable | Sí (pipeline Azure) | `fluency.lat` |
-
-**Repo:** `https://github.com/jcoronado1982/http-fluency.lat.git`
+| Rama Git | Perfil sparse pareado | Rol | Deploy |
+|----------|----------------------|-----|--------|
+| **`dev-flashcards`** | `./scripts/sparse-module.sh flashcards` | Trabajo aislado flashcards | No |
+| **`dev-pronoun`** | `./scripts/sparse-module.sh pronoun` | Trabajo aislado pronombres | No |
+| **`dev-admin`** | `./scripts/sparse-module.sh admin` | Shell + admin | No |
+| **`dev-full`** | `./scripts/sparse-module.sh full` | **Integración** — todo mergeado antes de QA | No |
+| **`qa`** | `full` (validar integrado) | Pre-prod | Sí → `qa.fluency.lat` |
+| **`main`** | — | Producción | Sí → `fluency.lat` |
 
 ---
 
-## Flujo diario
+## Flujo recomendado (por módulo)
 
 ```bash
-# 1. Trabajar siempre en dev (o feature/* → dev)
-git checkout dev
-git pull origin dev
+# 1. Rama + sparse del mismo módulo
+git checkout dev-flashcards
+git pull origin dev-flashcards
+./scripts/sparse-module.sh flashcards    # IA y editor solo ven flashcards
 
-# 2. Opcional: aislar módulo en disco (NO es una rama Git)
-./scripts/sparse-module.sh flashcards   # o pronoun, admin
-./scripts/sparse-module.sh full         # repo completo en disco antes de release
-
-# 3. Validar
-cargo check --manifest-path backend/Cargo.toml
+# 2. Trabajar, validar
 ./scripts/validate-module.sh flashcards
+cargo check --manifest-path backend/Cargo.toml
 
-# 4. Commit y push a dev
-git add -A && git commit -m "feat: ..."
-git push origin dev
+# 3. Commit en la rama del módulo
+git add -A && git commit -m "feat(flashcards): ..."
+git push origin dev-flashcards
+
+# 4. Integrar en dev-full
+git checkout dev-full
+git pull origin dev-full
+git merge dev-flashcards
+./scripts/sparse-module.sh full
+./scripts/validate-module.sh flashcards   # repetir por cada módulo tocado
+git push origin dev-full
 ```
 
----
-
-## Promover a QA
-
-Cuando `dev` está estable y probado localmente:
+Cambias de módulo:
 
 ```bash
-git checkout qa
-git pull origin qa
-git merge dev
-git push origin qa
+git checkout dev-pronoun
+./scripts/sparse-module.sh pronoun
 ```
 
-O **Pull Request** `dev` → `qa` en GitHub / Azure DevOps.
+---
 
-El pipeline `jcoronado1982.fluency` se dispara en push a `qa` y despliega en pre-prod.
+## Escalar a QA y producción
+
+```bash
+# Antes de QA: siempre desde dev-full con repo completo en disco
+git checkout dev-full
+./scripts/sparse-module.sh full
+cargo check --manifest-path backend/Cargo.toml
+cd client && npm run build && cd ..
+
+git checkout qa && git pull origin qa
+git merge dev-full
+git push origin qa          # pipeline → qa.fluency.lat
+
+# Producción: PR qa → main (ver QA_TO_PROD_FLOW.md)
+```
 
 ---
 
-## Promover a producción
+## Wrappers sparse (mismo mapeo)
 
-Ver [QA_TO_PROD_FLOW.md](QA_TO_PROD_FLOW.md): **PR `qa` → `main`**, nunca push directo a `main`.
+| Script rápido | Perfil | Rama Git sugerida |
+|---------------|--------|-------------------|
+| `./scripts/sparse-flashcards.sh` | flashcards | `dev-flashcards` |
+| `./scripts/sparse-pronoun.sh` | pronoun | `dev-pronoun` |
+| `./scripts/sparse-admin.sh` | admin | `dev-admin` |
+| `./scripts/sparse-full.sh` | full | `dev-full` |
 
 ---
 
-## Ramas históricas / feature
+## Reglas
+
+1. **No push directo a `main`** — solo PR desde `qa`.
+2. **`dev-full` es la única rama dev que mergea a `qa`.**
+3. **Rama Git + sparse deben coincidir** (ej. `dev-flashcards` + `sparse-module.sh flashcards`).
+4. **`sparse full` en disco** antes de merge a `qa`, aunque estés en rama `dev-full`.
+
+---
+
+## Ramas obsoletas
 
 | Rama | Estado |
 |------|--------|
-| `refactor/arquitectura-workspaces` | **Integrada** — arquitectura modular ya en `dev`/`qa`/`main`; no usar |
-| `feature/*` | Corta vida — merge a `dev` y borrar |
+| `dev` | Renombrada → **`dev-full`** |
+| `refactor/arquitectura-workspaces` | Integrada; eliminada |
 
 ---
 
-## Sparse `full` ≠ rama Git
+## Resumen
 
-```bash
-./scripts/sparse-module.sh full   # todos los archivos en tu working copy
-```
+**Trabajas en `dev-<módulo>` → integras en `dev-full` → pruebas en `qa` → usuarios en `main`.**
 
-Eso **no** crea ni cambia la rama `dev`. Solo afecta qué carpetas ves en disco para desarrollar o validar antes de merge a `qa`.
-
----
-
-## Resumen en una frase
-
-**Desarrollas en `dev`, pruebas integradas en `qa`, usuarios finales en `main`.**
+Ver también: [GIT_SPARSE_WORKFLOW.md](GIT_SPARSE_WORKFLOW.md), [ARQUITECTURA_MODULAR.md](ARQUITECTURA_MODULAR.md).

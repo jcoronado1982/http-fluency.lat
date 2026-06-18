@@ -66,7 +66,8 @@ Version: 2.0.0 (arquitectura modular)
 Estado: Producción en fluency.lat — repo `http-fluency.lat`, pipeline `jcoronado1982.fluency`
 
 ## Pipeline y deploy (Jun 2026 — resumen para IAs)
-- **Repo:** `github.com/jcoronado1982/http-fluency.lat` (rama `main` prod, `qa` pre-prod)
+- **Repo:** `github.com/jcoronado1982/http-fluency.lat`
+- **Ramas dev:** `dev-flashcards`, `dev-pronoun`, `dev-admin` → integración **`dev-full`** → `qa` → `main`
 - **Compilación:** pool `LocalBuild` — front + `docker buildx` amd64/arm64 → GCR
 - **Deploy:** pool `Default` (Oracle) — serializado 3→4→5; mirrors Oracle→OCI-1→AWS
 - **Secretos:** Variable Group `Flashcard-Secrets`

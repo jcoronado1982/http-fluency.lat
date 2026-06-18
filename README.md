@@ -6,7 +6,7 @@ Plataforma de aprendizaje de inglés (antes Flashcard AI). Flashcards con IA, pr
 
 | Archivo / Carpeta | Qué contiene |
 |---|---|
-| 🌿 **[docs/GIT_BRANCHES.md](docs/GIT_BRANCHES.md)** | Ramas: `dev` → `qa` → `main` (desarrollo principal: **`dev`**). |
+| 🌿 **[docs/GIT_BRANCHES.md](docs/GIT_BRANCHES.md)** | Ramas: `dev-flashcards` / `dev-pronoun` / `dev-admin` → **`dev-full`** → `qa` → `main`. |
 | 🚀 **[docs/DEPLOY_Y_REPOSITORIO.md](docs/DEPLOY_Y_REPOSITORIO.md)** | Repo GitHub, Azure DevOps, pipeline `jcoronado1982.fluency`. |
 | 📑 **[INFRASTRUCTURE.md](INFRASTRUCTURE.md)** | Servidores, capacidades, enrutamiento y pipeline CI/CD. |
 | 🏗️ **[docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md)** | Clean/Hexagonal, registry, sparse-checkout, módulos plug & play. |

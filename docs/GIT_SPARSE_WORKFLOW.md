@@ -31,18 +31,15 @@ git push -u origin qa
 
 ### Flujo de ramas (canónico)
 
-Ver **[GIT_BRANCHES.md](GIT_BRANCHES.md)** — resumen:
+Ver **[GIT_BRANCHES.md](GIT_BRANCHES.md)**:
 
 ```
-dev  ──► qa  ──► main
-     (día a día)  (pre-prod)  (fluency.lat)
+dev-flashcards ──┐
+dev-pronoun ─────┼──► dev-full ──► qa ──► main
+dev-admin ───────┘
 ```
 
-**`dev`** es la rama principal de desarrollo. **`full`** es perfil sparse local (`./scripts/sparse-module.sh full`), no una rama Git.
-
-### Flujo anterior (obsoleto)
-
-~~Trabajo diario en `qa`~~ — usar `dev` y promover a `qa` cuando esté listo.
+Atajo: `./scripts/dev-module.sh flashcards` (rama + sparse a la vez).
 
 ---
 
@@ -131,15 +128,19 @@ VITE_ENABLE_PRONOUN_PRACTICE=false
 ## Flujo típico de un desarrollador
 
 ```bash
-git checkout dev
-./scripts/sparse-module.sh flashcards    # solo trabajo flashcards
+# Rama + sparse pareados (recomendado)
+./scripts/dev-module.sh flashcards
+
+# O manual:
+git checkout dev-flashcards
+./scripts/sparse-module.sh flashcards
+
 # ... editar, probar ...
 ./scripts/validate-module.sh flashcards
 
-# Cambiar de módulo
-./scripts/sparse-module.sh pronoun
-
-# Antes de release integrado
+# Integrar en dev-full antes de QA
+git checkout dev-full
+git merge dev-flashcards
 ./scripts/sparse-module.sh full
 cargo check --manifest-path backend/Cargo.toml
 cd client && npm run build
@@ -161,7 +162,7 @@ Genera `.tar.gz` con shell + módulo para cliente o IA aislada.
 ## Preguntas frecuentes
 
 **¿Creo una rama `flashcards` en Git?**  
-No hace falta. Usa `dev` + `./scripts/sparse-module.sh flashcards`.
+Usa **`dev-flashcards`** + `./scripts/sparse-module.sh flashcards` (o `./scripts/dev-module.sh flashcards`).
 
 **¿El sparse se sube al remoto?**  
 No. Es configuración local de tu working copy. Cada clon ejecuta el script que necesite.

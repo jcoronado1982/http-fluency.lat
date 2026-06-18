@@ -4,6 +4,7 @@ Fuente de verdad humana. La implementación técnica vive en `scripts/module_reg
 
 Documentación completa: [docs/ARQUITECTURA_MODULAR.md](../docs/ARQUITECTURA_MODULAR.md)  
 Deploy / repo / Azure: [docs/DEPLOY_Y_REPOSITORIO.md](../docs/DEPLOY_Y_REPOSITORIO.md)  
+Ramas `dev-*` → `dev-full`: [docs/GIT_BRANCHES.md](../docs/GIT_BRANCHES.md)  
 Git (`main` / `qa`) + sparse: [docs/GIT_SPARSE_WORKFLOW.md](../docs/GIT_SPARSE_WORKFLOW.md)
 
 | Módulo registry | Frontend `id` | Variable home |
