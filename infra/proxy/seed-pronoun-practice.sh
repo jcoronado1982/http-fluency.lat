@@ -1,10 +1,10 @@
 #!/bin/bash
-# Importa stories/episodes/story_screens en SurrealDB de Oracle.
-# Uso (en el servidor): bash seed-story-arcade.sh
+# Importa stories/episodes/story_screens para el módulo pronoun en SurrealDB.
+# Uso (en el servidor): bash seed-pronoun-practice.sh
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SEED_FILE="${SEED_FILE:-$SCRIPT_DIR/../seed/story_arcade_seed.surql}"
+SEED_FILE="${SEED_FILE:-$SCRIPT_DIR/../seed/pronoun_practice_seed.surql}"
 CONTAINER="${SURREAL_CONTAINER:-surrealdb}"
 
 if [ ! -f "$SEED_FILE" ]; then
@@ -12,8 +12,8 @@ if [ ! -f "$SEED_FILE" ]; then
   exit 1
 fi
 
-REMOTE_SEED="/tmp/story_arcade_seed.surql"
-echo "Importando Story Arcade seed en SurrealDB ($CONTAINER)..."
+REMOTE_SEED="/tmp/pronoun_practice_seed.surql"
+echo "Importando seed de práctica de pronombres en SurrealDB ($CONTAINER)..."
 docker cp "$SEED_FILE" "$CONTAINER:$REMOTE_SEED"
 docker exec "$CONTAINER" /surreal import \
   --conn http://localhost:8000 \
@@ -30,4 +30,4 @@ echo "SELECT count() FROM episodes GROUP ALL;" | docker exec -i "$CONTAINER" /su
   --user root --pass root \
   --ns flashcard --db flashcard --json
 
-echo "Story Arcade seed aplicado."
+echo "Seed de pronoun practice aplicado."

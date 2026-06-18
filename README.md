@@ -1,16 +1,17 @@
-# Flashcard AI
+# Fluency
 
-Aplicación Full-Stack de aprendizaje de inglés con flashcards inteligentes. Genera imágenes y audio con IA, analiza errores gramaticales y ofrece un modo Story Arcade conversacional.
+Plataforma de aprendizaje de inglés (antes Flashcard AI). Flashcards con IA, práctica guiada de pronombres, tutor gramatical y despliegue en [fluency.lat](https://fluency.lat).
 
 ## Documentación del Sistema
 
 | Archivo / Carpeta | Qué contiene |
 |---|---|
-| 📑 **[INFRASTRUCTURE.md](INFRASTRUCTURE.md)** | Infraestructura física: Servidores activos, capacidades, flujos de enrutamiento y pipeline CI/CD en producción. |
-| 🏗️ **[docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md)** | Arquitectura modular: Clean/Hexagonal, registry, sparse-checkout, módulos plug & play. |
-| 🗃️ **[database_schema_diagram.md](database_schema_diagram.md)** | Modelo de Datos: Estructura lógica y diagrama Entidad-Relación de las colecciones de SurrealDB. |
-| 📂 **[CODEBASE.md](CODEBASE.md)** | Índice técnico del código: Mapeo de directorios, endpoints expuestos, almacenamiento dinámico y variables de entorno. |
-| 🔐 **[SECRETS_MAP.md](SECRETS_MAP.md)** | Mapa de credenciales y llaves de desarrollo (NO subir al repositorio público). |
+| 🚀 **[docs/DEPLOY_Y_REPOSITORIO.md](docs/DEPLOY_Y_REPOSITORIO.md)** | Repo GitHub, Azure DevOps, pipeline `jcoronado1982.fluency`, ramas `main`/`qa`. |
+| 📑 **[INFRASTRUCTURE.md](INFRASTRUCTURE.md)** | Servidores, capacidades, enrutamiento y pipeline CI/CD. |
+| 🏗️ **[docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md)** | Clean/Hexagonal, registry, sparse-checkout, módulos plug & play. |
+| 🗃️ **[database_schema_diagram.md](database_schema_diagram.md)** | Modelo SurrealDB y relaciones entre colecciones. |
+| 📂 **[CODEBASE.md](CODEBASE.md)** | Índice técnico: directorios, endpoints, env vars. |
+| 🔐 **[SECRETS_MAP.md](SECRETS_MAP.md)** | Credenciales locales (no subir al repo público). |
 
 ---
 
@@ -19,52 +20,38 @@ Aplicación Full-Stack de aprendizaje de inglés con flashcards inteligentes. Ge
 | Capa | Tecnología |
 |---|---|
 | **Frontend** | React 19 + Vite + Tailwind CSS |
-| **Backend** | Rust + Axum (Asíncrono con Tokio) |
+| **Backend** | Rust + Axum (Tokio) — workspace modular |
 | **Base de datos** | SurrealDB |
-| **Proxy / SSL** | Caddy v2 (Dockerizado en Oracle) |
-| **IA — Tutor** | Google Gemini 2.0 Flash (gRPC) |
+| **Proxy / SSL** | Caddy v2 (`fluency-proxy` en Oracle) |
+| **IA — Tutor** | Google Gemini (gRPC) |
 | **IA — Audio** | Google Cloud Text-to-Speech |
-| **IA — Imágenes** | ComfyUI + FLUX 2 (opcional local) |
-| **Auth** | Google OAuth 2.0 → JWT firmado localmente |
+| **Auth** | Google OAuth 2.0 → JWT |
 
 ---
 
 ## Servidores de Producción
 
-| Servidor | IP / URL | Rol |
-|---|---|---|
-| **Oracle Proxy** | `157.151.199.170` | Balanceador Caddy, almacenamiento SCP persistente de assets (audio/imágenes) y JSONs. |
-| **AWS VM** | `34.229.229.255` | Backend primario en Rust y motor SurrealDB local. |
-| **GCP Cloud Run** | `flashcard-backend-977952175712.us-east1.run.app` | Servidor secundario sin estado (conmutación por error ante caídas de AWS). |
+| Servidor | Rol |
+|---|---|
+| **Oracle** `157.151.199.170` | Caddy, SPA, backend local, assets en disco |
+| **GCP Cloud Run** | Mirror / failover del backend |
+| **AWS / OCI** | Mirrors adicionales vía pipeline |
 
 ---
 
 ## Comandos Útiles
 
 ```bash
-# Verificar la salud de la API en producción
+# Salud de la API
 curl -s https://fluency.lat/api/health
-curl -sI https://fluency.lat/api/health | grep x-backend
 
-# Sincronizar localmente los JSONs de tarjetas al proxy en Oracle
-sshpass -p 'Privado01*' rsync -avz json/ root@157.151.199.170:/root/smart-proxy/repository/flashcard/json/
-
-# Levantar todo el stack local en desarrollo
+# Stack local
 ./start.sh
-```
 
-## Trabajo por Modulo
-
-```bash
-# Ver modulos disponibles
+# Trabajo por módulo (sparse-checkout)
 ./scripts/sparse-module.sh list
-
-# Abrir solo el shell compartido + un modulo
-./scripts/sparse-module.sh pronoun
 ./scripts/sparse-module.sh flashcards
-
-# Exportar un modulo para entrega
-./scripts/export-module.sh pronoun
+./scripts/sparse-module.sh pronoun
 ```
 
 Detalle en [docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md) y [modules/README.md](modules/README.md).

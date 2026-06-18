@@ -45,6 +45,7 @@ venv/
 .venv/
 backend/target/
 infra/mcp-server/target/
+backend/scratch/
 backend/.env
 backend/credentials.json
 

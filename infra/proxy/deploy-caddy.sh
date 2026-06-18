@@ -6,7 +6,7 @@ REPO_ROOT="${REPO_ROOT:-/root/smart-proxy}"
 
 cd "$PROXY_DIR"
 # stderr de BuildKit confunde la pestaña Errors en Azure; unificar streams
-docker build -t theruby-proxy . 2>&1
+docker build -t fluency-proxy . 2>&1
 
 docker rm -f caddy-smart 2>/dev/null || true
 docker run -d \
@@ -21,6 +21,6 @@ docker run -d \
   -v caddy_config:/config \
   -v /tmp:/tmp \
   --restart always \
-  theruby-proxy
+  fluency-proxy
 
 echo "Caddy deploy OK"

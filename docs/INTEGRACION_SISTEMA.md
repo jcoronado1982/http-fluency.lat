@@ -1,6 +1,6 @@
-# Mapa de Integración e Interacción de Sistemas — Flashcard AI
+# Mapa de Integración e Interacción de Sistemas — Fluency
 
-Este documento sirve como plano maestro y referencia técnica para entender cómo interactúan entre sí los distintos componentes de **Flashcard AI** (Frontend, Backend, Proxy, Base de Datos y APIs de IA). Úsalo (y yo lo usaré) como guía principal para construir nuevos módulos sobre la marcha garantizando que se acoplen perfectamente al ecosistema del sistema.
+Este documento sirve como plano maestro para entender cómo interactúan Frontend, Backend, Proxy, SurrealDB y APIs de IA en **Fluency** (`fluency.lat`). Repo y CI/CD: [`DEPLOY_Y_REPOSITORIO.md`](DEPLOY_Y_REPOSITORIO.md). Arquitectura modular: [`ARQUITECTURA_MODULAR.md`](ARQUITECTURA_MODULAR.md).
 
 ---
 
@@ -59,7 +59,7 @@ Cuando el usuario solicita generar recursos para una flashcard:
    - Si está en producción (`SYNC_TO_ORACLE=true`), el backend escribe el archivo temporal en `/tmp`, realiza un traspaso seguro mediante **SCP** a la máquina de **Oracle Proxy** en `/root/smart-proxy/repository/flashcard/`, y borra el temporal.
 6. **Respuesta:** Se devuelve la URL pública del recurso servido por Caddy (`https://fluency.lat/card_audio/...`).
 
-### B. Modo conversacional Story Arcade
+### B. Módulo práctica de pronombres (`pronoun`)
 Cuando el usuario chatea en una historia:
 1. **Cliente:** React envía la respuesta textual del usuario y el ID de la pantalla actual a `/api/analyze-error`.
 2. **Backend:** El caso de uso `TutorUseCases` recibe la entrada.
@@ -94,7 +94,7 @@ let (user_repo, sub_repo, card_repo, story_repo, activity_repo) =
         }
     };
 ```
-* **Consecuencia:** El usuario puede seguir repasando las tarjetas basadas en JSONs locales, mientras que los módulos que dependen de SurrealDB (autenticación y Story Arcade) se deshabilitan o degradan de forma segura sin arrojar un error de pánico (`panic!`) en el servidor.
+* **Consecuencia:** El usuario puede seguir repasando las tarjetas basadas en JSONs locales, mientras que los módulos que dependen de SurrealDB (autenticación y práctica de pronombres) se degradan de forma segura sin `panic!` en el servidor.
 
 ---
 

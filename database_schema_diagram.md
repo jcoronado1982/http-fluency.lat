@@ -1,6 +1,6 @@
 # Diagrama del Modelo de Datos (Esquema de Base de Datos)
 
-Este documento detalla la estructura lógica de las tablas/colecciones de la base de datos de **Flashcard AI** (SurrealDB) y cómo se relacionan entre sí para dar soporte al aprendizaje de vocabulario y al modo conversacional Story Arcade.
+Este documento detalla la estructura lógica de las colecciones SurrealDB de **Fluency** y cómo soportan flashcards y el módulo de práctica de pronombres.
 
 ## Diagrama Entidad-Relación (Mermaid)
 
@@ -115,7 +115,7 @@ En SurrealDB, la persistencia se organiza mediante registros orientados a docume
 ### 2. Progreso de Flashcards
 *   **`card_progress`**: Registra qué tarjetas específicas han sido marcadas como aprendidas (`learned: true`) por cada usuario dentro de una categoría y baraja (`deck`) proveniente de los JSONs.
 
-### 3. Motor de Story Arcade (Juego de Rol)
+### 3. Módulo práctica de pronombres (episodios / pantallas)
 *   **`stories`**: Historias de aventuras disponibles para practicar inglés.
 *   **`episodes`**: Episodios o capítulos secuenciales que pertenecen a cada historia.
 *   **`story_screens`**: Pantallas de texto interactivo con retos de traducción y soporte de imágenes/audio de apoyo.

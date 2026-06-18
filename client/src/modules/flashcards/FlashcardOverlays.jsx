@@ -1,12 +1,11 @@
 import React from 'react';
-import CategorySelector from '../../features/flashcards/CategorySelector';
 import IpaModal from '../../features/flashcards/IpaModal';
 import PhonicsModal from '../../features/flashcards/PhonicsModal';
 import { useUIContext } from '../../context/UIContext';
 
+/** Modales globales que no dependen del contexto de flashcards. CategorySelector vive en FlashcardPage (dentro de providers). */
 export default function FlashcardOverlays() {
     const {
-        isCatalogVisible,
         isIpaModalOpen,
         isPhonicsModalOpen,
         setIsIpaModalOpen,
@@ -14,7 +13,6 @@ export default function FlashcardOverlays() {
 
     return (
         <>
-            {isCatalogVisible && <CategorySelector />}
             {isIpaModalOpen && <IpaModal onClose={() => setIsIpaModalOpen(false)} />}
             {isPhonicsModalOpen && <PhonicsModal />}
         </>

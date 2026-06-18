@@ -3,7 +3,9 @@
 > **Documento fuente de verdad** para IAs y operadores sobre CI/CD, compilación y despliegue.
 > Si otro archivo contradice esto, **este documento manda** (salvo `SECRETS_MAP.md` para credenciales).
 
-**Última validación:** pipeline build `#165` (`20260608.11`, commit `fe8cc2c`) — todos los stages en verde.
+**Última validación:** migración Fluency — repo `http-fluency.lat`, pipeline `jcoronado1982.fluency` (Jun 2026).
+
+**Repositorio y Azure:** [`../DEPLOY_Y_REPOSITORIO.md`](../DEPLOY_Y_REPOSITORIO.md)
 
 **Documentos relacionados (no duplicar lógica aquí):**
 - Runtime Oracle / audio / Caddy: [`oracle-local-backend-deploy.md`](oracle-local-backend-deploy.md)
@@ -182,7 +184,7 @@ El backend Rust decodifica `GOOGLE_CREDENTIALS_JSON` (base64) y escribe `/tmp/gc
 |--------|---------|
 | `bootstrap-oracle.sh` | Orquesta deploy backend y/o Caddy |
 | `deploy-oracle-backend.sh` | Pull imagen, run contenedor, health check |
-| `deploy-caddy.sh` | Build `theruby-proxy`, restart `caddy-smart` |
+| `deploy-caddy.sh` | Build `fluency-proxy`, restart `caddy-smart` |
 | `docker-gcr-auth.sh` | Login GCR efímero (`DOCKER_CONFIG` temp) |
 
 **Regla:** no poner `docker run` largo inline en `azure-pipelines.yml` para Oracle. Toda config de contenedores Oracle vive en estos scripts.
@@ -202,7 +204,7 @@ El backend Rust decodifica `GOOGLE_CREDENTIALS_JSON` (base64) y escribe `/tmp/gc
 az pipelines build queue \
   --organization https://dev.azure.com/safejcoronado1982 \
   --project theruby \
-  --definition-name "jcoronado1982.flashcard" \
+  --definition-name "jcoronado1982.fluency" \
   --branch main
 ```
 
@@ -265,4 +267,5 @@ ssh root@157.151.199.170 "ls /tmp/gcp-deploy-key.json /tmp/flashcard-backend.env
 | 2026-06-08 | `8441e3f` | Secretos efímeros, sin `gcp-deploy-key.json` |
 | 2026-06-08 | `8a49d4a` | SSH `inline` para exports |
 | 2026-06-08 | `fe8cc2c` | Reintentos GCR, deploy serializado, mirrors en cadena |
+| 2026-06-18 | `http-fluency.lat` | Repo GitHub + pipeline renombrado `jcoronado1982.fluency`; arquitectura modular |
 | 2026-06-08 | `#165` | Primer pipeline completo en verde con nueva arquitectura |

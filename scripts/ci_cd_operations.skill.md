@@ -28,7 +28,7 @@ Deploy **serializado:** stage 3 → 4 → 5. Mirrors: Oracle → OCI-1 → AWS.
 az pipelines build queue \
   --organization https://dev.azure.com/safejcoronado1982 \
   --project theruby \
-  --definition-name "jcoronado1982.flashcard" \
+  --definition-name "jcoronado1982.fluency" \
   --branch main
 ```
 

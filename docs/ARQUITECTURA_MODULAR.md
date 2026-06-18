@@ -1,6 +1,8 @@
-# Arquitectura Modular — Flashcard AI
+# Arquitectura Modular — Fluency
 
 Documento canónico del modelo **Clean / Hexagonal modular** con **registry**, **sparse-checkout** y **conexión/desconexión de módulos** por capa.
+
+**Deploy / Git / Azure:** [`DEPLOY_Y_REPOSITORIO.md`](DEPLOY_Y_REPOSITORIO.md)
 
 ---
 
@@ -20,7 +22,7 @@ Objetivos de diseño:
 - Conectar y desconectar módulos en **compile-time** (Cargo features) y **runtime** (flags Vite)
 - Trabajar con **git sparse-checkout** para aislamiento físico de contexto
 - **SOLID** y **Ports & Adapters** en backend
-- Tolerar cambio de tecnología vía puertos (`theruby_core`)
+- Tolerar cambio de tecnología vía puertos (`fluency_core`)
 - Mantenible y testeable por módulo
 
 ---
@@ -30,7 +32,7 @@ Objetivos de diseño:
 ```
 flashcard/
 ├── backend/
-│   ├── core/                 # theruby_core — dominio + puertos compartidos
+│   ├── core/                 # fluency_core — dominio + puertos compartidos
 │   ├── api_main/             # composition root (shell HTTP)
 │   │   └── src/modules/      # registro de rutas por módulo
 │   ├── mod_flashcards/       # caso de uso DeckUseCases
@@ -68,7 +70,7 @@ flowchart TB
     UC[application use cases]
   end
 
-  CORE[theruby_core domain + ports]
+  CORE[fluency_core domain + ports]
 
   MAIN --> MODREG
   MODREG --> UC
@@ -221,7 +223,7 @@ Cursor y herramientas de indexación solo ven lo presente físicamente.
 
 ### Backend
 
-1. Crear `backend/mod_<nombre>/` con casos de uso que dependan solo de `theruby_core`
+1. Crear `backend/mod_<nombre>/` con casos de uso que dependan solo de `fluency_core`
 2. Añadir al workspace en `backend/Cargo.toml`
 3. Dependencia opcional + feature en `backend/api_main/Cargo.toml`
 4. Crear `backend/api_main/src/modules/<nombre>.rs` con `register_routes`

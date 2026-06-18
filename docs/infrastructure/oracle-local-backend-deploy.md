@@ -97,7 +97,7 @@ Todo vive en `infra/proxy/`. El pipeline **copia y ejecuta** estos scripts; no d
 | Script | Función |
 |--------|---------|
 | `bootstrap-oracle.sh` | Crea carpetas, despliega backend y/o Caddy, reinicia monitors |
-| `deploy-caddy.sh` | Build `theruby-proxy` + `docker run caddy-smart` con todos los volúmenes |
+| `deploy-caddy.sh` | Build `fluency-proxy` + `docker run caddy-smart` con todos los volúmenes |
 | `deploy-oracle-backend.sh` | Pull imagen GCR + `flashcard-backend-node` con volumen `/data` |
 | `deploy.sh` | Alias de `deploy-caddy.sh` |
 

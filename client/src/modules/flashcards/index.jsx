@@ -7,12 +7,11 @@ import { CategoryProvider } from './context/CategoryContext';
 import { FlashcardProvider } from './context/FlashcardContext';
 import { isDefaultHomeModule } from '../index';
 
-const IconFlashcard = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="#1d9e75" strokeWidth="2.2">
-        <rect x="3" y="5" width="18" height="14" rx="2" />
-        <path d="M3 9h18" />
-        <path d="M9 5v4" />
-        <path d="M15 5v4" />
+const IconVowelChart = () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="#7f77dd" strokeWidth="2.2">
+        <rect x="4" y="4" width="16" height="16" rx="2" />
+        <path d="M4 9h16" />
+        <path d="M9 4v16" />
     </svg>
 );
 
@@ -61,19 +60,22 @@ const flashcardsModule = {
     floatingMenuItems: ({ t, config, navigate, location, close, setIsCatalogVisible, setIsIpaModalOpen }) => {
         if (!config.features.flashcards) return [];
         const homePath = isDefaultHomeModule('flashcards', config) ? '/' : '/flashcard';
-        const goHome = () => {
-            if (location.pathname !== homePath) navigate(homePath);
+        const goHomeWithState = (state) => {
+            if (location.pathname !== homePath) {
+                navigate(homePath, { state });
+            }
+            return location.pathname === homePath;
         };
         return [
             {
                 id: 'flashcards-categories',
                 sectionLabel: t.learn,
                 onClick: () => {
-                    goHome();
-                    setIsCatalogVisible(true);
                     close();
+                    const onHome = goHomeWithState({ openCatalog: true });
+                    if (onHome) setIsCatalogVisible(true);
                 },
-                icon: <IconFlashcard />,
+                icon: <FiLayers />,
                 iconColor: 'teal',
                 name: t.categories,
                 sub: t.wordCollections,
@@ -81,11 +83,11 @@ const flashcardsModule = {
             {
                 id: 'flashcards-ipa',
                 onClick: () => {
-                    goHome();
-                    setIsIpaModalOpen(true);
                     close();
+                    const onHome = goHomeWithState({ openIpa: true });
+                    if (onHome) setIsIpaModalOpen(true);
                 },
-                icon: <IconFlashcard />,
+                icon: <IconVowelChart />,
                 iconColor: 'purple',
                 name: t.vowelChart,
                 sub: t.referenceChart,

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import Flashcard from '../../features/flashcards/Flashcard';
 import Controls from '../../features/flashcards/Controls';
 import CategorySelector from '../../features/flashcards/CategorySelector';
@@ -9,9 +10,12 @@ import { useFlashcardContext } from './context/FlashcardContext';
 import { getProgressLabel } from '../../features/flashcards/categoryDisplay';
 
 export default function FlashcardPage() {
+    const location = useLocation();
     const {
         isCatalogVisible,
+        setIsCatalogVisible,
         isIpaModalOpen, isPhonicsModalOpen,
+        setIsIpaModalOpen,
         isFloatingMenuOpen, isSidebarOpen,
         language = 'en',
     } = useUIContext();
@@ -21,6 +25,16 @@ export default function FlashcardPage() {
         currentCard, isDeckLoading, filteredData, masterData, currentDeckName,
         nextCard, prevCard, selectedGroup
     } = useFlashcardContext();
+
+    useEffect(() => {
+        const state = location.state;
+        if (!state) return;
+        if (state.openCatalog) setIsCatalogVisible(true);
+        if (state.openIpa) setIsIpaModalOpen(true);
+        if (state.openCatalog || state.openIpa) {
+            window.history.replaceState({}, '', location.pathname);
+        }
+    }, [location.state, location.pathname, setIsCatalogVisible, setIsIpaModalOpen]);
 
     useEffect(() => {
         const handleKeyDown = (e) => {

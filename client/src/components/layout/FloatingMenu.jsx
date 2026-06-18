@@ -7,7 +7,7 @@ import { useAppContext } from "../../context/AppContext";
 import { useAuth } from "../../context/AuthContext";
 import { translations } from "../../config/translations";
 import config from "../../config";
-import { getModuleNavSections, getModuleFloatingMenuItems } from "../../modules";
+import { getModuleFloatingMenuItems } from "../../modules";
 
 const VOWELS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=60s";
 const DIPHTHONGS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=421s";
@@ -37,12 +37,9 @@ const FloatingMenu = () => {
     const location = useLocation();
     
     const t = translations[language].floatingMenu;
-    const sidebarT = translations[language].sidebar;
 
     const close = () => { setIsOpen(false); setShowPronun(false); };
 
-    const moduleNavSections = getModuleNavSections(config, { t: sidebarT })
-        .filter((section) => section.id !== 'flashcards');
     const moduleFloatingItems = getModuleFloatingMenuItems(config, {
         t,
         navigate,
@@ -64,20 +61,6 @@ const FloatingMenu = () => {
     }, [setIsOpen]);
 
     const openExternal = (url) => { window.open(url, "_blank"); close(); };
-    const navigateTo = (to, event) => {
-        if (event) {
-            event.preventDefault();
-        }
-        if (location.pathname !== to) {
-            navigate(to);
-            requestAnimationFrame(() => {
-                if (window.location.pathname !== to) {
-                    window.location.assign(to);
-                }
-            });
-        }
-        close();
-    };
 
     return (
         <div className="floatingMenuContainer" ref={containerRef}>
@@ -115,27 +98,6 @@ const FloatingMenu = () => {
                         <div className="menuDivider" />
                     </>
                 )}
-
-                {moduleNavSections.map((section) => (
-                    <React.Fragment key={section.id}>
-                        <span className="menuSectionLabel">{section.label}</span>
-                        {section.items.map((item) => (
-                            <a
-                                key={item.id}
-                                className="floatingOption"
-                                href={item.to}
-                                onClick={(event) => navigateTo(item.to, event)}
-                            >
-                                <span className={`optionIcon ${item.color}`}>{item.icon}</span>
-                                <span className="optionText">
-                                    <span className="optionName">{item.name}</span>
-                                    <span className="optionSub">{item.sub}</span>
-                                </span>
-                            </a>
-                        ))}
-                        <div className="menuDivider" />
-                    </React.Fragment>
-                ))}
 
                 {/* ── REFERENCIAS ── */}
                 <span className="menuSectionLabel">{t.practice}</span>

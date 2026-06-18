@@ -160,7 +160,7 @@ az pipelines build list \
 # Disparar nuevo build manual
 az pipelines build queue \
   --organization https://dev.azure.com/safejcoronado1982 \
-  --project theruby --definition-name "jcoronado1982.flashcard" --branch main
+  --project theruby --definition-name "jcoronado1982.fluency" --branch main
 
 # Ver timeline de un build (reemplazar BUILD_ID)
 az devops invoke \

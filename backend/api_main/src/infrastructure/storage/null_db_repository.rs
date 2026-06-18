@@ -10,7 +10,7 @@ use anyhow::{anyhow, Result};
 use async_trait::async_trait;
 
 /// No-op DB repository used when SurrealDB is not available (e.g. Cloud Run overflow).
-/// Flashcard reads/writes still work (they use StorageRepository). Story Arcade and auth
+/// Flashcard reads/writes still work (they use StorageRepository). Pronoun practice and auth
 /// return errors gracefully instead of crashing the process.
 pub struct NullDbRepository;
 

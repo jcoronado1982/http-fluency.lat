@@ -31,7 +31,7 @@ Monolito modular Clean/Hexagonal. Ver [ARQUITECTURA_MODULAR.md](docs/ARQUITECTUR
 
 ```
 backend/
-├── core/                        ← theruby_core: dominio + puertos
+├── core/                        ← fluency_core: dominio + puertos
 ├── mod_flashcards/              ← DeckUseCases
 ├── mod_pronoun/                 ← StoryUseCases (crate pronoun_practice)
 └── api_main/

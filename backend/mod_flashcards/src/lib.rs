@@ -1,8 +1,8 @@
 use anyhow::Result;
 use std::sync::Arc;
-use theruby_core::domain::models::flashcard::DeckData;
-use theruby_core::ports::db_repository::CardProgressRepository;
-use theruby_core::ports::storage::StorageRepository;
+use fluency_core::domain::models::flashcard::DeckData;
+use fluency_core::ports::db_repository::CardProgressRepository;
+use fluency_core::ports::storage::StorageRepository;
 
 pub struct DeckUseCases {
     storage_repo: Arc<dyn StorageRepository>,

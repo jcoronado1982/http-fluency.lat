@@ -2,12 +2,12 @@ use anyhow::Result;
 use dashmap::DashMap;
 use serde_json::json;
 use std::sync::Arc;
-use theruby_core::domain::models::story::{ProgressResponse, ProgressUpdate, StoryScreen};
-use theruby_core::ports::db_repository::PronounPracticeRepository;
-use theruby_core::ports::image::ImageGenerator;
-use theruby_core::ports::image_compressor::ImageCompressor;
-use theruby_core::ports::storage::StorageRepository;
-use theruby_core::ports::tutor::AITutor;
+use fluency_core::domain::models::story::{ProgressResponse, ProgressUpdate, StoryScreen};
+use fluency_core::ports::db_repository::PronounPracticeRepository;
+use fluency_core::ports::image::ImageGenerator;
+use fluency_core::ports::image_compressor::ImageCompressor;
+use fluency_core::ports::storage::StorageRepository;
+use fluency_core::ports::tutor::AITutor;
 use tokio::sync::broadcast;
 use tracing::{error, info};
 

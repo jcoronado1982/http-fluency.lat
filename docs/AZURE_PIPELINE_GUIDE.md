@@ -141,7 +141,7 @@ Muchos procesos de Linux (como Docker build, Caddy) escriben mensajes informativ
     runOptions: 'inline'
     failOnStdErr: false    # ← SIEMPRE ponerlo en tareas SSH con scripts complejos
     inline: |
-      docker build -t theruby-proxy . 2>&1   # unifica stderr→stdout para evitar falsos positivos
+      docker build -t fluency-proxy . 2>&1   # unifica stderr→stdout para evitar falsos positivos
 ```
 
 ### REGLA 3: `set -euo pipefail` en scripts SSH `inline`

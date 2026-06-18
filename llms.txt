@@ -1,14 +1,10 @@
-# Flashcard AI Project
+# Fluency (antes Flashcard AI)
 
-> Aplicación Full-Stack para el aprendizaje de inglés que automatiza la creación de flashcards con imágenes y audio generados por IA, protegida por un sistema de monitoreo de recursos en tiempo real.
-
-## Descripción
-El proyecto Flashcard AI es una plataforma diseñada para optimizar el aprendizaje de vocabulario mediante la integración de modelos de lenguaje (Gemini) y servicios de medios (TTS). En producción (Jun 2026), la API y el almacenamiento de audio/imágenes viven en Oracle (`flashcard-backend-node` local, sin SSH por archivo). AWS/GCP son espejos mantenidos por pipeline.
-
-El sistema destaca por su enfoque en la eficiencia de costos (scale-to-zero) y su robustez ante fallos, utilizando un sistema centinela que bloquea el tráfico web si el servidor de base de datos experimenta estrés de memoria, garantizando la integridad de los datos en entornos de alta demanda.
+> Plataforma de aprendizaje de inglés en [fluency.lat](https://fluency.lat). Backend modular Rust + React 19.
 
 ## Documentación principal
-- [**Pipeline y Deploy — LEER PRIMERO para CI/CD**](docs/infrastructure/pipeline-and-deploy.md): Fuente de verdad Jun 2026. LocalBuild compila, Oracle despliega, secretos vía Azure DevOps, deploy serializado.
+- [**Deploy, repo y Azure DevOps**](docs/DEPLOY_Y_REPOSITORIO.md): Repo `http-fluency.lat`, pipeline `jcoronado1982.fluency`, ramas `main`/`qa`.
+- [**Pipeline y Deploy — LEER PRIMERO para CI/CD**](docs/infrastructure/pipeline-and-deploy.md): LocalBuild compila, Oracle despliega, secretos vía Azure DevOps.
 - [**Oracle Local Backend — Runtime en producción**](docs/infrastructure/oracle-local-backend-deploy.md): API → localhost:8080, SYNC_TO_ORACLE=false, audio en disco local.
 - [INFRASTRUCTURE.md](INFRASTRUCTURE.md): Inventario servidores, diagnóstico, despliegue manual.
 - [Guía de Arquitectura y Despliegue](TECHNICAL_DOCS.md): Estructura del sistema, configuración de red y procesos de CI/CD.
@@ -54,7 +50,7 @@ Documentación canónica: [docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODUL
 
 ## Limitations
 - No incluye sistema de autenticación de usuarios (acceso público).
-- El progreso de Story Arcade cae a SQLite efímero si no se configura Cloud SQL.
+- El progreso del módulo pronoun cae a SQLite efímero si no hay SurrealDB.
 - El despliegue de base de datos y scripts de monitoreo es manual (vía SSH).
 - Dependencia directa de la disponibilidad de la API de Gemini para generación de nuevos assets.
 
@@ -65,15 +61,16 @@ Documentación canónica: [docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODUL
 - Infraestructura: Google Cloud Run, Google Cloud Storage, Caddy Proxy, Oracle Cloud Infrastructure (OCI)
 
 ## Estado actual
-Version: 1.5.1
-Última actualización: 2026-06-08
-Estado: Producción Operativa — backend Oracle local, pipeline #165 validado (5 stages OK)
+Version: 2.0.0 (arquitectura modular)
+Última actualización: 2026-06-18
+Estado: Producción en fluency.lat — repo `http-fluency.lat`, pipeline `jcoronado1982.fluency`
 
 ## Pipeline y deploy (Jun 2026 — resumen para IAs)
-- **Compilación:** pool `LocalBuild` (PC dev) — front + `docker buildx` amd64/arm64 → GCR
-- **Deploy:** pool `Default` (agente Oracle) — **serializado** 3→4→5; mirrors Oracle→OCI-1→AWS
-- **Secretos:** Variable Group `Flashcard-Secrets`; Oracle recibe env por SSH `inline` (sin archivos en `/tmp`)
-- **Doc canónica:** `docs/infrastructure/pipeline-and-deploy.md`
+- **Repo:** `github.com/jcoronado1982/http-fluency.lat` (rama `main` prod, `qa` pre-prod)
+- **Compilación:** pool `LocalBuild` — front + `docker buildx` amd64/arm64 → GCR
+- **Deploy:** pool `Default` (Oracle) — serializado 3→4→5; mirrors Oracle→OCI-1→AWS
+- **Secretos:** Variable Group `Flashcard-Secrets`
+- **Docs:** `docs/DEPLOY_Y_REPOSITORIO.md`, `docs/infrastructure/pipeline-and-deploy.md`
 
 ## Cambios arquitecturales — 2026-06-04 (Clean Architecture 100%)
 - **Backend primario migrado a AWS** (`34.229.229.255:8080`, t3.micro, free 24/7)
