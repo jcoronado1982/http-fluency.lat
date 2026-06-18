@@ -7,7 +7,7 @@ Aplicación Full-Stack de aprendizaje de inglés con flashcards inteligentes. Ge
 | Archivo / Carpeta | Qué contiene |
 |---|---|
 | 📑 **[INFRASTRUCTURE.md](INFRASTRUCTURE.md)** | Infraestructura física: Servidores activos, capacidades, flujos de enrutamiento y pipeline CI/CD en producción. |
-| 🏗️ **[docs/ARQUITECTURA_SISTEMA.md](docs/ARQUITECTURA_SISTEMA.md)** | Arquitectura de software: Principios de diseño (Clean Architecture y SOLID) aplicados en el Backend (Rust/Axum) y el Frontend (React). |
+| 🏗️ **[docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md)** | Arquitectura modular: Clean/Hexagonal, registry, sparse-checkout, módulos plug & play. |
 | 🗃️ **[database_schema_diagram.md](database_schema_diagram.md)** | Modelo de Datos: Estructura lógica y diagrama Entidad-Relación de las colecciones de SurrealDB. |
 | 📂 **[CODEBASE.md](CODEBASE.md)** | Índice técnico del código: Mapeo de directorios, endpoints expuestos, almacenamiento dinámico y variables de entorno. |
 | 🔐 **[SECRETS_MAP.md](SECRETS_MAP.md)** | Mapa de credenciales y llaves de desarrollo (NO subir al repositorio público). |
@@ -52,3 +52,19 @@ sshpass -p 'Privado01*' rsync -avz json/ root@157.151.199.170:/root/smart-proxy/
 # Levantar todo el stack local en desarrollo
 ./start.sh
 ```
+
+## Trabajo por Modulo
+
+```bash
+# Ver modulos disponibles
+./scripts/sparse-module.sh list
+
+# Abrir solo el shell compartido + un modulo
+./scripts/sparse-module.sh pronoun
+./scripts/sparse-module.sh flashcards
+
+# Exportar un modulo para entrega
+./scripts/export-module.sh pronoun
+```
+
+Detalle en [docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md) y [modules/README.md](modules/README.md).

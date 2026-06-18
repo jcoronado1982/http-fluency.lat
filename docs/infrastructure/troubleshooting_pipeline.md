@@ -27,7 +27,7 @@ Debido a cómo Docker y Cargo gestionan las fechas de modificación de archivos 
 Forzar la invalidación del caché de la aplicación en el `Dockerfile` asegurando que los archivos tengan una fecha de modificación actualizada antes del build final.
 ```dockerfile
 COPY . .
-RUN touch src/main.rs && cargo build --release
+RUN cargo build -p api_main --release
 ```
 
 ## 3. Error de Compilación Oculto

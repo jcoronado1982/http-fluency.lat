@@ -1,0 +1,382 @@
+mod api;
+mod application;
+mod config;
+mod domain;
+mod infrastructure;
+mod modules;
+
+use axum::{
+    routing::{get, post},
+    Router,
+};
+use std::net::SocketAddr;
+use std::sync::Arc;
+use std::time::Duration;
+use tokio::sync::broadcast;
+use tower::ServiceBuilder;
+use tower_http::compression::CompressionLayer;
+use tower_http::cors::{Any, CorsLayer};
+use tower_http::timeout::TimeoutLayer;
+use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
+
+#[cfg(feature = "flashcards")]
+use crate::application::use_cases::audio_use_cases::AudioUseCases;
+#[cfg(feature = "auth")]
+use crate::application::use_cases::auth::AuthUseCases;
+#[cfg(feature = "flashcards")]
+use crate::application::use_cases::image_use_cases::ImageUseCases;
+#[cfg(feature = "auth")]
+use crate::application::use_cases::presence_use_cases::PresenceUseCases;
+#[cfg(feature = "subscriptions")]
+use crate::application::use_cases::subscription_use_cases::SubscriptionUseCases;
+use crate::application::use_cases::tutor_use_cases::TutorUseCases;
+use crate::config::Settings;
+#[cfg(feature = "flashcards")]
+use crate::domain::repositories::audio::AudioGenerator;
+use crate::domain::repositories::db_repository::{
+    CardProgressRepository, PronounPracticeRepository, SubscriptionRepository,
+    UserActivityRepository, UserRepository,
+};
+use crate::domain::repositories::image::ImageGenerator;
+use crate::domain::repositories::image_compressor::ImageCompressor;
+#[cfg(feature = "payments")]
+use crate::domain::repositories::payment::PaymentProvider;
+use crate::domain::repositories::storage::StorageRepository;
+use crate::domain::repositories::tutor::AITutor;
+use crate::infrastructure::ai::avif_compressor::AvifCompressor;
+use crate::infrastructure::ai::comfy_provider::ComfyUIProvider;
+use crate::infrastructure::ai::gemini_grpc_provider::GeminiGrpcProvider;
+#[cfg(feature = "flashcards")]
+use crate::infrastructure::ai::routing_tts_provider::RoutingTtsProvider;
+#[cfg(feature = "payments")]
+use crate::infrastructure::payment::null_payment_provider::NullPaymentProvider;
+#[cfg(feature = "payments")]
+use crate::infrastructure::payment::stripe_provider::StripeProvider;
+use crate::infrastructure::storage::local_repository::LocalStorageRepository;
+use crate::infrastructure::storage::null_db_repository::NullDbRepository;
+use crate::infrastructure::storage::surreal_repository::SurrealRepository;
+#[cfg(feature = "flashcards")]
+use mod_flashcards::DeckUseCases;
+#[cfg(feature = "pronoun_practice")]
+use pronoun_practice::StoryUseCases;
+
+/// Application state exposed to HTTP handlers.
+/// Only contains use-case facades and shared infrastructure primitives
+/// (settings, notification channel). Raw infrastructure ports are NOT
+/// exposed here; all business logic must go through a use-case.
+#[derive(Clone)]
+pub struct AppState {
+    pub settings: Arc<Settings>,
+    #[cfg(feature = "flashcards")]
+    pub deck_use_cases: Arc<DeckUseCases>,
+    pub tutor_use_cases: Arc<TutorUseCases>,
+    #[cfg(feature = "flashcards")]
+    pub audio_use_cases: Arc<AudioUseCases>,
+    #[cfg(feature = "flashcards")]
+    pub image_use_cases: Arc<ImageUseCases>,
+    #[cfg(feature = "pronoun_practice")]
+    pub pronoun_practice_use_cases: Arc<StoryUseCases>,
+    #[cfg(feature = "auth")]
+    pub auth_use_cases: Arc<AuthUseCases>,
+    #[cfg(feature = "auth")]
+    pub presence_use_cases: Arc<PresenceUseCases>,
+    #[cfg(feature = "subscriptions")]
+    pub subscription_use_cases: Arc<SubscriptionUseCases>,
+    pub notification_sender: broadcast::Sender<String>,
+}
+
+/// Runtime configurado a mano para 1 GB de RAM:
+///   - worker_threads: leído de TOKIO_WORKER_THREADS (default = min(cpus, 4))
+///     Un t3.micro tiene 2 vCPUs → 2 workers es óptimo.
+///   - thread_stack_size: 512 KB (Tokio default 2 MB) → ahorra RAM en picos de carga.
+///     Las corutinas async son stackless; solo tareas spawn_blocking necesitan stack.
+fn main() -> anyhow::Result<()> {
+    let workers = std::env::var("TOKIO_WORKER_THREADS")
+        .ok()
+        .and_then(|s| s.parse::<usize>().ok())
+        .unwrap_or_else(|| std::cmp::min(num_cpus::get(), 4));
+
+    tokio::runtime::Builder::new_multi_thread()
+        .worker_threads(workers)
+        .thread_stack_size(512 * 1024) // 512 KB por thread en vez de 2 MB
+        .enable_all()
+        .build()?
+        .block_on(async_main())
+}
+
+async fn async_main() -> anyhow::Result<()> {
+    dotenvy::dotenv().ok();
+
+    // Si GOOGLE_CREDENTIALS_JSON está seteado (Cloud Run sin archivo montado),
+    // escribir el JSON a /tmp y apuntar GOOGLE_APPLICATION_CREDENTIALS ahí.
+    if let Ok(json_b64) = std::env::var("GOOGLE_CREDENTIALS_JSON") {
+        use std::io::Write;
+        if let Ok(json_bytes) =
+            base64::Engine::decode(&base64::engine::general_purpose::STANDARD, json_b64.trim())
+        {
+            let path = "/tmp/gcp-credentials.json";
+            if let Ok(mut f) = std::fs::File::create(path) {
+                let _ = f.write_all(&json_bytes);
+                std::env::set_var("GOOGLE_APPLICATION_CREDENTIALS", path);
+                tracing::info!(
+                    "🔑 GOOGLE_APPLICATION_CREDENTIALS seteado desde GOOGLE_CREDENTIALS_JSON"
+                );
+            }
+        }
+    }
+
+    tracing_subscriber::registry()
+        .with(tracing_subscriber::EnvFilter::new(
+            std::env::var("RUST_LOG").unwrap_or_else(|_| "info".into()),
+        ))
+        .with(tracing_subscriber::fmt::layer())
+        .init();
+
+    let settings = Arc::new(Settings::from_env()?);
+
+    tracing::info!(
+        "📁 Utilizando almacenamiento LOCAL en: {}",
+        settings.local_storage_path
+    );
+    let storage_repo: Arc<dyn StorageRepository> =
+        Arc::new(LocalStorageRepository::new(&settings).await?);
+
+    let surreal_url = std::env::var("SURREAL_URL").unwrap_or_else(|_| "127.0.0.1:8001".to_string());
+    #[allow(unused_variables)]
+    let (user_repo, sub_repo, card_repo, story_repo, activity_repo): (
+        Arc<dyn UserRepository>,
+        Arc<dyn SubscriptionRepository>,
+        Arc<dyn CardProgressRepository>,
+        Arc<dyn PronounPracticeRepository>,
+        Arc<dyn UserActivityRepository>,
+    ) = match SurrealRepository::new(&surreal_url, "flashcard", "flashcard").await {
+        Ok(repo) => {
+            tracing::info!("✅ Conectado a SurrealDB en {}", surreal_url);
+            let repo = Arc::new(repo);
+            (
+                repo.clone(),
+                repo.clone(),
+                repo.clone(),
+                repo.clone(),
+                repo.clone(),
+            )
+        }
+        Err(e) => {
+            tracing::warn!(
+                "⚠️ SurrealDB no disponible en {} ({}). Módulos dependientes de DB degradados.",
+                surreal_url,
+                e
+            );
+            let repo = Arc::new(NullDbRepository);
+            (
+                repo.clone(),
+                repo.clone(),
+                repo.clone(),
+                repo.clone(),
+                repo.clone(),
+            )
+        }
+    };
+
+    let ai_tutor: Arc<dyn AITutor> = Arc::new(GeminiGrpcProvider::new(&settings)?);
+    #[cfg(feature = "flashcards")]
+    let audio_gen: Arc<dyn AudioGenerator> = Arc::new(RoutingTtsProvider::new(&settings).await?);
+    let image_gen: Arc<dyn ImageGenerator> = Arc::new(ComfyUIProvider::new(&settings));
+    let image_compressor: Arc<dyn ImageCompressor> = Arc::new(AvifCompressor);
+
+    // 1000 slots: soporte para ráfagas de imágenes generadas en batch sin perder eventos SSE.
+    let (notification_sender, _) = broadcast::channel(1000);
+
+    // --- Compose use cases (application layer) ---
+    #[cfg(feature = "flashcards")]
+    let deck_use_cases = Arc::new(DeckUseCases::new(storage_repo.clone(), card_repo.clone()));
+    #[cfg(feature = "pronoun_practice")]
+    let tutor_db_repo = Some(story_repo.clone());
+    #[cfg(not(feature = "pronoun_practice"))]
+    let tutor_db_repo = None;
+    let tutor_use_cases = Arc::new(TutorUseCases::new(ai_tutor.clone(), tutor_db_repo));
+    #[cfg(feature = "flashcards")]
+    let audio_use_cases = Arc::new(AudioUseCases::new(
+        storage_repo.clone(),
+        audio_gen.clone(),
+        ai_tutor.clone(),
+        settings.clone(),
+    ));
+    #[cfg(feature = "flashcards")]
+    let image_use_cases = Arc::new(ImageUseCases::new(
+        storage_repo.clone(),
+        image_gen.clone(),
+        image_compressor.clone(),
+        ai_tutor.clone(),
+        settings.clone(),
+    ));
+    #[cfg(feature = "pronoun_practice")]
+    let pronoun_practice_use_cases = Arc::new(StoryUseCases::new(
+        story_repo.clone(),
+        Some(image_gen.clone()),
+        Some(image_compressor.clone()),
+        Some(ai_tutor.clone()),
+        Some(storage_repo.clone()),
+        Some(notification_sender.clone()),
+        settings.gcs_images_prefix.clone(),
+        settings.public_base_url.clone(),
+    ));
+
+    #[cfg(feature = "auth")]
+    let auth_use_cases = Arc::new(AuthUseCases::new(user_repo.clone(), sub_repo.clone()));
+
+    #[cfg(feature = "auth")]
+    let presence_use_cases = Arc::new(PresenceUseCases::new(
+        user_repo.clone(),
+        activity_repo.clone(),
+    ));
+
+    #[cfg(feature = "payments")]
+    let payment: Arc<dyn PaymentProvider> = match std::env::var("STRIPE_SECRET_KEY") {
+        Ok(key) if !key.is_empty() => {
+            tracing::info!("💳 Proveedor de pago: Stripe");
+            Arc::new(StripeProvider::new(key))
+        }
+        _ => {
+            tracing::info!("💳 Proveedor de pago: ninguno (activación manual por admin)");
+            Arc::new(NullPaymentProvider)
+        }
+    };
+
+    #[cfg(feature = "subscriptions")]
+    let subscription_use_cases = Arc::new(SubscriptionUseCases::new(sub_repo.clone(), payment));
+
+    let state = AppState {
+        settings,
+        #[cfg(feature = "flashcards")]
+        deck_use_cases,
+        tutor_use_cases,
+        #[cfg(feature = "flashcards")]
+        audio_use_cases,
+        #[cfg(feature = "flashcards")]
+        image_use_cases,
+        #[cfg(feature = "pronoun_practice")]
+        pronoun_practice_use_cases,
+        #[cfg(feature = "auth")]
+        auth_use_cases,
+        #[cfg(feature = "auth")]
+        presence_use_cases,
+        #[cfg(feature = "subscriptions")]
+        subscription_use_cases,
+        notification_sender,
+    };
+
+    let cors = CorsLayer::new()
+        .allow_origin(Any)
+        .allow_methods(Any)
+        .allow_headers(Any);
+
+    // --- BATCH MODE ---
+    // Uso:
+    //   --batch-link-images [categoría] [deck]
+    //   --batch-gen-images  [categoría] [deck]
+    //   --batch-gen-audio   [categoría] [deck]   ← audio EN → Oracle (SYNC_TO_ORACLE=true)
+    // Ejemplo rápido: --batch-link-images adjectives 1-basic
+    #[cfg(feature = "flashcards")]
+    {
+        let args: Vec<String> = std::env::args().collect();
+        if args.iter().any(|arg| arg == "--batch-link-images") {
+            let filter =
+                crate::application::batch::parse_batch_filter(&args, "--batch-link-images");
+            return crate::application::batch::run_batch_image_linking(state, filter).await;
+        }
+        if args.iter().any(|arg| arg == "--batch-gen-images") {
+            let filter = crate::application::batch::parse_batch_filter(&args, "--batch-gen-images");
+            return crate::application::batch::run_batch_image_generation(state, filter).await;
+        }
+        if args.iter().any(|arg| arg == "--batch-gen-audio") {
+            let filter = crate::application::batch::parse_batch_filter(&args, "--batch-gen-audio");
+            return crate::application::batch_audio::run_batch_audio_generation(state, filter).await;
+        }
+    }
+    // ------------------
+
+    #[allow(unused_mut)]
+    let mut app = Router::new()
+        .route("/api/health", get(api::endpoints::health::health_check))
+        .route("/api/features", get(api::endpoints::features::get_features))
+        // Tutor (shell — usado por módulos conversacionales)
+        .route(
+            "/api/analyze-error",
+            post(api::endpoints::tutor::analyze_error),
+        )
+        .route(
+            "/api/explain-like-child",
+            post(api::endpoints::tutor::explain_like_child),
+        )
+        // Notifications (SSE — excluido del timeout global)
+        .route(
+            "/api/notifications/events",
+            get(api::endpoints::notifications::stream_notifications),
+        );
+
+    #[cfg(feature = "auth")]
+    {
+        app = app
+            .route("/api/auth/google", post(api::endpoints::auth::google_login))
+            .route(
+                "/api/auth/dev-guest",
+                post(api::endpoints::auth::dev_guest_login),
+            )
+            .route("/api/auth/me", get(api::endpoints::auth::get_me))
+            .route(
+                "/api/presence/heartbeat",
+                post(api::endpoints::presence::heartbeat),
+            )
+            .route("/api/presence/leave", post(api::endpoints::presence::leave))
+            .route(
+                "/api/admin/users/activity",
+                get(api::endpoints::admin_users::list_users_activity),
+            );
+    }
+
+    app = modules::register_routes(app);
+
+    #[cfg(feature = "subscriptions")]
+    {
+        app = app
+            .route(
+                "/api/subscriptions/me",
+                get(api::endpoints::admin::get_my_subscription),
+            )
+            .route(
+                "/api/admin/subscriptions",
+                get(api::endpoints::admin::list_subscriptions),
+            )
+            .route(
+                "/api/admin/subscriptions/activate",
+                post(api::endpoints::admin::activate_subscription),
+            )
+            .route(
+                "/api/admin/subscriptions/cancel",
+                post(api::endpoints::admin::cancel_subscription),
+            );
+    }
+
+    let app = app
+        .layer(
+            ServiceBuilder::new()
+                // Compresión gzip/brotli automática para respuestas JSON (típicamente -70 % tamaño).
+                .layer(CompressionLayer::new())
+                // Timeout global: las peticiones lentas no acumulan threads.
+                // SSE usa su propia ruta sin este layer (está antes en el stack).
+                .layer(TimeoutLayer::new(Duration::from_secs(120)))
+                .layer(cors),
+        )
+        .with_state(state);
+
+    let port = std::env::var("PORT")
+        .unwrap_or_else(|_| "8080".into())
+        .parse::<u16>()?;
+    let addr = SocketAddr::from(([0, 0, 0, 0], port));
+    tracing::info!("🚀 Rust backend listening on {}", addr);
+
+    let listener = tokio::net::TcpListener::bind(addr).await?;
+    axum::serve(listener, app).await?;
+    Ok(())
+}

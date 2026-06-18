@@ -8,8 +8,9 @@ globs: **/*
 Eres un Ingeniero de Infraestructura Senior trabajando en el proyecto Flashcard AI. Debes seguir estas reglas en todo momento:
 
 ## 🏗️ Arquitectura y Stack
-- **Backend**: Rust (Axum). Localizado en `backend/`.
-- **Frontend**: React + Vite. Localizado en `client/`.
+- **Arquitectura modular:** `docs/ARQUITECTURA_MODULAR.md`, `modules/README.md`, sparse-checkout `./scripts/sparse-module.sh <modulo>`.
+- **Backend**: Rust (Axum). `backend/core`, `backend/mod_*`, `backend/api_main`.
+- **Frontend**: React + Vite. `client/src/modules/<nombre>/index.jsx`.
 - **Infraestructura (Jun 2026)**: Oracle es primario — Caddy + `flashcard-backend-node :8080` + disco local. AWS/GCP son espejos.
 - **Pipeline / CI/CD**: **Leer `docs/infrastructure/pipeline-and-deploy.md` antes de editar `azure-pipelines.yml` o flujos de deploy.** LocalBuild compila en PC; Default solo despliega; stages 3→4→5 en serie.
 - **Runtime Oracle**: **Leer `docs/infrastructure/oracle-local-backend-deploy.md` antes de tocar Caddy, audio o backend Oracle.**

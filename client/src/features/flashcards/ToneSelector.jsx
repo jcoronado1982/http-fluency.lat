@@ -92,11 +92,11 @@ const customStyles = {
 };
 
 import { translations } from '../../config/translations';
-import { useAppContext } from '../../context/AppContext';
+import { useUIContext } from '../../context/UIContext';
 import { useAuth } from '../../context/AuthContext';
 
-function ToneSelector() {
-    const { toneOptions, selectedTone, setSelectedTone: onToneChange, language = 'en', setAppMessage } = useAppContext();
+function ToneSelector({ toneOptions = [], selectedTone = '', onToneChange }) {
+    const { language = 'en', setAppMessage } = useUIContext();
     const { isPremium } = useAuth();
     const t = translations[language].toneSelector;
 

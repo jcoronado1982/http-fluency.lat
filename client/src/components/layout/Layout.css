@@ -13,7 +13,7 @@
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100;
+    z-index: 1100;
     box-sizing: border-box;
     transform: translateY(-76px);
     /* Hide using transform */
@@ -134,7 +134,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 200;
+    z-index: 1200;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     padding-top: 20px;
     box-sizing: border-box;
@@ -148,7 +148,7 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.3);
-    z-index: 150;
+    z-index: 1150;
     /* Below sidebar (200) but above header (100) */
     backdrop-filter: blur(2px);
     animation: fadeIn 0.2s ease;

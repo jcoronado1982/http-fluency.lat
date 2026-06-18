@@ -5,10 +5,10 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT/backend"
 
-BIN="./target/release/backend_rust"
+BIN="./target/release/api_main"
 
 echo "🔧 Compilando backend..."
-cargo build --release 2>&1 | tail -5
+cargo build -p api_main --release 2>&1 | tail -5
 
 echo ""
 echo "========================================================"

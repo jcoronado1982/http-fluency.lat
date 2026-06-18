@@ -31,18 +31,30 @@ const sharedFeatures = {
   aiEnabled: true,
   flashcards: import.meta.env.VITE_ENABLE_FLASHCARDS !== 'false',
   auth: import.meta.env.VITE_ENABLE_AUTH !== 'false',
-  storyArcade: import.meta.env.VITE_ENABLE_STORY_ARCADE !== 'false',
+  pronounReference: import.meta.env.VITE_ENABLE_PRONOUN_REFERENCE !== 'false',
+  admin: import.meta.env.VITE_ENABLE_ADMIN !== 'false',
+
+  grammar: import.meta.env.VITE_ENABLE_GRAMMAR === 'true',
+  tests: import.meta.env.VITE_ENABLE_TESTS === 'true',
+  pronounPractice:
+    import.meta.env.VITE_ENABLE_PRONOUN_PRACTICE === 'true' ||
+    import.meta.env.VITE_ENABLE_PRONOUN === 'true',
   payments: import.meta.env.VITE_ENABLE_PAYMENTS === 'true',
   subscriptions: import.meta.env.VITE_ENABLE_SUBSCRIPTIONS === 'true',
 };
 
+/** Módulo que abre en `/` (solo dominio). Ej: flashcards | pronoun */
+const defaultModule = import.meta.env.VITE_DEFAULT_MODULE || 'flashcards';
+
 const config = {
   development: {
     apiUrl: resolveApiUrl(),
+    defaultModule,
     features: { ...sharedFeatures },
   },
   production: {
     apiUrl: resolveApiUrl(),
+    defaultModule,
     features: { ...sharedFeatures },
   },
 };

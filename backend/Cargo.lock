@@ -111,6 +111,50 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f202df86484c868dbad7eaa557ef785d5c66295e41b460ef922eca0723b842c"
 
 [[package]]
+name = "api_main"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "axum",
+ "base64 0.21.7",
+ "chrono",
+ "dashmap",
+ "dotenvy",
+ "futures",
+ "gcp_auth",
+ "google-cloud-storage",
+ "google-cloud-token",
+ "http 1.4.0",
+ "image",
+ "jsonwebtoken",
+ "mod_flashcards",
+ "moka",
+ "num_cpus",
+ "ogg",
+ "openssl",
+ "pronoun_practice",
+ "prost",
+ "rand 0.8.6",
+ "reqwest",
+ "ropus",
+ "serde",
+ "serde_json",
+ "sqlx",
+ "surrealdb",
+ "theruby_core",
+ "tokio",
+ "tokio-stream",
+ "tokio-util",
+ "tonic",
+ "tower 0.4.13",
+ "tower-http",
+ "tracing",
+ "tracing-subscriber",
+ "uuid",
+]
+
+[[package]]
 name = "approx"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -429,47 +473,6 @@ dependencies = [
  "tower-layer",
  "tower-service",
  "tracing",
-]
-
-[[package]]
-name = "backend_rust"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "async-trait",
- "axum",
- "base64 0.21.7",
- "chrono",
- "dashmap",
- "dotenvy",
- "futures",
- "gcp_auth",
- "google-cloud-storage",
- "google-cloud-token",
- "http 1.4.0",
- "image",
- "jsonwebtoken",
- "moka",
- "num_cpus",
- "ogg",
- "openssl",
- "prost",
- "rand 0.8.6",
- "reqwest",
- "ropus",
- "serde",
- "serde_json",
- "sqlx",
- "surrealdb",
- "tokio",
- "tokio-stream",
- "tokio-util",
- "tonic",
- "tower 0.4.13",
- "tower-http",
- "tracing",
- "tracing-subscriber",
- "uuid",
 ]
 
 [[package]]
@@ -2668,6 +2671,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "mod_flashcards"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "serde",
+ "serde_json",
+ "theruby_core",
+ "tracing",
+]
+
+[[package]]
 name = "moka"
 version = "0.12.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3329,6 +3344,20 @@ checksum = "4488a4a36b9a4ba6b9334a32a39971f77c1436ec82c38707bce707699cc3bbcb"
 dependencies = [
  "quote",
  "syn 2.0.117",
+]
+
+[[package]]
+name = "pronoun_practice"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "dashmap",
+ "serde",
+ "serde_json",
+ "theruby_core",
+ "tokio",
+ "tracing",
 ]
 
 [[package]]
@@ -5020,6 +5049,18 @@ dependencies = [
  "dirs-next",
  "rustversion",
  "winapi",
+]
+
+[[package]]
+name = "theruby_core"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "chrono",
+ "serde",
+ "serde_json",
+ "uuid",
 ]
 
 [[package]]

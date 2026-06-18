@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './IpaModal.module.css';
-import { useAppContext } from '../../context/AppContext';
+import { useUIContext } from '../../context/UIContext';
 import { translations } from '../../config/translations';
 
 // --- Data for the modal ---
@@ -56,7 +56,7 @@ const VowelChartBackground = () => (
 function IpaModal({ onClose }) {
     const [activeSymbol, setActiveSymbol] = useState(null);
     const [errorSymbol, setErrorSymbol] = useState(null);
-    const { language = 'en' } = useAppContext();
+    const { language = 'en' } = useUIContext();
     const t = translations[language].ipaModal;
 
     const speakIPA = (symbol) => {

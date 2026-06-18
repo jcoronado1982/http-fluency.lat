@@ -6,34 +6,12 @@ import "./FloatingMenu.css";
 import { useAppContext } from "../../context/AppContext";
 import { useAuth } from "../../context/AuthContext";
 import { translations } from "../../config/translations";
+import config from "../../config";
+import { getModuleNavSections, getModuleFloatingMenuItems } from "../../modules";
 
 const VOWELS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=60s";
 const DIPHTHONGS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=421s";
 const CONSONANTS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=600s";
-
-const IconFlashcard = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="#1d9e75" strokeWidth="2.2">
-        <rect x="3" y="5" width="18" height="14" rx="2" />
-        <path d="M3 9h18" />
-        <path d="M9 5v4" />
-        <path d="M15 5v4" />
-    </svg>
-);
-
-const IconPronouns = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="#7f77dd" strokeWidth="2.2">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-    </svg>
-);
-
-const IconStory = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="#ef9f27" strokeWidth="2.2">
-        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-    </svg>
-);
 
 const IconPronunciation = () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="#378add" strokeWidth="2.2">
@@ -48,7 +26,6 @@ const FloatingMenu = () => {
     const {
         setIsCatalogVisible,
         setIsIpaModalOpen,
-        setIsPhonicsModalOpen,
         isFloatingMenuOpen: isOpen,
         setIsFloatingMenuOpen: setIsOpen,
         language = 'en'
@@ -60,6 +37,20 @@ const FloatingMenu = () => {
     const location = useLocation();
     
     const t = translations[language].floatingMenu;
+    const sidebarT = translations[language].sidebar;
+
+    const close = () => { setIsOpen(false); setShowPronun(false); };
+
+    const moduleNavSections = getModuleNavSections(config, { t: sidebarT })
+        .filter((section) => section.id !== 'flashcards');
+    const moduleFloatingItems = getModuleFloatingMenuItems(config, {
+        t,
+        navigate,
+        location,
+        close,
+        setIsCatalogVisible,
+        setIsIpaModalOpen,
+    });
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -72,9 +63,21 @@ const FloatingMenu = () => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [setIsOpen]);
 
-    const close = () => { setIsOpen(false); setShowPronun(false); };
-
     const openExternal = (url) => { window.open(url, "_blank"); close(); };
+    const navigateTo = (to, event) => {
+        if (event) {
+            event.preventDefault();
+        }
+        if (location.pathname !== to) {
+            navigate(to);
+            requestAnimationFrame(() => {
+                if (window.location.pathname !== to) {
+                    window.location.assign(to);
+                }
+            });
+        }
+        close();
+    };
 
     return (
         <div className="floatingMenuContainer" ref={containerRef}>
@@ -93,40 +96,46 @@ const FloatingMenu = () => {
 
             <div className={`floatingOptions ${isOpen ? "show" : ""}`}>
 
-                {/* ── APRENDER ── */}
-                <span className="menuSectionLabel">{t.learn}</span>
+                {moduleFloatingItems.length > 0 && (
+                    <>
+                        {moduleFloatingItems.map((item, index) => (
+                            <React.Fragment key={item.id}>
+                                {item.sectionLabel && (index === 0 || moduleFloatingItems[index - 1]?.sectionLabel !== item.sectionLabel) && (
+                                    <span className="menuSectionLabel">{item.sectionLabel}</span>
+                                )}
+                                <button className="floatingOption" onClick={item.onClick}>
+                                    <span className={`optionIcon ${item.iconColor}`}>{item.icon}</span>
+                                    <span className="optionText">
+                                        <span className="optionName">{item.name}</span>
+                                        <span className="optionSub">{item.sub}</span>
+                                    </span>
+                                </button>
+                            </React.Fragment>
+                        ))}
+                        <div className="menuDivider" />
+                    </>
+                )}
 
-                <button
-                    className="floatingOption"
-                    onClick={() => { 
-                        if (location.pathname !== '/flashcard') navigate('/flashcard');
-                        setIsCatalogVisible(true); 
-                        close(); 
-                    }}
-                >
-                    <span className="optionIcon teal"><IconFlashcard /></span>
-                    <span className="optionText">
-                        <span className="optionName">{t.categories}</span>
-                        <span className="optionSub">{t.wordCollections}</span>
-                    </span>
-                </button>
-
-                <button
-                    className="floatingOption"
-                    onClick={() => { 
-                        if (location.pathname !== '/flashcard') navigate('/flashcard');
-                        setIsIpaModalOpen(true); 
-                        close(); 
-                    }}
-                >
-                    <span className="optionIcon purple"><IconPronouns /></span>
-                    <span className="optionText">
-                        <span className="optionName">{t.vowelChart}</span>
-                        <span className="optionSub">{t.referenceChart}</span>
-                    </span>
-                </button>
-
-                <div className="menuDivider" />
+                {moduleNavSections.map((section) => (
+                    <React.Fragment key={section.id}>
+                        <span className="menuSectionLabel">{section.label}</span>
+                        {section.items.map((item) => (
+                            <a
+                                key={item.id}
+                                className="floatingOption"
+                                href={item.to}
+                                onClick={(event) => navigateTo(item.to, event)}
+                            >
+                                <span className={`optionIcon ${item.color}`}>{item.icon}</span>
+                                <span className="optionText">
+                                    <span className="optionName">{item.name}</span>
+                                    <span className="optionSub">{item.sub}</span>
+                                </span>
+                            </a>
+                        ))}
+                        <div className="menuDivider" />
+                    </React.Fragment>
+                ))}
 
                 {/* ── REFERENCIAS ── */}
                 <span className="menuSectionLabel">{t.practice}</span>

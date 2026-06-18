@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styles from './PhonicsModal.module.css';
 import { useAudioPlayback } from './useAudioPlayback.jsx';
 import { httpClient } from '../../services/httpClient';
-import { useAppContext } from '../../context/AppContext';
+import { useUIContext } from '../../context/UIContext';
 import { translations } from '../../config/translations';
 
 function PhonicsModal() {
-    const { setAppMessage, setIsAudioLoading, setIsPhonicsModalOpen, language = 'en' } = useAppContext();
+    const { setAppMessage, setIsAudioLoading, setIsPhonicsModalOpen, language = 'en' } = useUIContext();
     const [phonicsData, setPhonicsData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);

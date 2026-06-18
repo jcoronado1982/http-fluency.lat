@@ -27,23 +27,18 @@ flashcard/
 
 ### Arquitectura de Código
 
-Sigue los principios de **Clean Architecture (Puertos y Adaptadores)** y **SOLID**:
+Monolito modular Clean/Hexagonal. Ver [ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md).
 
 ```
-backend/src/
-├── config.rs                    ← Carga de variables de entorno y configuraciones
-├── main.rs                      ← Composición de dependencias (Composition Root) y arranque
-├── domain/
-│   ├── models/                  ← Modelos puros del dominio (flashcard, user, subscription, story)
-│   └── repositories/            ← Puertos (Traits en Rust) para interacción con el exterior
-├── application/
-│   └── use_cases/               ← Lógica de negocio (orquestadores de casos de uso)
-├── infrastructure/
-│   ├── storage/                 ← Adaptadores concretos: local/SCP (local_repository) y SurrealDB (surreal_repository)
-│   └── ai/                      ← Proveedores de IA: Gemini (tutor) y Google TTS (audio)
-└── api/
-    ├── middleware/              ← Filtros/guards de seguridad (validación de JWT claims)
-    └── endpoints/               ← Rutas y handlers HTTP de Axum
+backend/
+├── core/                        ← theruby_core: dominio + puertos
+├── mod_flashcards/              ← DeckUseCases
+├── mod_pronoun/                 ← StoryUseCases (crate pronoun_practice)
+└── api_main/
+    ├── src/main.rs              ← composition root
+    ├── src/modules/             ← registro de rutas por módulo
+    ├── src/infrastructure/      ← adapters Surreal, Gemini, ComfyUI
+    └── src/api/endpoints/       ← handlers HTTP
 ```
 
 ### Base de Datos Activa: SurrealDB
@@ -55,7 +50,7 @@ El sistema utiliza **SurrealDB** como base de datos en AWS para gestionar la per
 *   **Motor Arcade:** Tablas `stories`, `episodes`, `story_screens`, `user_progress` y `user_errors` para la lógica narrativa y tutoría de errores.
 
 #### Degradación Elegante (*Null Object*)
-Si SurrealDB está desconectado (por ejemplo, en el entorno efímero de Google Cloud Run), el sistema inyecta automáticamente un [null_db_repository.rs](file:///home/jcoronado/Desktop/dev/flashcard/backend/src/infrastructure/storage/null_db_repository.rs). Esto permite al usuario seguir estudiando las tarjetas (las cuales se leen y guardan vía JSON), inhabilitando de forma controlada únicamente el inicio de sesión y el modo Arcade.
+Si SurrealDB está desconectado, el sistema inyecta `backend/api_main/src/infrastructure/storage/null_db_repository.rs`.
 
 ---
 
@@ -73,15 +68,15 @@ El frontend replica la separación de responsabilidades y modularidad limpia:
 
 ```
 client/src/
-├── main.jsx              ← Punto de montaje inicial del DOM y enrutadores
-├── App.jsx               ← Definición de rutas del cliente (react-router-dom)
-├── services/
-│   └── httpClient.js     ← Único interceptor de red: inyecta JWT y maneja códigos HTTP
-├── repositories/         ← Contratos de API aislados (flashcardRepository, authRepository, etc.)
-├── context/              ← Estado reactivo de los proveedores (AuthContext, FlashcardContext)
-├── features/             ← Módulos de funcionalidad orientados a dominio (flashcards, story-arcade, phonics)
-├── components/           ← Elementos genéricos y tontos de UI
-└── store/                ← Stores para gestión de estado (Zustand para useGameStore)
+├── main.jsx
+├── App.jsx               ← shell: layout + getAppRoutes (sin imports de módulos)
+├── modules/
+│   ├── index.js          ← registry loader
+│   ├── flashcards/       ← módulo flashcards
+│   └── pronounPractice/  ← módulo pronoun
+├── features/flashcards/  ← componentes UI del módulo flashcards
+├── context/              ← shell: UIContext, AuthContext
+└── services/httpClient.js
 ```
 
 ---

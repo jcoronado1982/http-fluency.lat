@@ -1,0 +1,292 @@
+# Arquitectura Modular — Flashcard AI
+
+Documento canónico del modelo **Clean / Hexagonal modular** con **registry**, **sparse-checkout** y **conexión/desconexión de módulos** por capa.
+
+---
+
+## 1. Visión
+
+El repositorio es un **monolito modular**:
+
+| Pieza | Rol |
+|-------|-----|
+| **Shell compartido** | Arranque, auth, layout, tutor, health, notificaciones |
+| **Módulos de negocio** | Flashcards, pronombres, futuros módulos vendibles |
+| **Registry** | `scripts/module_registry.sh` — fuente de verdad de paths, features y flags |
+| **Sparse-checkout** | Solo existen en disco los archivos del shell + módulos activos → la IA no ve código ajeno |
+
+Objetivos de diseño:
+
+- Conectar y desconectar módulos en **compile-time** (Cargo features) y **runtime** (flags Vite)
+- Trabajar con **git sparse-checkout** para aislamiento físico de contexto
+- **SOLID** y **Ports & Adapters** en backend
+- Tolerar cambio de tecnología vía puertos (`theruby_core`)
+- Mantenible y testeable por módulo
+
+---
+
+## 2. Mapa del repositorio
+
+```
+flashcard/
+├── backend/
+│   ├── core/                 # theruby_core — dominio + puertos compartidos
+│   ├── api_main/             # composition root (shell HTTP)
+│   │   └── src/modules/      # registro de rutas por módulo
+│   ├── mod_flashcards/       # caso de uso DeckUseCases
+│   └── mod_pronoun/          # crate pronoun_practice — StoryUseCases
+├── client/
+│   └── src/
+│       ├── modules/          # registry frontend (loader + módulos)
+│       │   ├── index.js
+│       │   ├── flashcards/
+│       │   └── pronounPractice/
+│       └── context/          # shell: UIContext, AuthContext, AppContext
+├── scripts/
+│   ├── module_registry.sh    # FUENTE DE VERDAD
+│   ├── sparse-module.sh
+│   ├── export-module.sh
+│   └── validate-module.sh
+└── modules/README.md           # resumen humano del registry
+```
+
+---
+
+## 3. Backend — capas y registro
+
+### 3.1 Capas (hexagonal)
+
+```mermaid
+flowchart TB
+  subgraph shell [api_main — shell]
+    MAIN[main.rs composition root]
+    MODREG[modules/mod.rs]
+    INFRA[infrastructure adapters]
+  end
+
+  subgraph mods [mod_*]
+    UC[application use cases]
+  end
+
+  CORE[theruby_core domain + ports]
+
+  MAIN --> MODREG
+  MODREG --> UC
+  UC --> CORE
+  INFRA --> CORE
+  MAIN --> INFRA
+```
+
+| Capa | Ubicación | Responsabilidad |
+|------|-----------|-----------------|
+| Dominio + puertos | `backend/core` | Modelos, traits async (`StorageRepository`, `AITutor`, …) |
+| Aplicación | `backend/mod_*` | Casos de uso (`DeckUseCases`, `StoryUseCases`) |
+| API | `backend/api_main/src/api/endpoints/` | Handlers HTTP (agrupados por módulo vía `#[cfg(feature)]`) |
+| Infraestructura | `backend/api_main/src/infrastructure/` | Surreal, Gemini, ComfyUI, storage local |
+| Composition root | `backend/api_main/src/main.rs` | Wiring de dependencias y `AppState` |
+| Registro modular | `backend/api_main/src/modules/` | `register_routes()` por módulo |
+
+### 3.2 Features Cargo (`api_main/Cargo.toml`)
+
+```toml
+[features]
+default = ["flashcards", "auth"]
+flashcards = ["mod_flashcards"]
+auth = []
+pronoun_practice = ["dep:pronoun_practice"]
+```
+
+| Módulo registry | Feature | Crate |
+|-----------------|---------|-------|
+| `flashcards` | `flashcards` | `mod_flashcards` |
+| `pronoun` | `pronoun_practice` | `pronoun_practice` (`mod_pronoun/`) |
+
+**Build solo pronombres:**
+
+```bash
+cargo build -p api_main --no-default-features --features auth,pronoun_practice
+```
+
+**Build solo flashcards:**
+
+```bash
+cargo build -p api_main --no-default-features --features auth,flashcards
+```
+
+### 3.3 Registro de rutas
+
+Cada módulo expone `register_routes(app) -> Router` en `api_main/src/modules/`:
+
+- `flashcards.rs` — decks, media, assets `/card_images`, `/card_audio`
+- `pronoun_practice.rs` — progreso, episodios, historias
+
+El shell registra siempre: `/api/health`, `/api/features`, tutor, notificaciones, auth (si feature activa).
+
+`TutorUseCases` usa `Option<PronounPracticeRepository>` — sin módulo pronoun no hay acoplamiento a su DB.
+
+---
+
+## 4. Frontend — registry modular
+
+### 4.1 Loader (`client/src/modules/index.js`)
+
+Auto-descubre `./<modulo>/index.jsx` y exporta:
+
+- `getModuleRoutes(config)` — rutas React Router
+- `getModuleNavSections(config, ctx)` — sidebar
+- `getModuleOverlays(config)` — modales/overlays globales del módulo
+- `getModuleFloatingMenuItems(config, ctx)` — acciones del menú flotante
+
+### 4.2 Contrato de un módulo frontend
+
+```javascript
+export default {
+  id: 'miModulo',
+  enabled: (config) => config.features.miModulo,
+  routes: (config) => [{ path: '/ruta', element: <Page /> }],
+  navSections: ({ t, config }) => [{ id, label, items: [...] }],
+  overlays: () => <MisOverlays />,           // opcional
+  floatingMenuItems: (ctx) => [...],         // opcional
+};
+```
+
+### 4.3 Shell frontend (`App.jsx`)
+
+El shell **no importa** código de módulos concretos. Solo:
+
+- Layout (Sidebar, Header, Footer)
+- Rutas de laboratorio/admin (`/admin`, `/grammar`, `/test`)
+- `getAppRoutes` + `getModuleOverlays` del registry
+
+Cada módulo envuelve su página con sus providers (ej. flashcards: `CategoryProvider` + `FlashcardProvider`).
+
+### 4.4 Flags Vite (`client/src/config/index.js`)
+
+| Flag | Comportamiento |
+|------|----------------|
+| `VITE_DEFAULT_MODULE` | Módulo que abre en `/` (`flashcards` default, o `pronoun`) |
+| `VITE_ENABLE_FLASHCARDS` | Opt-out (`!== 'false'`) |
+| `VITE_ENABLE_PRONOUN_REFERENCE` | Opt-out |
+| `VITE_ENABLE_PRONOUN_PRACTICE` | Opt-in (`=== 'true'`) |
+| `VITE_ENABLE_PRONOUN` | Alias legacy de práctica |
+
+---
+
+## 5. Registry y sparse-checkout
+
+### 5.1 Fuente de verdad
+
+`scripts/module_registry.sh` define por módulo:
+
+- `module_backend_feature`
+- `module_frontend_flag`
+- `module_cargo_build_args`
+- `shared_sparse_patterns` — shell mínimo
+- `module_sparse_patterns` — archivos exclusivos del módulo
+
+### 5.2 Comandos
+
+```bash
+# Listar módulos
+./scripts/sparse-module.sh list
+
+# Trabajar solo con pronombres (archivos de flashcards ausentes en disco)
+./scripts/sparse-module.sh pronoun
+
+# Trabajar con dos módulos
+./scripts/sparse-module.sh flashcards pronoun
+
+# Restaurar repo completo
+./scripts/sparse-module.sh full
+
+# Exportar entrega
+./scripts/export-module.sh flashcards
+
+# Validar compilación del módulo
+./scripts/validate-module.sh pronoun
+```
+
+### 5.3 Aislamiento para IA
+
+Tras `./scripts/sparse-module.sh pronoun`:
+
+- **Existen:** `backend/core`, `api_main`, `mod_pronoun`, `client/src/modules/pronounPractice`, shell
+- **No existen:** `mod_flashcards`, `client/src/modules/flashcards`, `features/flashcards`
+
+Cursor y herramientas de indexación solo ven lo presente físicamente.
+
+---
+
+## 6. Agregar un módulo nuevo
+
+### Backend
+
+1. Crear `backend/mod_<nombre>/` con casos de uso que dependan solo de `theruby_core`
+2. Añadir al workspace en `backend/Cargo.toml`
+3. Dependencia opcional + feature en `backend/api_main/Cargo.toml`
+4. Crear `backend/api_main/src/modules/<nombre>.rs` con `register_routes`
+5. Registrar en `api_main/src/modules/mod.rs`
+
+### Frontend
+
+1. Crear `client/src/modules/<nombre>/index.jsx` con el contrato del §4.2
+2. Colocar página, context, repositorios dentro del módulo
+3. Añadir flag `VITE_ENABLE_<NOMBRE>` en `client/src/config/index.js`
+
+### Registry
+
+1. Añadir nombre a `MODULE_NAMES` en `module_registry.sh`
+2. Implementar `module_*` case arms
+3. Documentar fila en `modules/README.md`
+4. Crear wrapper `scripts/sparse-<nombre>.sh` (opcional)
+
+### Validar
+
+```bash
+./scripts/sparse-module.sh <nombre>
+./scripts/validate-module.sh <nombre>
+```
+
+---
+
+## 7. Quitar un módulo
+
+### Desconectar (sin borrar código)
+
+1. Apagar flags frontend
+2. Compilar sin feature: `cargo build -p api_main --no-default-features --features auth,<otros>`
+3. Usar sparse-checkout del módulo en el que trabajes
+
+### Eliminar físicamente
+
+1. Quitar feature y dependencia de `api_main/Cargo.toml`
+2. Quitar del workspace `backend/Cargo.toml`
+3. Quitar `modules/<nombre>.rs` y entrada en `mod.rs`
+4. Quitar de `module_registry.sh` y `modules/README.md`
+5. Borrar carpetas `mod_<nombre>` y `client/src/modules/<nombre>`
+
+---
+
+## 8. Principios SOLID aplicados
+
+| Principio | Cómo se aplica |
+|-----------|----------------|
+| **SRP** | Casos de uso en `mod_*`; shell solo compone |
+| **OCP** | Nuevo módulo = nuevo crate + registro, sin editar otros módulos |
+| **LSP** | `NullDbRepository` cuando Surreal no está disponible |
+| **ISP** | Puertos separados por responsabilidad en `core` |
+| **DIP** | Use cases dependen de traits, no de Surreal/Axum |
+
+---
+
+## 9. Módulos actuales
+
+Ver tabla actualizada en [modules/README.md](../modules/README.md).
+
+---
+
+## 10. Documentos relacionados (no arquitectura modular)
+
+- Infraestructura y deploy: `docs/infrastructure/pipeline-and-deploy.md`
+- Integración de sistemas externos (IA, Caddy, Surreal): `docs/INTEGRACION_SISTEMA.md`
+- Mapa por dominio funcional: `docs/MAPA_DOMINIOS.md`

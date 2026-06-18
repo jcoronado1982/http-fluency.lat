@@ -27,43 +27,23 @@ RUN if [ "$TARGETARCH" = "arm64" ]; then \
         rustup target add x86_64-unknown-linux-gnu; \
     fi
 
-COPY Cargo.toml Cargo.lock ./
-# Create dummy source to cache dependencies
-RUN mkdir src && echo "fn main() {}" > src/main.rs
-
-# Build dependencies
-RUN --mount=type=cache,target=/usr/local/cargo/registry \
-    --mount=type=cache,target=/app/target \
-    if [ "$TARGETARCH" = "arm64" ]; then \
-        CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-linux-gnu-gcc \
-        CC_aarch64_unknown_linux_gnu=aarch64-linux-gnu-gcc \
-        CXX_aarch64_unknown_linux_gnu=aarch64-linux-gnu-g++ \
-        AR_aarch64_unknown_linux_gnu=aarch64-linux-gnu-ar \
-        RUSTFLAGS="-C target-cpu=neoverse-n1" \
-        cargo build --release --target aarch64-unknown-linux-gnu; \
-    elif [ "$TARGETARCH" = "amd64" ]; then \
-        RUSTFLAGS="-C target-cpu=x86-64-v3" \
-        cargo build --release --target x86_64-unknown-linux-gnu; \
-    fi
-
 COPY . .
 
 # Build main application
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
     --mount=type=cache,target=/app/target \
-    touch src/main.rs && \
     if [ "$TARGETARCH" = "arm64" ]; then \
         CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-linux-gnu-gcc \
         CC_aarch64_unknown_linux_gnu=aarch64-linux-gnu-gcc \
         CXX_aarch64_unknown_linux_gnu=aarch64-linux-gnu-g++ \
         AR_aarch64_unknown_linux_gnu=aarch64-linux-gnu-ar \
         RUSTFLAGS="-C target-cpu=neoverse-n1" \
-        cargo build --release --target aarch64-unknown-linux-gnu && \
-        cp target/aarch64-unknown-linux-gnu/release/backend_rust /usr/local/bin/flashcard-backend; \
+        cargo build -p api_main --release --target aarch64-unknown-linux-gnu && \
+        cp target/aarch64-unknown-linux-gnu/release/api_main /usr/local/bin/flashcard-backend; \
     elif [ "$TARGETARCH" = "amd64" ]; then \
         RUSTFLAGS="-C target-cpu=x86-64-v3" \
-        cargo build --release --target x86_64-unknown-linux-gnu && \
-        cp target/x86_64-unknown-linux-gnu/release/backend_rust /usr/local/bin/flashcard-backend; \
+        cargo build -p api_main --release --target x86_64-unknown-linux-gnu && \
+        cp target/x86_64-unknown-linux-gnu/release/api_main /usr/local/bin/flashcard-backend; \
     fi
 
 # ========================================================

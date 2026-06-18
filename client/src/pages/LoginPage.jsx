@@ -1,8 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FiImage, FiVolume2, FiBook } from 'react-icons/fi';
 import './LoginPage.css';
+
+import config from '../config';
+import { getDefaultAppPath } from '../modules';
 
 const GOOGLE_CLIENT_ID =
     import.meta.env.VITE_GOOGLE_CLIENT_ID ||
@@ -11,25 +14,29 @@ const GOOGLE_CLIENT_ID =
 const LoginPage = () => {
     const { login, isAuthenticated } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
     const googleBtnRef = useRef(null);
     const callbackRef = useRef(null);
+    const shellRoutes = [{ path: '/admin', enabled: config.features.admin }];
+    const defaultPath = getDefaultAppPath(config, shellRoutes);
+    const targetPath = location.state?.from || defaultPath;
 
     useEffect(() => {
         callbackRef.current = async (response) => {
             try {
                 await login(response.credential);
-                navigate('/');
+                navigate(targetPath, { replace: true });
             } catch {
                 console.error('Login failed');
             }
         };
-    }, [login, navigate]);
+    }, [login, navigate, targetPath]);
 
     useEffect(() => {
         if (isAuthenticated) {
-            navigate('/');
+            navigate(targetPath, { replace: true });
         }
-    }, [isAuthenticated, navigate]);
+    }, [isAuthenticated, navigate, targetPath]);
 
     useEffect(() => {
         let isMounted = true;
@@ -99,7 +106,7 @@ const LoginPage = () => {
                         alt="TheRuby"
                         className="login-logo"
                     />
-                    <h1 className="login-brand-text">TheRuby</h1>
+                    <h1 className="login-brand-text">Fluency</h1>
                     <p className="login-tagline">
                         El vocabulario que necesitas para hablar otro idioma.
                     </p>

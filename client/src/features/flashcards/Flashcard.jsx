@@ -4,11 +4,13 @@ import { useAudioPlayback } from './useAudioPlayback.jsx';
 import { useImageGeneration } from './useImageGeneration.js';
 import CardFront from './CardFront.jsx';
 import CardBack from './CardBack.jsx';
-import { useAppContext } from '../../context/AppContext';
-import { useFlashcardContext } from '../../context/FlashcardContext';
+import { useUIContext } from '../../context/UIContext';
+import { useFlashcardContext } from '../../modules/flashcards/context/FlashcardContext';
+import { useCategoryContext } from '../../modules/flashcards/context/CategoryContext';
 
 function Flashcard() {
-    const { setAppMessage, setIsAudioLoading, currentCategory, setIsIpaModalOpen, language = 'en' } = useAppContext();
+    const { setAppMessage, setIsAudioLoading, setIsIpaModalOpen, language = 'en' } = useUIContext();
+    const { currentCategory } = useCategoryContext();
     const { currentCard: cardData, currentDeckName, updateCardImagePath } = useFlashcardContext();
     const [prevCardId, setPrevCardId] = useState(null);
 
@@ -37,6 +39,14 @@ function Flashcard() {
             playAudio(text, lang),
         ]);
     }, [ensureImageForDefinition, playAudio]);
+
+    const handleToggleBlur = useCallback((defIndex) => {
+        // Si la frase estaba desenfocada, también cargamos su imagen
+        if (blurredState[defIndex]) {
+            ensureImageForDefinition(defIndex);
+        }
+        setBlurredState(prev => ({ ...prev, [defIndex]: !prev[defIndex] }));
+    }, [blurredState, ensureImageForDefinition]);
 
     useEffect(() => {
         if (!cardData) return;
@@ -79,7 +89,7 @@ function Flashcard() {
                     activeAudioText={activeAudioText}
                     highlightedWordIndex={highlightedWordIndex}
                     blurredState={blurredState}
-                    toggleBlur={(i) => setBlurredState(p => ({ ...p, [i]: !p[i] }))}
+                    toggleBlur={handleToggleBlur}
                     isImageLoading={isImageLoading}
                     isGeneratingImage={isGeneratingImage}
                     imageUrl={imageUrl}
