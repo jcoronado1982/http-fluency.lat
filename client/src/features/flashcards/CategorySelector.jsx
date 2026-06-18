@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './CategorySelector.module.css';
-import { useAppContext } from '../../context/AppContext';
-import { useFlashcardContext } from '../../context/FlashcardContext';
-import { useCategoryContext } from '../../context/CategoryContext';
+import { useUIContext } from '../../context/UIContext';
+import { useFlashcardContext } from '../../modules/flashcards/context/FlashcardContext';
+import { useCategoryContext } from '../../modules/flashcards/context/CategoryContext';
 import { translations } from '../../config/translations';
 
 // Los totales son dinámicos — vienen del contexto que obtiene el conteo real del backend
@@ -29,9 +29,8 @@ const formatName = (name, t) => {
 };
 
 function CategorySelector() {
-    const { 
-        categories, currentCategory, changeCategory, setIsCatalogVisible, language = 'en'
-    } = useAppContext();
+    const { setIsCatalogVisible, language = 'en' } = useUIContext();
+    const { categories, currentCategory, changeCategory } = useCategoryContext();
     
     const t = translations[language].categorySelector;
 

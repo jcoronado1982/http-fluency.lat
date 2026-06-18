@@ -22,33 +22,47 @@ cleanup() {
 # Capturar Ctrl+C (SIGINT) y SIGTERM
 trap cleanup SIGINT SIGTERM
 
-# 2. Levantar la base de datos con Docker
-echo "🚀 Levantando bases de datos en Docker..."
-docker-compose up -d db
+DOCKER_READY=false
+if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
+    DOCKER_READY=true
+fi
 
-# 2.1 Levantar SurrealDB con persistencia
-if [ ! -d "surreal_data" ]; then mkdir surreal_data; fi
-docker run -d --rm --name surrealdb \
-  -p 8001:8000 \
-  -v $(pwd)/surreal_data:/data \
-  surrealdb/surrealdb:v1.5.5 start --user root --pass root file:/data/surreal.db
+if [ "$DOCKER_READY" = true ]; then
+    # 2. Levantar la base de datos con Docker
+    echo "🚀 Levantando bases de datos en Docker..."
+    docker-compose up -d db
 
-# 3. Esperar a que las bases de datos estén listas
-echo "⏳ Esperando a que las bases de datos respondan..."
-MAX_RETRIES=30
-COUNT=0
-until PGPASSWORD=postgres psql -h localhost -U postgres -d flashcard_db -c '\q' > /dev/null 2>&1; do
-  sleep 1
-  COUNT=$((COUNT + 1))
-  if [ $COUNT -ge $MAX_RETRIES ]; then echo "❌ Error: Postgres no respondió."; exit 1; fi
-done
+    # 2.1 Levantar SurrealDB con persistencia
+    if [ ! -d "surreal_data" ]; then mkdir surreal_data; fi
+    if docker ps -a --format '{{.Names}}' | grep -Fxq "surrealdb"; then
+        echo "♻️  Reciclando contenedor Docker existente: surrealdb"
+        docker rm -f surrealdb >/dev/null 2>&1 || true
+    fi
+    docker run -d --rm --name surrealdb \
+      -p 8001:8000 \
+      -v $(pwd)/surreal_data:/data \
+      surrealdb/surrealdb:v1.5.5 start --user root --pass root file:/data/surreal.db
 
-until curl -s http://localhost:8001/health > /dev/null; do
-  sleep 1
-  COUNT=$((COUNT + 1))
-  if [ $COUNT -ge $MAX_RETRIES ]; then echo "❌ Error: SurrealDB no respondió."; exit 1; fi
-done
-echo "✅ Bases de datos listas."
+    # 3. Esperar a que las bases de datos estén listas
+    echo "⏳ Esperando a que las bases de datos respondan..."
+    MAX_RETRIES=30
+    COUNT=0
+    until PGPASSWORD=postgres psql -h localhost -U postgres -d flashcard_db -c '\q' > /dev/null 2>&1; do
+      sleep 1
+      COUNT=$((COUNT + 1))
+      if [ $COUNT -ge $MAX_RETRIES ]; then echo "❌ Error: Postgres no respondió."; exit 1; fi
+    done
+
+    until curl -s http://localhost:8001/health > /dev/null; do
+      sleep 1
+      COUNT=$((COUNT + 1))
+      if [ $COUNT -ge $MAX_RETRIES ]; then echo "❌ Error: SurrealDB no respondió."; exit 1; fi
+    done
+    echo "✅ Bases de datos listas."
+else
+    echo "⚠️  Docker no está disponible; continúo sin levantar bases locales."
+    echo "   - El backend usará sus degradaciones internas si no encuentra DB/Oracle."
+fi
 
 # 4. Iniciar Local AI (ComfyUI) en segundo plano
 echo "🤖 Iniciando AI Local (ComfyUI)..."
@@ -84,9 +98,30 @@ echo ""
 echo "🔥 [BACKEND] Iniciando Rust Backend..."
 cd backend || exit
 
+# Resolver features modulares a partir de la config local del frontend
+CLIENT_ENV_FILE="../client/.env.development"
+AUTO_BACKEND_FEATURES=""
+if [ -f "$CLIENT_ENV_FILE" ]; then
+    if grep -Eq '^VITE_ENABLE_PRONOUN_PRACTICE=true$|^VITE_ENABLE_PRONOUN=true$' "$CLIENT_ENV_FILE"; then
+        AUTO_BACKEND_FEATURES="pronoun_practice"
+    fi
+fi
+
+if [ -z "$BACKEND_FEATURES" ] && [ -n "$AUTO_BACKEND_FEATURES" ]; then
+    BACKEND_FEATURES="$AUTO_BACKEND_FEATURES"
+fi
+
 # Aseguramos que esté compilado
 echo "⚙️  Compilando backend en Rust (esto puede tardar si es la primera vez)..."
-if ! cargo build --features story_arcade; then
+if [ -n "$BACKEND_FEATURES" ]; then
+    echo "   - Features extra: $BACKEND_FEATURES"
+    cargo build -p api_main --features "$BACKEND_FEATURES"
+else
+    echo "   - Features extra: ninguna (release estable)"
+    cargo build -p api_main
+fi
+
+if [ $? -ne 0 ]; then
     echo "❌ ERROR: cargo build falló."
     exit 1
 fi
@@ -94,8 +129,14 @@ fi
 # Limpiamos la variable global para forzar que use la del .env
 unset GEMINI_API_KEY
 
+# En desarrollo Vite proxya /api, /card_images y /card_audio a localhost:8081.
+export PORT="${PORT:-8081}"
+if [ "$DOCKER_READY" != true ]; then
+    export SYNC_TO_ORACLE="false"
+fi
+
 # Lanzamos el binario en segundo plano para verificarlo
-RUST_MIN_STACK=8388608 ./target/debug/backend_rust &
+RUST_MIN_STACK=8388608 ./target/debug/api_main &
 BACKEND_PID=$!
 
 echo "⏳ Esperando a que el Backend Rust esté listo en el puerto 8081..."

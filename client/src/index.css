@@ -23,7 +23,7 @@ body {
   margin: 0 !important;
   min-height: 100vh;
   min-width: 320px;
-  background-color: #0f172a; /* Story Arcade background */
+  background-color: #0f172a;
   overflow-x: hidden; /* Prevent horizontal scroll at top level */
 }
 

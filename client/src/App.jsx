@@ -2,38 +2,51 @@
 import React from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import './App.css';
-// Triggering CI build with a dummy change
-// Another trigger space
 
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
-import FlashcardPage from './pages/FlashcardPage';
 import GrammarPage from './pages/GrammarPage';
 import TestPage from './pages/TestPage';
-import CoursePage from './pages/CoursePage';
 import LoginPage from './pages/LoginPage';
 import AdminPage from './pages/AdminPage';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import AdminRoute from './components/common/AdminRoute';
 import config from './config';
-
-const PronounPracticePage = React.lazy(() => import('./pages/PronounPracticePage'));
-
+import { getAppRoutes, getModuleOverlays, getDefaultAppPath } from './modules';
 
 import { AppProvider, useAppContext } from './context/AppContext';
-import { FlashcardProvider } from './context/FlashcardContext';
 
-import CategorySelector from './features/flashcards/CategorySelector';
-import IpaModal from './features/flashcards/IpaModal';
-import PhonicsModal from './features/flashcards/PhonicsModal';
+const shellRoutes = [
+  {
+    path: '/admin',
+    enabled: config.features.admin,
+    element: <AdminRoute><AdminPage /></AdminRoute>,
+  },
+];
+
+const labRoutes = [
+  {
+    path: '/grammar',
+    enabled: config.features.grammar,
+    element: <ProtectedRoute><GrammarPage /></ProtectedRoute>,
+  },
+  {
+    path: '/test',
+    enabled: config.features.tests,
+    element: <ProtectedRoute><TestPage /></ProtectedRoute>,
+  },
+];
+
+const baseRoutes = [...shellRoutes, ...labRoutes];
+const enabledRoutes = getAppRoutes(config, baseRoutes).filter(
+  (route) => route.enabled !== false,
+);
+const defaultPath = getDefaultAppPath(config, baseRoutes);
+const moduleOverlays = getModuleOverlays(config);
 
 function AppContent() {
-  const {
-    isSidebarOpen, setIsSidebarOpen,
-    isCatalogVisible, isIpaModalOpen, isPhonicsModalOpen,
-    setIsIpaModalOpen
-  } = useAppContext();
+  const { isSidebarOpen, setIsSidebarOpen } = useAppContext();
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
 
@@ -51,30 +64,24 @@ function AppContent() {
         <main className="page-content">
           <Routes>
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/admin" element={<AdminRoute><AdminPage /></AdminRoute>} />
-            <Route path="/flashcard" element={<ProtectedRoute><FlashcardPage /></ProtectedRoute>} />
-            <Route path="/grammar" element={<ProtectedRoute><GrammarPage /></ProtectedRoute>} />
-            <Route path="/test" element={<ProtectedRoute><TestPage /></ProtectedRoute>} />
-            <Route path="/pronoun-reference" element={<ProtectedRoute><CoursePage /></ProtectedRoute>} />
-            {config.features.storyArcade && (
-              <Route 
-                path="/pronoun-practice" 
-                element={
-                  <React.Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Loading Pronoun Practice...</div>}>
-                    <ProtectedRoute><PronounPracticePage /></ProtectedRoute>
-                  </React.Suspense>
-                } 
-              />
+            {enabledRoutes
+              .map((route) => (
+                <Route key={route.path} path={route.path} element={route.element} />
+              ))}
+
+            {!enabledRoutes.some((route) => route.path === '/') && (
+              <Route path="/" element={<Navigate to={defaultPath} replace />} />
             )}
-            <Route path="/" element={<Navigate to="/flashcard" replace />} />
+            <Route path="/flashcard" element={<Navigate to={defaultPath} replace />} />
+            <Route path="*" element={<Navigate to={defaultPath} replace />} />
           </Routes>
         </main>
         {!isLoginPage && <Footer />}
       </div>
 
-      {isCatalogVisible && <CategorySelector />}
-      {isIpaModalOpen && <IpaModal onClose={() => setIsIpaModalOpen(false)} />}
-      {isPhonicsModalOpen && <PhonicsModal />}
+      {moduleOverlays.map((overlay, index) => (
+        <React.Fragment key={index}>{overlay}</React.Fragment>
+      ))}
     </div>
   );
 }
@@ -82,11 +89,9 @@ function AppContent() {
 function App() {
   return (
     <AppProvider>
-      <FlashcardProvider>
-        <AppContent />
-      </FlashcardProvider>
+      <AppContent />
     </AppProvider>
   );
 }
 
-export default App; // trigger
+export default App;

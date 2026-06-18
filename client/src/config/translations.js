@@ -32,9 +32,9 @@ export const translations = {
             wordCollections: "Colecciones de palabras",
             pronouns: "Pronombres",
             table: "Tabla",
+            practice: "Practica",
             pronounsReference: "Referencia de pronombres",
-            practiceMenu: "Práctica",
-            pronounPractice: "Pronoun Practice",
+            pronounPractice: "Entrenamiento guiado",
             admin: "Admin",
             users: "Usuarios",
             realtimeActivity: "Actividad en tiempo real"
@@ -263,9 +263,9 @@ export const translations = {
             wordCollections: "Word collections",
             pronouns: "Pronouns",
             table: "Chart",
+            practice: "Practice",
             pronounsReference: "Pronouns reference",
-            practiceMenu: "Practice",
-            pronounPractice: "Pronoun Practice",
+            pronounPractice: "Guided practice",
             admin: "Admin",
             users: "Users",
             realtimeActivity: "Real-time activity"

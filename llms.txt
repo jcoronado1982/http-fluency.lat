@@ -24,14 +24,19 @@ El sistema destaca por su enfoque en la eficiencia de costos (scale-to-zero) y s
 
 
 ## 🧠 Protocolo de Atención Modular (Para IAs)
-**REGLA ESTRICTA**: NO cargues toda la documentación en tu contexto activo. Aísla tu enfoque según el dominio de la tarea:
-1. **Dominio FRONTEND (`client/`)**: Limita tu contexto a UI/UX, React y Vite. Ignora Infra y Base de Datos. Solo consulta contratos de API.
-2. **Dominio BACKEND + DB (`backend/`)**: Limita tu contexto a Rust, Axum, Modelos SQLx y Prompts de Gemini. 
-3. **Dominio INFRAESTRUCTURA (`infra/` & Proxy)**: Limita tu contexto a Caddy, Sentinel, CI/CD y configuraciones de nube.
-   - **Pipeline / azure-pipelines.yml / deploy:** `docs/infrastructure/pipeline-and-deploy.md`
-   - **Audio TTS / backend Oracle runtime:** `docs/infrastructure/oracle-local-backend-deploy.md`
-   - No reactivar routing AWS/SCP en Oracle ni patrones viejos (`gcp-deploy-key.json`, SSH `commands` con exports) sin leer esos docs.
-*Lee ÚNICAMENTE los archivos técnicos del dominio que estés operando.*
+
+**REGLA ESTRICTA**: Aísla contexto por módulo de negocio usando sparse-checkout:
+
+```bash
+./scripts/sparse-module.sh list
+./scripts/sparse-module.sh flashcards   # o pronoun, o ambos
+```
+
+Documentación canónica: [docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md), [modules/README.md](modules/README.md), [docs/MAPA_DOMINIOS.md](docs/MAPA_DOMINIOS.md).
+
+1. **Módulo activo**: Solo lee shell + archivos del módulo en disco (registry: `scripts/module_registry.sh`).
+2. **Infraestructura**: `docs/infrastructure/pipeline-and-deploy.md`, `INFRASTRUCTURE.md`.
+3. **No cargar** módulos ausentes tras sparse-checkout.
 
 ## Conceptos clave
 - **Sentinel**: Sistema de monitoreo bidireccional que actúa como cortafuegos basado en recursos de hardware.

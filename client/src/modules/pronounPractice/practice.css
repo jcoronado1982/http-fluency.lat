@@ -1,0 +1,644 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap');
+
+.arcadeContainer {
+  min-height: calc(100vh - 80px);
+  display: grid;
+  grid-template-columns: minmax(260px, 30%) minmax(320px, 1fr) minmax(240px, 28%);
+  gap: 24px;
+  padding: 24px;
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+.arcadeStatePanel,
+.completionOverlay {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+.historySidebar,
+.rightPanel {
+  align-self: start;
+  position: sticky;
+  top: 16px;
+}
+
+.historyTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.historyList,
+.rightPanel,
+.mainStage {
+  min-width: 0;
+}
+
+.episodeHistoryItem,
+.arcadeCard,
+.completionCard,
+.eli5Modal {
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.96));
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: 0 20px 45px rgba(2, 6, 23, 0.45);
+}
+
+.episodeHistoryItem {
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.episodeHistoryItem.current {
+  border-color: rgba(56, 189, 248, 0.45);
+}
+
+.episodeHistoryHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: transparent;
+  color: inherit;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.epNum {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.18);
+  color: #38bdf8;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.epTitle {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+}
+
+.episodeScreensList {
+  padding: 0 16px 16px;
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.historyItem,
+.emptyEpisodeProgress {
+  padding-top: 12px;
+}
+
+.historySpanish {
+  margin: 0 0 6px;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.historyEnglish {
+  margin: 0;
+  color: #f8fafc;
+  font-weight: 600;
+}
+
+.mainStage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.storyHeader,
+.arcadeCard,
+.controls {
+  width: min(100%, 620px);
+}
+
+.storyHeader {
+  margin-bottom: 18px;
+}
+
+.storyTitle {
+  margin: 0 0 10px;
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2rem, 3vw, 3.2rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.episodeBadge {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(14, 165, 233, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+}
+
+.episodeNumber {
+  color: #38bdf8;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.episodeDivider,
+.episodeName {
+  color: #94a3b8;
+}
+
+.arcadeCard {
+  position: relative;
+  border-radius: 28px;
+  padding: 28px 24px 24px;
+  overflow: hidden;
+}
+
+.progressBarContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: rgba(148, 163, 184, 0.12);
+}
+
+.progressBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, #38bdf8, #22c55e);
+  transition: width 0.3s ease;
+}
+
+.contentZone {
+  display: grid;
+  gap: 20px;
+}
+
+.scoreSuccess {
+  margin: 0;
+  color: #69db7c;
+  text-align: center;
+  font-family: 'Outfit', sans-serif;
+}
+
+.narrativeBox {
+  padding: 18px 20px;
+  border-left: 4px solid rgba(56, 189, 248, 0.55);
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.narrativeBox p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+.spanishTextWrapper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.spanishText {
+  margin: 0;
+  color: #fbbf24;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+.blurred {
+  filter: blur(4px);
+  opacity: 0.55;
+}
+
+.audioBtnSmall,
+.controlBtn,
+.closeEli5 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(30, 41, 59, 0.72);
+  color: #e2e8f0;
+  cursor: pointer;
+}
+
+.audioBtnSmall {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+}
+
+.inputWrapper {
+  display: grid;
+  gap: 14px;
+}
+
+.arcadeInput {
+  width: 100%;
+  min-height: 84px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  background: rgba(2, 6, 23, 0.5);
+  color: #f8fafc;
+  font-size: 1.2rem;
+  resize: vertical;
+}
+
+.inputSuccess {
+  border-color: rgba(34, 197, 94, 0.5);
+}
+
+.inputError {
+  border-color: rgba(239, 68, 68, 0.45);
+}
+
+.tutorFeedbackWrapper,
+.tutorMsgBox,
+.errorMsgBox {
+  width: 100%;
+}
+
+.tutorMsgBox,
+.errorMsgBox {
+  position: relative;
+  padding: 18px 20px 52px;
+  border-radius: 18px;
+}
+
+.tutorMsgBox {
+  background: rgba(56, 189, 248, 0.09);
+  border-left: 4px solid #38bdf8;
+}
+
+.errorMsgBox {
+  background: rgba(239, 68, 68, 0.09);
+  border-left: 4px solid #ef4444;
+}
+
+.tutorMsg,
+.errorMsg,
+.eli5Text {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.tutorMsg {
+  color: #7dd3fc;
+}
+
+.errorMsg {
+  color: #fca5a5;
+}
+
+.eli5ToggleBtn,
+.btnPrimary,
+.btnSecondary {
+  border: 0;
+  cursor: pointer;
+}
+
+.eli5ToggleBtn {
+  position: absolute;
+  right: 16px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(56, 189, 248, 0.14);
+  color: #7dd3fc;
+}
+
+.imagePlaceholder {
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(2, 6, 23, 0.55);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imageLoadingOverlay {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.loaderVisualContainer {
+  position: relative;
+  width: 92px;
+  height: 92px;
+}
+
+.aiLoaderCircle,
+.aiLoaderCircleInner {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 3px solid transparent;
+  animation: spin 2.6s linear infinite;
+}
+
+.aiLoaderCircle {
+  border-top-color: #38bdf8;
+}
+
+.aiLoaderCircleInner {
+  inset: 14px;
+  border-bottom-color: #fbbf24;
+  animation-direction: reverse;
+}
+
+.aiLoaderIcon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  font-size: 30px;
+}
+
+.aiLoaderText {
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.8rem;
+}
+
+.aiLoaderSubtext {
+  color: #94a3b8;
+  font-size: 0.72rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.controlBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+}
+
+.refreshBtn {
+  color: #f87171;
+}
+
+.checkBtn {
+  color: #34d399;
+}
+
+.checkBtnActive {
+  background: rgba(16, 185, 129, 0.2);
+}
+
+.counter {
+  min-width: 84px;
+  text-align: center;
+}
+
+.counterLabel,
+.sideScoreLabel,
+.levelLabel,
+.statBigLabel {
+  color: #94a3b8;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.counterValue,
+.sideScoreValue,
+.statBigValue {
+  color: #f8fafc;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+}
+
+.statusGroup {
+  margin-bottom: 32px;
+}
+
+.sideScoreCard {
+  margin-bottom: 18px;
+}
+
+.sideScoreValue {
+  display: block;
+  font-size: 2.2rem;
+}
+
+.levelSelectorSide {
+  display: grid;
+  gap: 10px;
+}
+
+.levelSelect {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.completionCard {
+  max-width: 640px;
+  border-radius: 34px;
+  padding: 36px;
+  text-align: center;
+}
+
+.congratsTitle {
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+}
+
+.congratsSub {
+  color: #cbd5e1;
+}
+
+.statsHighlightGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 28px 0;
+}
+
+.statBigItem {
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.statBigValue {
+  font-size: 2rem;
+}
+
+.statSuccess {
+  color: #86efac;
+}
+
+.completionActions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.btnPrimary,
+.btnSecondary {
+  padding: 14px 22px;
+  border-radius: 14px;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, #2563eb, #38bdf8);
+  color: #fff;
+}
+
+.btnSecondary {
+  background: rgba(30, 41, 59, 0.9);
+  color: #e2e8f0;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.eli5Overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(15, 23, 42, 0.8);
+  padding: 20px;
+}
+
+.eli5Modal {
+  width: min(560px, 100%);
+  border-radius: 28px;
+  padding: 24px;
+  position: relative;
+}
+
+.closeEli5 {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+}
+
+.eli5Header h3 {
+  margin: 0 0 14px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.eli5Reference {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(2, 6, 23, 0.4);
+}
+
+.eli5Reference span {
+  display: block;
+  margin-bottom: 4px;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.eli5Reference p {
+  margin: 0;
+}
+
+.arcadeStateTitle {
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem;
+}
+
+.arcadeStateMessage {
+  max-width: 600px;
+  margin: 0;
+  color: #cbd5e1;
+  text-align: center;
+}
+
+.arcadeStateDetail {
+  max-width: 700px;
+  margin: 0;
+  color: #fca5a5;
+  text-align: center;
+}
+
+.shaking {
+  animation: shake 0.4s ease;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shake {
+  25% {
+    transform: translateX(-8px);
+  }
+
+  75% {
+    transform: translateX(8px);
+  }
+}
+
+@media (max-width: 1180px) {
+  .arcadeContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .historySidebar,
+  .rightPanel {
+    position: static;
+  }
+
+  .mainStage {
+    order: -1;
+  }
+}

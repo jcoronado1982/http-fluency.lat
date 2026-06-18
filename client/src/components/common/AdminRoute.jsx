@@ -25,7 +25,7 @@ const AdminRoute = ({ children }) => {
     }
 
     if (role !== 'admin') {
-        return <Navigate to="/flashcard" />;
+        return <Navigate to="/" />;
     }
 
     return children;

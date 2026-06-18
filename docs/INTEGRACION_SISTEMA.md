@@ -49,11 +49,11 @@ graph TD
 ### A. Creación y Procesamiento de Tarjetas (Audio / Imagen por IA)
 Cuando el usuario solicita generar recursos para una flashcard:
 1. **Cliente (React):** Envía una solicitud HTTP `POST` a `/api/resolve-image` o `/api/synthesize-speech` mediante [httpClient.js](file:///home/jcoronado/Desktop/dev/flashcard/client/src/services/httpClient.js).
-2. **Backend (Axum):** El enrutador en [main.rs](file:///home/jcoronado/Desktop/dev/flashcard/backend/src/main.rs) dirige la petición al handler en `/api/endpoints/generation.rs`.
+2. **Backend (Axum):** El enrutador en `backend/api_main/src/main.rs` y `modules/` dirige la petición al handler en `api/endpoints/generation.rs` (módulo flashcards).
 3. **Casos de Uso (Application):** Se invoca `AudioUseCases` o `ImageUseCases`.
 4. **Infraestructura (Providers):**
-   - El backend llama a la API de **Google Cloud TTS** ([tts_grpc_provider.rs](file:///home/jcoronado/Desktop/dev/flashcard/backend/src/infrastructure/ai/tts_grpc_provider.rs)) para generar un archivo `.ogg`.
-   - Llama a **ComfyUI** ([comfy_provider.rs](file:///home/jcoronado/Desktop/dev/flashcard/backend/src/infrastructure/ai/comfy_provider.rs)) para generar o resolver una imagen de FLUX.
+   - El backend llama a **Google Cloud TTS** (`backend/api_main/src/infrastructure/ai/tts_grpc_provider.rs`) para generar un archivo `.ogg`.
+   - Llama a **ComfyUI** (`backend/api_main/src/infrastructure/ai/comfy_provider.rs`) para generar o resolver una imagen de FLUX.
 5. **Almacenamiento y Sincronización:**
    - Si está en desarrollo local (`SYNC_TO_ORACLE=false`), el archivo se escribe directamente en el disco duro.
    - Si está en producción (`SYNC_TO_ORACLE=true`), el backend escribe el archivo temporal en `/tmp`, realiza un traspaso seguro mediante **SCP** a la máquina de **Oracle Proxy** en `/root/smart-proxy/repository/flashcard/`, y borra el temporal.
@@ -63,7 +63,7 @@ Cuando el usuario solicita generar recursos para una flashcard:
 Cuando el usuario chatea en una historia:
 1. **Cliente:** React envía la respuesta textual del usuario y el ID de la pantalla actual a `/api/analyze-error`.
 2. **Backend:** El caso de uso `TutorUseCases` recibe la entrada.
-3. **Consulta de IA:** Se envía un prompt optimizado a `Gemini 3.1 Flash-Lite` mediante gRPC ([gemini_grpc_provider.rs](file:///home/jcoronado/Desktop/dev/flashcard/backend/src/infrastructure/ai/gemini_grpc_provider.rs)) conteniendo:
+3. **Consulta de IA:** Se envía un prompt optimizado a Gemini mediante gRPC (`backend/api_main/src/infrastructure/ai/gemini_grpc_provider.rs`) conteniendo:
    - Las instrucciones del sistema (System Prompt).
    - El contexto de la historia y el reto planteado.
    - La respuesta del usuario.
@@ -80,7 +80,7 @@ Cuando el usuario chatea en una historia:
 El backend de Rust implementa el patrón **Null Object** para garantizar que la aplicación no se detenga si SurrealDB no está disponible (por ejemplo, al correr en entornos efímeros sin persistencia local como GCP Cloud Run):
 
 ```rust
-// Comportamiento dinámico durante la inicialización en backend/src/main.rs:
+// Comportamiento dinámico durante la inicialización en backend/api_main/src/main.rs:
 let (user_repo, sub_repo, card_repo, story_repo, activity_repo) = 
     match SurrealRepository::new(&surreal_url, "flashcard", "flashcard").await {
         Ok(repo) => {
@@ -98,27 +98,15 @@ let (user_repo, sub_repo, card_repo, story_repo, activity_repo) =
 
 ---
 
-## 4. Guía de Desarrollo: ¿Cómo Añadir un Nuevo Módulo sobre la Marcha?
+## 4. Añadir un nuevo módulo
 
-Cuando solicites crear un nuevo módulo (por ejemplo, un **Módulo de Facturación / Invoicing**), seguiremos los siguientes pasos estructurados para encajar perfectamente con la Clean Architecture y la infraestructura del sistema:
+Seguir la guía completa en **[docs/ARQUITECTURA_MODULAR.md](ARQUITECTURA_MODULAR.md)** §6.
 
-### Paso 1: Definir los Modelos y Puertos en el Dominio (Domain)
-1. **Crear Modelo:** Agregar la estructura pura en el dominio (por ejemplo, en `backend/src/domain/models/`).
-2. **Definir Contrato/Port:** Crear un trait de Rust en repositorios (en `backend/src/domain/repositories/`) para definir las operaciones necesarias de forma abstracta.
+Resumen:
 
-### Paso 2: Crear el Caso de Uso (Application Layer)
-1. Crear el orquestador del caso de uso en `backend/src/application/use_cases/`.
-2. Coordinar el flujo: recibir los parámetros, validar reglas del negocio y llamar a las abstracciones del dominio (traits) para persistir o interactuar.
-
-### Paso 3: Crear el Adaptador Concreto (Infrastructure Layer)
-1. Implementar el trait del repositorio para la base de datos (por ejemplo, en `surreal_repository.rs` o el proveedor correspondiente).
-2. Implementar su correspondiente comportamiento en el adaptador de degradación (`NullDbRepository`) para asegurar que el sistema compila y corre si no hay base de datos.
-
-### Paso 4: Crear e Inyectar en la Capa API (Axum Endpoints)
-1. Crear el controlador de endpoints en `backend/src/api/endpoints/`.
-2. Registrar las rutas y el estado compartido (`AppState`) en [main.rs](file:///home/jcoronado/Desktop/dev/flashcard/backend/src/main.rs).
-
-### Paso 5: Implementar el Frontend (React 19)
-1. **Crear Repositorio:** Agregar el archivo en `client/src/repositories/` que use `httpClient.js`.
-2. **Crear Contexto o Store:** Si es necesario, añadir un context o store para manejar el estado reactivo del nuevo módulo.
-3. **Crear UI:** Crear los componentes y pantallas de forma aislada dentro de su propia carpeta en `client/src/features/`, y registrarlos en `App.jsx`.
+1. **Dominio:** modelos y puertos en `backend/core`
+2. **Aplicación:** crate `backend/mod_<nombre>/`
+3. **API:** `backend/api_main/src/modules/<nombre>.rs` + endpoints con `#[cfg(feature)]`
+4. **Registry:** actualizar `scripts/module_registry.sh` y `modules/README.md`
+5. **Frontend:** `client/src/modules/<nombre>/index.jsx`
+6. **Validar:** `./scripts/validate-module.sh <nombre>`

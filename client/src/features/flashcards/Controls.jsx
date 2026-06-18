@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './Controls.module.css';
 import { translations } from '../../config/translations';
-import { useAppContext } from '../../context/AppContext';
-import { useFlashcardContext } from '../../context/FlashcardContext';
+import { useUIContext } from '../../context/UIContext';
+import { useFlashcardContext } from '../../modules/flashcards/context/FlashcardContext';
 
 function Controls() {
-    const { language = 'en', isAudioLoading } = useAppContext();
+    const { language = 'en', isAudioLoading } = useUIContext();
     const {
         prevCard, nextCard, markAsLearned, resetDeck,
         currentIndex, filteredData, currentDeckName
