@@ -33,7 +33,7 @@ Instalación del agente local: `infra/ci/install-local-agent.sh`
 
 ---
 
-## Flujo del pipeline (5 stages)
+## Flujo del pipeline (6 stages)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -51,7 +51,25 @@ Instalación del agente local: `infra/ci/install-local-agent.sh`
                               ▼
                     Stage 5 Deploy_Mirrors
                          Oracle → OCI-1 → AWS  (jobs en cadena)
+                              │
+                              ▼
+                    Stage 6 Cleanup (workspace agentes + artefacto ADO)
 ```
+
+### Tiempos esperados (referencia)
+
+| Fase | Duración típica | Por qué tarda |
+|------|-----------------|-------------|
+| Cola / espera agente | 0–5 min | `LocalBuild` debe estar online; si hay otro build corriendo, espera |
+| Stage 1 — Frontend | 2–5 min | `bun install` + `vite build`; cache bun acelera |
+| Stage 2 — Backend buildx | **15–35 min** | Cross-compile Rust **amd64 + arm64**, push GCR; timeout job **45 min** |
+| Stages 3→5 — Deploys | **8–15 min** | **En serie** (Oracle → GCP → OCI-1 → AWS); un solo agente `Default` |
+| Stage 6 — Cleanup | 1–2 min | Limpia disco en agentes; intenta borrar artefacto `flashcard-site` |
+| **Total end-to-end** | **~25–45 min** | Normal en esta arquitectura |
+
+**No encolar dos builds a la vez** (manual + push CI). El 2026-06-18 se encolaron 6 runs duplicados (`main` y `qa` × manual + automático) → el doble de tiempo y artefactos huérfanos.
+
+**Si parece “colgado”:** revisar Stage 2 en Azure (buildx push a GCR) o que `LocalBuild` no esté offline.
 
 ### Por qué los deploys van en serie (no en paralelo)
 
@@ -212,7 +230,70 @@ az pipelines build queue \
 
 ---
 
-## Verificación post-deploy
+## Limpieza de logs y artefactos en Azure DevOps
+
+### Limpieza rápida (1 comando)
+
+**Prerrequisito:** `az login` y extensión `azure-devops` (`az extension add --name azure-devops`).
+
+```bash
+# Siempre primero: simular sin borrar
+./scripts/cleanup-ado-builds.sh --dry-run
+
+# Mantenimiento habitual — conserva último run exitoso de main y qa
+./scripts/cleanup-ado-builds.sh
+
+# Reset total — pipeline como nuevo + logs del agente LocalBuild en tu PC
+./scripts/cleanup-ado-builds.sh --purge-all --clean-agent-logs
+```
+
+| Flag | Efecto |
+|------|--------|
+| *(sin flags)* | Conserva el último run **succeeded** de `main` y `qa`; borra el resto (hasta 200 runs listados) |
+| `--dry-run` | Muestra leases y builds a borrar; no ejecuta DELETE |
+| `--purge-all` | No conserva ningún run — borra todos |
+| `--clean-agent-logs` | Vacía `~/azp-agent-localbuild/_diag/*.log` y `_work/` (override: `AZP_AGENT_DIR`) |
+| `--keep ID …` | Conserva run IDs concretos (anula la detección automática de main/qa) |
+
+Variables opcionales: `ADO_ORG`, `ADO_PROJECT`, `ADO_PIPELINE_ID` (default pipeline `2`).
+
+El script quita **retention leases** en lote y luego borra cada build — evita el bucle lento run × 3 llamadas API.
+
+### Automática (cada deploy)
+
+**Stage 6 Cleanup** (`azure-pipelines.yml`):
+- Borra workspaces y `.log` en agentes `Default` y `LocalBuild`
+- `docker buildx prune` en LocalBuild (últimas 24 h)
+- Intenta `DELETE` del artefacto `flashcard-site` del run actual
+
+> La API de artefactos de build **a menudo no acepta DELETE** por nombre; el stage puede dejar `WARN: could not delete ADO artifact`. Los artefactos viejos se eliminan **borrando el run completo** (ver abajo).
+
+### Retención (por qué no se borran solos)
+
+Azure crea **retention leases** por rama/pipeline. Sin quitar el lease, borrar un run falla con:
+
+`TF900561: ... retention lease on it`
+
+**Dónde viven los logs:**
+
+| Ubicación | Qué es | Cómo borrar |
+|-----------|--------|-------------|
+| **Azure DevOps (nube)** | Log de cada run en el portal | Se elimina **con el run** (`DELETE build`). Con 0 runs no quedan logs de pipeline. |
+| **Agente LocalBuild** (`~/azp-agent-localbuild/_diag/*.log`, `_work/`) | Copia local en tu PC | `--clean-agent-logs` |
+| **Agente Default (Oracle)** | Workspace del agente en el servidor | Stage 6 Cleanup en cada deploy |
+| **Audit log org** (Settings → Auditing) | Eventos de org/proyecto | **No borrable** por API; retención fija de Microsoft |
+
+### Política en portal (opcional)
+
+Azure DevOps → **Project settings** → **Pipelines** → **Settings** → **Retention**:
+- Reducir días de retención de artifacts/logs
+- Evitar “Retain indefinitely” en runs de prueba
+
+### Ver cuántos runs quedan
+
+```bash
+az pipelines runs list --pipeline-ids 2 --top 10 --output table
+```
 
 ```bash
 curl -sf https://fluency.lat/api/health

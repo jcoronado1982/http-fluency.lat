@@ -100,11 +100,15 @@ cd backend || exit
 
 # Resolver features modulares a partir de la config local del frontend
 CLIENT_ENV_FILE="../client/.env.development"
+CLIENT_ENV_LOCAL="../client/.env.development.local"
 AUTO_BACKEND_FEATURES=""
-if [ -f "$CLIENT_ENV_FILE" ]; then
-    if grep -Eq '^VITE_ENABLE_PRONOUN_PRACTICE=true$|^VITE_ENABLE_PRONOUN=true$' "$CLIENT_ENV_FILE"; then
-        AUTO_BACKEND_FEATURES="pronoun_practice"
-    fi
+_env_has_pronoun() {
+    grep -Eq '^VITE_ENABLE_PRONOUN_PRACTICE=true$|^VITE_ENABLE_PRONOUN=true$' "$1" 2>/dev/null
+}
+if [ -f "$CLIENT_ENV_LOCAL" ] && _env_has_pronoun "$CLIENT_ENV_LOCAL"; then
+    AUTO_BACKEND_FEATURES="pronoun_practice"
+elif [ -f "$CLIENT_ENV_FILE" ] && _env_has_pronoun "$CLIENT_ENV_FILE"; then
+    AUTO_BACKEND_FEATURES="pronoun_practice"
 fi
 
 if [ -z "$BACKEND_FEATURES" ] && [ -n "$AUTO_BACKEND_FEATURES" ]; then

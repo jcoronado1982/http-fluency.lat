@@ -32,9 +32,25 @@ az pipelines build queue \
   --branch main
 ```
 
+Trigger automático en push a `qa` o `main` si cambia: `azure-pipelines.yml`, `client/**`, `backend/**`, `infra/**`.
+
 **Un solo build a la vez** — no encolar manual + CI simultáneo.
 
-Trigger automático en push a `main` si cambia: `azure-pipelines.yml`, `client/**`, `backend/**`, `infra/**`.
+### Tiempos esperados
+
+~**25–45 min** por deploy completo (buildx Rust dual-arch + deploys en serie). Detalle por stage en [`pipeline-and-deploy.md`](../docs/infrastructure/pipeline-and-deploy.md#tiempos-esperados-referencia).
+
+### Limpiar logs y artefactos viejos en Azure
+
+**Un comando (reset total):** `./scripts/cleanup-ado-builds.sh --purge-all --clean-agent-logs`
+
+```bash
+./scripts/cleanup-ado-builds.sh --dry-run                              # simular
+./scripts/cleanup-ado-builds.sh                                      # conserva último main + qa
+./scripts/cleanup-ado-builds.sh --purge-all --clean-agent-logs       # reset total
+```
+
+Doc completa: [`pipeline-and-deploy.md`](../docs/infrastructure/pipeline-and-deploy.md#limpieza-de-logs-y-artefactos-en-azure-devops).
 
 ### Inspeccionar builds
 

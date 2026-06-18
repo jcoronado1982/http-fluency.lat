@@ -72,6 +72,16 @@ az pipelines build queue \
 curl -sf https://fluency.lat/api/health
 ```
 
+### Limpieza rápida (1 comando)
+
+```bash
+./scripts/cleanup-ado-builds.sh --dry-run                              # simular
+./scripts/cleanup-ado-builds.sh                                      # conserva último main + qa
+./scripts/cleanup-ado-builds.sh --purge-all --clean-agent-logs       # reset total
+```
+
+Detalle de flags y retención: [`infrastructure/pipeline-and-deploy.md#limpieza-de-logs-y-artefactos-en-azure-devops`](infrastructure/pipeline-and-deploy.md#limpieza-de-logs-y-artefactos-en-azure-devops).
+
 ---
 
 ## Artefactos con nombre legado (intencional)

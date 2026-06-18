@@ -6,7 +6,7 @@ Plataforma de aprendizaje de inglés (antes Flashcard AI). Flashcards con IA, pr
 
 | Archivo / Carpeta | Qué contiene |
 |---|---|
-| 🌿 **[docs/GIT_BRANCHES.md](docs/GIT_BRANCHES.md)** | Ramas: `dev-flashcards` / `dev-pronoun` / `dev-admin` → **`dev-full`** → `qa` → `main`. |
+| 🌿 **[docs/GIT_BRANCHES.md](docs/GIT_BRANCHES.md)** | Ramas: publicación **`dev-flashcards` → `qa` → `main`**; integración local en **`dev-full`**. |
 | 🚀 **[docs/DEPLOY_Y_REPOSITORIO.md](docs/DEPLOY_Y_REPOSITORIO.md)** | Repo GitHub, Azure DevOps, pipeline `jcoronado1982.fluency`. |
 | 📑 **[INFRASTRUCTURE.md](INFRASTRUCTURE.md)** | Servidores, capacidades, enrutamiento y pipeline CI/CD. |
 | 🏗️ **[docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md)** | Clean/Hexagonal, registry, sparse-checkout, módulos plug & play. |
@@ -53,6 +53,11 @@ curl -s https://fluency.lat/api/health
 ./scripts/sparse-module.sh list
 ./scripts/sparse-module.sh flashcards
 ./scripts/sparse-module.sh pronoun
+
+# Limpieza Azure DevOps (runs viejos + logs agente local)
+./scripts/cleanup-ado-builds.sh --dry-run                              # simular
+./scripts/cleanup-ado-builds.sh                                      # conserva último main + qa
+./scripts/cleanup-ado-builds.sh --purge-all --clean-agent-logs       # reset total
 ```
 
-Detalle en [docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md) y [modules/README.md](modules/README.md).
+Detalle en [docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md), [modules/README.md](modules/README.md) y [limpieza ADO](docs/infrastructure/pipeline-and-deploy.md#limpieza-de-logs-y-artefactos-en-azure-devops).
