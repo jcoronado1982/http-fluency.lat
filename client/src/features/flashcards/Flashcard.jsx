@@ -7,6 +7,7 @@ import CardBack from './CardBack.jsx';
 import { useUIContext } from '../../context/UIContext';
 import { useFlashcardContext } from '../../modules/flashcards/context/FlashcardContext';
 import { useCategoryContext } from '../../modules/flashcards/context/CategoryContext';
+import { getCardTitle } from './cardLanguageUtils';
 
 function Flashcard() {
     const { setAppMessage, setIsAudioLoading, setIsIpaModalOpen, language = 'en' } = useUIContext();
@@ -19,7 +20,7 @@ function Flashcard() {
     const [blurredState, setBlurredState] = useState({});
 
     const {
-        playAudio, deleteAudio, activeAudioText, highlightedWordIndex, isGeneratingAudio
+        playAudio, stopAudio, deleteAudio, activeAudioText, highlightedWordIndex, isGeneratingAudio
     } = useAudioPlayback({
         setAppMessage, setIsAudioLoading, currentCategory, currentDeckName,
         verbName: cardData?.name
@@ -54,13 +55,26 @@ function Flashcard() {
         // Solo reseteamos si realmente cambiamos de tarjeta (ID o nombre)
         const currentId = cardData.id || cardData.name || cardData.word;
         if (currentId !== prevCardId) {
+            stopAudio();
             setIsFlipped(false);
             setActiveForm('v1');
             setBlurredState(cardData.definitions?.reduce((acc, _, i) => ({ ...acc, [i]: true }), {}) || {});
             setAppMessage({ text: '', isError: false });
             setPrevCardId(currentId);
+
+            const title = getCardTitle({
+                name: cardData.name,
+                definitions: cardData.definitions || [],
+            }, language);
+            if (title) {
+                void playAudio(title, language);
+            }
         }
-    }, [cardData, setAppMessage, prevCardId]);
+    }, [cardData, setAppMessage, prevCardId, stopAudio, playAudio, language]);
+
+    useEffect(() => () => {
+        stopAudio();
+    }, [stopAudio]);
 
     useEffect(() => {
         const handleKeyDown = (e) => {

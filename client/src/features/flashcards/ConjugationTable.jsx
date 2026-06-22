@@ -18,29 +18,41 @@ function ConjugationTable({ cardData, activeForm, setActiveForm, playAudio, acti
 
     if (currentLanguage === 'es') return null; // No conjugations in Spanish mode for now
 
+    const handleFormSelect = (key, form) => {
+        setActiveForm(key);
+        playAudio(form, currentLanguage);
+    };
+
     return (
         <div className={styles.conjugationTable}>
             {forms.map(({ key, form, phonetic }) => (
                 <div
                     key={key}
                     className={`${styles.conjugationItem} ${activeForm === key ? styles.activeConjugation : ''}`}
-                    onClick={(e) => { e.stopPropagation(); setActiveForm(key); }}
+                    role="button"
+                    tabIndex={0}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        handleFormSelect(key, form);
+                    }}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            handleFormSelect(key, form);
+                        }
+                    }}
                 >
                     <div className={styles.conjugationHeader}>
                         <span className={styles.conjugationForm}>{form}</span>
-                        <button
+                        <span
                             className={`${styles.conjugationAudioBtn} ${isGeneratingAudio && activeAudioText === form ? styles.loadingAudioBtn : ''}`}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setActiveForm(key);
-                                playAudio(form, currentLanguage);
-                            }}
-                            disabled={isGeneratingAudio}
+                            aria-hidden="true"
                         >
                             {isGeneratingAudio && activeAudioText === form
                                 ? <FaSpinner className={styles.spinner} />
                                 : <FiPlay size={15} />}
-                        </button>
+                        </span>
                     </div>
                     <span className={styles.conjugationPhonetic}>{phonetic}</span>
                 </div>

@@ -1180,6 +1180,15 @@
     border: 1px solid transparent;
 }
 
+.conjugationItem:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.conjugationItem:focus-visible {
+    outline: 2px solid rgba(56, 189, 248, 0.65);
+    outline-offset: 2px;
+}
+
 .conjugationLabel {
     display: none;
     /* Ocultamos los títulos V1, V2, V3 */
@@ -1196,24 +1205,22 @@
 
 .conjugationAudioBtn {
     background: transparent;
-    border: 1px solid transparent;
-    border-radius: 50%;
     width: 32px;
     height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     color: #4dabf7;
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    transition: transform 0.2s ease, opacity 0.2s ease;
     flex-shrink: 0;
-    box-shadow: none;
+    pointer-events: none;
+    opacity: 0.95;
 }
 
-.conjugationAudioBtn:hover {
-    background: rgba(77, 171, 247, 0.15);
-    border-color: #4dabf7;
+.conjugationItem:hover .conjugationAudioBtn,
+.conjugationItem:focus-visible .conjugationAudioBtn {
     transform: scale(1.1);
+    opacity: 1;
 }
 
 .conjugationForm {
@@ -1223,7 +1230,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* Ajuste para compartir espacio con el botón */
+    /* Ajuste para compartir espacio con el icono */
     max-width: calc(100% - 40px);
     text-align: center;
 }
