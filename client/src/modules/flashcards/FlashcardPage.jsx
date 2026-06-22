@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import Flashcard from '../../features/flashcards/Flashcard';
 import Controls from '../../features/flashcards/Controls';
@@ -12,6 +12,7 @@ import { useCategoryContext } from './context/CategoryContext';
 import { useFlashcardContext } from './context/FlashcardContext';
 import { getCategoryDisplayName, getGroupDisplayName, getProgressLabel } from '../../features/flashcards/categoryDisplay';
 import { getNextStudyStep } from '../../config/catalogOrder';
+import { navigationIntentRef } from './navigationIntent';
 
 const FLASHCARD_LOADING_COPY = {
     es: {
@@ -95,7 +96,7 @@ export default function FlashcardPage() {
 
     const {
         currentCard, loadingStage: flashcardLoadingStage, filteredData, masterData, currentDeckName,
-        nextCard, prevCard, selectedGroup, changeDeck, setSelectedGroup
+        nextCard, prevCard, selectedGroup, changeDeck, setSelectedGroup, justCompletedInSession,
     } = useFlashcardContext();
     const isPronounsCategory = currentCategory === 'pronouns';
     const { progress, currentTask, reset, setProgress, setCurrentTask } = usePageLoader();
@@ -121,6 +122,11 @@ export default function FlashcardPage() {
     const displayLabel = getProgressLabel(currentCategory, selectedGroup, language);
     const locale = language === 'es' ? 'es' : 'en';
     const isCompletionVisible = masterData.length > 0 && filteredData.length === 0;
+    const isUserViewingCompleted = isCompletionVisible
+        && !justCompletedInSession
+        && navigationIntentRef.current === 'user';
+    const shouldShowCompletionCelebration = isCompletionVisible && justCompletedInSession;
+    const shouldShowCompletionCard = shouldShowCompletionCelebration || isUserViewingCompleted;
     const activeLoadingStage = categoryLoadingStage || flashcardLoadingStage;
     const shouldShowLoading = Boolean(activeLoadingStage);
     const loadingCopy = activeLoadingStage
@@ -153,13 +159,13 @@ export default function FlashcardPage() {
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (shouldShowLoading || isCompletionVisible) return;
+            if (shouldShowLoading || shouldShowCompletionCard) return;
             if (e.key === 'ArrowLeft') prevCard();
             else if (e.key === 'ArrowRight') nextCard();
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [prevCard, nextCard, shouldShowLoading, isCompletionVisible]);
+    }, [prevCard, nextCard, shouldShowLoading, shouldShowCompletionCard]);
 
     useEffect(() => {
         if (!activeLoadingStage || !loadingCopy) {
@@ -171,7 +177,7 @@ export default function FlashcardPage() {
         setCurrentTask(loadingCopy.status);
     }, [activeLoadingStage, loadingCopy, reset, setCurrentTask, setProgress]);
 
-    const handleContinueRecommendation = () => {
+    const handleContinueRecommendation = useCallback(() => {
         if (!recommendation) {
             setIsCatalogVisible(true);
             return;
@@ -190,11 +196,32 @@ export default function FlashcardPage() {
 
         setSelectedGroup(null);
         changeCategory(recommendation.category);
-    };
+    }, [recommendation, setIsCatalogVisible, setSelectedGroup, changeDeck, changeCategory]);
+
+    const autoAdvancedRef = useRef(false);
+
+    useEffect(() => {
+        autoAdvancedRef.current = false;
+    }, [currentCategory, currentDeckName, selectedGroup]);
+
+    useEffect(() => {
+        if (navigationIntentRef.current === 'user') return;
+        if (shouldShowLoading || justCompletedInSession || !isCompletionVisible || autoAdvancedRef.current) {
+            return;
+        }
+
+        autoAdvancedRef.current = true;
+        handleContinueRecommendation();
+    }, [
+        shouldShowLoading,
+        justCompletedInSession,
+        isCompletionVisible,
+        handleContinueRecommendation,
+    ]);
 
     return (
         <div className="flashcard-page-wrapper">
-            {masterData.length > 0 && !isOverlayOpen && !shouldShowLoading && !isCompletionVisible && (
+            {masterData.length > 0 && !isOverlayOpen && !shouldShowLoading && !shouldShowCompletionCard && (
                 <div className={`${styles.cardCounter} ${isPronounsCategory ? styles.pronounsCounter : ''}`}>
                     <div className={styles.counterItem}>
                         <span className={styles.counterLabel}>{displayLabel}</span>
@@ -211,7 +238,7 @@ export default function FlashcardPage() {
             <div className="app-container">
                 <div className="flashcard-main-area"
                     onTouchStart={(e) => {
-                        if (shouldShowLoading || isCompletionVisible) return;
+                        if (shouldShowLoading || shouldShowCompletionCard) return;
                         touchStartRef.current = e.targetTouches[0].clientX;
                     }}
                     onTouchEnd={(e) => {
@@ -230,7 +257,7 @@ export default function FlashcardPage() {
                             currentTask={currentTask}
                             progress={progress}
                         />
-                    ) : isCompletionVisible ? (
+                    ) : shouldShowCompletionCard ? (
                         <CompletionCard
                             language={language}
                             completionScope={completionScope}
@@ -250,7 +277,7 @@ export default function FlashcardPage() {
                     ) : (
                         <Flashcard key={`${currentCategory}-${currentDeckName}-${currentCard.id}-${language}`} />
                     )}
-                    {!shouldShowLoading && !isCompletionVisible && <Controls />}
+                    {!shouldShowLoading && !shouldShowCompletionCard && <Controls />}
                 </div>
             </div>
         </div>

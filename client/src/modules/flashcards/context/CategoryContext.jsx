@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import { flashcardRepository } from '../flashcardRepository';
 import { useAuth } from '../../../context/AuthContext';
 import { FALLBACK_CATEGORIES, sortCategories } from '../../../config/catalogOrder';
+import { markUserNavigation } from '../navigationIntent';
 
 const CategoryContext = createContext();
 
@@ -54,6 +55,7 @@ export const CategoryProvider = ({ children }) => {
     }, [isAuthenticated]);
 
     const changeCategory = useCallback((cat) => {
+        markUserNavigation();
         setCurrentCategory(cat);
         localStorage.setItem(LAST_CATEGORY_KEY, cat);
     }, []);
