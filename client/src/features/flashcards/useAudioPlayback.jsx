@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { audioRepository } from '../../repositories/audioRepository';
 
 const MAX_ATTEMPTS = 3;
@@ -47,8 +47,10 @@ export function useAudioPlayback({
     const [activeVoiceName,   setActiveVoiceName]   = useState(null);
     const [highlightedWordIndex, setHighlightedWordIndex] = useState(-1);
     const [isGeneratingAudio, setIsGeneratingAudio] = useState(false);
+    const playbackRequestIdRef = useRef(0);
 
     const stopAudio = useCallback(() => {
+        playbackRequestIdRef.current += 1;
         audioPlayer.pause();
         audioPlayer.currentTime = 0;
         if (audioPlayer.src.startsWith('blob:')) URL.revokeObjectURL(audioPlayer.src);
@@ -75,6 +77,7 @@ export function useAudioPlayback({
         const finalVerbName = currentDeckName === 'phonics' ? originalText : verbName;
 
         stopAudio();
+        const playbackRequestId = playbackRequestIdRef.current;
 
         setHighlightedWordIndex(-1);
         setActiveAudioText(originalText);
@@ -104,12 +107,14 @@ export function useAudioPlayback({
                     success = true;
                     break;
                 } catch (err) {
+                    if (playbackRequestIdRef.current !== playbackRequestId) return;
                     if (attempt === MAX_ATTEMPTS) throw err;
                     setAppMessage({ text: `Reintentando audio... (${attempt}/${MAX_ATTEMPTS})`, isError: true });
                     await new Promise((r) => setTimeout(r, RETRY_DELAY));
                 }
             }
 
+            if (playbackRequestIdRef.current !== playbackRequestId) return;
             if (!success) throw new Error('No se pudo generar el audio.');
 
             const voiceLabel = data.voice_name || '—';
@@ -145,6 +150,8 @@ export function useAudioPlayback({
                 audioPlayer.addEventListener('error', onError);
                 audioPlayer.load();
             });
+
+            if (playbackRequestIdRef.current !== playbackRequestId) return;
 
             const words = originalText.trim().split(/\s+/);
             const wordLengths = words.map(w => w.replace(/[.,/#!$%^&*;:{}=\-_`~()?]/g,"").length || 1);
@@ -238,11 +245,16 @@ export function useAudioPlayback({
             audioPlayer.ontimeupdate = updateHighlight;
 
             await audioPlayer.play();
+            if (playbackRequestIdRef.current !== playbackRequestId) {
+                stopAudio();
+                return;
+            }
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
             animationFrameId = requestAnimationFrame(trackHighlight);
             setAppMessage({ text: `▶️ Reproduciendo (voz: ${voiceLabel})...`, isError: false });
 
         } catch (err) {
+            if (playbackRequestIdRef.current !== playbackRequestId) return;
             console.error('Error en playAudio:', err);
             durationCleanup?.();
             audioPlayer.ontimeupdate = null;
@@ -253,7 +265,9 @@ export function useAudioPlayback({
             setHighlightedWordIndex(-1);
             setIsAudioLoading(false);
         } finally {
-            setIsGeneratingAudio(false);
+            if (playbackRequestIdRef.current === playbackRequestId) {
+                setIsGeneratingAudio(false);
+            }
         }
     }, [stopAudio, setAppMessage, setIsAudioLoading, currentCategory, currentDeckName, verbName]);
 
