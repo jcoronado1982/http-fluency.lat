@@ -1,26 +1,11 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { flashcardRepository } from '../flashcardRepository';
 import { useAuth } from '../../../context/AuthContext';
+import { FALLBACK_CATEGORIES, sortCategories } from '../../../config/catalogOrder';
 
 const CategoryContext = createContext();
 
 const LAST_CATEGORY_KEY = 'flashcards_last_category';
-
-const CATEGORY_ORDER = [
-    'pronouns', 'verbs', 'nouns', 'preposition', 'adjectives',
-    'adverbs', 'connectors', 'determinant', 'phrasal_verbs',
-];
-
-const FALLBACK_CATEGORIES = CATEGORY_ORDER;
-
-const sortCategories = (cats) =>
-    [...cats].sort((a, b) => {
-        const iA = CATEGORY_ORDER.indexOf(a);
-        const iB = CATEGORY_ORDER.indexOf(b);
-        if (iA === -1) return 1;
-        if (iB === -1) return -1;
-        return iA - iB;
-    });
 
 export const CategoryProvider = ({ children }) => {
     const [categories, setCategories] = useState([]);
