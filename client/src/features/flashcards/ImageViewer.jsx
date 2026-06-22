@@ -107,17 +107,15 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
             {showLoader && (
                 <div className={styles.imageLoadingOverlay} style={{ position: 'absolute', zIndex: 10, width: '100%', height: '100%' }}>
                     <div className={styles.loaderVisualContainer}>
+                        <div className={styles.aiLoaderGlow} />
                         <div className={styles.aiLoaderCircle} />
                         <div className={styles.aiLoaderCircleInner} />
                         <FiCpu className={styles.aiLoaderIcon} />
                     </div>
                     <div className={styles.aiLoaderTextContainer}>
                         <h4 className={styles.aiLoaderText}>
-                            {isGeneratingImage ? 'GENERANDO ESCENA' : 'CARGANDO IMAGEN'}
+                            {isGeneratingImage ? 'Generating image...' : 'Loading image...'}
                         </h4>
-                        <span className={styles.aiLoaderSubtext}>
-                            {isGeneratingImage ? 'FLUX.2 AI ENGINE • STAGE 1' : 'VERIFICANDO EN SERVIDOR'}
-                        </span>
                     </div>
                 </div>
             )}

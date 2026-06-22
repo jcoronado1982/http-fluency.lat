@@ -13,15 +13,18 @@ function PresenceTracker() {
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [loadingStage, setLoadingStage] = useState('restoring_session');
 
     useEffect(() => {
         const authData = authRepository.getAuthData();
         if (!authData) {
+            setLoadingStage(null);
             setLoading(false);
             return;
         }
 
         setUser(authData.user);
+        setLoadingStage('syncing_session');
 
         // Sincronizar rol con el servidor (localStorage puede decir "admin" con JWT viejo "viewer").
         httpClient.get('/api/auth/me')
@@ -33,7 +36,10 @@ export const AuthProvider = ({ children }) => {
                 }
             })
             .catch((err) => console.warn('No se pudo sincronizar rol desde /api/auth/me:', err))
-            .finally(() => setLoading(false));
+            .finally(() => {
+                setLoadingStage(null);
+                setLoading(false);
+            });
     }, []);
 
     const login = async (idToken) => {
@@ -74,6 +80,7 @@ export const AuthProvider = ({ children }) => {
     const value = {
         user,
         loading,
+        loadingStage,
         login,
         loginAsGuest,
         logout,

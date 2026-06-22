@@ -308,6 +308,14 @@
     0 0 15px rgba(var(--card-accent), 0.1);
 }
 
+.groupCardComplete {
+  cursor: default;
+}
+
+.groupCardComplete:hover {
+  transform: none;
+}
+
 .groupCard::after {
   content: '';
   position: absolute;
@@ -327,6 +335,13 @@
   margin-bottom: 8px;
 }
 
+.groupActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
 .groupName {
   font-size: 0.98em;
   font-weight: 700;
@@ -342,6 +357,25 @@
   padding: 3px 6px;
   border-radius: 6px;
   color: #94a3b8;
+}
+
+.resetGroupBtn {
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.resetGroupBtn:hover {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #6ee7b7;
 }
 
 /* Barra de Progreso */
@@ -417,11 +451,16 @@
 @media (max-width: 900px) {
   .categorySelectorOverlay {
     padding: 15px;
+    align-items: flex-start;
+    overflow-y: auto;
   }
   
   .dashboardContainer {
     flex-direction: column;
-    max-height: 90vh;
+    height: auto;
+    min-height: calc(100vh - 30px);
+    max-height: none;
+    overflow: visible;
   }
   
   .sidebar {
@@ -433,21 +472,32 @@
   }
   
   .categoryNav {
-    flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+    overflow: visible;
     gap: 8px;
-    padding-bottom: 8px;
+    padding-bottom: 0;
   }
   
   .categoryBtn {
     flex-direction: row;
     gap: 8px;
-    padding: 8px 12px;
-    flex-shrink: 0;
+    padding: 10px 12px;
+    min-width: 0;
   }
   
+  .categoryInfo {
+    min-width: 0;
+  }
+
+  .categoryName {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .categoryCount {
     margin-left: 6px;
+    flex-shrink: 0;
   }
 }

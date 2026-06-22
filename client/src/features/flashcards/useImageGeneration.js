@@ -55,8 +55,6 @@ export function useImageGeneration({
     const displayedFormRef = useRef('v1');
     const imageUrlRef = useRef(null);
     const confirmedPathRef = useRef(null);
-    /** Rutas ya resueltas en esta sesión por tarjeta+forma+def (evita re-resolve al volver) */
-    const loadedPathsRef = useRef(new Map());
     const isTransitioningRef = useRef(false);
     /** Ref siempre actualizado con activeForm — permite leer el valor actual en closures de efectos */
     const activeFormRef = useRef(activeForm);
@@ -69,11 +67,6 @@ export function useImageGeneration({
     }, [cardData, activeForm]);
 
     const canGenerateImages = user?.role === 'premium' || user?.role === 'admin';
-
-    const getDefKey = useCallback((defIndex) => {
-        if (!cardData) return '';
-        return `${cardData.id}_${activeForm}_${defIndex}`;
-    }, [cardData, activeForm]);
 
     const clearGeneratingUiTimer = useCallback(() => {
         if (generatingUiTimerRef.current) {
@@ -105,12 +98,7 @@ export function useImageGeneration({
         return null;
     }, [cardData, currentCategory, currentDeckName, activeForm]);
 
-    const rememberPath = useCallback((defIndex, normalizedPath) => {
-        loadedPathsRef.current.set(getDefKey(defIndex), normalizedPath);
-    }, [getDefKey]);
-
     const applyLoadedImage = useCallback((url, path, defIndex, form = activeForm) => {
-        rememberPath(defIndex, path);
         confirmedPathRef.current = path;
         imageUrlRef.current = url;
         displayedFormRef.current = form;
@@ -121,7 +109,7 @@ export function useImageGeneration({
         setIsGeneratingImage(false);
         isTransitioningRef.current = false;
         clearGeneratingUiTimer();
-    }, [rememberPath, clearGeneratingUiTimer, activeForm]);
+    }, [clearGeneratingUiTimer, activeForm]);
 
     const setImageFromPath = useCallback((path, defIndex, cacheBust = false, form = activeForm) => {
         const normalizedPath = imageRepository.normalizeToAvif(path);
@@ -245,14 +233,6 @@ export function useImageGeneration({
             return;
         }
 
-        // Caché de sesión por tarjeta+forma+def (la clave ya incluye activeForm)
-        const knownPath = loadedPathsRef.current.get(getDefKey(defIndex));
-        if (!forceRegenerate && knownPath) {
-            setImageFromPath(knownPath, defIndex, false, activeForm);
-            setAppMessage({ text: `Imagen (Def ${defIndex + 1}) lista`, isError: false });
-            return;
-        }
-
         const contextChanged = displayedFormRef.current !== activeForm
             || currentDefIndexRef.current !== defIndex;
 
@@ -273,6 +253,16 @@ export function useImageGeneration({
         setAppMessage({ text: `⏳ Verificando imagen (Def ${defIndex + 1})...`, isError: false });
 
         const getFormDefs = (form) => (FORM_DEF_MAP[form] || FORM_DEF_MAP.v1)(cardData);
+
+        const tryImmediateJsonPath = (form) => {
+            const formDefs = getFormDefs(form);
+            if (!formDefs?.[defIndex]?.imagePath) return false;
+
+            const jsonPath = imageRepository.normalizeToAvif(formDefs[defIndex].imagePath);
+            setImageFromPath(jsonPath, defIndex, cardData.force_generation, activeForm);
+            setAppMessage({ text: `Imagen (Def ${defIndex + 1}) lista`, isError: false });
+            return true;
+        };
 
         const tryResolveForm = async (form) => {
             if (!isAuthenticated || !currentCategory || !currentDeckName) return false;
@@ -306,24 +296,6 @@ export function useImageGeneration({
             return false;
         };
 
-        const tryJsonImagePath = async (form) => {
-            const formDefs = getFormDefs(form);
-            if (!formDefs?.[defIndex]?.imagePath) return false;
-
-            const jsonPath = imageRepository.normalizeToAvif(formDefs[defIndex].imagePath);
-            const accessible = await imageRepository.verifyAccessible(jsonPath, cardData.force_generation);
-            if (isStale()) {
-                isTransitioningRef.current = false;
-                return false;
-            }
-            if (accessible) {
-                setImageFromPath(jsonPath, defIndex, cardData.force_generation, activeForm);
-                setAppMessage({ text: `Imagen (Def ${defIndex + 1}) lista`, isError: false });
-                return true;
-            }
-            return false;
-        };
-
         const tryVerifyPath = async (path) => {
             if (!path) return false;
             const accessible = await imageRepository.verifyAccessible(path, cardData.force_generation);
@@ -340,17 +312,15 @@ export function useImageGeneration({
         };
 
         if (!forceRegenerate) {
+            // Si la tarjeta ya trae imagePath, pintamos directo sin esperar roundtrip extra.
+            if (tryImmediateJsonPath(activeForm)) return;
+            if (activeForm !== 'v1' && tryImmediateJsonPath('v1')) return;
+
             // resolve-image (backend hace fallback v1 para v2/v3 si no hay imagen propia)
             if (await tryResolveForm(activeForm)) return;
 
-            // imagePath explícito en JSON (solo si existe; no adivinar rutas _v2/_v3)
-            if (await tryJsonImagePath(activeForm)) return;
-
             // Sin auth o resolve falló: probar v1 por JSON o ruta canónica
             if (activeForm !== 'v1') {
-                // Bug 2: tryResolveForm('v1') eliminado — el backend ya hace fallback v1 internamente
-                // en resolve_image_path(), una segunda llamada HTTP es redundante.
-                if (await tryJsonImagePath('v1')) return;
                 const v1Defs = getFormDefs('v1');
                 const v1Path = v1Defs?.[defIndex]?.imagePath
                     ? imageRepository.normalizeToAvif(v1Defs[defIndex].imagePath)
@@ -390,7 +360,7 @@ export function useImageGeneration({
         cardData, currentCategory, currentDeckName, isAuthenticated,
         getActiveDefinitions, activeForm, buildGlobalFallbackPath,
         canGenerateImages, setImageFromPath, fetchViaGenerate, setAppMessage,
-        clearGeneratingUiTimer, getDefKey,
+        clearGeneratingUiTimer,
     ]);
 
     const ensureImageForDefinition = useCallback(async (defIndex, options = {}) => {
@@ -419,9 +389,8 @@ export function useImageGeneration({
 
         confirmedPathRef.current = null;
         imageUrlRef.current = null;
-        loadedPathsRef.current.delete(getDefKey(defIndex));
         ensureImageForDefinition(defIndex, { forceRegenerate: false });
-    }, [setImageFromPath, ensureImageForDefinition, setAppMessage, getDefKey]);
+    }, [setImageFromPath, ensureImageForDefinition, setAppMessage]);
 
     const prevCardIdRef = useRef(null);
 
@@ -436,8 +405,6 @@ export function useImageGeneration({
         setImageUrl(null);
         imageUrlRef.current = null;
         confirmedPathRef.current = null;
-        loadedPathsRef.current.clear();
-        imageAttempts.current = {};
         activeGenerations.current = {};
         currentDefIndexRef.current = 0;
         displayedFormRef.current = activeFormRef.current; // Bug 3: usar el form activo real, no hardcoded 'v1'
@@ -463,7 +430,6 @@ export function useImageGeneration({
 
         const genKey = `${cardData.id}_${activeForm}_${defIndex}`;
         imageAttempts.current[genKey] = 0;
-        loadedPathsRef.current.delete(getDefKey(defIndex));
         setAppMessage({ text: 'Eliminando imagen...', isError: false });
         setIsImageLoading(true);
         setIsGeneratingImage(false);
@@ -500,7 +466,7 @@ export function useImageGeneration({
     }, [
         cardData, currentCategory, currentDeckName,
         setAppMessage, updateCardImagePath, ensureImageForDefinition, getActiveDefinitions, activeForm,
-        clearGeneratingUiTimer, getDefKey,
+        clearGeneratingUiTimer,
     ]);
 
     const uploadImage = useCallback(async (file) => {

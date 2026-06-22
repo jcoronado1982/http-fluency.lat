@@ -100,17 +100,6 @@ function CardFront({
 
     return (
         <div className={styles.cardFront}>
-            {/* Botón de sonido principal */}
-            <button
-                className={`${styles.soundButton} ${isGeneratingAudio && activeAudioText === title ? styles.loadingAudioBtn : ''}`}
-                onClick={(e) => { e.stopPropagation(); playDefinitionMedia(0, title, currentLanguage); }}
-                disabled={isGeneratingAudio}
-            >
-                {isGeneratingAudio && activeAudioText === title
-                    ? <FaSpinner className={styles.spinner} />
-                    : <FiPlay size={22} />}
-            </button>
-
             {/* Nombre + botón borrar audio */}
             <h2 className={styles.name}>
                 <div className={styles.nameContainer}>
@@ -132,6 +121,15 @@ function CardFront({
                             </button>
                         )}
                     </div>
+                    <button
+                        className={`${styles.soundButton} ${isGeneratingAudio && activeAudioText === title ? styles.loadingAudioBtn : ''}`}
+                        onClick={(e) => { e.stopPropagation(); playDefinitionMedia(0, title, currentLanguage); }}
+                        disabled={isGeneratingAudio}
+                    >
+                        {isGeneratingAudio && activeAudioText === title
+                            ? <FaSpinner className={styles.spinner} />
+                            : <FiPlay size={22} />}
+                    </button>
                 </div>
             </h2>
 

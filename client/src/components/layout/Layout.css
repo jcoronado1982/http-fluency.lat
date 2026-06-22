@@ -384,6 +384,11 @@
         /* Take remaining space */
     }
 
+    .app-header.sidebar-open + .page-content,
+    .app-header.manual-open + .page-content {
+        padding-top: 70px;
+    }
+
     .tone-selector-wrapper {
         /* flex: 1; <-- Removed so it doesn't force expansion */
         justify-content: flex-end;
