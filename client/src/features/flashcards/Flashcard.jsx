@@ -9,11 +9,38 @@ import { useFlashcardContext } from '../../modules/flashcards/context/FlashcardC
 import { useCategoryContext } from '../../modules/flashcards/context/CategoryContext';
 import { getCardTitle } from './cardLanguageUtils';
 
+const getDefinitionsForForm = (card, form) => {
+    if (!card) return [];
+    if (form === 'v2') {
+        return card.irregular?.past?.definitions || [];
+    }
+    if (form === 'v3') {
+        return card.irregular?.participle?.definitions || [];
+    }
+    return card.definitions || [];
+};
+
 function Flashcard() {
-    const { setAppMessage, setIsAudioLoading, setIsIpaModalOpen, language = 'en' } = useUIContext();
+    const {
+        setAppMessage,
+        setIsAudioLoading,
+        setIsIpaModalOpen,
+        isCatalogVisible,
+        isIpaModalOpen,
+        isPhonicsModalOpen,
+        isFloatingMenuOpen,
+        isSidebarOpen,
+        language = 'en',
+    } = useUIContext();
     const { currentCategory } = useCategoryContext();
     const { currentCard: cardData, currentDeckName, updateCardImagePath } = useFlashcardContext();
     const [prevCardId, setPrevCardId] = useState(null);
+    const isAnyOverlayOpen =
+        isCatalogVisible ||
+        isIpaModalOpen ||
+        isPhonicsModalOpen ||
+        isFloatingMenuOpen ||
+        isSidebarOpen;
 
     const [isFlipped, setIsFlipped] = useState(false);
     const [activeForm, setActiveForm] = useState('v1');
@@ -58,7 +85,9 @@ function Flashcard() {
             stopAudio();
             setIsFlipped(false);
             setActiveForm('v1');
-            setBlurredState(cardData.definitions?.reduce((acc, _, i) => ({ ...acc, [i]: true }), {}) || {});
+            setBlurredState(
+                getDefinitionsForForm(cardData, 'v1').reduce((acc, _, i) => ({ ...acc, [i]: true }), {})
+            );
             setAppMessage({ text: '', isError: false });
             setPrevCardId(currentId);
 
@@ -66,11 +95,19 @@ function Flashcard() {
                 name: cardData.name,
                 definitions: cardData.definitions || [],
             }, language);
-            if (title) {
+            if (title && !isAnyOverlayOpen) {
                 void playAudio(title, language);
             }
         }
-    }, [cardData, setAppMessage, prevCardId, stopAudio, playAudio, language]);
+    }, [cardData, setAppMessage, prevCardId, stopAudio, playAudio, language, isAnyOverlayOpen]);
+
+    useEffect(() => {
+        if (!cardData?.irregular) return;
+
+        setBlurredState(
+            getDefinitionsForForm(cardData, activeForm).reduce((acc, _, i) => ({ ...acc, [i]: true }), {})
+        );
+    }, [activeForm, cardData]);
 
     useEffect(() => () => {
         stopAudio();

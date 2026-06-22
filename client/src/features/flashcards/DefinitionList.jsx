@@ -58,7 +58,7 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
                             </button>
                         )}
 
-                        {currentLanguage !== 'es' && def.pronunciation_guide_es && (
+                        {currentLanguage !== 'es' && def.pronunciation_guide_es && !blurredState[di] && (
                             <span className={styles.customTooltip}>{def.pronunciation_guide_es}</span>
                         )}
                     </li>

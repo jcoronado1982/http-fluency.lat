@@ -22,6 +22,7 @@ export const UIProvider = ({ children }) => {
     const [isAudioLoading, setIsAudioLoading]       = useState(false);
     const [isFloatingMenuOpen, setIsFloatingMenuOpen] = useState(false);
     const [isHeaderManualOpen, setIsHeaderManualOpen] = useState(true);
+    const [isMainLoadingBlocked, setIsMainLoadingBlocked] = useState(false);
 
     return (
         <UIContext.Provider value={{
@@ -34,6 +35,7 @@ export const UIProvider = ({ children }) => {
             isAudioLoading, setIsAudioLoading,
             isFloatingMenuOpen, setIsFloatingMenuOpen,
             isHeaderManualOpen, setIsHeaderManualOpen,
+            isMainLoadingBlocked, setIsMainLoadingBlocked,
         }}>
             {children}
         </UIContext.Provider>

@@ -47,6 +47,8 @@ export const translations = {
             learned: "aprendidas",
             complete: "✓ completo",
             newStr: "nuevo",
+            restartGroup: "Reiniciar",
+            restartGroupConfirm: "¿Quieres reiniciar la subcategoría \"{group}\"?",
             groups: {
                 General: "General",
                 "Being & State": "Ser y Estado",
@@ -278,6 +280,8 @@ export const translations = {
             learned: "learned",
             complete: "✓ complete",
             newStr: "new",
+            restartGroup: "Restart",
+            restartGroupConfirm: "Do you want to restart the \"{group}\" subcategory?",
             groups: {
                 General: "General",
                 "Being & State": "Being & State",

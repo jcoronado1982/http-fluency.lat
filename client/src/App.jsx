@@ -46,20 +46,21 @@ const defaultPath = getDefaultAppPath(config, baseRoutes);
 const moduleOverlays = getModuleOverlays(config);
 
 function AppContent() {
-  const { isSidebarOpen, setIsSidebarOpen } = useAppContext();
+  const { isSidebarOpen, setIsSidebarOpen, isMainLoadingBlocked } = useAppContext();
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
+  const isShellBlocked = !isLoginPage && isMainLoadingBlocked;
 
   return (
     <div className="app-layout">
-      {!isLoginPage && <Sidebar />}
+      {!isLoginPage && !isShellBlocked && <Sidebar />}
 
-      {isSidebarOpen && (
+      {isSidebarOpen && !isShellBlocked && (
         <div className="sidebar-overlay" onClick={() => setIsSidebarOpen(false)} />
       )}
 
       <div className={`main-content ${isSidebarOpen && !isLoginPage ? 'sidebar-open' : 'sidebar-closed'}`}>
-        {!isLoginPage && <Header />}
+        {!isLoginPage && !isShellBlocked && <Header />}
 
         <main className="page-content">
           <Routes>
@@ -76,10 +77,10 @@ function AppContent() {
             <Route path="*" element={<Navigate to={defaultPath} replace />} />
           </Routes>
         </main>
-        {!isLoginPage && <Footer />}
+        {!isLoginPage && !isShellBlocked && <Footer />}
       </div>
 
-      {moduleOverlays.map((overlay, index) => (
+      {!isShellBlocked && moduleOverlays.map((overlay, index) => (
         <React.Fragment key={index}>{overlay}</React.Fragment>
       ))}
     </div>

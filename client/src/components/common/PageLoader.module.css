@@ -1,0 +1,192 @@
+.pageLoader {
+    --loader-accent: #2f7ef7;
+    --loader-accent-2: #45c2ff;
+    --loader-bg: #0b1424;
+    --loader-surface: rgba(22, 37, 68, 0.95);
+    --loader-surface-2: rgba(21, 35, 64, 0.98);
+    --loader-text: #f7f9fd;
+    --loader-muted: #7c93be;
+    --loader-track: rgba(42, 55, 83, 0.72);
+    --loader-border: rgba(90, 150, 255, 0.12);
+    font-family: inherit;
+
+    position: fixed;
+    inset: 0;
+    z-index: 1300;
+    width: 100vw;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 18px;
+    box-sizing: border-box;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 18%, rgba(48, 116, 255, 0.12), transparent 20%),
+        radial-gradient(circle at 50% 78%, rgba(40, 86, 165, 0.08), transparent 30%),
+        linear-gradient(180deg, #09111f 0%, var(--loader-bg) 100%);
+}
+
+.panel {
+    position: relative;
+    width: min(100%, 378px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 38px 40px 34px;
+    border-radius: 22px;
+    text-align: center;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at top, rgba(58, 124, 255, 0.12), transparent 44%),
+        linear-gradient(180deg, var(--loader-surface), var(--loader-surface-2));
+    box-shadow:
+        0 20px 52px rgba(0, 0, 0, 0.26),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.panel::after {
+    content: '';
+    position: absolute;
+    inset: 14px;
+    border-radius: 18px;
+    pointer-events: none;
+}
+
+.topBar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    overflow: hidden;
+    background: rgba(69, 194, 255, 0.03);
+}
+
+.topBarGlow {
+    display: block;
+    width: 52%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--loader-accent-2), transparent);
+    animation: topBarDrift 2.4s ease-in-out infinite;
+}
+
+.title {
+    margin: 0;
+    color: var(--loader-text);
+    font-family: inherit;
+    font-size: clamp(1.85rem, 4vw, 2.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.05em;
+    font-weight: 800;
+    max-width: 10ch;
+    text-wrap: balance;
+}
+
+.subtitle {
+    margin: 4px 0 0;
+    color: var(--loader-muted);
+    font-size: 0.96rem;
+    line-height: 1.62;
+    max-width: 26ch;
+    text-wrap: balance;
+}
+
+.progressWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.progressTrack {
+    position: relative;
+    width: 100%;
+    height: 5px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--loader-track);
+}
+
+.progressFill {
+    position: relative;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--loader-accent) 0%, var(--loader-accent-2) 100%);
+    box-shadow: 0 0 16px rgba(69, 194, 255, 0.32);
+    transition: width 420ms ease;
+}
+
+.progressFill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.26), transparent);
+    animation: fillShine 1.4s ease-in-out infinite;
+}
+
+.progressMeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    font-size: 0.84rem;
+    letter-spacing: 0.06em;
+}
+
+.progressLabel {
+    min-width: 0;
+    color: #4fa4ff;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+}
+
+.progressPercent {
+    color: #8da5cf;
+    font-weight: 700;
+}
+
+@keyframes topBarDrift {
+    0% {
+        transform: translateX(-34%);
+    }
+
+    50% {
+        transform: translateX(106%);
+    }
+
+    100% {
+        transform: translateX(-34%);
+    }
+}
+
+@keyframes fillShine {
+    0% {
+        transform: translateX(-80%);
+    }
+
+    100% {
+        transform: translateX(180%);
+    }
+}
+
+@media (max-width: 768px) {
+    .panel {
+        width: min(100%, 334px);
+        padding: 34px 22px 28px;
+    }
+
+    .title {
+        font-size: 1.52rem;
+    }
+
+    .subtitle,
+    .progressMeta {
+        font-size: 0.9rem;
+    }
+}

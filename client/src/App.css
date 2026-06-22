@@ -274,9 +274,160 @@
     opacity: 0.8;
 }
 
+.loadingCardPreview {
+    width: min(100%, 620px);
+    min-height: 620px;
+    margin: 24px auto 0;
+    padding: 18px 18px 20px;
+    border-radius: 28px;
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.98));
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.38);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loadingCardPreview::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.06) 50%, transparent 100%);
+    transform: translateX(-100%);
+    animation: loadingShimmer 1.6s infinite;
+}
+
+.loadingCardPreviewHeader,
+.loadingCardPreviewBody {
+    position: relative;
+    z-index: 1;
+}
+
+.loadingCardPreviewHeader {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding-top: 4px;
+}
+
+.loadingLineShort,
+.loadingLineShortest,
+.loadingTitlePill,
+.loadingTitlePillSmall,
+.loadingTextLine,
+.loadingTextLineShort,
+.loadingImageBlock {
+    background: linear-gradient(90deg, rgba(96, 165, 250, 0.12), rgba(148, 163, 184, 0.22), rgba(96, 165, 250, 0.12));
+    background-size: 200% 100%;
+    animation: loadingPulse 1.4s ease-in-out infinite;
+    border-radius: 999px;
+}
+
+.loadingLineShort {
+    width: 110px;
+    height: 12px;
+}
+
+.loadingLineShortest {
+    width: 54px;
+    height: 12px;
+}
+
+.loadingCardPreviewBody {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    flex: 1;
+}
+
+.loadingTitleRow {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.loadingTitlePill {
+    width: 100%;
+    height: 56px;
+    border-radius: 16px;
+}
+
+.loadingTitlePillSmall {
+    width: 64px;
+    height: 56px;
+    border-radius: 16px;
+}
+
+.loadingTextLine {
+    width: 78%;
+    height: 14px;
+    margin-top: 8px;
+}
+
+.loadingTextLineShort {
+    width: 52%;
+    height: 14px;
+}
+
+.loadingImageBlock {
+    width: 100%;
+    flex: 1;
+    min-height: 320px;
+    border-radius: 24px;
+}
+
+@keyframes loadingPulse {
+    0%, 100% {
+        background-position: 0% 50%;
+        opacity: 0.65;
+    }
+
+    50% {
+        background-position: 100% 50%;
+        opacity: 1;
+    }
+}
+
+@keyframes loadingShimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
 @media (max-width: 768px) {
     .app-container {
-        padding: 50px 10px 0px 10px !important;
+        padding: 60px 10px 0px 10px !important;
         padding-bottom: 20px;
+    }
+
+    .loadingCardPreview {
+        min-height: 520px;
+        margin-top: 12px;
+        padding: 14px 12px 16px;
+        border-radius: 22px;
+    }
+
+    .loadingLineShort {
+        width: 84px;
+    }
+
+    .loadingLineShortest {
+        width: 44px;
+    }
+
+    .loadingTitlePill,
+    .loadingTitlePillSmall {
+        height: 48px;
+    }
+
+    .loadingImageBlock {
+        min-height: 260px;
+        border-radius: 18px;
     }
 }

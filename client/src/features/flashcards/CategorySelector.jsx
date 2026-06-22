@@ -31,13 +31,12 @@ const formatName = (name, t) => {
 function CategorySelector() {
     const { setIsCatalogVisible, language = 'en' } = useUIContext();
     const { categories, currentCategory, changeCategory } = useCategoryContext();
-    
     const t = translations[language].categorySelector;
 
     const { categoryTotals } = useCategoryContext();
 
     const {
-        deckNames, currentDeckName, changeDeck, masterData, setSelectedGroup
+        deckNames, currentDeckName, changeDeck, masterData, setSelectedGroup, resetGroup
     } = useFlashcardContext();
 
     const totalCards = masterData.length;
@@ -86,6 +85,22 @@ function CategorySelector() {
     const handleGroupClick = (groupName) => {
         setSelectedGroup(groupName === 'General' ? null : groupName);
         setIsCatalogVisible(false);
+    };
+
+    const handleGroupReset = async (event, groupName) => {
+        event.stopPropagation();
+
+        const groupLabel = t.groups?.[groupName] || groupName;
+        const shouldReset = window.confirm(
+            t.restartGroupConfirm.replace('{group}', groupLabel),
+        );
+
+        if (!shouldReset) return;
+
+        const resetOk = await resetGroup(groupName);
+        if (resetOk) {
+            handleGroupClick(groupName);
+        }
     };
 
     return (
@@ -159,17 +174,35 @@ function CategorySelector() {
                             const isComplete = group.learned === group.total;
                             const isNew = group.learned === 0;
                             const categoryColor = categoryColors[currentCategory] || '#38bdf8';
+                            const progressColor = isComplete
+                                ? '#10b981'
+                                : isNew
+                                    ? categoryColor
+                                    : '#f59e0b';
 
                             return (
-                                <div 
+                                <div
                                     key={group.name} 
-                                    className={styles.groupCard}
-                                    onClick={() => handleGroupClick(group.name)}
+                                    className={`${styles.groupCard} ${isComplete ? styles.groupCardComplete : ''}`}
+                                    onClick={isComplete ? undefined : () => handleGroupClick(group.name)}
                                     style={{ '--card-accent': categoryColor }}
+                                    aria-disabled={isComplete}
                                 >
                                     <div className={styles.groupHeader}>
                                         <h4 className={styles.groupName}>{t.groups && t.groups[group.name] ? t.groups[group.name] : group.name}</h4>
-                                        <span className={styles.groupCountBadge}>{group.total}</span>
+                                        <div className={styles.groupActions}>
+                                            {isComplete ? (
+                                                <button
+                                                    type="button"
+                                                    className={styles.resetGroupBtn}
+                                                    onClick={(event) => handleGroupReset(event, group.name)}
+                                                >
+                                                    {t.restartGroup}
+                                                </button>
+                                            ) : (
+                                                <span className={styles.groupCountBadge}>{group.total}</span>
+                                            )}
+                                        </div>
                                     </div>
 
                                     {/* Barra de progreso */}
@@ -178,7 +211,7 @@ function CategorySelector() {
                                             className={styles.progressBar} 
                                             style={{ 
                                                 width: `${progressPercent}%`,
-                                                backgroundColor: categoryColor
+                                                backgroundColor: progressColor
                                             }}
                                         />
                                     </div>

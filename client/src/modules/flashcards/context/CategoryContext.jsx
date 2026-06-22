@@ -11,6 +11,8 @@ const CATEGORY_ORDER = [
     'adverbs', 'connectors', 'determinant', 'phrasal_verbs',
 ];
 
+const FALLBACK_CATEGORIES = CATEGORY_ORDER;
+
 const sortCategories = (cats) =>
     [...cats].sort((a, b) => {
         const iA = CATEGORY_ORDER.indexOf(a);
@@ -25,30 +27,41 @@ export const CategoryProvider = ({ children }) => {
     const [categoryTotals, setCategoryTotals] = useState({});
     const [currentCategory, setCurrentCategory] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [loadingStage, setLoadingStage] = useState('loading_categories');
     const { isAuthenticated } = useAuth();
 
     useEffect(() => {
         if (!isAuthenticated) return;
         const load = async () => {
             setIsLoading(true);
+            setLoadingStage('loading_categories');
             try {
                 const result = await flashcardRepository.fetchCategories();
-                if (result.success && Array.isArray(result.categories)) {
-                    const items = result.categories;
-                    const names = items.map(c => (typeof c === 'object' ? c.name : c));
-                    const totals = {};
-                    items.forEach(c => {
-                        if (typeof c === 'object') totals[c.name] = c.total;
-                    });
-                    const sorted = sortCategories(names);
-                    setCategories(sorted);
-                    setCategoryTotals(totals);
-                    const saved = localStorage.getItem(LAST_CATEGORY_KEY);
-                    setCurrentCategory(saved && sorted.includes(saved) ? saved : sorted[0] ?? null);
-                }
+                const items = Array.isArray(result)
+                    ? result
+                    : (result?.success && Array.isArray(result.categories) ? result.categories : []);
+
+                const names = items.map((c) => (typeof c === 'object' ? c?.name : c)).filter(Boolean);
+                const totals = {};
+                items.forEach((c) => {
+                    if (c && typeof c === 'object' && c.name) totals[c.name] = c.total;
+                });
+
+                const sorted = sortCategories(names);
+                const nextCategories = sorted.length > 0 ? sorted : [...FALLBACK_CATEGORIES];
+                setCategories(nextCategories);
+                setCategoryTotals(totals);
+                const saved = localStorage.getItem(LAST_CATEGORY_KEY);
+                setCurrentCategory(saved && nextCategories.includes(saved) ? saved : nextCategories[0] ?? null);
             } catch {
-                // Error silencioso
+                console.error('No se pudieron cargar las categorías. Usando fallback local.');
+                const fallback = [...FALLBACK_CATEGORIES];
+                setCategories(fallback);
+                setCategoryTotals({});
+                const saved = localStorage.getItem(LAST_CATEGORY_KEY);
+                setCurrentCategory(saved && fallback.includes(saved) ? saved : fallback[0] ?? null);
             } finally {
+                setLoadingStage(null);
                 setIsLoading(false);
             }
         };
@@ -61,7 +74,7 @@ export const CategoryProvider = ({ children }) => {
     }, []);
 
     return (
-        <CategoryContext.Provider value={{ categories, categoryTotals, currentCategory, changeCategory, isLoading }}>
+        <CategoryContext.Provider value={{ categories, categoryTotals, currentCategory, changeCategory, isLoading, loadingStage }}>
             {children}
         </CategoryContext.Provider>
     );

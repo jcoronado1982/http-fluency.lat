@@ -1,13 +1,73 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useUIContext } from '../../context/UIContext';
+import PageLoader from './PageLoader';
+
+const LOADING_COPY = {
+    es: {
+        restoring_session: {
+            title: 'Restaurando sesión',
+            subtitle: 'Estamos preparando tu acceso.',
+            status: 'Recuperando tus datos guardados...',
+            progress: 42,
+        },
+        syncing_session: {
+            title: 'Validando sesión',
+            subtitle: 'Estamos preparando tu acceso.',
+            status: 'Sincronizando permisos y credenciales...',
+            progress: 78,
+        },
+        fallback: {
+            title: 'Validando acceso',
+            subtitle: 'Estamos preparando tu acceso.',
+            status: 'Verificando tu sesión...',
+            progress: 56,
+        },
+    },
+    en: {
+        restoring_session: {
+            title: 'Restoring session',
+            subtitle: 'We are preparing your access.',
+            status: 'Recovering your saved data...',
+            progress: 42,
+        },
+        syncing_session: {
+            title: 'Validating session',
+            subtitle: 'We are preparing your access.',
+            status: 'Syncing permissions and credentials...',
+            progress: 78,
+        },
+        fallback: {
+            title: 'Validating access',
+            subtitle: 'We are preparing your access.',
+            status: 'Checking your session...',
+            progress: 56,
+        },
+    },
+};
 
 const ProtectedRoute = ({ children }) => {
-    const { isAuthenticated, loading } = useAuth();
+    const { isAuthenticated, loading, loadingStage } = useAuth();
     const location = useLocation();
+    const { language = 'en', setIsMainLoadingBlocked } = useUIContext();
+    const locale = language === 'es' ? 'es' : 'en';
+    const copy = LOADING_COPY[locale][loadingStage] ?? LOADING_COPY[locale].fallback;
+
+    useEffect(() => {
+        setIsMainLoadingBlocked(loading);
+        return () => setIsMainLoadingBlocked(false);
+    }, [loading, setIsMainLoadingBlocked]);
 
     if (loading) {
-        return <div style={{ height: '100vh', background: '#0f172a', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>Cargando...</div>;
+        return (
+            <PageLoader
+                title={copy.title}
+                subtitle={copy.subtitle}
+                status={copy.status}
+                progress={copy.progress}
+            />
+        );
     }
 
     if (!isAuthenticated) {

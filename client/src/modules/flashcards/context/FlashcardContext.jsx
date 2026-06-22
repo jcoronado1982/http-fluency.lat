@@ -48,6 +48,7 @@ export const FlashcardProvider = ({ children }) => {
     const [filteredData, setFilteredData] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isDeckLoading, setIsDeckLoading] = useState(false);
+    const [loadingStage, setLoadingStage] = useState(null);
     const [deckNames, setDeckNames] = useState([]);
     const [currentDeckName, setCurrentDeckName] = useState(null);
     const [selectedGroup, setSelectedGroup] = useState(null);
@@ -57,6 +58,7 @@ export const FlashcardProvider = ({ children }) => {
     const loadFlashcards = useCallback(async (category, deck) => {
         if (!category || !deck || !user?.email) return;
         setIsDeckLoading(true);
+        setLoadingStage('loading_cards');
         setMasterData([]);
         setFilteredData([]);
         setResetKey((k) => k + 1);
@@ -68,6 +70,7 @@ export const FlashcardProvider = ({ children }) => {
         } catch {
             setAppMessage({ text: 'Error al cargar tarjetas', isError: true });
         } finally {
+            setLoadingStage(null);
             setIsDeckLoading(false);
         }
     }, [setAppMessage, user?.email]);
@@ -93,6 +96,7 @@ export const FlashcardProvider = ({ children }) => {
         if (!currentCategory || !isAuthenticated) return;
         const loadDecks = async () => {
             setIsDeckLoading(true);
+            setLoadingStage('loading_decks');
             try {
                 const result = await flashcardRepository.fetchDecksForCategory(currentCategory);
                 if (result.success && Array.isArray(result.files)) {
@@ -114,6 +118,9 @@ export const FlashcardProvider = ({ children }) => {
                 }
             } catch {
                 setAppMessage({ text: 'Error al cargar decks', isError: true });
+            } finally {
+                setLoadingStage((prev) => (prev === 'loading_decks' ? null : prev));
+                setIsDeckLoading(false);
             }
         };
         loadDecks();
@@ -185,6 +192,51 @@ export const FlashcardProvider = ({ children }) => {
         }
     };
 
+    const resetGroup = async (groupName) => {
+        if (!user?.email || !currentCategory || !currentDeckName) return false;
+
+        const targetCards = masterData.filter((card) => {
+            const cardGroupName = card.group_name || 'General';
+            return cardGroupName === groupName && card.learned;
+        });
+
+        if (targetCards.length === 0) return false;
+
+        setIsDeckLoading(true);
+        setLoadingStage('loading_cards');
+
+        try {
+            await Promise.all(
+                targetCards.map((card) =>
+                    flashcardRepository.updateCardStatus(
+                        user.email,
+                        currentCategory,
+                        currentDeckName,
+                        card.id,
+                        false,
+                    ),
+                ),
+            );
+
+            const updated = masterData.map((card) => {
+                const cardGroupName = card.group_name || 'General';
+                if (cardGroupName !== groupName) return card;
+                return { ...card, learned: false };
+            });
+
+            setMasterData(updated);
+            setSelectedGroup(groupName === 'General' ? null : groupName);
+            setResetKey((k) => k + 1);
+            return true;
+        } catch {
+            setAppMessage({ text: 'Error al reiniciar subcategoría', isError: true });
+            return false;
+        } finally {
+            setLoadingStage(null);
+            setIsDeckLoading(false);
+        }
+    };
+
     const nextCard = () => filteredData.length && setCurrentIndex((p) => (p + 1) % filteredData.length);
     const prevCard = () => filteredData.length && setCurrentIndex((p) => (p - 1 + filteredData.length) % filteredData.length);
 
@@ -195,8 +247,8 @@ export const FlashcardProvider = ({ children }) => {
 
     const value = {
         masterData, filteredData, currentIndex, setCurrentIndex,
-        isDeckLoading, deckNames, currentDeckName,
-        changeDeck, updateCardImagePath, markAsLearned, resetDeck,
+        isDeckLoading, loadingStage, deckNames, currentDeckName,
+        changeDeck, updateCardImagePath, markAsLearned, resetDeck, resetGroup,
         nextCard, prevCard,
         currentCard: filteredData[currentIndex],
         selectedGroup, setSelectedGroup: changeGroup

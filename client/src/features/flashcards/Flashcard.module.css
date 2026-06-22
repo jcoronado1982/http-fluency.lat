@@ -330,11 +330,9 @@
     cursor: pointer;
     box-shadow: none;
     z-index: 10;
-    position: absolute;
+    position: static;
     background-color: transparent;
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    top: 25px;
-    right: 20px;
     color: #4dabf7;
     width: 44px;
     height: 44px;
@@ -343,6 +341,7 @@
     justify-content: center;
     backdrop-filter: none;
     backface-visibility: hidden;
+    flex-shrink: 0;
 }
 
 .soundButton:hover {
@@ -684,8 +683,10 @@
 .spinner {
     animation: spin 1s linear infinite;
     display: inline-block;
-    font-size: 4em;
-    /* 200% más grande */
+    width: 1em;
+    height: 1em;
+    line-height: 1;
+    font-size: 1.1em;
 }
 
 .loadingAudioBtn {
@@ -715,28 +716,46 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 32px;
-    /* Mayor separación */
+    gap: 18px;
     text-align: center;
     z-index: 10;
     width: 100%;
     height: 100%;
     min-height: 300px;
-    /* Asegurar que no se colapse */
-    background: rgba(15, 23, 42, 0.6);
+    padding: 32px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at center, rgba(56, 189, 248, 0.08), transparent 42%),
+        linear-gradient(180deg, rgba(15, 23, 42, 0.78), rgba(15, 23, 42, 0.7));
     backdrop-filter: blur(12px);
-    padding: 40px 0;
+}
+
+.imageLoadingOverlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.08) 50%, transparent 80%);
+    transform: translateX(-120%);
+    animation: imageShimmer 1.8s ease-in-out infinite;
 }
 
 .loaderVisualContainer {
     position: relative;
-    width: 120px;
-    /* Un poco más grande */
-    height: 120px;
+    z-index: 1;
+    width: 92px;
+    height: 92px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
+}
+
+.aiLoaderGlow {
+    position: absolute;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.26), rgba(56, 189, 248, 0));
+    filter: blur(6px);
 }
 
 .aiLoaderCircle {
@@ -746,48 +765,41 @@
     border: 3px solid transparent;
     border-top-color: #38bdf8;
     border-radius: 50%;
-    animation: spin 3s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+    animation: spin 2.8s linear infinite;
     filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.4));
 }
 
 .aiLoaderCircleInner {
     position: absolute;
-    width: 70%;
-    height: 70%;
+    width: 64%;
+    height: 64%;
     border: 3px solid transparent;
     border-bottom-color: #fbbf24;
     border-radius: 50%;
-    animation: spin-reverse 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+    animation: spin-reverse 1.9s linear infinite;
     filter: drop-shadow(0 0-8px rgba(251, 191, 36, 0.3));
 }
 
 .aiLoaderIcon {
-    font-size: 28px;
+    font-size: 22px;
     color: #ffffff;
     animation: pulse-glow 2s ease-in-out infinite;
 }
 
 .aiLoaderTextContainer {
+    z-index: 1;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 0;
 }
 
 .aiLoaderText {
-    font-size: 0.75em;
-    font-weight: 900;
+    font-size: 0.78rem;
+    font-weight: 700;
     color: #ffffff;
-    letter-spacing: 3px;
-    text-transform: uppercase;
+    letter-spacing: 0.06em;
     margin: 0;
-}
-
-.aiLoaderSubtext {
-    font-size: 0.6em;
-    font-weight: 600;
-    color: #94a3b8;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
+    text-transform: none;
 }
 
 @keyframes spin-reverse {
@@ -813,6 +825,16 @@
         opacity: 1;
         filter: drop-shadow(0 0 15px #38bdf8);
         transform: scale(1.1);
+    }
+}
+
+@keyframes imageShimmer {
+    0% {
+        transform: translateX(-120%);
+    }
+
+    100% {
+        transform: translateX(120%);
     }
 }
 
@@ -966,9 +988,9 @@
 
 @media (max-width: 768px) {
     .cardCounter {
-        position: absolute !important;
-        top: 15px !important; /* Arriba en la esquina */
-        right: 15px !important; /* A la derecha */
+        position: fixed !important;
+        top: calc(env(safe-area-inset-top, 0px) + 80px) !important;
+        right: 12px !important;
         left: auto !important;
         transform: none !important;
         margin: 0 !important;
@@ -979,7 +1001,11 @@
         box-shadow: none !important;
         background: transparent !important;
         border: none !important;
-        z-index: 10 !important;
+        z-index: 1200 !important;
+    }
+
+    .cardCounter.pronounsCounter {
+        top: calc(env(safe-area-inset-top, 0px) + 80px) !important;
     }
 
     .counterItem {
@@ -1004,12 +1030,15 @@
     }
 
     .name {
-        font-size: 1.8rem !important;
+        font-size: 2rem !important;
         margin-top: -6px !important;
         margin-bottom: 0 !important;
         line-height: 1.05 !important;
-        padding-right: 52px !important;
-        padding-left: 52px !important; /* Centrado perfecto */
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        min-height: 52px !important;
     }
 
     .phoneticContainer {
@@ -1065,20 +1094,41 @@
     }
 
     .examplePlayBtn {
-        width: 52px !important;
-        height: 52px !important;
-    }
-
-    .exampleRow .rotateVoiceBtn {
-        width: 52px !important;
-        height: 52px !important;
+        width: 50px !important;
+        height: 50px !important;
     }
 
     .soundButton {
-        top: 6px !important;
-        right: 15px !important;
-        width: 52px !important;
-        height: 52px !important;
+        width: 50px !important;
+        height: 50px !important;
+        margin-left: auto !important;
+        align-self: center !important;
+    }
+
+    .soundButton svg {
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    .examplePlayBtn svg,
+    .soundButton svg {
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    .conjugationForm {
+        max-width: 100% !important;
+    }
+
+    .nameContainer {
+        align-items: center !important;
+        transform: translateY(-4px) !important;
+    }
+
+    .titleContainer {
+        align-items: center !important;
+        flex: 1 !important;
+        min-width: 0 !important;
     }
 
     .phraseContainer {
@@ -1097,13 +1147,14 @@
         gap: 8px !important;
         position: relative !important;
         width: auto !important;
+        height: 70px !important;
     }
 
     .titleContainer .rotateVoiceBtn {
         position: static !important;
         transform: none !important;
-        width: 52px !important;
-        height: 52px !important;
+        width: 50px !important;
+        height: 50px !important;
     }
 
     .titleContainer .rotateVoiceBtn:hover:not(:disabled) {
@@ -1217,6 +1268,10 @@
     opacity: 0.95;
 }
 
+.conjugationAudioBtn {
+    display: none;
+}
+
 .conjugationItem:hover .conjugationAudioBtn,
 .conjugationItem:focus-visible .conjugationAudioBtn {
     transform: scale(1.1);
@@ -1224,7 +1279,7 @@
 }
 
 .conjugationForm {
-    font-size: 1.2em;
+    font-size: 1.3em;
     font-weight: 700;
     color: #f8fafc;
     white-space: nowrap;
@@ -1275,6 +1330,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+    gap: 10px;
 }
 
 
