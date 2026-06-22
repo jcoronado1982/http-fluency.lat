@@ -4,6 +4,7 @@ import { useUIContext } from '../../context/UIContext';
 import { useFlashcardContext } from '../../modules/flashcards/context/FlashcardContext';
 import { useCategoryContext } from '../../modules/flashcards/context/CategoryContext';
 import { translations } from '../../config/translations';
+import { sortGroups } from '../../config/catalogOrder';
 
 // Los totales son dinámicos — vienen del contexto que obtiene el conteo real del backend
 
@@ -52,7 +53,9 @@ function CategorySelector() {
         groupsMap[groupName].push(card);
     });
 
-    const groupsList = Object.keys(groupsMap).map(name => {
+    const orderedGroupNames = sortGroups(currentCategory, currentDeckName, Object.keys(groupsMap));
+
+    const groupsList = orderedGroupNames.map(name => {
         const cards = groupsMap[name];
         const total = cards.length;
         const learned = cards.filter(c => c.learned).length;
