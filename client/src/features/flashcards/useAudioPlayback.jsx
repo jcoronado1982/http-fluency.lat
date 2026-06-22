@@ -48,17 +48,33 @@ export function useAudioPlayback({
     const [highlightedWordIndex, setHighlightedWordIndex] = useState(-1);
     const [isGeneratingAudio, setIsGeneratingAudio] = useState(false);
 
+    const stopAudio = useCallback(() => {
+        audioPlayer.pause();
+        audioPlayer.currentTime = 0;
+        if (audioPlayer.src.startsWith('blob:')) URL.revokeObjectURL(audioPlayer.src);
+        audioPlayer.removeAttribute('src');
+        while (audioPlayer.firstChild) {
+            audioPlayer.removeChild(audioPlayer.firstChild);
+        }
+        audioPlayer.load();
+        audioPlayer.ontimeupdate = null;
+        audioPlayer.onplay = null;
+        audioPlayer.onpause = null;
+        audioPlayer.onended = null;
+        setIsAudioPlaying(false);
+        setActiveAudioText(null);
+        setActiveVoiceName(null);
+        setHighlightedWordIndex(-1);
+        setIsAudioLoading(false);
+        setIsGeneratingAudio(false);
+    }, [setIsAudioLoading]);
+
     const playAudio = useCallback(async (originalText, lang = 'en', excludeVoice = null, forceRegenerate = false) => {
         if (!originalText || !currentCategory) return;
 
         const finalVerbName = currentDeckName === 'phonics' ? originalText : verbName;
 
-        if (isAudioPlaying && audioPlayer.src) {
-            audioPlayer.pause();
-            audioPlayer.currentTime = 0;
-            if (audioPlayer.src.startsWith('blob:')) URL.revokeObjectURL(audioPlayer.src);
-            audioPlayer.ontimeupdate = null;
-        }
+        stopAudio();
 
         setHighlightedWordIndex(-1);
         setActiveAudioText(originalText);
@@ -239,7 +255,7 @@ export function useAudioPlayback({
         } finally {
             setIsGeneratingAudio(false);
         }
-    }, [isAudioPlaying, setAppMessage, setIsAudioLoading, currentCategory, currentDeckName, verbName]);
+    }, [stopAudio, setAppMessage, setIsAudioLoading, currentCategory, currentDeckName, verbName]);
 
     const deleteAudio = useCallback(async (textToDelete, lang = 'en') => {
         if (!textToDelete || !currentCategory) return;
@@ -275,6 +291,7 @@ export function useAudioPlayback({
 
     return {
         playAudio,
+        stopAudio,
         deleteAudio,
         isAudioPlaying,
         activeAudioText,
