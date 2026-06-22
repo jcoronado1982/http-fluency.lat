@@ -67,6 +67,7 @@ export const FlashcardProvider = ({ children }) => {
             const rawCards = Array.isArray(data) ? data : (data.flashcards || [data]);
             const normalized = rawCards.map(normalizeCard);
             setMasterData(normalized);
+            setFilteredData(normalized.filter((c) => !c.learned));
         } catch {
             setAppMessage({ text: 'Error al cargar tarjetas', isError: true });
         } finally {

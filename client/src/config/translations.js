@@ -230,6 +230,22 @@ export const translations = {
             correct: "Marcar como Aprendida",
             play: "Reproducir Audio",
             work: "Palabra:"
+        },
+        completionCard: {
+            badge: "Excelente",
+            groupTitle: "Topic completado",
+            levelTitle: "Nivel completado",
+            groupSubtitle: "Terminaste el topic \"{topic}\". Ya puedes seguir con el siguiente bloque recomendado.",
+            levelSubtitle: "Terminaste el nivel {level}. Te sugerimos continuar con el siguiente nivel recomendado.",
+            defaultTopic: "actual",
+            defaultLevel: "actual",
+            progressLabel: "Progreso",
+            statusLabel: "Estado",
+            statusValue: "Completado",
+            nextStepLabel: "Siguiente paso sugerido",
+            noRecommendation: "Ya recorriste toda la ruta disponible. Puedes repetir una categoria o explorar otra.",
+            continueButton: "Continuar ruta",
+            catalogButton: "Ver categorias"
         }
     },
     en: {
@@ -463,6 +479,22 @@ export const translations = {
             correct: "Mark as Learned",
             play: "Play Audio",
             work: "Word:"
+        },
+        completionCard: {
+            badge: "Great job",
+            groupTitle: "Topic complete",
+            levelTitle: "Level complete",
+            groupSubtitle: "You finished the topic \"{topic}\". You can continue with the next recommended block.",
+            levelSubtitle: "You finished the {level} level. We suggest continuing with the next recommended level.",
+            defaultTopic: "current one",
+            defaultLevel: "current",
+            progressLabel: "Progress",
+            statusLabel: "Status",
+            statusValue: "Completed",
+            nextStepLabel: "Recommended next step",
+            noRecommendation: "You already completed the available route. You can review a category or explore another one.",
+            continueButton: "Continue path",
+            catalogButton: "View categories"
         }
     }
 };

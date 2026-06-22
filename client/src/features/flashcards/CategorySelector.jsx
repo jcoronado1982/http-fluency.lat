@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './CategorySelector.module.css';
 import { useUIContext } from '../../context/UIContext';
 import { useFlashcardContext } from '../../modules/flashcards/context/FlashcardContext';
@@ -55,12 +55,19 @@ function CategorySelector() {
 
     const orderedGroupNames = sortGroups(currentCategory, currentDeckName, Object.keys(groupsMap));
 
-    const groupsList = orderedGroupNames.map(name => {
-        const cards = groupsMap[name];
-        const total = cards.length;
-        const learned = cards.filter(c => c.learned).length;
-        return { name, total, learned };
-    });
+    const groupsList = orderedGroupNames
+        .map(name => {
+            const cards = groupsMap[name];
+            const total = cards.length;
+            const learned = cards.filter(c => c.learned).length;
+            return { name, total, learned };
+        })
+        .sort((a, b) => {
+            const aComplete = a.learned === a.total;
+            const bComplete = b.learned === b.total;
+            if (aComplete === bComplete) return 0;
+            return aComplete ? 1 : -1;
+        });
 
     // "3-advanced" contiene la subcadena "basic" → hay que evaluar advanced antes que basic.
     const getLevelFromDeckName = (deckName) => {
@@ -105,6 +112,19 @@ function CategorySelector() {
             handleGroupClick(groupName);
         }
     };
+
+    useEffect(() => {
+        const previousBodyOverflow = document.body.style.overflow;
+        const previousHtmlOverflow = document.documentElement.style.overflow;
+
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+
+        return () => {
+            document.body.style.overflow = previousBodyOverflow;
+            document.documentElement.style.overflow = previousHtmlOverflow;
+        };
+    }, []);
 
     return (
         <div className={styles.categorySelectorOverlay}>
