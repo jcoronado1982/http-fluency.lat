@@ -1,5 +1,7 @@
 import flashcardsModule from './flashcards/index.jsx';
 
+const pronounModuleLoaders = import.meta.glob('./pronounPractice/index.jsx');
+
 /** @type {Array<{ id: string, enabled?: Function, routes?: Function, [key: string]: unknown }>} */
 let modules = [];
 
@@ -32,8 +34,11 @@ export async function initModules() {
   }
 
   if (pronounBuildEnabled()) {
-    const { default: pronounModule } = await import('./pronounPractice/index.jsx');
-    modules.push(pronounModule);
+    const loadPronounModule = pronounModuleLoaders['./pronounPractice/index.jsx'];
+    if (loadPronounModule) {
+      const { default: pronounModule } = await loadPronounModule();
+      modules.push(pronounModule);
+    }
   }
 
   return modules;

@@ -3,6 +3,7 @@ import { useCategoryContext } from './CategoryContext';
 import { useUIContext } from '../../../context/UIContext';
 import { flashcardRepository } from '../flashcardRepository';
 import { useAuth } from '../../../context/AuthContext';
+import { markUserNavigation } from '../navigationIntent';
 
 const FlashcardContext = createContext();
 
@@ -53,6 +54,7 @@ export const FlashcardProvider = ({ children }) => {
     const [currentDeckName, setCurrentDeckName] = useState(null);
     const [selectedGroup, setSelectedGroup] = useState(null);
     const [resetKey, setResetKey] = useState(0);
+    const [justCompletedInSession, setJustCompletedInSession] = useState(false);
     const { isAuthenticated, user } = useAuth();
 
     const loadFlashcards = useCallback(async (category, deck) => {
@@ -79,6 +81,7 @@ export const FlashcardProvider = ({ children }) => {
     useEffect(() => {
         setSelectedGroup(null);
         setResetKey((k) => k + 1);
+        setJustCompletedInSession(false);
     }, [currentCategory, currentDeckName]);
 
     useEffect(() => {
@@ -134,6 +137,7 @@ export const FlashcardProvider = ({ children }) => {
     }, [currentCategory, currentDeckName, loadFlashcards, isAuthenticated]);
 
     const changeDeck = (newDeck) => {
+        markUserNavigation();
         setCurrentDeckName(newDeck);
         localStorage.setItem(`${LAST_DECK_KEY_PREFIX}${currentCategory}`, newDeck);
     };
@@ -175,8 +179,15 @@ export const FlashcardProvider = ({ children }) => {
             await flashcardRepository.updateCardStatus(user.email, currentCategory, currentDeckName, card.id, true);
             const updated = masterData.map((c) => (c.id === card.id ? { ...c, learned: true } : c));
             setMasterData(updated);
-            const remaining = updated.filter((c) => !c.learned);
+            let scoped = updated;
+            if (selectedGroup) {
+                scoped = scoped.filter((c) => c.group_name === selectedGroup);
+            }
+            const remaining = scoped.filter((c) => !c.learned);
             setFilteredData(remaining);
+            if (remaining.length === 0) {
+                setJustCompletedInSession(true);
+            }
             if (currentIndex >= remaining.length) setCurrentIndex(Math.max(0, remaining.length - 1));
         } catch {
             setAppMessage({ text: 'Error al actualizar', isError: true });
@@ -242,8 +253,10 @@ export const FlashcardProvider = ({ children }) => {
     const prevCard = () => filteredData.length && setCurrentIndex((p) => (p - 1 + filteredData.length) % filteredData.length);
 
     const changeGroup = (group) => {
+        markUserNavigation();
         setSelectedGroup(group);
         setResetKey((k) => k + 1);
+        setJustCompletedInSession(false);
     };
 
     const value = {
@@ -252,7 +265,8 @@ export const FlashcardProvider = ({ children }) => {
         changeDeck, updateCardImagePath, markAsLearned, resetDeck, resetGroup,
         nextCard, prevCard,
         currentCard: filteredData[currentIndex],
-        selectedGroup, setSelectedGroup: changeGroup
+        selectedGroup, setSelectedGroup: changeGroup,
+        justCompletedInSession,
     };
 
     return <FlashcardContext.Provider value={value}>{children}</FlashcardContext.Provider>;
