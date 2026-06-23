@@ -5,6 +5,7 @@ use std::sync::Arc;
 use anyhow::Result;
 
 pub mod audio_use_cases;
+pub mod batch;
 pub mod image_use_cases;
 
 #[derive(Clone)]

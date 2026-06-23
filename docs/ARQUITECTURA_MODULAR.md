@@ -36,14 +36,16 @@ flashcard/
 │   ├── mod_shell/            # casos de uso compartidos del shell (auth, tutor, presence, subscriptions)
 │   ├── api_main/             # composition root (shell HTTP)
 │   │   └── src/modules/      # registro de rutas por módulo
-│   ├── mod_flashcards/       # casos de uso flashcards (deck, audio, imágenes)
+│   ├── mod_flashcards/       # casos de uso flashcards (deck, audio, imágenes, batch CLI)
+│   │   └── src/batch/        # --batch-gen-images / --batch-gen-audio (composition desde main)
 │   └── mod_pronoun/          # crate pronoun_practice — StoryUseCases
 ├── client/
 │   └── src/
 │       ├── modules/          # registry frontend (loader + módulos)
 │       │   ├── index.js
-│       │   ├── flashcards/
+│       │   ├── flashcards/   # ports, adapters, useCases, hooks, composition.js
 │       │   └── pronounPractice/
+│       ├── repositories/     # shell: AuthRepository (httpClient)
 │       └── context/          # shell: UIContext, AuthContext, AppContext
 ├── scripts/
 │   ├── module_registry.sh    # FUENTE DE VERDAD
@@ -84,8 +86,8 @@ flowchart TB
 |------|-----------|-----------------|
 | Dominio + puertos | `backend/core` | Modelos, traits async (`StorageRepository`, `AITutor`, …) |
 | Aplicación | `backend/mod_*` | Casos de uso por módulo y shell (`mod_shell`, `mod_flashcards`, `mod_pronoun`) |
-| API | `backend/api_main/src/api/endpoints/` | Handlers HTTP (agrupados por módulo vía `#[cfg(feature)]`) |
-| Infraestructura | `backend/api_main/src/infrastructure/` | Surreal, Gemini, ComfyUI, storage local |
+| API | `backend/api_main/src/api/` | Handlers HTTP delgados; DTOs en `dto/`; mapeo HTTP→use case en `mappers/` |
+| Infraestructura | `backend/api_main/src/infrastructure/` | Adapters por puerto: `storage/surreal/*`, Gemini, ComfyUI, storage local |
 | Composition root | `backend/api_main/src/main.rs` | Wiring de dependencias y `AppState` |
 | Registro modular | `backend/api_main/src/modules/` | `register_routes()` por módulo |
 
@@ -127,6 +129,12 @@ El shell registra siempre: `/api/health`, `/api/features`, tutor, notificaciones
 
 `TutorUseCases` usa `Option<PronounPracticeRepository>` — sin módulo pronoun no hay acoplamiento a su DB.
 
+**Persistencia (ISP):** `SurrealConnection` comparte el cliente; cada puerto DB tiene su adapter (`SurrealUserRepository`, `SurrealCardProgressRepository`, `SurrealPronounRepository`, …) en `infrastructure/storage/surreal/`.
+
+**Batch CLI:** la lógica masiva de imágenes/audio vive en `mod_flashcards/src/batch/`; `main.rs` solo compone `ImageBatchContext` / `AudioBatchContext` y delega.
+
+**HTTP delgado:** `generation.rs` usa DTOs (`api/dto/generation.rs`) y mappers (`api/mappers/flashcards.rs`); los endpoints no importan tipos de `mod_flashcards` directamente.
+
 ---
 
 ## 4. Frontend — Clean / Hexagonal modular
@@ -146,10 +154,11 @@ client/src/
     │   ├── composition.js       # wiring: ports ← adapters(httpClient)
     │   ├── ports/               # contratos (equivalente fluency_core traits)
     │   ├── adapters/            # HTTP + media (equivalente infrastructure)
-    │   ├── useCases/            # lógica pura de aplicación
+    │   ├── useCases/            # lógica pura de aplicación (deckUseCases, deckSessionUseCases)
+    │   ├── hooks/               # orquestación React (useDeckSession)
     │   ├── queries/             # (solo si usa React Query)
     │   ├── domain/              # modelos/datos estáticos del módulo
-    │   ├── config/              # config exclusiva del módulo (catalogOrder)
+    │   ├── config/              # config + i18n exclusiva (catalogOrder, sidebarLabels)
     │   ├── context/             # estado React del módulo
     │   ├── uiBridge.js          # puente shell↔módulo (FloatingMenu)
     │   └── index.jsx            # manifest del registry
@@ -190,7 +199,7 @@ export default {
   id: 'miModulo',
   enabled: (config) => config.features.miModulo,
   routes: (config) => [{ path: '/ruta', element: <Page /> }],
-  navSections: ({ t, config }) => [{ id, label, items: [...] }],
+  navSections: ({ language, config }) => [{ id, label, items: [...] }],
   overlays: () => <MisOverlays />,              // opcional
   floatingMenuItems: (ctx) => [...],            // opcional
   shellProviders: (config) => [MiUiProvider],   // opcional
@@ -200,7 +209,7 @@ export default {
 Flujo de datos (hexagonal):
 
 ```
-Page → context/hooks → useCases o queries → port → adapter(httpClient)
+Page → hooks → useCases/queries → port → adapter(httpClient)
 ```
 
 ### 4.4 Shell frontend (`App.jsx`)
@@ -214,9 +223,10 @@ El shell **no importa** páginas ni repositorios de módulos. Solo:
 Reglas de aislamiento (Jun 2026):
 
 - Estado UI de un módulo vive en su `context/` (ej. `FlashcardUiContext`), **no** en `UIContext` del shell.
-- Config de dominio vive en `modules/<nombre>/config/` (ej. `catalogOrder`, `translations` de flashcards), no en `client/src/config/`.
-- `client/src/config/translations.js` solo contiene i18n del **shell** (`floatingMenu`, `sidebar`).
-- El shell expone `httpClient` y flags; los módulos inyectan sus adapters en `composition.js`.
+- Config de dominio vive en `modules/<nombre>/config/` (ej. `catalogOrder`, `translations`, `sidebarLabels`), no en `client/src/config/`.
+- `client/src/config/translations.js` solo contiene i18n del **shell** (admin, pronunciación en FloatingMenu, cuenta).
+- Cada módulo exporta sus etiquetas de navegación vía `get*SidebarLabels(language)`; el registry pasa `language`, no el objeto `t` del shell.
+- El shell expone `httpClient`; todos los adapters HTTP (incl. `AuthRepository`) lo usan.
 - `uiBridge.js` permite al FloatingMenu invocar acciones del módulo sin acoplar imports cruzados.
 
 ### 4.5 Flags Vite (`client/src/config/index.js`)
@@ -333,8 +343,8 @@ Cursor y herramientas de indexación solo ven lo presente físicamente.
 | **SRP** | Casos de uso en `mod_*`; shell solo compone. Frontend: `useCases/` + `queries/` por módulo |
 | **OCP** | Nuevo módulo = nuevo crate/carpeta + registro, sin editar otros módulos |
 | **LSP** | `NullDbRepository` cuando Surreal no está disponible |
-| **ISP** | Puertos separados por responsabilidad en `core` y en `modules/*/ports/` |
-| **DIP** | Use cases dependen de traits/ports, no de Surreal/Axum/httpClient directo |
+| **ISP** | Puertos separados por responsabilidad en `core`, `modules/*/ports/` y adapters Surreal por trait |
+| **DIP** | Use cases dependen de traits/ports; batch y HTTP mapean en composition root / mappers, no en handlers |
 
 Notas de alcance:
 

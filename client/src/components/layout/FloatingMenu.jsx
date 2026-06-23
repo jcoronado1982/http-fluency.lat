@@ -39,7 +39,7 @@ const FloatingMenu = () => {
     const close = () => { setIsOpen(false); setShowPronun(false); };
 
     const moduleFloatingItems = getModuleFloatingMenuItems(config, {
-        t,
+        language,
         navigate,
         location,
         close,

@@ -1,18 +1,13 @@
-import axios from 'axios';
-import { API_URL } from '../config/api';
+import { httpClient } from '../services/httpClient';
 
 class AuthRepository {
     async loginAsDevGuest() {
-        const response = await axios.post(`${API_URL}/api/auth/dev-guest`);
-        return response.data;
+        return httpClient.post('/api/auth/dev-guest');
     }
 
     async loginWithGoogle(idToken) {
         try {
-            const response = await axios.post(`${API_URL}/api/auth/google`, {
-                id_token: idToken
-            });
-            return response.data;
+            return await httpClient.post('/api/auth/google', { id_token: idToken });
         } catch (error) {
             console.error('Error logging in with Google:', error);
             throw error;

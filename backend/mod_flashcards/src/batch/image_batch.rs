@@ -1,35 +1,22 @@
-use crate::domain::models::flashcard::Flashcard;
-use crate::AppState;
-use mod_flashcards::image_use_cases::ImageGenRequest;
+use fluency_core::domain::models::flashcard::Flashcard;
+use crate::image_use_cases::ImageGenRequest;
 use std::collections::HashSet;
 use std::io::{stdout, Write};
+
+use super::context::BatchFilter;
 
 const CANONICAL_EXT: &str = ".avif";
 const LEGACY_EXTENSIONS: &[&str] = &[".jpg", ".jpeg", ".png", ".webp"];
 
-#[derive(Clone, Default)]
-pub struct BatchFilter {
-    pub category: Option<String>,
-    pub deck: Option<String>,
-}
-
-pub fn parse_batch_filter(args: &[String], flag: &str) -> BatchFilter {
-    let pos = args.iter().position(|a| a == flag);
-    BatchFilter {
-        category: pos.and_then(|i| args.get(i + 1).cloned()),
-        deck: pos.and_then(|i| args.get(i + 2).cloned()),
-    }
-}
-
 pub async fn run_batch_image_generation(
-    state: AppState,
+    ctx: super::context::ImageBatchContext,
     filter: BatchFilter,
 ) -> anyhow::Result<()> {
-    run_batch(state, BatchMode::GenerateAndLink, filter).await
+    run_batch(ctx, BatchMode::GenerateAndLink, filter).await
 }
 
-pub async fn run_batch_image_linking(state: AppState, filter: BatchFilter) -> anyhow::Result<()> {
-    run_batch(state, BatchMode::LinkOnly, filter).await
+pub async fn run_batch_image_linking(ctx: super::context::ImageBatchContext, filter: BatchFilter) -> anyhow::Result<()> {
+    run_batch(ctx, BatchMode::LinkOnly, filter).await
 }
 
 #[derive(Clone, Copy)]
@@ -78,7 +65,7 @@ struct DefSlot {
     def_index: usize,
 }
 
-async fn run_batch(state: AppState, mode: BatchMode, filter: BatchFilter) -> anyhow::Result<()> {
+async fn run_batch(ctx: super::context::ImageBatchContext, mode: BatchMode, filter: BatchFilter) -> anyhow::Result<()> {
     let title = match mode {
         BatchMode::GenerateAndLink => "GENERACIÓN MASIVA + ENLACE JSON",
         BatchMode::LinkOnly => "ENLACE MASIVO DE IMÁGENES EXISTENTES",
@@ -99,7 +86,7 @@ async fn run_batch(state: AppState, mode: BatchMode, filter: BatchFilter) -> any
     println!("========================================================\n");
     let _ = stdout().flush();
 
-    let mut categories = state.deck_use_cases.list_categories().await?;
+    let mut categories = ctx.deck.list_categories().await?;
     if let Some(ref cat) = filter.category {
         categories.retain(|c| c == cat);
         if categories.is_empty() {
@@ -114,7 +101,7 @@ async fn run_batch(state: AppState, mode: BatchMode, filter: BatchFilter) -> any
     );
     let _ = stdout().flush();
 
-    let images_prefix = &state.settings.gcs_images_prefix;
+    let images_prefix = &ctx.settings.gcs_images_prefix;
     let mut global_counter = 0;
     let mut stats = BatchStats::default();
 
@@ -122,7 +109,7 @@ async fn run_batch(state: AppState, mode: BatchMode, filter: BatchFilter) -> any
         println!("\n📂 CATEGORÍA: {cat_name}");
         let _ = stdout().flush();
 
-        let mut decks = state.deck_use_cases.list_decks(&cat_name).await?;
+        let mut decks = ctx.deck.list_decks(&cat_name).await?;
         if let Some(ref deck) = filter.deck {
             let deck_file = if deck.ends_with(".json") {
                 deck.clone()
@@ -141,14 +128,14 @@ async fn run_batch(state: AppState, mode: BatchMode, filter: BatchFilter) -> any
             println!("  📦 Mazo: {deck_name}");
             let _ = stdout().flush();
 
-            let mut deck_data = state
-                .deck_use_cases
+            let mut deck_data = ctx
+                .deck
                 .get_deck_json(&cat_name, &deck_name)
                 .await?;
             let card_count = deck_data.flashcards().len();
 
             let img_dir = format!("{images_prefix}/{cat_name}/{deck_prefix}");
-            let deck_files = state.deck_use_cases.list_files_in_dir(&img_dir).await?;
+            let deck_files = ctx.deck.list_files_in_dir(&img_dir).await?;
             let file_index: HashSet<String> = deck_files.into_iter().collect();
             println!(
                 "  🖼️  Índice de imágenes: {} archivos en {img_dir}",
@@ -233,8 +220,8 @@ async fn run_batch(state: AppState, mode: BatchMode, filter: BatchFilter) -> any
                                     form: slot.form.form_arg().map(str::to_string),
                                 };
 
-                                match state
-                                    .image_use_cases
+                                match ctx
+                                    .image
                                     .get_or_generate_image(&req, "batch", "admin")
                                     .await
                                 {
@@ -291,8 +278,8 @@ async fn run_batch(state: AppState, mode: BatchMode, filter: BatchFilter) -> any
             }
 
             if deck_dirty {
-                match state
-                    .deck_use_cases
+                match ctx
+                    .deck
                     .save_deck_json(&cat_name, &deck_name, &deck_data)
                     .await
                 {

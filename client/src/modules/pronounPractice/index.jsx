@@ -3,6 +3,7 @@ import { FiBook, FiEdit3 } from 'react-icons/fi';
 import ProtectedRoute from '../../components/common/ProtectedRoute';
 import CoursePage from './CoursePage';
 import PracticePage from './PracticePage';
+import { getPronounSidebarLabels } from './config/translations';
 import { isDefaultHomeModule } from '../index';
 
 const pronounModule = {
@@ -30,7 +31,8 @@ const pronounModule = {
 
     return routes;
   },
-  navSections: ({ t, config }) => {
+  navSections: ({ language, config }) => {
+    const t = getPronounSidebarLabels(language);
     const isHome = isDefaultHomeModule('pronoun', config);
     const items = [];
 

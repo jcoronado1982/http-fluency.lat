@@ -445,3 +445,41 @@ export const flashcardTranslations = {
 export function getFlashcardTranslations(language = 'en') {
     return flashcardTranslations[language] || flashcardTranslations.en;
 }
+
+export const flashcardSidebarLabels = {
+    es: {
+        learn: 'Aprender',
+        flashcards: 'Flashcards',
+        wordCollections: 'Colecciones de palabras',
+    },
+    en: {
+        learn: 'Learn',
+        flashcards: 'Flashcards',
+        wordCollections: 'Word collections',
+    },
+};
+
+export function getFlashcardSidebarLabels(language = 'en') {
+    return flashcardSidebarLabels[language] || flashcardSidebarLabels.en;
+}
+
+export const flashcardFloatingMenuLabels = {
+    es: {
+        learn: 'Aprender',
+        categories: 'Categorías',
+        wordCollections: 'Colecciones de palabras',
+        vowelChart: 'Tabla de vocales',
+        referenceChart: 'Tabla de referencia',
+    },
+    en: {
+        learn: 'Learn',
+        categories: 'Categories',
+        wordCollections: 'Word collections',
+        vowelChart: 'Vowels chart',
+        referenceChart: 'Reference chart',
+    },
+};
+
+export function getFlashcardFloatingMenuLabels(language = 'en') {
+    return flashcardFloatingMenuLabels[language] || flashcardFloatingMenuLabels.en;
+}

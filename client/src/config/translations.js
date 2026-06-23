@@ -1,11 +1,6 @@
 export const translations = {
     es: {
         floatingMenu: {
-            learn: "Aprender",
-            categories: "Categorías",
-            wordCollections: "Colecciones de palabras",
-            vowelChart: "Tabla de vocales",
-            referenceChart: "Tabla de referencia",
             practice: "Referencia",
             pronunciation: "Pronunciación",
             pronunciationSub: "Vocales · Diptongos · Consonantes",
@@ -17,14 +12,6 @@ export const translations = {
             logout: "Cerrar sesión"
         },
         sidebar: {
-            learn: "Aprender",
-            flashcards: "Flashcards",
-            wordCollections: "Colecciones de palabras",
-            pronouns: "Pronombres",
-            table: "Tabla",
-            practice: "Practica",
-            pronounsReference: "Referencia de pronombres",
-            pronounPractice: "Entrenamiento guiado",
             admin: "Admin",
             users: "Usuarios",
             realtimeActivity: "Actividad en tiempo real"
@@ -32,11 +19,6 @@ export const translations = {
     },
     en: {
         floatingMenu: {
-            learn: "Learn",
-            categories: "Categories",
-            wordCollections: "Word collections",
-            vowelChart: "Vowels chart",
-            referenceChart: "Reference chart",
             practice: "Reference",
             pronunciation: "Pronunciation",
             pronunciationSub: "Vowels · Diphthongs · Consonants",
@@ -48,14 +30,6 @@ export const translations = {
             logout: "Log out"
         },
         sidebar: {
-            learn: "Learn",
-            flashcards: "Flashcards",
-            wordCollections: "Word collections",
-            pronouns: "Pronouns",
-            table: "Chart",
-            practice: "Practice",
-            pronounsReference: "Pronouns reference",
-            pronounPractice: "Guided practice",
             admin: "Admin",
             users: "Users",
             realtimeActivity: "Real-time activity"

@@ -15,7 +15,7 @@ export default function Sidebar() {
     const navigate = useNavigate();
     
     const t = translations[language].sidebar;
-    const moduleNavSections = getModuleNavSections(config, { t, isAdmin });
+    const moduleNavSections = getModuleNavSections(config, { language, isAdmin });
 
     const goTo = (to) => (event) => {
         event.preventDefault();

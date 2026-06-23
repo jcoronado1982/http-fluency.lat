@@ -3,7 +3,6 @@ mod config;
 mod domain;
 mod infrastructure;
 mod modules;
-mod application;
 
 use axum::{
     routing::{get, post},
@@ -43,7 +42,17 @@ use crate::infrastructure::payment::null_payment_provider::NullPaymentProvider;
 use crate::infrastructure::payment::stripe_provider::StripeProvider;
 use crate::infrastructure::storage::local_repository::LocalStorageRepository;
 use crate::infrastructure::storage::null_db_repository::NullDbRepository;
-use crate::infrastructure::storage::surreal_repository::SurrealRepository;
+use crate::infrastructure::storage::surreal::{
+    SurrealCardProgressRepository, SurrealConnection, SurrealPronounRepository,
+    SurrealSubscriptionRepository, SurrealUserActivityRepository, SurrealUserRepository,
+};
+#[cfg(feature = "flashcards")]
+use crate::infrastructure::ai::gemini_tts_provider::GeminiTtsProvider;
+#[cfg(feature = "flashcards")]
+use mod_flashcards::batch::{
+    parse_batch_filter, run_batch_audio_generation, run_batch_image_generation,
+    run_batch_image_linking, AudioBatchContext, BatchSettings, ImageBatchContext,
+};
 #[cfg(feature = "flashcards")]
 use mod_flashcards::audio_use_cases::AudioUseCases;
 #[cfg(feature = "flashcards")]
@@ -83,6 +92,18 @@ pub struct AppState {
     #[cfg(feature = "subscriptions")]
     pub subscription_use_cases: Arc<SubscriptionUseCases>,
     pub notification_sender: broadcast::Sender<String>,
+}
+
+#[cfg(feature = "flashcards")]
+fn flashcards_batch_settings(settings: &Settings) -> BatchSettings {
+    BatchSettings {
+        gcs_images_prefix: settings.gcs_images_prefix.clone(),
+        gcs_audio_prefix: settings.gcs_audio_prefix.clone(),
+        sync_to_oracle: settings.sync_to_oracle,
+        oracle_host: settings.oracle_host.clone(),
+        local_storage_path: settings.local_storage_path.clone(),
+        gemini_tts_api_key_backup: settings.gemini_tts_api_key_backup.clone(),
+    }
 }
 
 /// Runtime configurado a mano para 1 GB de RAM:
@@ -149,16 +170,16 @@ async fn async_main() -> anyhow::Result<()> {
         Arc<dyn CardProgressRepository>,
         Arc<dyn PronounPracticeRepository>,
         Arc<dyn UserActivityRepository>,
-    ) = match SurrealRepository::new(&surreal_url, "flashcard", "flashcard").await {
-        Ok(repo) => {
+    ) = match SurrealConnection::new(&surreal_url, "flashcard", "flashcard").await {
+        Ok(conn) => {
             tracing::info!("✅ Conectado a SurrealDB en {}", surreal_url);
-            let repo = Arc::new(repo);
+            let conn = Arc::new(conn);
             (
-                repo.clone(),
-                repo.clone(),
-                repo.clone(),
-                repo.clone(),
-                repo.clone(),
+                Arc::new(SurrealUserRepository(conn.clone())) as Arc<dyn UserRepository>,
+                Arc::new(SurrealSubscriptionRepository(conn.clone())) as Arc<dyn SubscriptionRepository>,
+                Arc::new(SurrealCardProgressRepository(conn.clone())) as Arc<dyn CardProgressRepository>,
+                Arc::new(SurrealPronounRepository(conn.clone())) as Arc<dyn PronounPracticeRepository>,
+                Arc::new(SurrealUserActivityRepository(conn.clone())) as Arc<dyn UserActivityRepository>,
             )
         }
         Err(e) => {
@@ -287,17 +308,33 @@ async fn async_main() -> anyhow::Result<()> {
     {
         let args: Vec<String> = std::env::args().collect();
         if args.iter().any(|arg| arg == "--batch-link-images") {
-            let filter =
-                crate::application::batch::parse_batch_filter(&args, "--batch-link-images");
-            return crate::application::batch::run_batch_image_linking(state, filter).await;
+            let filter = parse_batch_filter(&args, "--batch-link-images");
+            let ctx = ImageBatchContext {
+                deck: state.deck_use_cases.clone(),
+                image: state.image_use_cases.clone(),
+                settings: flashcards_batch_settings(&state.settings),
+            };
+            return run_batch_image_linking(ctx, filter).await;
         }
         if args.iter().any(|arg| arg == "--batch-gen-images") {
-            let filter = crate::application::batch::parse_batch_filter(&args, "--batch-gen-images");
-            return crate::application::batch::run_batch_image_generation(state, filter).await;
+            let filter = parse_batch_filter(&args, "--batch-gen-images");
+            let ctx = ImageBatchContext {
+                deck: state.deck_use_cases.clone(),
+                image: state.image_use_cases.clone(),
+                settings: flashcards_batch_settings(&state.settings),
+            };
+            return run_batch_image_generation(ctx, filter).await;
         }
         if args.iter().any(|arg| arg == "--batch-gen-audio") {
-            let filter = crate::application::batch::parse_batch_filter(&args, "--batch-gen-audio");
-            return crate::application::batch_audio::run_batch_audio_generation(state, filter).await;
+            let filter = parse_batch_filter(&args, "--batch-gen-audio");
+            let batch_tts = Arc::new(GeminiTtsProvider::new_for_batch(&state.settings)?);
+            let batch_audio = state.audio_use_cases.with_audio_generator(batch_tts);
+            let ctx = AudioBatchContext {
+                deck: state.deck_use_cases.clone(),
+                audio: batch_audio,
+                settings: flashcards_batch_settings(&state.settings),
+            };
+            return run_batch_audio_generation(ctx, filter).await;
         }
     }
     // ------------------

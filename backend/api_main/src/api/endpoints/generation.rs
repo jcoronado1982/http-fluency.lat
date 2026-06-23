@@ -1,3 +1,10 @@
+use crate::api::dto::generation::{
+    DeleteAudioBody, DeleteImageBody, GenerateImageBody, GenerateImageResponse,
+    ResolveImageBody, SynthesizeSpeechBody, SynthesizeSpeechResponse,
+};
+use crate::api::mappers::flashcards::{
+    to_audio_synth_request, to_delete_audio_request, to_image_gen_request, to_upload_image_request,
+};
 use crate::api::middleware::auth::{extract_claims, require_premium_role, resolve_effective_role};
 use crate::AppState;
 use axum::{
@@ -6,91 +13,6 @@ use axum::{
     response::IntoResponse,
     Json,
 };
-use serde::{Deserialize, Serialize};
-use mod_flashcards::audio_use_cases::AudioSynthRequest;
-use mod_flashcards::image_use_cases::{ImageGenRequest, UploadImageRequest};
-
-// ---------------------------------------------------------------------------
-// HTTP request / response types (transport DTOs, not domain objects)
-// ---------------------------------------------------------------------------
-
-#[derive(Deserialize)]
-pub struct SynthesizeSpeechBody {
-    pub category: String,
-    pub deck: String,
-    pub text: String,
-    pub voice_name: String,
-    pub verb_name: Option<String>,
-    pub tone: Option<String>,
-    pub lang: Option<String>,
-    #[serde(default)]
-    pub exclude_voice: Option<String>,
-    #[serde(default)]
-    pub force_regenerate: Option<bool>,
-}
-
-#[derive(Serialize)]
-pub struct SynthesizeSpeechResponse {
-    pub audio_url: String,
-    pub voice_name: String,
-}
-
-#[derive(Deserialize)]
-pub struct GenerateImageBody {
-    pub category: String,
-    pub deck: String,
-    pub index: usize,
-    pub def_index: usize,
-    pub prompt: String,
-    pub meaning: Option<String>,
-    pub usage_example: Option<String>,
-    #[serde(default)]
-    pub force_generation: bool,
-    #[serde(default)]
-    pub form: Option<String>,
-}
-
-#[derive(Serialize)]
-pub struct GenerateImageResponse {
-    pub path: String,
-}
-
-#[derive(Deserialize)]
-pub struct ResolveImageBody {
-    pub category: String,
-    pub deck: String,
-    pub index: usize,
-    pub def_index: usize,
-    #[serde(default)]
-    pub form: Option<String>,
-}
-
-#[derive(Deserialize)]
-pub struct DeleteAudioBody {
-    pub category: String,
-    pub deck: String,
-    pub text: String,
-    pub voice_name: String,
-    pub verb_name: Option<String>,
-    pub tone: Option<String>,
-    pub lang: Option<String>,
-    #[serde(default)]
-    pub exclude_voice: Option<String>,
-}
-
-#[derive(Deserialize)]
-pub struct DeleteImageBody {
-    pub category: String,
-    pub deck: String,
-    pub index: usize,
-    pub def_index: usize,
-    #[serde(default)]
-    pub form: Option<String>,
-}
-
-// ---------------------------------------------------------------------------
-// Handlers
-// ---------------------------------------------------------------------------
 
 pub async fn synthesize_speech(
     State(state): State<AppState>,
@@ -105,17 +27,7 @@ pub async fn synthesize_speech(
     //   1. Si el audio ya existe en caché → lo sirve a CUALQUIER usuario (viewer, premium, admin).
     //   2. Si NO existe → solo admin/premium puede invocar la IA para generarlo.
     //      Un viewer recibe error "audio_not_found" → 404.
-    let req = AudioSynthRequest {
-        category: body.category,
-        deck: body.deck,
-        text: body.text,
-        voice_name: body.voice_name,
-        verb_name: body.verb_name.filter(|s| !s.is_empty()),
-        tone: body.tone.filter(|s| !s.is_empty()),
-        lang: body.lang.filter(|s| !s.is_empty()),
-        exclude_voice: body.exclude_voice.filter(|s| !s.is_empty()),
-        force_regenerate: body.force_regenerate.unwrap_or(false),
-    };
+    let req = to_audio_synth_request(body);
 
     state
         .audio_use_cases
@@ -177,17 +89,7 @@ pub async fn generate_image(
     let role = resolve_effective_role(&state, &claims).await;
     require_premium_role(&role)?;
 
-    let req = ImageGenRequest {
-        category: body.category,
-        deck: body.deck,
-        index: body.index,
-        def_index: body.def_index,
-        prompt: body.prompt,
-        meaning: body.meaning,
-        usage_example: body.usage_example,
-        force_generation: body.force_generation,
-        form: body.form,
-    };
+    let req = to_image_gen_request(body);
 
     state
         .image_use_cases
@@ -209,17 +111,7 @@ pub async fn delete_audio(
     require_premium_role(&role)?;
     let is_admin = role == "admin";
 
-    let req = AudioSynthRequest {
-        category: body.category,
-        deck: body.deck,
-        text: body.text,
-        voice_name: body.voice_name,
-        verb_name: body.verb_name.filter(|s| !s.is_empty()),
-        tone: body.tone.filter(|s| !s.is_empty()),
-        lang: body.lang.filter(|s| !s.is_empty()),
-        exclude_voice: body.exclude_voice.filter(|s| !s.is_empty()),
-        force_regenerate: false,
-    };
+    let req = to_delete_audio_request(body);
 
     match state
         .audio_use_cases
@@ -356,7 +248,7 @@ pub async fn upload_image(
         ));
     }
 
-    let req = UploadImageRequest {
+    let req = to_upload_image_request(
         category,
         deck,
         card_index,
@@ -365,7 +257,7 @@ pub async fn upload_image(
         file_data,
         file_name,
         content_type,
-    };
+    );
 
     state
         .image_use_cases

@@ -20,15 +20,15 @@
 //!   --batch-gen-audio verbs              → categoría verbs
 //!   --batch-gen-audio verbs 1-basic      → un mazo
 
-use crate::application::batch::BatchFilter;
-use crate::domain::models::flashcard::Flashcard;
-use crate::infrastructure::ai::gemini_tts_provider::GeminiTtsProvider;
-use crate::AppState;
-use mod_flashcards::audio_use_cases::{AudioSynthRequest, AudioUseCases};
+use super::context::BatchFilter;
+use fluency_core::domain::models::flashcard::Flashcard;
+use crate::audio_use_cases::{AudioSynthRequest, AudioUseCases};
+use crate::DeckUseCases;
+use super::context::BatchSettings;
+use std::sync::Arc;
 use std::collections::HashSet;
 use std::io::{stdout, Write};
 use std::path::PathBuf;
-use std::sync::Arc;
 
 const EN_LANG: &str = "en";
 const PHONICS_CATEGORY: &str = "phonics";
@@ -42,22 +42,22 @@ enum FormVariant {
 }
 
 pub async fn run_batch_audio_generation(
-    state: AppState,
+    ctx: super::context::AudioBatchContext,
     filter: BatchFilter,
 ) -> anyhow::Result<()> {
-    run_batch_audio(state, filter).await
+    run_batch_audio(ctx, filter).await
 }
 
-async fn run_batch_audio(state: AppState, filter: BatchFilter) -> anyhow::Result<()> {
+async fn run_batch_audio(ctx: super::context::AudioBatchContext, filter: BatchFilter) -> anyhow::Result<()> {
     println!("\n========================================================");
     println!("🎧 GENERACIÓN MASIVA DE AUDIO EN INGLÉS (RUST BATCH)");
     println!("   Motor: Gemini AI Studio → Opus (CPU local) → Oracle");
-    if state.settings.sync_to_oracle {
-        println!("   Destino: Oracle ({})", state.settings.oracle_host);
+    if ctx.settings.sync_to_oracle {
+        println!("   Destino: Oracle ({})", ctx.settings.oracle_host);
     } else {
         println!("   ⚠️  SYNC_TO_ORACLE=false — archivos solo en disco local");
     }
-    if state.settings.gemini_tts_api_key_backup.is_some() {
+    if ctx.settings.gemini_tts_api_key_backup.is_some() {
         println!("   Respaldo TTS local: GEMINI_TTS_API_KEY_BACKUP (solo batch, no producción)");
     }
     if let Some(ref cat) = filter.category {
@@ -74,12 +74,13 @@ async fn run_batch_audio(state: AppState, filter: BatchFilter) -> anyhow::Result
     let _ = stdout().flush();
 
     let mut stats = BatchAudioStats::default();
-    let failures_log = failures_log_path(&state.settings.local_storage_path);
+    let failures_log = failures_log_path(&ctx.settings.local_storage_path);
     println!("   Log de fallos: {failures_log}");
     let _ = stdout().flush();
 
-    let batch_tts = Arc::new(GeminiTtsProvider::new_for_batch(&state.settings)?);
-    let batch_audio = state.audio_use_cases.with_audio_generator(batch_tts);
+    let batch_audio = ctx.audio;
+    let deck = ctx.deck;
+    let settings = ctx.settings;
 
     let mut global_counter = 0usize;
 
@@ -91,10 +92,10 @@ async fn run_batch_audio(state: AppState, filter: BatchFilter) -> anyhow::Result
         && filter.deck.is_none();
 
     if run_phonics {
-        global_counter += process_phonics(&state, &batch_audio, &mut stats, &failures_log).await?;
+        global_counter += process_phonics(&deck, &settings, &batch_audio, &mut stats, &failures_log).await?;
     }
 
-    let mut categories = state.deck_use_cases.list_categories().await?;
+    let mut categories = deck.list_categories().await?;
     if let Some(ref cat) = filter.category {
         if cat == PHONICS_CATEGORY {
             categories.clear();
@@ -121,7 +122,7 @@ async fn run_batch_audio(state: AppState, filter: BatchFilter) -> anyhow::Result
         println!("\n📂 CATEGORÍA: {cat_name}");
         let _ = stdout().flush();
 
-        let mut decks = state.deck_use_cases.list_decks(&cat_name).await?;
+        let mut decks = deck.list_decks(&cat_name).await?;
         if let Some(ref deck) = filter.deck {
             let deck_file = if deck.ends_with(".json") {
                 deck.clone()
@@ -142,10 +143,9 @@ async fn run_batch_audio(state: AppState, filter: BatchFilter) -> anyhow::Result
 
             let audio_dir = format!(
                 "{}/{}/{}",
-                state.settings.gcs_audio_prefix, cat_name, deck_id
+                settings.gcs_audio_prefix, cat_name, deck_id
             );
-            let mut file_index: HashSet<String> = state
-                .deck_use_cases
+            let mut file_index: HashSet<String> = deck
                 .list_files_in_dir(&audio_dir)
                 .await?
                 .into_iter()
@@ -156,8 +156,7 @@ async fn run_batch_audio(state: AppState, filter: BatchFilter) -> anyhow::Result
             );
             let _ = stdout().flush();
 
-            let deck_data = state
-                .deck_use_cases
+            let deck_data = deck
                 .get_deck_json(&cat_name, &deck_name)
                 .await?;
             let card_count = deck_data.flashcards().len();
@@ -314,7 +313,8 @@ async fn synthesize_shared_global(
 }
 
 async fn process_phonics(
-    state: &AppState,
+    deck: &Arc<DeckUseCases>,
+    settings: &BatchSettings,
     batch_audio: &AudioUseCases,
     stats: &mut BatchAudioStats,
     failures_log: &str,
@@ -322,7 +322,7 @@ async fn process_phonics(
     println!("\n📂 PHONICS (categoría {PHONICS_CATEGORY})");
     let _ = stdout().flush();
 
-    let data = match state.deck_use_cases.get_phonics_data().await {
+    let data = match deck.get_phonics_data().await {
         Ok(d) => d,
         Err(e) => {
             println!("  ⚠️  Sin datos phonics ({e}), omitiendo.");
@@ -338,10 +338,9 @@ async fn process_phonics(
 
     let audio_dir = format!(
         "{}/{}/{}",
-        state.settings.gcs_audio_prefix, PHONICS_CATEGORY, PHONICS_DECK
+        settings.gcs_audio_prefix, PHONICS_CATEGORY, PHONICS_DECK
     );
-    let mut file_index: HashSet<String> = state
-        .deck_use_cases
+    let mut file_index: HashSet<String> = deck
         .list_files_in_dir(&audio_dir)
         .await?
         .into_iter()

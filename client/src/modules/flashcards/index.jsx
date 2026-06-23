@@ -7,6 +7,7 @@ import { CategoryProvider } from './context/CategoryContext';
 import { FlashcardProvider } from './context/FlashcardContext';
 import { FlashcardUiProvider } from './context/FlashcardUiContext';
 import { getFlashcardUiBridge } from './uiBridge';
+import { getFlashcardFloatingMenuLabels, getFlashcardSidebarLabels } from './config/translations';
 import { isDefaultHomeModule } from '../index';
 
 const IconVowelChart = () => (
@@ -42,8 +43,9 @@ const flashcardsModule = {
         );
         return [{ path, element: flashcardElement }];
     },
-    navSections: ({ t, config }) => {
+    navSections: ({ language, config }) => {
         if (!config.features.flashcards) return [];
+        const t = getFlashcardSidebarLabels(language);
         const to = isDefaultHomeModule('flashcards', config) ? '/' : '/flashcard';
         return [{
             id: 'flashcards',
@@ -60,8 +62,9 @@ const flashcardsModule = {
     },
     overlays: () => <FlashcardOverlays />,
     shellProviders: (config) => (config.features.flashcards ? [FlashcardUiProvider] : []),
-    floatingMenuItems: ({ t, config, navigate, location, close }) => {
+    floatingMenuItems: ({ language, config, navigate, location, close }) => {
         if (!config.features.flashcards) return [];
+        const t = getFlashcardFloatingMenuLabels(language);
         const { openCatalog, openIpa } = getFlashcardUiBridge();
         const homePath = isDefaultHomeModule('flashcards', config) ? '/' : '/flashcard';
         const goHomeWithState = (state) => {
