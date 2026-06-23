@@ -71,6 +71,14 @@ export function getModuleFloatingMenuItems(config, context) {
   });
 }
 
+/** Providers de shell que un módulo necesita montar fuera de sus rutas (ej. UI bridge). */
+export function getModuleShellProviders(config) {
+  return getEnabledModules(config).flatMap((module) => {
+    if (typeof module.shellProviders === 'function') return module.shellProviders(config);
+    return module.shellProviders || [];
+  });
+}
+
 export function getDefaultModuleId(config) {
   return config?.defaultModule || import.meta.env.VITE_DEFAULT_MODULE || 'flashcards';
 }

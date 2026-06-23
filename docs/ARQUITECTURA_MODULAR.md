@@ -1,6 +1,6 @@
 # Arquitectura Modular — Fluency
 
-Documento canónico del modelo **Clean / Hexagonal modular** con **registry**, **sparse-checkout** y **conexión/desconexión de módulos** por capa.
+Documento canónico del modelo **Clean / Hexagonal modular** con **registry**, **sparse-checkout**, **conexión/desconexión de módulos** por capa y aplicación explícita de principios **SOLID**.
 
 **Deploy / Git / Azure:** [`DEPLOY_Y_REPOSITORIO.md`](DEPLOY_Y_REPOSITORIO.md)
 
@@ -21,7 +21,7 @@ Objetivos de diseño:
 
 - Conectar y desconectar módulos en **compile-time** (Cargo features) y **runtime** (flags Vite)
 - Trabajar con **git sparse-checkout** para aislamiento físico de contexto
-- **SOLID** y **Ports & Adapters** en backend
+- Aplicar **SOLID** y **Ports & Adapters** en backend y mantener el frontend desacoplado mediante shell + registry modular
 - Tolerar cambio de tecnología vía puertos (`fluency_core`)
 - Mantenible y testeable por módulo
 
@@ -129,18 +129,61 @@ El shell registra siempre: `/api/health`, `/api/features`, tutor, notificaciones
 
 ---
 
-## 4. Frontend — registry modular
+## 4. Frontend — Clean / Hexagonal modular
 
-### 4.1 Loader (`client/src/modules/index.js`)
+El frontend replica la misma dinámica que el backend: **shell + módulos** con capas internas **ports → use cases → composition root → adapters**.
 
-Auto-descubre `./<modulo>/index.jsx` y exporta:
+### 4.1 Mapa de capas por módulo
 
+```
+client/src/
+├── context/              # shell: AuthContext, UIContext (solo UI global)
+├── services/httpClient.js # adaptador HTTP compartido del shell
+├── config/index.js       # flags Vite + apiUrl (shell)
+└── modules/
+    ├── index.js          # registry + composition root global
+    ├── flashcards/
+    │   ├── composition.js       # wiring: ports ← adapters(httpClient)
+    │   ├── ports/               # contratos (equivalente fluency_core traits)
+    │   ├── adapters/            # HTTP + media (equivalente infrastructure)
+    │   ├── useCases/            # lógica pura de aplicación
+    │   ├── queries/             # (solo si usa React Query)
+    │   ├── domain/              # modelos/datos estáticos del módulo
+    │   ├── config/              # config exclusiva del módulo (catalogOrder)
+    │   ├── context/             # estado React del módulo
+    │   ├── uiBridge.js          # puente shell↔módulo (FloatingMenu)
+    │   └── index.jsx            # manifest del registry
+    └── pronounPractice/
+        ├── composition.js
+        ├── ports/
+        ├── adapters/
+        ├── queries/storyQueries.js
+        ├── domain/pronounReferenceData.js
+        └── index.jsx
+```
+
+| Capa frontend | Equivalente backend | Responsabilidad |
+|---------------|---------------------|-----------------|
+| `ports/` | `fluency_core::ports` | Contratos de datos/servicios |
+| `useCases/` / `queries/` | `mod_*` | Orquestación de negocio |
+| `adapters/` | `api_main/infrastructure` | HTTP, storage, APIs externas |
+| `composition.js` | `api_main/main.rs` | Inyección de dependencias |
+| `index.jsx` + `modules/index.js` | `api_main/modules/` | Registro de rutas y providers |
+| `context/` (módulo) | handlers delgados | Estado de presentación |
+| Shell `App.jsx` | composition root HTTP | Layout, auth, lab, registry |
+
+### 4.2 Loader (`client/src/modules/index.js`)
+
+Auto-descubre `./<modulo>/index.jsx` (sparse-checkout decide qué existe) y exporta:
+
+- `initModules()` — carga async de manifests
 - `getModuleRoutes(config)` — rutas React Router
 - `getModuleNavSections(config, ctx)` — sidebar
-- `getModuleOverlays(config)` — modales/overlays globales del módulo
-- `getModuleFloatingMenuItems(config, ctx)` — acciones del menú flotante
+- `getModuleOverlays(config)` — modales globales del módulo
+- `getModuleFloatingMenuItems(config, ctx)` — menú flotante
+- `getModuleShellProviders(config)` — providers que el módulo monta fuera de sus rutas (ej. `FlashcardUiProvider`)
 
-### 4.2 Contrato de un módulo frontend
+### 4.3 Contrato de un módulo frontend
 
 ```javascript
 export default {
@@ -148,22 +191,35 @@ export default {
   enabled: (config) => config.features.miModulo,
   routes: (config) => [{ path: '/ruta', element: <Page /> }],
   navSections: ({ t, config }) => [{ id, label, items: [...] }],
-  overlays: () => <MisOverlays />,           // opcional
-  floatingMenuItems: (ctx) => [...],         // opcional
+  overlays: () => <MisOverlays />,              // opcional
+  floatingMenuItems: (ctx) => [...],            // opcional
+  shellProviders: (config) => [MiUiProvider],   // opcional
 };
 ```
 
-### 4.3 Shell frontend (`App.jsx`)
+Flujo de datos (hexagonal):
 
-El shell **no importa** código de módulos concretos. Solo:
+```
+Page → context/hooks → useCases o queries → port → adapter(httpClient)
+```
 
-- Layout (Sidebar, Header, Footer)
+### 4.4 Shell frontend (`App.jsx`)
+
+El shell **no importa** páginas ni repositorios de módulos. Solo:
+
+- Layout (Sidebar, Header, Footer, FloatingMenu)
 - Rutas de laboratorio/admin (`/admin`, `/grammar`, `/test`)
-- `getAppRoutes` + `getModuleOverlays` del registry
+- `getAppRoutes`, `getModuleOverlays`, `getModuleShellProviders`
 
-Cada módulo envuelve su página con sus providers (ej. flashcards: `CategoryProvider` + `FlashcardProvider`).
+Reglas de aislamiento (Jun 2026):
 
-### 4.4 Flags Vite (`client/src/config/index.js`)
+- Estado UI de un módulo vive en su `context/` (ej. `FlashcardUiContext`), **no** en `UIContext` del shell.
+- Config de dominio vive en `modules/<nombre>/config/` (ej. `catalogOrder`, `translations` de flashcards), no en `client/src/config/`.
+- `client/src/config/translations.js` solo contiene i18n del **shell** (`floatingMenu`, `sidebar`).
+- El shell expone `httpClient` y flags; los módulos inyectan sus adapters en `composition.js`.
+- `uiBridge.js` permite al FloatingMenu invocar acciones del módulo sin acoplar imports cruzados.
+
+### 4.5 Flags Vite (`client/src/config/index.js`)
 
 | Flag | Comportamiento |
 |------|----------------|
@@ -213,8 +269,8 @@ Cada módulo envuelve su página con sus providers (ej. flashcards: `CategoryPro
 
 Tras `./scripts/sparse-module.sh pronoun`:
 
-- **Existen:** `backend/core`, `api_main`, `mod_pronoun`, `client/src/modules/pronounPractice`, shell
-- **No existen:** `mod_flashcards`, `client/src/modules/flashcards`, `features/flashcards`
+- **Existen:** `backend/core`, `api_main`, `mod_shell`, `mod_pronoun`, `client/src/modules/pronounPractice`, shell
+- **No existen:** `mod_flashcards`, `client/src/modules/flashcards`, `json/`
 
 Cursor y herramientas de indexación solo ven lo presente físicamente.
 
@@ -274,11 +330,17 @@ Cursor y herramientas de indexación solo ven lo presente físicamente.
 
 | Principio | Cómo se aplica |
 |-----------|----------------|
-| **SRP** | Casos de uso en `mod_*`; shell solo compone |
-| **OCP** | Nuevo módulo = nuevo crate + registro, sin editar otros módulos |
+| **SRP** | Casos de uso en `mod_*`; shell solo compone. Frontend: `useCases/` + `queries/` por módulo |
+| **OCP** | Nuevo módulo = nuevo crate/carpeta + registro, sin editar otros módulos |
 | **LSP** | `NullDbRepository` cuando Surreal no está disponible |
-| **ISP** | Puertos separados por responsabilidad en `core` |
-| **DIP** | Use cases dependen de traits, no de Surreal/Axum |
+| **ISP** | Puertos separados por responsabilidad en `core` y en `modules/*/ports/` |
+| **DIP** | Use cases dependen de traits/ports, no de Surreal/Axum/httpClient directo |
+
+Notas de alcance:
+
+- La aplicación de `SOLID` es **simétrica** en backend y frontend desde Jun 2026: ambos usan ports/adapters/composition.
+- En **frontend**, `UIContext` del shell solo contiene UI global (sidebar, idioma, mensajes). Estado de negocio/UI de módulo → `FlashcardUiContext`, etc.
+- Los archivos de estilos grandes no cambian la arquitectura base; sí señalan deuda visual en ciertos módulos.
 
 ---
 

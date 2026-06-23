@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { flashcardRepository } from '../flashcardRepository';
+import { flashcardPort } from '../composition';
 import { useAuth } from '../../../context/AuthContext';
-import { FALLBACK_CATEGORIES, sortCategories } from '../../../config/catalogOrder';
+import { FALLBACK_CATEGORIES, sortCategories } from '../config/catalogOrder';
 import { markUserNavigation } from '../navigationIntent';
+import { parseCategoriesResponse, resolvePersistedChoice } from '../useCases/deckUseCases';
 
 const CategoryContext = createContext();
 
@@ -22,30 +23,19 @@ export const CategoryProvider = ({ children }) => {
             setIsLoading(true);
             setLoadingStage('loading_categories');
             try {
-                const result = await flashcardRepository.fetchCategories();
-                const items = Array.isArray(result)
-                    ? result
-                    : (result?.success && Array.isArray(result.categories) ? result.categories : []);
-
-                const names = items.map((c) => (typeof c === 'object' ? c?.name : c)).filter(Boolean);
-                const totals = {};
-                items.forEach((c) => {
-                    if (c && typeof c === 'object' && c.name) totals[c.name] = c.total;
-                });
-
+                const result = await flashcardPort.fetchCategories();
+                const { names, totals } = parseCategoriesResponse(result);
                 const sorted = sortCategories(names);
                 const nextCategories = sorted.length > 0 ? sorted : [...FALLBACK_CATEGORIES];
                 setCategories(nextCategories);
                 setCategoryTotals(totals);
-                const saved = localStorage.getItem(LAST_CATEGORY_KEY);
-                setCurrentCategory(saved && nextCategories.includes(saved) ? saved : nextCategories[0] ?? null);
+                setCurrentCategory(resolvePersistedChoice(LAST_CATEGORY_KEY, nextCategories, nextCategories[0] ?? null));
             } catch {
                 console.error('No se pudieron cargar las categorías. Usando fallback local.');
                 const fallback = [...FALLBACK_CATEGORIES];
                 setCategories(fallback);
                 setCategoryTotals({});
-                const saved = localStorage.getItem(LAST_CATEGORY_KEY);
-                setCurrentCategory(saved && fallback.includes(saved) ? saved : fallback[0] ?? null);
+                setCurrentCategory(resolvePersistedChoice(LAST_CATEGORY_KEY, fallback, fallback[0] ?? null));
             } finally {
                 setLoadingStage(null);
                 setIsLoading(false);

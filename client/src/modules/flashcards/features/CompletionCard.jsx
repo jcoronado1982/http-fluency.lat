@@ -1,15 +1,15 @@
 import React from 'react';
 import styles from './CompletionCard.module.css';
-import { translations } from '../../../config/translations';
+import { getFlashcardTranslations } from '../config/translations';
 import { getCategoryDisplayName, getGroupDisplayName } from './categoryDisplay';
 
 const getDeckDisplayName = (deckName, language) => {
     if (!deckName) return '';
     const locale = language === 'es' ? 'es' : 'en';
     const lower = deckName.toLowerCase();
-    if (lower.includes('advanced')) return translations[locale].categorySelector.levels.advanced;
-    if (lower.includes('intermediate')) return translations[locale].categorySelector.levels.intermediate;
-    if (lower.includes('basic')) return translations[locale].categorySelector.levels.basic;
+    if (lower.includes('advanced')) return getFlashcardTranslations(locale).categorySelector.levels.advanced;
+    if (lower.includes('intermediate')) return getFlashcardTranslations(locale).categorySelector.levels.intermediate;
+    if (lower.includes('basic')) return getFlashcardTranslations(locale).categorySelector.levels.basic;
     return deckName;
 };
 
@@ -36,7 +36,7 @@ export default function CompletionCard({
     onOpenCatalog,
 }) {
     const locale = language === 'es' ? 'es' : 'en';
-    const t = translations[locale].completionCard;
+    const t = getFlashcardTranslations(locale).completionCard;
     const recommendationLabel = formatRecommendation(recommendation, locale);
 
     return (

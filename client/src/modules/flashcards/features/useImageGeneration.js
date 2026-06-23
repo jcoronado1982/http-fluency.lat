@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { imageRepository } from '../repositories/imageRepository';
+import { imagePort } from '../composition';
 import { imageCompressionService } from '../services/imageCompressionService';
 import { AI_ENABLED } from '../../../config/api';
 import { useAuth } from '../../../context/AuthContext';
@@ -84,10 +84,10 @@ export function useImageGeneration({
         const definition = defs?.[defIndex];
 
         if (definition?.imagePath) {
-            return imageRepository.normalizeToAvif(definition.imagePath);
+            return imagePort.normalizeToAvif(definition.imagePath);
         }
         if (currentCategory && currentDeckName) {
-            return imageRepository.buildGlobalStoragePath({
+            return imagePort.buildGlobalStoragePath({
                 category: currentCategory,
                 deck: currentDeckName,
                 index: cardData.id,
@@ -112,8 +112,8 @@ export function useImageGeneration({
     }, [clearGeneratingUiTimer, activeForm]);
 
     const setImageFromPath = useCallback((path, defIndex, cacheBust = false, form = activeForm) => {
-        const normalizedPath = imageRepository.normalizeToAvif(path);
-        const url = imageRepository.buildUrl(normalizedPath, cacheBust);
+        const normalizedPath = imagePort.normalizeToAvif(path);
+        const url = imagePort.buildUrl(normalizedPath, cacheBust);
         applyLoadedImage(url, normalizedPath, defIndex, form);
         return true;
     }, [applyLoadedImage, activeForm]);
@@ -158,7 +158,7 @@ export function useImageGeneration({
 
         try {
             const def = activeDefs[defIndex];
-            const data = await imageRepository.generate({
+            const data = await imagePort.generate({
                 category: currentCategory,
                 deck: currentDeckName,
                 index: cardData.id,
@@ -172,7 +172,7 @@ export function useImageGeneration({
 
             if (seq !== undefined && loadSeqRef.current !== seq) return false;
 
-            const normalizedPath = imageRepository.normalizeToAvif(data.path);
+            const normalizedPath = imagePort.normalizeToAvif(data.path);
             updateCardImagePath(cardData.id, normalizedPath, defIndex, activeForm);
             setImageFromPath(normalizedPath, defIndex, true, activeForm); // Bug 1: pasar form explícitamente
             setAppMessage({ text: `Imagen (Def ${defIndex + 1}) lista`, isError: false });
@@ -258,7 +258,7 @@ export function useImageGeneration({
             const formDefs = getFormDefs(form);
             if (!formDefs?.[defIndex]?.imagePath) return false;
 
-            const jsonPath = imageRepository.normalizeToAvif(formDefs[defIndex].imagePath);
+            const jsonPath = imagePort.normalizeToAvif(formDefs[defIndex].imagePath);
             setImageFromPath(jsonPath, defIndex, cardData.force_generation, activeForm);
             setAppMessage({ text: `Imagen (Def ${defIndex + 1}) lista`, isError: false });
             return true;
@@ -267,7 +267,7 @@ export function useImageGeneration({
         const tryResolveForm = async (form) => {
             if (!isAuthenticated || !currentCategory || !currentDeckName) return false;
             try {
-                const data = await imageRepository.resolve({
+                const data = await imagePort.resolve({
                     category: currentCategory,
                     deck: currentDeckName,
                     index: cardData.id,
@@ -298,7 +298,7 @@ export function useImageGeneration({
 
         const tryVerifyPath = async (path) => {
             if (!path) return false;
-            const accessible = await imageRepository.verifyAccessible(path, cardData.force_generation);
+            const accessible = await imagePort.verifyAccessible(path, cardData.force_generation);
             if (isStale()) {
                 isTransitioningRef.current = false;
                 return false;
@@ -323,8 +323,8 @@ export function useImageGeneration({
             if (activeForm !== 'v1') {
                 const v1Defs = getFormDefs('v1');
                 const v1Path = v1Defs?.[defIndex]?.imagePath
-                    ? imageRepository.normalizeToAvif(v1Defs[defIndex].imagePath)
-                    : imageRepository.buildGlobalStoragePath({
+                    ? imagePort.normalizeToAvif(v1Defs[defIndex].imagePath)
+                    : imagePort.buildGlobalStoragePath({
                         category: currentCategory,
                         deck: currentDeckName,
                         index: cardData.id,
@@ -437,7 +437,7 @@ export function useImageGeneration({
         clearGeneratingUiTimer();
 
         try {
-            await imageRepository.delete({
+            await imagePort.delete({
                 category: currentCategory,
                 deck: currentDeckName,
                 index: cardData.id,
@@ -488,7 +488,7 @@ export function useImageGeneration({
             const compressedBlob = await imageCompressionService.compress(file);
             const compressedFile = new File([compressedBlob], 'upload.avif', { type: 'image/avif' });
 
-            const data = await imageRepository.upload(compressedFile, {
+            const data = await imagePort.upload(compressedFile, {
                 category: currentCategory,
                 deck: currentDeckName,
                 cardIndex: cardData.id,
@@ -496,7 +496,7 @@ export function useImageGeneration({
                 form: activeForm,
             });
 
-            const path = imageRepository.normalizeToAvif(data.path);
+            const path = imagePort.normalizeToAvif(data.path);
             updateCardImagePath(cardData.id, path, defIndex, activeForm);
             setImageFromPath(path, defIndex, true);
             setAppMessage({ text: '✅ Imagen personal guardada (solo visible para ti).', isError: false });

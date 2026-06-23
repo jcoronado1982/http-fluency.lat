@@ -1,17 +1,6 @@
 import React from 'react';
 import './CoursePage.css';
-import { FiCpu } from 'react-icons/fi';
-
-const PRONOUNS_DATA = [
-  { "id": "1", "person": "1st Sing.", "subject": "I", "object": "Me", "possAdj": "My", "possPro": "Mine", "translation": "Yo" },
-  { "id": "2", "person": "2nd Sing.", "subject": "You", "object": "You", "possAdj": "Your", "possPro": "Yours", "translation": "Tú" },
-  { "id": "3", "person": "3rd Sing. (M)", "subject": "He", "object": "Him", "possAdj": "His", "possPro": "His", "translation": "Él" },
-  { "id": "4", "person": "3rd Sing. (F)", "subject": "She", "object": "Her", "possAdj": "Her", "possPro": "Hers", "translation": "Ella" },
-  { "id": "5", "person": "3rd Sing. (N)", "subject": "It", "object": "It", "possAdj": "Its", "possPro": null, "translation": "Eso" },
-  { "id": "6", "person": "1st Plural", "subject": "We", "object": "Us", "possAdj": "Our", "possPro": "Ours", "translation": "Nosotros" },
-  { "id": "7", "person": "2nd Plural", "subject": "You", "object": "You", "possAdj": "Your", "possPro": "Yours", "translation": "Ustedes" },
-  { "id": "8", "person": "3rd Plural", "subject": "They", "object": "Them", "possAdj": "Their", "possPro": "Theirs", "translation": "Ellos" }
-];
+import { PRONOUN_REFERENCE_DATA } from './domain/pronounReferenceData';
 
 export default function CoursePage() {
   return (
@@ -36,7 +25,7 @@ export default function CoursePage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {PRONOUNS_DATA.map((row) => (
+                  {PRONOUN_REFERENCE_DATA.map((row) => (
                     <tr key={row.id}>
                       <td>
                         <div className="personCell">

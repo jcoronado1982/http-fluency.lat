@@ -193,6 +193,7 @@ Servidores backend:
   - OCI-1  129.158.214.227   (mirror Oracle)
   - Oracle 157.151.199.170   (proxy Caddy + mirror backend)
 
-Stack: Rust (Axum) + React 19 (Vite/Bun) + SurrealDB + PostgreSQL
+Stack: Rust (Axum) + React 19 (Vite/Bun) + SurrealDB
+PostgreSQL aparece en notas históricas como soporte previsto para pagos/transacciones futuras, no como base activa del producto en esta arquitectura.
 Secrets: Variable group "Flashcard-Secrets" en Azure DevOps
 ```

@@ -8,10 +8,11 @@ import { usePageLoader } from '../../components/common/usePageLoader';
 import styles from './features/Flashcard.module.css';
 import CompletionCard from './features/CompletionCard';
 import { useUIContext } from '../../context/UIContext';
+import { useFlashcardUiContext } from './context/FlashcardUiContext';
 import { useCategoryContext } from './context/CategoryContext';
 import { useFlashcardContext } from './context/FlashcardContext';
 import { getCategoryDisplayName, getGroupDisplayName, getProgressLabel } from './features/categoryDisplay';
-import { getNextStudyStep } from '../../config/catalogOrder';
+import { getNextStudyStep } from './config/catalogOrder';
 import { navigationIntentRef } from './navigationIntent';
 
 const FLASHCARD_LOADING_COPY = {
@@ -88,6 +89,8 @@ export default function FlashcardPage() {
         setIsCatalogVisible,
         isIpaModalOpen, isPhonicsModalOpen,
         setIsIpaModalOpen,
+    } = useFlashcardUiContext();
+    const {
         isFloatingMenuOpen, isSidebarOpen,
         setIsMainLoadingBlocked,
         language = 'en',

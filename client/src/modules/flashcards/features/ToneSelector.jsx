@@ -91,14 +91,14 @@ const customStyles = {
     }),
 };
 
-import { translations } from '../../../config/translations';
+import { getFlashcardTranslations } from '../config/translations';
 import { useUIContext } from '../../../context/UIContext';
 import { useAuth } from '../../../context/AuthContext';
 
 function ToneSelector({ toneOptions = [], selectedTone = '', onToneChange }) {
     const { language = 'en', setAppMessage } = useUIContext();
     const { isPremium } = useAuth();
-    const t = translations[language].toneSelector;
+    const t = getFlashcardTranslations(language).toneSelector;
 
     // Transform toneOptions to react-select format with translated labels
     const options = toneOptions.map(option => ({

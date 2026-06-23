@@ -146,15 +146,12 @@ module_sparse_patterns() {
       cat <<'EOF'
 backend/mod_flashcards
 client/src/modules/flashcards
-client/src/services/apiService.js
-client/src/config/api.js
 json
 EOF
       ;;
     pronoun)
       cat <<'EOF'
 backend/mod_pronoun
-client/src/features/reference
 client/src/modules/pronounPractice
 EOF
       ;;
@@ -188,7 +185,6 @@ module_disk_paths() {
     pronoun)
       printf '%s\n' \
         backend/mod_pronoun \
-        client/src/features/reference \
         client/src/modules/pronounPractice
       ;;
     *) return 1 ;;

@@ -9,7 +9,7 @@ Este documento detalla las capacidades y roles de todos los servidores activos e
 - **Ubicación**: `southcentralus`
 - **IP Pública**: `172.202.197.64` (Estática ✅)
 - **IP Privada**: `10.0.0.6`
-- **Rol**: Hosting de Base de Datos (Postgres), Reverse Proxy y Worker de Rust.
+- **Rol**: Infraestructura auxiliar histórica; cualquier referencia a Postgres en este inventario debe entenderse como soporte previsto para pagos/transacciones futuras, no como base activa del producto hoy.
 - **Capacidades**:
   - **CPU**: 2 vCPUs (ARM64 Ampere Altra @ 3.0 GHz).
   - **RAM**: 1 GB (Uso base: ~72MB | Libre: ~760MB).

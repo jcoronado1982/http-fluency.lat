@@ -5,6 +5,7 @@ import { useImageGeneration } from './useImageGeneration.js';
 import CardFront from './CardFront.jsx';
 import CardBack from './CardBack.jsx';
 import { useUIContext } from '../../../context/UIContext';
+import { useFlashcardUiContext } from '../context/FlashcardUiContext';
 import { useFlashcardContext } from '../context/FlashcardContext';
 import { useCategoryContext } from '../context/CategoryContext';
 import { getCardTitle } from './cardLanguageUtils';
@@ -23,15 +24,17 @@ const getDefinitionsForForm = (card, form) => {
 function Flashcard() {
     const {
         setAppMessage,
+        isFloatingMenuOpen,
+        isSidebarOpen,
+        language = 'en',
+    } = useUIContext();
+    const {
         setIsAudioLoading,
         setIsIpaModalOpen,
         isCatalogVisible,
         isIpaModalOpen,
         isPhonicsModalOpen,
-        isFloatingMenuOpen,
-        isSidebarOpen,
-        language = 'en',
-    } = useUIContext();
+    } = useFlashcardUiContext();
     const { currentCategory } = useCategoryContext();
     const { currentCard: cardData, currentDeckName, updateCardImagePath } = useFlashcardContext();
     const [prevCardId, setPrevCardId] = useState(null);

@@ -32,10 +32,19 @@ mod tests {
 
     #[test]
     fn compress_logo_png_to_avif_works() {
-        let original = include_bytes!("../../../../img/logo.png");
+        use image::{ImageBuffer, Rgb, ImageFormat};
+        let img: ImageBuffer<Rgb<u8>, Vec<u8>> = ImageBuffer::from_fn(512, 512, |x, y| {
+            Rgb([(x % 256) as u8, (y % 256) as u8, 128])
+        });
+        let mut original = Vec::new();
+        img.write_to(
+            &mut std::io::Cursor::new(&mut original),
+            ImageFormat::Png,
+        )
+        .expect("PNG sintético de prueba");
 
-        let avif_bytes = compress_bytes_to_avif(original, 80)
-            .expect("la compresión AVIF debe funcionar con logo.png");
+        let avif_bytes = compress_bytes_to_avif(&original, 80)
+            .expect("la compresión AVIF debe funcionar con PNG de prueba");
 
         assert!(
             !avif_bytes.is_empty(),
@@ -43,7 +52,7 @@ mod tests {
         );
         assert!(
             avif_bytes.len() < original.len(),
-            "el AVIF debe ser más pequeño que la imagen original"
+            "el AVIF debe ser más pequeño que la imagen PNG sintética"
         );
 
         let has_avif_brand = avif_bytes

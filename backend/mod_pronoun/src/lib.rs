@@ -145,7 +145,10 @@ impl StoryUseCases {
 
             for screen in screens {
                 let img_url = screen.content["image_url"].as_str().unwrap_or("");
-                if Self::needs_image_regeneration(img_url) {
+                let missing = Self::needs_image_regeneration(img_url)
+                    || !Self::image_exists_in_storage(&storage_repo, &gcs_prefix, img_url)
+                        .await;
+                if missing {
                     screens_to_gen.push(screen.clone());
                     story_data_for_ai.push(json!({
                         "step": screen.step_order,
@@ -290,5 +293,24 @@ impl StoryUseCases {
             || img_url.ends_with(".png")
             || img_url.ends_with(".jpg")
             || img_url.ends_with(".jpeg")
+    }
+
+    fn image_url_to_blob_path(gcs_prefix: &str, img_url: &str) -> String {
+        let rel = img_url
+            .trim_start_matches("/card_images/")
+            .trim_start_matches('/');
+        format!("{}/{}", gcs_prefix, rel)
+    }
+
+    async fn image_exists_in_storage(
+        storage: &Arc<dyn StorageRepository>,
+        gcs_prefix: &str,
+        img_url: &str,
+    ) -> bool {
+        if img_url.is_empty() {
+            return false;
+        }
+        let blob_path = Self::image_url_to_blob_path(gcs_prefix, img_url);
+        storage.blob_exists(&blob_path).await.unwrap_or(false)
     }
 }

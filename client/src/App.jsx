@@ -13,7 +13,7 @@ import AdminPage from './pages/AdminPage';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import AdminRoute from './components/common/AdminRoute';
 import config from './config';
-import { getAppRoutes, getModuleOverlays, getDefaultAppPath } from './modules';
+import { getAppRoutes, getModuleOverlays, getDefaultAppPath, getModuleShellProviders } from './modules';
 
 import { AppProvider, useAppContext } from './context/AppContext';
 
@@ -44,6 +44,7 @@ const enabledRoutes = getAppRoutes(config, baseRoutes).filter(
 );
 const defaultPath = getDefaultAppPath(config, baseRoutes);
 const moduleOverlays = getModuleOverlays(config);
+const moduleShellProviders = getModuleShellProviders(config);
 
 function AppContent() {
   const { isSidebarOpen, setIsSidebarOpen, isMainLoadingBlocked } = useAppContext();
@@ -88,11 +89,17 @@ function AppContent() {
 }
 
 function App() {
-  return (
+  let content = (
     <AppProvider>
       <AppContent />
     </AppProvider>
   );
+
+  moduleShellProviders.forEach((Provider, index) => {
+    content = <Provider key={Provider.name || index}>{content}</Provider>;
+  });
+
+  return content;
 }
 
 export default App;

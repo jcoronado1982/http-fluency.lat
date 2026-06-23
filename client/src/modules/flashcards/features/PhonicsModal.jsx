@@ -3,15 +3,17 @@ import styles from './PhonicsModal.module.css';
 import { useAudioPlayback } from './useAudioPlayback.jsx';
 import { httpClient } from '../../../services/httpClient';
 import { useUIContext } from '../../../context/UIContext';
-import { translations } from '../../../config/translations';
+import { useFlashcardUiContext } from '../context/FlashcardUiContext';
+import { getFlashcardTranslations } from '../config/translations';
 
 function PhonicsModal() {
-    const { setAppMessage, setIsAudioLoading, setIsPhonicsModalOpen, language = 'en' } = useUIContext();
+    const { setAppMessage, language = 'en' } = useUIContext();
+    const { setIsAudioLoading, setIsPhonicsModalOpen } = useFlashcardUiContext();
     const [phonicsData, setPhonicsData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     
-    const t = translations[language].phonicsModal;
+    const t = getFlashcardTranslations(language).phonicsModal;
 
     const { playAudio, isAudioPlaying, activeAudioText } = useAudioPlayback({
         setAppMessage, setIsAudioLoading, currentCategory: "phonics",

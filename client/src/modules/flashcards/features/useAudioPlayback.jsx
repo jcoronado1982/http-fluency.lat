@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
-import { audioRepository } from '../repositories/audioRepository';
+import { audioPort } from '../composition';
 
 const MAX_ATTEMPTS = 3;
 const RETRY_DELAY  = 5000;
@@ -94,7 +94,7 @@ export function useAudioPlayback({
                 try {
                     setAppMessage({ text: `⏳ Verificando audio... (${attempt}/${MAX_ATTEMPTS})`, isError: false });
 
-                    data = await audioRepository.synthesize({
+                    data = await audioPort.synthesize({
                         category: currentCategory,
                         deck: currentDeckName,
                         text: originalText,
@@ -127,7 +127,7 @@ export function useAudioPlayback({
             }
             audioPlayer.load();
 
-            const audioUrl = audioRepository.buildUrl(data.audio_url, true);
+            const audioUrl = audioPort.buildUrl(data.audio_url, true);
             const audioMime = audioUrl.endsWith('.wav') ? 'audio/wav' : 'audio/ogg';
 
             const source = document.createElement('source');
@@ -281,7 +281,7 @@ export function useAudioPlayback({
 
             let previousVoice = null;
             try {
-                const rotateResult = await audioRepository.rotate({
+                const rotateResult = await audioPort.rotate({
                     category: currentCategory,
                     deck: currentDeckName,
                     text: textToDelete,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './IpaModal.module.css';
 import { useUIContext } from '../../../context/UIContext';
-import { translations } from '../../../config/translations';
+import { getFlashcardTranslations } from '../config/translations';
 
 // --- Data for the modal ---
 const ipaSymbols = ['i', 'ɪ', 'ɛ', 'æ', 'ɑ', 'ʌ', 'ɚ', 'ɔ', 'o', 'uː', 'ʊ', 'ɝ'];
@@ -57,7 +57,7 @@ function IpaModal({ onClose }) {
     const [activeSymbol, setActiveSymbol] = useState(null);
     const [errorSymbol, setErrorSymbol] = useState(null);
     const { language = 'en' } = useUIContext();
-    const t = translations[language].ipaModal;
+    const t = getFlashcardTranslations(language).ipaModal;
 
     const speakIPA = (symbol) => {
         const fileName = symbolToFileNameMap[symbol];

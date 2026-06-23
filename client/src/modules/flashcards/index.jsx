@@ -5,6 +5,8 @@ import FlashcardPage from './FlashcardPage';
 import FlashcardOverlays from './FlashcardOverlays';
 import { CategoryProvider } from './context/CategoryContext';
 import { FlashcardProvider } from './context/FlashcardContext';
+import { FlashcardUiProvider } from './context/FlashcardUiContext';
+import { getFlashcardUiBridge } from './uiBridge';
 import { isDefaultHomeModule } from '../index';
 
 const IconVowelChart = () => (
@@ -57,8 +59,10 @@ const flashcardsModule = {
         }];
     },
     overlays: () => <FlashcardOverlays />,
-    floatingMenuItems: ({ t, config, navigate, location, close, setIsCatalogVisible, setIsIpaModalOpen }) => {
+    shellProviders: (config) => (config.features.flashcards ? [FlashcardUiProvider] : []),
+    floatingMenuItems: ({ t, config, navigate, location, close }) => {
         if (!config.features.flashcards) return [];
+        const { openCatalog, openIpa } = getFlashcardUiBridge();
         const homePath = isDefaultHomeModule('flashcards', config) ? '/' : '/flashcard';
         const goHomeWithState = (state) => {
             if (location.pathname !== homePath) {
@@ -73,7 +77,7 @@ const flashcardsModule = {
                 onClick: () => {
                     close();
                     const onHome = goHomeWithState({ openCatalog: true });
-                    if (onHome) setIsCatalogVisible(true);
+                    if (onHome && openCatalog) openCatalog();
                 },
                 icon: <FiLayers />,
                 iconColor: 'teal',
@@ -85,7 +89,7 @@ const flashcardsModule = {
                 onClick: () => {
                     close();
                     const onHome = goHomeWithState({ openIpa: true });
-                    if (onHome) setIsIpaModalOpen(true);
+                    if (onHome && openIpa) openIpa();
                 },
                 icon: <IconVowelChart />,
                 iconColor: 'purple',

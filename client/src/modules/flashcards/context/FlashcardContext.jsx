@@ -1,45 +1,19 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useCategoryContext } from './CategoryContext';
 import { useUIContext } from '../../../context/UIContext';
-import { flashcardRepository } from '../flashcardRepository';
+import { flashcardPort } from '../composition';
 import { useAuth } from '../../../context/AuthContext';
 import { markUserNavigation } from '../navigationIntent';
+import {
+    filterUnlearned,
+    normalizeDeckResponse,
+    resolvePersistedChoice,
+    sortDeckNames,
+} from '../useCases/deckUseCases';
 
 const FlashcardContext = createContext();
 
 const LAST_DECK_KEY_PREFIX = 'flashcards_last_deck_';
-
-const normalizeDefinitions = (defs) =>
-    (defs || []).map((def) => ({ ...def, imagePath: def.imagePath ?? null }));
-
-const normalizeCard = (card, index) => {
-    const base = { ...card, ...(card.extra || {}) };
-
-    const normalized = {
-        ...base,
-        id: index,
-        definitions: normalizeDefinitions(base.definitions),
-        learned: base.learned || false,
-    };
-
-    if (normalized.irregular) {
-        const irregular = { ...normalized.irregular };
-        ['past', 'participle'].forEach((form) => {
-            if (irregular[form]) {
-                const defs = irregular[form].definitions || (irregular[form].usage_example ? [{
-                    usage_example: irregular[form].usage_example,
-                    usage_example_es: irregular[form].usage_example_es,
-                    pronunciation_guide_es: irregular[form].pronunciation_guide_es,
-                    meaning: irregular[form].meaning
-                }] : []);
-                irregular[form] = { ...irregular[form], definitions: normalizeDefinitions(defs) };
-            }
-        });
-        normalized.irregular = irregular;
-    }
-
-    return normalized;
-};
 
 export const FlashcardProvider = ({ children }) => {
     const { currentCategory } = useCategoryContext();
@@ -65,11 +39,10 @@ export const FlashcardProvider = ({ children }) => {
         setFilteredData([]);
         setResetKey((k) => k + 1);
         try {
-            const data = await flashcardRepository.fetchDeckData(user.email, category, deck);
-            const rawCards = Array.isArray(data) ? data : (data.flashcards || [data]);
-            const normalized = rawCards.map(normalizeCard);
+            const data = await flashcardPort.fetchDeckData(user.email, category, deck);
+            const normalized = normalizeDeckResponse(data);
             setMasterData(normalized);
-            setFilteredData(normalized.filter((c) => !c.learned));
+            setFilteredData(filterUnlearned(normalized));
         } catch {
             setAppMessage({ text: 'Error al cargar tarjetas', isError: true });
         } finally {
@@ -85,11 +58,7 @@ export const FlashcardProvider = ({ children }) => {
     }, [currentCategory, currentDeckName]);
 
     useEffect(() => {
-        let filtered = masterData;
-        if (selectedGroup) {
-            filtered = filtered.filter((c) => c.group_name === selectedGroup);
-        }
-        setFilteredData(filtered.filter((c) => !c.learned));
+        setFilteredData(filterUnlearned(masterData, selectedGroup));
     }, [masterData, selectedGroup]);
 
     useEffect(() => {
@@ -102,23 +71,12 @@ export const FlashcardProvider = ({ children }) => {
             setIsDeckLoading(true);
             setLoadingStage('loading_decks');
             try {
-                const result = await flashcardRepository.fetchDecksForCategory(currentCategory);
+                const result = await flashcardPort.fetchDecksForCategory(currentCategory);
                 if (result.success && Array.isArray(result.files)) {
-                    const names = result.files.map((f) => f.replace('.json', ''));
-                    names.sort((a, b) => {
-                        const getOrder = (n) => {
-                            const lower = n.toLowerCase();
-                            if (lower.includes('advanced')) return 3;
-                            if (lower.includes('intermediate')) return 2;
-                            if (lower.includes('basic')) return 1;
-                            return 99;
-                        };
-                        return getOrder(a) - getOrder(b);
-                    });
+                    const names = sortDeckNames(result.files);
                     setDeckNames(names);
                     const storageKey = `${LAST_DECK_KEY_PREFIX}${currentCategory}`;
-                    const saved = localStorage.getItem(storageKey);
-                    setCurrentDeckName(saved && names.includes(saved) ? saved : names[0]);
+                    setCurrentDeckName(resolvePersistedChoice(storageKey, names, names[0]));
                 }
             } catch {
                 setAppMessage({ text: 'Error al cargar decks', isError: true });
@@ -176,14 +134,10 @@ export const FlashcardProvider = ({ children }) => {
         const card = filteredData[currentIndex];
         if (!card || !user?.email) return;
         try {
-            await flashcardRepository.updateCardStatus(user.email, currentCategory, currentDeckName, card.id, true);
+            await flashcardPort.updateCardStatus(user.email, currentCategory, currentDeckName, card.id, true);
             const updated = masterData.map((c) => (c.id === card.id ? { ...c, learned: true } : c));
             setMasterData(updated);
-            let scoped = updated;
-            if (selectedGroup) {
-                scoped = scoped.filter((c) => c.group_name === selectedGroup);
-            }
-            const remaining = scoped.filter((c) => !c.learned);
+            const remaining = filterUnlearned(updated, selectedGroup);
             setFilteredData(remaining);
             if (remaining.length === 0) {
                 setJustCompletedInSession(true);
@@ -197,7 +151,7 @@ export const FlashcardProvider = ({ children }) => {
     const resetDeck = async () => {
         if (!user?.email || !window.confirm('¿Resetear progreso?')) return;
         try {
-            await flashcardRepository.resetDeckStatus(user.email, currentCategory, currentDeckName);
+            await flashcardPort.resetDeckStatus(user.email, currentCategory, currentDeckName);
             loadFlashcards(currentCategory, currentDeckName);
         } catch {
             setAppMessage({ text: 'Error al resetear', isError: true });
@@ -220,7 +174,7 @@ export const FlashcardProvider = ({ children }) => {
         try {
             await Promise.all(
                 targetCards.map((card) =>
-                    flashcardRepository.updateCardStatus(
+                    flashcardPort.updateCardStatus(
                         user.email,
                         currentCategory,
                         currentDeckName,

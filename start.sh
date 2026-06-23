@@ -22,10 +22,39 @@ cleanup() {
 # Capturar Ctrl+C (SIGINT) y SIGTERM
 trap cleanup SIGINT SIGTERM
 
+REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
+
 DOCKER_READY=false
 if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
     DOCKER_READY=true
 fi
+
+CLIENT_ENV_FILE="$REPO_ROOT/client/.env.development"
+CLIENT_ENV_LOCAL="$REPO_ROOT/client/.env.development.local"
+
+profile_has_pronoun() {
+    grep -Eq '^VITE_ENABLE_PRONOUN_PRACTICE=true$|^VITE_ENABLE_PRONOUN=true$' "$1" 2>/dev/null
+}
+
+seed_pronoun_practice() {
+    if [ "$DOCKER_READY" != true ]; then
+        return 0
+    fi
+
+    if [ ! -f "$REPO_ROOT/infra/seed/pronoun_practice_seed.surql" ]; then
+        echo "⚠️  Seed de pronoun no encontrado; se omite el precargado."
+        return 0
+    fi
+
+    if [ -f "$CLIENT_ENV_LOCAL" ] && profile_has_pronoun "$CLIENT_ENV_LOCAL"; then
+        bash "$REPO_ROOT/infra/proxy/seed-pronoun-practice.sh"
+        return 0
+    fi
+
+    if [ -f "$CLIENT_ENV_FILE" ] && profile_has_pronoun "$CLIENT_ENV_FILE"; then
+        bash "$REPO_ROOT/infra/proxy/seed-pronoun-practice.sh"
+    fi
+}
 
 if [ "$DOCKER_READY" = true ]; then
     # 2. Levantar la base de datos con Docker
@@ -34,7 +63,7 @@ if [ "$DOCKER_READY" = true ]; then
         echo "♻️  Reciclando contenedor Docker existente: flashcard-db"
         docker rm -f flashcard-db >/dev/null 2>&1 || true
     fi
-    docker-compose up -d db
+    docker-compose -f "$REPO_ROOT/docker-compose.yml" up -d db
 
     # 2.1 Levantar SurrealDB para desarrollo local.
     # En esta copia de trabajo usamos memoria para evitar fallas de permisos
@@ -63,6 +92,7 @@ if [ "$DOCKER_READY" = true ]; then
       if [ $COUNT -ge $MAX_RETRIES ]; then echo "❌ Error: SurrealDB no respondió."; exit 1; fi
     done
     echo "✅ Bases de datos listas."
+    seed_pronoun_practice
 else
     echo "⚠️  Docker no está disponible; continúo sin levantar bases locales."
     echo "   - El backend usará sus degradaciones internas si no encuentra DB/Oracle."
@@ -82,9 +112,9 @@ fi
 
 # 5. Iniciar Frontend en segundo plano
 echo "🌐 Iniciando Frontend (Vite)..."
-cd client || exit
+cd "$REPO_ROOT/client" || exit
 npm run dev -- --port 5173 --host 0.0.0.0 &
-cd ..
+cd "$REPO_ROOT" || exit
 
 # 6. Resumen de Accesos y Servicios
 echo ""
@@ -100,18 +130,13 @@ echo ""
 
 # 7. Iniciar Backend Rust (Proceso persistente)
 echo "🔥 [BACKEND] Iniciando Rust Backend..."
-cd backend || exit
+cd "$REPO_ROOT/backend" || exit
 
 # Resolver features modulares a partir de la config local del frontend
-CLIENT_ENV_FILE="../client/.env.development"
-CLIENT_ENV_LOCAL="../client/.env.development.local"
 AUTO_BACKEND_FEATURES=""
-_env_has_pronoun() {
-    grep -Eq '^VITE_ENABLE_PRONOUN_PRACTICE=true$|^VITE_ENABLE_PRONOUN=true$' "$1" 2>/dev/null
-}
-if [ -f "$CLIENT_ENV_LOCAL" ] && _env_has_pronoun "$CLIENT_ENV_LOCAL"; then
+if [ -f "$CLIENT_ENV_LOCAL" ] && profile_has_pronoun "$CLIENT_ENV_LOCAL"; then
     AUTO_BACKEND_FEATURES="pronoun_practice"
-elif [ -f "$CLIENT_ENV_FILE" ] && _env_has_pronoun "$CLIENT_ENV_FILE"; then
+elif [ -f "$CLIENT_ENV_FILE" ] && profile_has_pronoun "$CLIENT_ENV_FILE"; then
     AUTO_BACKEND_FEATURES="pronoun_practice"
 fi
 

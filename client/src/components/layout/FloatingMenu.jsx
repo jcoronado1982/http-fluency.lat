@@ -24,8 +24,6 @@ const IconPronunciation = () => (
 
 const FloatingMenu = () => {
     const {
-        setIsCatalogVisible,
-        setIsIpaModalOpen,
         isFloatingMenuOpen: isOpen,
         setIsFloatingMenuOpen: setIsOpen,
         language = 'en'
@@ -45,8 +43,6 @@ const FloatingMenu = () => {
         navigate,
         location,
         close,
-        setIsCatalogVisible,
-        setIsIpaModalOpen,
     });
 
     useEffect(() => {

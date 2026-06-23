@@ -68,9 +68,23 @@ cargo build -p api_main --no-default-features --features auth
 
 ## Shell compartido (siempre incluido en sparse/export)
 
-- `backend/core`, `backend/api_main`
-- `backend/mod_shell`
-- `client/src/modules/index.js`, layout, config, auth, UI context
+- `backend/core`, `backend/api_main`, `backend/mod_shell`
+- `client/src/modules/index.js`, layout, `config/index.js`, `config/api.js`, auth, UI context
 - `scripts/`, `modules/`, `docs/ARQUITECTURA_MODULAR.md`
 
 Un módulo nunca se entrega sin shell: eso garantiza compilación y arranque.
+
+## Capas frontend por módulo (Jun 2026)
+
+Cada módulo bajo `client/src/modules/<nombre>/` sigue:
+
+| Carpeta | Rol |
+|---------|-----|
+| `ports/` | Contratos (DIP) |
+| `adapters/` | HTTP y servicios externos |
+| `useCases/` o `queries/` | Lógica de aplicación |
+| `composition.js` | Wiring del módulo |
+| `domain/` | Datos/modelos estáticos |
+| `config/` | Config exclusiva del módulo (`catalogOrder`, `translations`) |
+| `context/` | Estado React del módulo |
+| `index.jsx` | Manifest del registry |

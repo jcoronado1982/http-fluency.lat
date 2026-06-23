@@ -76,5 +76,6 @@ Esta etapa ocurre en cascada.
 ## 3. Entorno de Desarrollo Local
 
 Para trabajar de manera local en el código, existe un entorno provisto en la raíz:
-- **Docker Compose:** `docker-compose.yml` provee un motor local de PostgreSQL 15 en el puerto 5432 para que el backend Rust local se acople mientras el desarrollador itera en código en modo host.
+- **Base de datos activa del producto:** el backend actual trabaja contra **SurrealDB**; en desarrollo local, si `SURREAL_URL` no está disponible, el sistema puede degradar partes dependientes de persistencia mediante `NullDbRepository`.
+- **PostgreSQL 15 en Docker Compose:** queda reservado como infraestructura de apoyo para la futura capa de **pagos/suscripciones transaccionales**, donde se necesite almacenar transacciones de pago y conciliación. Esa parte **aún no está desarrollada** ni es la persistencia principal del producto hoy.
 - **Frontend Local:** En `client/`, usando los `.env.development` y los comandos convencionales de Node/Bun.

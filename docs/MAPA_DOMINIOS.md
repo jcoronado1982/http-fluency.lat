@@ -35,7 +35,8 @@ Casos de uso compartidos del shell: `backend/mod_shell`.
 - `backend/api_main/src/modules/flashcards.rs`
 
 **Frontend**
-- `client/src/modules/flashcards/` (index, page, context, repositories, services y componentes UI)
+- `client/src/modules/flashcards/` — index, page, context, **ports/**, **adapters/**, **useCases/**, **composition.js**, **config/** (`catalogOrder`, `translations`), componentes UI
+- `client/src/config/api.js` — re-export shell (`API_URL`, `AI_ENABLED`)
 
 ---
 
@@ -50,7 +51,13 @@ Casos de uso compartidos del shell: `backend/mod_shell`.
 
 **Frontend**
 - `client/src/modules/pronounPractice/`
-- `client/src/modules/pronounPractice/CoursePage.jsx` (referencia)
+- `client/src/modules/pronounPractice/composition.js` — wiring storyPort + tutorPort
+- `client/src/modules/pronounPractice/queries/storyQueries.js` — React Query
+- `client/src/modules/pronounPractice/domain/pronounReferenceData.js` — tabla de referencia
+- `client/src/modules/pronounPractice/CoursePage.jsx` — referencia
+- `client/src/modules/pronounPractice/PracticePage.jsx` — práctica guiada (orquestador)
+- `client/src/modules/pronounPractice/hooks/useStorySession.js` — lógica de sesión
+- `client/src/modules/pronounPractice/features/practice/` — subcomponentes UI
 
 ---
 
@@ -60,7 +67,7 @@ Casos de uso compartidos del shell: `backend/mod_shell`.
 - `backend/api_main/src/infrastructure/ai/gemini_grpc_provider.rs`
 - `backend/mod_shell/src/tutor_use_cases.rs`
 - `backend/api_main/src/api/endpoints/tutor.rs`
-- `client/src/modules/pronounPractice/tutorRepository.js`
+- `client/src/modules/pronounPractice/adapters/tutorHttpAdapter.js` (consumido vía `tutorPort`)
 
 ---
 
@@ -68,8 +75,8 @@ Casos de uso compartidos del shell: `backend/mod_shell`.
 
 - `backend/mod_flashcards/src/audio_use_cases.rs`
 - `backend/mod_flashcards/src/image_use_cases.rs`
-- `client/src/modules/flashcards/repositories/audioRepository.js`
-- `client/src/modules/flashcards/repositories/imageRepository.js`
+- `client/src/modules/flashcards/adapters/audioHttpAdapter.js`
+- `client/src/modules/flashcards/adapters/imageHttpAdapter.js`
 
 ---
 

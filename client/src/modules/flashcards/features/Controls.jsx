@@ -1,17 +1,19 @@
 import React from 'react';
 import styles from './Controls.module.css';
-import { translations } from '../../../config/translations';
+import { getFlashcardTranslations } from '../config/translations';
 import { useUIContext } from '../../../context/UIContext';
+import { useFlashcardUiContext } from '../context/FlashcardUiContext';
 import { useFlashcardContext } from '../context/FlashcardContext';
 
 function Controls() {
-    const { language = 'en', isAudioLoading } = useUIContext();
+    const { language = 'en' } = useUIContext();
+    const { isAudioLoading } = useFlashcardUiContext();
     const {
         prevCard, nextCard, markAsLearned, resetDeck,
         currentIndex, filteredData, currentDeckName
     } = useFlashcardContext();
 
-    const t = translations[language].controls;
+    const t = getFlashcardTranslations(language).controls;
     const totalCards = filteredData.length;
     const isBusy = totalCards === 0 || isAudioLoading;
     const isResetDisabled = isAudioLoading || !currentDeckName;

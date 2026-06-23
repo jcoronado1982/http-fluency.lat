@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import styles from './CategorySelector.module.css';
 import { useUIContext } from '../../../context/UIContext';
+import { useFlashcardUiContext } from '../context/FlashcardUiContext';
 import { useFlashcardContext } from '../context/FlashcardContext';
 import { useCategoryContext } from '../context/CategoryContext';
-import { translations } from '../../../config/translations';
-import { sortGroups } from '../../../config/catalogOrder';
+import { getFlashcardTranslations } from '../config/translations';
+import { sortGroups } from '../config/catalogOrder';
 
 // Los totales son dinámicos — vienen del contexto que obtiene el conteo real del backend
 
@@ -30,9 +31,10 @@ const formatName = (name, t) => {
 };
 
 function CategorySelector() {
-    const { setIsCatalogVisible, language = 'en' } = useUIContext();
+    const { language = 'en' } = useUIContext();
+    const { setIsCatalogVisible } = useFlashcardUiContext();
     const { categories, currentCategory, changeCategory } = useCategoryContext();
-    const t = translations[language].categorySelector;
+    const t = getFlashcardTranslations(language).categorySelector;
 
     const { categoryTotals } = useCategoryContext();
 
