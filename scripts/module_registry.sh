@@ -189,8 +189,7 @@ module_disk_paths() {
       printf '%s\n' \
         backend/mod_pronoun \
         client/src/features/reference \
-        client/src/modules/pronounPractice \
-        client/src/modules/pronoun
+        client/src/modules/pronounPractice
       ;;
     *) return 1 ;;
   esac

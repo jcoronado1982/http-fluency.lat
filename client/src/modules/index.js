@@ -3,50 +3,17 @@ const moduleLoaders = import.meta.glob('./*/index.jsx');
 /** @type {Array<{ id: string, enabled?: Function, routes?: Function, [key: string]: unknown }>} */
 let modules = [];
 
-const MODULE_SPECS = [
-  {
-    id: 'flashcards',
-    path: './flashcards/index.jsx',
-    buildEnabled: flashcardsBuildEnabled,
-  },
-  {
-    id: 'pronoun',
-    path: './pronounPractice/index.jsx',
-    buildEnabled: pronounBuildEnabled,
-  },
-];
-
-function flashcardsBuildEnabled() {
-  return import.meta.env.VITE_ENABLE_FLASHCARDS !== 'false';
-}
-
-function pronounBuildEnabled() {
-  if (
-    import.meta.env.VITE_ENABLE_PRONOUN_PRACTICE === 'false'
-    && import.meta.env.VITE_ENABLE_PRONOUN_REFERENCE === 'false'
-  ) {
-    return false;
-  }
-  if (
-    import.meta.env.VITE_ENABLE_PRONOUN_PRACTICE === 'true'
-    || import.meta.env.VITE_ENABLE_PRONOUN === 'true'
-  ) {
-    return true;
-  }
-  return import.meta.env.VITE_ENABLE_PRONOUN_REFERENCE !== 'false';
-}
-
-/** Carga solo los módulos activos según VITE_* (evita importar pronoun en perfil flashcards). */
+/** Carga los módulos presentes físicamente; sparse-checkout decide qué existe en disco. */
 export async function initModules() {
   modules = [];
 
-  for (const spec of MODULE_SPECS) {
-    if (!spec.buildEnabled()) continue;
-    const loadModule = moduleLoaders[spec.path];
-    if (!loadModule) {
-      throw new Error(`Module entry not found for '${spec.id}' at ${spec.path}`);
-    }
+  const paths = Object.keys(moduleLoaders).sort();
+  for (const path of paths) {
+    const loadModule = moduleLoaders[path];
     const { default: moduleDef } = await loadModule();
+    if (!moduleDef?.id) {
+      throw new Error(`Module '${path}' must export a default object with an id`);
+    }
     modules.push(moduleDef);
   }
 
