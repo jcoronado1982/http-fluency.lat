@@ -104,6 +104,7 @@ backend/Cargo.toml
 backend/Cargo.lock
 backend/api_main
 backend/core
+backend/mod_shell
 client/bun.lock
 client/eslint.config.js
 client/index.html
@@ -144,15 +145,7 @@ module_sparse_patterns() {
     flashcards)
       cat <<'EOF'
 backend/mod_flashcards
-client/src/features/flashcards
 client/src/modules/flashcards
-client/src/repositories/imageRepository.js
-client/src/repositories/audioRepository.js
-client/src/services/imageCompressionService.js
-client/src/services/wasm_lib.d.ts
-client/src/services/wasm_lib.js
-client/src/services/wasm_lib_bg.wasm
-client/src/services/wasm_lib_bg.wasm.d.ts
 client/src/services/apiService.js
 client/src/config/api.js
 json
@@ -189,10 +182,7 @@ module_disk_paths() {
     flashcards)
       printf '%s\n' \
         backend/mod_flashcards \
-        client/src/features/flashcards \
         client/src/modules/flashcards \
-        client/src/repositories/imageRepository.js \
-        client/src/repositories/audioRepository.js \
         json
       ;;
     pronoun)
@@ -209,7 +199,7 @@ module_disk_paths() {
 # Crates Rust del workspace segun modulos activos
 module_workspace_members() {
   local modules=("$@")
-  local members=('"core"' '"api_main"')
+  local members=('"core"' '"api_main"' '"mod_shell"')
   local module
   for module in "${modules[@]}"; do
     case "$module" in

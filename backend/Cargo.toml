@@ -1,5 +1,5 @@
 [workspace]
-members = ["core", "api_main", "mod_flashcards", "mod_pronoun"]
+members = ["core", "api_main", "mod_flashcards", "mod_pronoun", "mod_shell"]
 resolver = "2"
 
 [workspace.package]

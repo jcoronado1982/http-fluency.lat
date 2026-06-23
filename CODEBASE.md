@@ -32,7 +32,8 @@ Monolito modular Clean/Hexagonal. Ver [ARQUITECTURA_MODULAR.md](docs/ARQUITECTUR
 ```
 backend/
 ├── core/                        ← fluency_core: dominio + puertos
-├── mod_flashcards/              ← DeckUseCases
+├── mod_shell/                   ← auth, tutor, presence, subscriptions
+├── mod_flashcards/              ← DeckUseCases + audio/image use cases
 ├── mod_pronoun/                 ← StoryUseCases (crate pronoun_practice)
 └── api_main/
     ├── src/main.rs              ← composition root
@@ -72,9 +73,8 @@ client/src/
 ├── App.jsx               ← shell: layout + getAppRoutes (sin imports de módulos)
 ├── modules/
 │   ├── index.js          ← registry loader
-│   ├── flashcards/       ← módulo flashcards
+│   ├── flashcards/       ← módulo flashcards completo (UI + repos + servicios)
 │   └── pronounPractice/  ← módulo pronoun
-├── features/flashcards/  ← componentes UI del módulo flashcards
 ├── context/              ← shell: UIContext, AuthContext
 └── services/httpClient.js
 ```

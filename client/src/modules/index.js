@@ -1,9 +1,20 @@
-import flashcardsModule from './flashcards/index.jsx';
-
-const pronounModuleLoaders = import.meta.glob('./pronounPractice/index.jsx');
+const moduleLoaders = import.meta.glob('./*/index.jsx');
 
 /** @type {Array<{ id: string, enabled?: Function, routes?: Function, [key: string]: unknown }>} */
 let modules = [];
+
+const MODULE_SPECS = [
+  {
+    id: 'flashcards',
+    path: './flashcards/index.jsx',
+    buildEnabled: flashcardsBuildEnabled,
+  },
+  {
+    id: 'pronoun',
+    path: './pronounPractice/index.jsx',
+    buildEnabled: pronounBuildEnabled,
+  },
+];
 
 function flashcardsBuildEnabled() {
   return import.meta.env.VITE_ENABLE_FLASHCARDS !== 'false';
@@ -29,16 +40,14 @@ function pronounBuildEnabled() {
 export async function initModules() {
   modules = [];
 
-  if (flashcardsBuildEnabled()) {
-    modules.push(flashcardsModule);
-  }
-
-  if (pronounBuildEnabled()) {
-    const loadPronounModule = pronounModuleLoaders['./pronounPractice/index.jsx'];
-    if (loadPronounModule) {
-      const { default: pronounModule } = await loadPronounModule();
-      modules.push(pronounModule);
+  for (const spec of MODULE_SPECS) {
+    if (!spec.buildEnabled()) continue;
+    const loadModule = moduleLoaders[spec.path];
+    if (!loadModule) {
+      throw new Error(`Module entry not found for '${spec.id}' at ${spec.path}`);
     }
+    const { default: moduleDef } = await loadModule();
+    modules.push(moduleDef);
   }
 
   return modules;

@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
-import { audioRepository } from '../../repositories/audioRepository';
+import { audioRepository } from '../repositories/audioRepository';
 
 const MAX_ATTEMPTS = 3;
 const RETRY_DELAY  = 5000;

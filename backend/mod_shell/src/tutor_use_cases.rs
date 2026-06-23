@@ -1,7 +1,7 @@
-use crate::domain::models::tutor::TutorRequest;
-use crate::domain::repositories::db_repository::PronounPracticeRepository;
-use crate::domain::repositories::tutor::AITutor;
 use anyhow::Result;
+use fluency_core::domain::models::tutor::TutorRequest;
+use fluency_core::ports::db_repository::PronounPracticeRepository;
+use fluency_core::ports::tutor::AITutor;
 use serde_json::Value;
 use std::sync::Arc;
 

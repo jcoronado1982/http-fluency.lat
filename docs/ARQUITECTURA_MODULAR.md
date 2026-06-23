@@ -33,9 +33,10 @@ Objetivos de diseño:
 flashcard/
 ├── backend/
 │   ├── core/                 # fluency_core — dominio + puertos compartidos
+│   ├── mod_shell/            # casos de uso compartidos del shell (auth, tutor, presence, subscriptions)
 │   ├── api_main/             # composition root (shell HTTP)
 │   │   └── src/modules/      # registro de rutas por módulo
-│   ├── mod_flashcards/       # caso de uso DeckUseCases
+│   ├── mod_flashcards/       # casos de uso flashcards (deck, audio, imágenes)
 │   └── mod_pronoun/          # crate pronoun_practice — StoryUseCases
 ├── client/
 │   └── src/
@@ -82,7 +83,7 @@ flowchart TB
 | Capa | Ubicación | Responsabilidad |
 |------|-----------|-----------------|
 | Dominio + puertos | `backend/core` | Modelos, traits async (`StorageRepository`, `AITutor`, …) |
-| Aplicación | `backend/mod_*` | Casos de uso (`DeckUseCases`, `StoryUseCases`) |
+| Aplicación | `backend/mod_*` | Casos de uso por módulo y shell (`mod_shell`, `mod_flashcards`, `mod_pronoun`) |
 | API | `backend/api_main/src/api/endpoints/` | Handlers HTTP (agrupados por módulo vía `#[cfg(feature)]`) |
 | Infraestructura | `backend/api_main/src/infrastructure/` | Surreal, Gemini, ComfyUI, storage local |
 | Composition root | `backend/api_main/src/main.rs` | Wiring de dependencias y `AppState` |
@@ -232,7 +233,7 @@ Cursor y herramientas de indexación solo ven lo presente físicamente.
 ### Frontend
 
 1. Crear `client/src/modules/<nombre>/index.jsx` con el contrato del §4.2
-2. Colocar página, context, repositorios dentro del módulo
+2. Colocar página, context, repositorios, componentes UI y servicios específicos dentro del módulo
 3. Añadir flag `VITE_ENABLE_<NOMBRE>` en `client/src/config/index.js`
 
 ### Registry

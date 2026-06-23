@@ -1,4 +1,4 @@
-import { translations } from '../../config/translations';
+import { translations } from '../../../config/translations';
 
 export function getCategoryDisplayName(category, language = 'en') {
     if (!category) return '';

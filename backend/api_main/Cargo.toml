@@ -40,6 +40,7 @@ openssl = { version = "0.10", features = ["vendored"] }
 ropus = "0.12.18"
 ogg = "0.9.2"
 fluency_core = { path = "../core" }
+mod_shell = { path = "../mod_shell" }
 mod_flashcards = { path = "../mod_flashcards", optional = true }
 pronoun_practice = { path = "../mod_pronoun", optional = true }
 

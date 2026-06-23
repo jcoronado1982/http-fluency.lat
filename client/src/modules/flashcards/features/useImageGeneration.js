@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { imageRepository } from '../../repositories/imageRepository';
-import { imageCompressionService } from '../../services/imageCompressionService';
-import { AI_ENABLED } from '../../config/api';
-import { useAuth } from '../../context/AuthContext';
+import { imageRepository } from '../repositories/imageRepository';
+import { imageCompressionService } from '../services/imageCompressionService';
+import { AI_ENABLED } from '../../../config/api';
+import { useAuth } from '../../../context/AuthContext';
 
 const MAX_IMAGE_ATTEMPTS = 3;
 const IMAGE_RETRY_DELAY = 5000;

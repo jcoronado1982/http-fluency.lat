@@ -1,19 +1,30 @@
 use anyhow::Result;
+use fluency_core::ports::audio::AudioGenerator;
+use fluency_core::ports::storage::StorageRepository;
+use fluency_core::ports::tutor::AITutor;
 use rand::seq::SliceRandom;
 use serde::{Deserialize, Serialize};
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
 use std::sync::Arc;
 
-use crate::application::use_cases::auth::AuthUseCases;
-use crate::config::Settings;
-use crate::domain::repositories::audio::AudioGenerator;
-use crate::domain::repositories::storage::StorageRepository;
-use crate::infrastructure::ai::gemini_tts_provider::GEMINI_TTS_MODEL;
-use crate::infrastructure::ai::gemini_voices::{
-    GEMINI_FEMALE_VOICES, GEMINI_MALE_VOICES, GEMINI_VOICE_POOL,
-};
-use crate::infrastructure::ai::routing_tts_provider::SPANISH_TTS_BACKEND;
+use crate::FlashcardsConfig;
+
+const GEMINI_TTS_MODEL: &str = "gemini-2.5-flash-preview-tts";
+const SPANISH_TTS_BACKEND: &str = "cloud-gemini-es-419-v1";
+const GEMINI_MALE_VOICES: &[&str] = &[
+    "Algenib", "Algieba", "Alnilam", "Charon", "Enceladus", "Iapetus", "Orus", "Fenrir",
+    "Puck", "Sadaltager", "Umbriel",
+];
+const GEMINI_FEMALE_VOICES: &[&str] = &[
+    "Achernar", "Autonoe", "Callirrhoe", "Erinome", "Gacrux", "Kore", "Laomedeia",
+    "Sulafat", "Zephyr", "Aoede",
+];
+const GEMINI_VOICE_POOL: &[&str] = &[
+    "Achernar", "Algenib", "Algieba", "Alnilam", "Autonoe", "Aoede", "Callirrhoe", "Charon",
+    "Enceladus", "Erinome", "Fenrir", "Gacrux", "Iapetus", "Kore", "Laomedeia", "Orus",
+    "Puck", "Sadaltager", "Sulafat", "Umbriel", "Zephyr",
+];
 
 /// Bump al cambiar esquema de caché de audio.
 const UNIFIED_AUDIO_FORMAT: &str = "random-voice-v2";
@@ -30,6 +41,10 @@ fn user_path_segment(email: &str) -> String {
             }
         })
         .collect()
+}
+
+fn normalize_role(role: &str) -> String {
+    role.trim().to_ascii_lowercase()
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -63,20 +78,20 @@ pub struct AudioSynthRequest {
 pub struct AudioUseCases {
     storage_repo: Arc<dyn StorageRepository>,
     audio_gen: Arc<dyn AudioGenerator>,
-    settings: Arc<Settings>,
+    config: Arc<FlashcardsConfig>,
 }
 
 impl AudioUseCases {
     pub fn new(
         storage_repo: Arc<dyn StorageRepository>,
         audio_gen: Arc<dyn AudioGenerator>,
-        _ai_tutor: Arc<dyn crate::domain::repositories::tutor::AITutor>,
-        settings: Arc<Settings>,
+        _ai_tutor: Arc<dyn AITutor>,
+        config: Arc<FlashcardsConfig>,
     ) -> Self {
         Self {
             storage_repo,
             audio_gen,
-            settings,
+            config,
         }
     }
 
@@ -85,7 +100,7 @@ impl AudioUseCases {
         Self {
             storage_repo: Arc::clone(&self.storage_repo),
             audio_gen,
-            settings: Arc::clone(&self.settings),
+            config: Arc::clone(&self.config),
         }
     }
 
@@ -107,7 +122,7 @@ impl AudioUseCases {
     /// Ruta completa del blob global (p. ej. para logs del batch).
     pub fn global_audio_blob_path(&self, req: &AudioSynthRequest) -> String {
         let file_name = self.deterministic_audio_filename(req, None);
-        format!("{}/{}", self.settings.gcs_audio_prefix, file_name)
+        format!("{}/{}", self.config.gcs_audio_prefix, file_name)
     }
 
     /// Precarga audio en la **capa global compartida** (misma ruta que si un admin lo genera desde la UI).
@@ -142,7 +157,7 @@ impl AudioUseCases {
             role,
         );
 
-        let role = AuthUseCases::normalize_role(role);
+        let role = normalize_role(role);
         let is_admin = role == "admin";
         let is_premium = role == "premium";
         let user_segment = if is_admin {
@@ -151,7 +166,7 @@ impl AudioUseCases {
             Some(user_path_segment(user_email))
         };
         let file_name = self.deterministic_audio_filename(req, user_segment.as_deref());
-        let blob_path = format!("{}/{}", self.settings.gcs_audio_prefix, file_name);
+        let blob_path = format!("{}/{}", self.config.gcs_audio_prefix, file_name);
 
         let force_new = req.force_regenerate || req.exclude_voice.is_some();
 
@@ -180,7 +195,7 @@ impl AudioUseCases {
         if !force_new {
             if !is_admin {
                 let global_file = self.deterministic_audio_filename(req, None);
-                let global_path = format!("{}/{}", self.settings.gcs_audio_prefix, global_file);
+                let global_path = format!("{}/{}", self.config.gcs_audio_prefix, global_file);
                 if let Ok(true) = self.storage_repo.blob_exists(&global_path).await {
                     let voice = self
                         .read_voice_meta(&global_path)
@@ -197,7 +212,7 @@ impl AudioUseCases {
                     {
                         tracing::info!("✅ Audio legacy global: {}", found);
                         let rel = found
-                            .strip_prefix(&self.settings.gcs_audio_prefix)
+                            .strip_prefix(&self.config.gcs_audio_prefix)
                             .unwrap_or(&found)
                             .trim_start_matches('/');
                         return Ok(self.build_result(rel, "Legacy"));
@@ -210,7 +225,7 @@ impl AudioUseCases {
                 {
                     tracing::info!("✅ Audio legacy: {}", found);
                     let rel = found
-                        .strip_prefix(&self.settings.gcs_audio_prefix)
+                        .strip_prefix(&self.config.gcs_audio_prefix)
                         .unwrap_or(&found)
                         .trim_start_matches('/');
                     return Ok(self.build_result(rel, "Legacy"));
@@ -261,7 +276,7 @@ impl AudioUseCases {
             Some(user_path_segment(user_email))
         };
         let file_name = self.deterministic_audio_filename(req, user_segment.as_deref());
-        let blob_path = format!("{}/{}", self.settings.gcs_audio_prefix, file_name);
+        let blob_path = format!("{}/{}", self.config.gcs_audio_prefix, file_name);
 
         if self
             .storage_repo
@@ -414,7 +429,7 @@ impl AudioUseCases {
     ) -> Result<Option<String>> {
         let legacy_prefix = format!(
             "{}/{}/{}/{}_{}_{}{}",
-            self.settings.gcs_audio_prefix,
+            self.config.gcs_audio_prefix,
             req.category,
             deck_prefix,
             deck_prefix,
@@ -428,7 +443,7 @@ impl AudioUseCases {
         }
         let alt_prefix = format!(
             "{}/{}/{}_{}_{}{}",
-            self.settings.gcs_audio_prefix,
+            self.config.gcs_audio_prefix,
             req.category,
             deck_prefix,
             verb_slug,

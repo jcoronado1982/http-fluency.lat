@@ -1,6 +1,6 @@
 import React from 'react';
-import IpaModal from '../../features/flashcards/IpaModal';
-import PhonicsModal from '../../features/flashcards/PhonicsModal';
+import IpaModal from './features/IpaModal';
+import PhonicsModal from './features/PhonicsModal';
 import { useUIContext } from '../../context/UIContext';
 
 /** Modales globales que no dependen del contexto de flashcards. CategorySelector vive en FlashcardPage (dentro de providers). */

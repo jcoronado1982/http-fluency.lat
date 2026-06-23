@@ -4,9 +4,9 @@ import { useAudioPlayback } from './useAudioPlayback.jsx';
 import { useImageGeneration } from './useImageGeneration.js';
 import CardFront from './CardFront.jsx';
 import CardBack from './CardBack.jsx';
-import { useUIContext } from '../../context/UIContext';
-import { useFlashcardContext } from '../../modules/flashcards/context/FlashcardContext';
-import { useCategoryContext } from '../../modules/flashcards/context/CategoryContext';
+import { useUIContext } from '../../../context/UIContext';
+import { useFlashcardContext } from '../context/FlashcardContext';
+import { useCategoryContext } from '../context/CategoryContext';
 import { getCardTitle } from './cardLanguageUtils';
 
 const getDefinitionsForForm = (card, form) => {

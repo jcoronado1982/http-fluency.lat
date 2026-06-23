@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './IpaModal.module.css';
-import { useUIContext } from '../../context/UIContext';
-import { translations } from '../../config/translations';
+import { useUIContext } from '../../../context/UIContext';
+import { translations } from '../../../config/translations';
 
 // --- Data for the modal ---
 const ipaSymbols = ['i', 'ɪ', 'ɛ', 'æ', 'ɑ', 'ʌ', 'ɚ', 'ɔ', 'o', 'uː', 'ʊ', 'ɝ'];

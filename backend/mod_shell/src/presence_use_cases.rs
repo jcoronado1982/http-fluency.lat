@@ -4,12 +4,26 @@ use std::time::Duration;
 use anyhow::Result;
 use chrono::{DateTime, Utc};
 use dashmap::DashMap;
+use fluency_core::domain::models::user_activity::{
+    AdminUserActivity, ClientInfo, PaginatedAdminUsers, UserActivityStats,
+};
+use fluency_core::ports::db_repository::{UserActivityRepository, UserRepository};
 use tokio::time::interval;
 
-use crate::domain::models::user_activity::{AdminUserActivity, ClientInfo, PaginatedAdminUsers};
-use crate::domain::repositories::db_repository::{UserActivityRepository, UserRepository};
-
 const IDLE_TIMEOUT_SECS: i64 = 90;
+
+fn is_private_ip(ip: &str) -> bool {
+    matches!(ip, "127.0.0.1" | "::1" | "localhost")
+        || ip.starts_with("10.")
+        || ip.starts_with("192.168.")
+        || ip.starts_with("172.16.")
+        || ip.starts_with("172.17.")
+        || ip.starts_with("172.18.")
+        || ip.starts_with("172.19.")
+        || ip.starts_with("172.2")
+        || ip.starts_with("172.30.")
+        || ip.starts_with("172.31.")
+}
 
 struct ActiveSession {
     name: String,
@@ -113,7 +127,7 @@ impl PresenceUseCases {
         }
 
         let ip = client_ip?;
-        if crate::api::middleware::client_ip::is_private_ip(ip) {
+        if is_private_ip(ip) {
             return Some("Local".to_string());
         }
 
@@ -176,7 +190,7 @@ impl PresenceUseCases {
                 .iter()
                 .find(|s| s.email == user.email)
                 .cloned()
-                .unwrap_or_else(|| crate::domain::models::user_activity::UserActivityStats {
+                .unwrap_or_else(|| UserActivityStats {
                     email: user.email.clone(),
                     ..Default::default()
                 });

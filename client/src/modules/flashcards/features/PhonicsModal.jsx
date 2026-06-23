@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styles from './PhonicsModal.module.css';
 import { useAudioPlayback } from './useAudioPlayback.jsx';
-import { httpClient } from '../../services/httpClient';
-import { useUIContext } from '../../context/UIContext';
-import { translations } from '../../config/translations';
+import { httpClient } from '../../../services/httpClient';
+import { useUIContext } from '../../../context/UIContext';
+import { translations } from '../../../config/translations';
 
 function PhonicsModal() {
     const { setAppMessage, setIsAudioLoading, setIsPhonicsModalOpen, language = 'en' } = useUIContext();

@@ -1,5 +1,4 @@
 use crate::api::middleware::auth::{extract_claims, resolve_effective_role};
-use crate::application::use_cases::auth::AuthUseCases;
 use crate::AppState;
 use axum::{
     extract::State,
@@ -8,6 +7,7 @@ use axum::{
     Json,
 };
 use serde::Deserialize;
+use mod_shell::auth::AuthUseCases;
 
 #[derive(Deserialize)]
 pub struct GoogleLoginRequest {

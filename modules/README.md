@@ -69,6 +69,7 @@ cargo build -p api_main --no-default-features --features auth
 ## Shell compartido (siempre incluido en sparse/export)
 
 - `backend/core`, `backend/api_main`
+- `backend/mod_shell`
 - `client/src/modules/index.js`, layout, config, auth, UI context
 - `scripts/`, `modules/`, `docs/ARQUITECTURA_MODULAR.md`
 

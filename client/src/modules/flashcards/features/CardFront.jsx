@@ -6,7 +6,7 @@ import ImageViewer from './ImageViewer';
 import DefinitionList from './DefinitionList';
 import { FaSpinner } from 'react-icons/fa';
 import { FiPlay, FiHeadphones, FiZap, FiRefreshCw } from 'react-icons/fi';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../../context/AuthContext';
 import { getCardTitle } from './cardLanguageUtils';
 
 // ---------------------------------------------------------------------------

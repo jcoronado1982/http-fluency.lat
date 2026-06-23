@@ -1,7 +1,8 @@
-use crate::domain::models::user::{GooglePayload, User};
-use crate::domain::repositories::db_repository::{SubscriptionRepository, UserRepository};
 use anyhow::{anyhow, Result};
 use chrono::{Duration as ChronoDuration, Utc};
+use fluency_core::domain::models::subscription::Subscription;
+use fluency_core::domain::models::user::{GooglePayload, User};
+use fluency_core::ports::db_repository::{SubscriptionRepository, UserRepository};
 use jsonwebtoken::{decode, encode, Algorithm, DecodingKey, EncodingKey, Header, Validation};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
@@ -276,7 +277,7 @@ impl AuthUseCases {
     fn resolve_role(
         &self,
         user: &User,
-        sub: Option<&crate::domain::models::subscription::Subscription>,
+        sub: Option<&Subscription>,
     ) -> String {
         if Self::is_admin_role(&user.role) {
             return "admin".to_string();
@@ -290,7 +291,7 @@ impl AuthUseCases {
     fn generate_jwt(
         &self,
         user: &User,
-        sub: Option<&crate::domain::models::subscription::Subscription>,
+        sub: Option<&Subscription>,
     ) -> Result<String> {
         let default_exp = Utc::now()
             .checked_add_signed(ChronoDuration::days(7))

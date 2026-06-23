@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './Controls.module.css';
-import { translations } from '../../config/translations';
-import { useUIContext } from '../../context/UIContext';
-import { useFlashcardContext } from '../../modules/flashcards/context/FlashcardContext';
+import { translations } from '../../../config/translations';
+import { useUIContext } from '../../../context/UIContext';
+import { useFlashcardContext } from '../context/FlashcardContext';
 
 function Controls() {
     const { language = 'en', isAudioLoading } = useUIContext();

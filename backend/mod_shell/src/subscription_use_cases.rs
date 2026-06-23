@@ -1,8 +1,8 @@
-use crate::domain::models::subscription::{Subscription, SubscriptionPlan, SubscriptionStatus};
-use crate::domain::repositories::db_repository::SubscriptionRepository;
-use crate::domain::repositories::payment::PaymentProvider;
 use anyhow::{anyhow, Result};
 use chrono::Utc;
+use fluency_core::domain::models::subscription::{Subscription, SubscriptionPlan, SubscriptionStatus};
+use fluency_core::ports::db_repository::SubscriptionRepository;
+use fluency_core::ports::payment::PaymentProvider;
 use std::sync::Arc;
 
 pub struct SubscriptionUseCases {

@@ -2,4 +2,3 @@
 pub mod batch;
 #[cfg(feature = "flashcards")]
 pub mod batch_audio;
-pub mod use_cases;

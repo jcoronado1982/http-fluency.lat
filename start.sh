@@ -30,18 +30,22 @@ fi
 if [ "$DOCKER_READY" = true ]; then
     # 2. Levantar la base de datos con Docker
     echo "🚀 Levantando bases de datos en Docker..."
+    if docker ps -a --format '{{.Names}}' | grep -Fxq "flashcard-db"; then
+        echo "♻️  Reciclando contenedor Docker existente: flashcard-db"
+        docker rm -f flashcard-db >/dev/null 2>&1 || true
+    fi
     docker-compose up -d db
 
-    # 2.1 Levantar SurrealDB con persistencia
-    if [ ! -d "surreal_data" ]; then mkdir surreal_data; fi
+    # 2.1 Levantar SurrealDB para desarrollo local.
+    # En esta copia de trabajo usamos memoria para evitar fallas de permisos
+    # de RocksDB sobre mounts/volúmenes del daemon Docker local.
     if docker ps -a --format '{{.Names}}' | grep -Fxq "surrealdb"; then
         echo "♻️  Reciclando contenedor Docker existente: surrealdb"
         docker rm -f surrealdb >/dev/null 2>&1 || true
     fi
     docker run -d --rm --name surrealdb \
       -p 8001:8000 \
-      -v $(pwd)/surreal_data:/data \
-      surrealdb/surrealdb:v1.5.5 start --user root --pass root file:/data/surreal.db
+      surrealdb/surrealdb:v1.5.5 start --user root --pass root memory
 
     # 3. Esperar a que las bases de datos estén listas
     echo "⏳ Esperando a que las bases de datos respondan..."

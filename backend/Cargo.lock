@@ -130,6 +130,7 @@ dependencies = [
  "image",
  "jsonwebtoken",
  "mod_flashcards",
+ "mod_shell",
  "moka",
  "num_cpus",
  "ogg",
@@ -2688,9 +2689,28 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "async-trait",
+ "chrono",
  "fluency_core",
+ "rand 0.8.6",
  "serde",
  "serde_json",
+ "tracing",
+ "uuid",
+]
+
+[[package]]
+name = "mod_shell"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "dashmap",
+ "fluency_core",
+ "jsonwebtoken",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "tokio",
  "tracing",
 ]
 

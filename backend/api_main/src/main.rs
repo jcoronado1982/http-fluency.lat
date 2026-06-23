@@ -1,9 +1,9 @@
 mod api;
-mod application;
 mod config;
 mod domain;
 mod infrastructure;
 mod modules;
+mod application;
 
 use axum::{
     routing::{get, post},
@@ -19,17 +19,6 @@ use tower_http::cors::{Any, CorsLayer};
 use tower_http::timeout::TimeoutLayer;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
-#[cfg(feature = "flashcards")]
-use crate::application::use_cases::audio_use_cases::AudioUseCases;
-#[cfg(feature = "auth")]
-use crate::application::use_cases::auth::AuthUseCases;
-#[cfg(feature = "flashcards")]
-use crate::application::use_cases::image_use_cases::ImageUseCases;
-#[cfg(feature = "auth")]
-use crate::application::use_cases::presence_use_cases::PresenceUseCases;
-#[cfg(feature = "subscriptions")]
-use crate::application::use_cases::subscription_use_cases::SubscriptionUseCases;
-use crate::application::use_cases::tutor_use_cases::TutorUseCases;
 use crate::config::Settings;
 #[cfg(feature = "flashcards")]
 use crate::domain::repositories::audio::AudioGenerator;
@@ -56,7 +45,18 @@ use crate::infrastructure::storage::local_repository::LocalStorageRepository;
 use crate::infrastructure::storage::null_db_repository::NullDbRepository;
 use crate::infrastructure::storage::surreal_repository::SurrealRepository;
 #[cfg(feature = "flashcards")]
-use mod_flashcards::DeckUseCases;
+use mod_flashcards::audio_use_cases::AudioUseCases;
+#[cfg(feature = "flashcards")]
+use mod_flashcards::image_use_cases::ImageUseCases;
+#[cfg(feature = "flashcards")]
+use mod_flashcards::{DeckUseCases, FlashcardsConfig};
+#[cfg(feature = "auth")]
+use mod_shell::auth::AuthUseCases;
+#[cfg(feature = "auth")]
+use mod_shell::presence_use_cases::PresenceUseCases;
+#[cfg(feature = "subscriptions")]
+use mod_shell::subscription_use_cases::SubscriptionUseCases;
+use mod_shell::tutor_use_cases::TutorUseCases;
 #[cfg(feature = "pronoun_practice")]
 use pronoun_practice::StoryUseCases;
 
@@ -190,6 +190,12 @@ async fn async_main() -> anyhow::Result<()> {
     // --- Compose use cases (application layer) ---
     #[cfg(feature = "flashcards")]
     let deck_use_cases = Arc::new(DeckUseCases::new(storage_repo.clone(), card_repo.clone()));
+    #[cfg(feature = "flashcards")]
+    let flashcards_config = Arc::new(FlashcardsConfig {
+        gcs_audio_prefix: settings.gcs_audio_prefix.clone(),
+        gcs_images_prefix: settings.gcs_images_prefix.clone(),
+        gemini_api_enabled: settings.gemini_api_key.is_some(),
+    });
     #[cfg(feature = "pronoun_practice")]
     let tutor_db_repo = Some(story_repo.clone());
     #[cfg(not(feature = "pronoun_practice"))]
@@ -200,7 +206,7 @@ async fn async_main() -> anyhow::Result<()> {
         storage_repo.clone(),
         audio_gen.clone(),
         ai_tutor.clone(),
-        settings.clone(),
+        flashcards_config.clone(),
     ));
     #[cfg(feature = "flashcards")]
     let image_use_cases = Arc::new(ImageUseCases::new(
@@ -208,7 +214,7 @@ async fn async_main() -> anyhow::Result<()> {
         image_gen.clone(),
         image_compressor.clone(),
         ai_tutor.clone(),
-        settings.clone(),
+        flashcards_config.clone(),
     ));
     #[cfg(feature = "pronoun_practice")]
     let pronoun_practice_use_cases = Arc::new(StoryUseCases::new(

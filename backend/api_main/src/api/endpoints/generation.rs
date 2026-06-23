@@ -1,6 +1,4 @@
 use crate::api::middleware::auth::{extract_claims, require_premium_role, resolve_effective_role};
-use crate::application::use_cases::audio_use_cases::AudioSynthRequest;
-use crate::application::use_cases::image_use_cases::{ImageGenRequest, UploadImageRequest};
 use crate::AppState;
 use axum::{
     extract::{Multipart, State},
@@ -9,6 +7,8 @@ use axum::{
     Json,
 };
 use serde::{Deserialize, Serialize};
+use mod_flashcards::audio_use_cases::AudioSynthRequest;
+use mod_flashcards::image_use_cases::{ImageGenRequest, UploadImageRequest};
 
 // ---------------------------------------------------------------------------
 // HTTP request / response types (transport DTOs, not domain objects)

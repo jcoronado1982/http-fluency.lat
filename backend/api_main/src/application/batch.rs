@@ -1,6 +1,6 @@
-use crate::application::use_cases::image_use_cases::ImageGenRequest;
 use crate::domain::models::flashcard::Flashcard;
 use crate::AppState;
+use mod_flashcards::image_use_cases::ImageGenRequest;
 use std::collections::HashSet;
 use std::io::{stdout, Write};
 

@@ -1,8 +1,18 @@
-use anyhow::Result;
-use std::sync::Arc;
 use fluency_core::domain::models::flashcard::DeckData;
 use fluency_core::ports::db_repository::CardProgressRepository;
 use fluency_core::ports::storage::StorageRepository;
+use std::sync::Arc;
+use anyhow::Result;
+
+pub mod audio_use_cases;
+pub mod image_use_cases;
+
+#[derive(Clone)]
+pub struct FlashcardsConfig {
+    pub gcs_audio_prefix: String,
+    pub gcs_images_prefix: String,
+    pub gemini_api_enabled: bool,
+}
 
 pub struct DeckUseCases {
     storage_repo: Arc<dyn StorageRepository>,

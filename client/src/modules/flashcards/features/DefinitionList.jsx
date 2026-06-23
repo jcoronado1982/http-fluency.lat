@@ -3,7 +3,7 @@ import styles from './Flashcard.module.css';
 import HighlightedText from './HighlightedText';
 import { FaSpinner } from 'react-icons/fa';
 import { FiPlay, FiRefreshCw } from 'react-icons/fi';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../../context/AuthContext';
 
 /**
  * DefinitionList — responsable ÚNICAMENTE de renderizar la lista de ejemplos de uso.

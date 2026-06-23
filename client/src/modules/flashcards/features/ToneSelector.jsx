@@ -91,9 +91,9 @@ const customStyles = {
     }),
 };
 
-import { translations } from '../../config/translations';
-import { useUIContext } from '../../context/UIContext';
-import { useAuth } from '../../context/AuthContext';
+import { translations } from '../../../config/translations';
+import { useUIContext } from '../../../context/UIContext';
+import { useAuth } from '../../../context/AuthContext';
 
 function ToneSelector({ toneOptions = [], selectedTone = '', onToneChange }) {
     const { language = 'en', setAppMessage } = useUIContext();

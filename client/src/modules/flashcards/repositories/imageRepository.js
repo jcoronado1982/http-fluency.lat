@@ -1,5 +1,5 @@
-import { API_URL } from '../config/api';
-import { httpClient } from '../services/httpClient';
+import { API_URL } from '../../../config/api';
+import { httpClient } from '../../../services/httpClient';
 
 function getAuthHeader() {
     const token = localStorage.getItem('auth_token');

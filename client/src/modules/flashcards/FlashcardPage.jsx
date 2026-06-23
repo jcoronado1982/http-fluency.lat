@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import Flashcard from '../../features/flashcards/Flashcard';
-import Controls from '../../features/flashcards/Controls';
-import CategorySelector from '../../features/flashcards/CategorySelector';
+import Flashcard from './features/Flashcard';
+import Controls from './features/Controls';
+import CategorySelector from './features/CategorySelector';
 import PageLoader from '../../components/common/PageLoader';
 import { usePageLoader } from '../../components/common/usePageLoader';
-import styles from '../../features/flashcards/Flashcard.module.css';
-import CompletionCard from '../../features/flashcards/CompletionCard';
+import styles from './features/Flashcard.module.css';
+import CompletionCard from './features/CompletionCard';
 import { useUIContext } from '../../context/UIContext';
 import { useCategoryContext } from './context/CategoryContext';
 import { useFlashcardContext } from './context/FlashcardContext';
-import { getCategoryDisplayName, getGroupDisplayName, getProgressLabel } from '../../features/flashcards/categoryDisplay';
+import { getCategoryDisplayName, getGroupDisplayName, getProgressLabel } from './features/categoryDisplay';
 import { getNextStudyStep } from '../../config/catalogOrder';
 import { navigationIntentRef } from './navigationIntent';
 

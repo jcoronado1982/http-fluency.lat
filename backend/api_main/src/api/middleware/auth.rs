@@ -1,5 +1,5 @@
 #[cfg(feature = "auth")]
-pub use crate::application::use_cases::auth::Claims;
+pub use mod_shell::auth::Claims;
 use crate::AppState;
 use axum::http::StatusCode;
 
@@ -65,7 +65,7 @@ pub fn require_premium(claims: &Claims) -> Result<(), (StatusCode, String)> {
 pub fn require_admin_role(role: &str) -> Result<(), (StatusCode, String)> {
     #[cfg(feature = "auth")]
     {
-        if crate::application::use_cases::auth::AuthUseCases::is_admin_role(role) {
+        if mod_shell::auth::AuthUseCases::is_admin_role(role) {
             return Ok(());
         }
     }
@@ -80,7 +80,7 @@ pub fn require_admin_role(role: &str) -> Result<(), (StatusCode, String)> {
 pub fn require_premium_role(role: &str) -> Result<(), (StatusCode, String)> {
     #[cfg(feature = "auth")]
     {
-        if crate::application::use_cases::auth::AuthUseCases::is_premium_role(role) {
+        if mod_shell::auth::AuthUseCases::is_premium_role(role) {
             return Ok(());
         }
     }

@@ -21,10 +21,10 @@
 //!   --batch-gen-audio verbs 1-basic      → un mazo
 
 use crate::application::batch::BatchFilter;
-use crate::application::use_cases::audio_use_cases::{AudioSynthRequest, AudioUseCases};
 use crate::domain::models::flashcard::Flashcard;
 use crate::infrastructure::ai::gemini_tts_provider::GeminiTtsProvider;
 use crate::AppState;
+use mod_flashcards::audio_use_cases::{AudioSynthRequest, AudioUseCases};
 use std::collections::HashSet;
 use std::io::{stdout, Write};
 use std::path::PathBuf;

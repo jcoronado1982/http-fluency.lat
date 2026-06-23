@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './CompletionCard.module.css';
-import { translations } from '../../config/translations';
+import { translations } from '../../../config/translations';
 import { getCategoryDisplayName, getGroupDisplayName } from './categoryDisplay';
 
 const getDeckDisplayName = (deckName, language) => {

@@ -1,12 +1,11 @@
 use anyhow::Result;
+use fluency_core::ports::image::ImageGenerator;
+use fluency_core::ports::image_compressor::ImageCompressor;
+use fluency_core::ports::storage::StorageRepository;
+use fluency_core::ports::tutor::AITutor;
 use std::sync::Arc;
 
-use crate::application::use_cases::auth::AuthUseCases;
-use crate::config::Settings;
-use crate::domain::repositories::image::ImageGenerator;
-use crate::domain::repositories::image_compressor::ImageCompressor;
-use crate::domain::repositories::storage::StorageRepository;
-use crate::domain::repositories::tutor::AITutor;
+use crate::FlashcardsConfig;
 
 /// Convierte un email en un segmento de path seguro para URL/filesystem.
 /// Ejemplo: "user@example.com" → "user_example_com"
@@ -21,6 +20,10 @@ fn user_path_segment(email: &str) -> String {
             }
         })
         .collect()
+}
+
+fn normalize_role(role: &str) -> String {
+    role.trim().to_ascii_lowercase()
 }
 
 // ---------------------------------------------------------------------------
@@ -59,7 +62,7 @@ pub struct ImageUseCases {
     image_gen: Arc<dyn ImageGenerator>,
     image_compressor: Arc<dyn ImageCompressor>,
     ai_tutor: Arc<dyn AITutor>,
-    settings: Arc<Settings>,
+    config: Arc<FlashcardsConfig>,
 }
 
 impl ImageUseCases {
@@ -68,14 +71,14 @@ impl ImageUseCases {
         image_gen: Arc<dyn ImageGenerator>,
         image_compressor: Arc<dyn ImageCompressor>,
         ai_tutor: Arc<dyn AITutor>,
-        settings: Arc<Settings>,
+        config: Arc<FlashcardsConfig>,
     ) -> Self {
         Self {
             storage_repo,
             image_gen,
             image_compressor,
             ai_tutor,
-            settings,
+            config,
         }
     }
 
@@ -96,7 +99,7 @@ impl ImageUseCases {
             req.prompt
         );
 
-        let role = AuthUseCases::normalize_role(role);
+        let role = normalize_role(role);
         let is_admin = role == "admin";
         let is_premium = role == "premium";
 
@@ -128,7 +131,7 @@ impl ImageUseCases {
         };
 
         if !req.force_generation {
-            let avif_path = format!("{}/{}.avif", self.settings.gcs_images_prefix, base_pattern);
+            let avif_path = format!("{}/{}.avif", self.config.gcs_images_prefix, base_pattern);
             if let Ok(true) = self.storage_repo.blob_exists(&avif_path).await {
                 return Ok((
                     format!(
@@ -147,7 +150,7 @@ impl ImageUseCases {
                     req.category, deck_prefix, deck_prefix, req.index, req.def_index, form_suffix
                 );
                 let global_avif =
-                    format!("{}/{}.avif", self.settings.gcs_images_prefix, global_base);
+                    format!("{}/{}.avif", self.config.gcs_images_prefix, global_base);
                 if let Ok(true) = self.storage_repo.blob_exists(&global_avif).await {
                     return Ok((
                         format!(
@@ -168,7 +171,7 @@ impl ImageUseCases {
                         seg, req.category, deck_prefix, deck_prefix, req.index, req.def_index
                     );
                     let v1_personal_avif =
-                        format!("{}/{}.avif", self.settings.gcs_images_prefix, v1_personal);
+                        format!("{}/{}.avif", self.config.gcs_images_prefix, v1_personal);
                     if let Ok(true) = self.storage_repo.blob_exists(&v1_personal_avif).await {
                         tracing::info!(
                             "↩️ v2/v3 sin imagen propia, reutilizando v1 personal: {}",
@@ -189,7 +192,7 @@ impl ImageUseCases {
                     req.category, deck_prefix, deck_prefix, req.index, req.def_index
                 );
                 let v1_global_avif =
-                    format!("{}/{}.avif", self.settings.gcs_images_prefix, v1_global);
+                    format!("{}/{}.avif", self.config.gcs_images_prefix, v1_global);
                 if let Ok(true) = self.storage_repo.blob_exists(&v1_global_avif).await {
                     tracing::info!(
                         "↩️ v2/v3 sin imagen propia, reutilizando v1 global: {}",
@@ -203,14 +206,14 @@ impl ImageUseCases {
             }
         }
 
-        if self.settings.gemini_api_key.is_none() {
+        if !self.config.gemini_api_enabled {
             return Err(anyhow::anyhow!(
                 "La generación de imagen por IA está deshabilitada."
             ));
         }
 
         let file_name = format!("{}.avif", base_pattern);
-        let blob_path = format!("{}/{}", self.settings.gcs_images_prefix, file_name);
+        let blob_path = format!("{}/{}", self.config.gcs_images_prefix, file_name);
         let trace_id = uuid::Uuid::new_v4().to_string();
         let trace_short = &trace_id[..8];
 
@@ -342,7 +345,7 @@ impl ImageUseCases {
         for ext in [".avif", ".jpg", ".png", ".jpeg"] {
             let blob_path = format!(
                 "{}/{}{}",
-                self.settings.gcs_images_prefix, base_pattern, ext
+                self.config.gcs_images_prefix, base_pattern, ext
             );
             if let Ok(true) = self.storage_repo.blob_exists(&blob_path).await {
                 if self.storage_repo.delete_blob(&blob_path).await.is_ok() {
@@ -371,9 +374,9 @@ impl ImageUseCases {
     ) -> Result<Option<String>> {
         let deck_prefix = deck.replace(".json", "");
         let form_suffix = self.form_suffix(form);
-        let images_prefix = &self.settings.gcs_images_prefix;
+        let images_prefix = &self.config.gcs_images_prefix;
 
-        let role = AuthUseCases::normalize_role(role);
+        let role = normalize_role(role);
 
         tracing::info!(
             "🔍 resolve_image: category={} deck={} index={} def={} form={:?} role={}",
@@ -496,7 +499,7 @@ impl ImageUseCases {
                 extension
             )
         };
-        let blob_path = format!("{}/{}", self.settings.gcs_images_prefix, final_name);
+        let blob_path = format!("{}/{}", self.config.gcs_images_prefix, final_name);
 
         tracing::info!("📤 Uploading manual image to: {}", blob_path);
         self.storage_repo

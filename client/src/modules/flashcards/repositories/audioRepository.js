@@ -1,5 +1,5 @@
-import { API_URL } from '../config/api';
-import { httpClient } from '../services/httpClient';
+import { API_URL } from '../../../config/api';
+import { httpClient } from '../../../services/httpClient';
 
 export const audioRepository = {
     synthesize: async ({ category, deck, text, verbName, lang, excludeVoice, forceRegenerate }) => {

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import styles from './CategorySelector.module.css';
-import { useUIContext } from '../../context/UIContext';
-import { useFlashcardContext } from '../../modules/flashcards/context/FlashcardContext';
-import { useCategoryContext } from '../../modules/flashcards/context/CategoryContext';
-import { translations } from '../../config/translations';
-import { sortGroups } from '../../config/catalogOrder';
+import { useUIContext } from '../../../context/UIContext';
+import { useFlashcardContext } from '../context/FlashcardContext';
+import { useCategoryContext } from '../context/CategoryContext';
+import { translations } from '../../../config/translations';
+import { sortGroups } from '../../../config/catalogOrder';
 
 // Los totales son dinámicos — vienen del contexto que obtiene el conteo real del backend
 
