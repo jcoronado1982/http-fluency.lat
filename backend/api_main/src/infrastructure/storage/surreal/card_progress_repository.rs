@@ -2,6 +2,7 @@ use super::connection::SurrealConnection;
 use crate::domain::repositories::db_repository::CardProgressRepository;
 use anyhow::Result;
 use async_trait::async_trait;
+use serde::Deserialize;
 use std::sync::Arc;
 
 pub struct SurrealCardProgressRepository(pub Arc<SurrealConnection>);
@@ -83,5 +84,22 @@ impl CardProgressRepository for SurrealCardProgressRepository {
             .bind(("deck", deck))
             .await?;
         Ok(())
+    }
+
+    async fn count_learned_cards(&self, user_id: &str) -> Result<i32> {
+        let mut response = self
+            .0
+            .db
+            .query("SELECT count() AS total FROM card_progress WHERE user_id = $user_id AND learned = true GROUP ALL")
+            .bind(("user_id", user_id.to_string()))
+            .await?;
+
+        #[derive(Deserialize)]
+        struct CountRow {
+            total: i32,
+        }
+
+        let rows: Vec<CountRow> = response.take(0)?;
+        Ok(rows.first().map(|row| row.total).unwrap_or(0))
     }
 }

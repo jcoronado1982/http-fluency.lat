@@ -1,20 +1,23 @@
-use image::{codecs::avif::AvifEncoder, ImageEncoder};
+use image::{codecs::avif::AvifEncoder, imageops::FilterType, ImageEncoder};
 use std::io::Cursor;
 
-/// Comprime una imagen en bytes (PNG/JPEG) recibida desde la IA y la codifica a AVIF en memoria
-/// manteniendo la resolución original de 512x512 píxeles de Flux.2.
+/// Tamaño canónico de tarjetas (Flux 512×512); el demo Gemini se reescala aquí antes del AVIF.
+pub const CARD_IMAGE_SIZE: u32 = 512;
+
+/// Decodifica, normaliza a 512×512 si hace falta, y codifica AVIF (misma pipeline que Flux).
 pub fn compress_bytes_to_avif(image_bytes: &[u8], quality: u8) -> Result<Vec<u8>, String> {
-    // 1. Decodificar la imagen generada por ComfyUI/Flux.2
     let img = image::load_from_memory(image_bytes)
         .map_err(|e| format!("Fallo al decodificar imagen de la IA: {}", e))?;
 
-    // 2. Comprimir la imagen en formato AVIF manteniendo su resolución original
-    let mut buf = Cursor::new(Vec::new());
+    let img = if img.width() == CARD_IMAGE_SIZE && img.height() == CARD_IMAGE_SIZE {
+        img
+    } else {
+        img.resize_exact(CARD_IMAGE_SIZE, CARD_IMAGE_SIZE, FilterType::Lanczos3)
+    };
 
-    // Usamos velocidad 8 (rápida y optimizada) y la calidad dada (ej: 80)
+    let mut buf = Cursor::new(Vec::new());
     let encoder = AvifEncoder::new_with_speed_quality(&mut buf, 8, quality);
 
-    // Codificamos la imagen directamente al buffer
     let width = img.width();
     let height = img.height();
     let color = img.color();
@@ -62,5 +65,24 @@ mod tests {
             has_avif_brand,
             "el AVIF generado debe llevar la marca de contenedor AVIF"
         );
+    }
+
+    #[test]
+    fn downscales_non_512_to_card_size_before_avif() {
+        use image::{ImageBuffer, Rgb, ImageFormat};
+        let img: ImageBuffer<Rgb<u8>, Vec<u8>> = ImageBuffer::from_fn(1024, 1024, |x, y| {
+            Rgb([(x % 256) as u8, (y % 256) as u8, 64])
+        });
+        let mut original = Vec::new();
+        img.write_to(
+            &mut std::io::Cursor::new(&mut original),
+            ImageFormat::Png,
+        )
+        .expect("PNG sintético");
+
+        let avif_bytes = compress_bytes_to_avif(&original, 80)
+            .expect("AVIF tras resize");
+
+        assert!(!avif_bytes.is_empty());
     }
 }

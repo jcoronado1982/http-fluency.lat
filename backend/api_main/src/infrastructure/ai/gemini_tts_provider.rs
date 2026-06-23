@@ -374,6 +374,7 @@ mod tests {
             gcs_audio_prefix: String::new(),
             database_url: String::new(),
             gemini_api_key: Some("fallback-gemini".into()),
+            image_ai_enabled: true,
             gemini_tts_api_key: Some("primary-tts".into()),
             gemini_tts_api_key_backup: Some("backup-tts".into()),
             gcp_api_key: Some("gcp-key".into()),
@@ -384,6 +385,8 @@ mod tests {
             oracle_ssh_password: String::new(),
             oracle_remote_path: String::new(),
             public_base_url: String::new(),
+            elevenlabs_api_key: None,
+            elevenlabs_model_id: None,
         }
     }
 }

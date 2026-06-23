@@ -3,10 +3,14 @@ import { imagePort } from '../composition';
 import { imageCompressionService } from '../services/imageCompressionService';
 import { AI_ENABLED } from '../../../config/api';
 import { useAuth } from '../../../context/AuthContext';
+import { useFlashcardContext } from '../context/FlashcardContext';
+import { LANDING_DEMO_CATEGORY } from '../../landing/config/demoNamespace';
 
 const MAX_IMAGE_ATTEMPTS = 3;
 const IMAGE_RETRY_DELAY = 5000;
 const GENERATING_UI_DELAY_MS = 2500;
+const GEN_SLOT_WAIT_MS = 120000;
+const GEN_SLOT_POLL_MS = 200;
 
 const FORM_DEF_MAP = {
     v1: (card) => card.definitions || [],
@@ -32,6 +36,21 @@ function defsFromFormBlock(block) {
     return [];
 }
 
+/** En demo landing, la ruta debe corresponder al tiempo activo (v1/v2/v3). */
+function pathMatchesVerbForm(path, form) {
+    if (!path) return false;
+    const clean = path.split('?')[0];
+    if (form === 'v2') return clean.includes('_v2.');
+    if (form === 'v3') return clean.includes('_v3.');
+    return !clean.includes('_v2.') && !clean.includes('_v3.');
+}
+
+/** Solo landing demo: envía el complemento aparte (la frase de la tarjeta va sin mezclar). */
+function demoSceneComplement(extra) {
+    const trimmed = extra?.trim();
+    return trimmed || undefined;
+}
+
 export function useImageGeneration({
     cardData,
     currentCategory,
@@ -41,6 +60,10 @@ export function useImageGeneration({
     activeForm,
 }) {
     const { user, isAuthenticated, loading: authLoading } = useAuth();
+    const {
+        demoImagePromptExtraRef,
+        imagePromptApplySignal = 0,
+    } = useFlashcardContext() ?? {};
     const [isImageLoading, setIsImageLoading] = useState(true);
     const [isGeneratingImage, setIsGeneratingImage] = useState(false);
     const [imageUrl, setImageUrl] = useState(null);
@@ -66,7 +89,15 @@ export function useImageGeneration({
         return getter(cardData);
     }, [cardData, activeForm]);
 
-    const canGenerateImages = user?.role === 'premium' || user?.role === 'admin';
+    const isLandingDemo = currentCategory === LANDING_DEMO_CATEGORY;
+    const canGenerateImages = isLandingDemo
+        || user?.role === 'premium'
+        || user?.role === 'admin';
+    const canDeleteImages = isLandingDemo
+        || user?.role === 'premium'
+        || user?.role === 'admin';
+    const canCustomizeImages = !isLandingDemo
+        && (user?.role === 'premium' || user?.role === 'admin');
 
     const clearGeneratingUiTimer = useCallback(() => {
         if (generatingUiTimerRef.current) {
@@ -74,6 +105,26 @@ export function useImageGeneration({
             generatingUiTimerRef.current = null;
         }
     }, []);
+
+    const waitForGenerationSlot = useCallback((genKey, isStale) => new Promise((resolve) => {
+        const started = Date.now();
+        const tick = () => {
+            if (!activeGenerations.current[genKey] || isStale() || Date.now() - started > GEN_SLOT_WAIT_MS) {
+                resolve();
+                return;
+            }
+            setTimeout(tick, GEN_SLOT_POLL_MS);
+        };
+        tick();
+    }), []);
+
+    const releasePipelineLoading = useCallback((seq) => {
+        if (loadSeqRef.current !== seq) return;
+        setIsImageLoading(false);
+        setIsGeneratingImage(false);
+        isTransitioningRef.current = false;
+        clearGeneratingUiTimer();
+    }, [clearGeneratingUiTimer]);
 
     const buildGlobalFallbackPath = useCallback((defIndex, formOverride) => {
         const form = formOverride ?? activeForm;
@@ -84,7 +135,17 @@ export function useImageGeneration({
         const definition = defs?.[defIndex];
 
         if (definition?.imagePath) {
-            return imagePort.normalizeToAvif(definition.imagePath);
+            const jsonPath = imagePort.normalizeToAvif(definition.imagePath);
+            if (isLandingDemo && !pathMatchesVerbForm(jsonPath, form)) {
+                return imagePort.buildGlobalStoragePath({
+                    category: currentCategory,
+                    deck: currentDeckName,
+                    index: cardData.id,
+                    defIndex,
+                    form,
+                });
+            }
+            return jsonPath;
         }
         if (currentCategory && currentDeckName) {
             return imagePort.buildGlobalStoragePath({
@@ -96,9 +157,10 @@ export function useImageGeneration({
             });
         }
         return null;
-    }, [cardData, currentCategory, currentDeckName, activeForm]);
+    }, [cardData, currentCategory, currentDeckName, activeForm, isLandingDemo]);
 
-    const applyLoadedImage = useCallback((url, path, defIndex, form = activeForm) => {
+    const applyLoadedImage = useCallback((url, path, defIndex, form) => {
+        if (form !== activeFormRef.current) return;
         confirmedPathRef.current = path;
         imageUrlRef.current = url;
         displayedFormRef.current = form;
@@ -109,18 +171,19 @@ export function useImageGeneration({
         setIsGeneratingImage(false);
         isTransitioningRef.current = false;
         clearGeneratingUiTimer();
-    }, [clearGeneratingUiTimer, activeForm]);
+    }, [clearGeneratingUiTimer]);
 
-    const setImageFromPath = useCallback((path, defIndex, cacheBust = false, form = activeForm) => {
+    const setImageFromPath = useCallback((path, defIndex, cacheBust = false, form) => {
         const normalizedPath = imagePort.normalizeToAvif(path);
         const url = imagePort.buildUrl(normalizedPath, cacheBust);
         applyLoadedImage(url, normalizedPath, defIndex, form);
         return true;
-    }, [applyLoadedImage, activeForm]);
+    }, [applyLoadedImage]);
 
-    const fetchViaGenerate = useCallback(async (defIndex, forceRegenerate, seq) => {
-        const activeDefs = getActiveDefinitions();
-        if (!cardData || !activeDefs?.[defIndex] || !currentCategory) return false;
+    const fetchViaGenerate = useCallback(async (defIndex, forceRegenerate, seq, pipelineForm) => {
+        const requestForm = pipelineForm ?? activeFormRef.current;
+        const formDefs = (FORM_DEF_MAP[requestForm] || FORM_DEF_MAP.v1)(cardData);
+        if (!cardData || !formDefs?.[defIndex] || !currentCategory) return false;
 
         if (!AI_ENABLED || !canGenerateImages) {
             setIsImageLoading(false);
@@ -129,16 +192,27 @@ export function useImageGeneration({
             return false;
         }
 
-        const genKey = `${cardData.id}_${activeForm}_${defIndex}`;
-        if (activeGenerations.current[genKey]) return false;
+        const isRequestStale = () => loadSeqRef.current !== seq;
+
+        const genKey = `${cardData.id}_${requestForm}_${defIndex}`;
+        if (activeGenerations.current[genKey]) {
+            await waitForGenerationSlot(genKey, isRequestStale);
+            if (isRequestStale()) return false;
+            if (
+                imageUrlRef.current
+                && displayedFormRef.current === requestForm
+                && currentDefIndexRef.current === defIndex
+            ) {
+                return true;
+            }
+            if (activeGenerations.current[genKey]) return false;
+        }
         activeGenerations.current[genKey] = true;
 
         if (!imageAttempts.current[genKey]) imageAttempts.current[genKey] = 0;
         if (imageAttempts.current[genKey] >= MAX_IMAGE_ATTEMPTS) {
             setAppMessage({ text: `Fallaron todos los intentos para imagen def ${defIndex + 1}`, isError: true });
-            setIsImageLoading(false);
-            setIsGeneratingImage(false);
-            isTransitioningRef.current = false;
+            releasePipelineLoading(seq);
             delete activeGenerations.current[genKey];
             return false;
         }
@@ -150,31 +224,55 @@ export function useImageGeneration({
 
         clearGeneratingUiTimer();
         generatingUiTimerRef.current = setTimeout(() => {
-            if (loadSeqRef.current === seq) {
+            if (!isRequestStale()) {
                 setIsGeneratingImage(true);
                 setAppMessage({ text: `⏳ Generando imagen (Def ${defIndex + 1})...`, isError: false });
             }
         }, GENERATING_UI_DELAY_MS);
 
         try {
-            const def = activeDefs[defIndex];
+            const def = formDefs[defIndex];
+            const usageExample = def.usage_example;
+            const sceneComplement = currentCategory === LANDING_DEMO_CATEGORY
+                ? demoSceneComplement(demoImagePromptExtraRef?.current)
+                : undefined;
             const data = await imagePort.generate({
                 category: currentCategory,
                 deck: currentDeckName,
                 index: cardData.id,
                 defIndex,
-                form: activeForm,
-                prompt: def.usage_example,
+                form: requestForm,
+                prompt: usageExample,
                 meaning: def.meaning,
-                usageExample: def.usage_example,
+                usageExample,
+                sceneComplement,
                 forceGeneration: forceRegenerate,
             });
 
-            if (seq !== undefined && loadSeqRef.current !== seq) return false;
+            if (isRequestStale()) {
+                releasePipelineLoading(seq);
+                return false;
+            }
 
             const normalizedPath = imagePort.normalizeToAvif(data.path);
-            updateCardImagePath(cardData.id, normalizedPath, defIndex, activeForm);
-            setImageFromPath(normalizedPath, defIndex, true, activeForm); // Bug 1: pasar form explícitamente
+            updateCardImagePath(cardData.id, normalizedPath, defIndex, requestForm);
+
+            try {
+                await imagePort.preloadImageWithRetry(normalizedPath, true);
+            } catch (preloadErr) {
+                if (isRequestStale()) {
+                    releasePipelineLoading(seq);
+                    return false;
+                }
+                console.warn('[img-gen] Precarga fallida tras generar, reintentando URL:', preloadErr);
+            }
+
+            if (isRequestStale()) {
+                releasePipelineLoading(seq);
+                return false;
+            }
+
+            setImageFromPath(normalizedPath, defIndex, true, requestForm);
             setAppMessage({ text: `Imagen (Def ${defIndex + 1}) lista`, isError: false });
             return true;
 
@@ -187,16 +285,16 @@ export function useImageGeneration({
                     text: isDisabled ? err.message : `Error final al cargar imagen: ${err.message}`,
                     isError: !isDisabled,
                 });
-                setIsImageLoading(false);
-                setIsGeneratingImage(false);
-                isTransitioningRef.current = false;
-            } else if (seq === undefined || loadSeqRef.current === seq) {
+                releasePipelineLoading(seq);
+            } else if (!isRequestStale()) {
                 setTimeout(() => {
-                    // Bug 4: evitar retry si el seq ya es stale (el usuario cambió de tarjeta/forma)
-                    if (seq === undefined || loadSeqRef.current === seq) {
-                        fetchViaGenerate(defIndex, forceRegenerate, seq);
+                    if (!isRequestStale()) {
+                        fetchViaGenerate(defIndex, forceRegenerate, seq, requestForm);
                     }
                 }, IMAGE_RETRY_DELAY);
+                return 'retrying';
+            } else {
+                releasePipelineLoading(seq);
             }
             return false;
         } finally {
@@ -205,16 +303,18 @@ export function useImageGeneration({
         }
     }, [
         cardData, currentCategory, currentDeckName, setAppMessage,
-        updateCardImagePath, getActiveDefinitions, activeForm, canGenerateImages,
-        setImageFromPath, clearGeneratingUiTimer,
+        updateCardImagePath, canGenerateImages,
+        setImageFromPath, clearGeneratingUiTimer, waitForGenerationSlot,
+        releasePipelineLoading,
     ]);
 
-    const runEnsurePipeline = useCallback(async (defIndex, { forceRegenerate = false } = {}) => {
+    const runEnsurePipeline = useCallback(async (defIndex, { forceRegenerate = false, formOverride } = {}) => {
+        const pipelineForm = formOverride ?? activeFormRef.current;
         const seq = ++loadSeqRef.current;
         const isStale = () => loadSeqRef.current !== seq;
 
-        const activeDefs = getActiveDefinitions();
-        if (!cardData || !activeDefs?.[defIndex] || !currentCategory) {
+        const pipelineDefs = (FORM_DEF_MAP[pipelineForm] || FORM_DEF_MAP.v1)(cardData);
+        if (!cardData || !pipelineDefs?.[defIndex] || !currentCategory) {
             setIsImageLoading(false);
             isTransitioningRef.current = false;
             return;
@@ -224,7 +324,7 @@ export function useImageGeneration({
         if (
             !forceRegenerate
             && currentDefIndexRef.current === defIndex
-            && displayedFormRef.current === activeForm
+            && displayedFormRef.current === pipelineForm
             && imageUrlRef.current
             && confirmedPathRef.current
         ) {
@@ -233,7 +333,7 @@ export function useImageGeneration({
             return;
         }
 
-        const contextChanged = displayedFormRef.current !== activeForm
+        const contextChanged = displayedFormRef.current !== pipelineForm
             || currentDefIndexRef.current !== defIndex;
 
         isTransitioningRef.current = true;
@@ -259,13 +359,16 @@ export function useImageGeneration({
             if (!formDefs?.[defIndex]?.imagePath) return false;
 
             const jsonPath = imagePort.normalizeToAvif(formDefs[defIndex].imagePath);
-            setImageFromPath(jsonPath, defIndex, cardData.force_generation, activeForm);
+            if (isLandingDemo && !pathMatchesVerbForm(jsonPath, form)) return false;
+
+            setImageFromPath(jsonPath, defIndex, cardData.force_generation, form);
             setAppMessage({ text: `Imagen (Def ${defIndex + 1}) lista`, isError: false });
             return true;
         };
 
         const tryResolveForm = async (form) => {
-            if (!isAuthenticated || !currentCategory || !currentDeckName) return false;
+            const isLandingDemoResolve = currentCategory === LANDING_DEMO_CATEGORY;
+            if ((!isAuthenticated && !isLandingDemoResolve) || !currentCategory || !currentDeckName) return false;
             try {
                 const data = await imagePort.resolve({
                     category: currentCategory,
@@ -279,7 +382,9 @@ export function useImageGeneration({
                     return false;
                 }
                 if (data?.path) {
-                    setImageFromPath(data.path, defIndex, cardData.force_generation, activeForm);
+                    const resolvedPath = imagePort.normalizeToAvif(data.path);
+                    if (isLandingDemo && !pathMatchesVerbForm(resolvedPath, form)) return false;
+                    setImageFromPath(resolvedPath, defIndex, cardData.force_generation, form);
                     setAppMessage({ text: `Imagen (Def ${defIndex + 1}) lista`, isError: false });
                     return true;
                 }
@@ -296,7 +401,7 @@ export function useImageGeneration({
             return false;
         };
 
-        const tryVerifyPath = async (path) => {
+        const tryVerifyPath = async (path, form = pipelineForm) => {
             if (!path) return false;
             const accessible = await imagePort.verifyAccessible(path, cardData.force_generation);
             if (isStale()) {
@@ -304,7 +409,7 @@ export function useImageGeneration({
                 return false;
             }
             if (accessible) {
-                setImageFromPath(path, defIndex, cardData.force_generation, activeForm);
+                setImageFromPath(path, defIndex, cardData.force_generation, form);
                 setAppMessage({ text: `Imagen (Def ${defIndex + 1}) lista`, isError: false });
                 return true;
             }
@@ -313,28 +418,33 @@ export function useImageGeneration({
 
         if (!forceRegenerate) {
             // Si la tarjeta ya trae imagePath, pintamos directo sin esperar roundtrip extra.
-            if (tryImmediateJsonPath(activeForm)) return;
-            if (activeForm !== 'v1' && tryImmediateJsonPath('v1')) return;
+            if (tryImmediateJsonPath(pipelineForm)) return;
+            // App interna: v2/v3 pueden reutilizar imagen v1. Demo landing: cada tiempo es independiente.
+            if (!isLandingDemo && pipelineForm !== 'v1' && tryImmediateJsonPath('v1')) return;
 
-            // resolve-image (backend hace fallback v1 para v2/v3 si no hay imagen propia)
-            if (await tryResolveForm(activeForm)) return;
+            if (!isLandingDemo && (await tryResolveForm(pipelineForm))) return;
 
-            // Sin auth o resolve falló: probar v1 por JSON o ruta canónica
-            if (activeForm !== 'v1') {
-                const v1Defs = getFormDefs('v1');
-                const v1Path = v1Defs?.[defIndex]?.imagePath
-                    ? imagePort.normalizeToAvif(v1Defs[defIndex].imagePath)
-                    : imagePort.buildGlobalStoragePath({
-                        category: currentCategory,
-                        deck: currentDeckName,
-                        index: cardData.id,
-                        defIndex,
-                        form: 'v1',
-                    });
-                if (await tryVerifyPath(v1Path)) return;
+            if (!isLandingDemo) {
+                // Sin auth o resolve falló: probar v1 por JSON o ruta canónica
+                if (pipelineForm !== 'v1') {
+                    const v1Defs = getFormDefs('v1');
+                    const v1Path = v1Defs?.[defIndex]?.imagePath
+                        ? imagePort.normalizeToAvif(v1Defs[defIndex].imagePath)
+                        : imagePort.buildGlobalStoragePath({
+                            category: currentCategory,
+                            deck: currentDeckName,
+                            index: cardData.id,
+                            defIndex,
+                            form: 'v1',
+                        });
+                    if (await tryVerifyPath(v1Path, 'v1')) return;
+                } else {
+                    const v1Path = buildGlobalFallbackPath(defIndex, 'v1');
+                    if (await tryVerifyPath(v1Path, 'v1')) return;
+                }
             } else {
-                const v1Path = buildGlobalFallbackPath(defIndex, 'v1');
-                if (await tryVerifyPath(v1Path)) return;
+                const ownPath = buildGlobalFallbackPath(defIndex, pipelineForm);
+                if (await tryVerifyPath(ownPath, pipelineForm)) return;
             }
         }
 
@@ -346,7 +456,10 @@ export function useImageGeneration({
 
         // Paso 3: get-or-generate (solo si no existe ninguna variante)
         if (canGenerateImages && AI_ENABLED) {
-            await fetchViaGenerate(defIndex, forceRegenerate, seq);
+            const generated = await fetchViaGenerate(defIndex, forceRegenerate, seq, pipelineForm);
+            if (generated === false && !isStale()) {
+                releasePipelineLoading(seq);
+            }
             return;
         }
 
@@ -358,14 +471,19 @@ export function useImageGeneration({
         isTransitioningRef.current = false;
     }, [
         cardData, currentCategory, currentDeckName, isAuthenticated,
-        getActiveDefinitions, activeForm, buildGlobalFallbackPath,
+        buildGlobalFallbackPath, isLandingDemo,
         canGenerateImages, setImageFromPath, fetchViaGenerate, setAppMessage,
-        clearGeneratingUiTimer,
+        clearGeneratingUiTimer, releasePipelineLoading,
     ]);
 
     const ensureImageForDefinition = useCallback(async (defIndex, options = {}) => {
         if (authLoading) return;
         await runEnsurePipeline(defIndex, options);
+    }, [authLoading, runEnsurePipeline]);
+
+    const ensureImageForForm = useCallback((formKey, defIndex = 0, options = {}) => {
+        if (authLoading) return;
+        void runEnsurePipeline(defIndex, { ...options, formOverride: formKey });
     }, [authLoading, runEnsurePipeline]);
 
     const displayImageForIndex = useCallback((defIndex) => {
@@ -382,7 +500,7 @@ export function useImageGeneration({
         const retryKey = path.split('?')[0];
         if (!imageAttempts.current[`retry_${retryKey}`]) {
             imageAttempts.current[`retry_${retryKey}`] = 1;
-            setImageFromPath(path, defIndex, true);
+            setImageFromPath(path, defIndex, true, activeFormRef.current);
             setAppMessage({ text: `Reintentando imagen (Def ${defIndex + 1})...`, isError: false });
             return;
         }
@@ -412,11 +530,47 @@ export function useImageGeneration({
         clearGeneratingUiTimer();
     }, [cardData, clearGeneratingUiTimer]);
 
+    const prevFormContextRef = useRef({ form: activeForm, cardId: cardData?.id });
+
+    useEffect(() => {
+        if (!cardData) return;
+        const prev = prevFormContextRef.current;
+        if (prev.form === activeForm && prev.cardId === cardData.id) return;
+        prevFormContextRef.current = { form: activeForm, cardId: cardData.id };
+
+        setImageUrl(null);
+        imageUrlRef.current = null;
+        confirmedPathRef.current = null;
+        displayedFormRef.current = '';
+        setIsImageLoading(true);
+        setIsGeneratingImage(false);
+        isTransitioningRef.current = true;
+        clearGeneratingUiTimer();
+    }, [activeForm, cardData?.id, clearGeneratingUiTimer]);
+
     useEffect(() => {
         if (authLoading || !cardData || !currentCategory) return;
         ensureImageForDefinition(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [authLoading, cardData?.id, currentCategory, currentDeckName, activeForm, isAuthenticated]);
+    }, [authLoading, cardData?.id, currentCategory, currentDeckName]);
+
+    const prevApplySignalRef = useRef(0);
+    useEffect(() => {
+        if (currentCategory !== LANDING_DEMO_CATEGORY) return;
+        if (!imagePromptApplySignal || imagePromptApplySignal === prevApplySignalRef.current) return;
+        prevApplySignalRef.current = imagePromptApplySignal;
+        if (authLoading || !cardData) return;
+
+        const defIndex = currentDefIndexRef.current;
+        const genKey = `${cardData.id}_${activeFormRef.current}_${defIndex}`;
+        imageAttempts.current[genKey] = 0;
+        loadSeqRef.current += 1;
+        confirmedPathRef.current = null;
+        imageUrlRef.current = null;
+        setImageUrl(null);
+        ensureImageForDefinition(defIndex, { forceRegenerate: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [imagePromptApplySignal, currentCategory, authLoading, cardData?.id]);
 
     useEffect(() => () => clearGeneratingUiTimer(), [clearGeneratingUiTimer]);
 
@@ -498,7 +652,7 @@ export function useImageGeneration({
 
             const path = imagePort.normalizeToAvif(data.path);
             updateCardImagePath(cardData.id, path, defIndex, activeForm);
-            setImageFromPath(path, defIndex, true);
+            setImageFromPath(path, defIndex, true, activeFormRef.current);
             setAppMessage({ text: '✅ Imagen personal guardada (solo visible para ti).', isError: false });
 
         } catch (err) {
@@ -522,9 +676,11 @@ export function useImageGeneration({
         imageRef,
         displayImageForIndex,
         ensureImageForDefinition,
+        ensureImageForForm,
         deleteImage,
         uploadImage,
         handleImageError,
-        canCustomizeImages: canGenerateImages,
+        canCustomizeImages,
+        canDeleteImages,
     };
 }

@@ -3,11 +3,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./FloatingMenu.css";
-import { useAppContext } from "../../context/AppContext";
-import { useAuth } from "../../context/AuthContext";
-import { translations } from "../../config/translations";
-import config from "../../config";
-import { getModuleFloatingMenuItems } from "../../modules";
+import { useAppContext } from '../../../context/AppContext';
+import { useAuth } from '../../../context/AuthContext';
+import { translations } from '../../../config/translations';
+import config from '../../../config';
+import { getModuleFloatingMenuItems } from '../../index';
 
 const VOWELS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=60s";
 const DIPHTHONGS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=421s";

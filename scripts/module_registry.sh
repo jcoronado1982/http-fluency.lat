@@ -3,6 +3,8 @@
 set -euo pipefail
 
 MODULE_NAMES=(
+  landing
+  dashboard
   flashcards
   pronoun
   admin
@@ -21,6 +23,8 @@ module_exists() {
 
 module_description() {
   case "${1:-}" in
+    landing) echo "Landing publica en / (marketing, sin shell autenticado)" ;;
+    dashboard) echo "Shell autenticado: sidebar, header, footer y menu flotante" ;;
     flashcards) echo "Flashcards base con imagenes/audio AVIF/Opus y progreso" ;;
     pronoun) echo "Referencia y practica guiada de pronombres" ;;
     admin) echo "Panel admin, auth y presencia (shell sin modulos de estudio)" ;;
@@ -71,6 +75,8 @@ module_cargo_build_args_multi() {
 
 module_frontend_flag() {
   case "${1:-}" in
+    landing) echo "VITE_ENABLE_LANDING=true" ;;
+    dashboard) echo "VITE_ENABLE_DASHBOARD=true" ;;
     flashcards) echo "VITE_ENABLE_FLASHCARDS=true" ;;
     pronoun) echo "VITE_ENABLE_PRONOUN_REFERENCE=true VITE_ENABLE_PRONOUN_PRACTICE=true" ;;
     admin) echo "VITE_ENABLE_ADMIN=true VITE_ENABLE_FLASHCARDS=false VITE_ENABLE_PRONOUN_REFERENCE=false VITE_ENABLE_PRONOUN_PRACTICE=false" ;;
@@ -84,6 +90,8 @@ module_default_home() {
 
 module_frontend_disable_flag() {
   case "${1:-}" in
+    landing) echo "VITE_ENABLE_LANDING=false" ;;
+    dashboard) echo "VITE_ENABLE_DASHBOARD=false" ;;
     flashcards) echo "VITE_ENABLE_FLASHCARDS=false" ;;
     pronoun) echo "VITE_ENABLE_PRONOUN_REFERENCE=false VITE_ENABLE_PRONOUN_PRACTICE=false" ;;
     admin) echo "VITE_ENABLE_ADMIN=false" ;;
@@ -115,7 +123,7 @@ client/src/App.css
 client/src/App.jsx
 client/src/assets
 client/src/components/common
-client/src/components/layout
+client/src/components/shell
 client/src/config
 client/src/context/AppContext.jsx
 client/src/context/AuthContext.jsx
@@ -142,6 +150,16 @@ EOF
 
 module_sparse_patterns() {
   case "${1:-}" in
+    landing)
+      cat <<'EOF'
+client/src/modules/landing
+EOF
+      ;;
+    dashboard)
+      cat <<'EOF'
+client/src/modules/dashboard
+EOF
+      ;;
     flashcards)
       cat <<'EOF'
 backend/mod_flashcards
@@ -176,6 +194,12 @@ module_all_patterns() {
 # Rutas de disco que pertenecen a un modulo (para podar al cambiar perfil sparse)
 module_disk_paths() {
   case "${1:-}" in
+    landing)
+      printf '%s\n' client/src/modules/landing
+      ;;
+    dashboard)
+      printf '%s\n' client/src/modules/dashboard
+      ;;
     flashcards)
       printf '%s\n' \
         backend/mod_flashcards \

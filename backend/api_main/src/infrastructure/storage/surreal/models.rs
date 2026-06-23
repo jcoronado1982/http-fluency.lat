@@ -58,4 +58,7 @@ pub struct SurrealUserActivityStats {
     pub last_os: Option<String>,
     pub last_ip: Option<String>,
     pub last_country: Option<String>,
+    pub last_study_date: Option<String>,
+    pub current_streak: Option<i32>,
+    pub longest_streak: Option<i32>,
 }

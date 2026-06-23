@@ -12,6 +12,8 @@ Mapa de ruta para IA y desarrolladores. Antes de editar un dominio, consulta tam
 
 | Registry ID | Sparse | Backend | Frontend |
 |-------------|--------|---------|----------|
+| `landing` | `./scripts/sparse-module.sh landing` | — (solo frontend) | `client/src/modules/landing/` |
+| `dashboard` | `./scripts/sparse-module.sh dashboard` | — (solo frontend) | `client/src/modules/dashboard/` (sidebar, header, footer) |
 | `flashcards` | `./scripts/sparse-module.sh flashcards` | `backend/mod_flashcards`, rutas en `api_main/src/modules/flashcards.rs` | `client/src/modules/flashcards/` |
 | `pronoun` | `./scripts/sparse-module.sh pronoun` | `backend/mod_pronoun` (crate `pronoun_practice`), `api_main/src/modules/pronoun_practice.rs` | `client/src/modules/pronounPractice/` |
 
@@ -20,7 +22,44 @@ Casos de uso compartidos del shell: `backend/mod_shell`.
 
 ---
 
-## Dominios funcionales → archivos
+## Rutas frontend (referencia rápida)
+
+Lógica pura testeable: `client/src/modules/routingPaths.js`  
+Resolución en runtime: `client/src/modules/index.js` (`getAuthenticatedHomePath`, `getDefaultAppPath`)
+
+| Función | Uso |
+|---------|-----|
+| `getDefaultAppPath()` | Primera ruta pública (landing en `/` o módulo default) |
+| `getAuthenticatedHomePath()` | Destino tras login → `/dashboard` si dashboard activo |
+| `resolveFallbackPath()` | Rutas desconocidas dentro del shell autenticado |
+| `SafeRedirect` | Evita bucles cuando destino === pathname actual |
+
+---
+
+### Dashboard (módulo `dashboard`)
+
+**Frontend**
+- `client/src/modules/dashboard/index.jsx` — manifest, ruta `/dashboard`, nav “Panel”
+- `client/src/modules/dashboard/DashboardShell.jsx` — layout con `<Outlet />` (árbol estable, sin remount)
+- `client/src/modules/dashboard/DashboardHome.jsx` — hub post-login (tarjetas a módulos)
+- `client/src/modules/dashboard/layout/` — Sidebar, Header, Footer, FloatingMenu
+- `client/src/modules/dashboard/config/translations.js` — i18n del módulo
+
+**Shell compartido (routing)**
+- `client/src/App.jsx` — rutas `bare` vs `app`, `AppFallback`
+- `client/src/components/routing/SafeRedirect.jsx`
+- `client/src/components/shell/BareLayout.jsx`, `MinimalAppShell.jsx`
+- `client/src/pages/LoginPage.jsx` — redirige a `getAuthenticatedHomePath()` tras auth
+
+---
+
+### Landing (módulo `landing`)
+
+**Frontend**
+- `client/src/modules/landing/` — página pública en `/` (`layout: 'bare'`)
+- Si el usuario ya está autenticado en `/`, redirige a `/dashboard`
+
+---
 
 ### Flashcards (módulo `flashcards`)
 

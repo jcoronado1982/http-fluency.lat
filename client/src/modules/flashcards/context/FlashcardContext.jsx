@@ -1,10 +1,10 @@
 import React, { createContext, useContext } from 'react';
 import { useDeckSession } from '../hooks/useDeckSession';
 
-const FlashcardContext = createContext();
+export const FlashcardContext = createContext();
 
-export const FlashcardProvider = ({ children }) => {
-    const value = useDeckSession();
+export const FlashcardProvider = ({ children, resumeSession = null }) => {
+    const value = useDeckSession(resumeSession);
     return <FlashcardContext.Provider value={value}>{children}</FlashcardContext.Provider>;
 };
 

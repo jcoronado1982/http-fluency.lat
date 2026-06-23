@@ -13,8 +13,21 @@ pub struct Claims {
     pub exp: usize,
 }
 
+/// Extrae JWT si existe; si no, devuelve un viewer invitado (solo lectura de caché global).
+pub fn extract_claims_or_guest(
+    state: &AppState,
+    headers: &axum::http::HeaderMap,
+) -> Claims {
+    extract_claims(state, headers).unwrap_or_else(|_| Claims {
+        sub: "guest".to_string(),
+        email: "guest@fluency.lat".to_string(),
+        name: "Guest".to_string(),
+        role: "viewer".to_string(),
+        exp: 9999999999,
+    })
+}
+
 /// Extrae y valida el JWT del header `Authorization: Bearer <token>`.
-/// Fuente única de verdad para todos los endpoints que requieren autenticación.
 pub fn extract_claims(
     state: &AppState,
     headers: &axum::http::HeaderMap,

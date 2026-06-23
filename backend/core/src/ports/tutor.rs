@@ -28,5 +28,14 @@ pub trait AITutor: Send + Sync {
         meaning: Option<&str>,
         usage_example: Option<&str>,
     ) -> Result<String>;
+    /// Landing demo — pipeline de prompt aislado (ver `mod_flashcards::landing_demo_image_prompt`).
+    async fn improve_prompt_for_landing_demo_image(
+        &self,
+        phrase: &str,
+        pos_category: &str,
+        meaning: Option<&str>,
+        usage_example: Option<&str>,
+        scene_complement: Option<&str>,
+    ) -> Result<String>;
     async fn refine_audio_ssml(&self, text: &str, tone: &str) -> Result<String>;
 }

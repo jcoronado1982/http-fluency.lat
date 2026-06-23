@@ -5,7 +5,7 @@ use fluency_core::ports::storage::StorageRepository;
 use fluency_core::ports::tutor::AITutor;
 use std::sync::Arc;
 
-use crate::FlashcardsConfig;
+use crate::{is_landing_demo_namespace, FlashcardsConfig};
 
 /// Convierte un email en un segmento de path seguro para URL/filesystem.
 /// Ejemplo: "user@example.com" → "user_example_com"
@@ -40,6 +40,8 @@ pub struct ImageGenRequest {
     pub usage_example: Option<String>,
     pub force_generation: bool,
     pub form: Option<String>,
+    /// Demo landing: texto extra del usuario (complemento visual, no reemplaza el ejemplo).
+    pub scene_complement: Option<String>,
 }
 
 pub struct UploadImageRequest {
@@ -60,6 +62,7 @@ pub struct UploadImageRequest {
 pub struct ImageUseCases {
     storage_repo: Arc<dyn StorageRepository>,
     image_gen: Arc<dyn ImageGenerator>,
+    landing_demo_image_gen: Arc<dyn ImageGenerator>,
     image_compressor: Arc<dyn ImageCompressor>,
     ai_tutor: Arc<dyn AITutor>,
     config: Arc<FlashcardsConfig>,
@@ -69,6 +72,7 @@ impl ImageUseCases {
     pub fn new(
         storage_repo: Arc<dyn StorageRepository>,
         image_gen: Arc<dyn ImageGenerator>,
+        landing_demo_image_gen: Arc<dyn ImageGenerator>,
         image_compressor: Arc<dyn ImageCompressor>,
         ai_tutor: Arc<dyn AITutor>,
         config: Arc<FlashcardsConfig>,
@@ -76,6 +80,7 @@ impl ImageUseCases {
         Self {
             storage_repo,
             image_gen,
+            landing_demo_image_gen,
             image_compressor,
             ai_tutor,
             config,
@@ -102,9 +107,10 @@ impl ImageUseCases {
         let role = normalize_role(role);
         let is_admin = role == "admin";
         let is_premium = role == "premium";
+        let is_demo = is_landing_demo_namespace(&req.category);
 
-        // Control extra de seguridad: solo premium o admin pueden generar imágenes con IA
-        if !is_admin && !is_premium {
+        // Premium/admin en app; invitados solo en namespace landing-demo.
+        if !is_admin && !is_premium && !is_demo {
             tracing::warn!("🚫 Intento de generación de imagen por IA bloqueado: el usuario '{}' con rol '{}' no está autorizado.", user_email, role);
             return Err(anyhow::anyhow!(
                 "No autorizado para generar imágenes por IA (requiere plan Premium)"
@@ -113,7 +119,7 @@ impl ImageUseCases {
 
         let deck_prefix = req.deck.replace(".json", "");
         let form_suffix = self.form_suffix(req.form.as_deref());
-        let user_segment = if is_admin {
+        let user_segment = if is_admin || is_demo {
             None
         } else {
             Some(user_path_segment(user_email))
@@ -163,8 +169,8 @@ impl ImageUseCases {
                 }
             }
 
-            // Bug 5: v2/v3 sin imagen propia → usar v1 antes de generar una nueva con IA
-            if !form_suffix.is_empty() {
+            // v2/v3 sin imagen propia → usar v1 antes de generar (app interna; demo landing: cada tiempo aparte)
+            if !form_suffix.is_empty() && !is_demo {
                 if let Some(seg) = &user_segment {
                     let v1_personal = format!(
                         "users/{}/{}/{}/{}_card_{}_def{}",
@@ -231,20 +237,29 @@ impl ImageUseCases {
             "img-gen:start"
         );
 
-        let visual_description = match self
-            .ai_tutor
-            .improve_prompt_for_image(
+        let visual_description = match if is_demo {
+            self.ai_tutor.improve_prompt_for_landing_demo_image(
+                &req.prompt,
+                &req.category,
+                req.meaning.as_deref(),
+                req.usage_example.as_deref(),
+                req.scene_complement.as_deref(),
+            )
+        } else {
+            self.ai_tutor.improve_prompt_for_image(
                 &req.prompt,
                 &req.category,
                 req.meaning.as_deref(),
                 req.usage_example.as_deref(),
             )
-            .await
+        }
+        .await
         {
             Ok(desc) => {
                 tracing::info!(
                     trace_id = %trace_short,
                     gemini_output = %desc,
+                    landing_demo = is_demo,
                     "img-gen:gemini-ok"
                 );
                 desc
@@ -254,39 +269,69 @@ impl ImageUseCases {
                     trace_id = %trace_short,
                     error = %e,
                     fallback_phrase = %req.prompt,
+                    landing_demo = is_demo,
                     "img-gen:gemini-fallback"
                 );
-                req.prompt.clone()
+                if is_demo {
+                    let example = req.usage_example.as_deref().unwrap_or(&req.prompt);
+                    crate::landing_demo_image_prompt::fallback_demo_visual_description(
+                        example,
+                        req.scene_complement.as_deref(),
+                    )
+                } else {
+                    req.prompt.clone()
+                }
             }
         };
 
-        let final_prompt = format!(
-            "Candid photorealistic DSLR photograph, 512x512, natural indoor lighting, authentic textures: {}. \
-            A realistic, unposed, everyday life scene. No text, no words, no letters, no captions, no signage, no watermarks.",
-            visual_description
-        );
+        let final_prompt = if is_demo {
+            crate::landing_demo_image_prompt::build_demo_image_prompt(
+                &visual_description,
+                req.scene_complement.as_deref(),
+            )
+        } else {
+            format!(
+                "Candid photorealistic DSLR photograph, 512x512, natural indoor lighting, authentic textures: {}. \
+                A realistic, unposed, everyday life scene. No text, no words, no letters, no captions, no signage, no watermarks.",
+                visual_description
+            )
+        };
 
         tracing::info!(
             trace_id = %trace_short,
             comfy_prompt = %final_prompt,
-            "img-gen:comfy-request"
+            landing_demo = is_demo,
+            image_model = if is_demo { crate::landing_demo_image_prompt::GEMINI_IMAGE_MODEL } else { "comfyui/flux" },
+            "img-gen:model-request"
         );
 
-        let raw_bytes = self.image_gen.generate(&final_prompt).await.map_err(|e| {
-            tracing::error!(trace_id = %trace_short, error = %e, "img-gen:comfy-failed");
-            anyhow::anyhow!("[trace={trace_short}] ComfyUI: {e}")
+        let image_generator = if is_demo {
+            &self.landing_demo_image_gen
+        } else {
+            &self.image_gen
+        };
+
+        let raw_bytes = image_generator.generate(&final_prompt).await.map_err(|e| {
+            tracing::error!(trace_id = %trace_short, error = %e, "img-gen:model-failed");
+            anyhow::anyhow!("[trace={trace_short}] image model: {e}")
         })?;
 
         tracing::info!(
             trace_id = %trace_short,
             raw_bytes = raw_bytes.len(),
-            "img-gen:comfy-ok"
+            landing_demo = is_demo,
+            "img-gen:model-ok"
         );
 
-        // Compresión a AVIF para optimización de almacenamiento en Oracle
+        // Compresión a AVIF 512×512 (misma calidad que Flux)
+        let avif_quality = if is_demo {
+            crate::landing_demo_image_prompt::CARD_IMAGE_AVIF_QUALITY
+        } else {
+            80
+        };
         let compressed_bytes = self
             .image_compressor
-            .compress_to_avif(&raw_bytes, 80) // 80 es un buen balance calidad/peso
+            .compress_to_avif(&raw_bytes, avif_quality)
             .map_err(|e| {
                 tracing::error!(trace_id = %trace_short, error = %e, "img-gen:compression-failed");
                 anyhow::anyhow!("[trace={trace_short}] compression: {e}")
@@ -377,6 +422,7 @@ impl ImageUseCases {
         let images_prefix = &self.config.gcs_images_prefix;
 
         let role = normalize_role(role);
+        let is_demo = is_landing_demo_namespace(category);
 
         tracing::info!(
             "🔍 resolve_image: category={} deck={} index={} def={} form={:?} role={}",
@@ -415,8 +461,8 @@ impl ImageUseCases {
             return Ok(Some(format!("/card_images/{}.avif", global_base)));
         }
 
-        // v2/v3 sin imagen propia → fallback a v1 (misma tarjeta/def)
-        if !form_suffix.is_empty() {
+        // v2/v3 sin imagen propia → fallback a v1 (app interna; demo landing: cada tiempo aparte)
+        if !form_suffix.is_empty() && !is_demo {
             if role == "premium" {
                 let seg = user_path_segment(user_email);
                 let personal_base = format!(

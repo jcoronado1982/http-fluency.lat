@@ -5,8 +5,9 @@ use crate::api::dto::generation::{
 use crate::api::mappers::flashcards::{
     to_audio_synth_request, to_delete_audio_request, to_image_gen_request, to_upload_image_request,
 };
-use crate::api::middleware::auth::{extract_claims, require_premium_role, resolve_effective_role};
+use crate::api::middleware::auth::{extract_claims, extract_claims_or_guest, require_premium_role, resolve_effective_role};
 use crate::AppState;
+use mod_flashcards::is_landing_demo_namespace;
 use axum::{
     extract::{Multipart, State},
     http::StatusCode,
@@ -19,14 +20,10 @@ pub async fn synthesize_speech(
     headers: axum::http::HeaderMap,
     Json(body): Json<SynthesizeSpeechBody>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
-    let claims = extract_claims(&state, &headers)?;
+    let claims = extract_claims_or_guest(&state, &headers);
     let role = resolve_effective_role(&state, &claims).await;
 
-    // NOTA: NO se bloquea aquí por tono/rol.
-    // La lógica correcta vive en audio_use_cases::get_or_synthesize_audio:
-    //   1. Si el audio ya existe en caché → lo sirve a CUALQUIER usuario (viewer, premium, admin).
-    //   2. Si NO existe → solo admin/premium puede invocar la IA para generarlo.
-    //      Un viewer recibe error "audio_not_found" → 404.
+    // Viewers: caché global. Namespace landing-demo: invitados pueden generar audio aislado.
     let req = to_audio_synth_request(body);
 
     state
@@ -40,13 +37,14 @@ pub async fn synthesize_speech(
             })
         })
         .map_err(|e| {
-            if e.to_string() == "audio_not_found" {
+            let msg = e.to_string();
+            if msg == "audio_not_found" {
                 (
                     StatusCode::NOT_FOUND,
                     "Audio no disponible (requiere plan Premium para generar)".to_string(),
                 )
             } else {
-                (StatusCode::INTERNAL_SERVER_ERROR, e.to_string())
+                (StatusCode::INTERNAL_SERVER_ERROR, msg)
             }
         })
 }
@@ -58,7 +56,11 @@ pub async fn resolve_image(
     headers: axum::http::HeaderMap,
     Json(body): Json<ResolveImageBody>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
-    let claims = extract_claims(&state, &headers)?;
+    let claims = if is_landing_demo_namespace(&body.category) {
+        extract_claims_or_guest(&state, &headers)
+    } else {
+        extract_claims(&state, &headers)?
+    };
     let role = resolve_effective_role(&state, &claims).await;
 
     match state
@@ -85,9 +87,16 @@ pub async fn generate_image(
     headers: axum::http::HeaderMap,
     Json(body): Json<GenerateImageBody>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
-    let claims = extract_claims(&state, &headers)?;
+    let is_demo = is_landing_demo_namespace(&body.category);
+    let claims = if is_demo {
+        extract_claims_or_guest(&state, &headers)
+    } else {
+        extract_claims(&state, &headers)?
+    };
     let role = resolve_effective_role(&state, &claims).await;
-    require_premium_role(&role)?;
+    if !is_demo {
+        require_premium_role(&role)?;
+    }
 
     let req = to_image_gen_request(body);
 
@@ -136,10 +145,17 @@ pub async fn delete_image(
     headers: axum::http::HeaderMap,
     Json(body): Json<DeleteImageBody>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
-    let claims = extract_claims(&state, &headers)?;
+    let is_demo = is_landing_demo_namespace(&body.category);
+    let claims = if is_demo {
+        extract_claims_or_guest(&state, &headers)
+    } else {
+        extract_claims(&state, &headers)?
+    };
     let role = resolve_effective_role(&state, &claims).await;
-    require_premium_role(&role)?;
-    let is_admin = role == "admin";
+    if !is_demo {
+        require_premium_role(&role)?;
+    }
+    let is_admin = role == "admin" || is_demo;
 
     match state
         .image_use_cases

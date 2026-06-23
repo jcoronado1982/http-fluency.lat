@@ -1,7 +1,7 @@
 use crate::domain::models::story::{ProgressUpdate, StoryScreen, UserProgress};
 use crate::domain::models::subscription::Subscription;
 use crate::domain::models::user::User;
-use crate::domain::models::user_activity::{ClientInfo, UserActivityStats};
+use crate::domain::models::user_activity::{build_learning_stats, ClientInfo, LearningStats, UserActivityStats};
 use crate::domain::repositories::db_repository::{
     CardProgressRepository, PronounPracticeRepository, SubscriptionRepository,
     UserActivityRepository, UserRepository,
@@ -117,6 +117,10 @@ impl CardProgressRepository for NullDbRepository {
     ) -> Result<()> {
         Ok(())
     }
+
+    async fn count_learned_cards(&self, _user_id: &str) -> Result<i32> {
+        Ok(0)
+    }
 }
 
 #[async_trait]
@@ -168,6 +172,30 @@ impl UserActivityRepository for NullDbRepository {
         _country: Option<&str>,
     ) -> Result<()> {
         Ok(())
+    }
+
+    async fn record_study_day(&self, _email: &str) -> Result<()> {
+        Ok(())
+    }
+
+    async fn get_learning_stats(
+        &self,
+        _email: &str,
+        mastered_count: i32,
+        target_count: i32,
+    ) -> Result<LearningStats> {
+        Ok(build_learning_stats(
+            mastered_count,
+            target_count,
+            "B2",
+            None,
+            0,
+            0,
+            &chrono::Utc::now().format("%Y-%m-%d").to_string(),
+            &(chrono::Utc::now() - chrono::Duration::days(1))
+                .format("%Y-%m-%d")
+                .to_string(),
+        ))
     }
 }
 

@@ -27,6 +27,8 @@ function resolveApiUrl() {
 }
 
 const sharedFeatures = {
+  landing: import.meta.env.VITE_ENABLE_LANDING === 'true',
+  dashboard: import.meta.env.VITE_ENABLE_DASHBOARD !== 'false',
   mockImageGen: false,
   aiEnabled: true,
   flashcards: import.meta.env.VITE_ENABLE_FLASHCARDS !== 'false',

@@ -1,9 +1,9 @@
 import React from 'react';
 import './Layout.css';
-import FloatingMenu from '../../components/layout/FloatingMenu';
+import FloatingMenu from './FloatingMenu';
 import { FaBars } from 'react-icons/fa';
-import LanguageSelector from '../common/LanguageSelector';
-import { useAppContext } from '../../context/AppContext';
+import LanguageSelector from '../../../components/common/LanguageSelector';
+import { useAppContext } from '../../../context/AppContext';
 
 const ChevronDownIcon = () => (
     <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -152,6 +152,49 @@ impl LocalStorageRepository {
         }
     }
 
+    /// Lee bytes directamente del disco de Oracle (sin pasar por HTTP/CDN).
+    async fn fetch_from_oracle_ssh(&self, blob_path: &str) -> Result<Vec<u8>> {
+        if self.oracle_host.is_empty() {
+            return Err(anyhow::anyhow!("Oracle host no configurado"));
+        }
+
+        let remote_file = format!(
+            "{}/{}",
+            self.oracle_remote_path,
+            blob_path.trim_start_matches('/')
+        );
+        let cp = self.control_path();
+
+        let output = tokio::process::Command::new("sshpass")
+            .env("SSHPASS", &self.oracle_ssh_password)
+            .args([
+                "-e",
+                "ssh",
+                "-o",
+                "StrictHostKeyChecking=no",
+                "-o",
+                "ControlMaster=auto",
+                "-o",
+                &format!("ControlPath={}", cp),
+                &format!("root@{}", self.oracle_host),
+                &format!("cat '{}'", remote_file),
+            ])
+            .output()
+            .await
+            .context(format!("ssh cat fallido: {}", remote_file))?;
+
+        if output.status.success() && !output.stdout.is_empty() {
+            tracing::debug!("📥 Oracle SSH read: {}", blob_path);
+            return Ok(output.stdout);
+        }
+
+        Err(anyhow::anyhow!(
+            "ssh cat falló para {}: {}",
+            remote_file,
+            String::from_utf8_lossy(&output.stderr).trim()
+        ))
+    }
+
     /// Lista entradas en Oracle via Caddy browse (reutiliza pool de conexiones).
     async fn list_oracle_entries(&self, rel_path: &str, dirs_only: bool) -> Result<Vec<String>> {
         let url = format!(
@@ -457,16 +500,19 @@ impl StorageRepository for LocalStorageRepository {
     }
 
     async fn download_blob(&self, blob_path: &str) -> Result<Vec<u8>> {
-        // Oracle es la fuente de verdad en dev/prod con SYNC_TO_ORACLE
+        // Copia local reciente (p. ej. recién generada): evita 404 por lag HTTP/CDN de Oracle.
+        let path = self.get_full_path(blob_path);
+        if path.exists() {
+            return Ok(fs::read(&path).await?);
+        }
+
         if self.sync_to_oracle {
             if let Ok(bytes) = self.fetch_from_oracle(blob_path).await {
                 return Ok(bytes);
             }
-        }
-
-        let path = self.get_full_path(blob_path);
-        if path.exists() {
-            return Ok(fs::read(&path).await?);
+            if let Ok(bytes) = self.fetch_from_oracle_ssh(blob_path).await {
+                return Ok(bytes);
+            }
         }
 
         Err(anyhow::anyhow!("Archivo no encontrado: {}", blob_path))
@@ -492,7 +538,7 @@ impl StorageRepository for LocalStorageRepository {
                 tracing::error!("❌ SCP fallido para '{}': {}", blob_path, e);
                 e
             })?;
-            let _ = tokio::fs::remove_file(&path).await;
+            // Mantener copia local para servir de inmediato tras generar (Oracle HTTP puede ir retrasado).
         }
 
         Ok(())
@@ -685,7 +731,11 @@ impl StorageRepository for LocalStorageRepository {
         // Borrar en Oracle (repositorio permanente) via SSH.
         // Usa SSHPASS env var para evitar quoting issues con la contraseña.
         if self.sync_to_oracle {
-            let remote_file = format!("{}/{}", self.oracle_remote_path, blob_path);
+            let remote_file = format!(
+                "{}/{}",
+                self.oracle_remote_path,
+                blob_path.trim_start_matches('/')
+            );
             let cp = self.control_path();
             match tokio::process::Command::new("sshpass")
                 .env("SSHPASS", &self.oracle_ssh_password)

@@ -21,7 +21,7 @@ export const imageRepository = {
     },
 
     // POST /api/generate-image — recupera imagen de GCS o genera una nueva con IA
-    generate: async ({ category, deck, index, defIndex, form, prompt, meaning, usageExample, forceGeneration }) => {
+    generate: async ({ category, deck, index, defIndex, form, prompt, meaning, usageExample, forceGeneration, sceneComplement }) => {
         const data = await httpClient.post('/api/generate-image', {
             category,
             deck,
@@ -32,6 +32,7 @@ export const imageRepository = {
             meaning,
             usage_example: usageExample,
             force_generation: forceGeneration,
+            scene_complement: sceneComplement || undefined,
         });
         if (!data?.path) throw new Error('Sin ruta de imagen en la respuesta');
         return data;
@@ -119,5 +120,21 @@ export const imageRepository = {
             img.onerror = () => reject(new Error(`No se pudo cargar: ${url}`));
             img.src = url;
         });
+    },
+
+    /** Preload con reintentos tras generación (Oracle/CDN puede ir retrasado). */
+    preloadImageWithRetry: async (path, forceCacheBust = false, { attempts = 4, delayMs = 700 } = {}) => {
+        let lastErr;
+        for (let i = 0; i < attempts; i += 1) {
+            try {
+                return await imageRepository.preloadImage(path, forceCacheBust || i > 0);
+            } catch (err) {
+                lastErr = err;
+                if (i < attempts - 1) {
+                    await new Promise((resolve) => { setTimeout(resolve, delayMs); });
+                }
+            }
+        }
+        throw lastErr ?? new Error('No se pudo precargar la imagen');
     },
 };

@@ -59,10 +59,11 @@ function CardFront({
     uploadImage,
     handleImageError,
     canCustomizeImages,
+    canDeleteImages,
     deleteAudio,
     isGeneratingAudio,
     activeForm,
-    setActiveForm,
+    onConjugationSelect,
     currentLanguage,
 }) {
     const [isUploading, setIsUploading] = useState(false);
@@ -153,8 +154,7 @@ function CardFront({
             <ConjugationTable
                 cardData={cardData}
                 activeForm={activeForm}
-                setActiveForm={setActiveForm}
-                playAudio={playAudio}
+                onConjugationSelect={onConjugationSelect}
                 activeAudioText={activeAudioText}
                 isGeneratingAudio={isGeneratingAudio}
                 currentLanguage={currentLanguage}
@@ -198,6 +198,7 @@ function CardFront({
                 onUploadClick={triggerUpload}
                 onImageError={handleImageError}
                 canCustomizeImages={canCustomizeImages}
+                canDeleteImages={canDeleteImages}
                 isDisabled={isDisabled}
             />
         </div>

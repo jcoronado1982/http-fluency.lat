@@ -33,6 +33,8 @@ pub async fn redirect_images(
 fn audio_content_type(file_path: &str) -> &'static str {
     if file_path.ends_with(".wav") {
         "audio/wav"
+    } else if file_path.ends_with(".mp3") {
+        "audio/mpeg"
     } else {
         "audio/ogg"
     }

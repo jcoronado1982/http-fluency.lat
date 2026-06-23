@@ -1,24 +1,25 @@
 import React, { useEffect, useRef } from 'react';
-import { useAuth } from '../context/AuthContext';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FiImage, FiVolume2, FiBook } from 'react-icons/fi';
 import './LoginPage.css';
 
 import config from '../config';
-import { getDefaultAppPath } from '../modules';
+import { getAuthenticatedHomePath } from '../modules';
+import { useAuth } from '../context/AuthContext';
+import PageLoader from '../components/common/PageLoader';
 
 const GOOGLE_CLIENT_ID =
     import.meta.env.VITE_GOOGLE_CLIENT_ID ||
     '977952175712-i072hpkjgq51ualf0hlkgj4boa48f0mp.apps.googleusercontent.com';
 
 const LoginPage = () => {
-    const { login, isAuthenticated } = useAuth();
+    const { login, isAuthenticated, loading } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const googleBtnRef = useRef(null);
     const callbackRef = useRef(null);
     const shellRoutes = [{ path: '/admin', enabled: config.features.admin }];
-    const defaultPath = getDefaultAppPath(config, shellRoutes);
+    const defaultPath = getAuthenticatedHomePath(config, shellRoutes);
     const targetPath = location.state?.from || defaultPath;
 
     useEffect(() => {
@@ -33,10 +34,10 @@ const LoginPage = () => {
     }, [login, navigate, targetPath]);
 
     useEffect(() => {
-        if (isAuthenticated) {
-            navigate(targetPath, { replace: true });
-        }
-    }, [isAuthenticated, navigate, targetPath]);
+        if (loading || !isAuthenticated) return;
+        if (location.pathname === targetPath) return;
+        navigate(targetPath, { replace: true });
+    }, [isAuthenticated, loading, navigate, targetPath, location.pathname]);
 
     useEffect(() => {
         let isMounted = true;
@@ -72,7 +73,6 @@ const LoginPage = () => {
                     window.google.accounts.id.initialize({
                         client_id: GOOGLE_CLIENT_ID,
                         callback: handleCallbackResponse,
-                        // Evita problemas con FedCM en Safari móvil
                         use_fedcm_for_prompt: false,
                     });
                     window.google_initialized = true;
@@ -96,6 +96,17 @@ const LoginPage = () => {
             resizeObserver?.disconnect();
         };
     }, []);
+
+    if (loading) {
+        return (
+            <PageLoader
+                title="Validating access"
+                subtitle="We are preparing your access."
+                status="Checking your session..."
+                progress={56}
+            />
+        );
+    }
 
     return (
         <div className="login-container">
@@ -129,7 +140,7 @@ const LoginPage = () => {
                         <div className="feature-icon">
                             <FiBook />
                         </div>
-                        <span className="feature-text">+2,500 palabras esenciales</span>
+                        <span className="feature-text">Más de 5,000 palabras esenciales</span>
                     </div>
                 </div>
 

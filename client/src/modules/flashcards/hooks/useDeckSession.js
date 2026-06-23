@@ -17,10 +17,12 @@ import {
     resetGroupInDeck,
     updateCardImageInDeck,
 } from '../useCases/deckSessionUseCases';
+import {
+    LAST_DECK_KEY_PREFIX,
+    writeResumeSession,
+} from '../config/sessionKeys';
 
-const LAST_DECK_KEY_PREFIX = 'flashcards_last_deck_';
-
-export function useDeckSession() {
+export function useDeckSession(resumeSession = null) {
     const { currentCategory } = useCategoryContext();
     const { setAppMessage } = useUIContext();
     const { isAuthenticated, user } = useAuth();
@@ -35,6 +37,7 @@ export function useDeckSession() {
     const [selectedGroup, setSelectedGroup] = useState(null);
     const [resetKey, setResetKey] = useState(0);
     const [justCompletedInSession, setJustCompletedInSession] = useState(false);
+    const [resumeApplied, setResumeApplied] = useState(false);
 
     const loadFlashcards = useCallback(async (category, deck) => {
         if (!category || !deck || !user?.email) return;
@@ -81,7 +84,11 @@ export function useDeckSession() {
                     const names = sortDeckNames(result.files);
                     setDeckNames(names);
                     const storageKey = `${LAST_DECK_KEY_PREFIX}${currentCategory}`;
-                    setCurrentDeckName(resolvePersistedChoice(storageKey, names, names[0]));
+                    const preferredDeck = resumeSession?.category === currentCategory && resumeSession?.deck
+                        && names.includes(resumeSession.deck)
+                        ? resumeSession.deck
+                        : resolvePersistedChoice(storageKey, names, names[0]);
+                    setCurrentDeckName(preferredDeck);
                 }
             } catch {
                 setAppMessage({ text: 'Error al cargar decks', isError: true });
@@ -91,13 +98,69 @@ export function useDeckSession() {
             }
         };
         loadDecks();
-    }, [currentCategory, setAppMessage, isAuthenticated]);
+    }, [currentCategory, setAppMessage, isAuthenticated, resumeSession?.category, resumeSession?.deck]);
 
     useEffect(() => {
         if (currentCategory && currentDeckName && isAuthenticated) {
             loadFlashcards(currentCategory, currentDeckName);
         }
     }, [currentCategory, currentDeckName, loadFlashcards, isAuthenticated]);
+
+    useEffect(() => {
+        if (resumeApplied || !resumeSession) return;
+        if (resumeSession.category !== currentCategory || resumeSession.deck !== currentDeckName) return;
+        if (!masterData.length) return;
+
+        if (resumeSession.selectedGroup) {
+            const group = resumeSession.selectedGroup === 'General' ? null : resumeSession.selectedGroup;
+            if (group !== selectedGroup) {
+                setSelectedGroup(group);
+                return;
+            }
+        }
+
+        const remaining = filterUnlearned(masterData, selectedGroup);
+        if (!remaining.length) {
+            setResumeApplied(true);
+            return;
+        }
+
+        let nextIndex = 0;
+        if (typeof resumeSession.cardId === 'number') {
+            const byId = remaining.findIndex((card) => card.id === resumeSession.cardId);
+            if (byId >= 0) nextIndex = byId;
+        } else if (typeof resumeSession.cardIndex === 'number') {
+            nextIndex = Math.min(resumeSession.cardIndex, remaining.length - 1);
+        }
+
+        setCurrentIndex(nextIndex);
+        setResumeApplied(true);
+    }, [
+        resumeApplied,
+        resumeSession,
+        masterData,
+        selectedGroup,
+        currentCategory,
+        currentDeckName,
+    ]);
+
+    useEffect(() => {
+        if (!currentCategory || !currentDeckName || !filteredData.length) return;
+        const card = filteredData[currentIndex];
+        const scopeCards = selectedGroup
+            ? masterData.filter((c) => c.group_name === selectedGroup)
+            : masterData;
+        writeResumeSession({
+            category: currentCategory,
+            deck: currentDeckName,
+            cardIndex: currentIndex,
+            cardId: card?.id,
+            cardWord: card?.word || card?.name || card?.translation || '',
+            selectedGroup: selectedGroup || null,
+            cardsRemaining: filteredData.length,
+            deckTotal: scopeCards.length,
+        });
+    }, [currentCategory, currentDeckName, currentIndex, filteredData, selectedGroup, masterData]);
 
     const changeDeck = (newDeck) => {
         markUserNavigation();

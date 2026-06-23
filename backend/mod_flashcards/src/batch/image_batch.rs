@@ -218,6 +218,7 @@ async fn run_batch(ctx: super::context::ImageBatchContext, mode: BatchMode, filt
                                     usage_example,
                                     force_generation: orphan,
                                     form: slot.form.form_arg().map(str::to_string),
+                                    scene_complement: None,
                                 };
 
                                 match ctx

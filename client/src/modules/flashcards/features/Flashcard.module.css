@@ -34,11 +34,13 @@
     opacity: 1;
     visibility: visible;
     transition: opacity 0.4s ease-in-out, visibility 0.4s;
+    z-index: 2;
 }
 
 .cardBack {
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transition: opacity 0.4s ease-in-out, visibility 0.4s;
 }
 
@@ -46,12 +48,14 @@
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none;
+    z-index: 1;
 }
 
 .flipped .cardBack {
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto;
+    z-index: 2;
 }
 
 .cardFront,
@@ -1369,4 +1373,118 @@
 
 .activeConjugation .conjugationPhonetic {
     color: #a0a0a0; /* El mismo gris del fonético principal para mejor legibilidad */
+}
+
+/* Demo landing — solo colores y tipografía (misma tarjeta que la sesión interna) */
+:global([data-landing-demo]) .flashcardContainer,
+:global([data-landing-demo]) .cardFront,
+:global([data-landing-demo]) .cardBack,
+:global([data-landing-demo]) .controlsWrapper {
+    font-family: 'Inter', sans-serif;
+}
+
+:global([data-landing-demo]) .cardFront,
+:global([data-landing-demo]) .cardBack {
+    border-color: rgba(125, 119, 221, 0.35);
+    background:
+        radial-gradient(circle at 80% 10%, rgba(45, 212, 191, 0.12), transparent 50%),
+        linear-gradient(145deg, rgba(125, 119, 221, 0.2), #0f172a 100%);
+    color: #f8fafc;
+}
+
+:global([data-landing-demo]) .cardBack {
+    border-color: rgba(244, 114, 182, 0.28);
+    background:
+        radial-gradient(circle at 20% 90%, rgba(190, 24, 93, 0.1), transparent 50%),
+        linear-gradient(145deg, rgba(190, 24, 93, 0.14), #0f172a 100%);
+}
+
+:global([data-landing-demo]) .soundButton,
+:global([data-landing-demo]) .examplePlayBtn {
+    color: #2dd4bf;
+}
+
+:global([data-landing-demo]) .soundButton:hover,
+:global([data-landing-demo]) .examplePlayBtn:hover {
+    background: rgba(45, 212, 191, 0.12);
+    border-color: rgba(45, 212, 191, 0.4);
+    box-shadow: 0 0 14px rgba(45, 212, 191, 0.22);
+}
+
+:global([data-landing-demo]) .activeConjugation {
+    background: rgba(125, 119, 221, 0.14) !important;
+    border-color: rgba(125, 119, 221, 0.45) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 16px rgba(125, 119, 221, 0.18) !important;
+}
+
+:global([data-landing-demo]) .activeConjugation .conjugationForm {
+    color: #f472b6 !important;
+    text-shadow: 0 0 10px rgba(244, 114, 182, 0.3);
+}
+
+:global([data-landing-demo]) .conjugationTable {
+    background: rgba(244, 114, 182, 0.05);
+    border-color: rgba(244, 114, 182, 0.15);
+}
+
+:global([data-landing-demo]) .highlightedWord {
+    color: #140810 !important;
+    background: linear-gradient(135deg, #2dd4bf, #7d77dd) !important;
+}
+
+:global([data-landing-demo]) .phrasalVerbBack {
+    color: #f472b6;
+    text-shadow: 0 0 10px rgba(244, 114, 182, 0.2);
+}
+
+:global([data-landing-demo]) .meaningBack {
+    color: #2dd4bf;
+    text-shadow: 0 0 10px rgba(45, 212, 191, 0.2);
+}
+
+:global([data-landing-demo]) .usageExampleEn strong {
+    color: #f472b6;
+}
+
+:global([data-landing-demo]) .imagePlaceholder {
+    border-color: rgba(125, 119, 221, 0.22);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.6),
+        inset 0 0 20px rgba(244, 114, 182, 0.04),
+        0 0 12px rgba(45, 212, 191, 0.06);
+}
+
+@media (max-width: 768px) {
+    :global([data-landing-demo]) .cardFront,
+    :global([data-landing-demo]) .cardBack {
+        border-color: rgba(125, 119, 221, 0.35) !important;
+        background:
+            radial-gradient(circle at 80% 10%, rgba(45, 212, 191, 0.12), transparent 50%),
+            linear-gradient(145deg, rgba(125, 119, 221, 0.2), #0f172a 100%) !important;
+    }
+}
+
+/* Flip en landing: sin rotateY 3D (overflow-x del .lp lo rompe) — solo fade + z-index */
+:global([data-landing-demo]) .card {
+    transform: none !important;
+    transform-style: flat;
+}
+
+:global([data-landing-demo]) .card.flipped {
+    transform: none !important;
+}
+
+:global([data-landing-demo]) .cardBack {
+    transform: none !important;
+}
+
+:global([data-landing-demo]) .flashcardContainer {
+    overflow: visible;
+    perspective: none;
+    width: 100%;
+    max-width: 100%;
+}
+
+:global([data-landing-demo]) .phoneticContainer {
+    display: none !important;
 }

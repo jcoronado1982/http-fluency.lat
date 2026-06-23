@@ -1,7 +1,7 @@
 use crate::domain::models::story::{ProgressUpdate, StoryScreen, UserProgress};
 use crate::domain::models::subscription::Subscription;
 use crate::domain::models::user::User;
-use crate::domain::models::user_activity::{ClientInfo, UserActivityStats};
+use crate::domain::models::user_activity::{ClientInfo, LearningStats, UserActivityStats};
 use anyhow::Result;
 use async_trait::async_trait;
 
@@ -25,6 +25,8 @@ pub trait UserActivityRepository: Send + Sync {
         ip: Option<&str>,
         country: Option<&str>,
     ) -> Result<()>;
+    async fn record_study_day(&self, email: &str) -> Result<()>;
+    async fn get_learning_stats(&self, email: &str, mastered_count: i32, target_count: i32) -> Result<LearningStats>;
 }
 
 #[async_trait]
@@ -53,6 +55,7 @@ pub trait CardProgressRepository: Send + Sync {
         deck: &str,
     ) -> Result<Vec<i32>>;
     async fn reset_card_progress(&self, user_id: &str, category: &str, deck: &str) -> Result<()>;
+    async fn count_learned_cards(&self, user_id: &str) -> Result<i32>;
 }
 
 #[async_trait]

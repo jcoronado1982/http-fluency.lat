@@ -39,6 +39,14 @@ pub fn register_routes(app: Router<AppState>) -> Router<AppState> {
         get(api::endpoints::decks::get_phonics_data),
     )
     .route(
+        "/api/learning-stats",
+        get(api::endpoints::decks::get_learning_stats),
+    )
+    .route(
+        "/api/study/touch",
+        post(api::endpoints::decks::touch_study_day),
+    )
+    .route(
         "/api/synthesize-speech",
         post(api::endpoints::generation::synthesize_speech),
     )

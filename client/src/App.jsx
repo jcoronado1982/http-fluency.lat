@@ -1,21 +1,30 @@
 
 import React from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 
-import Sidebar from './components/layout/Sidebar';
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
 import GrammarPage from './pages/GrammarPage';
 import TestPage from './pages/TestPage';
 import LoginPage from './pages/LoginPage';
 import AdminPage from './pages/AdminPage';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import AdminRoute from './components/common/AdminRoute';
+import BareLayout from './components/shell/BareLayout';
+import MinimalAppShell from './components/shell/MinimalAppShell';
+import SafeRedirect from './components/routing/SafeRedirect';
 import config from './config';
-import { getAppRoutes, getModuleOverlays, getDefaultAppPath, getModuleShellProviders } from './modules';
+import {
+  getAppRoutes,
+  getAppShell,
+  getAuthenticatedHomePath,
+  getDefaultAppPath,
+  getModuleShellProviders,
+  isLandingHomeActive,
+  resolveFallbackPath,
+  shouldUseFlashcardLegacyAlias,
+} from './modules';
 
-import { AppProvider, useAppContext } from './context/AppContext';
+import { AppProvider } from './context/AppContext';
 
 const shellRoutes = [
   {
@@ -43,48 +52,54 @@ const enabledRoutes = getAppRoutes(config, baseRoutes).filter(
   (route) => route.enabled !== false,
 );
 const defaultPath = getDefaultAppPath(config, baseRoutes);
-const moduleOverlays = getModuleOverlays(config);
+const authenticatedHomePath = getAuthenticatedHomePath(config, baseRoutes);
 const moduleShellProviders = getModuleShellProviders(config);
+const AppShellComponent = getAppShell(config) || MinimalAppShell;
+
+const bareRoutes = enabledRoutes.filter((route) => route.layout === 'bare');
+const appRoutes = enabledRoutes.filter((route) => route.layout !== 'bare');
+
+function AppFallback() {
+  const location = useLocation();
+  const knownAppPaths = new Set(appRoutes.map((route) => route.path));
+  const target = resolveFallbackPath(
+    location.pathname,
+    knownAppPaths,
+    authenticatedHomePath,
+  );
+  if (!target) return null;
+  return <SafeRedirect to={target} />;
+}
 
 function AppContent() {
-  const { isSidebarOpen, setIsSidebarOpen, isMainLoadingBlocked } = useAppContext();
-  const location = useLocation();
-  const isLoginPage = location.pathname === '/login';
-  const isShellBlocked = !isLoginPage && isMainLoadingBlocked;
+  const landingOwnsRoot = isLandingHomeActive(config)
+    && bareRoutes.some((route) => route.path === '/');
+
+  const flashcardLegacyAlias = shouldUseFlashcardLegacyAlias(landingOwnsRoot, appRoutes);
 
   return (
-    <div className="app-layout">
-      {!isLoginPage && !isShellBlocked && <Sidebar />}
+    <Routes>
+      <Route element={<BareLayout />}>
+        <Route path="/login" element={<LoginPage />} />
+        {bareRoutes.map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
+        ))}
+      </Route>
 
-      {isSidebarOpen && !isShellBlocked && (
-        <div className="sidebar-overlay" onClick={() => setIsSidebarOpen(false)} />
-      )}
+      <Route element={<AppShellComponent />}>
+        {appRoutes.map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
+        ))}
 
-      <div className={`main-content ${isSidebarOpen && !isLoginPage ? 'sidebar-open' : 'sidebar-closed'}`}>
-        {!isLoginPage && !isShellBlocked && <Header />}
-
-        <main className="page-content">
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            {enabledRoutes
-              .map((route) => (
-                <Route key={route.path} path={route.path} element={route.element} />
-              ))}
-
-            {!enabledRoutes.some((route) => route.path === '/') && (
-              <Route path="/" element={<Navigate to={defaultPath} replace />} />
-            )}
-            <Route path="/flashcard" element={<Navigate to={defaultPath} replace />} />
-            <Route path="*" element={<Navigate to={defaultPath} replace />} />
-          </Routes>
-        </main>
-        {!isLoginPage && !isShellBlocked && <Footer />}
-      </div>
-
-      {!isShellBlocked && moduleOverlays.map((overlay, index) => (
-        <React.Fragment key={index}>{overlay}</React.Fragment>
-      ))}
-    </div>
+        {!landingOwnsRoot && !enabledRoutes.some((route) => route.path === '/') && (
+          <Route path="/" element={<SafeRedirect to={defaultPath} />} />
+        )}
+        {flashcardLegacyAlias && (
+          <Route path="/flashcard" element={<SafeRedirect to="/" />} />
+        )}
+        <Route path="*" element={<AppFallback />} />
+      </Route>
+    </Routes>
   );
 }
 

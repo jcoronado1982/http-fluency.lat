@@ -1,5 +1,6 @@
 use fluency_core::domain::models::flashcard::DeckData;
-use fluency_core::ports::db_repository::CardProgressRepository;
+use fluency_core::domain::models::user_activity::{LearningStats, B2_VOCABULARY_TARGET};
+use fluency_core::ports::db_repository::{CardProgressRepository, UserActivityRepository};
 use fluency_core::ports::storage::StorageRepository;
 use std::sync::Arc;
 use anyhow::Result;
@@ -7,6 +8,14 @@ use anyhow::Result;
 pub mod audio_use_cases;
 pub mod batch;
 pub mod image_use_cases;
+pub mod landing_demo_image_prompt;
+
+/// Categoría de storage para el demo del landing (aislada del sistema interno).
+pub const LANDING_DEMO_CATEGORY: &str = "landing-demo";
+
+pub fn is_landing_demo_namespace(category: &str) -> bool {
+    category == LANDING_DEMO_CATEGORY
+}
 
 #[derive(Clone)]
 pub struct FlashcardsConfig {
@@ -18,16 +27,19 @@ pub struct FlashcardsConfig {
 pub struct DeckUseCases {
     storage_repo: Arc<dyn StorageRepository>,
     db_repo: Arc<dyn CardProgressRepository>,
+    activity_repo: Arc<dyn UserActivityRepository>,
 }
 
 impl DeckUseCases {
     pub fn new(
         storage_repo: Arc<dyn StorageRepository>,
         db_repo: Arc<dyn CardProgressRepository>,
+        activity_repo: Arc<dyn UserActivityRepository>,
     ) -> Self {
         Self {
             storage_repo,
             db_repo,
+            activity_repo,
         }
     }
 
@@ -118,6 +130,9 @@ impl DeckUseCases {
         self.db_repo
             .upsert_card_progress(user_id, category, &deck_key, index as i32, learned)
             .await?;
+        if learned {
+            self.activity_repo.record_study_day(user_id).await?;
+        }
         Ok(())
     }
 
@@ -159,5 +174,27 @@ impl DeckUseCases {
 
     pub async fn list_files_in_dir(&self, rel_dir: &str) -> Result<Vec<String>> {
         self.storage_repo.list_files_in_dir(rel_dir).await
+    }
+
+    pub async fn touch_study_day(&self, user_id: &str) -> Result<()> {
+        self.activity_repo.record_study_day(user_id).await
+    }
+
+    pub async fn get_learning_stats(&self, user_id: &str) -> Result<LearningStats> {
+        let mastered_count = self.db_repo.count_learned_cards(user_id).await?;
+        self.activity_repo
+            .get_learning_stats(user_id, mastered_count, B2_VOCABULARY_TARGET)
+            .await
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn landing_demo_namespace_is_isolated() {
+        assert!(is_landing_demo_namespace("landing-demo"));
+        assert!(!is_landing_demo_namespace("verbs"));
     }
 }

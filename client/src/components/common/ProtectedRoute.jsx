@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useUIContext } from '../../context/UIContext';
@@ -50,14 +50,9 @@ const LOADING_COPY = {
 const ProtectedRoute = ({ children }) => {
     const { isAuthenticated, loading, loadingStage } = useAuth();
     const location = useLocation();
-    const { language = 'en', setIsMainLoadingBlocked } = useUIContext();
+    const { language = 'en' } = useUIContext();
     const locale = language === 'es' ? 'es' : 'en';
     const copy = LOADING_COPY[locale][loadingStage] ?? LOADING_COPY[locale].fallback;
-
-    useEffect(() => {
-        setIsMainLoadingBlocked(loading);
-        return () => setIsMainLoadingBlocked(false);
-    }, [loading, setIsMainLoadingBlocked]);
 
     if (loading) {
         return (

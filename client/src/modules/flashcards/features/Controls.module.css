@@ -215,6 +215,60 @@
     line-height: 48px;
 }
 
+:global([data-landing-demo]) .controlsWrapper {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(244, 114, 182, 0.22);
+}
+
+:global([data-landing-demo]) .prevCardBtn {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #94a3b8;
+}
+
+:global([data-landing-demo]) .prevCardBtn:hover:not(:disabled) {
+    background: rgba(125, 119, 221, 0.15);
+    border-color: rgba(125, 119, 221, 0.4);
+    color: #f8fafc;
+}
+
+:global([data-landing-demo]) .nextCardBtn {
+    background: rgba(125, 119, 221, 0.15);
+    border-color: rgba(125, 119, 221, 0.35);
+    color: #c4b5fd;
+}
+
+:global([data-landing-demo]) .nextCardBtn:hover:not(:disabled) {
+    background: rgba(125, 119, 221, 0.25);
+    box-shadow: 0 0 16px rgba(125, 119, 221, 0.28);
+}
+
+:global([data-landing-demo]) .correctButton {
+    background: rgba(45, 212, 191, 0.12);
+    border-color: rgba(45, 212, 191, 0.35);
+    color: #5eead4;
+}
+
+:global([data-landing-demo]) .correctButton:hover:not(:disabled) {
+    background: rgba(45, 212, 191, 0.2);
+    border-color: #2dd4bf;
+}
+
+:global([data-landing-demo]) .resetButton {
+    background: rgba(244, 114, 182, 0.08);
+    border-color: rgba(244, 114, 182, 0.25);
+    color: #f472b6;
+}
+
+:global([data-landing-demo]) .resetButton:hover:not(:disabled) {
+    background: rgba(244, 114, 182, 0.16);
+    border-color: #f472b6;
+}
+
+:global([data-landing-demo]) .cardCounter {
+    color: #f8fafc;
+}
+
 @media (max-width: 768px) {
 
     .nav,

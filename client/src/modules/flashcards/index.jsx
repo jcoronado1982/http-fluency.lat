@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { FiLayers } from 'react-icons/fi';
 import ProtectedRoute from '../../components/common/ProtectedRoute';
 import FlashcardPage from './FlashcardPage';
@@ -19,9 +20,12 @@ const IconVowelChart = () => (
 );
 
 function FlashcardRouteLayout({ children }) {
+    const location = useLocation();
+    const resumeSession = location.state?.resumeSession ?? null;
+
     return (
-        <CategoryProvider>
-            <FlashcardProvider>
+        <CategoryProvider resumeSession={resumeSession}>
+            <FlashcardProvider resumeSession={resumeSession}>
                 {children}
             </FlashcardProvider>
         </CategoryProvider>

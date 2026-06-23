@@ -34,6 +34,9 @@ pub struct GenerateImageBody {
     pub force_generation: bool,
     #[serde(default)]
     pub form: Option<String>,
+    /// Demo landing: complemento visual opcional (no sustituye usage_example).
+    #[serde(default)]
+    pub scene_complement: Option<String>,
 }
 
 #[derive(Serialize)]

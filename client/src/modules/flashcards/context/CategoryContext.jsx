@@ -4,12 +4,11 @@ import { useAuth } from '../../../context/AuthContext';
 import { FALLBACK_CATEGORIES, sortCategories } from '../config/catalogOrder';
 import { markUserNavigation } from '../navigationIntent';
 import { parseCategoriesResponse, resolvePersistedChoice } from '../useCases/deckUseCases';
+import { LAST_CATEGORY_KEY } from '../config/sessionKeys';
 
-const CategoryContext = createContext();
+export const CategoryContext = createContext();
 
-const LAST_CATEGORY_KEY = 'flashcards_last_category';
-
-export const CategoryProvider = ({ children }) => {
+export const CategoryProvider = ({ children, resumeSession = null }) => {
     const [categories, setCategories] = useState([]);
     const [categoryTotals, setCategoryTotals] = useState({});
     const [currentCategory, setCurrentCategory] = useState(null);
@@ -18,7 +17,11 @@ export const CategoryProvider = ({ children }) => {
     const { isAuthenticated } = useAuth();
 
     useEffect(() => {
-        if (!isAuthenticated) return;
+        if (!isAuthenticated) {
+            setIsLoading(false);
+            setLoadingStage(null);
+            return;
+        }
         const load = async () => {
             setIsLoading(true);
             setLoadingStage('loading_categories');
@@ -29,20 +32,28 @@ export const CategoryProvider = ({ children }) => {
                 const nextCategories = sorted.length > 0 ? sorted : [...FALLBACK_CATEGORIES];
                 setCategories(nextCategories);
                 setCategoryTotals(totals);
-                setCurrentCategory(resolvePersistedChoice(LAST_CATEGORY_KEY, nextCategories, nextCategories[0] ?? null));
+                const preferred = resumeSession?.category
+                    && nextCategories.includes(resumeSession.category)
+                    ? resumeSession.category
+                    : resolvePersistedChoice(LAST_CATEGORY_KEY, nextCategories, nextCategories[0] ?? null);
+                setCurrentCategory(preferred);
             } catch {
                 console.error('No se pudieron cargar las categorías. Usando fallback local.');
                 const fallback = [...FALLBACK_CATEGORIES];
                 setCategories(fallback);
                 setCategoryTotals({});
-                setCurrentCategory(resolvePersistedChoice(LAST_CATEGORY_KEY, fallback, fallback[0] ?? null));
+                const preferred = resumeSession?.category
+                    && fallback.includes(resumeSession.category)
+                    ? resumeSession.category
+                    : resolvePersistedChoice(LAST_CATEGORY_KEY, fallback, fallback[0] ?? null);
+                setCurrentCategory(preferred);
             } finally {
                 setLoadingStage(null);
                 setIsLoading(false);
             }
         };
         load();
-    }, [isAuthenticated]);
+    }, [isAuthenticated, resumeSession?.category]);
 
     const changeCategory = useCallback((cat) => {
         markUserNavigation();

@@ -2,11 +2,11 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FiShield } from 'react-icons/fi';
 import './Layout.css';
-import { useAppContext } from '../../context/AppContext';
-import { useAuth } from '../../context/AuthContext';
-import { translations } from '../../config/translations';
-import config from '../../config';
-import { getModuleNavSections } from '../../modules';
+import { useAppContext } from '../../../context/AppContext';
+import { useAuth } from '../../../context/AuthContext';
+import { translations } from '../../../config/translations';
+import config from '../../../config';
+import { getModuleNavSections } from '../../index';
 
 export default function Sidebar() {
     const { isSidebarOpen: isOpen, language = 'en' } = useAppContext();
@@ -21,11 +21,6 @@ export default function Sidebar() {
         event.preventDefault();
         if (location.pathname !== to) {
             navigate(to);
-            requestAnimationFrame(() => {
-                if (window.location.pathname !== to) {
-                    window.location.assign(to);
-                }
-            });
         }
     };
 

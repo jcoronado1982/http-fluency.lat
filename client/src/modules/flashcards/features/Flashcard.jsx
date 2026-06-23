@@ -58,18 +58,23 @@ function Flashcard() {
 
     const {
         isImageLoading, isGeneratingImage, imageUrl, imageRef,
-        ensureImageForDefinition, deleteImage, uploadImage,
-        handleImageError, canCustomizeImages,
+        ensureImageForDefinition, ensureImageForForm, deleteImage, uploadImage,
+        handleImageError, canCustomizeImages, canDeleteImages,
     } = useImageGeneration({
         cardData, currentCategory, currentDeckName, setAppMessage, updateCardImagePath, activeForm
     });
 
-    const playDefinitionMedia = useCallback(async (defIndex, text, lang = 'en') => {
-        await Promise.all([
-            ensureImageForDefinition(defIndex),
-            playAudio(text, lang),
-        ]);
+    const playDefinitionMedia = useCallback((defIndex, text, lang = 'en') => {
+        void ensureImageForDefinition(defIndex);
+        void playAudio(text, lang);
     }, [ensureImageForDefinition, playAudio]);
+
+    /** Audio e imagen en paralelo al cambiar v1/v2/v3 (sin esperar uno al otro). */
+    const handleConjugationSelect = useCallback((formKey, formLabel) => {
+        setActiveForm(formKey);
+        ensureImageForForm(formKey, 0);
+        void playAudio(formLabel, language);
+    }, [ensureImageForForm, playAudio, language]);
 
     const handleToggleBlur = useCallback((defIndex) => {
         // Si la frase estaba desenfocada, también cargamos su imagen
@@ -137,7 +142,7 @@ function Flashcard() {
                 <CardFront
                     cardData={cardData}
                     activeForm={activeForm}
-                    setActiveForm={setActiveForm}
+                    onConjugationSelect={handleConjugationSelect}
                     onOpenIpaModal={() => setIsIpaModalOpen(true)}
                     playAudio={playAudio}
                     activeAudioText={activeAudioText}
@@ -153,12 +158,13 @@ function Flashcard() {
                     uploadImage={uploadImage}
                     handleImageError={handleImageError}
                     canCustomizeImages={canCustomizeImages}
+                    canDeleteImages={canDeleteImages}
                     deleteAudio={deleteAudio}
                     isGeneratingAudio={isGeneratingAudio}
                     currentLanguage={language}
                 />
-                <CardBack 
-                    cardData={cardData} 
+                <CardBack
+                    cardData={cardData}
                     activeForm={activeForm}
                     currentLanguage={language}
                 />

@@ -7,7 +7,7 @@ import { FiPlay } from 'react-icons/fi';
  * ConjugationTable — responsable ÚNICAMENTE de renderizar la tabla v1/v2/v3.
  * SRP: no maneja estado de imagen ni audio global.
  */
-function ConjugationTable({ cardData, activeForm, setActiveForm, playAudio, activeAudioText, isGeneratingAudio, currentLanguage }) {
+function ConjugationTable({ cardData, activeForm, onConjugationSelect, activeAudioText, isGeneratingAudio, currentLanguage }) {
     if (!cardData.irregular) return null;
 
     const forms = [
@@ -19,8 +19,7 @@ function ConjugationTable({ cardData, activeForm, setActiveForm, playAudio, acti
     if (currentLanguage === 'es') return null; // No conjugations in Spanish mode for now
 
     const handleFormSelect = (key, form) => {
-        setActiveForm(key);
-        playAudio(form, currentLanguage);
+        onConjugationSelect?.(key, form);
     };
 
     return (

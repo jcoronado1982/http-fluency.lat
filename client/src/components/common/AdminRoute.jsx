@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useUIContext } from '../../context/UIContext';
+import config from '../../config';
+import { getAuthenticatedHomePath } from '../../modules';
 import PageLoader from './PageLoader';
 
 const LOADING_COPY = {
@@ -49,14 +51,9 @@ const LOADING_COPY = {
 
 const AdminRoute = ({ children }) => {
     const { isAuthenticated, loading, loadingStage, role } = useAuth();
-    const { language = 'en', setIsMainLoadingBlocked } = useUIContext();
+    const { language = 'en' } = useUIContext();
     const locale = language === 'es' ? 'es' : 'en';
     const copy = LOADING_COPY[locale][loadingStage] ?? LOADING_COPY[locale].fallback;
-
-    useEffect(() => {
-        setIsMainLoadingBlocked(loading);
-        return () => setIsMainLoadingBlocked(false);
-    }, [loading, setIsMainLoadingBlocked]);
 
     if (loading) {
         return (
@@ -70,11 +67,11 @@ const AdminRoute = ({ children }) => {
     }
 
     if (!isAuthenticated) {
-        return <Navigate to="/login" />;
+        return <Navigate to="/login" replace state={{ from: '/admin' }} />;
     }
 
     if (role !== 'admin') {
-        return <Navigate to="/" />;
+        return <Navigate to={getAuthenticatedHomePath(config, [])} replace />;
     }
 
     return children;

@@ -9,21 +9,39 @@ Git (`main` / `qa`) + sparse: [docs/GIT_SPARSE_WORKFLOW.md](../docs/GIT_SPARSE_W
 
 | Módulo registry | Frontend `id` | Variable home |
 |-----------------|-----------------|---------------|
-| `flashcards` | `flashcards` | `VITE_DEFAULT_MODULE=flashcards` (default) |
+| `landing` | `landing` | `VITE_ENABLE_LANDING=true` → `/` público |
+| `dashboard` | `dashboard` | `VITE_ENABLE_DASHBOARD` (opt-out, default on) → `/dashboard` tras login |
+| `flashcards` | `flashcards` | `VITE_DEFAULT_MODULE=flashcards` (default) → `/flashcard` si hay landing |
 | `pronoun` | `pronoun` | `VITE_DEFAULT_MODULE=pronoun` |
 
-El módulo default abre en `/` (solo dominio). Los demás usan su path (`/flashcard`, `/pronoun-practice`, etc.).
+### Rutas (con landing + dashboard activos)
+
+| URL | Quién | Qué muestra |
+|-----|--------|-------------|
+| `/` | Público | Landing (marketing) |
+| `/login` | Público | Login Google |
+| `/dashboard` | Autenticado | **Home del dashboard** — hub con acceso a módulos |
+| `/flashcard` | Autenticado | Módulo flashcards (dentro del shell) |
+| `/pronoun-practice`, etc. | Autenticado | Otros módulos de estudio |
+
+**Tras login:** `getAuthenticatedHomePath()` → `/dashboard` (si el módulo dashboard está en disco y `VITE_ENABLE_DASHBOARD !== 'false'`). Si no hay dashboard, cae en el módulo por defecto (`/flashcard` o `/` según flags).
+
+El módulo **default** abre en `/` solo cuando **no** hay landing (`VITE_ENABLE_LANDING !== 'true'`). Con landing, flashcards usa `/flashcard`.
 
 ```bash
 # En client/.env.development o build
-VITE_DEFAULT_MODULE=flashcards   # localhost:5173/
-VITE_DEFAULT_MODULE=pronoun      # práctica o referencia en /
+VITE_ENABLE_LANDING=true          # / público (landing)
+VITE_ENABLE_DASHBOARD=true        # shell + /dashboard tras login
+VITE_DEFAULT_MODULE=flashcards   # con landing: flashcards en /flashcard
+VITE_DEFAULT_MODULE=pronoun      # práctica o referencia en / (sin landing)
 ```
 
 ## Módulos actuales
 
 | Módulo | Backend feature | Frontend flags | Objetivo |
 |--------|-----------------|----------------|----------|
+| `landing` | — | `VITE_ENABLE_LANDING=true` (opt-in) | Página pública en `/` (marketing, sin sidebar) |
+| `dashboard` | — | `VITE_ENABLE_DASHBOARD` (opt-out) | Shell autenticado + **home** en `/dashboard` (sidebar, header, footer) |
 | `flashcards` | `flashcards` | `VITE_ENABLE_FLASHCARDS` (opt-out) | Flashcards con progreso, imágenes AVIF y audio Opus |
 | `pronoun` | `pronoun_practice` | `VITE_ENABLE_PRONOUN_REFERENCE` (opt-out) + `VITE_ENABLE_PRONOUN_PRACTICE` (opt-in) | Referencia y práctica guiada de pronombres |
 | `admin` | `auth` | `VITE_ENABLE_ADMIN` (opt-out) | Panel admin y presencia (perfil sparse sin módulos de estudio) |
@@ -31,7 +49,8 @@ VITE_DEFAULT_MODULE=pronoun      # práctica o referencia en /
 ## Sparse-checkout (aislamiento físico para IA)
 
 ```bash
-./scripts/sparse-module.sh list
+./scripts/sparse-module.sh landing             # solo shell + landing
+./scripts/sparse-module.sh dashboard           # shell + dashboard (sin landing ni estudio)
 ./scripts/sparse-module.sh pronoun              # solo shell + pronoun
 ./scripts/sparse-module.sh flashcards           # solo shell + flashcards
 ./scripts/sparse-module.sh admin                # solo shell + admin
@@ -64,6 +83,7 @@ cargo build -p api_main --no-default-features --features auth
 
 ```bash
 ./scripts/validate-module.sh pronoun
+cd client && npm run test:routing   # lógica pura de rutas (login → /dashboard, fallbacks)
 ```
 
 ## Shell compartido (siempre incluido en sparse/export)

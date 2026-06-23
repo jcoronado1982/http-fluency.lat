@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { registerFlashcardUiBridge } from '../uiBridge';
 
-const FlashcardUiContext = createContext();
+export const FlashcardUiContext = createContext();
 
 /** Estado de UI exclusivo del módulo flashcards (no pertenece al shell). */
 export const FlashcardUiProvider = ({ children }) => {

@@ -7,7 +7,7 @@ import { FiCpu } from 'react-icons/fi';
  * ImageViewer — responsable ÚNICAMENTE de la visualización y controles de imagen.
  * SRP: no conoce lógica de formas verbales ni audio.
  */
-function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl, imageRef, altText, onDelete, onUploadClick, onImageError, canCustomizeImages, isDisabled, imageKey }) {
+function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl, imageRef, altText, onDelete, onUploadClick, onImageError, canCustomizeImages, canDeleteImages = canCustomizeImages, isDisabled, imageKey }) {
     const isProcessActive = isImageLoading || isUploading;
     const [isDecoding, setIsDecoding] = useState(true);
     const activeUrlRef = useRef(imageUrl);
@@ -24,64 +24,51 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
     useEffect(() => {
         activeUrlRef.current = imageUrl;
         let timeout;
-        
-        if (imageUrl) {
+
+        if (!imageUrl) {
             setIsDecoding(true);
-            // Re-evaluar por si el elemento ya está completo en el DOM
-            if (imageRef && imageRef.current && imageRef.current.complete) {
-                if (imageRef.current.naturalWidth > 0) {
-                    setIsDecoding(false);
-                } else if (imageRef.current.naturalWidth === 0 && imageRef.current.src) {
-                    setIsDecoding(false);
-                    if (activeUrlRef.current === imageUrl) {
-                        onImageError?.();
-                    }
-                }
-            }
-            
-            // Fallback de seguridad: si el navegador se queda "colgado" decodificando (bug de Chrome con AVIF),
-            // quitamos el loader después de 5 segundos para que no quede la pantalla bloqueada.
-            timeout = setTimeout(() => {
-                setIsDecoding((prev) => {
-                    if (prev) {
-                        console.warn('Timeout decodificando imagen, forzando visualización:', imageUrl);
-                        return false;
-                    }
-                    return prev;
-                });
-            }, 5000);
+            return undefined;
         }
+        
+        setIsDecoding(true);
+        if (imageRef?.current?.complete && imageRef.current.naturalWidth > 0) {
+            setIsDecoding(false);
+        }
+        
+        // Fallback de seguridad: si el navegador se queda "colgado" decodificando (bug de Chrome con AVIF),
+        // quitamos el loader después de 5 segundos para que no quede la pantalla bloqueada.
+        timeout = setTimeout(() => {
+            setIsDecoding((prev) => {
+                if (prev) {
+                    console.warn('Timeout decodificando imagen, forzando visualización:', imageUrl);
+                    return false;
+                }
+                return prev;
+            });
+        }, 5000);
         
         return () => {
             if (timeout) clearTimeout(timeout);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [imageUrl, imageRef]);
+    }, [imageUrl, imageKey, imageRef]);
 
     const showLoader = isProcessActive || (imageUrl && isDecoding);
     const showImageControls = imageUrl && !isProcessActive;
 
     const attachRef = (el) => {
         if (imageRef) imageRef.current = el;
-        if (el && el.complete) {
-            if (el.naturalWidth > 0) {
-                setIsDecoding(false);
-            } else if (el.naturalWidth === 0 && el.src) {
-                // La imagen dice estar completa pero no tiene dimensiones (error desde caché)
-                // Usamos setTimeout para no alterar el estado durante el render cycle del ref
-                setTimeout(() => {
-                    handleImageError();
-                }, 0);
-            }
+        if (el?.complete && el.naturalWidth > 0) {
+            setIsDecoding(false);
         }
     };
 
     return (
         <div className={styles.imagePlaceholder}>
             {/* Controles: eliminar o subir */}
-            {canCustomizeImages && (
+            {(canDeleteImages || canCustomizeImages) && (
                 <div className={styles.imageControls}>
-                    {showImageControls ? (
+                    {showImageControls && canDeleteImages ? (
                         <button
                             className={`${styles.imageControlBtn} ${styles.deleteImageBtn}`}
                             onClick={(e) => { e.stopPropagation(); onDelete(); }}
@@ -90,7 +77,7 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
                         >
                             <FaTimes size={20} />
                         </button>
-                    ) : (
+                    ) : !showImageControls && canCustomizeImages ? (
                         <button
                             className={`${styles.imageControlBtn} ${styles.uploadImageBtn}`}
                             onClick={onUploadClick}
@@ -99,7 +86,7 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
                         >
                             <FaUpload size={18} />
                         </button>
-                    )}
+                    ) : null}
                 </div>
             )}
 

@@ -1,3 +1,10 @@
+import {
+  pickHomeRoute as pickHomeRoutePure,
+  resolveAuthenticatedHomePath,
+  resolveFallbackPath,
+  shouldUseFlashcardLegacyAlias,
+} from './routingPaths';
+
 const moduleLoaders = import.meta.glob('./*/index.jsx');
 
 /** @type {Array<{ id: string, enabled?: Function, routes?: Function, [key: string]: unknown }>} */
@@ -20,15 +27,17 @@ export async function initModules() {
   return modules;
 }
 
-function normalizeRoute(route) {
+function normalizeRoute(route, moduleId) {
   return {
     ...route,
+    moduleId,
+    layout: route.layout || 'app',
     enabled: route.enabled !== false,
   };
 }
 
-function normalizeRoutes(routes) {
-  return (routes || []).map(normalizeRoute);
+function normalizeRoutes(routes, moduleId) {
+  return (routes || []).map((route) => normalizeRoute(route, moduleId));
 }
 
 export function getEnabledModules(config) {
@@ -43,8 +52,22 @@ export function getModuleRoutes(config) {
     const routes = typeof module.routes === 'function'
       ? module.routes(config)
       : module.routes;
-    return normalizeRoutes(routes);
+    return normalizeRoutes(routes, module.id);
   });
+}
+
+export function isLandingHomeActive(config) {
+  return Boolean(
+    config?.features?.landing
+    && getEnabledModules(config).some((module) => module.id === 'landing'),
+  );
+}
+
+export function getAppShell(config) {
+  const dashboard = getEnabledModules(config).find(
+    (module) => module.id === 'dashboard' && module.appShell,
+  );
+  return dashboard?.appShell || null;
 }
 
 export function getModuleNavSections(config, context) {
@@ -84,34 +107,68 @@ export function getDefaultModuleId(config) {
 }
 
 export function isDefaultHomeModule(moduleId, config) {
+  if (isLandingHomeActive(config)) return false;
   return getDefaultModuleId(config) === moduleId;
 }
 
 export function getAppRoutes(config, baseRoutes = []) {
+  const normalizedBase = (baseRoutes || []).map((route) => normalizeRoute(route, 'shell'));
   return [
-    ...baseRoutes,
+    ...normalizedBase,
     ...getModuleRoutes(config),
   ];
 }
 
-/** Ruta inicial según VITE_DEFAULT_MODULE / config.defaultModule */
+function pickHomeRoute(routes, config) {
+  const defaultModuleId = getDefaultModuleId(config);
+  return pickHomeRoutePure(routes, defaultModuleId, (moduleId) => {
+    const mod = getEnabledModules(config).find((m) => m.id === moduleId);
+    if (!mod) return [];
+    return normalizeRoutes(
+      typeof mod.routes === 'function' ? mod.routes(config) : mod.routes,
+      mod.id,
+    );
+  });
+}
+
+/** Ruta inicial pública (puede ser landing en `/`). */
 export function getDefaultAppPath(config, baseRoutes = []) {
   const routes = getAppRoutes(config, baseRoutes).filter((route) => route.enabled !== false);
-  const defaultModuleId = getDefaultModuleId(config);
-  const defaultModule = getEnabledModules(config).find((module) => module.id === defaultModuleId);
-
-  if (defaultModule) {
-    const moduleRoutes = normalizeRoutes(
-      typeof defaultModule.routes === 'function'
-        ? defaultModule.routes(config)
-        : defaultModule.routes,
-    );
-    const homeRoute = moduleRoutes.find((route) => route.path === '/') || moduleRoutes[0];
-    if (homeRoute && routes.some((route) => route.path === homeRoute.path)) {
-      return homeRoute.path;
-    }
-  }
-
-  const preferred = routes.find((route) => route.path !== '/admin');
-  return preferred?.path || routes[0]?.path || '/login';
+  return pickHomeRoute(routes, config);
 }
+
+function getAuthenticatedAppRoutes(config, baseRoutes = []) {
+  return getAppRoutes(config, baseRoutes).filter((route) => {
+    if (route.enabled === false) return false;
+    if (route.layout === 'bare' || route.public) return false;
+    if (route.moduleId === 'landing') return false;
+    return true;
+  });
+}
+
+function isDashboardModuleEnabled(config) {
+  return Boolean(
+    config?.features?.dashboard
+    && getEnabledModules(config).some((module) => module.id === 'dashboard'),
+  );
+}
+
+/** Ruta tras login: `/dashboard` si el módulo dashboard está activo; si no, módulo por defecto. */
+export function getAuthenticatedHomePath(config, baseRoutes = []) {
+  const routes = getAuthenticatedAppRoutes(config, baseRoutes);
+  return resolveAuthenticatedHomePath(
+    routes,
+    getDefaultModuleId(config),
+    (moduleId) => {
+      const mod = getEnabledModules(config).find((m) => m.id === moduleId);
+      if (!mod) return [];
+      return normalizeRoutes(
+        typeof mod.routes === 'function' ? mod.routes(config) : mod.routes,
+        mod.id,
+      );
+    },
+    { dashboardEnabled: isDashboardModuleEnabled(config) },
+  );
+}
+
+export { resolveFallbackPath, shouldUseFlashcardLegacyAlias };

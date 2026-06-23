@@ -14,6 +14,7 @@ import { useFlashcardContext } from './context/FlashcardContext';
 import { getCategoryDisplayName, getGroupDisplayName, getProgressLabel } from './features/categoryDisplay';
 import { getNextStudyStep } from './config/catalogOrder';
 import { navigationIntentRef } from './navigationIntent';
+import { flashcardPort } from './composition';
 
 const FLASHCARD_LOADING_COPY = {
     es: {
@@ -92,7 +93,6 @@ export default function FlashcardPage() {
     } = useFlashcardUiContext();
     const {
         isFloatingMenuOpen, isSidebarOpen,
-        setIsMainLoadingBlocked,
         language = 'en',
     } = useUIContext();
     const { currentCategory, changeCategory, loadingStage: categoryLoadingStage } = useCategoryContext();
@@ -113,6 +113,10 @@ export default function FlashcardPage() {
             window.history.replaceState({}, '', location.pathname);
         }
     }, [location.state, location.pathname, setIsCatalogVisible, setIsIpaModalOpen]);
+
+    useEffect(() => {
+        flashcardPort.touchStudyDay().catch(() => {});
+    }, []);
 
     const touchStartRef = useRef(null);
     const minSwipeDistance = 50;
@@ -156,21 +160,6 @@ export default function FlashcardPage() {
         : `${getCategoryDisplayName(currentCategory, language)} • ${getDeckDisplayName(currentDeckName)}`;
 
     useEffect(() => {
-        setIsMainLoadingBlocked(shouldShowLoading);
-        return () => setIsMainLoadingBlocked(false);
-    }, [shouldShowLoading, setIsMainLoadingBlocked]);
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (shouldShowLoading || shouldShowCompletionCard) return;
-            if (e.key === 'ArrowLeft') prevCard();
-            else if (e.key === 'ArrowRight') nextCard();
-        };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [prevCard, nextCard, shouldShowLoading, shouldShowCompletionCard]);
-
-    useEffect(() => {
         if (!activeLoadingStage || !loadingCopy) {
             reset();
             return;
@@ -207,17 +196,19 @@ export default function FlashcardPage() {
         autoAdvancedRef.current = false;
     }, [currentCategory, currentDeckName, selectedGroup]);
 
+    // Solo auto-avanzar tras completar el mazo en esta sesión (evita bucle al abrir decks ya aprendidos).
     useEffect(() => {
+        if (!justCompletedInSession) return;
         if (navigationIntentRef.current === 'user') return;
-        if (shouldShowLoading || justCompletedInSession || !isCompletionVisible || autoAdvancedRef.current) {
+        if (shouldShowLoading || !isCompletionVisible || autoAdvancedRef.current) {
             return;
         }
 
         autoAdvancedRef.current = true;
         handleContinueRecommendation();
     }, [
-        shouldShowLoading,
         justCompletedInSession,
+        shouldShowLoading,
         isCompletionVisible,
         handleContinueRecommendation,
     ]);

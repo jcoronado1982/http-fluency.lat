@@ -306,6 +306,59 @@ Output ONLY the final scene description (60-85 words) in English."#;
             .await
     }
 
+    async fn improve_prompt_for_landing_demo_image(
+        &self,
+        phrase: &str,
+        pos_category: &str,
+        meaning: Option<&str>,
+        usage_example: Option<&str>,
+        scene_complement: Option<&str>,
+    ) -> Result<String> {
+        if self.api_key == "DISABLED" {
+            return Ok(phrase.to_string());
+        }
+        #[cfg(feature = "flashcards")]
+        {
+            use mod_flashcards::landing_demo_image_prompt::{
+                build_complement_mode_user_message, build_gemini_user_message_with_complement,
+                gemini_system_for_landing, GEMINI_SYSTEM_COMPLEMENT_MODE,
+            };
+
+            if let Some(comp) = scene_complement.map(str::trim).filter(|s| !s.is_empty()) {
+                let example = usage_example
+                    .filter(|s| !s.is_empty())
+                    .unwrap_or(phrase);
+                let user = build_complement_mode_user_message(example, meaning, comp);
+                return self
+                    .call(
+                        GEMINI_SYSTEM_COMPLEMENT_MODE,
+                        &user,
+                        0.35,
+                        "gemini-3.1-flash-lite",
+                        None,
+                    )
+                    .await;
+            }
+
+            let user = build_gemini_user_message_with_complement(
+                phrase,
+                pos_category,
+                meaning,
+                usage_example,
+                scene_complement,
+            );
+            let system = gemini_system_for_landing(scene_complement);
+            return self
+                .call(&system, &user, 0.5, "gemini-3.1-flash-lite", None)
+                .await;
+        }
+        #[cfg(not(feature = "flashcards"))]
+        {
+            self.improve_prompt_for_image(phrase, pos_category, meaning, usage_example)
+                .await
+        }
+    }
+
     async fn refine_audio_ssml(&self, text: &str, tone: &str) -> Result<String> {
         if self.api_key == "DISABLED" {
             return Ok(format!("<speak>{}</speak>", text));

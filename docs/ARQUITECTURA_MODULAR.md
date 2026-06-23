@@ -169,6 +169,12 @@ client/src/
         ├── queries/storyQueries.js
         ├── domain/pronounReferenceData.js
         └── index.jsx
+    ├── landing/              # página pública / (opt-in, layout bare)
+    └── dashboard/            # shell autenticado + home /dashboard
+        ├── DashboardShell.jsx
+        ├── DashboardHome.jsx
+        ├── layout/           # Sidebar, Header, Footer, FloatingMenu
+        └── config/translations.js
 ```
 
 | Capa frontend | Equivalente backend | Responsabilidad |
@@ -191,6 +197,8 @@ Auto-descubre `./<modulo>/index.jsx` (sparse-checkout decide qué existe) y expo
 - `getModuleOverlays(config)` — modales globales del módulo
 - `getModuleFloatingMenuItems(config, ctx)` — menú flotante
 - `getModuleShellProviders(config)` — providers que el módulo monta fuera de sus rutas (ej. `FlashcardUiProvider`)
+- `getAuthenticatedHomePath(config)` — `/dashboard` o módulo default
+- `getDefaultAppPath(config)` — ruta pública inicial
 
 ### 4.3 Contrato de un módulo frontend
 
@@ -198,13 +206,21 @@ Auto-descubre `./<modulo>/index.jsx` (sparse-checkout decide qué existe) y expo
 export default {
   id: 'miModulo',
   enabled: (config) => config.features.miModulo,
-  routes: (config) => [{ path: '/ruta', element: <Page /> }],
-  navSections: ({ language, config }) => [{ id, label, items: [...] }],
+  routes: (config) => [{ path: '/ruta', element: <Page />, layout: 'app' | 'bare' }],
+  appShell: DashboardShell,                     // solo módulo dashboard
+  navSections: ({ language, config }) => [...],
   overlays: () => <MisOverlays />,              // opcional
   floatingMenuItems: (ctx) => [...],            // opcional
   shellProviders: (config) => [MiUiProvider],   // opcional
 };
 ```
+
+Layouts de ruta:
+
+| `layout` | Uso |
+|----------|-----|
+| `bare` | Landing, login — sin sidebar |
+| `app` | Dashboard home, módulos de estudio — dentro del shell dashboard (o `MinimalAppShell` si dashboard no está en disco) |
 
 Flujo de datos (hexagonal):
 
@@ -212,7 +228,41 @@ Flujo de datos (hexagonal):
 Page → hooks → useCases/queries → port → adapter(httpClient)
 ```
 
-### 4.4 Shell frontend (`App.jsx`)
+### 4.4 Rutas y navegación
+
+Config típica de desarrollo (`client/.env.development`):
+
+```env
+VITE_ENABLE_LANDING=true
+VITE_ENABLE_DASHBOARD=true
+VITE_DEFAULT_MODULE=flashcards
+```
+
+Flujo de URLs:
+
+```
+/              → Landing (público)
+/login         → Login
+/dashboard     → Home autenticado (hub)     ← destino tras login
+/flashcard     → Módulo flashcards
+/unknown       → AppFallback → /dashboard o /login
+```
+
+**Post-login:** `LoginPage` y `LandingPage` (usuario ya autenticado) llaman a `getAuthenticatedHomePath()`. Con dashboard activo devuelve **`/dashboard`**, no `/flashcard`.
+
+**Resolución de rutas** (`client/src/modules/routingPaths.js` — testeable con `npm run test:routing`):
+
+| Export | Rol |
+|--------|-----|
+| `DASHBOARD_HOME_PATH` | Constante `/dashboard` |
+| `pickHomeRoute()` | Home del módulo default (`/` o `/flashcard` según landing) |
+| `resolveAuthenticatedHomePath()` | Prefiere `/dashboard` si el módulo está registrado |
+| `resolveFallbackPath()` | 404 dentro del shell → home autenticado |
+| `shouldUseFlashcardLegacyAlias()` | Redirect `/flashcard` → `/` solo sin landing |
+
+**Anti-bucles:** `SafeRedirect` no navega si `to === pathname`. `DashboardShell` mantiene **siempre** la misma jerarquía DOM (sidebar + `<Outlet />`); no condicionar el layout completo al estado de carga — remontar el árbol provocaba bucles infinitos de fetch a `/api/categories`.
+
+### 4.5 Shell frontend (`App.jsx`)
 
 El shell **no importa** páginas ni repositorios de módulos. Solo:
 
@@ -229,11 +279,13 @@ Reglas de aislamiento (Jun 2026):
 - El shell expone `httpClient`; todos los adapters HTTP (incl. `AuthRepository`) lo usan.
 - `uiBridge.js` permite al FloatingMenu invocar acciones del módulo sin acoplar imports cruzados.
 
-### 4.5 Flags Vite (`client/src/config/index.js`)
+### 4.6 Flags Vite (`client/src/config/index.js`)
 
 | Flag | Comportamiento |
 |------|----------------|
-| `VITE_DEFAULT_MODULE` | Módulo que abre en `/` (`flashcards` default, o `pronoun`) |
+| `VITE_ENABLE_LANDING` | Opt-in (`=== 'true'`) — `/` público (landing) |
+| `VITE_ENABLE_DASHBOARD` | Opt-out (`!== 'false'`) — shell + home `/dashboard` tras login |
+| `VITE_DEFAULT_MODULE` | Módulo que abre en `/` si no hay landing (`flashcards` default, o `pronoun`) |
 | `VITE_ENABLE_FLASHCARDS` | Opt-out (`!== 'false'`) |
 | `VITE_ENABLE_PRONOUN_REFERENCE` | Opt-out |
 | `VITE_ENABLE_PRONOUN_PRACTICE` | Opt-in (`=== 'true'`) |

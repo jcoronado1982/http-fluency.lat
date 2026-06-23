@@ -1,0 +1,152 @@
+.demo {
+    width: min(100%, 500px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Override flashcardContainer height/max-width for demo context */
+.cardContainer {
+    height: 440px !important;
+    max-width: 100% !important;
+    cursor: pointer;
+}
+
+.cardContainer:focus-visible {
+    outline: 2px solid rgba(125, 119, 221, 0.6);
+    outline-offset: 4px;
+    border-radius: 32px;
+}
+
+@media (max-width: 600px) {
+    .cardContainer {
+        height: 360px !important;
+    }
+}
+
+/* ── Header ── */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2px;
+}
+
+.headerLabel {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(244, 114, 182, 0.9);
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.learnedPill {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #99f6e4;
+    background: rgba(45, 212, 191, 0.12);
+    border: 1px solid rgba(45, 212, 191, 0.25);
+    padding: 3px 9px;
+    border-radius: 999px;
+}
+
+.resetBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: transparent;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.resetBtn:hover { color: #f472b6; border-color: rgba(244, 114, 182, 0.35); }
+
+/* ── Progress bar ── */
+.progressBar {
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #2dd4bf, #7d77dd);
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 8px rgba(45, 212, 191, 0.4);
+}
+
+/* ── Controls ── */
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: #cbd5e1;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.navBtn:hover {
+    background: rgba(125, 119, 221, 0.18);
+    border-color: rgba(125, 119, 221, 0.4);
+    transform: scale(1.05);
+}
+
+.learnBtn {
+    flex: 1;
+    height: 44px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    color: #e2e8f0;
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.learnBtn:hover {
+    background: rgba(45, 212, 191, 0.12);
+    border-color: rgba(45, 212, 191, 0.35);
+    color: #99f6e4;
+}
+
+.learnBtnActive {
+    background: rgba(45, 212, 191, 0.15) !important;
+    border-color: rgba(45, 212, 191, 0.5) !important;
+    color: #5eead4 !important;
+}
+
+/* ── Footer note ── */
+.demoNote {
+    margin: 0;
+    text-align: center;
+    font-size: 0.72rem;
+    color: rgba(148, 163, 184, 0.65);
+    letter-spacing: 0.02em;
+}

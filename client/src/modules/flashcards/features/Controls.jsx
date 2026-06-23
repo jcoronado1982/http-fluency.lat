@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Controls.module.css';
 import { getFlashcardTranslations } from '../config/translations';
 import { useUIContext } from '../../../context/UIContext';
@@ -10,13 +10,33 @@ function Controls() {
     const { isAudioLoading } = useFlashcardUiContext();
     const {
         prevCard, nextCard, markAsLearned, resetDeck,
-        currentIndex, filteredData, currentDeckName
+        currentIndex, filteredData, currentDeckName, isLandingDemo,
     } = useFlashcardContext();
 
     const t = getFlashcardTranslations(language).controls;
     const totalCards = filteredData.length;
-    const isBusy = totalCards === 0 || isAudioLoading;
-    const isResetDisabled = isAudioLoading || !currentDeckName;
+    // Demo: no bloquear flechas mientras carga/sintetiza audio (permite navegar fluido).
+    const isBusy = totalCards === 0 || (!isLandingDemo && isAudioLoading);
+    const isResetDisabled = (!isLandingDemo && isAudioLoading) || !currentDeckName;
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            const tag = e.target?.tagName;
+            if (tag === 'INPUT' || tag === 'TEXTAREA' || e.target?.isContentEditable) return;
+            if (isBusy) return;
+
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevCard();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                nextCard();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [prevCard, nextCard, isBusy]);
 
     const formatName = (name) => {
         if (!name) return '';

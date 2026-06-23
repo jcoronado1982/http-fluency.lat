@@ -35,7 +35,10 @@ use crate::infrastructure::ai::avif_compressor::AvifCompressor;
 use crate::infrastructure::ai::comfy_provider::ComfyUIProvider;
 use crate::infrastructure::ai::gemini_grpc_provider::GeminiGrpcProvider;
 #[cfg(feature = "flashcards")]
-use crate::infrastructure::ai::routing_tts_provider::RoutingTtsProvider;
+use crate::infrastructure::ai::gemini_interactions_image_provider::GeminiInteractionsImageProvider;
+#[cfg(feature = "flashcards")]
+    use crate::infrastructure::ai::elevenlabs_tts_provider::ElevenLabsTtsProvider;
+    use crate::infrastructure::ai::routing_tts_provider::RoutingTtsProvider;
 #[cfg(feature = "payments")]
 use crate::infrastructure::payment::null_payment_provider::NullPaymentProvider;
 #[cfg(feature = "payments")]
@@ -202,7 +205,20 @@ async fn async_main() -> anyhow::Result<()> {
     let ai_tutor: Arc<dyn AITutor> = Arc::new(GeminiGrpcProvider::new(&settings)?);
     #[cfg(feature = "flashcards")]
     let audio_gen: Arc<dyn AudioGenerator> = Arc::new(RoutingTtsProvider::new(&settings).await?);
+    #[cfg(feature = "flashcards")]
+    let landing_demo_audio_gen: Option<Arc<dyn AudioGenerator>> =
+        ElevenLabsTtsProvider::from_settings(&settings)
+            .map(|provider| Arc::new(provider) as Arc<dyn AudioGenerator>);
+    #[cfg(feature = "flashcards")]
+    if landing_demo_audio_gen.is_some() {
+        tracing::info!("🎙️ Landing demo TTS: ElevenLabs activo");
+    } else {
+        tracing::warn!("⚠️ ELEVENLABS_API_KEY no configurada — demo usará Google TTS");
+    }
     let image_gen: Arc<dyn ImageGenerator> = Arc::new(ComfyUIProvider::new(&settings));
+    #[cfg(feature = "flashcards")]
+    let landing_demo_image_gen: Arc<dyn ImageGenerator> =
+        Arc::new(GeminiInteractionsImageProvider::new(&settings));
     let image_compressor: Arc<dyn ImageCompressor> = Arc::new(AvifCompressor);
 
     // 1000 slots: soporte para ráfagas de imágenes generadas en batch sin perder eventos SSE.
@@ -210,12 +226,12 @@ async fn async_main() -> anyhow::Result<()> {
 
     // --- Compose use cases (application layer) ---
     #[cfg(feature = "flashcards")]
-    let deck_use_cases = Arc::new(DeckUseCases::new(storage_repo.clone(), card_repo.clone()));
+    let deck_use_cases = Arc::new(DeckUseCases::new(storage_repo.clone(), card_repo.clone(), activity_repo.clone()));
     #[cfg(feature = "flashcards")]
     let flashcards_config = Arc::new(FlashcardsConfig {
         gcs_audio_prefix: settings.gcs_audio_prefix.clone(),
         gcs_images_prefix: settings.gcs_images_prefix.clone(),
-        gemini_api_enabled: settings.gemini_api_key.is_some(),
+        gemini_api_enabled: settings.image_ai_enabled,
     });
     #[cfg(feature = "pronoun_practice")]
     let tutor_db_repo = Some(story_repo.clone());
@@ -226,6 +242,7 @@ async fn async_main() -> anyhow::Result<()> {
     let audio_use_cases = Arc::new(AudioUseCases::new(
         storage_repo.clone(),
         audio_gen.clone(),
+        landing_demo_audio_gen,
         ai_tutor.clone(),
         flashcards_config.clone(),
     ));
@@ -233,6 +250,7 @@ async fn async_main() -> anyhow::Result<()> {
     let image_use_cases = Arc::new(ImageUseCases::new(
         storage_repo.clone(),
         image_gen.clone(),
+        landing_demo_image_gen.clone(),
         image_compressor.clone(),
         ai_tutor.clone(),
         flashcards_config.clone(),

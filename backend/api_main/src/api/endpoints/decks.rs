@@ -148,3 +148,33 @@ pub async fn get_phonics_data(State(state): State<AppState>) -> impl IntoRespons
             .into_response(),
     }
 }
+
+pub async fn get_learning_stats(
+    State(state): State<AppState>,
+    headers: axum::http::HeaderMap,
+) -> Result<impl IntoResponse, (StatusCode, String)> {
+    let claims = extract_claims(&state, &headers)?;
+    match state.deck_use_cases.get_learning_stats(&claims.email).await {
+        Ok(stats) => Ok((
+            StatusCode::OK,
+            Json(serde_json::json!({ "success": true, "stats": stats })),
+        )
+            .into_response()),
+        Err(e) => Err((StatusCode::INTERNAL_SERVER_ERROR, e.to_string())),
+    }
+}
+
+pub async fn touch_study_day(
+    State(state): State<AppState>,
+    headers: axum::http::HeaderMap,
+) -> Result<impl IntoResponse, (StatusCode, String)> {
+    let claims = extract_claims(&state, &headers)?;
+    match state.deck_use_cases.touch_study_day(&claims.email).await {
+        Ok(_) => Ok((
+            StatusCode::OK,
+            Json(serde_json::json!({ "success": true })),
+        )
+            .into_response()),
+        Err(e) => Err((StatusCode::INTERNAL_SERVER_ERROR, e.to_string())),
+    }
+}
