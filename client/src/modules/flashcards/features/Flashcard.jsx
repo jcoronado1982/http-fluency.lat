@@ -8,7 +8,7 @@ import { useUIContext } from '../../../context/UIContext';
 import { useFlashcardUiContext } from '../context/FlashcardUiContext';
 import { useFlashcardContext } from '../context/FlashcardContext';
 import { useCategoryContext } from '../context/CategoryContext';
-import { getCardTitle } from './cardLanguageUtils';
+import { getCardTitle, getAudioLang, getAudioLangForConjugation } from './cardLanguageUtils';
 
 const getDefinitionsForForm = (card, form) => {
     if (!card) return [];
@@ -50,7 +50,7 @@ function Flashcard() {
     const [blurredState, setBlurredState] = useState({});
 
     const {
-        playAudio, stopAudio, deleteAudio, activeAudioText, highlightedWordIndex, isGeneratingAudio
+        playAudio, prefetchAudio, stopAudio, deleteAudio, activeAudioText, highlightedWordIndex, isGeneratingAudio
     } = useAudioPlayback({
         setAppMessage, setIsAudioLoading, currentCategory, currentDeckName,
         verbName: cardData?.name
@@ -64,25 +64,59 @@ function Flashcard() {
         cardData, currentCategory, currentDeckName, setAppMessage, updateCardImagePath, activeForm
     });
 
+    const buildAllBlurred = useCallback((form = activeForm) => {
+        if (!cardData) return {};
+        return getDefinitionsForForm(cardData, form).reduce((acc, _, i) => ({ ...acc, [i]: true }), {});
+    }, [cardData, activeForm]);
+
+    const revealDefinition = useCallback((defIndex, form = activeForm) => {
+        if (!cardData) return;
+        const defs = getDefinitionsForForm(cardData, form);
+        setBlurredState(defs.reduce((acc, _, i) => ({ ...acc, [i]: i !== defIndex }), {}));
+    }, [cardData, activeForm]);
+
     const playDefinitionMedia = useCallback((defIndex, text, lang = 'en') => {
+        revealDefinition(defIndex);
         void ensureImageForDefinition(defIndex);
         void playAudio(text, lang);
-    }, [ensureImageForDefinition, playAudio]);
+    }, [revealDefinition, ensureImageForDefinition, playAudio]);
 
     /** Audio e imagen en paralelo al cambiar v1/v2/v3 (sin esperar uno al otro). */
     const handleConjugationSelect = useCallback((formKey, formLabel) => {
         setActiveForm(formKey);
         ensureImageForForm(formKey, 0);
-        void playAudio(formLabel, language);
-    }, [ensureImageForForm, playAudio, language]);
+        void playAudio(formLabel, getAudioLangForConjugation());
+    }, [ensureImageForForm, playAudio]);
 
     const handleToggleBlur = useCallback((defIndex) => {
-        // Si la frase estaba desenfocada, también cargamos su imagen
-        if (blurredState[defIndex]) {
-            ensureImageForDefinition(defIndex);
-        }
-        setBlurredState(prev => ({ ...prev, [defIndex]: !prev[defIndex] }));
-    }, [blurredState, ensureImageForDefinition]);
+        setBlurredState(prev => {
+            const isCurrentlyBlurred = prev[defIndex] !== false;
+            if (isCurrentlyBlurred) {
+                ensureImageForDefinition(defIndex);
+                if (!cardData) return prev;
+                const defs = getDefinitionsForForm(cardData, activeForm);
+                return defs.reduce((acc, _, i) => ({ ...acc, [i]: i !== defIndex }), {});
+            }
+            return { ...prev, [defIndex]: true };
+        });
+    }, [ensureImageForDefinition, cardData, activeForm]);
+
+    useEffect(() => {
+        if (!cardData || isAnyOverlayOpen) return;
+
+        const defs = getDefinitionsForForm(cardData, 'v1');
+        const title = getCardTitle({
+            name: cardData.name,
+            definitions: cardData.definitions || [],
+        }, language);
+        const audioLang = getAudioLang(language);
+
+        if (title) void prefetchAudio(title, audioLang);
+        defs.forEach((def) => {
+            const exampleText = language === 'es' ? def.usage_example : def.usage_example_es;
+            if (exampleText) void prefetchAudio(exampleText, audioLang);
+        });
+    }, [cardData, language, isAnyOverlayOpen, prefetchAudio]);
 
     useEffect(() => {
         if (!cardData) return;
@@ -93,9 +127,7 @@ function Flashcard() {
             stopAudio();
             setIsFlipped(false);
             setActiveForm('v1');
-            setBlurredState(
-                getDefinitionsForForm(cardData, 'v1').reduce((acc, _, i) => ({ ...acc, [i]: true }), {})
-            );
+            setBlurredState(buildAllBlurred('v1'));
             setAppMessage({ text: '', isError: false });
             setPrevCardId(currentId);
 
@@ -104,7 +136,7 @@ function Flashcard() {
                 definitions: cardData.definitions || [],
             }, language);
             if (title && !isAnyOverlayOpen) {
-                void playAudio(title, language);
+                void playAudio(title, getAudioLang(language));
             }
         }
     }, [cardData, setAppMessage, prevCardId, stopAudio, playAudio, language, isAnyOverlayOpen]);
@@ -112,10 +144,8 @@ function Flashcard() {
     useEffect(() => {
         if (!cardData?.irregular) return;
 
-        setBlurredState(
-            getDefinitionsForForm(cardData, activeForm).reduce((acc, _, i) => ({ ...acc, [i]: true }), {})
-        );
-    }, [activeForm, cardData]);
+        setBlurredState(buildAllBlurred(activeForm));
+    }, [activeForm, cardData, buildAllBlurred]);
 
     useEffect(() => () => {
         stopAudio();

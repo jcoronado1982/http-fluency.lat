@@ -4,15 +4,47 @@
     width: 100%;
     max-width: 620px;
     height: 720px;
-    /* Aumentado para acomodar imagen de 380px + ejemplos */
     perspective: 1200px;
     margin: 0 auto;
 }
 
-@media (max-width: 768px) {
-    .flashcardContainer {
-        height: 550px;
-    }
+/* App interna: tarjeta proporcional al viewport disponible */
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .flashcardContainer {
+    width: 100%;
+    max-width: var(--fc-card-max-width, 620px);
+    height: var(--fc-card-height, clamp(420px, 72dvh, 720px));
+    min-height: var(--fc-card-min-height, 380px);
+    flex-shrink: 0;
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .card {
+    border-radius: clamp(20px, 3vw, 32px);
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront,
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardBack {
+    min-height: 0;
+    border-radius: clamp(20px, 3vw, 32px);
+    padding: clamp(12px, 2vw, 20px) clamp(12px, 2vw, 20px) 0;
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .imagePlaceholder {
+    width: 100%;
+    flex: 1 1 0;
+    min-height: clamp(80px, 20dvh, 420px);
+    height: auto;
+    max-width: 100%;
+    margin: clamp(8px, 1.5vh, 16px) auto clamp(10px, 1.5vh, 20px);
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .allExamplesContainer {
+    flex-shrink: 0;
+    flex-grow: 0;
+    overflow: visible;
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .imageLoadingOverlay {
+    min-height: 0;
 }
 
 
@@ -66,7 +98,7 @@
     backface-visibility: hidden;
     background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
     border-radius: 32px;
-    padding: 25px 25px 0px 25px;
+    padding: 20px 20px 0px 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -91,7 +123,7 @@
 /* --- Estilos Generales del Frente --- */
 
 .name {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-family-body);
     font-size: clamp(1.5rem, 5vw, 2.5em);
     font-weight: 800;
     color: #ffffff;
@@ -204,7 +236,7 @@
     color: #f0f0f0;
     font-weight: 300;
     font-size: 1.3em;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-family-body);
     letter-spacing: 0.01em;
 }
 
@@ -935,7 +967,7 @@
     border-radius: 20px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
     color: #f8fafc;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: var(--font-family-body);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -991,6 +1023,33 @@
 }
 
 @media (max-width: 768px) {
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .flashcardContainer {
+        height: var(--fc-card-height, clamp(340px, calc(100dvh - 220px), 620px));
+        min-height: var(--fc-card-min-height, 340px);
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront,
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardBack {
+        padding: clamp(8px, 2vw, 14px) clamp(8px, 2vw, 12px) 0 !important;
+        border-radius: clamp(18px, 4vw, 24px) !important;
+        border: 1px solid #334155 !important;
+        background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%) !important;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .card {
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+        border-radius: clamp(18px, 4vw, 24px) !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .imagePlaceholder {
+        height: auto !important;
+        flex: 1 1 0 !important;
+        min-height: clamp(72px, 16dvh, 280px) !important;
+        margin: clamp(6px, 1vh, 12px) auto clamp(8px, 1vh, 14px) !important;
+        border-radius: clamp(12px, 3vw, 16px) !important;
+    }
+
     .cardCounter {
         position: fixed !important;
         top: calc(env(safe-area-inset-top, 0px) + 80px) !important;
@@ -1024,8 +1083,12 @@
         box-shadow: none !important;
     }
 
-    .cardFront,
-    .cardBack {
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .card {
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+    }
+
+    :global([data-landing-demo]) .cardFront,
+    :global([data-landing-demo]) .cardBack {
         padding: 2px 5px 0px 5px !important;
         border-radius: 0 !important;
         border: none !important;
@@ -1380,7 +1443,7 @@
 :global([data-landing-demo]) .cardFront,
 :global([data-landing-demo]) .cardBack,
 :global([data-landing-demo]) .controlsWrapper {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-family-body);
 }
 
 :global([data-landing-demo]) .cardFront,

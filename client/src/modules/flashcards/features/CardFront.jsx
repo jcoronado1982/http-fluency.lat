@@ -7,7 +7,7 @@ import DefinitionList from './DefinitionList';
 import { FaSpinner } from 'react-icons/fa';
 import { FiPlay, FiHeadphones, FiZap, FiRefreshCw } from 'react-icons/fi';
 import { useAuth } from '../../../context/AuthContext';
-import { getCardTitle } from './cardLanguageUtils';
+import { getCardTitle, getAudioLang } from './cardLanguageUtils';
 
 // ---------------------------------------------------------------------------
 // Mapa de formas verbales → datos a mostrar (OCP: extensible sin modificar)
@@ -90,7 +90,7 @@ function CardFront({
         uploadInputRef.current?.click();
     };
 
-    const handleRotateVoice = (e, text, lang = 'en') => {
+    const handleRotateVoice = (e, text, lang = getAudioLang(currentLanguage)) => {
         e.stopPropagation();
         deleteAudio(text, lang);
     };
@@ -114,7 +114,7 @@ function CardFront({
                         {isAdmin && !(isGeneratingAudio && activeAudioText === title) && (
                             <button
                                 className={styles.rotateVoiceBtn}
-                                onClick={(e) => handleRotateVoice(e, title, currentLanguage)}
+                                onClick={(e) => handleRotateVoice(e, title, getAudioLang(currentLanguage))}
                                 title="Actualizar voz aleatoria"
                                 disabled={isDisabled}
                             >
@@ -124,7 +124,7 @@ function CardFront({
                     </div>
                     <button
                         className={`${styles.soundButton} ${isGeneratingAudio && activeAudioText === title ? styles.loadingAudioBtn : ''}`}
-                        onClick={(e) => { e.stopPropagation(); playDefinitionMedia(0, title, currentLanguage); }}
+                        onClick={(e) => { e.stopPropagation(); playDefinitionMedia(0, title, getAudioLang(currentLanguage)); }}
                         disabled={isGeneratingAudio}
                     >
                         {isGeneratingAudio && activeAudioText === title

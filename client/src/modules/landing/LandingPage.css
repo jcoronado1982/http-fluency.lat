@@ -18,7 +18,7 @@
     overflow-x: hidden;
     background: linear-gradient(175deg, var(--c-bg) 0%, var(--c-bg2) 100%);
     color: var(--c-text);
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-family-body);
 }
 
 /* ── BG Decoration ── */
@@ -241,13 +241,33 @@ main,
 }
 
 .lp-eyebrow {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 0.68rem;
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 5px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(244,114,182,0.3);
+    background: rgba(244,114,182,0.08);
+    font-size: 0.8125rem;
     font-weight: 700;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--c-pink);
+}
+
+.lp-demo-link {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: var(--c-teal);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.lp-demo-link:hover {
+    color: var(--c-pink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
 }
 
 /* ── HERO ── */
@@ -280,10 +300,11 @@ main,
 
 .lp-hero-title {
     margin: 0 0 20px;
+    font-family: var(--font-family-display);
     font-size: clamp(2.4rem, 6vw, 3.6rem);
     font-weight: 800;
     line-height: 1.05;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
 }
 
 .lp-hero-mission {
@@ -395,22 +416,24 @@ main,
 
 .lp-demo-copy h2 {
     margin: 0 0 12px;
+    font-family: var(--font-family-display);
     font-size: clamp(1.7rem, 4vw, 2.4rem);
     font-weight: 800;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
 }
 
 .lp-demo-copy p {
     margin: 0 0 20px;
     color: var(--c-muted);
     font-size: 1rem;
+    font-weight: 400;
     line-height: 1.65;
     max-width: 38rem;
 }
 
 .lp-demo-bullets {
     list-style: none;
-    margin: 0 0 24px;
+    margin: 0 0 20px;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -421,9 +444,10 @@ main,
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    font-size: 0.92rem;
-    font-weight: 500;
-    color: #e2e8f0;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: var(--c-muted2);
+    line-height: 1.5;
 }
 
 .lp-demo-bullets svg {
@@ -441,6 +465,74 @@ main,
     border-radius: 20px;
     padding: 24px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.lp-demo-prompt--card {
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto 12px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.lp-demo-prompt-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(125, 119, 221, 0.28);
+    background: rgba(15, 23, 42, 0.55);
+    color: var(--c-muted2);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.lp-demo-prompt-toggle svg {
+    flex-shrink: 0;
+    color: var(--c-teal);
+}
+
+.lp-demo-prompt-toggle:hover {
+    border-color: rgba(125, 119, 221, 0.45);
+    color: var(--c-text);
+    background: rgba(125, 119, 221, 0.08);
+}
+
+.lp-demo-prompt--card.is-open .lp-demo-prompt-toggle {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-color: transparent;
+}
+
+.lp-demo-prompt-body {
+    padding: 14px;
+    border: 1px solid rgba(125, 119, 221, 0.28);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    background: rgba(15, 23, 42, 0.55);
+}
+
+.lp-demo-prompt--card .lp-demo-prompt-input {
+    border-color: rgba(125, 119, 221, 0.28);
+}
+
+.lp-demo-prompt--card .lp-demo-prompt-apply {
+    border-color: rgba(125, 119, 221, 0.35);
+    background: rgba(125, 119, 221, 0.12);
+    color: var(--c-muted2);
+}
+
+.lp-demo-prompt--card .lp-demo-prompt-apply:hover {
+    border-color: rgba(45, 212, 191, 0.45);
+    background: rgba(45, 212, 191, 0.12);
+    color: var(--c-teal);
 }
 
 .lp-demo-prompt-label {
@@ -531,11 +623,40 @@ main,
 
 .lp-demo-widget {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
     min-width: 0;
     overflow: visible;
+    gap: 0;
+}
+
+/* Demo card — borde único coherente */
+[data-landing-demo] .card {
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+[data-landing-demo] .cardFront,
+[data-landing-demo] .cardBack {
+    border: 1px solid rgba(125, 119, 221, 0.28) !important;
+    box-shadow: none !important;
+}
+
+[data-landing-demo] .controlsWrapper {
+    border: 1px solid rgba(125, 119, 221, 0.28) !important;
+    background: rgba(15, 23, 42, 0.55) !important;
+    box-shadow: none !important;
+}
+
+[data-landing-demo] .imagePlaceholder {
+    border: 1px solid rgba(125, 119, 221, 0.28) !important;
+    box-shadow: none !important;
+}
+
+[data-landing-demo] .conjugationTable {
+    border: 1px solid rgba(125, 119, 221, 0.28) !important;
+    background: rgba(15, 23, 42, 0.35) !important;
 }
 
 .lp-demo-widget-placeholder {
@@ -575,9 +696,10 @@ main,
 
 .lp-why-title {
     margin: 0 0 36px;
+    font-family: var(--font-family-display);
     font-size: clamp(1.7rem, 4vw, 2.4rem);
     font-weight: 800;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
     text-align: center;
 }
 
@@ -612,8 +734,10 @@ main,
 
 .lp-why-card h3 {
     margin: 0;
+    font-family: var(--font-family-display);
     font-size: 1rem;
     font-weight: 700;
+    letter-spacing: -0.02em;
     color: var(--c-text);
 }
 
@@ -639,9 +763,10 @@ main,
 
 .lp-cta-bottom-inner h2 {
     margin: 0;
+    font-family: var(--font-family-display);
     font-size: clamp(1.7rem, 4vw, 2.6rem);
     font-weight: 800;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
 }
 
 .lp-cta-bottom-inner p {

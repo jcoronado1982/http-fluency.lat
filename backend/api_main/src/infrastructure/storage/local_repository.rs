@@ -17,6 +17,9 @@ type DeckCache = Cache<String, Arc<DeckData>>;
 /// Caché de listas: clave = prefijo de directorio, valor = lista de nombres.
 type ListCache = Cache<String, Arc<Vec<String>>>;
 
+/// Caché ligera de existencia de blobs (evita SSH/stat repetidos).
+type ExistsCache = Cache<String, bool>;
+
 pub struct LocalStorageRepository {
     base_path: PathBuf,
     json_prefix: String,
@@ -31,6 +34,8 @@ pub struct LocalStorageRepository {
     deck_cache: DeckCache,
     /// Caché para listados de categorías y mazos.
     list_cache: ListCache,
+    /// Evita comprobar el mismo .ogg/.meta en cada clic de audio (TTL corto).
+    exists_cache: ExistsCache,
 }
 
 impl LocalStorageRepository {
@@ -60,6 +65,11 @@ impl LocalStorageRepository {
             .time_to_live(Duration::from_secs(600))
             .build();
 
+        let exists_cache: ExistsCache = Cache::builder()
+            .max_capacity(3_000)
+            .time_to_live(Duration::from_secs(300))
+            .build();
+
         let repo = Self {
             base_path,
             json_prefix: settings.gcs_json_prefix.clone(),
@@ -71,6 +81,7 @@ impl LocalStorageRepository {
             http_client,
             deck_cache,
             list_cache,
+            exists_cache,
         };
 
         if repo.sync_to_oracle && !repo.oracle_host.is_empty() {
@@ -119,6 +130,11 @@ impl LocalStorageRepository {
     fn get_full_path(&self, relative_path: &str) -> PathBuf {
         let relative = relative_path.trim_start_matches('/');
         self.base_path.join(relative)
+    }
+
+    /// Ruta local del blob (Oracle prod: mismo disco que sirve Caddy en /card_audio).
+    pub fn local_blob_path(&self, blob_path: &str) -> PathBuf {
+        self.get_full_path(blob_path)
     }
 
     /// Oracle base URL — Caddy sirve /json/*, /card_images/*, /card_audio/* como archivos estáticos.
@@ -529,6 +545,9 @@ impl StorageRepository for LocalStorageRepository {
             fs::create_dir_all(parent).await?;
         }
         fs::write(&path, &content).await?;
+        self.exists_cache
+            .insert(blob_path.to_string(), true)
+            .await;
 
         if self.sync_to_oracle {
             // Oracle es el único repositorio persistente. SCP es síncrono:
@@ -545,60 +564,15 @@ impl StorageRepository for LocalStorageRepository {
     }
 
     async fn blob_exists(&self, blob_path: &str) -> Result<bool> {
-        // Con SYNC_TO_ORACLE activo: Oracle es la única fuente de verdad.
-        // Usamos SSH `test -f` directamente sobre el filesystem del servidor
-        // (misma lógica en local y producción — sin depender del servidor HTTP).
-        if self.sync_to_oracle && !self.oracle_host.is_empty() {
-            let remote_file = format!(
-                "{}/{}",
-                self.oracle_remote_path,
-                blob_path.trim_start_matches('/')
-            );
-            let cp = self.control_path();
-
-            let output = tokio::process::Command::new("sshpass")
-                .env("SSHPASS", &self.oracle_ssh_password)
-                .args([
-                    "-e",
-                    "ssh",
-                    "-o",
-                    "StrictHostKeyChecking=no",
-                    "-o",
-                    "ControlMaster=auto",
-                    "-o",
-                    &format!("ControlPath={}", cp),
-                    &format!("root@{}", self.oracle_host),
-                    &format!("test -f '{}' && echo yes || echo no", remote_file),
-                ])
-                .output()
-                .await;
-
-            match output {
-                Ok(out) if out.status.success() => {
-                    let exists = String::from_utf8_lossy(&out.stdout).trim() == "yes";
-                    tracing::debug!("🔍 Oracle blob_exists: {} → {}", remote_file, exists);
-                    return Ok(exists);
-                }
-                Ok(out) => {
-                    let stderr = String::from_utf8_lossy(&out.stderr);
-                    tracing::warn!(
-                        "⚠️ blob_exists SSH falló para '{}': {}",
-                        blob_path,
-                        stderr.trim()
-                    );
-                }
-                Err(e) => {
-                    tracing::warn!("⚠️ blob_exists SSH error para '{}': {}", blob_path, e);
-                }
-            }
-            // Si SSH falla, retornamos false (no hay fallback al disco local cuando
-            // Oracle es la fuente de verdad — evita generar imágenes innecesariamente).
-            return Ok(false);
+        if let Some(cached) = self.exists_cache.get(blob_path).await {
+            return Ok(cached);
         }
 
-        // Sin Oracle: disco local como fallback (entornos de desarrollo sin conexión).
-        let path = self.get_full_path(blob_path);
-        Ok(path.exists())
+        let exists = self.blob_exists_uncached(blob_path).await?;
+        self.exists_cache
+            .insert(blob_path.to_string(), exists)
+            .await;
+        Ok(exists)
     }
 
     async fn find_blob_by_prefix(&self, prefix: &str) -> Result<Option<String>> {
@@ -793,6 +767,57 @@ impl StorageRepository for LocalStorageRepository {
 }
 
 impl LocalStorageRepository {
+    async fn blob_exists_uncached(&self, blob_path: &str) -> Result<bool> {
+        if self.sync_to_oracle && !self.oracle_host.is_empty() {
+            let remote_file = format!(
+                "{}/{}",
+                self.oracle_remote_path,
+                blob_path.trim_start_matches('/')
+            );
+            let cp = self.control_path();
+
+            let output = tokio::process::Command::new("sshpass")
+                .env("SSHPASS", &self.oracle_ssh_password)
+                .args([
+                    "-e",
+                    "ssh",
+                    "-o",
+                    "StrictHostKeyChecking=no",
+                    "-o",
+                    "ControlMaster=auto",
+                    "-o",
+                    &format!("ControlPath={}", cp),
+                    &format!("root@{}", self.oracle_host),
+                    &format!("test -f '{}' && echo yes || echo no", remote_file),
+                ])
+                .output()
+                .await;
+
+            match output {
+                Ok(out) if out.status.success() => {
+                    let exists = String::from_utf8_lossy(&out.stdout).trim() == "yes";
+                    tracing::debug!("🔍 Oracle blob_exists: {} → {}", remote_file, exists);
+                    return Ok(exists);
+                }
+                Ok(out) => {
+                    let stderr = String::from_utf8_lossy(&out.stderr);
+                    tracing::warn!(
+                        "⚠️ blob_exists SSH falló para '{}': {}",
+                        blob_path,
+                        stderr.trim()
+                    );
+                }
+                Err(e) => {
+                    tracing::warn!("⚠️ blob_exists SSH error para '{}': {}", blob_path, e);
+                }
+            }
+            return Ok(false);
+        }
+
+        let path = self.get_full_path(blob_path);
+        Ok(path.exists())
+    }
+
     /// Un solo `ls` por directorio — mucho más rápido que HEAD por archivo.
     async fn list_oracle_dir_via_ssh(&self, rel_dir: &str) -> Result<Vec<String>> {
         let remote_dir = format!("{}/{}", self.oracle_remote_path, rel_dir);

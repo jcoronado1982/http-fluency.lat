@@ -15,6 +15,31 @@ use axum::{
     Json,
 };
 
+/// Solo busca audio en disco (sin TTS). El cliente luego hace GET a /card_audio/… vía Caddy.
+pub async fn resolve_audio(
+    State(state): State<AppState>,
+    headers: axum::http::HeaderMap,
+    Json(body): Json<SynthesizeSpeechBody>,
+) -> Result<impl IntoResponse, (StatusCode, String)> {
+    let claims = extract_claims_or_guest(&state, &headers);
+    let role = resolve_effective_role(&state, &claims).await;
+    let req = to_audio_synth_request(body);
+
+    match state
+        .audio_use_cases
+        .resolve_audio(&req, &claims.email, &role)
+        .await
+    {
+        Ok(Some(result)) => Ok(Json(SynthesizeSpeechResponse {
+            audio_url: result.audio_url,
+            voice_name: result.voice_name,
+            from_cache: result.from_cache,
+        })),
+        Ok(None) => Err((StatusCode::NOT_FOUND, "Audio no encontrado".to_string())),
+        Err(e) => Err((StatusCode::INTERNAL_SERVER_ERROR, e.to_string())),
+    }
+}
+
 pub async fn synthesize_speech(
     State(state): State<AppState>,
     headers: axum::http::HeaderMap,
@@ -34,6 +59,7 @@ pub async fn synthesize_speech(
             Json(SynthesizeSpeechResponse {
                 audio_url: result.audio_url,
                 voice_name: result.voice_name,
+                from_cache: result.from_cache,
             })
         })
         .map_err(|e| {

@@ -1,9 +1,13 @@
+use std::path::PathBuf;
+
 use crate::AppState;
 use axum::{
+    body::Body,
     extract::{Path, State},
     http::{header, HeaderValue, StatusCode},
     response::IntoResponse,
 };
+use tokio_util::io::ReaderStream;
 
 pub async fn redirect_images(
     Path(file_path): Path<String>,
@@ -40,8 +44,21 @@ fn audio_content_type(file_path: &str) -> &'static str {
     }
 }
 
-/// Sirve audio siempre desde storage (Oracle/local), sin redirect al CDN.
-/// Misma ruta de archivo tras rotar voz → evita caché del navegador/CDN.
+fn audio_cache_control(file_path: &str) -> &'static str {
+    // Nombres deterministas incluyen hash → seguro cachear 1 año (Caddy hace lo mismo en prod).
+    if file_path.contains('_') && file_path.len() > 24 {
+        "public, max-age=31536000, immutable"
+    } else {
+        "public, max-age=3600"
+    }
+}
+
+fn local_audio_disk_path(state: &AppState, blob_path: &str) -> PathBuf {
+    PathBuf::from(&state.settings.local_storage_path).join(blob_path.trim_start_matches('/'))
+}
+
+/// Sirve audio desde disco local cuando existe (streaming, sin cargar todo en RAM).
+/// Fallback: download_blob para entornos sin archivo local (mirrors / dev remoto).
 pub async fn redirect_audio(
     Path(file_path): Path<String>,
     State(state): State<AppState>,
@@ -51,23 +68,51 @@ pub async fn redirect_audio(
     }
 
     let blob_path = format!("{}/{}", state.settings.gcs_audio_prefix, file_path);
+    let content_type = audio_content_type(&file_path);
+    let cache_control = audio_cache_control(&file_path);
+    let disk_path = local_audio_disk_path(&state, &blob_path);
+
+    if disk_path.is_file() {
+        match tokio::fs::File::open(&disk_path).await {
+            Ok(file) => {
+                let stream = ReaderStream::new(file);
+                let body = Body::from_stream(stream);
+                return (
+                    [
+                        (
+                            header::CONTENT_TYPE,
+                            HeaderValue::from_static(content_type),
+                        ),
+                        (
+                            header::CACHE_CONTROL,
+                            HeaderValue::from_static(cache_control),
+                        ),
+                    ],
+                    body,
+                )
+                    .into_response();
+            }
+            Err(e) => {
+                tracing::warn!("No se pudo abrir audio local {}: {}", disk_path.display(), e);
+            }
+        }
+    }
 
     match state.audio_use_cases.download_blob(&blob_path).await {
-        Ok(bytes) => {
-            let content_type = audio_content_type(&file_path);
-            (
-                [
-                    (header::CONTENT_TYPE, HeaderValue::from_static(content_type)),
-                    (
-                        header::CACHE_CONTROL,
-                        HeaderValue::from_static("no-store, no-cache, must-revalidate"),
-                    ),
-                    (header::PRAGMA, HeaderValue::from_static("no-cache")),
-                ],
-                bytes,
-            )
-                .into_response()
-        }
+        Ok(bytes) => (
+            [
+                (
+                    header::CONTENT_TYPE,
+                    HeaderValue::from_static(content_type),
+                ),
+                (
+                    header::CACHE_CONTROL,
+                    HeaderValue::from_static(cache_control),
+                ),
+            ],
+            bytes,
+        )
+            .into_response(),
         Err(_) => StatusCode::NOT_FOUND.into_response(),
     }
 }

@@ -19,6 +19,7 @@ pub struct SynthesizeSpeechBody {
 pub struct SynthesizeSpeechResponse {
     pub audio_url: String,
     pub voice_name: String,
+    pub from_cache: bool,
 }
 
 #[derive(Deserialize)]

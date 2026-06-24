@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 24px;
+    margin-top: clamp(12px, 2vh, 24px);
     width: 100%;
     max-width: 620px;
     padding: 12px 20px;
@@ -17,6 +17,11 @@
     box-shadow: 
         0 15px 35px rgba(0, 0, 0, 0.35),
         inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .controlsWrapper {
+    max-width: var(--fc-card-max-width, 620px);
+    padding: clamp(10px, 2vw, 12px) clamp(12px, 3vw, 20px);
 }
 
 

@@ -47,6 +47,10 @@ pub fn register_routes(app: Router<AppState>) -> Router<AppState> {
         post(api::endpoints::decks::touch_study_day),
     )
     .route(
+        "/api/resolve-audio",
+        post(api::endpoints::generation::resolve_audio),
+    )
+    .route(
         "/api/synthesize-speech",
         post(api::endpoints::generation::synthesize_speech),
     )

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { FiBookOpen, FiImage, FiTrendingUp, FiVolume2, FiZap, FiCheck } from 'react-icons/fi';
+import { FiBookOpen, FiImage, FiTrendingUp, FiVolume2, FiZap, FiCheck, FiSliders } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useAppContext } from '../../context/AppContext';
 import config from '../../config';
@@ -28,8 +28,9 @@ function LangToggle({ language, setLanguage }) {
     );
 }
 
-function DemoImagePromptPanel({ promptRef, onApply, t }) {
+function DemoImagePromptPanel({ promptRef, onApply, t, collapsible = false }) {
     const [value, setValue] = useState('');
+    const [open, setOpen] = useState(false);
 
     const syncRef = (next) => {
         promptRef.current = next;
@@ -40,11 +41,8 @@ function DemoImagePromptPanel({ promptRef, onApply, t }) {
         onApply();
     };
 
-    return (
-        <div className="lp-demo-prompt">
-            <label className="lp-demo-prompt-label" htmlFor="demo-image-prompt">
-                {t.demoImagePromptLabel}
-            </label>
+    const form = (
+        <>
             <div className="lp-demo-prompt-row">
                 <input
                     id="demo-image-prompt"
@@ -73,11 +71,42 @@ function DemoImagePromptPanel({ promptRef, onApply, t }) {
                 </button>
             </div>
             <p className="lp-demo-prompt-hint">{t.demoImagePromptHint}</p>
+        </>
+    );
+
+    if (collapsible) {
+        return (
+            <div className={`lp-demo-prompt lp-demo-prompt--card ${open ? 'is-open' : ''}`}>
+                <button
+                    type="button"
+                    className="lp-demo-prompt-toggle"
+                    onClick={() => setOpen((o) => !o)}
+                    aria-expanded={open}
+                    aria-controls="demo-image-prompt-panel"
+                >
+                    <FiSliders aria-hidden />
+                    <span>{t.demoImagePromptLabel}</span>
+                </button>
+                {open && (
+                    <div id="demo-image-prompt-panel" className="lp-demo-prompt-body">
+                        {form}
+                    </div>
+                )}
+            </div>
+        );
+    }
+
+    return (
+        <div className="lp-demo-prompt">
+            <label className="lp-demo-prompt-label" htmlFor="demo-image-prompt">
+                {t.demoImagePromptLabel}
+            </label>
+            {form}
         </div>
     );
 }
 
-function LazyDemoFlashcardSession({ language, promptExtraRef, applySignal }) {
+function LazyDemoFlashcardSession({ language, promptExtraRef, applySignal, t, onApplyPrompt }) {
     const hostRef = useRef(null);
     const [mounted, setMounted] = useState(() => (
         typeof window !== 'undefined' && window.location.hash === '#demo'
@@ -108,6 +137,12 @@ function LazyDemoFlashcardSession({ language, promptExtraRef, applySignal }) {
 
     return (
         <div ref={hostRef} className="lp-demo-widget">
+            <DemoImagePromptPanel
+                promptRef={promptExtraRef}
+                onApply={onApplyPrompt}
+                t={t}
+                collapsible
+            />
             {mounted ? (
                 <DemoFlashcardSession
                     language={language}
@@ -211,12 +246,7 @@ export default function LandingPage() {
                                 <li><FiCheck aria-hidden /> {t.demoBullet2}</li>
                                 <li><FiCheck aria-hidden /> {t.demoBullet3}</li>
                             </ul>
-                            <DemoImagePromptPanel
-                                promptRef={demoPromptExtraRef}
-                                onApply={() => setDemoImagePromptApply((n) => n + 1)}
-                                t={t}
-                            />
-                            <Link to="/login" className="lp-btn lp-btn--outline lp-btn--sm">
+                            <Link to="/login" className="lp-demo-link">
                                 {t.demoCtaFull}
                             </Link>
                         </div>
@@ -224,6 +254,8 @@ export default function LandingPage() {
                             language={language}
                             promptExtraRef={demoPromptExtraRef}
                             applySignal={demoImagePromptApply}
+                            t={t}
+                            onApplyPrompt={() => setDemoImagePromptApply((n) => n + 1)}
                         />
                     </div>
                 </section>

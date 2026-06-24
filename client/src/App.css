@@ -10,6 +10,7 @@
     min-height: 100vh;
     background-color: #0f172a;
     overflow-x: hidden;
+    font-family: var(--font-family-body);
 }
 
 .minimal-app-shell {
@@ -21,6 +22,46 @@
 .flashcard-page-wrapper {
     position: relative;
     width: 100%;
+}
+
+/* Flashcard app: dimensiones dinámicas según viewport (no aplica a landing demo) */
+.flashcard-page-wrapper:not([data-landing-demo]) {
+    --fc-header-offset: 88px;
+    --fc-footer-offset: 64px;
+    --fc-controls-offset: 88px;
+    --fc-page-padding-block: 24px;
+    --fc-page-inline-padding: 16px;
+    --fc-card-max-width: 620px;
+    --fc-card-min-height: 380px;
+    --fc-card-height: clamp(
+        var(--fc-card-min-height),
+        calc(
+            100dvh
+            - var(--fc-header-offset)
+            - var(--fc-footer-offset)
+            - var(--fc-controls-offset)
+            - var(--fc-page-padding-block)
+        ),
+        720px
+    );
+}
+
+@media (max-width: 768px) {
+    .flashcard-page-wrapper:not([data-landing-demo]) {
+        --fc-header-offset: 76px;
+        --fc-footer-offset: 56px;
+        --fc-controls-offset: 80px;
+        --fc-page-padding-block: 12px;
+        --fc-page-inline-padding: 12px;
+        --fc-card-min-height: 340px;
+    }
+}
+
+@media (max-width: 480px) {
+    .flashcard-page-wrapper:not([data-landing-demo]) {
+        --fc-card-min-height: 320px;
+        --fc-page-inline-padding: 8px;
+    }
 }
 
 .main-content {
@@ -77,6 +118,12 @@
     /* Ensure space at bottom */
 }
 
+.flashcard-page-wrapper:not([data-landing-demo]) .app-container {
+    align-items: stretch;
+    padding: clamp(12px, 2.5vh, 36px) var(--fc-page-inline-padding, 16px) clamp(16px, 2vh, 32px);
+    min-height: calc(100dvh - var(--fc-header-offset, 88px));
+}
+
 /* --- FLASHCARD CENTRADA (Sin Cambios) --- */
 .flashcard-main-area {
     display: flex;
@@ -86,6 +133,13 @@
     max-width: 600px;
     width: 100%;
     z-index: 2;
+}
+
+.flashcard-page-wrapper:not([data-landing-demo]) .flashcard-main-area {
+    max-width: var(--fc-card-max-width, 620px);
+    flex: 1;
+    min-height: 0;
+    justify-content: center;
 }
 
 /* --- CARRUSEL VERTICAL (MODIFICADO) --- */
@@ -281,8 +335,8 @@
 }
 
 .loadingCardPreview {
-    width: min(100%, 620px);
-    min-height: 620px;
+    width: min(100%, var(--fc-card-max-width, 620px));
+    min-height: var(--fc-card-height, clamp(420px, 72dvh, 620px));
     margin: 24px auto 0;
     padding: 18px 18px 20px;
     border-radius: 28px;
@@ -412,8 +466,13 @@
         padding-bottom: 20px;
     }
 
+    .flashcard-page-wrapper:not([data-landing-demo]) .app-container {
+        padding: clamp(8px, 1.5vh, 16px) var(--fc-page-inline-padding, 12px) clamp(12px, 2vh, 20px) !important;
+        min-height: calc(100dvh - var(--fc-header-offset, 76px));
+    }
+
     .loadingCardPreview {
-        min-height: 520px;
+        min-height: var(--fc-card-height, clamp(340px, calc(100dvh - 220px), 560px));
         margin-top: 12px;
         padding: 14px 12px 16px;
         border-radius: 22px;

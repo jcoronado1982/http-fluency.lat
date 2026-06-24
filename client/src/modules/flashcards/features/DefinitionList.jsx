@@ -1,4 +1,4 @@
-import React from 'react';
+import { getAudioLang } from './cardLanguageUtils';
 import styles from './Flashcard.module.css';
 import HighlightedText from './HighlightedText';
 import { FaSpinner } from 'react-icons/fa';
@@ -12,7 +12,7 @@ import { useAuth } from '../../../context/AuthContext';
 function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionMedia, deleteAudio, activeAudioText, highlightedWordIndex, isDisabled, isGeneratingAudio, currentLanguage }) {
     const { user } = useAuth();
     const isAdmin = user?.role === 'admin';
-    const handleRotateVoice = (e, text, lang = 'en') => {
+    const handleRotateVoice = (e, text, lang = getAudioLang(currentLanguage)) => {
         e.stopPropagation();
         deleteAudio(text, lang);
     };
@@ -27,7 +27,7 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
                         <button
                             type="button"
                             className={`${styles.examplePlayBtn} ${isGeneratingAudio && activeAudioText === exampleText ? styles.loadingAudioBtn : ''}`}
-                            onClick={(e) => { e.stopPropagation(); playDefinitionMedia(di, exampleText, currentLanguage); }}
+                            onClick={(e) => { e.stopPropagation(); playDefinitionMedia(di, exampleText, getAudioLang(currentLanguage)); }}
                             disabled={isDisabled}
                         >
                             {isGeneratingAudio && activeAudioText === exampleText
@@ -50,7 +50,7 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
                             <button
                                 type="button"
                                 className={styles.rotateVoiceBtn}
-                                onClick={(e) => handleRotateVoice(e, exampleText, currentLanguage)}
+                                onClick={(e) => handleRotateVoice(e, exampleText, getAudioLang(currentLanguage))}
                                 title="Actualizar voz aleatoria"
                                 disabled={isDisabled}
                             >

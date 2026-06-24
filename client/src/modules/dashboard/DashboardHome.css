@@ -3,6 +3,7 @@
     margin: 0 auto;
     padding: 28px 20px 48px;
     color: #e2e8f0;
+    font-family: var(--font-family-body);
     --dash-label: 0.75rem;
     --dash-body: 0.88rem;
     --dash-hint: 0.82rem;
@@ -44,6 +45,7 @@
 
 .dash-hero-greeting h1 {
     margin: 0;
+    font-family: var(--font-family-display);
     font-size: 1.85rem;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -140,6 +142,7 @@
     align-items: center;
     gap: 8px;
     margin: 0 0 6px;
+    font-family: var(--font-family-display);
     font-size: 1.45rem;
     font-weight: 800;
     color: #f8fafc;
@@ -164,7 +167,9 @@
 .dash-mission-meta {
     margin: 0;
     font-size: var(--dash-body);
+    font-family: var(--font-family-body);
     color: var(--dash-muted);
+    opacity: 0.92;
 }
 
 .dash-mission-cta {

@@ -66,6 +66,7 @@ struct AudioMeta {
 pub struct AudioSynthResult {
     pub audio_url: String,
     pub voice_name: String,
+    pub from_cache: bool,
 }
 
 // ---------------------------------------------------------------------------
@@ -154,6 +155,17 @@ impl AudioUseCases {
         Ok((result, is_new))
     }
 
+    /// Devuelve URL si el audio ya existe en disco. **No genera TTS** (ideal para viewers).
+    pub async fn resolve_audio(
+        &self,
+        req: &AudioSynthRequest,
+        user_email: &str,
+        role: &str,
+    ) -> Result<Option<AudioSynthResult>> {
+        self.lookup_existing_audio(req, user_email, role, false)
+            .await
+    }
+
     /// Devuelve URL + voz activa. Si existe audio, no regenera.
     pub async fn get_or_synthesize_audio(
         &self,
@@ -172,6 +184,18 @@ impl AudioUseCases {
             role,
         );
 
+        let force_new = req.force_regenerate || req.exclude_voice.is_some();
+        if !force_new {
+            if let Some(result) = self
+                .lookup_existing_audio(req, user_email, role, true)
+                .await?
+            {
+                return Ok(result);
+            }
+        } else {
+            tracing::info!("🔄 Regeneración forzada (sin caché) para demo/app");
+        }
+
         let role = normalize_role(role);
         let is_admin = role == "admin";
         let is_premium = role == "premium";
@@ -182,72 +206,6 @@ impl AudioUseCases {
             Some(user_path_segment(user_email))
         };
         let demo_elevenlabs = self.uses_elevenlabs_demo(is_demo);
-        let force_new = req.force_regenerate || req.exclude_voice.is_some();
-
-        if !force_new {
-            if demo_elevenlabs {
-                let el_name = self.deterministic_audio_filename(req, user_segment.as_deref(), true);
-                if let Some(result) = self.try_cached_audio(&el_name).await? {
-                    return Ok(result);
-                }
-            }
-            let file_name = self.deterministic_audio_filename(req, user_segment.as_deref(), false);
-            if let Some(result) = self.try_cached_audio(&file_name).await? {
-                return Ok(result);
-            }
-        } else {
-            tracing::info!("🔄 Regeneración forzada (sin caché) para demo/app");
-        }
-
-        let deck_prefix = req.deck.replace(".json", "");
-        let verb_slug = self.slugify(&req.verb_name.as_deref().unwrap_or("none"), 40);
-        let text_slug = self.slugify(&req.text, 40);
-        let lang_suffix = match req.lang.as_deref() {
-            Some(l) if !l.is_empty() && l != "en" => format!("_{}", l),
-            _ => "".to_string(),
-        };
-        let skip_legacy = Self::is_non_english_lang(req.lang.as_deref()) || force_new;
-
-        if !force_new {
-            if !is_admin {
-                let global_file = self.deterministic_audio_filename(req, None, false);
-                let global_path = format!("{}/{}", self.config.gcs_audio_prefix, global_file);
-                if let Ok(true) = self.storage_repo.blob_exists(&global_path).await {
-                    let voice = self
-                        .read_voice_meta(&global_path)
-                        .await
-                        .unwrap_or_else(|| "Legacy".into());
-                    tracing::info!("✅ Audio global fallback: {} (voz={})", global_path, voice);
-                    return Ok(self.build_result(&global_file, &voice));
-                }
-
-                if !skip_legacy {
-                    if let Some(found) = self
-                        .find_legacy_audio(req, &deck_prefix, &verb_slug, &text_slug, &lang_suffix)
-                        .await?
-                    {
-                        tracing::info!("✅ Audio legacy global: {}", found);
-                        let rel = found
-                            .strip_prefix(&self.config.gcs_audio_prefix)
-                            .unwrap_or(&found)
-                            .trim_start_matches('/');
-                        return Ok(self.build_result(rel, "Legacy"));
-                    }
-                }
-            } else if !skip_legacy {
-                if let Some(found) = self
-                    .find_legacy_audio(req, &deck_prefix, &verb_slug, &text_slug, &lang_suffix)
-                    .await?
-                {
-                    tracing::info!("✅ Audio legacy: {}", found);
-                    let rel = found
-                        .strip_prefix(&self.config.gcs_audio_prefix)
-                        .unwrap_or(&found)
-                        .trim_start_matches('/');
-                    return Ok(self.build_result(rel, "Legacy"));
-                }
-            }
-        }
 
         if !is_admin && !is_premium && !is_demo {
             tracing::warn!(
@@ -281,7 +239,7 @@ impl AudioUseCases {
                         .upload_blob(&blob_path, bytes, Self::audio_mime_type(true))
                         .await?;
                     self.write_voice_meta(&blob_path, &label).await?;
-                    return Ok(self.build_result(&file_name, &label));
+                    return Ok(self.build_result(&file_name, &label, false));
                 }
                 Err(e) if Self::elevenlabs_plan_unavailable(&e.to_string()) => {
                     tracing::warn!(
@@ -313,7 +271,91 @@ impl AudioUseCases {
             .await?;
         self.write_voice_meta(&blob_path, &voice).await?;
 
-        Ok(self.build_result(&file_name, &voice))
+        Ok(self.build_result(&file_name, &voice, false))
+    }
+
+    async fn lookup_existing_audio(
+        &self,
+        req: &AudioSynthRequest,
+        user_email: &str,
+        role: &str,
+        log_miss: bool,
+    ) -> Result<Option<AudioSynthResult>> {
+        let role = normalize_role(role);
+        let is_admin = role == "admin";
+        let is_demo = is_landing_demo_namespace(&req.category);
+        let user_segment = if is_admin || is_demo {
+            None
+        } else {
+            Some(user_path_segment(user_email))
+        };
+        let demo_elevenlabs = self.uses_elevenlabs_demo(is_demo);
+        let force_new = req.force_regenerate || req.exclude_voice.is_some();
+
+        if force_new {
+            return Ok(None);
+        }
+
+        if demo_elevenlabs {
+            let el_name = self.deterministic_audio_filename(req, user_segment.as_deref(), true);
+            if let Some(result) = self.try_cached_audio(&el_name).await? {
+                return Ok(Some(result));
+            }
+        }
+
+        let file_name = self.deterministic_audio_filename(req, user_segment.as_deref(), false);
+        if let Some(result) = self.try_cached_audio(&file_name).await? {
+            return Ok(Some(result));
+        }
+
+        let deck_prefix = req.deck.replace(".json", "");
+        let verb_slug = self.slugify(&req.verb_name.as_deref().unwrap_or("none"), 40);
+        let text_slug = self.slugify(&req.text, 40);
+        let lang_suffix = match req.lang.as_deref() {
+            Some(l) if !l.is_empty() && l != "en" => format!("_{}", l),
+            _ => "".to_string(),
+        };
+        let skip_legacy = Self::is_non_english_lang(req.lang.as_deref());
+
+        if !is_admin {
+            let global_file = self.deterministic_audio_filename(req, None, false);
+            let global_path = format!("{}/{}", self.config.gcs_audio_prefix, global_file);
+            if self.storage_repo.blob_exists(&global_path).await.unwrap_or(false) {
+                tracing::info!("✅ Audio global fallback: {}", global_path);
+                return Ok(Some(self.build_result(&global_file, "", true)));
+            }
+
+            if !skip_legacy {
+                if let Some(found) = self
+                    .find_legacy_audio(req, &deck_prefix, &verb_slug, &text_slug, &lang_suffix)
+                    .await?
+                {
+                    tracing::info!("✅ Audio legacy global: {}", found);
+                    let rel = found
+                        .strip_prefix(&self.config.gcs_audio_prefix)
+                        .unwrap_or(&found)
+                        .trim_start_matches('/');
+                    return Ok(Some(self.build_result(rel, "Legacy", true)));
+                }
+            }
+        } else if !skip_legacy {
+            if let Some(found) = self
+                .find_legacy_audio(req, &deck_prefix, &verb_slug, &text_slug, &lang_suffix)
+                .await?
+            {
+                tracing::info!("✅ Audio legacy: {}", found);
+                let rel = found
+                    .strip_prefix(&self.config.gcs_audio_prefix)
+                    .unwrap_or(&found)
+                    .trim_start_matches('/');
+                return Ok(Some(self.build_result(rel, "Legacy", true)));
+            }
+        }
+
+        if log_miss {
+            tracing::debug!("🔍 Audio no encontrado en disco para text='{}'", req.text);
+        }
+        Ok(None)
     }
 
     /// Archiva el audio activo (no borra del disco) para permitir otra voz aleatoria.
@@ -419,10 +461,16 @@ impl AudioUseCases {
         self.storage_repo.download_blob(blob_path).await
     }
 
-    fn build_result(&self, file_name: &str, voice: &str) -> AudioSynthResult {
+    fn build_result(&self, file_name: &str, voice: &str, from_cache: bool) -> AudioSynthResult {
+        let audio_url = if from_cache {
+            format!("/card_audio/{}", file_name)
+        } else {
+            format!("/card_audio/{}?v={}", file_name, uuid::Uuid::new_v4())
+        };
         AudioSynthResult {
-            audio_url: format!("/card_audio/{}?v={}", file_name, uuid::Uuid::new_v4()),
+            audio_url,
             voice_name: voice.to_string(),
+            from_cache,
         }
     }
 
@@ -565,12 +613,8 @@ impl AudioUseCases {
     async fn try_cached_audio(&self, file_name: &str) -> Result<Option<AudioSynthResult>> {
         let blob_path = format!("{}/{}", self.config.gcs_audio_prefix, file_name);
         if self.storage_repo.blob_exists(&blob_path).await.unwrap_or(false) {
-            let voice = self
-                .read_voice_meta(&blob_path)
-                .await
-                .unwrap_or_else(|| "Unknown".into());
-            tracing::info!("✅ Audio activo encontrado: {} (voz={})", blob_path, voice);
-            return Ok(Some(self.build_result(file_name, &voice)));
+            tracing::info!("✅ Audio activo encontrado: {}", blob_path);
+            return Ok(Some(self.build_result(file_name, "", true)));
         }
         Ok(None)
     }

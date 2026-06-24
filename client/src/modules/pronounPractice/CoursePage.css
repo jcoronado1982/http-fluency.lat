@@ -6,7 +6,7 @@
     flex-direction: row;
     align-items: stretch;
     justify-content: center;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-family-body);
     background-color: #0f172a;
     padding: 40px 20px;
     min-height: auto;
@@ -182,7 +182,7 @@
     font-size: 18px;
     font-weight: bold;
     color: #ffffff;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-family-display);
     transition: color 0.3s ease;
 }
 

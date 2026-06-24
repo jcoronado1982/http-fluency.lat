@@ -8,8 +8,10 @@ html, body {
 }
 
 :root {
-  /* ... tus variables de color, fuentes, etc. ... */
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-family-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-family-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+
+  font-family: var(--font-family-body);
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
@@ -24,7 +26,8 @@ body {
   min-height: 100vh;
   min-width: 320px;
   background-color: #0f172a;
-  overflow-x: hidden; /* Prevent horizontal scroll at top level */
+  overflow-x: hidden;
+  font-family: var(--font-family-body);
 }
 
 #root {
@@ -32,7 +35,6 @@ body {
   min-height: 100vh;
 }
 
-/* ... otros estilos globales que tenías ... */
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -42,9 +44,9 @@ button {
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
-  background-color: #f9f9f9; /* Color claro por defecto */
+  background-color: #f9f9f9;
 }
+
 button:hover {
   border-color: #646cff;
 }
-/* ... */

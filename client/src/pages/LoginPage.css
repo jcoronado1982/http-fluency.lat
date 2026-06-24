@@ -14,7 +14,7 @@
     position: relative;
     padding: 8vh 24px 32px;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-family-body);
     color: white;
 }
 
@@ -79,10 +79,12 @@
 }
 
 .login-brand-text {
+    font-family: var(--font-family-display);
     font-size: 2.6rem;
     font-weight: 800;
     margin: 0;
     line-height: 1;
+    letter-spacing: -0.02em;
     background: linear-gradient(to right, #be185d 0%, #f472b6 45%, #fb923c 100%);
     background-clip: text;
     -webkit-background-clip: text;

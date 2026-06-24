@@ -27,7 +27,7 @@
     border: none;
     color: #CBD5E0;
     /* Lighter text for inactive */
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-family-body);
     font-size: 0.95em;
     font-weight: 500;
     cursor: pointer;

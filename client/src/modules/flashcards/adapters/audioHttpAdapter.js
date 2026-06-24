@@ -2,6 +2,20 @@ import { API_URL } from '../../../config/api';
 import { httpClient } from '../../../services/httpClient';
 
 export const audioRepository = {
+    resolve: async ({ category, deck, text, verbName, lang }) => {
+        const data = await httpClient.post('/api/resolve-audio', {
+            category,
+            deck,
+            text,
+            voice_name: '',
+            tone: '',
+            verb_name: verbName,
+            lang: lang || 'en',
+        });
+        if (!data.audio_url) throw new Error('No audio_url in response');
+        return data;
+    },
+
     synthesize: async ({ category, deck, text, verbName, lang, excludeVoice, forceRegenerate }) => {
         const data = await httpClient.post('/api/synthesize-speech', {
             category,

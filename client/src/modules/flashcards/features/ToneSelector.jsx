@@ -31,7 +31,7 @@ const customStyles = {
         ...provided,
         margin: '0',
         padding: '0',
-        fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
+        fontFamily: 'var(--font-family-body)',
     }),
     indicatorSeparator: () => ({
         display: 'none',
@@ -69,7 +69,7 @@ const customStyles = {
         cursor: 'pointer',
         fontWeight: state.isSelected ? 600 : 500,
         fontSize: '0.95em',
-        fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
+        fontFamily: 'var(--font-family-body)',
         transition: 'all 0.2s ease',
         '&:active': {
             backgroundColor: state.isSelected ? '#0066CC' : '#D6E9FF',
@@ -80,14 +80,14 @@ const customStyles = {
         color: '#ffffff',
         fontWeight: 600,
         fontSize: '0.95em',
-        fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
+        fontFamily: 'var(--font-family-body)',
     }),
     placeholder: (provided) => ({
         ...provided,
         color: '#718096',
         fontWeight: 500,
         fontSize: '0.95em',
-        fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
+        fontFamily: 'var(--font-family-body)',
     }),
 };
 

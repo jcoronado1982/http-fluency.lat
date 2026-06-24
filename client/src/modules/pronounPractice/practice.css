@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap');
-
 .arcadeContainer {
   min-height: calc(100vh - 80px);
   display: grid;
@@ -8,6 +6,7 @@
   padding: 24px;
   background: #0f172a;
   color: #f8fafc;
+  font-family: var(--font-family-body);
 }
 
 .arcadeStatePanel,
@@ -21,6 +20,7 @@
   padding: 24px;
   background: #0f172a;
   color: #f8fafc;
+  font-family: var(--font-family-body);
 }
 
 .historySidebar,
@@ -94,7 +94,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family-display);
   font-weight: 700;
 }
 
@@ -138,10 +138,10 @@
 
 .storyTitle {
   margin: 0 0 10px;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family-display);
   font-size: clamp(2rem, 3vw, 3.2rem);
   line-height: 1;
-  letter-spacing: 0;
+  letter-spacing: -0.02em;
 }
 
 .episodeBadge {
@@ -198,7 +198,7 @@
   margin: 0;
   color: #69db7c;
   text-align: center;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family-display);
 }
 
 .narrativeBox {
@@ -448,7 +448,7 @@
 .sideScoreValue,
 .statBigValue {
   color: #f8fafc;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family-display);
   font-weight: 800;
 }
 
@@ -485,7 +485,7 @@
 
 .congratsTitle {
   margin: 0;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family-display);
   font-size: clamp(2.2rem, 4vw, 3.4rem);
 }
 
@@ -564,7 +564,7 @@
 
 .eli5Header h3 {
   margin: 0 0 14px;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family-display);
 }
 
 .eli5Reference {
@@ -590,7 +590,7 @@
 
 .arcadeStateTitle {
   margin: 0;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family-display);
   font-size: 2rem;
 }
 
