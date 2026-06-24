@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import { FiBookOpen, FiImage, FiTrendingUp, FiVolume2, FiZap, FiCheck, FiSliders } from 'react-icons/fi';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { Link, Navigate, useLocation } from 'react-router-dom';
+import { FiBookOpen, FiImage, FiTrendingUp, FiZap, FiCheck, FiSliders, FiPlayCircle } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useAppContext } from '../../context/AppContext';
 import config from '../../config';
@@ -9,7 +9,38 @@ import { getLandingTranslations } from './config/translations';
 import PageLoader from '../../components/common/PageLoader';
 import ShellFooter from '../../components/shell/ShellFooter';
 import DemoFlashcardSession from './features/DemoFlashcardSession';
+import DemoFeedback from './features/DemoFeedback';
+import { hasDemoFeedbackReturn } from './demoFeedbackStorage';
 import './LandingPage.css';
+
+function useLandingNavActive() {
+    const [active, setActive] = useState('demo');
+
+    useEffect(() => {
+        const demo = document.getElementById('demo');
+        const why = document.getElementById('why');
+        const targets = [demo, why].filter(Boolean);
+        if (!targets.length) return undefined;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const visible = entries
+                    .filter((entry) => entry.isIntersecting)
+                    .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+                const id = visible[0]?.target?.id;
+                if (id) setActive(id);
+            },
+            { rootMargin: '-35% 0px -45% 0px', threshold: [0, 0.15, 0.4, 0.7] },
+        );
+
+        targets.forEach((el) => observer.observe(el));
+        return () => observer.disconnect();
+    }, []);
+
+    const setActiveSection = useCallback((id) => setActive(id), []);
+
+    return { active, setActiveSection };
+}
 
 function LangToggle({ language, setLanguage }) {
     return (
@@ -19,6 +50,7 @@ function LangToggle({ language, setLanguage }) {
                 className={language === 'es' ? 'is-active' : ''}
                 onClick={() => setLanguage('es')}
             >ES</button>
+            <span className="lp-lang-sep" aria-hidden="true">/</span>
             <button
                 type="button"
                 className={language === 'en' ? 'is-active' : ''}
@@ -106,62 +138,24 @@ function DemoImagePromptPanel({ promptRef, onApply, t, collapsible = false }) {
     );
 }
 
-function LazyDemoFlashcardSession({ language, promptExtraRef, applySignal, t, onApplyPrompt }) {
-    const hostRef = useRef(null);
-    const [mounted, setMounted] = useState(() => (
-        typeof window !== 'undefined' && window.location.hash === '#demo'
-    ));
-
-    useEffect(() => {
-        if (mounted) return undefined;
-        const node = hostRef.current;
-        if (!node) return undefined;
-
-        if (typeof IntersectionObserver === 'undefined') {
-            setMounted(true);
-            return undefined;
-        }
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setMounted(true);
-                    observer.disconnect();
-                }
-            },
-            { rootMargin: '160px' },
-        );
-        observer.observe(node);
-        return () => observer.disconnect();
-    }, [mounted]);
-
-    return (
-        <div ref={hostRef} className="lp-demo-widget">
-            <DemoImagePromptPanel
-                promptRef={promptExtraRef}
-                onApply={onApplyPrompt}
-                t={t}
-                collapsible
-            />
-            {mounted ? (
-                <DemoFlashcardSession
-                    language={language}
-                    promptExtraRef={promptExtraRef}
-                    imagePromptApplySignal={applySignal}
-                />
-            ) : (
-                <div className="lp-demo-widget-placeholder" aria-hidden />
-            )}
-        </div>
-    );
-}
-
 export default function LandingPage() {
     const { isAuthenticated, loading, loadingStage } = useAuth();
     const { language = 'en', setLanguage } = useAppContext();
+    const location = useLocation();
     const t = getLandingTranslations(language);
+    const { active: activeNav, setActiveSection } = useLandingNavActive();
     const demoPromptExtraRef = useRef('');
     const [demoImagePromptApply, setDemoImagePromptApply] = useState(0);
+    const returningForFeedback = hasDemoFeedbackReturn();
+
+    useEffect(() => {
+        if (!returningForFeedback) return;
+        if (window.location.hash !== '#demo') {
+            window.location.hash = 'demo';
+        }
+        const el = document.getElementById('demo');
+        el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, [returningForFeedback]);
 
     if (loading) {
         const copy = t.loading[loadingStage] ?? t.loading.fallback;
@@ -176,7 +170,7 @@ export default function LandingPage() {
         );
     }
 
-    if (isAuthenticated) {
+    if (isAuthenticated && !returningForFeedback) {
         return <Navigate to={getAuthenticatedHomePath(config, [])} replace />;
     }
 
@@ -189,54 +183,113 @@ export default function LandingPage() {
                         <span className="lp-brand-name">{t.brand}</span>
                     </Link>
 
-                    <nav className="lp-nav-links">
-                        <a href="#demo">{t.navFlashcards}</a>
-                        <a href="#why">{t.navProgress}</a>
-                        <Link to="/pricing">{t.navPricing}</Link>
+                    <nav className="lp-nav-links" aria-label="Primary">
+                        <a
+                            href="#demo"
+                            className={activeNav === 'demo' ? 'is-active' : ''}
+                            onClick={() => setActiveSection('demo')}
+                        >
+                            {t.navFlashcards}
+                        </a>
+                        <a
+                            href="#why"
+                            className={activeNav === 'why' ? 'is-active' : ''}
+                            onClick={() => setActiveSection('why')}
+                        >
+                            {t.navProgress}
+                        </a>
+                        <Link
+                            to="/pricing"
+                            className={location.pathname === '/pricing' ? 'is-active' : ''}
+                        >
+                            {t.navPricing}
+                        </Link>
                     </nav>
 
                     <div className="lp-nav-end">
                         <LangToggle language={language} setLanguage={setLanguage} />
-                        <Link to="/login" className="lp-nav-login">{t.navLogin}</Link>
-                        <Link to="/login" className="lp-btn lp-btn--sm">{t.navSignup}</Link>
+                        {isAuthenticated ? (
+                            <Link
+                                to={getAuthenticatedHomePath(config, [])}
+                                className="lp-btn lp-btn--nav"
+                            >
+                                {t.navApp}
+                            </Link>
+                        ) : (
+                            <>
+                                <Link to="/login" className="lp-nav-login">
+                                    {t.navLogin}
+                                </Link>
+                                <Link to="/login" className="lp-btn lp-btn--nav">
+                                    {t.navSignupShort}
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </header>
 
             <main>
+                <div className="lp-zone-flow">
                 {/* ── HERO ── */}
                 <section className="lp-hero">
                     <div className="lp-hero-inner">
                         <div className="lp-hero-copy">
                             <p className="lp-hero-eyebrow">{t.heroEyebrow}</p>
-                            <h1 className="lp-hero-title">{t.heroTitle}</h1>
-                            <p className="lp-hero-mission">{t.heroMission}</p>
+                            <h1 className="lp-hero-title">
+                                <span className="lp-hero-title-line1">{t.heroTitleLine1}</span>
+                                <span className="lp-hero-title-line2">
+                                    {t.heroTitleFrom}{' '}{t.heroTitleAccent}
+                                </span>
+                            </h1>
                             <p className="lp-hero-sub">{t.heroSubtitle}</p>
                             <div className="lp-hero-cta">
                                 <Link to="/login" className="lp-btn">{t.ctaSignup}</Link>
                                 <a
                                     href="#demo"
-                                    className="lp-btn lp-btn--ghost"
-                                >{t.ctaTryDemo}</a>
+                                    className="lp-btn lp-btn--ghost lp-btn--demo"
+                                >
+                                    {t.ctaTryDemo}
+                                    <FiPlayCircle aria-hidden />
+                                </a>
+                            </div>
+                            <div className="lp-hero-trust" aria-hidden>
+                                <span>{t.trustFree}</span>
+                                <span className="lp-hero-trust-dot" />
+                                <span>{t.trustNoCard}</span>
+                                <span className="lp-hero-trust-dot" />
+                                <span>{t.trustWords}</span>
                             </div>
                         </div>
 
-                        <div className="lp-hero-card-preview" aria-hidden>
-                            <div className="lp-preview-card lp-preview-card--back" />
-                            <div className="lp-preview-card lp-preview-card--mid" />
-                            <div className="lp-preview-card lp-preview-card--front">
-                                <span className="lp-preview-cat">{t.previewCat}</span>
-                                <strong className="lp-preview-word">be</strong>
-                                <span className="lp-preview-phonetic">/biː/</span>
-                                <span className="lp-preview-hint">{t.previewHint}</span>
-                            </div>
+                        <div className="lp-hero-demo lp-demo-widget" id="demo">
+                            <DemoImagePromptPanel
+                                promptRef={demoPromptExtraRef}
+                                onApply={() => setDemoImagePromptApply((n) => n + 1)}
+                                t={t}
+                                collapsible
+                            />
+                            <DemoFlashcardSession
+                                language={language}
+                                badgeLabel={t.demoInteractiveBadge}
+                                promptExtraRef={demoPromptExtraRef}
+                                imagePromptApplySignal={demoImagePromptApply}
+                            />
                         </div>
                     </div>
                 </section>
 
-                {/* ── DEMO ── */}
-                <section className="lp-demo" id="demo">
+                {/* ── FEEDBACK (sesión 2) ── */}
+                <section className="lp-feedback-section">
                     <div className="lp-section-inner">
+                        <DemoFeedback language={language} />
+                    </div>
+                </section>
+                </div>
+
+                {/* ── DEMO ── */}
+                <section className="lp-demo">
+                    <div className="lp-section-inner lp-demo-section-inner">
                         <div className="lp-demo-copy">
                             <span className="lp-eyebrow">{t.demoEyebrow}</span>
                             <h2>{t.demoTitle}</h2>
@@ -250,58 +303,71 @@ export default function LandingPage() {
                                 {t.demoCtaFull}
                             </Link>
                         </div>
-                        <LazyDemoFlashcardSession
-                            language={language}
-                            promptExtraRef={demoPromptExtraRef}
-                            applySignal={demoImagePromptApply}
-                            t={t}
-                            onApplyPrompt={() => setDemoImagePromptApply((n) => n + 1)}
-                        />
                     </div>
                 </section>
 
-                {/* ── WHY ── */}
+                {/* ── WHY + CTA (single visual zone) ── */}
+                <div className="lp-why-cta-zone">
                 <section className="lp-why" id="why">
                     <div className="lp-section-inner lp-why-inner">
-                        <h2 className="lp-why-title">{t.highlightsTitle}</h2>
+                        <span className="lp-why-eyebrow">{t.whyEyebrow}</span>
+                        <h2 className="lp-why-title">{t.whyTitle}</h2>
+                        <p className="lp-why-subtitle">{t.whySubtitle}</p>
                         <div className="lp-why-grid">
                             <article className="lp-why-card">
-                                <FiBookOpen aria-hidden />
-                                <h3>{t.highlightWords}</h3>
-                                <p>{t.highlightWordsDesc}</p>
+                                <div className="lp-why-card-icon lp-why-card-icon--rose">
+                                    <FiBookOpen aria-hidden />
+                                </div>
+                                <div className="lp-why-card-body">
+                                    <h3>{t.highlightWords}</h3>
+                                    <p>{t.highlightWordsDesc}</p>
+                                </div>
                             </article>
                             <article className="lp-why-card">
-                                <FiZap aria-hidden />
-                                <h3>{t.highlightStreak}</h3>
-                                <p>{t.highlightStreakDesc}</p>
+                                <div className="lp-why-card-icon lp-why-card-icon--violet">
+                                    <FiZap aria-hidden />
+                                </div>
+                                <div className="lp-why-card-body">
+                                    <h3>{t.highlightStreak}</h3>
+                                    <p>{t.highlightStreakDesc}</p>
+                                </div>
                             </article>
                             <article className="lp-why-card">
-                                <FiTrendingUp aria-hidden />
-                                <h3>{t.highlightCefr}</h3>
-                                <p>{t.highlightCefrDesc}</p>
+                                <div className="lp-why-card-icon lp-why-card-icon--rose">
+                                    <FiTrendingUp aria-hidden />
+                                </div>
+                                <div className="lp-why-card-body">
+                                    <h3>{t.highlightCefr}</h3>
+                                    <p>{t.highlightCefrDesc}</p>
+                                </div>
                             </article>
                             <article className="lp-why-card">
-                                <FiImage aria-hidden />
-                                <h3>{t.highlightAi}</h3>
-                                <p>{t.highlightAiDesc}</p>
+                                <div className="lp-why-card-icon lp-why-card-icon--rose">
+                                    <FiImage aria-hidden />
+                                </div>
+                                <div className="lp-why-card-body">
+                                    <h3>{t.highlightAi}</h3>
+                                    <p>{t.highlightAiDesc}</p>
+                                </div>
                             </article>
-                            <article className="lp-why-card">
-                                <FiVolume2 aria-hidden />
-                                <h3>{t.highlightAudio}</h3>
-                                <p>{t.highlightAudioDesc}</p>
-                            </article>
+                        </div>
+
+                        <div className="lp-why-cta-tail">
+                            <span className="lp-why-cta-eyebrow">{t.ctaBottomEyebrow}</span>
+                            <h2 className="lp-why-cta-title">{t.ctaBottomTitle}</h2>
+                            <p className="lp-why-cta-sub">{t.ctaBottomSub}</p>
+                            <Link to="/login" className="lp-btn lp-btn--cta">{t.ctaSignup}</Link>
+                            <div className="lp-why-cta-trust">
+                                <span>{t.trustFree}</span>
+                                <span className="lp-why-cta-trust-sep" aria-hidden>·</span>
+                                <span>{t.trustNoCard}</span>
+                                <span className="lp-why-cta-trust-sep" aria-hidden>·</span>
+                                <span>{t.trustCancel}</span>
+                            </div>
                         </div>
                     </div>
                 </section>
-
-                {/* ── CTA BOTTOM ── */}
-                <section className="lp-cta-bottom">
-                    <div className="lp-section-inner lp-cta-bottom-inner">
-                        <h2>{t.ctaBottomTitle}</h2>
-                        <p>{t.ctaBottomSub}</p>
-                        <Link to="/login" className="lp-btn">{t.ctaSignup}</Link>
-                    </div>
-                </section>
+                </div>
             </main>
 
             <ShellFooter

@@ -8,6 +8,12 @@
     margin: 0 auto;
 }
 
+:global([data-landing-demo]) .flashcardContainer {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+}
+
 /* App interna: tarjeta proporcional al viewport disponible */
 :global(.flashcard-page-wrapper:not([data-landing-demo])) .flashcardContainer {
     width: 100%;

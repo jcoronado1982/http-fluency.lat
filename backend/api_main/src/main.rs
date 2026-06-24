@@ -374,6 +374,10 @@ async fn async_main() -> anyhow::Result<()> {
         .route(
             "/api/notifications/events",
             get(api::endpoints::notifications::stream_notifications),
+        )
+        .route(
+            "/api/demo-feedback",
+            get(api::endpoints::feedback::list_demo_feedback),
         );
 
     #[cfg(feature = "auth")]
@@ -393,6 +397,10 @@ async fn async_main() -> anyhow::Result<()> {
             .route(
                 "/api/admin/users/activity",
                 get(api::endpoints::admin_users::list_users_activity),
+            )
+            .route(
+                "/api/demo-feedback",
+                post(api::endpoints::feedback::submit_demo_feedback),
             );
     }
 

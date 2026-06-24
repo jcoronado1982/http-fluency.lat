@@ -79,7 +79,7 @@
     font-size: clamp(1.85rem, 4vw, 2.5rem);
     line-height: 0.95;
     letter-spacing: -0.02em;
-    font-weight: 800;
+    font-weight: 700;
     max-width: 10ch;
     text-wrap: balance;
 }
@@ -87,7 +87,8 @@
 .subtitle {
     margin: 4px 0 0;
     color: var(--loader-muted);
-    font-size: 0.96rem;
+    font-family: var(--font-family-body);
+    font-size: var(--text-body-md, 1rem);
     line-height: 1.62;
     max-width: 26ch;
     text-wrap: balance;
@@ -133,8 +134,9 @@
     justify-content: space-between;
     gap: 12px;
     width: 100%;
-    font-size: 0.84rem;
-    letter-spacing: 0.06em;
+    font-family: var(--font-family-body);
+    font-size: var(--text-label-sm, 0.8125rem);
+    letter-spacing: 0.08em;
 }
 
 .progressLabel {

@@ -135,6 +135,10 @@ impl AuthUseCases {
         Ok(AuthResponse { token, user })
     }
 
+    pub async fn get_user_profile(&self, email: &str) -> Result<Option<User>> {
+        self.user_repo.get_user_by_email(email).await
+    }
+
     async fn validate_google_token(&self, id_token: &str) -> Result<GooglePayload> {
         let header = jsonwebtoken::decode_header(id_token)?;
         let kid = header

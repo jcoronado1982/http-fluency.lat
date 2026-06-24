@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FiImage, FiVolume2, FiBook } from 'react-icons/fi';
 import './LoginPage.css';
@@ -6,6 +6,7 @@ import './LoginPage.css';
 import config from '../config';
 import { getAuthenticatedHomePath } from '../modules';
 import { useAuth } from '../context/AuthContext';
+import { markDemoFeedbackReturn } from '../modules/landing/demoFeedbackStorage';
 import PageLoader from '../components/common/PageLoader';
 
 const GOOGLE_CLIENT_ID =
@@ -20,24 +21,49 @@ const LoginPage = () => {
     const callbackRef = useRef(null);
     const shellRoutes = [{ path: '/admin', enabled: config.features.admin }];
     const defaultPath = getAuthenticatedHomePath(config, shellRoutes);
-    const targetPath = location.state?.from || defaultPath;
+    const demoFeedbackReturn = Boolean(location.state?.demoFeedbackReturn);
+    const targetPath = useMemo(
+        () => (demoFeedbackReturn
+            ? { pathname: '/', hash: 'demo' }
+            : (location.state?.from || defaultPath)),
+        [demoFeedbackReturn, location.state?.from, defaultPath],
+    );
+    const targetState = demoFeedbackReturn ? { demoFeedbackReturn: true } : undefined;
 
     useEffect(() => {
         callbackRef.current = async (response) => {
             try {
                 await login(response.credential);
-                navigate(targetPath, { replace: true });
+                if (demoFeedbackReturn) {
+                    markDemoFeedbackReturn();
+                }
+                navigate(targetPath, { replace: true, state: targetState });
             } catch {
                 console.error('Login failed');
             }
         };
-    }, [login, navigate, targetPath]);
+    }, [login, navigate, targetPath, targetState, demoFeedbackReturn]);
 
     useEffect(() => {
         if (loading || !isAuthenticated) return;
-        if (location.pathname === targetPath) return;
-        navigate(targetPath, { replace: true });
-    }, [isAuthenticated, loading, navigate, targetPath, location.pathname]);
+        const onLoginPage = location.pathname === '/login';
+        const onLandingForFeedback = demoFeedbackReturn
+            && location.pathname === '/'
+            && (location.hash === '#demo' || location.hash === '');
+        if (!onLoginPage && onLandingForFeedback) return;
+        if (!demoFeedbackReturn && location.pathname === targetPath) return;
+        if (demoFeedbackReturn && location.pathname === '/' && location.hash === '#demo') return;
+        navigate(targetPath, { replace: true, state: targetState });
+    }, [
+        isAuthenticated,
+        loading,
+        navigate,
+        targetPath,
+        targetState,
+        demoFeedbackReturn,
+        location.pathname,
+        location.hash,
+    ]);
 
     useEffect(() => {
         let isMounted = true;
@@ -119,7 +145,9 @@ const LoginPage = () => {
                     />
                     <h1 className="login-brand-text">Fluency</h1>
                     <p className="login-tagline">
-                        El vocabulario que necesitas para hablar otro idioma.
+                        {demoFeedbackReturn
+                            ? 'Inicia sesión para enviar tu comentario sobre el demo.'
+                            : 'El vocabulario que necesitas para hablar otro idioma.'}
                     </p>
                 </div>
 

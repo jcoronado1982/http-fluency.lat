@@ -38,3 +38,28 @@ pub fn is_private_ip(ip: &str) -> bool {
         || ip.starts_with("172.30.")
         || ip.starts_with("172.31.")
 }
+
+/// País desde cabeceras del proxy o consulta ligera a ip-api (misma lógica que presencia).
+pub async fn resolve_country(headers: &HeaderMap, client_ip: Option<&str>) -> Option<String> {
+    if let Some(country) = country_from_headers(headers) {
+        return Some(country);
+    }
+
+    let ip = client_ip?;
+    if is_private_ip(ip) {
+        return None;
+    }
+
+    let client = reqwest::Client::new();
+    let url = format!("http://ip-api.com/json/{ip}?fields=country,countryCode");
+    let response = client.get(&url).send().await.ok()?;
+    let json: serde_json::Value = response.json().await.ok()?;
+    json.get("country")
+        .and_then(|v| v.as_str())
+        .map(|s| s.to_string())
+        .or_else(|| {
+            json.get("countryCode")
+                .and_then(|v| v.as_str())
+                .map(|s| s.to_string())
+        })
+}

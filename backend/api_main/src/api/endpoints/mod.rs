@@ -21,5 +21,8 @@ pub mod presence;
 #[cfg(feature = "auth")]
 pub mod admin_users;
 
+#[cfg(feature = "auth")]
+pub mod feedback;
+
 #[cfg(feature = "subscriptions")]
 pub mod admin;

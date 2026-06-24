@@ -9,7 +9,16 @@ html, body {
 
 :root {
   --font-family-body: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-family-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-family-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+
+  /* Lumina Serif Dark — type scale */
+  --text-display-lg: clamp(2.625rem, 3.25vw + 0.85rem, 3.5rem);
+  --text-headline-lg: clamp(3rem, 5.5vw, 3.5rem);
+  --text-headline-md: clamp(2rem, 4vw, 2.5rem);
+  --text-body-md: 1rem;
+  --text-label-sm: 0.8125rem;
+  --text-nav: 0.9375rem;
+  --color-text-primary: #f5f5f5;
 
   font-family: var(--font-family-body);
   line-height: 1.5;

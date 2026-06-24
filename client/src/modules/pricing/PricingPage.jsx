@@ -1,0 +1,251 @@
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import {
+    FiCheck, FiX, FiZap, FiGlobe, FiImage, FiVolume2,
+    FiBook, FiLock, FiStar, FiArrowRight
+} from 'react-icons/fi';
+import { useUIContext } from '../../context/UIContext';
+import LanguageSelector from '../../components/common/LanguageSelector';
+import { PRICING_TRANSLATIONS } from './translations';
+import './PricingPage.css';
+
+const PLANS = {
+    monthly: {
+        free: { price: 0, period: 'mes', label: 'Gratis para siempre' },
+        premium: { price: 4900, period: 'mes', label: 'Facturado mensualmente', priceDisplay: '$4,900 COP' },
+    },
+    annual: {
+        free: { price: 0, period: 'año', label: 'Gratis para siempre' },
+        premium: { price: 3500, period: 'mes', label: 'Facturado anualmente · Ahorras 29%', priceDisplay: '$3,500 COP' },
+    },
+};
+
+function FeatureRow({ icon, text, included, highlight }) {
+    return (
+        <li className={`pricing-feature ${included ? 'pricing-feature--included' : 'pricing-feature--excluded'} ${highlight ? 'pricing-feature--highlight' : ''}`}>
+            <span className="pricing-feature-icon">
+                {included ? <FiCheck /> : <FiX />}
+            </span>
+            <span className="pricing-feature-icon-item">{icon}</span>
+            <span>{text}</span>
+        </li>
+    );
+}
+
+export default function PricingPage() {
+    const { language = 'en', setLanguage } = useUIContext();
+    const t = PRICING_TRANSLATIONS[language === 'es' ? 'es' : 'en'];
+    const [billing, setBilling] = useState('annual');
+
+    return (
+        <div className="pricing-page">
+            {/* BG decoration */}
+            <div className="pricing-bg-glow" aria-hidden />
+            <div className="pricing-bg-blob pricing-bg-blob--1" aria-hidden />
+            <div className="pricing-bg-blob pricing-bg-blob--2" aria-hidden />
+
+            {/* NAV */}
+            <header className="pricing-nav">
+                <div className="pricing-nav-inner">
+                    <Link to="/" className="pricing-brand">
+                        <img src="/logo.avif" alt="Fluency" className="pricing-brand-logo" />
+                        <span className="pricing-brand-name">Fluency</span>
+                    </Link>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                        <LanguageSelector currentLanguage={language} onLanguageChange={setLanguage} />
+                        <Link to="/login" className="pricing-nav-cta">{t.nav.login}</Link>
+                    </div>
+                </div>
+            </header>
+
+            <main>
+                {/* HERO */}
+                <section className="pricing-hero">
+                    <p className="pricing-eyebrow">{t.hero.eyebrow}</p>
+                    <h1 className="pricing-title">
+                        {t.hero.title1}<br />
+                        <span className="pricing-title--accent">{t.hero.title2}</span>
+                    </h1>
+                    <p className="pricing-subtitle">{t.hero.subtitle}</p>
+
+                    {/* Billing toggle */}
+                    <div className="pricing-toggle" role="group" aria-label={t.hero.eyebrow}>
+                        <button
+                            type="button"
+                            className={billing === 'monthly' ? 'is-active' : ''}
+                            onClick={() => setBilling('monthly')}
+                        >
+                            {t.hero.monthly}
+                        </button>
+                        <button
+                            type="button"
+                            className={billing === 'annual' ? 'is-active' : ''}
+                            onClick={() => setBilling('annual')}
+                        >
+                            {t.hero.annual}
+                            <span className="pricing-toggle-badge">{t.hero.save}</span>
+                        </button>
+                    </div>
+                </section>
+
+                {/* CARDS */}
+                <section className="pricing-cards-section">
+                    <div className="pricing-cards">
+
+                        {/* FREE */}
+                        <div className="pricing-card pricing-card--free">
+                            <div className="pricing-card-header">
+                                <p className="pricing-plan-name">{t.free.name}</p>
+                                <p className="pricing-plan-tagline">{t.free.tagline}</p>
+                                <div className="pricing-price">
+                                    <span className="pricing-price-amount">$0</span>
+                                    <span className="pricing-price-period">/ {billing === 'annual' ? t.hero.annual.toLowerCase() : t.hero.monthly.toLowerCase()}</span>
+                                </div>
+                                <p className="pricing-price-label">{t.free.label}</p>
+                            </div>
+                            <Link to="/login" className="pricing-card-btn pricing-card-btn--free">
+                                {t.free.btn}
+                            </Link>
+                            <ul className="pricing-features">
+                                {t.features.free.map((f, i) => (
+                                    <FeatureRow key={i} icon={[<FiBook/>, <FiZap/>, <FiVolume2/>, <FiGlobe/>, <FiImage/>, <FiImage/>, <FiVolume2/>, <FiStar/>][i]} {...f} />
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* PREMIUM */}
+                        <div className="pricing-card pricing-card--premium">
+                            <div className="pricing-card-badge">
+                                <FiZap size={12} />
+                                {t.premium.badge}
+                            </div>
+                            <div className="pricing-card-header">
+                                <p className="pricing-plan-name">{t.premium.name}</p>
+                                <p className="pricing-plan-tagline">{t.premium.tagline}</p>
+                                <div className="pricing-price">
+                                    <span className="pricing-price-currency">$</span>
+                                    <span className="pricing-price-amount">
+                                        {billing === 'annual' ? '3,500' : '4,900'}
+                                    </span>
+                                    <span className="pricing-price-period">COP / {t.hero.monthly.toLowerCase()}</span>
+                                </div>
+                                <p className="pricing-price-label">
+                                    {billing === 'annual' ? t.premium.labelAnnual : t.premium.labelMonth}
+                                </p>
+                            </div>
+                            <Link to={`/checkout?billing=${billing}`} className="pricing-card-btn pricing-card-btn--premium">
+                                {t.premium.btn} <FiArrowRight size={16} />
+                            </Link>
+                            <ul className="pricing-features">
+                                {t.features.premium.map((f, i) => (
+                                    <FeatureRow key={i} icon={[<FiBook/>, <FiZap/>, <FiVolume2/>, <FiGlobe/>, <FiImage/>, <FiImage/>, <FiVolume2/>, <FiStar/>][i]} {...f} />
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p className="pricing-disclaimer">
+                        {t.disclaimer}
+                    </p>
+                </section>
+
+                {/* COMPARISON TABLE */}
+                <section className="pricing-comparison">
+                    <div className="pricing-comparison-inner">
+                        <h2 className="pricing-comparison-title">{t.comparison.title}</h2>
+                        <div className="pricing-table-wrapper">
+                            <table className="pricing-table">
+                                <thead>
+                                    <tr>
+                                        <th>{t.comparison.feature}</th>
+                                        <th>{t.comparison.free}</th>
+                                        <th className="pricing-table-premium-col">
+                                            <FiZap size={14} /> {t.comparison.premium}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {t.comparison.rows.map((row, i) => (
+                                        <tr key={i}>
+                                            <td>{row.feature}</td>
+                                            <td>
+                                                {typeof row.free === 'boolean'
+                                                    ? (row.free
+                                                        ? <FiCheck className="pricing-table-check" />
+                                                        : <FiX className="pricing-table-x" />)
+                                                    : row.free}
+                                            </td>
+                                            <td className="pricing-table-premium-col">
+                                                {typeof row.premium === 'boolean'
+                                                    ? (row.premium
+                                                        ? <FiCheck className="pricing-table-check" />
+                                                        : <FiX className="pricing-table-x" />)
+                                                    : <strong>{row.premium}</strong>}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                {/* WHY PREMIUM */}
+                <section className="pricing-why">
+                    <div className="pricing-why-inner">
+                        <h2>{t.why.title}</h2>
+                        <div className="pricing-why-grid">
+                            <div className="pricing-why-card">
+                                <FiStar className="pricing-why-icon" />
+                                <h3>{t.why.c1Title}</h3>
+                                <p>{t.why.c1Desc}</p>
+                            </div>
+                            <div className="pricing-why-card">
+                                <FiImage className="pricing-why-icon" />
+                                <h3>{t.why.c2Title}</h3>
+                                <p>{t.why.c2Desc}</p>
+                            </div>
+                            <div className="pricing-why-card">
+                                <FiGlobe className="pricing-why-icon" />
+                                <h3>{t.why.c3Title}</h3>
+                                <p>{t.why.c3Desc}</p>
+                            </div>
+                            <div className="pricing-why-card">
+                                <FiVolume2 className="pricing-why-icon" />
+                                <h3>{t.why.c4Title}</h3>
+                                <p>{t.why.c4Desc}</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* CTA BOTTOM */}
+                <section className="pricing-cta-bottom">
+                    <div className="pricing-cta-bottom-inner">
+                        <FiLock size={32} className="pricing-cta-lock" />
+                        <h2>{t.cta.title}</h2>
+                        <p>{t.cta.subtitle}</p>
+                        <div className="pricing-cta-actions">
+                            <Link to="/login" className="pricing-btn pricing-btn--primary">
+                                {t.cta.btnFree}
+                            </Link>
+                            <Link to={`/checkout?billing=${billing}`} className="pricing-btn pricing-btn--outline">
+                                {t.cta.btnPremium} <FiArrowRight size={16} />
+                            </Link>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            {/* FOOTER */}
+            <footer className="pricing-footer">
+                <div className="pricing-footer-inner">
+                    <p>© 2026 Fluency · <a href="https://fluency.lat" target="_blank" rel="noopener noreferrer">fluency.lat</a></p>
+                    <p className="pricing-footer-note">
+                        {t.footer.note}
+                    </p>
+                </div>
+            </footer>
+        </div>
+    );
+}

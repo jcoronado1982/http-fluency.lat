@@ -100,6 +100,7 @@ function patchDefinitionImage(cards, cardId, imagePath, defIndex, form) {
 
 export default function DemoFlashcardSession({
     language = 'en',
+    badgeLabel = '',
     promptExtraRef,
     imagePromptApplySignal = 0,
 }) {
@@ -203,32 +204,40 @@ export default function DemoFlashcardSession({
                     <div className="flashcard-page-wrapper" data-landing-demo>
                         <div className="app-container">
                             <div className="flashcard-main-area">
-                                {filteredData.length === 0 ? (
-                                    <div className="all-done-message" style={{ textAlign: 'center', padding: '2rem' }}>
-                                        {language === 'es'
-                                            ? '🎉 ¡Terminaste el demo! Crea tu cuenta para continuar.'
-                                            : '🎉 You finished the demo! Create your account to continue.'}
-                                        <br />
-                                        <button
-                                            type="button"
-                                            onClick={resetDeck}
-                                            style={{
-                                                marginTop: '1rem',
-                                                padding: '0.5rem 1.5rem',
-                                                background: 'rgba(244,114,182,0.15)',
-                                                border: '1px solid rgba(244,114,182,0.4)',
-                                                borderRadius: '12px',
-                                                color: '#f472b6',
-                                                cursor: 'pointer',
-                                                fontWeight: 600,
-                                            }}
-                                        >
-                                            {language === 'es' ? 'Reiniciar demo' : 'Restart demo'}
-                                        </button>
-                                    </div>
-                                ) : (
-                                    <Flashcard key={`demo-flashcard-${language}`} />
-                                )}
+                                <div className="lp-demo-card-frame">
+                                    {badgeLabel ? (
+                                        <span className="lp-demo-badge">
+                                            <span className="lp-demo-badge-dot" aria-hidden />
+                                            <span className="lp-demo-badge-text">{badgeLabel}</span>
+                                        </span>
+                                    ) : null}
+                                    {filteredData.length === 0 ? (
+                                        <div className="all-done-message" style={{ textAlign: 'center', padding: '2rem' }}>
+                                            {language === 'es'
+                                                ? '🎉 ¡Terminaste el demo! Crea tu cuenta para continuar.'
+                                                : '🎉 You finished the demo! Create your account to continue.'}
+                                            <br />
+                                            <button
+                                                type="button"
+                                                onClick={resetDeck}
+                                                style={{
+                                                    marginTop: '1rem',
+                                                    padding: '0.5rem 1.5rem',
+                                                    background: 'rgba(244,114,182,0.15)',
+                                                    border: '1px solid rgba(244,114,182,0.4)',
+                                                    borderRadius: '12px',
+                                                    color: '#f472b6',
+                                                    cursor: 'pointer',
+                                                    fontWeight: 600,
+                                                }}
+                                            >
+                                                {language === 'es' ? 'Reiniciar demo' : 'Restart demo'}
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <Flashcard key={`demo-flashcard-${language}`} />
+                                    )}
+                                </div>
                                 {filteredData.length > 0 && <Controls />}
                             </div>
                         </div>
