@@ -1417,6 +1417,15 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 16px rgba(125, 119, 221, 0.18) !important;
 }
 
+:global([data-landing-demo]) .conjugationForm {
+    max-width: 100% !important;
+    font-size: 1.3em !important;
+}
+
+:global([data-landing-demo]) .conjugationPhonetic {
+    font-size: 0.85em !important;
+}
+
 :global([data-landing-demo]) .activeConjugation .conjugationForm {
     color: #f472b6 !important;
     text-shadow: 0 0 10px rgba(244, 114, 182, 0.3);
@@ -1483,6 +1492,14 @@
     perspective: none;
     width: 100%;
     max-width: 100%;
+    height: 600px;
+}
+
+@media (max-width: 768px) {
+    :global([data-landing-demo]) .flashcardContainer {
+        height: 275px;
+        max-width: 275px;
+    }
 }
 
 :global([data-landing-demo]) .phoneticContainer {

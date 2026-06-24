@@ -2,6 +2,8 @@ import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useUIContext } from '../../context/UIContext';
+import config from '../../config';
+import { getPublicEntryPathForConfig } from '../../modules';
 import PageLoader from './PageLoader';
 
 const LOADING_COPY = {
@@ -66,7 +68,14 @@ const ProtectedRoute = ({ children }) => {
     }
 
     if (!isAuthenticated) {
-        return <Navigate to="/login" replace state={{ from: location.pathname }} />;
+        const entryPath = getPublicEntryPathForConfig(config);
+        return (
+            <Navigate
+                to={entryPath}
+                replace
+                state={entryPath === '/login' ? { from: location.pathname } : undefined}
+            />
+        );
     }
 
     return children;

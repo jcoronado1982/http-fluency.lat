@@ -16,7 +16,7 @@ function ConjugationTable({ cardData, activeForm, onConjugationSelect, activeAud
         { key: 'v3', form: cardData.irregular.participle?.form, phonetic: cardData.irregular.participle?.phonetic },
     ];
 
-    if (currentLanguage === 'es') return null; // No conjugations in Spanish mode for now
+    if (currentLanguage !== 'es') return null; // No conjugations when UI is in English (studying Spanish)
 
     const handleFormSelect = (key, form) => {
         onConjugationSelect?.(key, form);

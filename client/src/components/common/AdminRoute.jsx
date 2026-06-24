@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useUIContext } from '../../context/UIContext';
 import config from '../../config';
-import { getAuthenticatedHomePath } from '../../modules';
+import { getAuthenticatedHomePath, getPublicEntryPathForConfig } from '../../modules';
 import PageLoader from './PageLoader';
 
 const LOADING_COPY = {
@@ -67,7 +67,14 @@ const AdminRoute = ({ children }) => {
     }
 
     if (!isAuthenticated) {
-        return <Navigate to="/login" replace state={{ from: '/admin' }} />;
+        const entryPath = getPublicEntryPathForConfig(config);
+        return (
+            <Navigate
+                to={entryPath}
+                replace
+                state={entryPath === '/login' ? { from: '/admin' } : undefined}
+            />
+        );
     }
 
     if (role !== 'admin') {

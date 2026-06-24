@@ -64,7 +64,7 @@
 /* Everything in front of blobs */
 .lp-nav,
 main,
-.lp-footer {
+.shell-footer {
     position: relative;
     z-index: 1;
 }
@@ -432,19 +432,25 @@ main,
     color: var(--c-teal);
 }
 
+
 .lp-demo-prompt {
     margin-bottom: 24px;
     max-width: 38rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .lp-demo-prompt-label {
     display: block;
-    margin-bottom: 8px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    margin-bottom: 12px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: rgba(244, 114, 182, 0.85);
+    color: rgba(244, 114, 182, 0.95);
 }
 
 .lp-demo-prompt-row {
@@ -453,24 +459,34 @@ main,
     gap: 12px;
 }
 
+@media (min-width: 480px) {
+    .lp-demo-prompt-row {
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+    }
+}
+
 .lp-demo-prompt-input {
     width: 100%;
-    min-height: 56px;
-    padding: 16px 18px;
-    border-radius: 14px;
-    border: 1px solid rgba(125, 119, 221, 0.35);
-    background: rgba(15, 23, 42, 0.65);
+    min-height: 48px;
+    height: 48px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(125, 119, 221, 0.3);
+    background: rgba(15, 23, 42, 0.85);
     color: #f8fafc;
-    font-size: 1.08rem;
+    font-size: 1rem;
     line-height: 1.4;
     font-family: inherit;
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
     box-sizing: border-box;
+    flex: 1;
 }
 
 .lp-demo-prompt-input::placeholder {
-    color: rgba(148, 163, 184, 0.55);
+    color: rgba(148, 163, 184, 0.5);
 }
 
 .lp-demo-prompt-input:focus {
@@ -479,22 +495,31 @@ main,
 }
 
 .lp-demo-prompt-apply {
-    align-self: flex-start;
-    padding: 12px 22px;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    min-height: 48px;
     border-radius: 12px;
     border: 1px solid rgba(45, 212, 191, 0.45);
     background: rgba(45, 212, 191, 0.12);
     color: #2dd4bf;
     font-size: 0.88rem;
-    font-weight: 600;
+    font-weight: 700;
     font-family: inherit;
     cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
+    transition: background 0.2s, border-color 0.2s, transform 0.1s;
+    white-space: nowrap;
 }
 
 .lp-demo-prompt-apply:hover {
     background: rgba(45, 212, 191, 0.2);
     border-color: rgba(45, 212, 191, 0.65);
+}
+
+.lp-demo-prompt-apply:active {
+    transform: scale(0.98);
 }
 
 .lp-demo-prompt-hint {
@@ -627,63 +652,6 @@ main,
     line-height: 1.6;
 }
 
-/* ── FOOTER ── */
-.lp-footer {
-    border-top: 1px solid rgba(255,255,255,0.07);
-    background: rgba(13,5,9,0.9);
-    padding: 28px 24px 36px;
-}
-
-.lp-footer-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-
-.lp-footer-brand {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.lp-footer-brand img {
-    width: 42px;
-    height: 42px;
-    border-radius: 11px;
-    flex-shrink: 0;
-}
-
-.lp-footer-brand strong {
-    display: block;
-    font-size: 1rem;
-    font-weight: 700;
-}
-
-.lp-footer-brand p {
-    margin: 3px 0 0;
-    color: var(--c-muted);
-    font-size: 0.85rem;
-    line-height: 1.4;
-}
-
-.lp-footer-links {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.lp-footer-links a {
-    color: var(--c-muted);
-    text-decoration: none;
-    font-size: 0.88rem;
-    font-weight: 600;
-    transition: color 0.2s;
-}
-
-.lp-footer-links a:hover { color: var(--c-pink); }
-
 /* ── Page loader theme ── */
 .landing-page-loader {
     --loader-accent: #be185d;
@@ -719,12 +687,6 @@ main,
 
     .lp-why-grid {
         grid-template-columns: repeat(3, 1fr);
-    }
-
-    .lp-footer-inner {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
     }
 }
 

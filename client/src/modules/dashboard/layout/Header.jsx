@@ -11,22 +11,32 @@ const ChevronDownIcon = () => (
     </svg>
 );
 
-const AppLogo = () => <div className="app-logo"></div>;
+const AppLogo = () => (
+    <div className="app-logo">
+        <img src="/logo.avif" alt="Fluency" className="app-logo-img" />
+    </div>
+);
 
 export default function Header() {
     const { 
         isSidebarOpen, setIsSidebarOpen,
         language, setLanguage,
-        isHeaderManualOpen, setIsHeaderManualOpen
+        isHeaderManualOpen, setIsHeaderManualOpen,
+        isHeaderSuppressed,
     } = useAppContext();
+
+    if (isHeaderSuppressed) {
+        return null;
+    }
 
     return (
         <header className={`app-header ${isSidebarOpen ? 'sidebar-open' : ''} ${isHeaderManualOpen ? 'manual-open' : ''}`}>
-            <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="hamburger-btn">
-                <FaBars size={24} color="#ffffff" />
-            </button>
-
-            <AppLogo />
+            <div className="header-left">
+                <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="hamburger-btn">
+                    <FaBars size={24} color="#ffffff" />
+                </button>
+                <AppLogo />
+            </div>
 
             <div className="header-controls">
                 <div className="language-selector-wrapper">

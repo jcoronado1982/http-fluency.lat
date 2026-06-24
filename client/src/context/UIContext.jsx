@@ -18,6 +18,7 @@ export const UIProvider = ({ children }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isFloatingMenuOpen, setIsFloatingMenuOpen] = useState(false);
     const [isHeaderManualOpen, setIsHeaderManualOpen] = useState(true);
+    const [isHeaderSuppressed, setIsHeaderSuppressed] = useState(false);
 
     return (
         <UIContext.Provider value={{
@@ -26,6 +27,7 @@ export const UIProvider = ({ children }) => {
             isSidebarOpen, setIsSidebarOpen,
             isFloatingMenuOpen, setIsFloatingMenuOpen,
             isHeaderManualOpen, setIsHeaderManualOpen,
+            isHeaderSuppressed, setIsHeaderSuppressed,
         }}>
             {children}
         </UIContext.Provider>

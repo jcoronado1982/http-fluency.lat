@@ -9,7 +9,7 @@ export function simplifySpanishMeaning(meaning) {
 
 export function getCardTitle(displayData, currentLanguage) {
     if (currentLanguage === 'es') {
-        return simplifySpanishMeaning(displayData.definitions?.[0]?.meaning || displayData.name);
+        return displayData.name;
     }
-    return displayData.name;
+    return simplifySpanishMeaning(displayData.definitions?.[0]?.meaning || displayData.name);
 }

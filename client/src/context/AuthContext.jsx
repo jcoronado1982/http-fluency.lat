@@ -1,4 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import config from '../config';
+import { getPublicEntryPathForConfig } from '../modules';
 import { authRepository } from '../repositories/AuthRepository';
 import { httpClient } from '../services/httpClient';
 import { usePresence } from '../hooks/usePresence';
@@ -11,6 +14,7 @@ function PresenceTracker() {
 }
 
 export const AuthProvider = ({ children }) => {
+    const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [loadingStage, setLoadingStage] = useState('restoring_session');
@@ -71,6 +75,7 @@ export const AuthProvider = ({ children }) => {
         httpClient.post('/api/presence/leave', {}).catch(() => {});
         authRepository.logout();
         setUser(null);
+        navigate(getPublicEntryPathForConfig(config), { replace: true });
     };
 
     const role = user?.role ?? 'viewer';

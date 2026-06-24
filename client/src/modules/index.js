@@ -1,6 +1,7 @@
 import {
   pickHomeRoute as pickHomeRoutePure,
   resolveAuthenticatedHomePath,
+  getPublicEntryPath,
   resolveFallbackPath,
   shouldUseFlashcardLegacyAlias,
 } from './routingPaths';
@@ -171,4 +172,8 @@ export function getAuthenticatedHomePath(config, baseRoutes = []) {
   );
 }
 
-export { resolveFallbackPath, shouldUseFlashcardLegacyAlias };
+export function getPublicEntryPathForConfig(config) {
+  return getPublicEntryPath(isLandingHomeActive(config));
+}
+
+export { getPublicEntryPath, resolveFallbackPath, shouldUseFlashcardLegacyAlias };

@@ -47,11 +47,11 @@ function CardBack({ cardData, activeForm, currentLanguage }) {
                 <div key={i} className={styles.definitionBlockBack}>
                     <p className={styles.meaningSentence}>
                         <span className={styles.phrasalVerbBack}>
-                            {currentLanguage === 'es' ? title : displayData.name}
+                            {currentLanguage === 'es' ? displayData.name : title}
                         </span>{' '}
-                        {currentLanguage === 'es' ? 'means' : 'significa'}{' '}
+                        {currentLanguage === 'es' ? 'significa' : 'means'}{' '}
                         <strong className={styles.meaningBack}>
-                            {currentLanguage === 'es' ? displayData.name : def.meaning}
+                            {currentLanguage === 'es' ? def.meaning : displayData.name}
                         </strong>
                     </p>
                     <p

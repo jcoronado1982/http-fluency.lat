@@ -3,6 +3,7 @@ export const landingTranslations = {
         brand: 'Fluency',
         navFlashcards: 'Demo',
         navProgress: 'Por qué Fluency',
+        navPricing: 'Precios',
         navLogin: 'Entrar',
         navSignup: 'Empezar gratis',
 
@@ -11,7 +12,7 @@ export const landingTranslations = {
         heroMission:
             'Diseñado para que aprendas desde el primer día. Hemos eliminado el ruido para enfocarnos exclusivamente en el vocabulario de alto impacto que mueve el mundo real.',
         heroSubtitle:
-            'Flashcards interactivas, audio nativo, imágenes con IA y seguimiento CEFR.',
+            'Flashcards interactivas, audio nativo, imágenes generadas con IA.',
         ctaSignup: 'Empezar gratis',
         ctaTryDemo: 'Ver demo →',
         previewCat: 'Verbo esencial',
@@ -45,9 +46,9 @@ export const landingTranslations = {
         ctaBottomTitle: '¿Listo para hablar inglés?',
         ctaBottomSub: 'Únete gratis y empieza con los verbos más importantes hoy.',
 
-        footerTagline: 'El vocabulario que necesitas para hablar otro idioma.',
         footerPortfolio: 'Portfolio',
-        footerLogin: 'Entrar',
+        footerDocumentation: 'Documentación',
+        footerGithub: 'GitHub',
 
         loading: {
             restoring_session: {
@@ -75,6 +76,7 @@ export const landingTranslations = {
         brand: 'Fluency',
         navFlashcards: 'Demo',
         navProgress: 'Why Fluency',
+        navPricing: 'Pricing',
         navLogin: 'Log in',
         navSignup: 'Sign up free',
 
@@ -117,9 +119,9 @@ export const landingTranslations = {
         ctaBottomTitle: 'Ready to speak English?',
         ctaBottomSub: 'Join for free and start with the most important verbs today.',
 
-        footerTagline: 'The vocabulary you need to speak another language.',
         footerPortfolio: 'Portfolio',
-        footerLogin: 'Log in',
+        footerDocumentation: 'Documentation',
+        footerGithub: 'GitHub',
 
         loading: {
             restoring_session: {

@@ -61,7 +61,7 @@ const appRoutes = enabledRoutes.filter((route) => route.layout !== 'bare');
 
 function AppFallback() {
   const location = useLocation();
-  const knownAppPaths = new Set(appRoutes.map((route) => route.path));
+  const knownAppPaths = new Set(enabledRoutes.map((route) => route.path));
   const target = resolveFallbackPath(
     location.pathname,
     knownAppPaths,

@@ -40,3 +40,8 @@ export function resolveFallbackPath(pathname, knownAppPaths, authenticatedHomePa
   if (knownAppPaths.has(authenticatedHomePath)) return authenticatedHomePath;
   return '/login';
 }
+
+/** Ruta pública tras cerrar sesión o sin credenciales (landing en `/` si está activo). */
+export function getPublicEntryPath(landingActive) {
+  return landingActive ? '/' : '/login';
+}

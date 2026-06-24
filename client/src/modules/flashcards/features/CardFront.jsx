@@ -135,7 +135,7 @@ function CardFront({
             </h2>
 
             {/* Fonética */}
-            {currentLanguage !== 'es' && (
+            {currentLanguage === 'es' && (
                 <div className={styles.phoneticContainer}>
                     <span className={styles.phonetic}>{displayData.phonetic}</span>
                     <button

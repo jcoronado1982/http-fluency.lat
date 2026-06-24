@@ -7,6 +7,7 @@ import config from '../../config';
 import { getAuthenticatedHomePath } from '../index';
 import { getLandingTranslations } from './config/translations';
 import PageLoader from '../../components/common/PageLoader';
+import ShellFooter from '../../components/shell/ShellFooter';
 import DemoFlashcardSession from './features/DemoFlashcardSession';
 import './LandingPage.css';
 
@@ -146,7 +147,6 @@ export default function LandingPage() {
 
     return (
         <div className="lp">
-            {/* ── NAV ── */}
             <header className="lp-nav">
                 <div className="lp-nav-inner">
                     <Link to="/" className="lp-brand">
@@ -157,6 +157,7 @@ export default function LandingPage() {
                     <nav className="lp-nav-links">
                         <a href="#demo">{t.navFlashcards}</a>
                         <a href="#why">{t.navProgress}</a>
+                        <Link to="/pricing">{t.navPricing}</Link>
                     </nav>
 
                     <div className="lp-nav-end">
@@ -271,23 +272,14 @@ export default function LandingPage() {
                 </section>
             </main>
 
-            <footer className="lp-footer">
-                <div className="lp-footer-inner">
-                    <div className="lp-footer-brand">
-                        <img src="/logo.avif" alt="" />
-                        <div>
-                            <strong>{t.brand}</strong>
-                            <p>{t.footerTagline}</p>
-                        </div>
-                    </div>
-                    <nav className="lp-footer-links">
-                        <a href="https://www.fluency.lat/" target="_blank" rel="noopener noreferrer">
-                            {t.footerPortfolio}
-                        </a>
-                        <Link to="/login">{t.footerLogin}</Link>
-                    </nav>
-                </div>
-            </footer>
+            <ShellFooter
+                variant="landing"
+                labels={{
+                    documentation: t.footerDocumentation,
+                    portfolio: t.footerPortfolio,
+                    github: t.footerGithub,
+                }}
+            />
 
             {/* decorative bg */}
             <div className="lp-bg-glow" aria-hidden />

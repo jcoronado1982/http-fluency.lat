@@ -21,7 +21,7 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
         <div className={styles.allExamplesContainer}>
             <ul>
                 {definitions?.map((def, di) => {
-                    const exampleText = currentLanguage === 'es' ? def.usage_example_es : def.usage_example;
+                    const exampleText = currentLanguage === 'es' ? def.usage_example : def.usage_example_es;
                     return (
                     <li key={di} className={styles.exampleRow}>
                         <button
@@ -58,7 +58,7 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
                             </button>
                         )}
 
-                        {currentLanguage !== 'es' && def.pronunciation_guide_es && !blurredState[di] && (
+                        {currentLanguage === 'es' && def.pronunciation_guide_es && !blurredState[di] && (
                             <span className={styles.customTooltip}>{def.pronunciation_guide_es}</span>
                         )}
                     </li>

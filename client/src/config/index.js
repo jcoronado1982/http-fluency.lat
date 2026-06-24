@@ -41,8 +41,8 @@ const sharedFeatures = {
   pronounPractice:
     import.meta.env.VITE_ENABLE_PRONOUN_PRACTICE === 'true' ||
     import.meta.env.VITE_ENABLE_PRONOUN === 'true',
-  payments: import.meta.env.VITE_ENABLE_PAYMENTS === 'true',
-  subscriptions: import.meta.env.VITE_ENABLE_SUBSCRIPTIONS === 'true',
+  payments: import.meta.env.VITE_ENABLE_PAYMENTS !== 'false',
+  subscriptions: import.meta.env.VITE_ENABLE_SUBSCRIPTIONS !== 'false',
 };
 
 /** Módulo que abre en `/` (solo dominio). Ej: flashcards | pronoun */

@@ -94,6 +94,7 @@ export default function FlashcardPage() {
     const {
         isFloatingMenuOpen, isSidebarOpen,
         language = 'en',
+        setIsHeaderSuppressed,
     } = useUIContext();
     const { currentCategory, changeCategory, loadingStage: categoryLoadingStage } = useCategoryContext();
 
@@ -168,6 +169,11 @@ export default function FlashcardPage() {
         setProgress((prev) => Math.max(prev, loadingCopy.progress));
         setCurrentTask(loadingCopy.status);
     }, [activeLoadingStage, loadingCopy, reset, setCurrentTask, setProgress]);
+
+    useEffect(() => {
+        setIsHeaderSuppressed(shouldShowLoading);
+        return () => setIsHeaderSuppressed(false);
+    }, [shouldShowLoading, setIsHeaderSuppressed]);
 
     const handleContinueRecommendation = useCallback(() => {
         if (!recommendation) {
