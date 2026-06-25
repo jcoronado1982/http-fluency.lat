@@ -191,7 +191,7 @@ function buildReviewColumns(reviews, columnCount = 3) {
 function DemoFeedbackReviews({ reviews, summary, language }) {
     const isEs = language === 'es';
     const copy = {
-        title: isEs ? 'Lo que dicen nuestros usuarios' : 'What our users say about Fluency',
+        title: isEs ? 'Qué dicen después de probar Fluency' : 'What people say after trying Fluency',
         empty: isEs ? 'Sé el primero en dejar tu opinión.' : 'Be the first to leave a review.',
         count: (n) => (isEs ? `${n} calificaciones` : `${n} ratings`),
         outOf: isEs ? 'de 5' : 'out of 5',
@@ -199,7 +199,7 @@ function DemoFeedbackReviews({ reviews, summary, language }) {
 
     if (!reviews.length) {
         return (
-            <div className="lp-reviews-wall lp-reviews-wall--empty" id="reviews">
+            <div className="lp-reviews-wall lp-reviews-wall--empty">
                 <div className="lp-reviews-wall-header">
                     <h3 className="lp-reviews-wall-title">{copy.title}</h3>
                 </div>
@@ -214,7 +214,7 @@ function DemoFeedbackReviews({ reviews, summary, language }) {
     const staggers = [0, 28, 56];
 
     return (
-        <div className="lp-reviews-wall" id="reviews">
+        <div className="lp-reviews-wall">
             <div className="lp-reviews-wall-header">
                 <div className="lp-reviews-wall-heading">
                     <h3 className="lp-reviews-wall-title">{copy.title}</h3>
@@ -260,21 +260,21 @@ export default function DemoFeedback({ language }) {
     const isEs = language === 'es';
 
     const copy = {
-        label: isEs ? '¿Qué te pareció el demo?' : 'How was the demo?',
+        label: isEs ? '¿Qué te pareció Fluency?' : 'How was your experience?',
         sub: isEs
-            ? 'Califica con estrellas y cuéntanos qué cambiarías o qué te gustó.'
-            : 'Rate with stars and tell us what you would change or what you liked.',
+            ? 'Prueba el demo rápido o usa la app, luego deja una calificación y cuéntanos qué te gustó o qué mejorarías.'
+            : 'Try the quick demo or use the app, then leave a rating and tell us what you liked or what you would improve.',
         ratingLabel: isEs ? 'Tu calificación' : 'Your rating',
         ratingRequired: isEs ? 'Elige de 1 a 5 estrellas' : 'Choose 1 to 5 stars',
         starLabels: isEs
             ? { 1: '1 estrella — Muy malo', 2: '2 estrellas — Malo', 3: '3 estrellas — Regular', 4: '4 estrellas — Bueno', 5: '5 estrellas — Excelente' }
             : { 1: '1 star — Terrible', 2: '2 stars — Poor', 3: '3 stars — Average', 4: '4 stars — Good', 5: '5 stars — Excellent' },
         authHint: isEs
-            ? 'Inicia sesión para enviar tu opinión. Volverás aquí al terminar.'
-            : 'Sign in to submit your review. You will return here afterward.',
-        loginCta: isEs ? 'Iniciar sesión para opinar' : 'Sign in to review',
-        placeholder: isEs ? 'Escribe tu comentario aquí…' : 'Write your comment here…',
-        submit: isEs ? 'Publicar opinión' : 'Submit review',
+            ? 'Inicia sesión con Google o Apple para dejar tu comentario. No necesitas contraseña.'
+            : 'Sign in with Google or Apple to leave your comment. No password required.',
+        loginCta: isEs ? 'Dejar comentario' : 'Leave feedback',
+        placeholder: isEs ? 'Escribe tu comentario aquí...' : 'Write your comment here...',
+        submit: isEs ? 'Dejar comentario' : 'Leave feedback',
         sending: isEs ? 'Enviando…' : 'Sending…',
         thanks: isEs ? '¡Gracias! Tu opinión ya está publicada.' : 'Thanks! Your review is now live.',
         error: isEs

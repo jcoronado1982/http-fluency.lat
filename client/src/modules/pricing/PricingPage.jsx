@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
     FiCheck, FiX, FiZap, FiGlobe, FiImage, FiVolume2,
     FiBook, FiLock, FiStar, FiArrowRight
 } from 'react-icons/fi';
 import { useUIContext } from '../../context/UIContext';
-import LanguageSelector from '../../components/common/LanguageSelector';
+import { useAuth } from '../../context/AuthContext';
+import config from '../../config';
+import { getAuthenticatedHomePath } from '../index';
+import { getLandingTranslations } from '../landing/config/translations';
+import { landingSectionLink } from '../landing/landingSections';
 import { PRICING_TRANSLATIONS } from './translations';
 import './PricingPage.css';
 
 const PLANS = {
     monthly: {
-        free: { price: 0, period: 'mes', label: 'Gratis para siempre' },
-        premium: { price: 4900, period: 'mes', label: 'Facturado mensualmente', priceDisplay: '$4,900 COP' },
+        free: { price: 0, period: 'month', label: 'Free forever' },
+        premium: { price: 4.99, period: 'month', label: 'Billed monthly', priceDisplay: '$4.99 USD' },
     },
     annual: {
-        free: { price: 0, period: 'año', label: 'Gratis para siempre' },
-        premium: { price: 3500, period: 'mes', label: 'Facturado anualmente · Ahorras 29%', priceDisplay: '$3,500 COP' },
+        free: { price: 0, period: 'year', label: 'Free forever' },
+        premium: { price: 42.51, period: 'year', label: 'Billed annually · You save 29%', priceDisplay: '$42.51 USD' },
     },
 };
 
@@ -32,9 +36,30 @@ function FeatureRow({ icon, text, included, highlight }) {
     );
 }
 
+function LangToggle({ language, setLanguage }) {
+    return (
+        <div className="pricing-lang" role="group" aria-label="Language">
+            <button
+                type="button"
+                className={language === 'es' ? 'is-active' : ''}
+                onClick={() => setLanguage('es')}
+            >ES</button>
+            <span className="pricing-lang-sep" aria-hidden="true">/</span>
+            <button
+                type="button"
+                className={language === 'en' ? 'is-active' : ''}
+                onClick={() => setLanguage('en')}
+            >EN</button>
+        </div>
+    );
+}
+
 export default function PricingPage() {
     const { language = 'en', setLanguage } = useUIContext();
+    const { isAuthenticated } = useAuth();
+    const location = useLocation();
     const t = PRICING_TRANSLATIONS[language === 'es' ? 'es' : 'en'];
+    const landingT = getLandingTranslations(language);
     const [billing, setBilling] = useState('annual');
 
     return (
@@ -51,9 +76,38 @@ export default function PricingPage() {
                         <img src="/logo.avif" alt="Fluency" className="pricing-brand-logo" />
                         <span className="pricing-brand-name">Fluency</span>
                     </Link>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                        <LanguageSelector currentLanguage={language} onLanguageChange={setLanguage} />
-                        <Link to="/login" className="pricing-nav-cta">{t.nav.login}</Link>
+
+                    <nav className="pricing-nav-links" aria-label="Primary">
+                        <Link to={landingSectionLink('demo')}>{landingT.navHowItWorks}</Link>
+                        <Link
+                            to="/pricing"
+                            className={location.pathname === '/pricing' ? 'is-active' : ''}
+                        >
+                            {landingT.navPricing}
+                        </Link>
+                        <Link to={landingSectionLink('vocabulary-first')}>{landingT.navWhyVocabularyFirst}</Link>
+                        <Link to={landingSectionLink('reviews')}>{landingT.navFeedback}</Link>
+                    </nav>
+
+                    <div className="pricing-nav-end">
+                        <LangToggle language={language} setLanguage={setLanguage} />
+                        {isAuthenticated ? (
+                            <Link
+                                to={getAuthenticatedHomePath(config, [])}
+                                className="pricing-btn--nav"
+                            >
+                                {landingT.navApp}
+                            </Link>
+                        ) : (
+                            <>
+                                <Link to="/login" className="pricing-nav-login">
+                                    {landingT.navLogin}
+                                </Link>
+                                <Link to="/login" className="pricing-btn--nav">
+                                    {landingT.navSignupShort}
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </header>
@@ -61,7 +115,6 @@ export default function PricingPage() {
             <main>
                 {/* HERO */}
                 <section className="pricing-hero">
-                    <p className="pricing-eyebrow">{t.hero.eyebrow}</p>
                     <h1 className="pricing-title">
                         {t.hero.title1}<br />
                         <span className="pricing-title--accent">{t.hero.title2}</span>
@@ -69,7 +122,7 @@ export default function PricingPage() {
                     <p className="pricing-subtitle">{t.hero.subtitle}</p>
 
                     {/* Billing toggle */}
-                    <div className="pricing-toggle" role="group" aria-label={t.hero.eyebrow}>
+                    <div className="pricing-toggle" role="group" aria-label={t.hero.title1}>
                         <button
                             type="button"
                             className={billing === 'monthly' ? 'is-active' : ''}
@@ -125,9 +178,9 @@ export default function PricingPage() {
                                 <div className="pricing-price">
                                     <span className="pricing-price-currency">$</span>
                                     <span className="pricing-price-amount">
-                                        {billing === 'annual' ? '3,500' : '4,900'}
+                                        {billing === 'annual' ? '42.51' : '4.99'}
                                     </span>
-                                    <span className="pricing-price-period">COP / {t.hero.monthly.toLowerCase()}</span>
+                                    <span className="pricing-price-period">USD / {billing === 'annual' ? 'year' : t.hero.monthly.toLowerCase()}</span>
                                 </div>
                                 <p className="pricing-price-label">
                                     {billing === 'annual' ? t.premium.labelAnnual : t.premium.labelMonth}

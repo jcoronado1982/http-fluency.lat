@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
-import { FiBookOpen, FiImage, FiTrendingUp, FiZap, FiSliders, FiPlayCircle } from 'react-icons/fi';
+import { FiBookOpen, FiImage, FiTrendingUp, FiZap, FiSliders } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useAppContext } from '../../context/AppContext';
 import config from '../../config';
@@ -11,6 +11,10 @@ import ShellFooter from '../../components/shell/ShellFooter';
 import DemoFlashcardSession from './features/DemoFlashcardSession';
 import DemoFeedback from './features/DemoFeedback';
 import { hasDemoFeedbackReturn } from './demoFeedbackStorage';
+import {
+    isLandingSectionHash,
+    scrollToLandingSection,
+} from './landingSections';
 import './LandingPage.css';
 
 function useLandingNavActive() {
@@ -18,8 +22,9 @@ function useLandingNavActive() {
 
     useEffect(() => {
         const demo = document.getElementById('demo');
+        const vocabularyFirst = document.getElementById('vocabulary-first');
         const reviews = document.getElementById('reviews');
-        const targets = [demo, reviews].filter(Boolean);
+        const targets = [demo, vocabularyFirst, reviews].filter(Boolean);
         if (!targets.length) return undefined;
 
         const observer = new IntersectionObserver(
@@ -157,6 +162,14 @@ export default function LandingPage() {
         el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, [returningForFeedback]);
 
+    useLayoutEffect(() => {
+        if (loading || returningForFeedback) return undefined;
+        const hash = location.hash?.replace('#', '');
+        if (!isLandingSectionHash(hash)) return undefined;
+        setActiveSection(hash);
+        return scrollToLandingSection(hash);
+    }, [loading, location.hash, location.pathname, returningForFeedback, setActiveSection]);
+
     if (loading) {
         const copy = t.loading[loadingStage] ?? t.loading.fallback;
         return (
@@ -170,7 +183,9 @@ export default function LandingPage() {
         );
     }
 
-    if (isAuthenticated && !returningForFeedback) {
+    const landingSectionHash = isLandingSectionHash(location.hash);
+
+    if (isAuthenticated && !returningForFeedback && !landingSectionHash) {
         return <Navigate to={getAuthenticatedHomePath(config, [])} replace />;
     }
 
@@ -198,11 +213,18 @@ export default function LandingPage() {
                             {t.navPricing}
                         </Link>
                         <a
+                            href="#vocabulary-first"
+                            className={activeNav === 'vocabulary-first' ? 'is-active' : ''}
+                            onClick={() => setActiveSection('vocabulary-first')}
+                        >
+                            {t.navWhyVocabularyFirst}
+                        </a>
+                        <a
                             href="#reviews"
                             className={activeNav === 'reviews' ? 'is-active' : ''}
                             onClick={() => setActiveSection('reviews')}
                         >
-                            {t.navReviews}
+                            {t.navFeedback}
                         </a>
                     </nav>
 
@@ -245,13 +267,6 @@ export default function LandingPage() {
                             <p className="lp-hero-sub">{t.heroSubtitle}</p>
                             <div className="lp-hero-cta">
                                 <Link to="/login" className="lp-btn">{t.ctaSignup}</Link>
-                                <a
-                                    href="#demo"
-                                    className="lp-btn lp-btn--ghost lp-btn--demo"
-                                >
-                                    {t.ctaTryDemo}
-                                    <FiPlayCircle aria-hidden />
-                                </a>
                             </div>
                             <div className="lp-hero-trust" aria-hidden>
                                 <span>{t.trustFree}</span>
@@ -280,7 +295,7 @@ export default function LandingPage() {
                 </section>
 
                 {/* ── FEEDBACK (sesión 2) ── */}
-                <section className="lp-feedback-section">
+                <section className="lp-feedback-section" id="reviews">
                     <div className="lp-section-inner">
                         <DemoFeedback language={language} />
                     </div>
@@ -289,7 +304,17 @@ export default function LandingPage() {
 
                 {/* ── WHY + CTA (single visual zone) ── */}
                 <div className="lp-why-cta-zone">
-                <section className="lp-why" id="why">
+                    <section className="lp-why-vocabulary-first" id="vocabulary-first">
+                        <div className="lp-section-inner lp-why-vocabulary-first-inner">
+                            <h2 className="lp-why-vocabulary-first-title">{t.vocabularyFirstTitle}</h2>
+                            <div className="lp-why-vocabulary-first-copy">
+                                <p>{t.vocabularyFirstBody1}</p>
+                                <p>{t.vocabularyFirstBody2}</p>
+                                <p>{t.vocabularyFirstBody3}</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section className="lp-why" id="why">
                     <div className="lp-section-inner lp-why-inner">
                         <span className="lp-why-eyebrow">{t.whyEyebrow}</span>
                         <h2 className="lp-why-title">{t.whyTitle}</h2>

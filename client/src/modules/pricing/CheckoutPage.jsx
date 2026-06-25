@@ -13,20 +13,20 @@ import './CheckoutPage.css';
 /* ── Datos de planes ───────────────────────────────────────────── */
 const getPlanData = (t) => ({
     monthly: {
-        price: 4900,
-        priceDisplay: '$4,900',
-        period: 'mes',
+        price: 4.99,
+        priceDisplay: '$4.99 USD',
+        period: 'month',
         label: t.monthlyLabel,
         savingsBadge: null,
-        billedAs: '$4,900 COP / mes',
+        billedAs: '$4.99 USD / month',
     },
     annual: {
-        price: 42000,
-        priceDisplay: '$3,500',
-        period: 'mes',
+        price: 42.51,
+        priceDisplay: '$42.51 USD',
+        period: 'year',
         label: t.annualLabel,
         savingsBadge: '29%',
-        billedAs: '$42,000 COP / año',
+        billedAs: '$42.51 USD / year',
     },
 });
 
@@ -218,7 +218,7 @@ export default function CheckoutPage() {
                                 {t.summaryTitle}
                             </span>
                             <span className="checkout-mobile-summary-right">
-                                <strong>{plan.priceDisplay} COP</strong>
+                                <strong>{plan.priceDisplay}</strong>
                                 <FiChevronDown
                                     size={16}
                                     className={showOrderSummary ? 'rotated' : ''}
@@ -250,8 +250,8 @@ export default function CheckoutPage() {
                                             <span className="checkout-billing-savings">Ahorras 29%</span>
                                         </div>
                                         <div className="checkout-billing-option-price">
-                                            <strong>$3,500 COP</strong>
-                                            <span>/ mes · $42,000 al año</span>
+                                            <strong>$42.51 USD</strong>
+                                            <span>/ year · $3.54 USD / month equivalent</span>
                                         </div>
                                     </div>
                                 </label>
@@ -269,8 +269,8 @@ export default function CheckoutPage() {
                                             <span className="checkout-billing-option-label">Mensual</span>
                                         </div>
                                         <div className="checkout-billing-option-price">
-                                            <strong>$4,900 COP</strong>
-                                            <span>/ mes</span>
+                                            <strong>$4.99 USD</strong>
+                                            <span>/ month</span>
                                         </div>
                                     </div>
                                 </label>
@@ -455,7 +455,7 @@ function OrderSummary({ billing, plan, t }) {
                 </div>
                 <div className="checkout-summary-price">
                     <span className="checkout-summary-price-amount">{plan.priceDisplay}</span>
-                    <span className="checkout-summary-price-period">COP / {plan.period}</span>
+                    <span className="checkout-summary-price-period">USD / {plan.period}</span>
                 </div>
                 {plan.savingsBadge && (
                     <div className="checkout-summary-savings">{plan.savingsBadge}</div>
