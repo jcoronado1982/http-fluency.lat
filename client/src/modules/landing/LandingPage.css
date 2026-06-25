@@ -1,4 +1,11 @@
 /* ── Fluency Landing ── */
+.lp,
+.lp *,
+.lp *::before,
+.lp *::after {
+    box-sizing: border-box;
+}
+
 .lp {
     --c-bg: #0d0509;
     --c-bg2: #140810;
@@ -532,7 +539,9 @@ main,
 .lp-hero-demo {
     width: 100%;
     min-width: 0;
+    max-width: 100%;
     align-self: center;
+    overflow: hidden;
 }
 
 [data-landing-demo] .flashcard-main-area {
@@ -541,6 +550,7 @@ main,
     align-items: stretch;
     width: 100%;
     max-width: 100%;
+    min-width: 0;
     overflow: visible;
     margin-bottom: 0;
     gap: 14px;
@@ -549,7 +559,9 @@ main,
 [data-landing-demo] .lp-demo-card-frame {
     position: relative;
     width: 100%;
-    overflow: visible;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
     padding-top: 13px;
 }
 
@@ -769,7 +781,8 @@ main,
     align-items: center;
     width: 100%;
     min-width: 0;
-    overflow: visible;
+    max-width: 100%;
+    overflow: hidden;
     gap: 0;
 }
 
@@ -1396,7 +1409,7 @@ main,
 }
 
 .lp-demo-feedback-input {
-    width: calc(100%-40px);
+    width: calc(100% - 40px);
     resize: vertical;
     min-height: 80px;
     padding: 10px 20px;
@@ -1493,19 +1506,24 @@ main,
 }
 
 [data-landing-demo].flashcard-page-wrapper {
-    overflow: visible;
-    width: 85%;
+    overflow: hidden;
+    width: 100%;
+    min-width: 0;
 }
 
 [data-landing-demo] .app-container {
     padding: 0 !important;
     max-width: 100% !important;
     width: 100%;
+    min-width: 0;
     overflow: visible;
 }
 
 [data-landing-demo] .flashcardContainer {
-    overflow: visible;
+    overflow: hidden;
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
 }
 
 /* ── WHY ── */
@@ -1776,6 +1794,64 @@ main,
 }
 
 @media (max-width: 719px) {
+    [data-landing-demo] {
+        --lp-demo-mobile-max: 320px;
+    }
+
+    [data-landing-demo].flashcard-page-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    [data-landing-demo] .app-container {
+        width: 100%;
+        max-width: var(--lp-demo-mobile-max) !important;
+        padding: 0 !important;
+    }
+
+    [data-landing-demo] .flashcard-main-area {
+        gap: 10px;
+        align-items: stretch;
+        width: 100%;
+        max-width: var(--lp-demo-mobile-max);
+    }
+
+    [data-landing-demo] .lp-demo-card-frame {
+        padding-top: 16px;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .lp-demo-prompt--card {
+        width: 100%;
+        max-width: var(--lp-demo-mobile-max);
+    }
+
+    .lp-hero-demo {
+        overflow: visible;
+        margin-top: 12px;
+    }
+
+    .lp {
+        --lp-mobile-title-size: 1.75rem;
+        --lp-mobile-title-line: 1.15;
+        --lp-mobile-trust-size: 0.6875rem;
+    }
+
+    .lp-hero-title,
+    .lp-reviews-wall-title,
+    .lp-demo-feedback-label,
+    .lp-why-vocabulary-first-title,
+    .lp-why-title,
+    .lp-why-cta-title {
+        font-size: var(--lp-mobile-title-size);
+        line-height: var(--lp-mobile-title-line);
+        text-wrap: balance;
+    }
+
     .lp-nav-inner { padding: 12px 20px; gap: 12px; }
     .lp-nav-end { gap: 12px; }
     .lp-nav-login { display: none; }
@@ -1787,17 +1863,23 @@ main,
     .lp-hero-inner { padding: 0 24px; }
     .lp-hero-copy { max-width: 100%; }
     .lp-hero-title {
-        font-size: clamp(2.125rem, 9vw, 3rem);
         max-width: none;
         letter-spacing: -0.022em;
-        line-height: 1.05;
         margin-bottom: 18px;
     }
     .lp-hero-sub { margin-bottom: 26px; }
     .lp-hero-cta { flex-direction: row; flex-wrap: wrap; }
     .lp-hero-cta .lp-btn,
     .lp-hero-cta .lp-btn--ghost { flex: 1 1 auto; min-width: 0; justify-content: center; }
-    .lp-hero-trust { flex-wrap: wrap; justify-content: center; }
+    .lp-hero-trust {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px 8px;
+        max-width: 100%;
+        font-size: var(--lp-mobile-trust-size);
+        line-height: 1.35;
+        text-align: center;
+    }
     [data-landing-demo] .lp-demo-badge {
         left: 14px;
         gap: 7px;
@@ -1811,12 +1893,9 @@ main,
         height: 5px;
     }
 
-    [data-landing-demo].flashcard-page-wrapper {
-        width: 100%;
-    }
-
-    .lp-demo-prompt--card {
-        width: 100%;
+    [data-landing-demo] .lp-demo-badge {
+        top: 16px;
+        left: 12px;
     }
 
     .lp-feedback-section .lp-section-inner { padding: 0 24px; }
@@ -1825,9 +1904,6 @@ main,
     .lp-why-vocabulary-first { padding: 80px 0 80px; }
     .lp-why-vocabulary-first-inner { padding: 0 24px; }
     .lp-why-vocabulary-first-title {
-        font-size: 2.25rem;
-        line-height: 1.08;
-        text-wrap: balance;
         margin-bottom: 28px;
     }
     .lp-vocab-first-card {
@@ -1840,8 +1916,6 @@ main,
     .lp-why-inner { padding: 56px 24px 64px; }
     .lp-why-title {
         white-space: normal;
-        line-height: 1.08;
-        text-wrap: balance;
     }
     .lp-why-card { padding: 24px 20px; }
     .lp-why-cta-tail {
@@ -1851,7 +1925,13 @@ main,
     }
     .lp-why-cta-title {
         white-space: normal;
-        line-height: 1.06;
     }
-    .lp-why-cta-trust { gap: 12px; }
+    .lp-why-cta-trust {
+        flex-wrap: wrap;
+        gap: 6px 8px;
+        max-width: 100%;
+        font-size: var(--lp-mobile-trust-size);
+        line-height: 1.35;
+        text-align: center;
+    }
 }

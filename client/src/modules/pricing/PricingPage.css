@@ -1,4 +1,11 @@
 /* ── Fluency Pricing Page ── */
+.pricing-page,
+.pricing-page *,
+.pricing-page *::before,
+.pricing-page *::after {
+    box-sizing: border-box;
+}
+
 .pricing-page {
     --c-bg: #0d0509;
     --c-bg2: #140810;
@@ -550,6 +557,20 @@ td.pricing-table-premium-col strong { color: var(--c-pink); }
 }
 
 @media (max-width: 719px) {
+    .pricing-page {
+        --pricing-mobile-title-size: 1.75rem;
+        --pricing-mobile-title-line: 1.15;
+    }
+
+    .pricing-title,
+    .pricing-comparison-title,
+    .pricing-why-inner h2,
+    .pricing-cta-bottom-inner h2 {
+        font-size: var(--pricing-mobile-title-size);
+        line-height: var(--pricing-mobile-title-line);
+        text-wrap: balance;
+    }
+
     .pricing-nav-inner { padding: 12px 20px; gap: 12px; }
     .pricing-nav-end { gap: 12px; }
     .pricing-nav-login { display: none; }

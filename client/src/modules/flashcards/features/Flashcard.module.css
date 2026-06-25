@@ -11,6 +11,7 @@
 :global([data-landing-demo]) .flashcardContainer {
     max-width: 100% !important;
     width: 100% !important;
+    min-width: 0 !important;
     margin: 0 !important;
 }
 
@@ -1093,15 +1094,6 @@
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
     }
 
-    :global([data-landing-demo]) .cardFront,
-    :global([data-landing-demo]) .cardBack {
-        padding: 2px 5px 0px 5px !important;
-        border-radius: 0 !important;
-        border: none !important;
-        background: #0f172a !important;
-        box-shadow: none !important;
-    }
-
     .name {
         font-size: 2rem !important;
         margin-top: -6px !important;
@@ -1219,7 +1211,7 @@
         justify-content: center !important;
         gap: 8px !important;
         position: relative !important;
-        width: auto !important;
+        width: 100% !important;
         height: 70px !important;
     }
 
@@ -1385,19 +1377,6 @@
     z-index: 10;
 }
 
-.irregularIcon {
-    color: #fbbf24;
-    font-size: 0.7em;
-    /* Más pequeño y sutil */
-    margin-right: 10px;
-    filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.4));
-    animation: pulseZap 2s infinite;
-    flex-shrink: 0;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-
 .nameContainer {
     display: flex;
     align-items: center;
@@ -1406,23 +1385,6 @@
     gap: 10px;
 }
 
-
-@keyframes pulseZap {
-    0% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
-
-    50% {
-        transform: scale(1.2);
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
-}
 
 /* --- Active State for Conjugation --- */
 .activeConjugation {
@@ -1488,11 +1450,25 @@
 
 :global([data-landing-demo]) .conjugationForm {
     max-width: 100% !important;
-    font-size: 1.3em !important;
+    font-size: 1.2em !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    text-overflow: unset !important;
+    overflow: visible !important;
+    min-width: 0 !important;
+}
+
+:global([data-landing-demo]) .conjugationHeader {
+    min-width: 0 !important;
+    max-width: 100% !important;
 }
 
 :global([data-landing-demo]) .conjugationPhonetic {
-    font-size: 0.85em !important;
+    font-size: 0.72em !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
 }
 
 :global([data-landing-demo]) .activeConjugation .conjugationForm {
@@ -1532,16 +1508,6 @@
         0 0 12px rgba(45, 212, 191, 0.06);
 }
 
-@media (max-width: 768px) {
-    :global([data-landing-demo]) .cardFront,
-    :global([data-landing-demo]) .cardBack {
-        border-color: rgba(125, 119, 221, 0.35) !important;
-        background:
-            radial-gradient(circle at 80% 10%, rgba(45, 212, 191, 0.12), transparent 50%),
-            linear-gradient(145deg, rgba(125, 119, 221, 0.2), #0f172a 100%) !important;
-    }
-}
-
 /* Flip en landing: sin rotateY 3D (overflow-x del .lp lo rompe) — solo fade + z-index */
 :global([data-landing-demo]) .card {
     transform: none !important;
@@ -1557,17 +1523,131 @@
 }
 
 :global([data-landing-demo]) .flashcardContainer {
-    overflow: visible;
+    overflow: hidden;
     perspective: none;
     width: 100%;
     max-width: 100%;
-    height: 600px;
+    height: clamp(480px, 52vw, 600px);
+    min-height: 460px;
 }
 
 @media (max-width: 768px) {
     :global([data-landing-demo]) .flashcardContainer {
-        height: 275px;
-        max-width: 275px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        height: clamp(360px, 95vw, 450px);
+        min-height: 340px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    :global([data-landing-demo]) .card {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        margin: 0;
+    }
+
+    :global([data-landing-demo]) .cardFront,
+    :global([data-landing-demo]) .cardBack {
+        padding: 10px 14px 0 !important;
+        border-radius: 22px !important;
+        border-color: rgba(125, 119, 221, 0.35) !important;
+        background:
+            radial-gradient(circle at 80% 10%, rgba(45, 212, 191, 0.12), transparent 50%),
+            linear-gradient(145deg, rgba(125, 119, 221, 0.2), #0f172a 100%) !important;
+        overflow: hidden;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    :global([data-landing-demo]) .name {
+        margin-top: -6px !important;
+        margin-bottom: 0 !important;
+        min-height: 0 !important;
+        font-size: 1.7rem !important;
+    }
+
+    :global([data-landing-demo]) .nameContainer {
+        transform: none !important;
+        gap: 6px !important;
+        justify-content: center !important;
+        width: 100% !important;
+    }
+
+    :global([data-landing-demo]) .titleContainer {
+        height: auto !important;
+        min-height: 0 !important;
+        width: auto !important;
+        flex: 0 1 auto !important;
+        justify-content: center !important;
+    }
+
+    :global([data-landing-demo]) .soundButton {
+        margin-left: 0 !important;
+    }
+
+    :global([data-landing-demo]) .conjugationTable {
+        margin: 0px auto 4px !important;
+        padding: 4px 2px !important;
+        gap: 2px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    :global([data-landing-demo]) .conjugationItem {
+        padding: 4px 2px !important;
+        border-radius: 10px !important;
+    }
+
+    :global([data-landing-demo]) .conjugationForm {
+        font-size: 0.95em !important;
+        max-width: 100% !important;
+    }
+
+    :global([data-landing-demo]) .conjugationPhonetic {
+        font-size: 0.65em !important;
+    }
+
+    :global([data-landing-demo]) .imagePlaceholder {
+        width: 100% !important;
+        height: auto !important;
+        flex: 1 1 auto !important;
+        min-height: 140px !important;
+        max-height: 220px !important;
+        margin: 4px auto 8px !important;
+        border-radius: 12px !important;
+    }
+
+    :global([data-landing-demo]) .allExamplesContainer {
+        margin-top: 2px !important;
+        margin-bottom: 2px !important;
+    }
+
+    :global([data-landing-demo]) .allExamplesContainer li,
+    :global([data-landing-demo]) .exampleRow {
+        padding: 2px 4px !important;
+        gap: 6px !important;
+    }
+
+    :global([data-landing-demo]) .allExamplesContainer li div span {
+        font-size: 0.9rem !important;
+    }
+
+    :global([data-landing-demo]) .examplePlayBtn,
+    :global([data-landing-demo]) .soundButton {
+        width: 34px !important;
+        height: 34px !important;
+        flex-shrink: 0;
+    }
+
+    :global([data-landing-demo]) .examplePlayBtn svg,
+    :global([data-landing-demo]) .soundButton svg {
+        width: 18px !important;
+        height: 18px !important;
     }
 }
 

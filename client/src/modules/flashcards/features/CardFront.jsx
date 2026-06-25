@@ -5,8 +5,9 @@ import ConjugationTable from './ConjugationTable';
 import ImageViewer from './ImageViewer';
 import DefinitionList from './DefinitionList';
 import { FaSpinner } from 'react-icons/fa';
-import { FiPlay, FiHeadphones, FiZap, FiRefreshCw } from 'react-icons/fi';
+import { FiPlay, FiHeadphones, FiRefreshCw } from 'react-icons/fi';
 import { useAuth } from '../../../context/AuthContext';
+import { useFlashcardContext } from '../context/FlashcardContext';
 import { getCardTitle, getAudioLang } from './cardLanguageUtils';
 
 // ---------------------------------------------------------------------------
@@ -69,6 +70,7 @@ function CardFront({
     const [isUploading, setIsUploading] = useState(false);
     const uploadInputRef = useRef(null);
     const { user } = useAuth();
+    const { isLandingDemo = false } = useFlashcardContext() ?? {};
     const isAdmin = user?.role === 'admin';
 
     const displayData = (DISPLAY_DATA_MAP[activeForm] || DISPLAY_DATA_MAP.v1)(cardData);
@@ -98,13 +100,15 @@ function CardFront({
     if (!displayData) return null;
 
     const title = getCardTitle(displayData, currentLanguage);
+    const showConjugation = Boolean(cardData.irregular && currentLanguage === 'es');
+    const hideTitle = isLandingDemo && showConjugation;
 
     return (
         <div className={styles.cardFront}>
             {/* Nombre + botón borrar audio */}
+            {!hideTitle && (
             <h2 className={styles.name}>
                 <div className={styles.nameContainer}>
-                    {cardData.irregular && <FiZap className={styles.irregularIcon} title="Verbo Irregular" />}
                     <div className={styles.titleContainer}>
                         <HighlightedText
                             text={title}
@@ -133,6 +137,7 @@ function CardFront({
                     </button>
                 </div>
             </h2>
+            )}
 
             {/* Fonética */}
             {currentLanguage === 'es' && (
