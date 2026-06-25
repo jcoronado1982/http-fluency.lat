@@ -1810,6 +1810,15 @@ main,
         width: 5px;
         height: 5px;
     }
+
+    [data-landing-demo].flashcard-page-wrapper {
+        width: 100%;
+    }
+
+    .lp-demo-prompt--card {
+        width: 100%;
+    }
+
     .lp-feedback-section .lp-section-inner { padding: 0 24px; }
     .lp-feedback-section { padding: 0 0 40px; }
     .lp-demo-feedback-wrap { gap: 32px; }
