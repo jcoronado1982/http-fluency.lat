@@ -24,14 +24,6 @@ export const landingTranslations = {
         previewHint: 'Toca para ver →',
         demoInteractiveBadge: 'Demo interactivo',
 
-        demoEyebrow: 'PRUÉBALO AHORA',
-        demoTitle: 'Sin registro. Sin esperas.',
-        demoBody:
-            'Practica los 10 verbos más usados del inglés ahora mismo. Voltea la tarjeta, lee el ejemplo y marca lo que ya sabes.',
-        demoBullet1: '10 verbos de alto impacto: be, have, do, get…',
-        demoBullet2: 'Ejemplo real + traducción en cada tarjeta',
-        demoBullet3: 'Gratis · Sin cuenta · Sin límite de tiempo',
-        demoCtaFull: 'Accede a las 5,000 palabras →',
         demoImagePromptLabel: 'Personaliza la imagen (solo demo)',
         demoImagePromptPlaceholder: 'ej. perro, cocina, atardecer…',
         demoImagePromptHint: 'Complemento de la frase (ej. «un niño y sus padres fuera de una casa grande»). La frase de la tarjeta manda; esto solo añade detalles.',
@@ -110,14 +102,6 @@ export const landingTranslations = {
         previewHint: 'Tap to see →',
         demoInteractiveBadge: 'Interactive demo',
 
-        demoEyebrow: 'TRY IT NOW',
-        demoTitle: 'No sign-up. No waiting.',
-        demoBody:
-            'Practice the 10 most-used English verbs right now. Flip the card, read the example, and mark what you already know.',
-        demoBullet1: '10 high-impact verbs: be, have, do, get…',
-        demoBullet2: 'Real example + translation on every card',
-        demoBullet3: 'Free · No account · No time limit',
-        demoCtaFull: 'Unlock all 5,000 words →',
         demoImagePromptLabel: 'Customize the image (demo only)',
         demoImagePromptPlaceholder: 'e.g. dog, kitchen, sunset…',
         demoImagePromptHint: 'Adds to the card sentence (e.g. “a boy and his parents outside a big house”). The example sentence is the anchor; this only adds details.',

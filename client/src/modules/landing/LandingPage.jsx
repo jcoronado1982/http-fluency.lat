@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
-import { FiBookOpen, FiImage, FiTrendingUp, FiZap, FiCheck, FiSliders, FiPlayCircle } from 'react-icons/fi';
+import { FiBookOpen, FiImage, FiTrendingUp, FiZap, FiSliders, FiPlayCircle } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useAppContext } from '../../context/AppContext';
 import config from '../../config';
@@ -286,25 +286,6 @@ export default function LandingPage() {
                     </div>
                 </section>
                 </div>
-
-                {/* ── DEMO ── */}
-                <section className="lp-demo">
-                    <div className="lp-section-inner lp-demo-section-inner">
-                        <div className="lp-demo-copy">
-                            <span className="lp-eyebrow">{t.demoEyebrow}</span>
-                            <h2>{t.demoTitle}</h2>
-                            <p>{t.demoBody}</p>
-                            <ul className="lp-demo-bullets">
-                                <li><FiCheck aria-hidden /> {t.demoBullet1}</li>
-                                <li><FiCheck aria-hidden /> {t.demoBullet2}</li>
-                                <li><FiCheck aria-hidden /> {t.demoBullet3}</li>
-                            </ul>
-                            <Link to="/login" className="lp-demo-link">
-                                {t.demoCtaFull}
-                            </Link>
-                        </div>
-                    </div>
-                </section>
 
                 {/* ── WHY + CTA (single visual zone) ── */}
                 <div className="lp-why-cta-zone">

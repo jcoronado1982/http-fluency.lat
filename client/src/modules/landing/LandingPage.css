@@ -298,36 +298,6 @@ main,
     padding: 0 24px;
 }
 
-.lp-eyebrow {
-    display: inline-block;
-    margin-bottom: 12px;
-    padding: 5px 14px;
-    border-radius: 999px;
-    border: 1px solid rgba(244,114,182,0.3);
-    background: rgba(244,114,182,0.08);
-    font-size: 0.8125rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--c-pink);
-}
-
-.lp-demo-link {
-    display: inline-block;
-    margin-top: 4px;
-    font-size: 0.9375rem;
-    font-weight: 400;
-    color: var(--c-teal);
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.lp-demo-link:hover {
-    color: var(--c-pink);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-}
-
 /* ── Zone 1+2: single flowing gradient (hero → black) ── */
 .lp-zone-flow {
     position: relative;
@@ -568,101 +538,6 @@ main,
     color: #ffffff;
 }
 
-/* ── DEMO SECTION ── */
-.lp-demo {
-    padding: 96px 0 96px;
-    background: #0a0612;
-    border-top: 1px solid rgba(125,119,221,0.15);
-    border-bottom: 1px solid rgba(125,119,221,0.15);
-    overflow: visible;
-    position: relative;
-}
-
-/* Accent line on top edge */
-.lp-demo::before {
-    content: '';
-    position: absolute;
-    top: -1px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--c-violet), transparent);
-}
-
-.lp-demo .lp-section-inner {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 56px;
-    align-items: start;
-    padding: 0 40px;
-}
-
-.lp-demo-copy {
-    position: relative;
-}
-
-/* Large section number as background anchor */
-.lp-demo-copy::before {
-    content: '01';
-    position: absolute;
-    top: -32px;
-    left: -8px;
-    font-size: 7rem;
-    font-weight: 900;
-    letter-spacing: -0.05em;
-    color: rgba(125,119,221,0.06);
-    pointer-events: none;
-    line-height: 1;
-    font-family: var(--font-family-display);
-    user-select: none;
-}
-
-.lp-demo-copy h2 {
-    margin: 0 0 16px;
-    font-family: var(--font-family-display);
-    font-size: var(--text-headline-md);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.08;
-}
-
-.lp-demo-copy p {
-    margin: 0 0 28px;
-    color: rgba(148,163,184,0.8);
-    font-size: var(--text-body-md);
-    font-weight: 400;
-    line-height: 1.75;
-    max-width: 36rem;
-}
-
-.lp-demo-bullets {
-    list-style: none;
-    margin: 0 0 28px;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.lp-demo-bullets li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 0.95rem;
-    font-weight: 400;
-    color: rgba(203,213,225,0.8);
-    line-height: 1.55;
-}
-
-.lp-demo-bullets li svg {
-    flex-shrink: 0;
-    margin-top: 3px;
-    color: var(--c-teal);
-    stroke-width: 2.5;
-}
-
-
 .lp-demo-prompt {
     margin-bottom: 24px;
     max-width: 38rem;
@@ -674,7 +549,7 @@ main,
 }
 
 .lp-demo-prompt--card {
-    width: 100%;
+    width: 85%;
     max-width: 620px;
     margin: 0 auto 8px;
     padding: 0;
@@ -882,13 +757,13 @@ main,
 .lp-feedback-section {
     position: relative;
     background: transparent;
-    padding: 0 0 88px;
+    padding: 0 0 52px;
 }
 
 .lp-feedback-section .lp-section-inner {
     position: relative;
     z-index: 1;
-    padding: 0 40px;
+    padding: 52px 40px 0 40px;
 }
 
 /* ── Demo feedback box ── */
@@ -931,7 +806,7 @@ main,
 .lp-reviews-wall-title {
     margin: 0;
     font-family: var(--font-family-body);
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.02em;
@@ -1256,7 +1131,7 @@ main,
 
 .lp-demo-feedback-label {
     font-family: var(--font-family-body);
-    font-size: 1.3rem;
+    font-size: 3rem;
     font-weight: 700;
     color: #ffffff;
     line-height: 1.2;
@@ -1266,7 +1141,7 @@ main,
 .lp-demo-feedback-sub {
     margin: 0;
     font-family: var(--font-family-body);
-    font-size: 0.875rem;
+    font-size: 1rem;
     line-height: 1.5;
     color: var(--c-muted);
 }
@@ -1323,10 +1198,10 @@ main,
 }
 
 .lp-demo-feedback-input {
-    width: 100%;
+    width: calc(100%-40px);
     resize: vertical;
     min-height: 80px;
-    padding: 10px 14px;
+    padding: 10px 20px;
     border-radius: 8px;
     border: 1px solid rgba(255, 255, 255, 0.15);
     background: rgba(255, 255, 255, 0.03);
@@ -1334,7 +1209,7 @@ main,
     font-family: var(--font-family-body);
     font-size: 0.875rem;
     line-height: 1.5;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .lp-demo-feedback-input::placeholder {
@@ -1421,7 +1296,7 @@ main,
 
 [data-landing-demo].flashcard-page-wrapper {
     overflow: visible;
-    width: 100%;
+    width: 85%;
 }
 
 [data-landing-demo] .app-container {
@@ -1518,7 +1393,7 @@ main,
 .lp-why-title {
     margin: 0 0 16px;
     font-family: var(--font-family-display);
-    font-size: clamp(2rem, 2.4vw + 1.25rem, 3.5rem);
+    font-size: 3rem;
     font-weight: 700;
     font-optical-sizing: auto;
     font-variation-settings: 'opsz' 56;
@@ -1639,6 +1514,7 @@ main,
     max-width: 720px;
     margin-top: 72px;
     padding-top: 56px;
+    padding-bottom: 30px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -1663,7 +1539,7 @@ main,
 .lp-why-cta-title {
     margin: 0 0 16px;
     font-family: var(--font-family-display);
-    font-size: clamp(1.85rem, 2vw + 1rem, 3rem);
+    font-size: 3rem;
     font-weight: 700;
     font-optical-sizing: auto;
     font-variation-settings: 'opsz' 48;
@@ -1744,18 +1620,6 @@ main,
         align-items: center;
     }
 
-    .lp-demo .lp-section-inner,
-    .lp-demo-section-inner {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        gap: 64px;
-    }
-
-    .lp-demo-copy {
-        position: sticky;
-        top: 96px;
-        align-self: start;
-    }
-
     /* Side-by-side grid for why cards on desktop */
     .lp-why-grid {
         grid-template-columns: 1fr 1fr;
@@ -1797,16 +1661,11 @@ main,
         width: 5px;
         height: 5px;
     }
-    .lp-demo .lp-section-inner { padding: 0 24px; }
     .lp-feedback-section .lp-section-inner { padding: 0 24px; }
     .lp-feedback-section { padding: 0 0 64px; }
     .lp-demo-feedback-wrap { gap: 32px; }
-    .lp-reviews-wall-title {
-        font-size: 1.75rem;
-    }
     .lp-why-inner { padding: 72px 24px 64px; }
     .lp-why-title {
-        font-size: clamp(1.5rem, 5.2vw, 2rem);
         white-space: normal;
         line-height: 1.08;
         text-wrap: balance;
@@ -1819,7 +1678,6 @@ main,
     }
     .lp-why-cta-title {
         white-space: normal;
-        font-size: clamp(1.65rem, 6.5vw, 2.25rem);
         line-height: 1.06;
     }
     .lp-why-cta-trust { gap: 12px; }
