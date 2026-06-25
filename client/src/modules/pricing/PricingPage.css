@@ -228,9 +228,13 @@
 }
 
 .pricing-subtitle {
-    max-width: 40rem;
+    max-width: 44rem;
     margin: 0 auto 32px;
-    color: var(--c-muted); font-size: 1.05rem; line-height: 1.65;
+    font-family: var(--font-family-body);
+    font-size: calc(1.25rem - 1px);
+    font-weight: 400;
+    line-height: 1.65;
+    color: rgba(245,245,245,0.85);
     text-align: center;
     text-wrap: balance;
 }
@@ -275,7 +279,7 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 24px;
-    max-width: 980px;
+    max-width: 900px;
     margin: 0 auto 24px;
 }
 
@@ -321,7 +325,15 @@
 .pricing-card-header { display: flex; flex-direction: column; gap: 4px; }
 
 .pricing-plan-name { margin: 0; font-size: 1.2rem; font-weight: 700; color: var(--c-text); }
-.pricing-plan-tagline { margin: 0; font-size: 0.88rem; color: var(--c-muted); }
+.pricing-plan-tagline {
+    margin: 0;
+    font-family: var(--font-family-body);
+    font-size: calc(0.95rem - 1px);
+    font-weight: 500;
+    line-height: 1.65;
+    color: rgba(245,245,245,0.7);
+    letter-spacing: 0.02em;
+}
 
 .pricing-price {
     display: flex; align-items: flex-end; gap: 4px;
@@ -345,11 +357,21 @@
 }
 
 .pricing-price-period {
-    font-size: 0.9rem; color: var(--c-muted); margin-bottom: 4px;
+    font-family: var(--font-family-body);
+    font-size: calc(0.95rem - 1px);
+    font-weight: 500;
+    color: rgba(245,245,245,0.7);
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
 }
 
 .pricing-price-label {
-    margin: 4px 0 0; font-size: 0.78rem; color: var(--c-muted);
+    margin: 4px 0 0;
+    font-family: var(--font-family-body);
+    font-size: calc(0.95rem - 1px);
+    font-weight: 500;
+    color: rgba(245,245,245,0.7);
+    letter-spacing: 0.02em;
 }
 
 /* Buttons */
@@ -390,7 +412,11 @@
 
 .pricing-feature {
     display: flex; align-items: center; gap: 10px;
-    font-size: 0.92rem; line-height: 1.4;
+    font-family: var(--font-family-body);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.65;
+    color: rgba(245,245,245,0.75);
 }
 
 .pricing-feature-icon {
@@ -421,8 +447,14 @@
 }
 
 .pricing-disclaimer {
-    text-align: center; font-size: 0.82rem; color: var(--c-muted);
+    text-align: center;
     margin: 0;
+    font-family: var(--font-family-body);
+    font-size: calc(0.95rem - 1px);
+    font-weight: 500;
+    line-height: 1.65;
+    color: rgba(245,245,245,0.7);
+    letter-spacing: 0.02em;
 }
 
 /* ── COMPARISON TABLE ── */
@@ -450,7 +482,8 @@
 
 .pricing-table {
     width: 100%; border-collapse: collapse;
-    font-size: 0.92rem;
+    font-family: var(--font-family-body);
+    font-size: 1rem;
 }
 
 .pricing-table thead {
@@ -477,8 +510,9 @@ th.pricing-table-premium-col {
 .pricing-table td {
     padding: 14px 20px;
     border-bottom: 1px solid rgba(255,255,255,0.04);
-    color: var(--c-muted2);
+    color: rgba(245,245,245,0.75);
     vertical-align: middle;
+    line-height: 1.65;
 }
 
 .pricing-table tr:last-child td { border-bottom: none; }
@@ -547,7 +581,12 @@ td.pricing-table-premium-col strong { color: var(--c-pink); }
 }
 
 .pricing-why-card p {
-    margin: 0; font-size: 0.88rem; color: var(--c-muted); line-height: 1.55;
+    margin: 0;
+    font-family: var(--font-family-body);
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgba(245,245,245,0.75);
+    line-height: 1.65;
 }
 
 /* ── CTA BOTTOM ── */
@@ -572,7 +611,12 @@ td.pricing-table-premium-col strong { color: var(--c-pink); }
 }
 
 .pricing-cta-bottom-inner p {
-    margin: 0; color: var(--c-muted); font-size: 1rem; line-height: 1.6;
+    margin: 0;
+    font-family: var(--font-family-body);
+    font-size: calc(1.25rem - 1px);
+    font-weight: 400;
+    line-height: 1.65;
+    color: rgba(245,245,245,0.85);
 }
 
 .pricing-cta-actions {
@@ -622,11 +666,22 @@ td.pricing-table-premium-col strong { color: var(--c-pink); }
 }
 
 .pricing-footer p {
-    margin: 0; font-size: 0.85rem; color: var(--c-muted);
+    margin: 0;
+    font-family: var(--font-family-body);
+    font-size: calc(0.95rem - 1px);
+    font-weight: 500;
+    color: rgba(245,245,245,0.7);
+    letter-spacing: 0.02em;
 }
 
 .pricing-footer a {
     color: var(--c-pink); text-decoration: none;
 }
 
-.pricing-footer-note { font-size: 0.76rem !important; opacity: 0.65; }
+.pricing-footer-note {
+    font-size: calc(0.95rem - 1px) !important;
+    font-weight: 500;
+    color: rgba(245,245,245,0.7) !important;
+    opacity: 1 !important;
+    letter-spacing: 0.02em;
+}

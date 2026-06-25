@@ -49,12 +49,20 @@ export const landingTranslations = {
 
         vocabularyFirstEyebrow: '¿Por qué aprender vocabulario?',
         vocabularyFirstTitle: '¿Por qué aprender vocabulario?',
-        vocabularyFirstBody1:
-            'A muchos principiantes les dicen que deben empezar a hablar desde el primer día. Pero cuando no conoces suficientes palabras, incluso una conversación simple se vuelve frustrante.',
-        vocabularyFirstBody2:
-            'Fluency empieza por la base: vocabulario en contexto. Estudias palabras curadas, frases reales, audio nativo e imágenes que ayudan a reconocer, entender y recordar el idioma antes de intentar usarlo en una conversación.',
-        vocabularyFirstBody3:
-            'El objetivo no es prometer fluidez de un día para otro. El objetivo es construir la base que después hace más fácil la gramática, el listening, la lectura y el speaking.',
+        vocabularyFirstCards: [
+            {
+                title: 'Empieza por lo básico',
+                body: 'A muchos principiantes les dicen que deben hablar desde el primer día. Sin palabras suficientes, hasta una conversación simple se vuelve frustrante.',
+            },
+            {
+                title: 'Vocabulario en contexto',
+                body: 'Fluency empieza por la base: palabras curadas, frases reales, audio nativo e imágenes para reconocer y entender el idioma antes de usarlo.',
+            },
+            {
+                title: 'Construye la base',
+                body: 'El objetivo no es prometer fluidez de un día para otro. Es construir la base que después facilita la gramática, el listening, la lectura y el speaking.',
+            },
+        ],
 
         ctaBottomEyebrow: 'Empieza hoy',
         ctaBottomTitle: 'Empieza a construir tu vocabulario hoy.',
@@ -137,12 +145,20 @@ export const landingTranslations = {
 
         vocabularyFirstEyebrow: 'Why vocabulary first?',
         vocabularyFirstTitle: 'Why vocabulary first?',
-        vocabularyFirstBody1:
-            'Most beginners are told to start speaking from day one. But when you do not know enough words, even a simple conversation becomes frustrating.',
-        vocabularyFirstBody2:
-            'Fluency starts with the foundation: vocabulary in context. You study curated words, real example sentences, native audio, and visual scenes so you can recognize, understand, and remember the language before trying to use it in conversation.',
-        vocabularyFirstBody3:
-            'The goal is not to promise fluency overnight. The goal is to build the base that makes grammar, listening, reading, and speaking easier later.',
+        vocabularyFirstCards: [
+            {
+                title: 'Start with the basics',
+                body: 'Most beginners are told to start speaking from day one. Without enough words, even a simple conversation becomes frustrating.',
+            },
+            {
+                title: 'Vocabulary in context',
+                body: 'Fluency starts with the foundation: curated words, real sentences, native audio, and images so you can recognize and understand before you speak.',
+            },
+            {
+                title: 'Build the base',
+                body: 'The goal is not to promise fluency overnight. It is to build the base that makes grammar, listening, reading, and speaking easier later.',
+            },
+        ],
 
         ctaBottomEyebrow: 'Start today',
         ctaBottomTitle: 'Start building your vocabulary today.',

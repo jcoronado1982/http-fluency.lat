@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
-import { FiBookOpen, FiImage, FiTrendingUp, FiZap, FiSliders } from 'react-icons/fi';
+import { FiBookOpen, FiImage, FiTrendingUp, FiZap, FiSliders, FiLayers, FiTarget } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useAppContext } from '../../context/AppContext';
 import config from '../../config';
@@ -142,6 +142,9 @@ function DemoImagePromptPanel({ promptRef, onApply, t, collapsible = false }) {
         </div>
     );
 }
+
+const VOCAB_FIRST_CARD_ICONS = [FiLayers, FiBookOpen, FiTarget];
+const VOCAB_FIRST_CARD_ICON_TONES = ['rose', 'violet', 'rose'];
 
 export default function LandingPage() {
     const { isAuthenticated, loading, loadingStage } = useAuth();
@@ -293,24 +296,32 @@ export default function LandingPage() {
                         </div>
                     </div>
                 </section>
-
-                {/* ── FEEDBACK (sesión 2) ── */}
-                <section className="lp-feedback-section" id="reviews">
-                    <div className="lp-section-inner">
-                        <DemoFeedback language={language} />
-                    </div>
-                </section>
                 </div>
 
-                {/* ── WHY + CTA (single visual zone) ── */}
-                <div className="lp-why-cta-zone">
+                {/* ── FEEDBACK + VOCABULARY FIRST + WHY + CTA: un solo degradado ── */}
+                <div className="lp-zone-lower">
+                    <section className="lp-feedback-section" id="reviews">
+                        <div className="lp-section-inner">
+                            <DemoFeedback language={language} />
+                        </div>
+                    </section>
                     <section className="lp-why-vocabulary-first" id="vocabulary-first">
                         <div className="lp-section-inner lp-why-vocabulary-first-inner">
                             <h2 className="lp-why-vocabulary-first-title">{t.vocabularyFirstTitle}</h2>
-                            <div className="lp-why-vocabulary-first-copy">
-                                <p>{t.vocabularyFirstBody1}</p>
-                                <p>{t.vocabularyFirstBody2}</p>
-                                <p>{t.vocabularyFirstBody3}</p>
+                            <div className="lp-vocab-first-grid">
+                                {t.vocabularyFirstCards.map((card, index) => {
+                                    const Icon = VOCAB_FIRST_CARD_ICONS[index];
+                                    const tone = VOCAB_FIRST_CARD_ICON_TONES[index];
+                                    return (
+                                        <article key={card.title} className="lp-vocab-first-card">
+                                            <div className={`lp-vocab-first-card-icon lp-vocab-first-card-icon--${tone}`}>
+                                                <Icon aria-hidden />
+                                            </div>
+                                            <h3 className="lp-vocab-first-card-title">{card.title}</h3>
+                                            <p className="lp-vocab-first-card-body">{card.body}</p>
+                                        </article>
+                                    );
+                                })}
                             </div>
                         </div>
                     </section>

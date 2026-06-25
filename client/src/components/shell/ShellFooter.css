@@ -15,11 +15,9 @@
 }
 
 .shell-footer--landing {
-    background: linear-gradient(90deg, #0d0509 0%, #140810 100%);
-    border-top: 1px solid rgba(244, 114, 182, 0.12);
-    box-shadow:
-        0 -8px 30px rgba(0, 0, 0, 0.45),
-        0 -1px 0 rgba(244, 114, 182, 0.06) inset;
+    background: linear-gradient(90deg, #150910 0%, #180a14 100%);
+    border-top: none;
+    box-shadow: none;
 }
 
 .shell-footer-content {
