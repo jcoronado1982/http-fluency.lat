@@ -199,7 +199,7 @@ function DemoFeedbackReviews({ reviews, summary, language }) {
 
     if (!reviews.length) {
         return (
-            <div className="lp-reviews-wall lp-reviews-wall--empty">
+            <div className="lp-reviews-wall lp-reviews-wall--empty" id="reviews">
                 <div className="lp-reviews-wall-header">
                     <h3 className="lp-reviews-wall-title">{copy.title}</h3>
                 </div>
@@ -214,7 +214,7 @@ function DemoFeedbackReviews({ reviews, summary, language }) {
     const staggers = [0, 28, 56];
 
     return (
-        <div className="lp-reviews-wall">
+        <div className="lp-reviews-wall" id="reviews">
             <div className="lp-reviews-wall-header">
                 <div className="lp-reviews-wall-heading">
                     <h3 className="lp-reviews-wall-title">{copy.title}</h3>

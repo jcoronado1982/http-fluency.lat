@@ -18,8 +18,8 @@ function useLandingNavActive() {
 
     useEffect(() => {
         const demo = document.getElementById('demo');
-        const why = document.getElementById('why');
-        const targets = [demo, why].filter(Boolean);
+        const reviews = document.getElementById('reviews');
+        const targets = [demo, reviews].filter(Boolean);
         if (!targets.length) return undefined;
 
         const observer = new IntersectionObserver(
@@ -189,14 +189,7 @@ export default function LandingPage() {
                             className={activeNav === 'demo' ? 'is-active' : ''}
                             onClick={() => setActiveSection('demo')}
                         >
-                            {t.navFlashcards}
-                        </a>
-                        <a
-                            href="#why"
-                            className={activeNav === 'why' ? 'is-active' : ''}
-                            onClick={() => setActiveSection('why')}
-                        >
-                            {t.navProgress}
+                            {t.navHowItWorks}
                         </a>
                         <Link
                             to="/pricing"
@@ -204,6 +197,13 @@ export default function LandingPage() {
                         >
                             {t.navPricing}
                         </Link>
+                        <a
+                            href="#reviews"
+                            className={activeNav === 'reviews' ? 'is-active' : ''}
+                            onClick={() => setActiveSection('reviews')}
+                        >
+                            {t.navReviews}
+                        </a>
                     </nav>
 
                     <div className="lp-nav-end">

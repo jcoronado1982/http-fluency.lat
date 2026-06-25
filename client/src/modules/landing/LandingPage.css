@@ -36,8 +36,8 @@
     left: -10%;
     background: radial-gradient(
         ellipse at 50% 30%,
-        rgba(125,119,221,0.12) 0%,
-        rgba(190,24,93,0.05) 45%,
+        rgba(190, 24, 93, 0.20) 0%,
+        rgba(244, 114, 182, 0.08) 45%,
         transparent 70%
     );
 }
@@ -49,16 +49,16 @@
 
 .lp-bg-blob--1 {
     width: 340px; height: 340px;
-    background: var(--c-violet);
+    background: var(--c-rose);
     top: -80px; left: -80px;
-    opacity: 0.10;
+    opacity: 0.09;
 }
 
 .lp-bg-blob--2 {
     width: 420px; height: 420px;
-    background: var(--c-violet);
+    background: var(--c-pink);
     bottom: 5%; right: -120px;
-    opacity: 0.08;
+    opacity: 0.06;
 }
 
 /* Everything in front of blobs */
@@ -298,10 +298,10 @@ main,
     padding: 0 24px;
 }
 
-/* ── Zone 1+2: single flowing gradient (hero → black) ── */
+/* ── Zone 1+2: un solo degradado continuo (login arriba → oscuro abajo) ── */
 .lp-zone-flow {
     position: relative;
-    background: #000;
+    background: #0d0509;
     overflow: hidden;
 }
 
@@ -309,31 +309,59 @@ main,
     content: '';
     position: absolute;
     inset: 0;
+    z-index: 0;
+    pointer-events: none;
     background:
         radial-gradient(
-            ellipse 75% 45% at 18% 0%,
-            rgba(125, 119, 221, 0.18) 0%,
-            rgba(190, 24, 93, 0.06) 28%,
-            transparent 52%
-        ),
-        radial-gradient(
-            ellipse 60% 40% at 82% 4%,
-            rgba(244, 114, 182, 0.1) 0%,
-            transparent 42%
+            ellipse 120% 48% at 50% 0%,
+            rgba(190, 24, 93, 0.20) 0%,
+            rgba(244, 114, 182, 0.07) 42%,
+            transparent 68%
         ),
         linear-gradient(
             180deg,
-            #0a050a 0%,
-            #0a050a 5%,
-            #0c060c 12%,
-            #0a040a 24%,
-            #070307 38%,
-            #040204 52%,
-            #020102 66%,
-            #000000 80%,
-            #000000 100%
+            #0d0509 0%,
+            #0e060c 3%,
+            #10060d 6%,
+            #12070f 10%,
+            #140810 14%,
+            #140810 20%,
+            #13070f 24%,
+            #12060e 28%,
+            #11060d 32%,
+            #0f050b 36%,
+            #0d0409 40%,
+            #0b0307 44%,
+            #090306 48%,
+            #070205 52%,
+            #050104 58%,
+            #030103 64%,
+            #020102 70%,
+            #010001 76%,
+            #000000 82%,
+            #000000 86%,
+            #030103 88%,
+            #050104 90%,
+            #070206 92%,
+            #090308 94%,
+            #0b0409 96%,
+            #0c050a 98%,
+            #0d0509 100%
         );
+}
+
+/* Viñeta ligera (sin capa inferior que marque corte con sesión 3) */
+.lp-zone-flow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
     pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(
+        ellipse at center,
+        transparent 44%,
+        rgba(0, 0, 0, 0.12) 100%
+    );
 }
 
 .lp-zone-flow > section {
@@ -341,12 +369,12 @@ main,
     z-index: 1;
 }
 
-/* ── HERO (referencia Lumina — copy column) ── */
+/* ── HERO — sin fondo propio; hereda el degradado de lp-zone-flow ── */
 .lp-hero {
     min-height: auto;
     display: flex;
     align-items: center;
-    padding: 52px 0 48px;
+    padding: 52px 0 56px;
     position: relative;
     overflow: visible;
     background: transparent;
@@ -753,11 +781,11 @@ main,
     min-height: 720px;
 }
 
-/* ── Feedback (sesión 2) — transparent, flows inside lp-zone-flow ── */
+/* ── Feedback (sesión 2) — transparente, mismo degradado continuo ── */
 .lp-feedback-section {
     position: relative;
     background: transparent;
-    padding: 0 0 52px;
+    padding: 0 0 72px;
 }
 
 .lp-feedback-section .lp-section-inner {
@@ -1310,22 +1338,26 @@ main,
     overflow: visible;
 }
 
-/* ── WHY + CTA: una sola sección, degradado de color hacia abajo ── */
+/* ── WHY + CTA: continúa desde el negro de sesión 2 sin corte visible ── */
 .lp-why-cta-zone {
     position: relative;
     background: linear-gradient(
         180deg,
         #0d0509 0%,
-        #0d0509 38%,
-        #0f060d 52%,
-        #120810 66%,
-        #140810 80%,
+        #0d0509 6%,
+        #0e060c 14%,
+        #0f060d 22%,
+        #10070e 32%,
+        #11070f 42%,
+        #120810 54%,
+        #130810 66%,
+        #140810 78%,
         #180a14 100%
     );
     overflow: hidden;
 }
 
-/* Un solo glow: oscuro arriba, iluminación login solo en el tercio inferior */
+/* Solo glow inferior del CTA; sin resplandor arriba que marque el borde */
 .lp-why-cta-zone::before {
     content: '';
     position: absolute;

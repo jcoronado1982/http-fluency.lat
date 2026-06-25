@@ -1,9 +1,9 @@
 export const landingTranslations = {
     es: {
         brand: 'Fluency',
-        navFlashcards: 'Demo',
-        navProgress: 'Por qué Fluency',
+        navHowItWorks: 'Cómo funciona',
         navPricing: 'Precios',
+        navReviews: 'Comentarios',
         navLogin: 'Entrar',
         navSignup: 'Empezar gratis',
         navSignupShort: 'Registrarse',
@@ -79,9 +79,9 @@ export const landingTranslations = {
 
     en: {
         brand: 'Fluency',
-        navFlashcards: 'Demo',
-        navProgress: 'Why Fluency',
+        navHowItWorks: 'How it works',
         navPricing: 'Pricing',
+        navReviews: 'Reviews',
         navLogin: 'Log in',
         navSignup: 'Sign up free',
         navSignupShort: 'Sign up',
