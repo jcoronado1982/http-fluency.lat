@@ -8,6 +8,7 @@ pub struct User {
     pub name: String,
     pub picture: Option<String>,
     pub role: String,
+    pub onboarding_completed: bool,
     pub created_at: DateTime<Utc>,
     pub last_login: DateTime<Utc>,
 }

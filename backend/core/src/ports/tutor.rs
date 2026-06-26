@@ -38,4 +38,17 @@ pub trait AITutor: Send + Sync {
         scene_complement: Option<&str>,
     ) -> Result<String>;
     async fn refine_audio_ssml(&self, text: &str, tone: &str) -> Result<String>;
+    async fn guide_onboarding_step(
+        &self,
+        locale: &str,
+        step_id: &str,
+        step_index: u32,
+        step_total: u32,
+        event: &str,
+        target_label: &str,
+        target_hint: &str,
+        wrong_target_label: Option<&str>,
+        user_name: Option<&str>,
+        ui_state: Option<&str>,
+    ) -> Result<String>;
 }

@@ -6,6 +6,7 @@ import { useFlashcardContext } from '../context/FlashcardContext';
 import { useCategoryContext } from '../context/CategoryContext';
 import { getFlashcardTranslations } from '../config/translations';
 import { sortGroups } from '../config/catalogOrder';
+import { categoryToTourSlug } from '../config/onboardingUiAutomation';
 
 // Los totales son dinámicos — vienen del contexto que obtiene el conteo real del backend
 
@@ -70,7 +71,6 @@ function CategorySelector() {
             if (aComplete === bComplete) return 0;
             return aComplete ? 1 : -1;
         });
-
     // "3-advanced" contiene la subcadena "basic" → hay que evaluar advanced antes que basic.
     const getLevelFromDeckName = (deckName) => {
         if (!deckName) return 'basic';
@@ -129,7 +129,7 @@ function CategorySelector() {
     }, []);
 
     return (
-        <div className={styles.categorySelectorOverlay}>
+        <div className={styles.categorySelectorOverlay} data-tour="catalogo-modal">
             <div className={styles.dashboardContainer}>
                 {/* Botón de cerrar */}
                 <button className={styles.closeBtn} onClick={() => setIsCatalogVisible(false)}>
@@ -137,7 +137,7 @@ function CategorySelector() {
                 </button>
 
                 {/* Sidebar Izquierda */}
-                <aside className={styles.sidebar}>
+                <aside className={styles.sidebar} data-tour="panel-categorias">
                     <h3 className={styles.sidebarTitle}>{t.categoryTitle}</h3>
                     <nav className={styles.categoryNav}>
                         {categories.map(cat => {
@@ -149,6 +149,9 @@ function CategorySelector() {
                                     key={cat}
                                     className={`${styles.categoryBtn} ${isActive ? styles.activeCategory : ''}`}
                                     onClick={() => handleCategoryClick(cat)}
+                                    data-tour="categoria-item"
+                                    data-categoria={categoryToTourSlug(cat)}
+                                    aria-current={isActive ? 'true' : undefined}
                                 >
                                     <span className={styles.categoryInfo}>
                                         <span className={styles.dot} style={{ backgroundColor: dotColor }} />
@@ -193,8 +196,8 @@ function CategorySelector() {
                     </div>
 
                     {/* Grilla de grupos */}
-                    <div className={styles.groupsGrid}>
-                        {groupsList.map(group => {
+                    <div className={styles.groupsGrid} data-tour="catalogo-grid">
+                        {groupsList.map((group, index) => {
                             const progressPercent = (group.learned / group.total) * 100;
                             const isComplete = group.learned === group.total;
                             const isNew = group.learned === 0;
@@ -212,6 +215,7 @@ function CategorySelector() {
                                     onClick={isComplete ? undefined : () => handleGroupClick(group.name)}
                                     style={{ '--card-accent': categoryColor }}
                                     aria-disabled={isComplete}
+                                    data-tour={!isComplete ? 'boton-abrir-categoria' : undefined}
                                 >
                                     <div className={styles.groupHeader}>
                                         <h4 className={styles.groupName}>{t.groups && t.groups[group.name] ? t.groups[group.name] : group.name}</h4>

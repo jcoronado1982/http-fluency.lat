@@ -33,12 +33,14 @@ use crate::domain::repositories::storage::StorageRepository;
 use crate::domain::repositories::tutor::AITutor;
 use crate::infrastructure::ai::avif_compressor::AvifCompressor;
 use crate::infrastructure::ai::comfy_provider::ComfyUIProvider;
+#[cfg(feature = "flashcards")]
+use crate::infrastructure::ai::elevenlabs_tts_provider::ElevenLabsTtsProvider;
 use crate::infrastructure::ai::gemini_grpc_provider::GeminiGrpcProvider;
 #[cfg(feature = "flashcards")]
 use crate::infrastructure::ai::gemini_interactions_image_provider::GeminiInteractionsImageProvider;
 #[cfg(feature = "flashcards")]
-    use crate::infrastructure::ai::elevenlabs_tts_provider::ElevenLabsTtsProvider;
-    use crate::infrastructure::ai::routing_tts_provider::RoutingTtsProvider;
+use crate::infrastructure::ai::gemini_tts_provider::GeminiTtsProvider;
+use crate::infrastructure::ai::routing_tts_provider::RoutingTtsProvider;
 #[cfg(feature = "payments")]
 use crate::infrastructure::payment::null_payment_provider::NullPaymentProvider;
 #[cfg(feature = "payments")]
@@ -50,14 +52,12 @@ use crate::infrastructure::storage::surreal::{
     SurrealSubscriptionRepository, SurrealUserActivityRepository, SurrealUserRepository,
 };
 #[cfg(feature = "flashcards")]
-use crate::infrastructure::ai::gemini_tts_provider::GeminiTtsProvider;
+use mod_flashcards::audio_use_cases::AudioUseCases;
 #[cfg(feature = "flashcards")]
 use mod_flashcards::batch::{
     parse_batch_filter, run_batch_audio_generation, run_batch_image_generation,
     run_batch_image_linking, AudioBatchContext, BatchSettings, ImageBatchContext,
 };
-#[cfg(feature = "flashcards")]
-use mod_flashcards::audio_use_cases::AudioUseCases;
 #[cfg(feature = "flashcards")]
 use mod_flashcards::image_use_cases::ImageUseCases;
 #[cfg(feature = "flashcards")]
@@ -180,10 +180,14 @@ async fn async_main() -> anyhow::Result<()> {
             let conn = Arc::new(conn);
             (
                 Arc::new(SurrealUserRepository(conn.clone())) as Arc<dyn UserRepository>,
-                Arc::new(SurrealSubscriptionRepository(conn.clone())) as Arc<dyn SubscriptionRepository>,
-                Arc::new(SurrealCardProgressRepository(conn.clone())) as Arc<dyn CardProgressRepository>,
-                Arc::new(SurrealPronounRepository(conn.clone())) as Arc<dyn PronounPracticeRepository>,
-                Arc::new(SurrealUserActivityRepository(conn.clone())) as Arc<dyn UserActivityRepository>,
+                Arc::new(SurrealSubscriptionRepository(conn.clone()))
+                    as Arc<dyn SubscriptionRepository>,
+                Arc::new(SurrealCardProgressRepository(conn.clone()))
+                    as Arc<dyn CardProgressRepository>,
+                Arc::new(SurrealPronounRepository(conn.clone()))
+                    as Arc<dyn PronounPracticeRepository>,
+                Arc::new(SurrealUserActivityRepository(conn.clone()))
+                    as Arc<dyn UserActivityRepository>,
             )
         }
         Err(e) => {
@@ -227,7 +231,11 @@ async fn async_main() -> anyhow::Result<()> {
 
     // --- Compose use cases (application layer) ---
     #[cfg(feature = "flashcards")]
-    let deck_use_cases = Arc::new(DeckUseCases::new(storage_repo.clone(), card_repo.clone(), activity_repo.clone()));
+    let deck_use_cases = Arc::new(DeckUseCases::new(
+        storage_repo.clone(),
+        card_repo.clone(),
+        activity_repo.clone(),
+    ));
     #[cfg(feature = "flashcards")]
     let flashcards_config = Arc::new(FlashcardsConfig {
         gcs_audio_prefix: settings.gcs_audio_prefix.clone(),
@@ -372,6 +380,10 @@ async fn async_main() -> anyhow::Result<()> {
             "/api/explain-like-child",
             post(api::endpoints::tutor::explain_like_child),
         )
+        .route(
+            "/api/onboarding-guide",
+            post(api::endpoints::tutor::guide_onboarding),
+        )
         // Notifications (SSE — excluido del timeout global)
         .route(
             "/api/notifications/events",
@@ -391,6 +403,10 @@ async fn async_main() -> anyhow::Result<()> {
                 post(api::endpoints::auth::dev_guest_login),
             )
             .route("/api/auth/me", get(api::endpoints::auth::get_me))
+            .route(
+                "/api/auth/onboarding",
+                post(api::endpoints::auth::update_onboarding),
+            )
             .route(
                 "/api/presence/heartbeat",
                 post(api::endpoints::presence::heartbeat),

@@ -4,6 +4,7 @@ import { FiLayers } from 'react-icons/fi';
 import ProtectedRoute from '../../components/common/ProtectedRoute';
 import FlashcardPage from './FlashcardPage';
 import FlashcardOverlays from './FlashcardOverlays';
+import FlashcardOnboardingTour from './FlashcardOnboardingTour';
 import { CategoryProvider } from './context/CategoryContext';
 import { FlashcardProvider } from './context/FlashcardContext';
 import { FlashcardUiProvider } from './context/FlashcardUiContext';
@@ -76,6 +77,7 @@ const flashcardsModule = {
             imageCompressionService={imageCompressionService}
         >
             <FlashcardOverlays />
+            <FlashcardOnboardingTour />
         </StudyMediaProvider>
     ),
     shellProviders: (config) => (config.features.flashcards ? [FlashcardUiProvider] : []),
@@ -88,7 +90,8 @@ const flashcardsModule = {
             close();
             const onHome = location?.pathname === homePath;
             if (onHome && invokeUiBridge(action)) return;
-            navigate(homePath, { state });
+            const search = location?.search || '';
+            navigate(`${homePath}${search}`, { state });
         };
         return [
             {

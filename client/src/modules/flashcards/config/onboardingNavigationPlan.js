@@ -1,0 +1,182 @@
+import {
+    isCardFlipped,
+    isCatalogOpen,
+    isCategorySelected,
+    isFlashcardsModuleReady,
+    isSidebarOpen,
+    isStudyViewActive,
+} from './onboardingUiAutomation';
+
+const buildSteps = (locale) => {
+    const es = locale === 'es';
+    return [
+        {
+            id: 'menu-hamburguesa',
+            selector: '[data-tour="menu-hamburguesa"]',
+            advanceOnTapOnly: true,
+            label: es ? 'Abre el menú' : 'Open the menu',
+            hint: es
+                ? 'Toca el botón ☰ arriba a la izquierda para abrir el menú lateral.'
+                : 'Tap the ☰ button in the top-left to open the side menu.',
+            fallback: es
+                ? 'Primero abre el menú lateral. Ahí aparecen los módulos que puedes usar.'
+                : 'First open the side menu. That is where your available modules appear.',
+            prep: { sidebar: false, floatingMenu: false, catalog: false },
+            gate: isSidebarOpen,
+        },
+        {
+            id: 'cargar-modulo-flashcards',
+            selector: '[data-tour="flashcards-nav"]',
+            markOptionsSelector: '[data-tour="flashcards-nav"]',
+            advanceOnTapOnly: true,
+            tooltipPlacement: 'right',
+            tooltipGap: 14,
+            label: es ? 'Carga el módulo Flashcards' : 'Load the Flashcards module',
+            hint: es
+                ? 'Toca esta opción del menú lateral para entrar al módulo de Flashcards.'
+                : 'Tap this side-menu option to enter the Flashcards module.',
+            fallback: es
+                ? 'Esta es la opción que carga Flashcards. Cuando quieras estudiar palabras, entra por aquí.'
+                : 'This is the option that loads Flashcards. Whenever you want to study words, enter here.',
+            prep: { sidebar: true, floatingMenu: false, catalog: false },
+            gate: isFlashcardsModuleReady,
+            gateTimeoutMs: 15000,
+        },
+        {
+            id: 'catalogo-categorias',
+            selector: '[data-tour="catalogo-categorias"]',
+            performAction: 'openCatalog',
+            tooltipPlacement: 'left',
+            tooltipGap: 14,
+            gateTimeoutMs: 10000,
+            label: es ? 'Catálogo de categorías' : 'Category catalog',
+            hint: es
+                ? 'Ahora toca «Categorías» para abrir el catálogo de palabras.'
+                : 'Now tap «Categories» to open the word catalog.',
+            fallback: es
+                ? 'Aquí empieza la configuración de lo que vas a practicar: primero abres Categorías.'
+                : 'This is where you start choosing what to practice: first open Categories.',
+            prep: { sidebar: false, floatingMenu: true, catalog: false },
+            gate: isCatalogOpen,
+        },
+        {
+            id: 'elegir-categoria',
+            highlightMode: 'zone',
+            selector: '[data-tour="panel-categorias"]',
+            zoneSelector: '[data-tour="catalogo-modal"]',
+            sectionSelector: '[data-tour="panel-categorias"]',
+            tapSelector: '[data-tour="categoria-item"]',
+            markOptionsSelector: '[data-tour="categoria-item"]',
+            label: es ? 'Elige una categoría' : 'Pick a category',
+            hint: es
+                ? 'Toca cualquier categoría de la columna izquierda: Pronombres, Verbos, Sustantivos, etc.'
+                : 'Tap any category in the left column: Pronouns, Verbs, Nouns, etc.',
+            fallback: es
+                ? 'Todas las categorías están marcadas. Elige la que quieras estudiar: verbos, sustantivos, pronombres, conectores…'
+                : 'All categories are marked. Pick what you want to study: verbs, nouns, pronouns, connectors…',
+            prep: { sidebar: false, floatingMenu: false, catalog: true },
+            gate: isCategorySelected,
+        },
+        {
+            id: 'elegir-subtema',
+            highlightMode: 'zone',
+            selector: '[data-tour="catalogo-grid"]',
+            zoneSelector: '[data-tour="catalogo-modal"]',
+            sectionSelector: '[data-tour="catalogo-grid"]',
+            tapSelector: '[data-tour="boton-abrir-categoria"]',
+            markOptionsSelector: '[data-tour="boton-abrir-categoria"]',
+            label: es ? 'Elige un subtema / bloque' : 'Pick a subtopic block',
+            hint: es
+                ? 'Toca cualquier bloque disponible (Sujeto, Reflexivos, etc.) para empezar la lección.'
+                : 'Tap any available block (Subject, Reflexives, etc.) to start the lesson.',
+            fallback: es
+                ? 'Cada tarjeta es un bloque de palabras. Puedes elegir cualquiera de las opciones marcadas en amarillo.'
+                : 'Each card is a word block. You can pick any of the yellow-marked options.',
+            prep: { sidebar: false, floatingMenu: false, catalog: true },
+            gate: isStudyViewActive,
+        },
+        {
+            id: 'boton-voltear-tarjeta',
+            selector: '[data-tour="boton-voltear-tarjeta"]',
+            label: es ? 'Voltear tarjeta' : 'Flip card',
+            hint: es
+                ? 'Toca la tarjeta central para voltearla y ver la traducción o imagen.'
+                : 'Tap the center card to flip it and see the translation or image.',
+            fallback: es
+                ? 'Esta es tu tarjeta de estudio: palabra, fonética y ejemplos. Haz clic para voltearla.'
+                : 'This is your study card: word, phonetics, and examples. Tap to flip it.',
+            prep: { sidebar: false, floatingMenu: false, catalog: false },
+            gate: isCardFlipped,
+        },
+        {
+            id: 'boton-marcar-aprendida',
+            selector: '[data-tour="boton-marcar-aprendida"]',
+            label: es ? 'Marcar aprendida ✓' : 'Mark learned ✓',
+            hint: es
+                ? 'Cuando domines la palabra, toca el botón verde ✓.'
+                : 'When you know the word, tap the green ✓ button.',
+            fallback: es
+                ? 'El botón verde registra que ya aprendiste esta palabra.'
+                : 'The green button records that you learned this word.',
+            prep: { sidebar: false, floatingMenu: false, catalog: false },
+            gate: () => true,
+        },
+        {
+            id: 'boton-siguiente-tarjeta',
+            selector: '[data-tour="boton-siguiente-tarjeta"]',
+            label: es ? 'Siguiente tarjeta →' : 'Next card →',
+            hint: es
+                ? 'Toca la flecha derecha para pasar a la siguiente palabra.'
+                : 'Tap the right arrow for the next word.',
+            fallback: es
+                ? 'Así avanzas palabra por palabra en el bloque.'
+                : 'This is how you move word by word through the block.',
+            prep: { sidebar: false, floatingMenu: false, catalog: false },
+            gate: () => true,
+        },
+    ];
+};
+
+export const ONBOARDING_NAV_PLAN = {
+    es: {
+        coach: 'Tour de producto · Fluency',
+        routeLabel: 'Paso',
+        back: 'Atrás',
+        finish: 'Comenzar a aprender',
+        close: 'Cerrar',
+        hint: 'Siguiente',
+        next: 'Siguiente',
+        waiting: 'Esperando a que aparezca este componente en pantalla…',
+        elementMissing: 'Este elemento aún no está en pantalla. Pulsa Siguiente cuando esté listo o toca la opción marcada.',
+        wrongTap: 'Toca la opción resaltada para continuar con el recorrido.',
+        tapRequired: 'Toca la opción resaltada para avanzar. El botón Siguiente no aplica en este paso.',
+        stateTimeout: 'La pantalla no cambió como esperábamos. Intenta tocar de nuevo la opción marcada.',
+        finalTitle: '¡Recorrido completado!',
+        finalBody: 'Ya abriste el menú, entraste al módulo Flashcards, abriste el catálogo, elegiste categoría y subtema, y probaste los controles. ¡A practicar!',
+        steps: buildSteps('es'),
+    },
+    en: {
+        coach: 'Product Tour · Fluency',
+        routeLabel: 'Step',
+        back: 'Back',
+        finish: 'Start learning',
+        close: 'Close',
+        hint: 'Next',
+        next: 'Next',
+        waiting: 'Waiting for this component to appear on screen…',
+        elementMissing: 'This element is not on screen yet. Press Next when ready or tap the marked option.',
+        wrongTap: 'Tap the highlighted option to continue the tour.',
+        tapRequired: 'Tap the highlighted option to continue. The Next button does not apply on this step.',
+        stateTimeout: 'The screen did not change as expected. Try tapping a marked option again.',
+        finalTitle: 'Tour complete!',
+        finalBody: 'You opened the menu, entered the Flashcards module, opened the catalog, picked category and subtopic, and tried the controls. Time to practice!',
+        steps: buildSteps('en'),
+    },
+};
+
+export function applyStepPrep(step, { setIsSidebarOpen, setIsFloatingMenuOpen, setIsCatalogVisible }) {
+    if (!step?.prep) return;
+    setIsSidebarOpen(Boolean(step.prep.sidebar));
+    setIsFloatingMenuOpen(Boolean(step.prep.floatingMenu));
+    setIsCatalogVisible(Boolean(step.prep.catalog));
+}

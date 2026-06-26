@@ -32,7 +32,13 @@ export default function Header() {
     return (
         <header className={`app-header ${isSidebarOpen ? 'sidebar-open' : ''} ${isHeaderManualOpen ? 'manual-open' : ''}`}>
             <div className="header-left">
-                <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="hamburger-btn">
+                <button
+                    onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                    className="hamburger-btn"
+                    data-tour="menu-hamburguesa"
+                    aria-label={language === 'es' ? 'Abrir menú lateral' : 'Open side menu'}
+                    aria-expanded={isSidebarOpen}
+                >
                     <FaBars size={24} color="#ffffff" />
                 </button>
                 <AppLogo />

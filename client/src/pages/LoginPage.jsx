@@ -6,15 +6,31 @@ import './LoginPage.css';
 import config from '../config';
 import { getAuthenticatedHomePath } from '../modules';
 import { useAuth } from '../context/AuthContext';
+import { useUIContext } from '../context/UIContext';
 import { markDemoFeedbackReturn } from '../utils/demoFeedbackStorage';
+import { shouldShowOnboarding } from '../utils/onboardingStorage';
 import PageLoader from '../components/common/PageLoader';
 
 const GOOGLE_CLIENT_ID =
     import.meta.env.VITE_GOOGLE_CLIENT_ID ||
     '977952175712-i072hpkjgq51ualf0hlkgj4boa48f0mp.apps.googleusercontent.com';
 
+const LOGIN_LOADING_COPY = {
+    es: {
+        title: 'Validando acceso',
+        subtitle: 'Estamos preparando tu acceso.',
+        status: 'Verificando tu sesión...',
+    },
+    en: {
+        title: 'Validating access',
+        subtitle: 'We are preparing your access.',
+        status: 'Checking your session...',
+    },
+};
+
 const LoginPage = () => {
     const { login, isAuthenticated, loading } = useAuth();
+    const { language = 'en' } = useUIContext();
     const navigate = useNavigate();
     const location = useLocation();
     const googleBtnRef = useRef(null);
@@ -28,16 +44,24 @@ const LoginPage = () => {
             : (location.state?.from || defaultPath)),
         [demoFeedbackReturn, location.state?.from, defaultPath],
     );
-    const targetState = demoFeedbackReturn ? { demoFeedbackReturn: true } : undefined;
+    const locale = language === 'es' ? 'es' : 'en';
+    const loadingCopy = LOGIN_LOADING_COPY[locale];
+    const targetState = useMemo(
+        () => (demoFeedbackReturn ? { demoFeedbackReturn: true } : undefined),
+        [demoFeedbackReturn],
+    );
 
     useEffect(() => {
         callbackRef.current = async (response) => {
             try {
-                await login(response.credential);
+                const authData = await login(response.credential);
                 if (demoFeedbackReturn) {
                     markDemoFeedbackReturn();
                 }
-                navigate(targetPath, { replace: true, state: targetState });
+                const nextPath = shouldShowOnboarding(authData?.user)
+                    ? '/onboarding'
+                    : targetPath;
+                navigate(nextPath, { replace: true, state: nextPath === '/onboarding' ? undefined : targetState });
             } catch {
                 console.error('Login failed');
             }
@@ -126,9 +150,9 @@ const LoginPage = () => {
     if (loading) {
         return (
             <PageLoader
-                title="Validating access"
-                subtitle="We are preparing your access."
-                status="Checking your session..."
+                title={loadingCopy.title}
+                subtitle={loadingCopy.subtitle}
+                status={loadingCopy.status}
                 progress={56}
             />
         );

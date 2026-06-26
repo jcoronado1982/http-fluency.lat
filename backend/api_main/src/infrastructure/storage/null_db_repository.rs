@@ -1,7 +1,9 @@
 use crate::domain::models::story::{ProgressUpdate, StoryScreen, UserProgress};
 use crate::domain::models::subscription::Subscription;
 use crate::domain::models::user::User;
-use crate::domain::models::user_activity::{build_learning_stats, ClientInfo, LearningStats, UserActivityStats};
+use crate::domain::models::user_activity::{
+    build_learning_stats, ClientInfo, LearningStats, UserActivityStats,
+};
 use crate::domain::repositories::db_repository::{
     CardProgressRepository, PronounPracticeRepository, SubscriptionRepository,
     UserActivityRepository, UserRepository,
@@ -130,6 +132,16 @@ impl UserRepository for NullDbRepository {
     }
 
     async fn upsert_user(&self, _user: User) -> Result<User> {
+        Err(anyhow!(
+            "Autenticación no disponible: DB no configurada en este entorno"
+        ))
+    }
+
+    async fn set_onboarding_completed(
+        &self,
+        _email: &str,
+        _completed: bool,
+    ) -> Result<Option<User>> {
         Err(anyhow!(
             "Autenticación no disponible: DB no configurada en este entorno"
         ))

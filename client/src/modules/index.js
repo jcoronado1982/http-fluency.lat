@@ -80,6 +80,49 @@ export function getModuleNavSections(config, context) {
   });
 }
 
+function getOnboardingRegistry(language = 'en') {
+  const isEs = language === 'es';
+
+  return [
+    {
+      id: 'flashcards',
+      session: 'OnBoardingFlashcard',
+      enabled: (config) => config.features.flashcards,
+      path: (config) => (isDefaultHomeModule('flashcards', config) ? '/' : '/flashcard'),
+      name: isEs ? 'Flashcards' : 'Flashcards',
+      description: isEs
+        ? 'Configura tu experiencia inicial de vocabulario, mazos y estudio.'
+        : 'Set up your initial vocabulary, deck, and study experience.',
+    },
+    // Futuro:
+    // {
+    //   id: 'pronoun',
+    //   enabled: (config, user) => config.features.pronounPractice && userHasModule(user, 'pronoun'),
+    //   path: () => '/pronoun-practice',
+    //   name: 'Pronouns',
+    //   description: '...'
+    // }
+  ];
+}
+
+export function getOnboardingModules(config, context = {}) {
+  const { language = 'en', user = null } = context;
+
+  return getOnboardingRegistry(language)
+    .filter((entry) => {
+      if (typeof entry.enabled === 'function') return entry.enabled(config, user);
+      return entry.enabled !== false;
+    })
+    .map((entry) => ({
+      id: entry.id,
+      moduleId: entry.id,
+      session: entry.session || null,
+      name: entry.name,
+      description: entry.description,
+      to: typeof entry.path === 'function' ? entry.path(config, user) : entry.path,
+    }));
+}
+
 export function getModuleOverlays(config) {
   return getEnabledModules(config).flatMap((module) => {
     if (typeof module.overlays !== 'function') return [];

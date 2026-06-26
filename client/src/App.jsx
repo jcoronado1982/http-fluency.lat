@@ -6,6 +6,7 @@ import './App.css';
 import GrammarPage from './pages/GrammarPage';
 import TestPage from './pages/TestPage';
 import LoginPage from './pages/LoginPage';
+import OnboardingPage from './pages/OnboardingPage';
 import AdminPage from './pages/AdminPage';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import AdminRoute from './components/common/AdminRoute';
@@ -87,6 +88,7 @@ function AppContent() {
       </Route>
 
       <Route element={<AppShellComponent />}>
+        <Route path="/onboarding" element={<ProtectedRoute><OnboardingPage /></ProtectedRoute>} />
         {appRoutes.map((route) => (
           <Route key={route.path} path={route.path} element={route.element} />
         ))}

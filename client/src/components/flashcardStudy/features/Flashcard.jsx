@@ -25,6 +25,7 @@ function Flashcard() {
         isFloatingMenuOpen,
         isSidebarOpen,
         language = 'en',
+        studyLanguage = 'en',
     } = useUIContext();
     const {
         setIsAudioLoading,
@@ -106,15 +107,15 @@ function Flashcard() {
         const title = getCardTitle({
             name: cardData.name,
             definitions: cardData.definitions || [],
-        }, language);
-        const audioLang = getAudioLang(language);
+        }, studyLanguage);
+        const audioLang = getAudioLang(studyLanguage);
 
         if (title) void prefetchAudio(title, audioLang);
         defs.forEach((def) => {
-            const exampleText = language === 'es' ? def.usage_example : def.usage_example_es;
+            const exampleText = studyLanguage === 'es' ? def.usage_example : def.usage_example_es;
             if (exampleText) void prefetchAudio(exampleText, audioLang);
         });
-    }, [cardData, language, isAnyOverlayOpen, prefetchAudio]);
+    }, [cardData, studyLanguage, isAnyOverlayOpen, prefetchAudio]);
 
     useEffect(() => {
         if (!cardData) return;
@@ -132,12 +133,12 @@ function Flashcard() {
             const title = getCardTitle({
                 name: cardData.name,
                 definitions: cardData.definitions || [],
-            }, language);
+            }, studyLanguage);
             if (title && !isAnyOverlayOpen) {
-                void playAudio(title, getAudioLang(language));
+                void playAudio(title, getAudioLang(studyLanguage));
             }
         }
-    }, [cardData, setAppMessage, prevCardId, stopAudio, playAudio, language, isAnyOverlayOpen]);
+    }, [cardData, setAppMessage, prevCardId, stopAudio, playAudio, studyLanguage, isAnyOverlayOpen]);
 
     useEffect(() => {
         if (!cardData?.irregular) return;
@@ -163,8 +164,16 @@ function Flashcard() {
     if (!cardData) return <div className={styles.flashcardContainer}>Cargando datos...</div>;
 
     return (
-        <div className={styles.flashcardContainer}>
-            <div className={`${styles.card} ${isFlipped ? styles.flipped : ''}`} onClick={() => setIsFlipped(p => !p)}>
+        <div className={styles.flashcardContainer} data-tour="flashcard-contenedor">
+            <div
+                className={`${styles.card} ${isFlipped ? styles.flipped : ''}`}
+                onClick={() => setIsFlipped(p => !p)}
+                data-tour="boton-voltear-tarjeta"
+                data-flipped={isFlipped ? 'true' : 'false'}
+                role="button"
+                aria-pressed={isFlipped}
+                aria-label={studyLanguage === 'es' ? 'Voltear tarjeta' : 'Flip card'}
+            >
 
 
                 <CardFront
@@ -189,12 +198,12 @@ function Flashcard() {
                     canDeleteImages={canDeleteImages}
                     deleteAudio={deleteAudio}
                     isGeneratingAudio={isGeneratingAudio}
-                    currentLanguage={language}
+                    currentLanguage={studyLanguage}
                 />
                 <CardBack
                     cardData={cardData}
                     activeForm={activeForm}
-                    currentLanguage={language}
+                    currentLanguage={studyLanguage}
                 />
             </div>
         </div>

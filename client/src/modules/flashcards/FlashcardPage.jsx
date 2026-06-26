@@ -89,6 +89,7 @@ const FLASHCARD_LOADING_COPY = {
 
 export default function FlashcardPage() {
     const location = useLocation();
+    const isOnboardingTour = new URLSearchParams(location.search).get('onboarding_tour') === 'flashcards';
     const {
         isCatalogVisible,
         setIsCatalogVisible,
@@ -184,9 +185,9 @@ export default function FlashcardPage() {
     }, [activeLoadingStage, loadingCopy, reset, setCurrentTask, setProgress]);
 
     useEffect(() => {
-        setIsHeaderSuppressed(shouldShowLoading);
+        setIsHeaderSuppressed(shouldShowLoading && !isOnboardingTour);
         return () => setIsHeaderSuppressed(false);
-    }, [shouldShowLoading, setIsHeaderSuppressed]);
+    }, [shouldShowLoading, isOnboardingTour, setIsHeaderSuppressed]);
 
     const handleContinueRecommendation = useCallback(() => {
         if (!recommendation) {

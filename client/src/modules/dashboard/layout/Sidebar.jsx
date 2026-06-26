@@ -16,11 +16,19 @@ export default function Sidebar() {
     
     const t = translations[language].sidebar;
     const moduleNavSections = getModuleNavSections(config, { language, isAdmin });
+    const isOnboardingTour = new URLSearchParams(location.search).get('onboarding_tour') === 'flashcards';
+
+    const resolveTo = (to) => {
+        if (!isOnboardingTour) return to;
+        const separator = to.includes('?') ? '&' : '?';
+        return `${to}${separator}onboarding_tour=flashcards`;
+    };
 
     const goTo = (to) => (event) => {
         event.preventDefault();
-        if (location.pathname !== to) {
-            navigate(to);
+        const target = resolveTo(to);
+        if (`${location.pathname}${location.search}` !== target) {
+            navigate(target);
         }
     };
 
@@ -35,9 +43,10 @@ export default function Sidebar() {
                             {section.items.map((item) => (
                                 <li key={item.id}>
                                     <a
-                                        href={item.to}
+                                        href={resolveTo(item.to)}
                                         onClick={goTo(item.to)}
                                         className={`nav-link ${location.pathname === item.to ? 'active' : ''}`}
+                                        data-tour={item.id === 'flashcards' ? 'flashcards-nav' : undefined}
                                     >
                                         <span className={`sidebarIcon ${item.color}`}>{item.icon}</span>
                                         <span className="optionText">

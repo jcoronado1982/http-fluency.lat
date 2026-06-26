@@ -6,12 +6,17 @@ use axum::{
     response::IntoResponse,
     Json,
 };
-use serde::Deserialize;
 use mod_shell::auth::AuthUseCases;
+use serde::Deserialize;
 
 #[derive(Deserialize)]
 pub struct GoogleLoginRequest {
     pub id_token: String,
+}
+
+#[derive(Deserialize)]
+pub struct UpdateOnboardingRequest {
+    pub completed: bool,
 }
 
 /// POST /api/auth/dev-guest — solo desarrollo; emite JWT válido para pruebas locales.
@@ -73,13 +78,47 @@ pub async fn get_me(
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
     let claims = extract_claims(&state, &headers)?;
     let effective_role = resolve_effective_role(&state, &claims).await;
+    let user = state
+        .auth_use_cases
+        .get_user_profile(&claims.email)
+        .await
+        .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
+    let onboarding_completed = user
+        .as_ref()
+        .map(|u| u.onboarding_completed)
+        .unwrap_or(false);
 
     Ok(Json(serde_json::json!({
         "email": claims.email,
         "name": claims.name,
         "jwt_role": claims.role,
         "effective_role": effective_role,
+        "onboarding_completed": onboarding_completed,
         "is_admin": AuthUseCases::is_admin_role(&effective_role),
         "is_premium": AuthUseCases::is_premium_role(&effective_role),
     })))
+}
+
+pub async fn update_onboarding(
+    State(state): State<AppState>,
+    headers: HeaderMap,
+    Json(payload): Json<UpdateOnboardingRequest>,
+) -> Result<impl IntoResponse, (StatusCode, String)> {
+    let claims = extract_claims(&state, &headers)?;
+    let user = state
+        .auth_use_cases
+        .set_onboarding_completed(&claims.email, payload.completed)
+        .await
+        .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
+
+    match user {
+        Some(user) => Ok((
+            StatusCode::OK,
+            Json(serde_json::json!({
+                "success": true,
+                "user": user
+            })),
+        )),
+        None => Err((StatusCode::NOT_FOUND, "User not found".to_string())),
+    }
 }

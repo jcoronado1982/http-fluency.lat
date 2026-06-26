@@ -1,0 +1,680 @@
+.page {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 40px 24px 64px;
+    color: #e2e8f0;
+    font-family: var(--font-family-body);
+}
+
+.eyebrow {
+    margin: 0 0 14px;
+    color: #93c5fd;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    padding: 30px 30px 28px;
+    border-radius: 28px;
+    border: 1px solid rgba(125, 119, 221, 0.32);
+    background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.14), transparent 32%),
+        radial-gradient(circle at 84% 14%, rgba(244, 114, 182, 0.16), transparent 24%),
+        linear-gradient(180deg, rgba(18, 30, 56, 0.96), rgba(10, 19, 43, 0.98));
+    box-shadow:
+        0 24px 70px rgba(2, 8, 23, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), transparent 42%);
+    pointer-events: none;
+}
+
+.hero > * {
+    position: relative;
+    z-index: 1;
+}
+
+.title {
+    margin: 0;
+    color: #f8fafc;
+    font-family: var(--font-family-display);
+    font-size: clamp(2.1rem, 4vw, 3.4rem);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+}
+
+.subtitle {
+    max-width: 640px;
+    margin: 14px 0 0;
+    color: #cbd5e1;
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+.tourHint {
+    max-width: 640px;
+    margin: 10px 0 0;
+    color: #93c5fd;
+    font-size: 0.92rem;
+    line-height: 1.55;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 28px;
+}
+
+.optionCard {
+    position: relative;
+    overflow: hidden;
+    min-height: 166px;
+    padding: 24px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+    color: #f8fafc;
+    text-align: left;
+    cursor: pointer;
+    transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        background 180ms ease;
+}
+
+.optionCard:hover {
+    transform: translateY(-2px);
+    border-color: rgba(125, 211, 252, 0.42);
+    box-shadow: 0 18px 44px rgba(15, 23, 42, 0.26);
+}
+
+.optionCardSelected {
+    border-color: rgba(250, 204, 21, 0.75);
+    background:
+        radial-gradient(circle at top right, rgba(250, 204, 21, 0.18), transparent 28%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.05));
+    box-shadow:
+        0 0 0 1px rgba(250, 204, 21, 0.22) inset,
+        0 22px 52px rgba(15, 23, 42, 0.32);
+}
+
+.optionFlag {
+    display: block;
+    margin-bottom: 14px;
+    font-size: 2.1rem;
+}
+
+.optionTitle {
+    margin: 0;
+    font-size: 1.45rem;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.optionDescription {
+    margin: 10px 0 0;
+    color: #cbd5e1;
+    font-size: 0.96rem;
+    line-height: 1.55;
+}
+
+.pillList {
+    display: grid;
+    gap: 14px;
+    margin-top: 28px;
+}
+
+.pillButton {
+    padding: 18px 20px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #e2e8f0;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+}
+
+.pillButton:hover {
+    transform: translateY(-1px);
+    border-color: rgba(125, 211, 252, 0.4);
+}
+
+.pillButtonSelected {
+    border-color: rgba(34, 197, 94, 0.52);
+    background: rgba(34, 197, 94, 0.12);
+    color: #f8fafc;
+}
+
+.pointsList {
+    display: grid;
+    gap: 16px;
+    margin-top: 28px;
+}
+
+.tourScene {
+    display: grid;
+    gap: 18px;
+    margin-top: 28px;
+}
+
+.tourCommand {
+    padding: 20px 22px;
+    border: 1px solid rgba(250, 204, 21, 0.24);
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at top right, rgba(250, 204, 21, 0.12), transparent 30%),
+        linear-gradient(180deg, rgba(249, 115, 22, 0.08), rgba(15, 23, 42, 0.16));
+}
+
+.tourCommandLabel {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #fde68a;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.tourCommandTitle {
+    margin: 0;
+    color: #fff7ed;
+    font-size: 1.32rem;
+    font-weight: 800;
+}
+
+.tourCommandText {
+    margin: 8px 0 0;
+    color: #fed7aa;
+    line-height: 1.6;
+}
+
+.coachCard {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 14px;
+    align-items: start;
+    padding: 18px 18px 16px;
+    border: 1px solid rgba(125, 211, 252, 0.22);
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(56, 189, 248, 0.08), rgba(125, 119, 221, 0.08));
+}
+
+.coachAvatar {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    background: rgba(15, 23, 42, 0.38);
+    font-size: 1.8rem;
+}
+
+.coachLabel {
+    margin: 0 0 6px;
+    color: #93c5fd;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.coachText {
+    margin: 0;
+    color: #dbeafe;
+    line-height: 1.6;
+}
+
+.tourGrid {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 18px;
+}
+
+.tourSidebar,
+.tourContent {
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.035));
+}
+
+.tourSidebar {
+    padding: 20px 16px;
+}
+
+.tourContent {
+    padding: 20px;
+}
+
+.routeBar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.routeStep {
+    padding: 7px 12px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.26);
+    color: #94a3b8;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.routeStepActive {
+    border-color: rgba(56, 189, 248, 0.38);
+    background: rgba(56, 189, 248, 0.14);
+    color: #e0f2fe;
+}
+
+.tourSectionLabel {
+    margin: 0 0 14px;
+    color: #f8fafc;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.tourNavItem {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    color: #cbd5e1;
+}
+
+.tourNavItem + .tourNavItem {
+    margin-top: 10px;
+}
+
+.tourNavItem strong,
+.tourNavItem span {
+    display: block;
+}
+
+.tourNavItem strong {
+    color: #f8fafc;
+    font-size: 0.98rem;
+}
+
+.tourNavItem span {
+    color: #94a3b8;
+    font-size: 0.88rem;
+}
+
+.tourNavItemActive {
+    border-color: rgba(250, 204, 21, 0.38);
+    background: rgba(250, 204, 21, 0.08);
+    box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.12) inset;
+}
+
+.tourNavIcon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: rgba(125, 119, 221, 0.16);
+    font-size: 1.25rem;
+}
+
+.catalogPanel {
+    margin-bottom: 16px;
+    padding: 16px;
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 18px;
+    background: rgba(15, 23, 42, 0.24);
+}
+
+.catalogPanelHeader {
+    margin-bottom: 14px;
+}
+
+.catalogHint {
+    margin: 6px 0 0;
+    color: #94a3b8;
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+.categoryCards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.categoryCard {
+    display: grid;
+    gap: 6px;
+    padding: 14px;
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.categoryCard strong {
+    color: #f8fafc;
+    font-size: 0.95rem;
+}
+
+.categoryCard span {
+    color: #94a3b8;
+    font-size: 0.84rem;
+    line-height: 1.5;
+}
+
+.categoryCardActive {
+    border-color: rgba(250, 204, 21, 0.38);
+    background: rgba(250, 204, 21, 0.08);
+    box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.12) inset;
+}
+
+.lessonCard {
+    padding: 16px;
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 18px;
+    background: rgba(15, 23, 42, 0.24);
+}
+
+.lessonCardActive {
+    border-color: rgba(56, 189, 248, 0.42);
+    box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.14) inset;
+}
+
+.lessonLabel {
+    margin: 0 0 10px;
+    color: #93c5fd;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.topicPanelTitle {
+    margin: 0;
+    color: #f8fafc;
+    font-size: 1.08rem;
+    font-weight: 700;
+}
+
+.topicPanelBody {
+    margin: 8px 0 12px;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+.lessonChips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.lessonChip {
+    padding: 7px 11px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #e2e8f0;
+    font-size: 0.86rem;
+    font-weight: 600;
+}
+
+.lessonChipAccent {
+    border-color: rgba(250, 204, 21, 0.42);
+    background: rgba(250, 204, 21, 0.12);
+    color: #fef3c7;
+}
+
+.lessonChipFocus {
+    border-color: rgba(34, 197, 94, 0.42);
+    background: rgba(34, 197, 94, 0.12);
+    color: #dcfce7;
+}
+
+.flashcardDemo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.flashcardDemoActive {
+    filter: drop-shadow(0 0 18px rgba(250, 204, 21, 0.18));
+}
+
+.flashcardFace,
+.flashcardFaceBack {
+    min-height: 170px;
+    padding: 18px;
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+}
+
+.flashcardFaceBack {
+    background: linear-gradient(180deg, rgba(56, 189, 248, 0.08), rgba(125, 119, 221, 0.06));
+}
+
+.flashcardLabel {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #93c5fd;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.flashcardWord,
+.flashcardMeaning {
+    display: block;
+    color: #f8fafc;
+    font-family: var(--font-family-display);
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.flashcardMeaning {
+    font-size: 1.25rem;
+}
+
+.flashcardHint {
+    display: block;
+    margin-top: 14px;
+    color: #cbd5e1;
+    font-size: 0.92rem;
+}
+
+.tourControls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 14px;
+    color: #94a3b8;
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.tourStep {
+    display: grid;
+    grid-template-columns: 54px 1fr;
+    gap: 14px;
+    align-items: start;
+    padding: 18px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.tourStepNumber {
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    color: #fff7ed;
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.tourStepTitle {
+    margin: 0 0 6px;
+    color: #f8fafc;
+    font-size: 1.08rem;
+    font-weight: 700;
+}
+
+.tourStepText {
+    margin: 0;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+.pointCard {
+    padding: 20px 22px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.035));
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.18);
+}
+
+.pointIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    margin-bottom: 12px;
+    border-radius: 14px;
+    background: rgba(125, 119, 221, 0.16);
+    font-size: 1.45rem;
+}
+
+.pointTitle {
+    margin: 0 0 8px;
+    color: #f8fafc;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.pointDescription {
+    margin: 0;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+.summary {
+    margin-top: 28px;
+    padding: 24px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+}
+
+.summaryTitle {
+    margin: 0 0 12px;
+    color: #f8fafc;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.summaryText {
+    margin: 0 0 8px;
+    color: #cbd5e1;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+}
+
+.button {
+    min-height: 46px;
+    padding: 0 20px;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+}
+
+.button:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.buttonPrimary {
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    color: #fff7ed;
+    box-shadow: 0 10px 24px rgba(249, 115, 22, 0.28);
+}
+
+.buttonSecondary {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(148, 163, 184, 0.24);
+    color: #e2e8f0;
+}
+
+.emptyState {
+    max-width: 640px;
+    margin: 28px auto 0;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+@media (max-width: 760px) {
+    .page {
+        padding: 28px 18px 56px;
+    }
+
+    .hero {
+        padding: 24px 20px 22px;
+        border-radius: 24px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tourGrid,
+    .flashcardDemo {
+        grid-template-columns: 1fr;
+    }
+
+    .categoryCards {
+        grid-template-columns: 1fr;
+    }
+
+    .title {
+        font-size: 2.2rem;
+    }
+}

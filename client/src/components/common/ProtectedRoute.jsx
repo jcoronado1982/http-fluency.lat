@@ -50,11 +50,13 @@ const LOADING_COPY = {
 };
 
 const ProtectedRoute = ({ children }) => {
-    const { isAuthenticated, loading, loadingStage } = useAuth();
+    const { isAuthenticated, loading, loadingStage, onboardingRequired } = useAuth();
     const location = useLocation();
     const { language = 'en' } = useUIContext();
     const locale = language === 'es' ? 'es' : 'en';
     const copy = LOADING_COPY[locale][loadingStage] ?? LOADING_COPY[locale].fallback;
+    const searchParams = new URLSearchParams(location.search);
+    const isOnboardingTour = searchParams.get('onboarding_tour') === 'flashcards';
 
     if (loading) {
         return (
@@ -76,6 +78,10 @@ const ProtectedRoute = ({ children }) => {
                 state={entryPath === '/login' ? { from: location.pathname } : undefined}
             />
         );
+    }
+
+    if (onboardingRequired && location.pathname !== '/onboarding' && !isOnboardingTour) {
+        return <Navigate to="/onboarding" replace />;
     }
 
     return children;

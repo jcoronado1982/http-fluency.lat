@@ -64,7 +64,9 @@ const FloatingMenu = () => {
             <button
                 className="floatingMainButton"
                 onClick={() => { setIsOpen(!isOpen); setShowPronun(false); }}
-                aria-label="Menú"
+                aria-label="Menú de estudio"
+                aria-expanded={isOpen}
+                data-tour="menu-estudio"
             >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
                     <circle cx="12" cy="5" r="2" />
@@ -82,7 +84,11 @@ const FloatingMenu = () => {
                                 {item.sectionLabel && (index === 0 || moduleFloatingItems[index - 1]?.sectionLabel !== item.sectionLabel) && (
                                     <span className="menuSectionLabel">{item.sectionLabel}</span>
                                 )}
-                                <button className="floatingOption" onClick={item.onClick}>
+                                <button
+                                    className="floatingOption"
+                                    onClick={item.onClick}
+                                    data-tour={item.id === 'flashcards-categories' ? 'catalogo-categorias' : undefined}
+                                >
                                     <span className={`optionIcon ${item.iconColor}`}>{item.icon}</span>
                                     <span className="optionText">
                                         <span className="optionName">{item.name}</span>

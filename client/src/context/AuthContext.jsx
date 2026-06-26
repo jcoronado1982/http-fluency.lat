@@ -5,6 +5,7 @@ import { getPublicEntryPathForConfig } from '../modules';
 import { authRepository } from '../repositories/AuthRepository';
 import { httpClient } from '../services/httpClient';
 import { usePresence } from '../hooks/usePresence';
+import { shouldShowOnboarding } from '../utils/onboardingStorage';
 
 const AuthContext = createContext();
 
@@ -18,6 +19,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [loadingStage, setLoadingStage] = useState('restoring_session');
+    const onboardingRequired = shouldShowOnboarding(user);
 
     useEffect(() => {
         const authData = authRepository.getAuthData();
@@ -33,8 +35,15 @@ export const AuthProvider = ({ children }) => {
         // Sincronizar rol con el servidor (localStorage puede decir "admin" con JWT viejo "viewer").
         httpClient.get('/api/auth/me')
             .then((me) => {
-                if (me.effective_role && me.effective_role !== authData.user.role) {
-                    const updatedUser = { ...authData.user, role: me.effective_role };
+                const nextUser = {
+                    ...authData.user,
+                    role: me.effective_role || authData.user.role,
+                    onboarding_completed: me.onboarding_completed === true,
+                };
+                const roleChanged = nextUser.role !== authData.user.role;
+                const onboardingChanged = nextUser.onboarding_completed !== authData.user.onboarding_completed;
+                if (roleChanged || onboardingChanged) {
+                    const updatedUser = nextUser;
                     authRepository.saveAuthData({ ...authData, user: updatedUser });
                     setUser(updatedUser);
                 }
@@ -78,6 +87,17 @@ export const AuthProvider = ({ children }) => {
         navigate(getPublicEntryPathForConfig(config), { replace: true });
     };
 
+    const completeOnboarding = async () => {
+        if (!user?.email) return;
+        const response = await httpClient.post('/api/auth/onboarding', { completed: true });
+        if (!response?.user) return;
+        const authData = authRepository.getAuthData();
+        if (authData?.token) {
+            authRepository.saveAuthData({ token: authData.token, user: response.user });
+        }
+        setUser(response.user);
+    };
+
     const role = user?.role ?? 'viewer';
     const isPremium = role === 'premium' || role === 'admin';
     const isAdmin = role === 'admin';
@@ -94,6 +114,9 @@ export const AuthProvider = ({ children }) => {
         isPremium,
         isAdmin,
         canCustomizeImages: isPremium,
+        onboardingRequired,
+        completeOnboarding,
+        shouldShowOnboarding,
     };
 
     return (

@@ -9,6 +9,7 @@ use async_trait::async_trait;
 pub trait UserRepository: Send + Sync {
     async fn get_user_by_email(&self, email: &str) -> Result<Option<User>>;
     async fn upsert_user(&self, user: User) -> Result<User>;
+    async fn set_onboarding_completed(&self, email: &str, completed: bool) -> Result<Option<User>>;
     async fn list_all_users(&self) -> Result<Vec<User>>;
 }
 
@@ -26,7 +27,12 @@ pub trait UserActivityRepository: Send + Sync {
         country: Option<&str>,
     ) -> Result<()>;
     async fn record_study_day(&self, email: &str) -> Result<()>;
-    async fn get_learning_stats(&self, email: &str, mastered_count: i32, target_count: i32) -> Result<LearningStats>;
+    async fn get_learning_stats(
+        &self,
+        email: &str,
+        mastered_count: i32,
+        target_count: i32,
+    ) -> Result<LearningStats>;
 }
 
 #[async_trait]
