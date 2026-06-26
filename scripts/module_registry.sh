@@ -186,7 +186,11 @@ EOF
       cat <<'EOF'
 backend/mod_flashcards
 client/src/modules/flashcards
+client/src/modules/landing
+client/src/modules/dashboard
 json
+card_images
+card_audio
 EOF
       ;;
     pronoun)
@@ -231,7 +235,11 @@ module_disk_paths() {
       printf '%s\n' \
         backend/mod_flashcards \
         client/src/modules/flashcards \
-        json
+        client/src/modules/landing \
+        client/src/modules/dashboard \
+        json \
+        card_images \
+        card_audio
       ;;
     pronoun)
       printf '%s\n' \
