@@ -80,7 +80,7 @@ sparse_git_rm_inactive_modules() {
       [[ -z "$path" ]] && continue
       if git ls-files -- "$path" | grep -q .; then
         echo "Git rm (fuera de perfil): $path"
-        git rm -rf -- "$path"
+        git rm -rf --sparse -- "$path"
       fi
     done < <(module_disk_paths "$module")
   done
