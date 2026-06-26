@@ -1,4 +1,3 @@
-#[cfg(feature = "flashcards")]
 pub mod assets;
 #[cfg(feature = "flashcards")]
 pub mod decks;

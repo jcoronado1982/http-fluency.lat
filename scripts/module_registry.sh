@@ -135,6 +135,7 @@ client/src/App.css
 client/src/App.jsx
 client/src/assets
 client/src/components/common
+client/src/components/routing
 client/src/components/flashcardStudy
 client/src/components/shell
 client/src/adapters
@@ -192,6 +193,8 @@ EOF
       cat <<'EOF'
 backend/mod_pronoun
 client/src/modules/pronounPractice
+infra/seed
+infra/proxy/seed-pronoun-practice.sh
 EOF
       ;;
     admin)
@@ -233,7 +236,9 @@ module_disk_paths() {
     pronoun)
       printf '%s\n' \
         backend/mod_pronoun \
-        client/src/modules/pronounPractice
+        client/src/modules/pronounPractice \
+        infra/seed \
+        infra/proxy/seed-pronoun-practice.sh
       ;;
     *) return 1 ;;
   esac

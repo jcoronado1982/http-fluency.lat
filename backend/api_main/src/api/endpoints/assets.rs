@@ -25,8 +25,8 @@ pub async fn redirect_images(
 
     let blob_path = format!("{}/{}", state.settings.gcs_images_prefix, avif_path);
 
-    // 1. Servir bytes (local u Oracle vía download_blob en el servidor)
-    if let Ok(bytes) = state.image_use_cases.download_blob(&blob_path).await {
+    // 1. Servir bytes (local u Oracle vía StorageRepository del shell)
+    if let Ok(bytes) = state.storage_repo.download_blob(&blob_path).await {
         return ([(header::CONTENT_TYPE, "image/avif")], bytes).into_response();
     }
 
@@ -98,7 +98,7 @@ pub async fn redirect_audio(
         }
     }
 
-    match state.audio_use_cases.download_blob(&blob_path).await {
+    match state.storage_repo.download_blob(&blob_path).await {
         Ok(bytes) => (
             [
                 (
