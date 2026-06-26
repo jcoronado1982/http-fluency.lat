@@ -323,6 +323,10 @@ export function useImageGeneration({
 
     const runEnsurePipeline = useCallback(async (defIndex, { forceRegenerate = false, formOverride } = {}) => {
         const pipelineForm = formOverride ?? activeFormRef.current;
+        // Sincronizar ref antes de async: setActiveForm y ensureImageForForm van en la misma tick.
+        if (formOverride) {
+            activeFormRef.current = formOverride;
+        }
         const seq = ++loadSeqRef.current;
         const isStale = () => loadSeqRef.current !== seq;
 
@@ -432,6 +436,10 @@ export function useImageGeneration({
         if (!forceRegenerate) {
             // Si la tarjeta ya trae imagePath, pintamos directo sin esperar roundtrip extra.
             if (tryImmediateJsonPath(pipelineForm)) return;
+            // Con auth: resolver v2/v3 en Oracle antes de reutilizar imagePath v1 del JSON.
+            if (!isLandingDemo && isAuthenticated && pipelineForm !== 'v1') {
+                if (await tryResolveForm(pipelineForm)) return;
+            }
             // App interna: v2/v3 pueden reutilizar imagen v1. Demo landing: cada tiempo es independiente.
             if (!isLandingDemo && pipelineForm !== 'v1' && tryImmediateJsonPath('v1')) return;
 
@@ -565,7 +573,7 @@ export function useImageGeneration({
         if (authLoading || !cardData || !currentCategory) return;
         ensureImageForDefinition(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [authLoading, cardData?.id, currentCategory, currentDeckName]);
+    }, [authLoading, cardData?.id, currentCategory, currentDeckName, activeForm]);
 
     const prevApplySignalRef = useRef(0);
     useEffect(() => {
