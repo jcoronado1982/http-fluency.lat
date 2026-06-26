@@ -119,6 +119,7 @@ docs/GIT_BRANCHES.md
 docs/GIT_SPARSE_WORKFLOW.md
 modules
 scripts
+.branch-profile
 backend/Cargo.toml
 backend/Cargo.lock
 backend/api_main
@@ -138,6 +139,7 @@ client/src/components/flashcardStudy
 client/src/components/shell
 client/src/adapters
 client/src/config
+client/env-profiles
 client/src/context/AppContext.jsx
 client/src/context/AuthContext.jsx
 client/src/context/UIContext.jsx
