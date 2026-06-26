@@ -1569,6 +1569,7 @@
         min-height: 0 !important;
         font-size: clamp(1.75rem, 6.6vw, 2.15rem) !important;
         text-align: center !important;
+        padding: 10px 0 !important;
     }
 
     :global([data-landing-demo]) .nameContainer {
