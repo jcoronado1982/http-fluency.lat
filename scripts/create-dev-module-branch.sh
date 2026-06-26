@@ -24,7 +24,7 @@ Crea la rama dev-* pareada al perfil sparse y commitea:
 
 Ramas resultantes:
   admin      → dev-admin      (solo shell + admin/auth)
-  flashcards → dev-flashcards (shell + admin + flashcards)
+  flashcards → dev-flashcards (shell + landing + dashboard + flashcards)
   pronoun    → dev-pronoun    (shell + admin + pronoun)
 
 No toca dev-full. Ejecutar primero desde temp/setup-module-branches.
@@ -38,7 +38,7 @@ case "$PROFILE" in
     ;;
   flashcards)
     BRANCH="dev-flashcards"
-    MODULES=(flashcards)
+    MODULES=(landing dashboard flashcards)
     ;;
   pronoun)
     BRANCH="dev-pronoun"
