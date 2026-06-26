@@ -7,3 +7,5 @@ cargo_build=cargo build -p api_main --no-default-features --features auth,flashc
 frontend_flags=VITE_ENABLE_FLASHCARDS=true
 env_profile=client/env-profiles/flashcards.profile
 apply_env=cp client/env-profiles/flashcards.profile client/.env.development
+start_dev=./scripts/start-branch-dev.sh dev-flashcards
+oracle_note=SYNC_TO_ORACLE desde .env si hay Docker (igual dev-full)
