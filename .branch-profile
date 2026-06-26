@@ -1,0 +1,9 @@
+# Perfil de rama — no editar a mano; regenerar con create-dev-module-branch.sh
+branch=dev-flashcards
+profile=flashcards
+modules=flashcards
+sparse_command=./scripts/sparse-module.sh flashcards
+cargo_build=cargo build -p api_main --no-default-features --features auth,flashcards
+frontend_flags=VITE_ENABLE_FLASHCARDS=true
+env_profile=client/env-profiles/flashcards.profile
+apply_env=cp client/env-profiles/flashcards.profile client/.env.development
