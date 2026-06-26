@@ -184,6 +184,8 @@ EOF
 backend/mod_flashcards
 client/src/modules/flashcards
 json
+card_images
+card_audio
 EOF
       ;;
     pronoun)
@@ -226,7 +228,9 @@ module_disk_paths() {
       printf '%s\n' \
         backend/mod_flashcards \
         client/src/modules/flashcards \
-        json
+        json \
+        card_images \
+        card_audio
       ;;
     pronoun)
       printf '%s\n' \
