@@ -464,6 +464,8 @@ export function useImageGeneration({
                     if (await tryVerifyPath(v1Path, 'v1')) return;
                 }
             } else {
+                // Demo landing: resolve en servidor (Oracle/local) antes del preload en navegador
+                if (await tryResolveForm(pipelineForm)) return;
                 const ownPath = buildGlobalFallbackPath(defIndex, pipelineForm);
                 if (await tryVerifyPath(ownPath, pipelineForm)) return;
             }
@@ -594,6 +596,28 @@ export function useImageGeneration({
     }, [imagePromptApplySignal, currentCategory, authLoading, cardData?.id]);
 
     useEffect(() => () => clearGeneratingUiTimer(), [clearGeneratingUiTimer]);
+
+    // Demo landing: reintentar si el backend aún no estaba listo al montar
+    useEffect(() => {
+        if (!isLandingDemo || authLoading || !cardData || !currentCategory) return undefined;
+        if (imageUrlRef.current || isImageLoading || isGeneratingImage) return undefined;
+
+        const timer = setTimeout(() => {
+            if (!imageUrlRef.current && !isTransitioningRef.current) {
+                ensureImageForDefinition(currentDefIndexRef.current);
+            }
+        }, 4000);
+
+        return () => clearTimeout(timer);
+    }, [
+        isLandingDemo,
+        authLoading,
+        cardData,
+        currentCategory,
+        isImageLoading,
+        isGeneratingImage,
+        ensureImageForDefinition,
+    ]);
 
     const deleteImage = useCallback(async () => {
         const activeDefs = getActiveDefinitions();

@@ -7,7 +7,7 @@ import { FiCpu } from 'react-icons/fi';
  * ImageViewer — responsable ÚNICAMENTE de la visualización y controles de imagen.
  * SRP: no conoce lógica de formas verbales ni audio.
  */
-function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl, imageRef, altText, onDelete, onUploadClick, onImageError, canCustomizeImages, canDeleteImages = canCustomizeImages, isDisabled, imageKey }) {
+function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl, imageRef, altText, onDelete, onUploadClick, onImageError, canCustomizeImages, canDeleteImages = canCustomizeImages, isDisabled, imageKey, isLandingDemo = false }) {
     const isProcessActive = isImageLoading || isUploading;
     const [isDecoding, setIsDecoding] = useState(true);
     const activeUrlRef = useRef(imageUrl);
@@ -125,7 +125,7 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
                         objectFit: 'cover' // Asegura que cubra el placeholder
                     }}
                 />
-            ) : !isProcessActive && (
+            ) : !isProcessActive && !isLandingDemo && (
                 <img
                     src="https://placehold.co/600x400/e9ecef/6c757d?text=No+Image"
                     alt="Image not available"
