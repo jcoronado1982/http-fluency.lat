@@ -68,6 +68,25 @@ fi
 
 "$ROOT/scripts/sparse-module.sh" "${MODULES[@]}"
 
+# sparse-checkout oculta archivos en disco pero no los saca del índice Git
+sparse_git_rm_inactive_modules() {
+  local active=("$@")
+  local module path
+  for module in flashcards pronoun; do
+    if module_selected_contains "$module" "${active[@]}"; then
+      continue
+    fi
+    while IFS= read -r path; do
+      [[ -z "$path" ]] && continue
+      if git ls-files -- "$path" | grep -q .; then
+        echo "Git rm (fuera de perfil): $path"
+        git rm -rf -- "$path"
+      fi
+    done < <(module_disk_paths "$module")
+  done
+}
+sparse_git_rm_inactive_modules "${MODULES[@]}"
+
 cp "$ROOT/client/env-profiles/$PROFILE.profile" "$ROOT/client/.env.development"
 
 cat > "$ROOT/.branch-profile" <<EOF
