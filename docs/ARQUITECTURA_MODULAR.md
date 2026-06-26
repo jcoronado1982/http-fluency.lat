@@ -148,10 +148,11 @@ cargo build -p api_main --no-default-features --features auth,flashcards
 
 Cada módulo expone `register_routes(app) -> Router` en `api_main/src/modules/`:
 
-- `flashcards.rs` — decks, media, assets `/card_images`, `/card_audio`
+- `shell.rs` — media compartida `/card_images`, `/card_audio` (vía `StorageRepository`; **no** depende de flashcards)
+- `flashcards.rs` — decks, generación/resolución de media, APIs de estudio
 - `pronoun_practice.rs` — progreso, episodios, historias
 
-El shell registra siempre: `/api/health`, `/api/features`, tutor, notificaciones, auth (si feature activa).
+El shell registra siempre: `/api/health`, `/api/features`, tutor, notificaciones, auth (si feature activa), **y media estática compartida**.
 
 `TutorUseCases` usa `Option<PronounPracticeRepository>` — sin módulo pronoun no hay acoplamiento a su DB.
 

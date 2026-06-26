@@ -74,11 +74,12 @@ use pronoun_practice::StoryUseCases;
 
 /// Application state exposed to HTTP handlers.
 /// Only contains use-case facades and shared infrastructure primitives
-/// (settings, notification channel). Raw infrastructure ports are NOT
-/// exposed here; all business logic must go through a use-case.
+/// (settings, notification channel, storage for media GET). Raw infrastructure
+/// ports are otherwise NOT exposed; business logic goes through use-cases.
 #[derive(Clone)]
 pub struct AppState {
     pub settings: Arc<Settings>,
+    pub storage_repo: Arc<dyn StorageRepository>,
     #[cfg(feature = "flashcards")]
     pub deck_use_cases: Arc<DeckUseCases>,
     pub tutor_use_cases: Arc<TutorUseCases>,
@@ -293,6 +294,7 @@ async fn async_main() -> anyhow::Result<()> {
 
     let state = AppState {
         settings,
+        storage_repo: storage_repo.clone(),
         #[cfg(feature = "flashcards")]
         deck_use_cases,
         tutor_use_cases,

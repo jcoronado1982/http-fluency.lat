@@ -7,14 +7,6 @@ use crate::{api, AppState};
 
 pub fn register_routes(app: Router<AppState>) -> Router<AppState> {
     app.route(
-        "/card_images/*file_path",
-        get(api::endpoints::assets::redirect_images),
-    )
-    .route(
-        "/card_audio/*file_path",
-        get(api::endpoints::assets::redirect_audio),
-    )
-    .route(
         "/api/categories",
         get(api::endpoints::decks::get_categories),
     )
