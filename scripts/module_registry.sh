@@ -4,6 +4,7 @@ set -euo pipefail
 
 MODULE_NAMES=(
   landing
+  pricing
   dashboard
   flashcards
   pronoun
@@ -24,6 +25,7 @@ module_exists() {
 module_description() {
   case "${1:-}" in
     landing) echo "Landing publica en / (marketing, sin shell autenticado)" ;;
+    pricing) echo "Precios y checkout publico (modulo frontend de pagos)" ;;
     dashboard) echo "Shell autenticado: sidebar, header, footer y menu flotante" ;;
     flashcards) echo "Flashcards base con imagenes/audio AVIF/Opus y progreso" ;;
     pronoun) echo "Referencia y practica guiada de pronombres" ;;
@@ -34,6 +36,9 @@ module_description() {
 
 module_backend_feature() {
   case "${1:-}" in
+    landing) echo "" ;;
+    pricing) echo "" ;;
+    dashboard) echo "" ;;
     flashcards) echo "flashcards" ;;
     pronoun) echo "pronoun_practice" ;;
     admin) echo "auth" ;;
@@ -44,8 +49,12 @@ module_backend_feature() {
 module_cargo_features() {
   local module="${1:-}"
   local features="auth"
+  local module_feature=""
   if module_exists "$module"; then
-    features+=",$(module_backend_feature "$module")"
+    module_feature="$(module_backend_feature "$module")"
+    if [[ -n "$module_feature" ]]; then
+      features+=",$module_feature"
+    fi
   fi
   echo "$features"
 }
@@ -56,7 +65,7 @@ module_cargo_features_multi() {
   for module in "$@"; do
     if module_exists "$module"; then
       feat="$(module_backend_feature "$module")"
-      if [[ ",$features," != *",$feat,"* ]]; then
+      if [[ -n "$feat" && ",$features," != *",$feat,"* ]]; then
         features+=",$feat"
       fi
     fi
@@ -76,6 +85,7 @@ module_cargo_build_args_multi() {
 module_frontend_flag() {
   case "${1:-}" in
     landing) echo "VITE_ENABLE_LANDING=true" ;;
+    pricing) echo "VITE_ENABLE_PAYMENTS=true" ;;
     dashboard) echo "VITE_ENABLE_DASHBOARD=true" ;;
     flashcards) echo "VITE_ENABLE_FLASHCARDS=true" ;;
     pronoun) echo "VITE_ENABLE_PRONOUN_REFERENCE=true VITE_ENABLE_PRONOUN_PRACTICE=true" ;;
@@ -91,6 +101,7 @@ module_default_home() {
 module_frontend_disable_flag() {
   case "${1:-}" in
     landing) echo "VITE_ENABLE_LANDING=false" ;;
+    pricing) echo "VITE_ENABLE_PAYMENTS=false" ;;
     dashboard) echo "VITE_ENABLE_DASHBOARD=false" ;;
     flashcards) echo "VITE_ENABLE_FLASHCARDS=false" ;;
     pronoun) echo "VITE_ENABLE_PRONOUN_REFERENCE=false VITE_ENABLE_PRONOUN_PRACTICE=false" ;;
@@ -155,6 +166,11 @@ module_sparse_patterns() {
 client/src/modules/landing
 EOF
       ;;
+    pricing)
+      cat <<'EOF'
+client/src/modules/pricing
+EOF
+      ;;
     dashboard)
       cat <<'EOF'
 client/src/modules/dashboard
@@ -196,6 +212,9 @@ module_disk_paths() {
   case "${1:-}" in
     landing)
       printf '%s\n' client/src/modules/landing
+      ;;
+    pricing)
+      printf '%s\n' client/src/modules/pricing
       ;;
     dashboard)
       printf '%s\n' client/src/modules/dashboard

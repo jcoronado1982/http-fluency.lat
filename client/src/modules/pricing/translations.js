@@ -1,7 +1,18 @@
 export const PRICING_TRANSLATIONS = {
     en: {
         nav: {
+            howItWorks: 'How it works',
+            pricing: 'Pricing',
+            whyVocabularyFirst: 'Why vocabulary first?',
+            feedback: 'Feedback',
             login: 'Log in',
+            signupShort: 'Sign up',
+            app: 'Go to app',
+        },
+        floatingMenu: {
+            sectionLabel: 'Subscription',
+            name: 'Get Premium',
+            sub: '2,500 -> 5,000 words',
         },
         hero: {
             eyebrow: 'Plans & Pricing',
@@ -93,7 +104,18 @@ export const PRICING_TRANSLATIONS = {
     },
     es: {
         nav: {
+            howItWorks: 'Cómo funciona',
+            pricing: 'Precios',
+            whyVocabularyFirst: '¿Por qué aprender vocabulario?',
+            feedback: 'Comentarios',
             login: 'Iniciar sesión',
+            signupShort: 'Registrarse',
+            app: 'Ir a la app',
+        },
+        floatingMenu: {
+            sectionLabel: 'Suscripción',
+            name: 'Obtener Premium',
+            sub: '2,500 -> 5,000 palabras',
         },
         hero: {
             eyebrow: 'Planes y Precios',
@@ -197,6 +219,20 @@ export const CHECKOUT_TRANSLATIONS = {
         monthlyLabel: 'Monthly Premium Plan',
         annualSub: '12 months full access',
         monthlySub: '1 month full access',
+        perks: {
+            words: 'Words',
+            languages: 'Languages',
+            images: 'Images',
+            imageAi: 'AI images',
+            audio: 'Audio',
+            support: 'Support',
+        },
+        billingAnnual: 'Annual',
+        billingMonthly: 'Monthly',
+        billingSavings: 'Save 29%',
+        billingAnnualEquivalent: '/ year · $3.54 USD / month equivalent',
+        billingMonthlyEquivalent: '/ month',
+        secureAria: 'Secure checkout',
         total: 'Total to pay',
         guarantee: '7-day money-back guarantee',
         formTitle: 'Payment method',
@@ -211,6 +247,14 @@ export const CHECKOUT_TRANSLATIONS = {
         successTitle: 'Payment successful!',
         successSub: 'Welcome to Fluency Premium. You can now access all advanced features.',
         goDashboard: 'Go to Dashboard',
+        errors: {
+            email: 'Invalid email',
+            name: 'Enter your full name',
+            cardNumber: 'Invalid card number',
+            expiry: 'Invalid expiry date (MM/YY)',
+            cvv: 'Invalid CVV',
+            docNumber: 'Document is required',
+        },
     },
     es: {
         back: 'Volver a planes',
@@ -223,6 +267,20 @@ export const CHECKOUT_TRANSLATIONS = {
         monthlyLabel: 'Plan Premium Mensual',
         annualSub: '12 meses de acceso total',
         monthlySub: '1 mes de acceso total',
+        perks: {
+            words: 'Palabras',
+            languages: 'Idiomas',
+            images: 'Imágenes',
+            imageAi: 'Imágenes con IA',
+            audio: 'Audio',
+            support: 'Soporte',
+        },
+        billingAnnual: 'Anual',
+        billingMonthly: 'Mensual',
+        billingSavings: 'Ahorras 29%',
+        billingAnnualEquivalent: '/ año · equivale a $3.54 USD / mes',
+        billingMonthlyEquivalent: '/ mes',
+        secureAria: 'Pago seguro',
         total: 'Total a pagar',
         guarantee: 'Garantía de devolución de 7 días',
         formTitle: 'Método de pago',
@@ -237,5 +295,17 @@ export const CHECKOUT_TRANSLATIONS = {
         successTitle: '¡Pago exitoso!',
         successSub: 'Bienvenido a Fluency Premium. Ya puedes acceder a todas las funciones avanzadas.',
         goDashboard: 'Ir al Dashboard',
+        errors: {
+            email: 'Correo inválido',
+            name: 'Escribe tu nombre completo',
+            cardNumber: 'Número de tarjeta inválido',
+            expiry: 'Fecha inválida (MM/AA)',
+            cvv: 'CVV inválido',
+            docNumber: 'Documento requerido',
+        },
     }
 };
+
+export function getPricingTranslations(language = 'en') {
+    return PRICING_TRANSLATIONS[language] || PRICING_TRANSLATIONS.en;
+}

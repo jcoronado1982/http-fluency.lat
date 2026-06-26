@@ -151,6 +151,7 @@ export default function LandingPage() {
     const { language = 'en', setLanguage } = useAppContext();
     const location = useLocation();
     const t = getLandingTranslations(language);
+    const pricingEnabled = config.features.pricing !== false;
     const { active: activeNav, setActiveSection } = useLandingNavActive();
     const demoPromptExtraRef = useRef('');
     const [demoImagePromptApply, setDemoImagePromptApply] = useState(0);
@@ -209,12 +210,14 @@ export default function LandingPage() {
                         >
                             {t.navHowItWorks}
                         </a>
-                        <Link
-                            to="/pricing"
-                            className={location.pathname === '/pricing' ? 'is-active' : ''}
-                        >
-                            {t.navPricing}
-                        </Link>
+                        {pricingEnabled && (
+                            <Link
+                                to="/pricing"
+                                className={location.pathname === '/pricing' ? 'is-active' : ''}
+                            >
+                                {t.navPricing}
+                            </Link>
+                        )}
                         <a
                             href="#vocabulary-first"
                             className={activeNav === 'vocabulary-first' ? 'is-active' : ''}

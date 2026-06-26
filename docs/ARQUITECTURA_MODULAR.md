@@ -170,6 +170,7 @@ client/src/
         ├── domain/pronounReferenceData.js
         └── index.jsx
     ├── landing/              # página pública / (opt-in, layout bare)
+    ├── pricing/              # precios y checkout público
     └── dashboard/            # shell autenticado + home /dashboard
         ├── DashboardShell.jsx
         ├── DashboardHome.jsx
@@ -287,6 +288,7 @@ Reglas de aislamiento (Jun 2026):
 | `VITE_ENABLE_DASHBOARD` | Opt-out (`!== 'false'`) — shell + home `/dashboard` tras login |
 | `VITE_DEFAULT_MODULE` | Módulo que abre en `/` si no hay landing (`flashcards` default, o `pronoun`) |
 | `VITE_ENABLE_FLASHCARDS` | Opt-out (`!== 'false'`) |
+| `VITE_ENABLE_PAYMENTS` | Opt-out (`!== 'false'`) — habilita módulo `pricing` |
 | `VITE_ENABLE_PRONOUN_REFERENCE` | Opt-out |
 | `VITE_ENABLE_PRONOUN_PRACTICE` | Opt-in (`=== 'true'`) |
 | `VITE_ENABLE_PRONOUN` | Alias legacy de práctica |

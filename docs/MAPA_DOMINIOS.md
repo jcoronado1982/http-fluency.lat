@@ -13,6 +13,7 @@ Mapa de ruta para IA y desarrolladores. Antes de editar un dominio, consulta tam
 | Registry ID | Sparse | Backend | Frontend |
 |-------------|--------|---------|----------|
 | `landing` | `./scripts/sparse-module.sh landing` | — (solo frontend) | `client/src/modules/landing/` |
+| `pricing` | `./scripts/sparse-module.sh pricing` | — (solo frontend) | `client/src/modules/pricing/` |
 | `dashboard` | `./scripts/sparse-module.sh dashboard` | — (solo frontend) | `client/src/modules/dashboard/` (sidebar, header, footer) |
 | `flashcards` | `./scripts/sparse-module.sh flashcards` | `backend/mod_flashcards`, rutas en `api_main/src/modules/flashcards.rs` | `client/src/modules/flashcards/` |
 | `pronoun` | `./scripts/sparse-module.sh pronoun` | `backend/mod_pronoun` (crate `pronoun_practice`), `api_main/src/modules/pronoun_practice.rs` | `client/src/modules/pronounPractice/` |
@@ -58,6 +59,13 @@ Resolución en runtime: `client/src/modules/index.js` (`getAuthenticatedHomePath
 **Frontend**
 - `client/src/modules/landing/` — página pública en `/` (`layout: 'bare'`)
 - Si el usuario ya está autenticado en `/`, redirige a `/dashboard`
+
+### Pricing (módulo `pricing`)
+
+**Frontend**
+- `client/src/modules/pricing/` — precios y checkout público (`/pricing`, `/checkout`)
+- `client/src/modules/pricing/config/` — navegación pública y catálogo del módulo
+- `client/src/modules/pricing/useCases/checkoutForm.js` — formateo y validación de checkout
 
 ---
 

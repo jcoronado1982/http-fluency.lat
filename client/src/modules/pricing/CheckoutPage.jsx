@@ -1,60 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import {
-    FiCheck, FiZap, FiGlobe, FiImage, FiVolume2,
-    FiBook, FiArrowLeft, FiShield, FiLock, FiStar,
+    FiCheck, FiZap, FiArrowLeft, FiShield, FiLock,
     FiChevronDown, FiAlertCircle,
 } from 'react-icons/fi';
 import { useUIContext } from '../../context/UIContext';
+import config from '../../config';
 import LanguageSelector from '../../components/common/LanguageSelector';
+import { getAuthenticatedHomePath } from '../index';
+import { getCheckoutPlanData } from './config/planCatalog';
 import { CHECKOUT_TRANSLATIONS } from './translations';
+import {
+    detectCardBrand,
+    normalizeCheckoutField,
+    validateCheckoutForm,
+} from './useCases/checkoutForm';
 import './CheckoutPage.css';
-
-/* ── Datos de planes ───────────────────────────────────────────── */
-const getPlanData = (t) => ({
-    monthly: {
-        price: 4.99,
-        priceDisplay: '$4.99 USD',
-        period: 'month',
-        label: t.monthlyLabel,
-        savingsBadge: null,
-        billedAs: '$4.99 USD / month',
-    },
-    annual: {
-        price: 42.51,
-        priceDisplay: '$42.51 USD',
-        period: 'year',
-        label: t.annualLabel,
-        savingsBadge: '29%',
-        billedAs: '$42.51 USD / year',
-    },
-});
-
-const getPremiumPerks = (t) => [
-    { icon: <FiBook />,    text: t.step2 },
-    { icon: <FiGlobe />,   text: 'Idiomas' },
-    { icon: <FiImage />,   text: 'Imágenes' },
-    { icon: <FiImage />,   text: 'Imágenes' },
-    { icon: <FiVolume2 />, text: 'Audio' },
-    { icon: <FiStar />,    text: 'Soporte' },
-];
-
-/* ── Helpers ────────────────────────────────────────────────────── */
-function formatCardNumber(val) {
-    return val.replace(/\D/g, '').slice(0, 16).replace(/(.{4})/g, '$1 ').trim();
-}
-function formatExpiry(val) {
-    const digits = val.replace(/\D/g, '').slice(0, 4);
-    if (digits.length >= 3) return digits.slice(0, 2) + '/' + digits.slice(2);
-    return digits;
-}
-function detectCardBrand(num) {
-    const n = num.replace(/\s/g, '');
-    if (/^4/.test(n)) return 'visa';
-    if (/^5[1-5]/.test(n)) return 'mastercard';
-    if (/^3[47]/.test(n)) return 'amex';
-    return null;
-}
 
 /* ── Componente de badge de marca ──────────────────────────────── */
 function CardBrandBadge({ brand }) {
@@ -69,8 +30,7 @@ export default function CheckoutPage() {
     const navigate = useNavigate();
     const { language = 'en', setLanguage } = useUIContext();
     const t = CHECKOUT_TRANSLATIONS[language === 'es' ? 'es' : 'en'];
-    const PLAN_DATA = getPlanData(t);
-    const PREMIUM_PERKS = getPremiumPerks(t);
+    const PLAN_DATA = getCheckoutPlanData(t);
 
     /* billing param desde URL: ?billing=annual | monthly */
     const initBilling = searchParams.get('billing') === 'monthly' ? 'monthly' : 'annual';
@@ -105,32 +65,15 @@ export default function CheckoutPage() {
     /* ── Handlers ─────────────────────────────────────────────── */
     function handleChange(e) {
         const { name, value } = e.target;
-        let processed = value;
-
-        if (name === 'cardNumber') processed = formatCardNumber(value);
-        if (name === 'expiry') processed = formatExpiry(value);
-        if (name === 'cvv') processed = value.replace(/\D/g, '').slice(0, 4);
-        if (name === 'docNumber') processed = value.replace(/\D/g, '').slice(0, 15);
+        const processed = normalizeCheckoutField(name, value);
 
         setForm((prev) => ({ ...prev, [name]: processed }));
         setErrors((prev) => ({ ...prev, [name]: '' }));
     }
 
-    function validate() {
-        const errs = {};
-        if (!form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errs.email = 'Correo inválido';
-        if (form.name.trim().length < 3) errs.name = 'Escribe tu nombre completo';
-        const rawCard = form.cardNumber.replace(/\s/g, '');
-        if (rawCard.length < 13) errs.cardNumber = 'Número de tarjeta inválido';
-        if (!form.expiry.match(/^\d{2}\/\d{2}$/)) errs.expiry = 'Fecha inválida (MM/AA)';
-        if (form.cvv.length < 3) errs.cvv = 'CVV inválido';
-        if (form.docNumber.length < 5) errs.docNumber = 'Documento requerido';
-        return errs;
-    }
-
     function handleSubmit(e) {
         e.preventDefault();
-        const errs = validate();
+        const errs = validateCheckoutForm(form, t);
         if (Object.keys(errs).length > 0) {
             setErrors(errs);
             return;
@@ -153,7 +96,7 @@ export default function CheckoutPage() {
                     <p>{t.successSub}</p>
                     <button
                         className="checkout-submit-btn"
-                        onClick={() => navigate('/dashboard')}
+                        onClick={() => navigate(getAuthenticatedHomePath(config, []))}
                         style={{ marginTop: '2rem' }}
                     >
                         {t.goDashboard} <FiZap size={16} />
@@ -196,7 +139,7 @@ export default function CheckoutPage() {
                     </Link>
                     <div className="checkout-secure-badge">
                         <LanguageSelector currentLanguage={language} onLanguageChange={setLanguage} />
-                        <FiLock size={13} style={{ marginLeft: '1rem' }} />
+                        <FiLock size={13} style={{ marginLeft: '1rem' }} aria-label={t.secureAria} />
                     </div>
                 </div>
             </header>
@@ -246,12 +189,12 @@ export default function CheckoutPage() {
                                     />
                                     <div className="checkout-billing-option-body">
                                         <div className="checkout-billing-option-header">
-                                            <span className="checkout-billing-option-label">Anual</span>
-                                            <span className="checkout-billing-savings">Ahorras 29%</span>
+                                            <span className="checkout-billing-option-label">{t.billingAnnual}</span>
+                                            <span className="checkout-billing-savings">{t.billingSavings}</span>
                                         </div>
                                         <div className="checkout-billing-option-price">
                                             <strong>$42.51 USD</strong>
-                                            <span>/ year · $3.54 USD / month equivalent</span>
+                                            <span>{t.billingAnnualEquivalent}</span>
                                         </div>
                                     </div>
                                 </label>
@@ -266,11 +209,11 @@ export default function CheckoutPage() {
                                     />
                                     <div className="checkout-billing-option-body">
                                         <div className="checkout-billing-option-header">
-                                            <span className="checkout-billing-option-label">Mensual</span>
+                                            <span className="checkout-billing-option-label">{t.billingMonthly}</span>
                                         </div>
                                         <div className="checkout-billing-option-price">
                                             <strong>$4.99 USD</strong>
-                                            <span>/ month</span>
+                                            <span>{t.billingMonthlyEquivalent}</span>
                                         </div>
                                     </div>
                                 </label>

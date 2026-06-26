@@ -100,13 +100,9 @@ function CardFront({
     if (!displayData) return null;
 
     const title = getCardTitle(displayData, currentLanguage);
-    const showConjugation = Boolean(cardData.irregular && currentLanguage === 'es');
-    const hideTitle = isLandingDemo && showConjugation;
-
     return (
         <div className={styles.cardFront}>
             {/* Nombre + botón borrar audio */}
-            {!hideTitle && (
             <h2 className={styles.name}>
                 <div className={styles.nameContainer}>
                     <div className={styles.titleContainer}>
@@ -137,7 +133,6 @@ function CardFront({
                     </button>
                 </div>
             </h2>
-            )}
 
             {/* Fonética */}
             {currentLanguage === 'es' && (

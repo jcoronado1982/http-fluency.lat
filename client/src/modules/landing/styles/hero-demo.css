@@ -1,0 +1,417 @@
+/* ── HERO — sin fondo propio; hereda el degradado de lp-zone-flow ── */
+.lp-hero {
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    padding: 52px 0 56px;
+    position: relative;
+    overflow: visible;
+    background: transparent;
+}
+
+.lp-hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.lp-hero-copy {
+    max-width: 31rem;
+}
+
+.lp-hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 22px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(244,114,182,0.28);
+    background: rgba(244,114,182,0.03);
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(244,114,182,0.88);
+}
+
+.lp-hero-title {
+    margin: 0 0 20px;
+    font-family: var(--font-family-display);
+    font-size: 3rem;
+    font-weight: 700;
+    font-optical-sizing: auto;
+    font-variation-settings: 'opsz' 56;
+    line-height: 1.04;
+    letter-spacing: -0.024em;
+}
+
+.lp-hero-title-line1 {
+    display: block;
+    color: var(--color-text-primary);
+}
+
+.lp-hero-title-line2 {
+    display: block;
+    margin-top: 0.02em;
+    background: linear-gradient(102deg, #ff4d8d 0%, #ff7e8a 45%, #ff9a7b 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.lp-hero-sub {
+    margin: 0 0 30px;
+    font-family: var(--font-family-body);
+    color: rgba(245,245,245,0.85);
+    font-size: calc(1.25rem - 1px);
+    font-weight: 400;
+    line-height: 1.65;
+    max-width: 36rem;
+}
+
+.lp-hero-cta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.lp-hero-cta .lp-btn {
+    font-family: var(--font-family-body);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    min-height: 46px;
+    padding: 0.7rem 1.5rem;
+    letter-spacing: 0.005em;
+}
+
+.lp-hero-cta .lp-btn--ghost {
+    color: rgba(245,245,245,0.9);
+    border-color: rgba(245,245,245,0.2);
+    font-weight: 600;
+}
+
+.lp-hero-cta .lp-btn--demo {
+    gap: 8px;
+    padding-right: 1.25rem;
+}
+
+.lp-hero-cta .lp-btn--demo svg {
+    flex-shrink: 0;
+    width: 1.125rem;
+    height: 1.125rem;
+    opacity: 0.75;
+}
+
+.lp-hero-trust {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+    font-family: var(--font-family-body);
+    font-size: calc(0.95rem - 1px);
+    font-weight: 500;
+    color: rgba(245,245,245,0.7);
+    letter-spacing: 0.02em;
+}
+
+.lp-hero-trust-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(148,163,184,0.3);
+    flex-shrink: 0;
+}
+
+.lp-hero-demo {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    align-self: center;
+    overflow: hidden;
+}
+
+[data-landing-demo] .flashcard-main-area {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: visible;
+    margin-bottom: 0;
+    gap: 14px;
+}
+
+[data-landing-demo] .lp-demo-card-frame {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    padding-top: 13px;
+}
+
+[data-landing-demo] .lp-demo-badge {
+    position: absolute;
+    top: 13px;
+    left: 18px;
+    z-index: 40;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 6px 14px 6px 12px;
+    border-radius: 999px;
+    background: rgba(20, 8, 16, 0.94);
+    border: 1px solid rgba(244, 114, 182, 0.85);
+    font-family: var(--font-family-body);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1;
+    white-space: nowrap;
+    pointer-events: none;
+    transform: translateY(-50%);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.32);
+}
+
+[data-landing-demo] .lp-demo-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow:
+        0 0 5px rgba(34, 197, 94, 0.95),
+        0 0 12px rgba(34, 197, 94, 0.45);
+    flex-shrink: 0;
+}
+
+[data-landing-demo] .lp-demo-badge-text {
+    color: #ffffff;
+}
+
+.lp-demo-prompt {
+    margin-bottom: 24px;
+    max-width: 38rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.lp-demo-prompt--card {
+    width: 85%;
+    max-width: 620px;
+    margin: 0 auto 8px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.lp-demo-prompt-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: auto;
+    align-self: flex-end;
+    padding: 7px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(125, 119, 221, 0.20);
+    background: rgba(15, 23, 42, 0.40);
+    color: var(--c-muted);
+    font-size: 0.78rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    margin-bottom: 6px;
+}
+
+.lp-demo-prompt-toggle svg {
+    flex-shrink: 0;
+    color: var(--c-teal);
+}
+
+.lp-demo-prompt-toggle:hover {
+    border-color: rgba(125, 119, 221, 0.45);
+    color: var(--c-text);
+    background: rgba(125, 119, 221, 0.08);
+}
+
+.lp-demo-prompt--card.is-open .lp-demo-prompt-toggle {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-color: transparent;
+}
+
+.lp-demo-prompt-body {
+    padding: 14px;
+    border: 1px solid rgba(125, 119, 221, 0.28);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    background: rgba(15, 23, 42, 0.55);
+}
+
+.lp-demo-prompt--card .lp-demo-prompt-input {
+    border-color: rgba(125, 119, 221, 0.28);
+}
+
+.lp-demo-prompt--card .lp-demo-prompt-apply {
+    border-color: rgba(125, 119, 221, 0.35);
+    background: rgba(125, 119, 221, 0.12);
+    color: var(--c-muted2);
+}
+
+.lp-demo-prompt--card .lp-demo-prompt-apply:hover {
+    border-color: rgba(45, 212, 191, 0.45);
+    background: rgba(45, 212, 191, 0.12);
+    color: var(--c-teal);
+}
+
+.lp-demo-prompt-label {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(244, 114, 182, 0.95);
+}
+
+.lp-demo-prompt-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+@media (min-width: 480px) {
+    .lp-demo-prompt-row {
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+    }
+}
+
+.lp-demo-prompt-input {
+    width: 100%;
+    min-height: 48px;
+    height: 48px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(125, 119, 221, 0.3);
+    background: rgba(15, 23, 42, 0.85);
+    color: #f8fafc;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+.lp-demo-prompt-input::placeholder {
+    color: rgba(148, 163, 184, 0.5);
+}
+
+.lp-demo-prompt-input:focus {
+    border-color: rgba(45, 212, 191, 0.5);
+    box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.12);
+}
+
+.lp-demo-prompt-apply {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    min-height: 48px;
+    border-radius: 12px;
+    border: 1px solid rgba(45, 212, 191, 0.45);
+    background: rgba(45, 212, 191, 0.12);
+    color: #2dd4bf;
+    font-size: 0.88rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.1s;
+    white-space: nowrap;
+}
+
+.lp-demo-prompt-apply:hover {
+    background: rgba(45, 212, 191, 0.2);
+    border-color: rgba(45, 212, 191, 0.65);
+}
+
+.lp-demo-prompt-apply:active {
+    transform: scale(0.98);
+}
+
+.lp-demo-prompt-hint {
+    margin: 8px 0 0;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: rgba(148, 163, 184, 0.7);
+}
+
+.lp-demo-widget {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    gap: 0;
+}
+
+/* Demo card — borde único coherente */
+[data-landing-demo] .card {
+    box-shadow:
+        0 0 0 1px rgba(125, 119, 221, 0.22),
+        0 18px 44px rgba(0, 0, 0, 0.38);
+}
+
+[data-landing-demo] .cardFront,
+[data-landing-demo] .cardBack {
+    border: 1px solid rgba(125, 119, 221, 0.34) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+    border-radius: 28px !important;
+}
+
+[data-landing-demo] .controlsWrapper {
+    border: 1px solid rgba(125, 119, 221, 0.28) !important;
+    background: rgba(15, 23, 42, 0.55) !important;
+    box-shadow: none !important;
+}
+
+[data-landing-demo] .imagePlaceholder {
+    border: 1px solid rgba(125, 119, 221, 0.28) !important;
+    box-shadow: none !important;
+}
+
+[data-landing-demo] .conjugationTable {
+    border: 1px solid rgba(125, 119, 221, 0.28) !important;
+    background: rgba(15, 23, 42, 0.35) !important;
+}
+
+.lp-demo-widget-placeholder {
+    width: 100%;
+    min-height: 720px;
+}

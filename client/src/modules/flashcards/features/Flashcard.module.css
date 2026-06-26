@@ -1536,8 +1536,8 @@
         width: 100%;
         max-width: 100%;
         min-width: 0;
-        height: clamp(360px, 95vw, 450px);
-        min-height: 340px;
+        height: clamp(440px, 132vw, 560px);
+        min-height: 440px;
         margin: 0 auto;
         overflow: hidden;
     }
@@ -1551,7 +1551,7 @@
 
     :global([data-landing-demo]) .cardFront,
     :global([data-landing-demo]) .cardBack {
-        padding: 10px 14px 0 !important;
+        padding: 14px 16px 0 !important;
         border-radius: 22px !important;
         border-color: rgba(125, 119, 221, 0.35) !important;
         background:
@@ -1564,42 +1564,53 @@
     }
 
     :global([data-landing-demo]) .name {
-        margin-top: -6px !important;
-        margin-bottom: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: 4px !important;
         min-height: 0 !important;
-        font-size: 1.7rem !important;
+        font-size: clamp(1.75rem, 6.6vw, 2.15rem) !important;
+        text-align: center !important;
     }
 
     :global([data-landing-demo]) .nameContainer {
         transform: none !important;
         gap: 6px !important;
         justify-content: center !important;
+        align-items: center !important;
         width: 100% !important;
+        position: relative !important;
+        padding-right: 40px !important;
     }
 
     :global([data-landing-demo]) .titleContainer {
         height: auto !important;
         min-height: 0 !important;
-        width: auto !important;
-        flex: 0 1 auto !important;
+        width: 100% !important;
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
         justify-content: center !important;
+        text-align: center !important;
     }
 
     :global([data-landing-demo]) .soundButton {
         margin-left: 0 !important;
+        margin-top: 0 !important;
+        position: absolute !important;
+        right: 0 !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
     }
 
     :global([data-landing-demo]) .conjugationTable {
-        margin: 0px auto 4px !important;
-        padding: 4px 2px !important;
-        gap: 2px !important;
+        margin: 4px auto 8px !important;
+        padding: 6px 4px !important;
+        gap: 4px !important;
         width: 100% !important;
         max-width: 100% !important;
         min-width: 0 !important;
     }
 
     :global([data-landing-demo]) .conjugationItem {
-        padding: 4px 2px !important;
+        padding: 6px 4px !important;
         border-radius: 10px !important;
     }
 
@@ -1608,33 +1619,37 @@
         max-width: 100% !important;
     }
 
-    :global([data-landing-demo]) .conjugationPhonetic {
-        font-size: 0.65em !important;
-    }
+:global([data-landing-demo]) .conjugationPhonetic {
+    font-size: 0.65em !important;
+}
 
-    :global([data-landing-demo]) .imagePlaceholder {
-        width: 100% !important;
-        height: auto !important;
+:global([data-landing-demo]) .conjugationAudioBtn {
+    display: flex !important;
+}
+
+:global([data-landing-demo]) .imagePlaceholder {
+    width: 100% !important;
+    height: auto !important;
         flex: 1 1 auto !important;
-        min-height: 140px !important;
-        max-height: 220px !important;
-        margin: 4px auto 8px !important;
-        border-radius: 12px !important;
+        min-height: 190px !important;
+        max-height: 260px !important;
+        margin: 8px auto 10px !important;
+        border-radius: 18px !important;
     }
 
     :global([data-landing-demo]) .allExamplesContainer {
-        margin-top: 2px !important;
-        margin-bottom: 2px !important;
+        margin-top: 4px !important;
+        margin-bottom: 4px !important;
     }
 
     :global([data-landing-demo]) .allExamplesContainer li,
     :global([data-landing-demo]) .exampleRow {
-        padding: 2px 4px !important;
-        gap: 6px !important;
+        padding: 4px 6px !important;
+        gap: 8px !important;
     }
 
     :global([data-landing-demo]) .allExamplesContainer li div span {
-        font-size: 0.9rem !important;
+        font-size: 0.98rem !important;
     }
 
     :global([data-landing-demo]) .examplePlayBtn,

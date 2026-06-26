@@ -26,6 +26,8 @@ function resolveApiUrl() {
   return '';
 }
 
+const pricingEnabled = import.meta.env.VITE_ENABLE_PAYMENTS !== 'false';
+
 const sharedFeatures = {
   landing: import.meta.env.VITE_ENABLE_LANDING === 'true',
   dashboard: import.meta.env.VITE_ENABLE_DASHBOARD !== 'false',
@@ -41,7 +43,8 @@ const sharedFeatures = {
   pronounPractice:
     import.meta.env.VITE_ENABLE_PRONOUN_PRACTICE === 'true' ||
     import.meta.env.VITE_ENABLE_PRONOUN === 'true',
-  payments: import.meta.env.VITE_ENABLE_PAYMENTS !== 'false',
+  pricing: pricingEnabled,
+  payments: pricingEnabled,
   subscriptions: import.meta.env.VITE_ENABLE_SUBSCRIPTIONS !== 'false',
 };
 

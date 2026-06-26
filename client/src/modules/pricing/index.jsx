@@ -2,10 +2,11 @@ import React from 'react';
 import { FiZap } from 'react-icons/fi';
 import PricingPage from './PricingPage';
 import CheckoutPage from './CheckoutPage';
+import { getPricingTranslations } from './translations';
 
 const pricingModule = {
     id: 'pricing',
-    enabled: (config) => config.features.payments !== false,
+    enabled: (config) => config.features.pricing !== false,
     routes: () => [
         {
             path: '/pricing',
@@ -20,15 +21,16 @@ const pricingModule = {
             public: true,
         },
     ],
-    floatingMenuItems: ({ close, navigate, config }) => {
-        if (config.features.payments === false) return [];
+    floatingMenuItems: ({ close, navigate, config, language }) => {
+        if (config.features.pricing === false) return [];
+        const t = getPricingTranslations(language);
         return [{
             id: 'pricing-upgrade-float',
-            sectionLabel: 'Suscripción',
+            sectionLabel: t.floatingMenu.sectionLabel,
             icon: <FiZap />,
             iconColor: 'orange',
-            name: 'Obtener Premium',
-            sub: '2,500 ➔ 5,000 palabras',
+            name: t.floatingMenu.name,
+            sub: t.floatingMenu.sub,
             onClick: () => {
                 navigate('/pricing');
                 close();

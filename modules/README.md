@@ -10,6 +10,7 @@ Git (`main` / `qa`) + sparse: [docs/GIT_SPARSE_WORKFLOW.md](../docs/GIT_SPARSE_W
 | Módulo registry | Frontend `id` | Variable home |
 |-----------------|-----------------|---------------|
 | `landing` | `landing` | `VITE_ENABLE_LANDING=true` → `/` público |
+| `pricing` | `pricing` | `VITE_ENABLE_PAYMENTS` → `/pricing` y `/checkout` públicos |
 | `dashboard` | `dashboard` | `VITE_ENABLE_DASHBOARD` (opt-out, default on) → `/dashboard` tras login |
 | `flashcards` | `flashcards` | `VITE_DEFAULT_MODULE=flashcards` (default) → `/flashcard` si hay landing |
 | `pronoun` | `pronoun` | `VITE_DEFAULT_MODULE=pronoun` |
@@ -19,6 +20,8 @@ Git (`main` / `qa`) + sparse: [docs/GIT_SPARSE_WORKFLOW.md](../docs/GIT_SPARSE_W
 | URL | Quién | Qué muestra |
 |-----|--------|-------------|
 | `/` | Público | Landing (marketing) |
+| `/pricing` | Público | Planes y precios |
+| `/checkout` | Público | Checkout de suscripción |
 | `/login` | Público | Login Google |
 | `/dashboard` | Autenticado | **Home del dashboard** — hub con acceso a módulos |
 | `/flashcard` | Autenticado | Módulo flashcards (dentro del shell) |
@@ -41,6 +44,7 @@ VITE_DEFAULT_MODULE=pronoun      # práctica o referencia en / (sin landing)
 | Módulo | Backend feature | Frontend flags | Objetivo |
 |--------|-----------------|----------------|----------|
 | `landing` | — | `VITE_ENABLE_LANDING=true` (opt-in) | Página pública en `/` (marketing, sin sidebar) |
+| `pricing` | — | `VITE_ENABLE_PAYMENTS` (opt-out) | Precios y checkout público |
 | `dashboard` | — | `VITE_ENABLE_DASHBOARD` (opt-out) | Shell autenticado + **home** en `/dashboard` (sidebar, header, footer) |
 | `flashcards` | `flashcards` | `VITE_ENABLE_FLASHCARDS` (opt-out) | Flashcards con progreso, imágenes AVIF y audio Opus |
 | `pronoun` | `pronoun_practice` | `VITE_ENABLE_PRONOUN_REFERENCE` (opt-out) + `VITE_ENABLE_PRONOUN_PRACTICE` (opt-in) | Referencia y práctica guiada de pronombres |
@@ -50,6 +54,7 @@ VITE_DEFAULT_MODULE=pronoun      # práctica o referencia en / (sin landing)
 
 ```bash
 ./scripts/sparse-module.sh landing             # solo shell + landing
+./scripts/sparse-module.sh pricing             # solo shell + pricing
 ./scripts/sparse-module.sh dashboard           # shell + dashboard (sin landing ni estudio)
 ./scripts/sparse-module.sh pronoun              # solo shell + pronoun
 ./scripts/sparse-module.sh flashcards           # solo shell + flashcards

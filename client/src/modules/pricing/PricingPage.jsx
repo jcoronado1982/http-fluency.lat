@@ -8,21 +8,12 @@ import { useUIContext } from '../../context/UIContext';
 import { useAuth } from '../../context/AuthContext';
 import config from '../../config';
 import { getAuthenticatedHomePath } from '../index';
-import { getLandingTranslations } from '../landing/config/translations';
-import { landingSectionLink } from '../landing/landingSections';
-import { PRICING_TRANSLATIONS } from './translations';
+import { pricingLandingSectionLink } from './config/publicNavigation';
+import { getPricingPlanCards } from './config/planCatalog';
+import { getPricingTranslations } from './translations';
 import './PricingPage.css';
 
-const PLANS = {
-    monthly: {
-        free: { price: 0, period: 'month', label: 'Free forever' },
-        premium: { price: 4.99, period: 'month', label: 'Billed monthly', priceDisplay: '$4.99 USD' },
-    },
-    annual: {
-        free: { price: 0, period: 'year', label: 'Free forever' },
-        premium: { price: 42.51, period: 'year', label: 'Billed annually · You save 29%', priceDisplay: '$42.51 USD' },
-    },
-};
+const FEATURE_ICONS = [FiBook, FiZap, FiVolume2, FiGlobe, FiImage, FiImage, FiVolume2, FiStar];
 
 function FeatureRow({ icon, text, included, highlight }) {
     return (
@@ -58,9 +49,9 @@ export default function PricingPage() {
     const { language = 'en', setLanguage } = useUIContext();
     const { isAuthenticated } = useAuth();
     const location = useLocation();
-    const t = PRICING_TRANSLATIONS[language === 'es' ? 'es' : 'en'];
-    const landingT = getLandingTranslations(language);
+    const t = getPricingTranslations(language);
     const [billing, setBilling] = useState('annual');
+    const premiumPlan = getPricingPlanCards()[billing];
 
     return (
         <div className="pricing-page">
@@ -78,15 +69,15 @@ export default function PricingPage() {
                     </Link>
 
                     <nav className="pricing-nav-links" aria-label="Primary">
-                        <Link to={landingSectionLink('demo')}>{landingT.navHowItWorks}</Link>
+                        <Link to={pricingLandingSectionLink('demo')}>{t.nav.howItWorks}</Link>
                         <Link
                             to="/pricing"
                             className={location.pathname === '/pricing' ? 'is-active' : ''}
                         >
-                            {landingT.navPricing}
+                            {t.nav.pricing}
                         </Link>
-                        <Link to={landingSectionLink('vocabulary-first')}>{landingT.navWhyVocabularyFirst}</Link>
-                        <Link to={landingSectionLink('reviews')}>{landingT.navFeedback}</Link>
+                        <Link to={pricingLandingSectionLink('vocabulary-first')}>{t.nav.whyVocabularyFirst}</Link>
+                        <Link to={pricingLandingSectionLink('reviews')}>{t.nav.feedback}</Link>
                     </nav>
 
                     <div className="pricing-nav-end">
@@ -96,15 +87,15 @@ export default function PricingPage() {
                                 to={getAuthenticatedHomePath(config, [])}
                                 className="pricing-btn--nav"
                             >
-                                {landingT.navApp}
+                                {t.nav.app}
                             </Link>
                         ) : (
                             <>
                                 <Link to="/login" className="pricing-nav-login">
-                                    {landingT.navLogin}
+                                    {t.nav.login}
                                 </Link>
                                 <Link to="/login" className="pricing-btn--nav">
-                                    {landingT.navSignupShort}
+                                    {t.nav.signupShort}
                                 </Link>
                             </>
                         )}
@@ -161,7 +152,7 @@ export default function PricingPage() {
                             </Link>
                             <ul className="pricing-features">
                                 {t.features.free.map((f, i) => (
-                                    <FeatureRow key={i} icon={[<FiBook/>, <FiZap/>, <FiVolume2/>, <FiGlobe/>, <FiImage/>, <FiImage/>, <FiVolume2/>, <FiStar/>][i]} {...f} />
+                                    <FeatureRow key={i} icon={React.createElement(FEATURE_ICONS[i] || FiStar)} {...f} />
                                 ))}
                             </ul>
                         </div>
@@ -178,9 +169,9 @@ export default function PricingPage() {
                                 <div className="pricing-price">
                                     <span className="pricing-price-currency">$</span>
                                     <span className="pricing-price-amount">
-                                        {billing === 'annual' ? '42.51' : '4.99'}
+                                        {premiumPlan.premiumPrice}
                                     </span>
-                                    <span className="pricing-price-period">USD / {billing === 'annual' ? 'year' : t.hero.monthly.toLowerCase()}</span>
+                                    <span className="pricing-price-period">USD / {premiumPlan.premiumPeriod}</span>
                                 </div>
                                 <p className="pricing-price-label">
                                     {billing === 'annual' ? t.premium.labelAnnual : t.premium.labelMonth}
@@ -191,7 +182,7 @@ export default function PricingPage() {
                             </Link>
                             <ul className="pricing-features">
                                 {t.features.premium.map((f, i) => (
-                                    <FeatureRow key={i} icon={[<FiBook/>, <FiZap/>, <FiVolume2/>, <FiGlobe/>, <FiImage/>, <FiImage/>, <FiVolume2/>, <FiStar/>][i]} {...f} />
+                                    <FeatureRow key={i} icon={React.createElement(FEATURE_ICONS[i] || FiStar)} {...f} />
                                 ))}
                             </ul>
                         </div>
