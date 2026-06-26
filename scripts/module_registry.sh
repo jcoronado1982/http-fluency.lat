@@ -134,6 +134,7 @@ client/src/App.css
 client/src/App.jsx
 client/src/assets
 client/src/components/common
+client/src/components/routing
 client/src/components/flashcardStudy
 client/src/components/shell
 client/src/adapters
