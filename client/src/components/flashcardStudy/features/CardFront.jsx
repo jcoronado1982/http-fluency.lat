@@ -200,6 +200,7 @@ function CardFront({
                 canCustomizeImages={canCustomizeImages}
                 canDeleteImages={canDeleteImages}
                 isDisabled={isDisabled}
+                isLandingDemo={isLandingDemo}
             />
         </div>
     );
