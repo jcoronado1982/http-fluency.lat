@@ -7,7 +7,7 @@ import {
     clearDemoFeedbackReturn,
     consumeDemoFeedbackDraft,
     saveDemoFeedbackDraft,
-} from '../demoFeedbackStorage';
+} from '../../../utils/demoFeedbackStorage';
 import { StarRatingDisplay, StarRatingInput } from './StarRating';
 
 function formatReviewDateTime(iso, isEs) {

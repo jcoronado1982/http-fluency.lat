@@ -19,6 +19,20 @@
     );
 }
 
+/* Línea inferior que se desvanece en los extremos (sin alterar el degradado de fondo). */
+.lp-why-vocabulary-first::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(92%, 1000px);
+    height: 1px;
+    z-index: 1;
+    pointer-events: none;
+    background: var(--lp-section-fade-line);
+}
+
 .lp-why-vocabulary-first-inner {
     display: flex;
     flex-direction: column;
@@ -122,6 +136,20 @@
     font-size: 1rem;
     line-height: 1.65;
     color: rgba(203, 213, 225, 0.95);
+}
+
+@media (max-width: 719px) {
+    .lp-why-vocabulary-first-inner::before {
+        content: '';
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(92vw, 1000px);
+        height: 1px;
+        pointer-events: none;
+        background: var(--lp-section-fade-line);
+    }
 }
 
 @media (min-width: 768px) {

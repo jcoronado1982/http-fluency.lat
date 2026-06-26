@@ -15,6 +15,7 @@ import {
     normalizeCheckoutField,
     validateCheckoutForm,
 } from './useCases/checkoutForm';
+import { checkoutPort } from './composition';
 import './CheckoutPage.css';
 
 /* ── Componente de badge de marca ──────────────────────────────── */
@@ -79,8 +80,9 @@ export default function CheckoutPage() {
             return;
         }
         setStep('processing');
-        /* Simulación — aquí irá la integración real con el backend */
-        setTimeout(() => setStep('success'), 2800);
+        checkoutPort.submitCheckout({ form, billing, plan: billing })
+            .then(() => setStep('success'))
+            .catch(() => setStep('form'));
     }
 
     /* ── Render: Success ─────────────────────────────────────── */

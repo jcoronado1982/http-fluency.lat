@@ -7,8 +7,12 @@ import FlashcardOverlays from './FlashcardOverlays';
 import { CategoryProvider } from './context/CategoryContext';
 import { FlashcardProvider } from './context/FlashcardContext';
 import { FlashcardUiProvider } from './context/FlashcardUiContext';
-import { getFlashcardUiBridge } from './uiBridge';
 import { getFlashcardFloatingMenuLabels, getFlashcardSidebarLabels } from './config/translations';
+import { readResumeSession } from './config/sessionKeys';
+import { invokeUiBridge } from './uiBridge';
+import { StudyMediaProvider } from '../../components/flashcardStudy';
+import { STUDY_MEDIA_VARIANT_APP } from '../../contracts/studyMediaVariants';
+import { audioPort, imagePort, imageCompressionService } from './composition';
 import { isDefaultHomeModule } from '../index';
 
 const IconVowelChart = () => (
@@ -64,28 +68,33 @@ const flashcardsModule = {
             }],
         }];
     },
-    overlays: () => <FlashcardOverlays />,
+    overlays: () => (
+        <StudyMediaProvider
+            mediaVariant={STUDY_MEDIA_VARIANT_APP}
+            audioPort={audioPort}
+            imagePort={imagePort}
+            imageCompressionService={imageCompressionService}
+        >
+            <FlashcardOverlays />
+        </StudyMediaProvider>
+    ),
     shellProviders: (config) => (config.features.flashcards ? [FlashcardUiProvider] : []),
-    floatingMenuItems: ({ language, config, navigate, location, close }) => {
+    readResumeSession,
+    floatingMenuItems: ({ language, config, navigate, close, location }) => {
         if (!config.features.flashcards) return [];
         const t = getFlashcardFloatingMenuLabels(language);
-        const { openCatalog, openIpa } = getFlashcardUiBridge();
         const homePath = isDefaultHomeModule('flashcards', config) ? '/' : '/flashcard';
-        const goHomeWithState = (state) => {
-            if (location.pathname !== homePath) {
-                navigate(homePath, { state });
-            }
-            return location.pathname === homePath;
+        const openFromShell = (action, state) => {
+            close();
+            const onHome = location?.pathname === homePath;
+            if (onHome && invokeUiBridge(action)) return;
+            navigate(homePath, { state });
         };
         return [
             {
                 id: 'flashcards-categories',
                 sectionLabel: t.learn,
-                onClick: () => {
-                    close();
-                    const onHome = goHomeWithState({ openCatalog: true });
-                    if (onHome && openCatalog) openCatalog();
-                },
+                onClick: () => openFromShell('openCatalog', { openCatalog: true }),
                 icon: <FiLayers />,
                 iconColor: 'teal',
                 name: t.categories,
@@ -93,11 +102,7 @@ const flashcardsModule = {
             },
             {
                 id: 'flashcards-ipa',
-                onClick: () => {
-                    close();
-                    const onHome = goHomeWithState({ openIpa: true });
-                    if (onHome && openIpa) openIpa();
-                },
+                onClick: () => openFromShell('openIpa', { openIpa: true }),
                 icon: <IconVowelChart />,
                 iconColor: 'purple',
                 name: t.vowelChart,

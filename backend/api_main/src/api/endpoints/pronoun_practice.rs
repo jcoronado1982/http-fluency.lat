@@ -1,5 +1,6 @@
+use crate::api::dto::pronoun_practice::UpdateProgressRequest;
+use crate::api::mappers::pronoun_practice::to_progress_update;
 use crate::api::middleware::auth::extract_claims;
-use crate::domain::models::story::ProgressUpdate;
 use crate::AppState;
 use axum::{
     extract::{Path, Query, State},
@@ -58,10 +59,11 @@ pub async fn get_episode_screens(
 pub async fn update_progress(
     State(state): State<AppState>,
     headers: axum::http::HeaderMap,
-    Json(payload): Json<ProgressUpdate>,
+    Json(payload): Json<UpdateProgressRequest>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
+    let update = to_progress_update(payload);
     let claims = extract_claims(&state, &headers)?;
-    if claims.role != "admin" && claims.email != payload.user_id {
+    if claims.role != "admin" && claims.email != update.user_id {
         return Err((
             StatusCode::FORBIDDEN,
             "No autorizado para modificar el progreso de otro usuario".to_string(),
@@ -69,7 +71,7 @@ pub async fn update_progress(
     }
     match state
         .pronoun_practice_use_cases
-        .update_progress(payload)
+        .update_progress(update)
         .await
     {
         Ok(res) => Ok((StatusCode::OK, Json(res)).into_response()),

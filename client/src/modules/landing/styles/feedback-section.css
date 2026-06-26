@@ -11,6 +11,21 @@
     padding: 52px 40px 0 40px;
 }
 
+@media (max-width: 719px) {
+    .lp-feedback-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(92vw, 1000px);
+        height: 1px;
+        z-index: 1;
+        pointer-events: none;
+        background: var(--lp-section-fade-line);
+    }
+}
+
 /* ── Demo feedback box ── */
 .lp-demo-feedback-wrap {
     display: flex;

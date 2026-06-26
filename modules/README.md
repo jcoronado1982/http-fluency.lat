@@ -7,6 +7,19 @@ Deploy / repo / Azure: [docs/DEPLOY_Y_REPOSITORIO.md](../docs/DEPLOY_Y_REPOSITOR
 Ramas `dev-*` → `dev-full`: [docs/GIT_BRANCHES.md](../docs/GIT_BRANCHES.md)  
 Git (`main` / `qa`) + sparse: [docs/GIT_SPARSE_WORKFLOW.md](../docs/GIT_SPARSE_WORKFLOW.md)
 
+## Contrato rápido
+
+Lee esto primero si acabas de entrar al repo:
+
+- La arquitectura es **monolito modular** con `shell compartido + módulos enchufables`.
+- La app debe arrancar con **solo los módulos presentes y habilitados**.
+- Si un módulo no existe en disco por `sparse-checkout`, el sistema no debe romperse: simplemente no debe registrarlo.
+- Si un módulo está deshabilitado por `Cargo feature` o `VITE_ENABLE_*`, tampoco debe romperse.
+- Los módulos se integran por `registry`, `ports`, `composition root` y `manifests`; no por imports cruzados arbitrarios.
+- El objetivo del sparse es técnico y arquitectónico: **la IA solo debe ver en disco el módulo en el que trabaja** además del shell.
+
+Garantía buscada: un cliente puede comprar solo un subconjunto de módulos y la aplicación debe compilar, arrancar y navegar correctamente con esa combinación.
+
 | Módulo registry | Frontend `id` | Variable home |
 |-----------------|-----------------|---------------|
 | `landing` | `landing` | `VITE_ENABLE_LANDING=true` → `/` público |
@@ -97,7 +110,7 @@ cd client && npm run test:routing   # lógica pura de rutas (login → /dashboar
 - `client/src/modules/index.js`, layout, `config/index.js`, `config/api.js`, auth, UI context
 - `scripts/`, `modules/`, `docs/ARQUITECTURA_MODULAR.md`
 
-Un módulo nunca se entrega sin shell: eso garantiza compilación y arranque.
+Un módulo nunca se entrega sin shell: eso garantiza compilación y arranque. La ausencia de otros módulos debe degradar el sistema por omisión de registro, no por fallo.
 
 ## Capas frontend por módulo (Jun 2026)
 

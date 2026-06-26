@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './PhonicsModal.module.css';
-import { useAudioPlayback } from './useAudioPlayback.jsx';
+import { useAudioPlayback } from '../../../components/flashcardStudy/features/useAudioPlayback.jsx';
 import { httpClient } from '../../../services/httpClient';
 import { useUIContext } from '../../../context/UIContext';
 import { useFlashcardUiContext } from '../context/FlashcardUiContext';

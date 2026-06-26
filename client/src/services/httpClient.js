@@ -27,8 +27,20 @@ function buildHeaders(extra = {}) {
     return headers;
 }
 
+function buildUrl(path) {
+    return path.startsWith('http') ? path : `${API_URL}${path.startsWith('/') ? path : '/' + path}`;
+}
+
+async function parseResponse(res) {
+    if (!res.ok) {
+        const text = await res.text().catch(() => res.statusText);
+        throw new Error(`HTTP ${res.status}: ${text}`);
+    }
+    return res.json();
+}
+
 async function request(method, path, body) {
-    const url = path.startsWith('http') ? path : `${API_URL}${path.startsWith('/') ? path : '/' + path}`;
+    const url = buildUrl(path);
     const options = {
         method,
         headers: buildHeaders(),
@@ -38,15 +50,26 @@ async function request(method, path, body) {
     }
 
     const res = await fetch(url, options);
-    if (!res.ok) {
-        const text = await res.text().catch(() => res.statusText);
-        throw new Error(`HTTP ${res.status}: ${text}`);
-    }
-    return res.json();
+    return parseResponse(res);
+}
+
+async function upload(path, formData, extraHeaders = {}) {
+    const url = buildUrl(path);
+    const headers = buildHeaders(extraHeaders);
+    delete headers['Content-Type'];
+
+    const res = await fetch(url, {
+        method: 'POST',
+        headers,
+        body: formData,
+    });
+
+    return parseResponse(res);
 }
 
 export const httpClient = {
     get: (path) => request('GET', path),
     post: (path, body) => request('POST', path, body),
     delete: (path, body) => request('DELETE', path, body),
+    upload,
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import Flashcard from './features/Flashcard';
-import Controls from './features/Controls';
+import { Flashcard, Controls, StudyMediaProvider } from '../../components/flashcardStudy';
+import { STUDY_MEDIA_VARIANT_APP } from '../../contracts/studyMediaVariants';
 import CategorySelector from './features/CategorySelector';
 import PageLoader from '../../components/common/PageLoader';
 import { usePageLoader } from '../../components/common/usePageLoader';
@@ -14,7 +14,11 @@ import { useFlashcardContext } from './context/FlashcardContext';
 import { getCategoryDisplayName, getGroupDisplayName, getProgressLabel } from './features/categoryDisplay';
 import { getNextStudyStep } from './config/catalogOrder';
 import { navigationIntentRef } from './navigationIntent';
-import { flashcardPort } from './composition';
+import { flashcardPort, audioPort, imagePort, imageCompressionService } from './composition';
+import {
+    registerUiBridgeHandler,
+    unregisterUiBridgeHandler,
+} from './uiBridge';
 
 const FLASHCARD_LOADING_COPY = {
     es: {
@@ -114,6 +118,15 @@ export default function FlashcardPage() {
             window.history.replaceState({}, '', location.pathname);
         }
     }, [location.state, location.pathname, setIsCatalogVisible, setIsIpaModalOpen]);
+
+    useEffect(() => {
+        registerUiBridgeHandler('openCatalog', () => setIsCatalogVisible(true));
+        registerUiBridgeHandler('openIpa', () => setIsIpaModalOpen(true));
+        return () => {
+            unregisterUiBridgeHandler('openCatalog');
+            unregisterUiBridgeHandler('openIpa');
+        };
+    }, [setIsCatalogVisible, setIsIpaModalOpen]);
 
     useEffect(() => {
         flashcardPort.touchStudyDay().catch(() => {});
@@ -220,6 +233,12 @@ export default function FlashcardPage() {
     ]);
 
     return (
+        <StudyMediaProvider
+            mediaVariant={STUDY_MEDIA_VARIANT_APP}
+            audioPort={audioPort}
+            imagePort={imagePort}
+            imageCompressionService={imageCompressionService}
+        >
         <div className="flashcard-page-wrapper">
             {masterData.length > 0 && !isOverlayOpen && !shouldShowLoading && !shouldShowCompletionCard && (
                 <div className={`${styles.cardCounter} ${isPronounsCategory ? styles.pronounsCounter : ''}`}>
@@ -281,5 +300,6 @@ export default function FlashcardPage() {
                 </div>
             </div>
         </div>
+        </StudyMediaProvider>
     );
 }

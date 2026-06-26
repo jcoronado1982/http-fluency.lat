@@ -134,7 +134,9 @@ client/src/App.css
 client/src/App.jsx
 client/src/assets
 client/src/components/common
+client/src/components/flashcardStudy
 client/src/components/shell
+client/src/adapters
 client/src/config
 client/src/context/AppContext.jsx
 client/src/context/AuthContext.jsx
@@ -149,10 +151,11 @@ client/src/pages/GrammarPage.jsx
 client/src/pages/LoginPage.css
 client/src/pages/LoginPage.jsx
 client/src/pages/TestPage.jsx
+client/src/utils
+client/src/contracts
 client/src/services/httpClient.js
 client/src/repositories/AuthRepository.js
 client/src/repositories/adminRepository.js
-client/src/utils
 client/vite.config.js
 docker-compose.yml
 start.sh

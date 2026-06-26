@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
+import { CategoryContext as StudyCategoryContext } from '../../../components/flashcardStudy/context/flashcardStudyContext';
 import { flashcardPort } from '../composition';
 import { useAuth } from '../../../context/AuthContext';
 import { FALLBACK_CATEGORIES, sortCategories } from '../config/catalogOrder';
@@ -6,7 +7,7 @@ import { markUserNavigation } from '../navigationIntent';
 import { parseCategoriesResponse, resolvePersistedChoice } from '../useCases/deckUseCases';
 import { LAST_CATEGORY_KEY } from '../config/sessionKeys';
 
-export const CategoryContext = createContext();
+export const CategoryContext = StudyCategoryContext;
 
 export const CategoryProvider = ({ children, resumeSession = null }) => {
     const [categories, setCategories] = useState([]);

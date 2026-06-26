@@ -6,6 +6,32 @@ Documento canónico del modelo **Clean / Hexagonal modular** con **registry**, *
 
 ---
 
+## 0. Contrato arquitectónico
+
+Este repositorio sigue un contrato arquitectónico explícito. Si una persona o una IA entra al proyecto, debe asumir esto como verdad de diseño:
+
+- El sistema es un **monolito modular**, no un frontend y backend acoplados por carpetas.
+- La aplicación debe poder arrancar con el **shell compartido + cualquier subconjunto válido de módulos**.
+- Un módulo ausente no debe romper **build, arranque, rutas, navegación ni composition root**.
+- Los módulos se agregan o quitan por **registry**, **Cargo features**, **flags Vite** y **sparse-checkout**; no editando el shell para acoplar código directo.
+- `git sparse-checkout` no es solo conveniencia de Git: es parte del diseño para que la IA vea en disco solo el shell y los módulos activos.
+- El shell puede conocer la existencia de un módulo por su manifest o feature, pero no debe depender de detalles internos de módulos opcionales.
+- Las dependencias deben ir hacia **puertos/contratos** y no hacia implementaciones concretas de otros módulos.
+
+En términos de producto, el objetivo es que un sistema tipo ERP pueda entregar solo `inventario`, o `inventario + ventas`, sin arrastrar `compras`, `facturación` u otros módulos que el cliente no compró, y sin romper la aplicación.
+
+### Reglas operativas
+
+- Si un módulo no está en disco, el sistema debe omitir su registro.
+- Si un módulo no está habilitado por feature o flag, el sistema debe compilar y correr sin él.
+- El shell compartido es la pieza estable: auth, layout, health, config, registry y composition root.
+- Cada módulo debe exponer un punto de integración claro y acotado:
+  - Backend: feature + crate opcional + `register_routes(app)`.
+  - Frontend: carpeta `client/src/modules/<modulo>/` + `index.jsx` como manifest.
+- Ningún módulo debe ser requisito implícito de otro salvo que el contrato del registry lo declare de forma explícita.
+
+---
+
 ## 1. Visión
 
 El repositorio es un **monolito modular**:

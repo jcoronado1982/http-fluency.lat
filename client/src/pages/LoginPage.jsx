@@ -6,7 +6,7 @@ import './LoginPage.css';
 import config from '../config';
 import { getAuthenticatedHomePath } from '../modules';
 import { useAuth } from '../context/AuthContext';
-import { markDemoFeedbackReturn } from '../modules/landing/demoFeedbackStorage';
+import { markDemoFeedbackReturn } from '../utils/demoFeedbackStorage';
 import PageLoader from '../components/common/PageLoader';
 
 const GOOGLE_CLIENT_ID =

@@ -1,3 +1,4 @@
+/** Contrato shell: persistencia de borrador de feedback del demo (login → landing). */
 export const DEMO_FEEDBACK_DRAFT_KEY = 'lp-demo-feedback-draft';
 export const DEMO_FEEDBACK_RETURN_KEY = 'lp-demo-feedback-return';
 

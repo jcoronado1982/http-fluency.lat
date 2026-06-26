@@ -1,9 +1,8 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { registerFlashcardUiBridge } from '../uiBridge';
+import React, { useState, useCallback, useContext } from 'react';
+import { FlashcardUiContext as StudyFlashcardUiContext } from '../../../components/flashcardStudy/context/flashcardStudyContext';
 
-export const FlashcardUiContext = createContext();
+export const FlashcardUiContext = StudyFlashcardUiContext;
 
-/** Estado de UI exclusivo del módulo flashcards (no pertenece al shell). */
 export const FlashcardUiProvider = ({ children }) => {
     const [isCatalogVisible, setIsCatalogVisible] = useState(false);
     const [isIpaModalOpen, setIsIpaModalOpen] = useState(false);
@@ -13,11 +12,6 @@ export const FlashcardUiProvider = ({ children }) => {
     const openCatalog = useCallback(() => setIsCatalogVisible(true), []);
     const openIpa = useCallback(() => setIsIpaModalOpen(true), []);
     const openPhonics = useCallback(() => setIsPhonicsModalOpen(true), []);
-
-    useEffect(() => {
-        registerFlashcardUiBridge({ openCatalog, openIpa, openPhonics });
-        return () => registerFlashcardUiBridge({ openCatalog: null, openIpa: null, openPhonics: null });
-    }, [openCatalog, openIpa, openPhonics]);
 
     return (
         <FlashcardUiContext.Provider value={{

@@ -79,9 +79,9 @@
     .lp-btn--nav { min-height: 36px; padding: 0.45rem 1rem; font-size: 0.8125rem; }
     .lp-btn--sm { display: none; }
     .lp-hero {
-        padding: 40px 0 48px;
+        padding: 20px 0 40px;
     }
-    .lp-hero-inner { padding: 0 24px; }
+    .lp-hero-inner { padding: 0 24px; gap: 20px; }
     .lp-hero-copy { max-width: 100%; }
     .lp-hero-title {
         max-width: none;
@@ -119,11 +119,12 @@
         left: 12px;
     }
 
-    .lp-feedback-section .lp-section-inner { padding: 0 24px; }
+    .lp-feedback-section .lp-section-inner { padding: 30px 24px 0px 24px; }
     .lp-feedback-section { padding: 0 0 40px; }
     .lp-demo-feedback-wrap { gap: 32px; }
-    .lp-why-vocabulary-first { padding: 80px 0 80px; }
-    .lp-why-vocabulary-first-inner { padding: 0 24px; }
+    .lp-demo-feedback-input { width: 100%; }
+    .lp-why-vocabulary-first { padding: 30px 0 40px; }
+    .lp-why-vocabulary-first-inner { padding: 0px 24px 0px; }
     .lp-why-vocabulary-first-title {
         margin-bottom: 28px;
     }
@@ -134,13 +135,14 @@
         font-size: 0.9rem;
         line-height: 1.6;
     }
-    .lp-why-inner { padding: 56px 24px 64px; }
+    .lp-why-inner { padding: 40px 24px 0px; }
     .lp-why-title {
         white-space: normal;
     }
+    .lp-why-subtitle { margin: 0 0 40px; }
     .lp-why-card { padding: 24px 20px; }
     .lp-why-cta-tail {
-        margin-top: 48px;
+        margin-top: 20px;
         padding-top: 40px;
         max-width: 100%;
     }

@@ -122,6 +122,8 @@ Resolución en runtime: `client/src/modules/index.js` (`getAuthenticatedHomePath
 
 - `backend/mod_flashcards/src/audio_use_cases.rs`
 - `backend/mod_flashcards/src/image_use_cases.rs`
+- `backend/api_main/src/infrastructure/ai/routing_tts_provider.rs` — router TTS (Gemini/Cloud)
+- `backend/api_main/src/infrastructure/ai/elevenlabs_tts_provider.rs` — solo `landing-demo`
 - `client/src/modules/flashcards/adapters/audioHttpAdapter.js`
 - `client/src/modules/flashcards/adapters/imageHttpAdapter.js`
 

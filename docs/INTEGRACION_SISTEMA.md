@@ -33,7 +33,7 @@ graph TD
     %% Proveedores de Servicios Externos (IA y APIs)
     subgraph Proveedores de Servicios / IA
         RustBackend -->|gRPC / Gemini API| Gemini[Gemini 3.1 Flash-Lite]
-        RustBackend -->|gRPC / Cloud TTS| GoogleTTS[Google Cloud Text-to-Speech]
+        RustBackend -->|Gemini TTS + Cloud TTS| AudioProviders[Routing TTS]
         RustBackend -->|HTTP / WebSockets| ComfyUI[ComfyUI + FLUX 2]
     end
 
@@ -48,11 +48,12 @@ graph TD
 
 ### A. Creación y Procesamiento de Tarjetas (Audio / Imagen por IA)
 Cuando el usuario solicita generar recursos para una flashcard:
-1. **Cliente (React):** Envía una solicitud HTTP `POST` a `/api/resolve-image` o `/api/synthesize-speech` mediante [httpClient.js](file:///home/jcoronado/Desktop/dev/flashcard/client/src/services/httpClient.js).
+1. **Cliente (React):** Envía una solicitud HTTP `POST` a `/api/resolve-image` o `/api/synthesize-speech` mediante `client/src/services/httpClient.js`.
 2. **Backend (Axum):** El enrutador en `backend/api_main/src/main.rs` y `modules/` dirige la petición al handler en `api/endpoints/generation.rs` (módulo flashcards).
 3. **Casos de Uso (Application):** Se invoca `AudioUseCases` o `ImageUseCases`.
 4. **Infraestructura (Providers):**
-   - El backend llama a **Google Cloud TTS** (`backend/api_main/src/infrastructure/ai/tts_grpc_provider.rs`) para generar un archivo `.ogg`.
+   - El backend usa **RoutingTtsProvider** (`backend/api_main/src/infrastructure/ai/routing_tts_provider.rs`): español por Cloud TTS / Gemini-TTS Cloud, inglés por Gemini TTS con fallback a Cloud TTS.
+   - El namespace `landing-demo` puede usar **ElevenLabs** como proveedor especial de demo.
    - Llama a **ComfyUI** (`backend/api_main/src/infrastructure/ai/comfy_provider.rs`) para generar o resolver una imagen de FLUX.
 5. **Almacenamiento y Sincronización:**
    - Si está en desarrollo local (`SYNC_TO_ORACLE=false`), el archivo se escribe directamente en el disco duro.
@@ -81,11 +82,18 @@ El backend de Rust implementa el patrón **Null Object** para garantizar que la 
 
 ```rust
 // Comportamiento dinámico durante la inicialización en backend/api_main/src/main.rs:
-let (user_repo, sub_repo, card_repo, story_repo, activity_repo) = 
-    match SurrealRepository::new(&surreal_url, "flashcard", "flashcard").await {
-        Ok(repo) => {
-            // Conexión exitosa -> Inyecta SurrealDB
-            (repo.clone(), repo.clone(), ...)
+let (user_repo, sub_repo, card_repo, story_repo, activity_repo) =
+    match SurrealConnection::new(&surreal_url, "flashcard", "flashcard").await {
+        Ok(conn) => {
+            let conn = Arc::new(conn);
+            // Conexión exitosa -> Inyecta adapters concretos por puerto
+            (
+                Arc::new(SurrealUserRepository(conn.clone())),
+                Arc::new(SurrealSubscriptionRepository(conn.clone())),
+                Arc::new(SurrealCardProgressRepository(conn.clone())),
+                Arc::new(SurrealPronounRepository(conn.clone())),
+                Arc::new(SurrealUserActivityRepository(conn.clone())),
+            )
         }
         Err(_) => {
             // Falla de conexión -> Inyecta NullDbRepository de forma transparente

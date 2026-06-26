@@ -103,6 +103,17 @@ export function getModuleShellProviders(config) {
   });
 }
 
+/** Sesión de reanudación expuesta por módulos de estudio (ej. flashcards). */
+export function getModuleResumeSession(config) {
+  for (const module of getEnabledModules(config)) {
+    if (typeof module.readResumeSession === 'function') {
+      const session = module.readResumeSession();
+      if (session) return session;
+    }
+  }
+  return null;
+}
+
 export function getDefaultModuleId(config) {
   return config?.defaultModule || import.meta.env.VITE_DEFAULT_MODULE || 'flashcards';
 }

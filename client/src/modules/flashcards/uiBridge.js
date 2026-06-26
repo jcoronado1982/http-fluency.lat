@@ -1,17 +1,26 @@
 /**
- * Puente de UI del módulo flashcards.
- * Permite al shell (FloatingMenu) invocar acciones del módulo sin importar su contexto React.
+ * Puente shell ↔ módulo flashcards: acciones de UI sin imports cruzados.
+ * El FloatingMenu (registry) invoca estas acciones; FlashcardPage las registra.
  */
-const bridge = {
-    openCatalog: null,
-    openIpa: null,
-    openPhonics: null,
-};
+const handlers = new Map();
 
-export function registerFlashcardUiBridge(handlers) {
-    Object.assign(bridge, handlers);
+export function registerUiBridgeHandler(action, handler) {
+    handlers.set(action, handler);
 }
 
-export function getFlashcardUiBridge() {
-    return bridge;
+export function unregisterUiBridgeHandler(action) {
+    handlers.delete(action);
+}
+
+export function invokeUiBridge(action, payload) {
+    const handler = handlers.get(action);
+    if (typeof handler === 'function') {
+        handler(payload);
+        return true;
+    }
+    return false;
+}
+
+export function clearUiBridgeHandlers() {
+    handlers.clear();
 }

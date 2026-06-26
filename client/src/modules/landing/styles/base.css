@@ -19,6 +19,14 @@
     --c-muted2: #cbd5e1;
     --c-surface: rgba(255,255,255,0.05);
     --c-border: rgba(244,114,182,0.18);
+    --lp-section-fade-line: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.14) 18%,
+        rgba(255, 255, 255, 0.28) 50%,
+        rgba(255, 255, 255, 0.14) 82%,
+        transparent 100%
+    );
 
     position: relative;
     min-height: 100dvh;

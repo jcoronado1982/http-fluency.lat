@@ -10,7 +10,7 @@ import PageLoader from '../../components/common/PageLoader';
 import ShellFooter from '../../components/shell/ShellFooter';
 import DemoFlashcardSession from './features/DemoFlashcardSession';
 import DemoFeedback from './features/DemoFeedback';
-import { hasDemoFeedbackReturn } from './demoFeedbackStorage';
+import { hasDemoFeedbackReturn } from '../../utils/demoFeedbackStorage';
 import {
     isLandingSectionHash,
     scrollToLandingSection,

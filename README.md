@@ -2,6 +2,18 @@
 
 Plataforma de aprendizaje de inglés (antes Flashcard AI). Flashcards con IA, práctica guiada de pronombres, tutor gramatical y despliegue en [fluency.lat](https://fluency.lat).
 
+## Contrato Arquitectónico
+
+Antes de tocar código, asume esto:
+
+- El repo usa **arquitectura de monolito modular** con **shell compartido + módulos conectables/desconectables**.
+- La app debe poder correr con **solo el shell y los módulos activos**.
+- Los módulos se controlan por `registry`, `Cargo features`, `Vite flags` y `git sparse-checkout`.
+- Si un módulo no está en disco o no está habilitado, la aplicación no debe romperse; solo debe omitirlo.
+- El `sparse-checkout` existe también para aislar contexto de IA: la IA debe ver solo el módulo en el que trabaja más el shell.
+
+Documento canónico: [docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md)
+
 ## Documentación del Sistema
 
 | Archivo / Carpeta | Qué contiene |
@@ -20,12 +32,12 @@ Plataforma de aprendizaje de inglés (antes Flashcard AI). Flashcards con IA, pr
 
 | Capa | Tecnología |
 |---|---|
-| **Frontend** | React 19 + Vite + Tailwind CSS |
+| **Frontend** | React 19 + Vite + CSS modular (`client/src/modules/*`, CSS Modules y estilos por módulo) |
 | **Backend** | Rust + Axum (Tokio) — workspace modular |
 | **Base de datos** | SurrealDB |
 | **Proxy / SSL** | Caddy v2 (`fluency-proxy` en Oracle) |
 | **IA — Tutor** | Google Gemini (gRPC) |
-| **IA — Audio** | Google Cloud Text-to-Speech |
+| **IA — Audio** | Routing híbrido: Gemini TTS + Google Cloud TTS; ElevenLabs solo para `landing-demo` |
 | **Auth** | Google OAuth 2.0 → JWT |
 
 ---

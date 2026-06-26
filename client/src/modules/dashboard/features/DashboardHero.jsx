@@ -1,10 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import config from '../../../config';
-import { isDefaultHomeModule } from '../../index';
-import { readResumeSession } from '../../flashcards/config/sessionKeys';
-import { createLearningStatsHttpAdapter } from '../adapters/learningStatsHttpAdapter';
-import { httpClient } from '../../../services/httpClient';
+import { getModuleResumeSession, isDefaultHomeModule } from '../../index';
+import { learningStatsPort } from '../composition';
 import {
     STREAK_XP_REWARD,
     computeLevelProgress,
@@ -19,8 +17,6 @@ import {
     XP_PER_WORD,
 } from '../useCases/dashboardProgress';
 import AnimatedNumber from './AnimatedNumber';
-
-const learningStatsPort = createLearningStatsHttpAdapter(httpClient);
 
 const RING = 88;
 const STROKE = 8;
@@ -59,7 +55,7 @@ function StatPill({ children, title, description }) {
 
 export default function DashboardHero({ stats, statsLoading, labels, language, userName }) {
     const navigate = useNavigate();
-    const session = readResumeSession();
+    const session = getModuleResumeSession(config);
     const flashcardPath = isDefaultHomeModule('flashcards', config) ? '/' : '/flashcard';
 
     const mastered = stats?.mastered_count ?? 0;

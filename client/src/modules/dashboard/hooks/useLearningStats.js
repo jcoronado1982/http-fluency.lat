@@ -1,8 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { httpClient } from '../../../services/httpClient';
-import { createLearningStatsHttpAdapter } from '../adapters/learningStatsHttpAdapter';
-
-const learningStatsPort = createLearningStatsHttpAdapter(httpClient);
+import { learningStatsPort } from '../composition';
 
 export function useLearningStats(isAuthenticated) {
     const [stats, setStats] = useState(null);
