@@ -1,0 +1,137 @@
+.lp-why-vocabulary-first {
+    padding: 120px 0 120px;
+    background: transparent;
+    position: relative;
+}
+
+/* Resplandor burdeos local — hace la sección visualmente propia */
+.lp-why-vocabulary-first::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+        ellipse 90% 80% at 50% 50%,
+        rgba(190, 24, 93, 0.22) 0%,
+        rgba(244, 114, 182, 0.10) 40%,
+        transparent 72%
+    );
+}
+
+.lp-why-vocabulary-first-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.lp-why-vocabulary-first-title {
+    margin: 0 0 40px;
+    font-family: var(--font-family-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-optical-sizing: auto;
+    font-variation-settings: 'opsz' 56;
+    letter-spacing: -0.03em;
+    text-align: center;
+    line-height: 1;
+    color: var(--color-text-primary);
+    max-width: 760px;
+    text-shadow:
+        0 0 20px rgba(244, 114, 182, 0.28),
+        0 0 64px rgba(190, 24, 93, 0.16);
+}
+
+.lp-vocab-first-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    width: 100%;
+}
+
+.lp-vocab-first-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 28px 26px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(8, 4, 10, 0.55);
+    text-align: left;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.lp-vocab-first-card:hover {
+    background: rgba(244, 114, 182, 0.04);
+    border-color: rgba(244, 114, 182, 0.14);
+}
+
+.lp-vocab-first-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.lp-vocab-first-card-icon svg {
+    font-size: 1.15rem;
+}
+
+.lp-vocab-first-card-icon--rose {
+    background: rgba(190, 24, 93, 0.16);
+    border: 1px solid rgba(244, 114, 182, 0.22);
+    box-shadow: 0 0 28px rgba(244, 114, 182, 0.07);
+}
+
+.lp-vocab-first-card-icon--rose svg {
+    color: #f472b6;
+}
+
+.lp-vocab-first-card-icon--violet {
+    background: rgba(125, 119, 221, 0.14);
+    border: 1px solid rgba(125, 119, 221, 0.28);
+    box-shadow: 0 0 28px rgba(125, 119, 221, 0.1);
+}
+
+.lp-vocab-first-card-icon--violet svg {
+    color: #a5b4fc;
+}
+
+.lp-vocab-first-card-title {
+    margin: 0;
+    font-family: var(--font-family-body);
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+}
+
+.lp-vocab-first-card-body {
+    margin: 0;
+    font-family: var(--font-family-body);
+    font-size: 1rem;
+    line-height: 1.65;
+    color: rgba(203, 213, 225, 0.95);
+}
+
+@media (min-width: 768px) {
+    .lp-vocab-first-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        align-items: stretch;
+    }
+
+    .lp-vocab-first-card {
+        padding: 30px 24px;
+    }
+}
