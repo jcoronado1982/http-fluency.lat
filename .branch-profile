@@ -1,0 +1,9 @@
+# Perfil de rama — no editar a mano; regenerar con create-dev-module-branch.sh
+branch=dev-admin
+profile=admin
+modules=admin
+sparse_command=./scripts/sparse-module.sh admin
+cargo_build=cargo build -p api_main --no-default-features --features auth
+frontend_flags=VITE_ENABLE_ADMIN=true VITE_ENABLE_FLASHCARDS=false VITE_ENABLE_PRONOUN_REFERENCE=false VITE_ENABLE_PRONOUN_PRACTICE=false
+env_profile=client/env-profiles/admin.profile
+apply_env=cp client/env-profiles/admin.profile client/.env.development
