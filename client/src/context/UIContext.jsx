@@ -27,7 +27,7 @@ export const UIProvider = ({ children }) => {
     const [studyLanguageState, setStudyLanguageState] = useState(() => getInitialStudyLanguage());
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isFloatingMenuOpen, setIsFloatingMenuOpen] = useState(false);
-    const [isHeaderManualOpen, setIsHeaderManualOpen] = useState(true);
+    const [isHeaderManualOpen] = useState(true);
     const [isHeaderSuppressed, setIsHeaderSuppressed] = useState(false);
 
     const setStudyLanguage = useCallback((nextLanguage) => {
@@ -46,7 +46,7 @@ export const UIProvider = ({ children }) => {
             setStudyLanguage,
             isSidebarOpen, setIsSidebarOpen,
             isFloatingMenuOpen, setIsFloatingMenuOpen,
-            isHeaderManualOpen, setIsHeaderManualOpen,
+            isHeaderManualOpen,
             isHeaderSuppressed, setIsHeaderSuppressed,
         }}>
             {children}

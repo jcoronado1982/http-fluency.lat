@@ -1,55 +1,58 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useUIContext } from '../../context/UIContext';
+import { preloadFlashcardStart } from './preload';
 import styles from './OnBoardingFlashcard.module.css';
 
 const COPY = {
     es: {
         interfaceOptions: [
-            { id: 'es', title: 'Ver la app en Español' },
-            { id: 'en', title: 'Ver la app en Inglés' },
+            { id: 'es', title: 'Ver la app en Español', flag: '🇪🇸' },
+            { id: 'en', title: 'Ver la app en Inglés', flag: '🇺🇸' },
         ],
         studyOptions: [
-            { id: 'en', title: 'Quiero aprender Inglés', flag: '🇪🇸 → 🇬🇧 / 🇺🇸' },
-            { id: 'es', title: 'Quiero aprender Español', flag: '🇬🇧 / 🇺🇸 → 🇪🇸' },
+            { id: 'en', title: 'Quiero aprender Inglés', flag: '🇪🇸 → 🇬🇧 🇺🇸' },
+            { id: 'es', title: 'Quiero aprender Español', flag: '🇬🇧 🇺🇸 → 🇪🇸' },
         ],
         stepLabel: 'Flujo de Onboarding: Paso',
         next: 'Siguiente',
         selectLanguage: 'Selecciona un idioma',
         continueSpanish: 'Continuar con Español',
         continueEnglish: 'Continuar con Inglés',
-        continueTourEntry: 'Iniciar recorrido guiado',
-        tourHint: 'Automatización local: detecta tus taps en data-tour, resalta cada control y avanza cuando la pantalla cambia.',
+        continueTourEntry: 'Siguiente',
         startLearning: 'Comenzar a aprender',
         back: 'Atrás',
         welcomeTitle: '¡Te damos la bienvenida a Fluency!',
         welcomeSubtitle: '¿En qué idioma prefieres ver los menús y las instrucciones de la aplicación?',
         studyTitle: 'Tu idioma de estudio',
         studySubtitle: '¿Qué idiomas quieres estudiar?',
+        completed: 'Completado',
+        selected: 'Seleccionado',
         englishLabel: 'Inglés',
         spanishLabel: 'Español',
     },
     en: {
         interfaceOptions: [
-            { id: 'es', title: 'View the app in Spanish' },
-            { id: 'en', title: 'View the app in English' },
+            { id: 'es', title: 'View the app in Spanish', flag: '🇪🇸' },
+            { id: 'en', title: 'View the app in English', flag: '🇺🇸' },
         ],
         studyOptions: [
-            { id: 'en', title: 'I want to learn English', flag: '🇪🇸 → 🇬🇧 / 🇺🇸' },
-            { id: 'es', title: 'I want to learn Spanish', flag: '🇬🇧 / 🇺🇸 → 🇪🇸' },
+            { id: 'en', title: 'I want to learn English', flag: '🇪🇸 → 🇬🇧 🇺🇸' },
+            { id: 'es', title: 'I want to learn Spanish', flag: '🇬🇧 🇺🇸 → 🇪🇸' },
         ],
         stepLabel: 'Onboarding Flow: Step',
         next: 'Next',
         selectLanguage: 'Select a language',
         continueSpanish: 'Continue with Spanish',
         continueEnglish: 'Continue with English',
-        continueTourEntry: 'Start guided tour',
-        tourHint: 'Local automation: detects your data-tour taps, highlights each control, and advances when the screen changes.',
+        continueTourEntry: 'Next',
         startLearning: 'Start learning',
         back: 'Back',
         welcomeTitle: 'Welcome to Fluency!',
         welcomeSubtitle: 'Which language would you like to use for the app menus and instructions?',
         studyTitle: 'Your study language',
         studySubtitle: 'What languages do you want to study?',
+        completed: 'Complete',
+        selected: 'Selected',
         englishLabel: 'English',
         spanishLabel: 'Spanish',
     },
@@ -63,7 +66,13 @@ const OnBoardingFlashcard = ({
     onStart,
     onStartTour,
 }) => {
-    const { language, setLanguage, studyLanguage, setStudyLanguage } = useUIContext();
+    const {
+        language,
+        setLanguage,
+        studyLanguage,
+        setStudyLanguage,
+        setIsHeaderSuppressed,
+    } = useUIContext();
     const browserLocale = useMemo(() => {
         if (typeof navigator === 'undefined') return 'en';
         return navigator.language?.toLowerCase().startsWith('es') ? 'es' : 'en';
@@ -75,6 +84,19 @@ const OnBoardingFlashcard = ({
     const [selectedInterfaceLanguage, setSelectedInterfaceLanguage] = useState(
         language === 'es' ? 'es' : browserLocale,
     );
+    const progressPercent = Math.round((currentStep / STEP_TOTAL) * 100);
+
+    useEffect(() => {
+        setIsHeaderSuppressed(currentStep <= 2);
+
+        return () => {
+            setIsHeaderSuppressed(false);
+        };
+    }, [currentStep, setIsHeaderSuppressed]);
+
+    useEffect(() => {
+        void preloadFlashcardStart(user?.email);
+    }, [user?.email]);
 
     const primaryButtonLabel = useMemo(() => {
         if (currentStep === 1) {
@@ -115,7 +137,10 @@ const OnBoardingFlashcard = ({
                 <>
                     <h1 className={styles.title}>{t.welcomeTitle}</h1>
                     <p className={styles.subtitle}>
-                        {user?.name || user?.email || 'Usuario'}, {t.welcomeSubtitle}
+                        <span className={styles.subtitleLead}>
+                            {user?.name || user?.email || 'Usuario'},
+                        </span>
+                        <span className={styles.subtitleQuestion}>{t.welcomeSubtitle}</span>
                     </p>
 
                     <section className={styles.pillList}>
@@ -132,7 +157,9 @@ const OnBoardingFlashcard = ({
                                     }}
                                     className={`${styles.pillButton} ${isSelected ? styles.pillButtonSelected : ''}`}
                                 >
-                                    {option.title}
+                                    <span className={styles.pillButtonFlag}>{option.flag}</span>
+                                    <span className={styles.pillButtonText}>{option.title}</span>
+                                    {isSelected && <span className={styles.selectionCheck}>✓</span>}
                                 </button>
                             );
                         })}
@@ -144,12 +171,10 @@ const OnBoardingFlashcard = ({
         if (currentStep === 2) {
             return (
                 <>
-                    <h1 className={styles.title}>{t.studyTitle}</h1>
+                    <h1 className={`${styles.title} ${styles.studyTitle}`}>{t.studyTitle}</h1>
                     <p className={styles.subtitle}>
                         {t.studySubtitle}
                     </p>
-                    <p className={styles.tourHint}>{t.tourHint}</p>
-
                     <section className={styles.grid}>
                         {t.studyOptions.map((option) => {
                             const isSelected = selectedStudyLanguage === option.id;
@@ -166,6 +191,12 @@ const OnBoardingFlashcard = ({
                                 >
                                     <span className={styles.optionFlag}>{option.flag}</span>
                                     <h2 className={styles.optionTitle}>{option.title}</h2>
+                                    {isSelected && (
+                                        <span className={styles.optionSelectedLabel}>
+                                            <span className={styles.optionSelectedIcon}>✓</span>
+                                            {t.selected}
+                                        </span>
+                                    )}
                                 </button>
                             );
                         })}
@@ -180,9 +211,17 @@ const OnBoardingFlashcard = ({
     return (
         <main className={styles.page}>
             <section className={styles.hero}>
-                <p className={styles.eyebrow}>
-                    {t.stepLabel} {currentStep} / {STEP_TOTAL}
-                </p>
+                <div className={styles.progressHeader}>
+                    <p className={styles.eyebrow}>
+                        {t.stepLabel} {currentStep} / {STEP_TOTAL}
+                    </p>
+                    <p className={styles.progressCopy}>
+                        {progressPercent}% {t.completed}
+                    </p>
+                </div>
+                <div className={styles.progressTrack} aria-hidden="true">
+                    <span className={styles.progressFill} style={{ width: `${progressPercent}%` }} />
+                </div>
                 {renderStepContent()}
 
                 <div className={styles.actions}>

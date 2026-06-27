@@ -235,12 +235,6 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
                 <div className="dash-panel-divider" />
 
                 <div className="dash-quick-stats">
-                    <StatPill title={labels.statStreakTipTitle} description={labels.statStreakTip}>
-                        🔥 {streak} {streak === 1 ? labels.daySingular : labels.dayPlural}
-                    </StatPill>
-                    <StatPill title={labels.statLearnedTipTitle} description={labels.statLearnedTip}>
-                        📚 <AnimatedNumber value={mastered} duration={700} /> {labels.learnedShort}
-                    </StatPill>
                     <StatPill
                         title={labels.statXpTipTitle}
                         description={labels.statXpTip.replace('{xp}', String(XP_PER_WORD))}

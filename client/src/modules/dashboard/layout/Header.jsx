@@ -5,12 +5,6 @@ import { FaBars } from 'react-icons/fa';
 import LanguageSelector from '../../../components/common/LanguageSelector';
 import { useAppContext } from '../../../context/AppContext';
 
-const ChevronDownIcon = () => (
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="6 9 12 15 18 9"></polyline>
-    </svg>
-);
-
 const AppLogo = () => (
     <div className="app-logo">
         <img src="/logo.avif" alt="Fluency" className="app-logo-img" />
@@ -21,7 +15,7 @@ export default function Header() {
     const { 
         isSidebarOpen, setIsSidebarOpen,
         language, setLanguage,
-        isHeaderManualOpen, setIsHeaderManualOpen,
+        isHeaderManualOpen,
         isHeaderSuppressed,
     } = useAppContext();
 
@@ -54,10 +48,6 @@ export default function Header() {
                 <div className="menu-wrapper">
                     <FloatingMenu />
                 </div>
-            </div>
-
-            <div className="header-handle" onClick={() => setIsHeaderManualOpen(!isHeaderManualOpen)}>
-                <ChevronDownIcon />
             </div>
         </header>
     );

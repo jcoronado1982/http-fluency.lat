@@ -1,7 +1,7 @@
 .dashboard-home {
     max-width: 640px;
     margin: 0 auto;
-    padding: 28px 20px 48px;
+    padding: 28px 20px 44px;
     color: #e2e8f0;
     font-family: var(--font-family-body);
     --dash-label: 0.75rem;
@@ -168,8 +168,10 @@
     margin: 0;
     font-size: var(--dash-body);
     font-family: var(--font-family-body);
-    color: var(--dash-muted);
-    opacity: 0.92;
+    color: #f1f5f9;
+    opacity: 1;
+    font-weight: 600;
+    text-shadow: 0 1px 0 rgba(15, 23, 42, 0.55);
 }
 
 .dash-mission-cta {
@@ -305,6 +307,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    justify-content: center;
 }
 
 .dash-tile-ring-wrap {
@@ -350,6 +353,9 @@
 
 .dash-tile-words-copy {
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 /* ── Level journey (inside shared card) ── */
@@ -552,10 +558,19 @@
 
 /* ── Quick stats (inside shared card) ── */
 .dash-quick-stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
     animation: none;
+}
+
+.dash-quick-stats .dash-stat-pill-wrap,
+.dash-quick-stats .dash-stat-pill {
+    width: 100%;
+}
+
+.dash-quick-stats .dash-stat-pill {
+    justify-content: center;
 }
 
 .dash-stat-pill-wrap {
@@ -579,15 +594,15 @@
     background: rgba(15, 23, 42, 0.45);
     font-size: var(--dash-body);
     font-weight: 600;
-    color: var(--dash-muted-light);
+    color: #f8fafc;
     font-variant-numeric: tabular-nums;
     transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 }
 
 .dash-stat-pill-wrap:hover .dash-stat-pill,
 .dash-stat-pill-wrap:focus-visible .dash-stat-pill {
-    border-color: rgba(125, 119, 221, 0.45);
-    background: rgba(125, 119, 221, 0.12);
+    border-color: rgba(45, 212, 191, 0.38);
+    background: rgba(45, 212, 191, 0.12);
     transform: translateY(-1px);
 }
 
@@ -659,6 +674,10 @@
         gap: 16px;
     }
 
+    .dash-hero {
+        margin-bottom: 20px;
+    }
+
     .dash-tile {
         padding: 0;
     }
@@ -667,6 +686,10 @@
         padding: 16px 0 0;
         border-left: none;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .dash-tile-ring-row {
+        justify-content: flex-start;
     }
 
     .dash-mission-body {
@@ -699,5 +722,9 @@
 
     .dash-journey-goal {
         white-space: normal;
+    }
+
+    .dash-quick-stats {
+        grid-template-columns: 1fr;
     }
 }

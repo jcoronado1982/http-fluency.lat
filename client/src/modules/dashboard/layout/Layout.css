@@ -33,45 +33,6 @@
     padding-top: 80px;
 }
 
-/* Remove manual hover/transform styles */
-
-/* Sibling selector removed as Headroom handles space */
-
-.header-handle {
-    position: absolute;
-    bottom: -36px;
-    /* Position below the header */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 36px;
-    background-color: #122035;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-top: none;
-    border-bottom-left-radius: 18px;
-    border-bottom-right-radius: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    opacity: 1;
-    transition: opacity 0.2s, transform 0.3s ease;
-}
-
-/* Rotate handle when open */
-.app-header.manual-open .header-handle svg {
-    transform: rotate(180deg);
-    transition: transform 0.3s ease;
-}
-
-/* Ensure handle stays visible */
-.app-header.sidebar-open .header-handle,
-.app-header.manual-open .header-handle {
-    opacity: 1;
-    pointer-events: auto;
-}
-
 .header-left {
     display: flex;
     align-items: center;
@@ -403,11 +364,4 @@
         justify-content: flex-end;
     }
 
-    .header-handle {
-        width: 100px;
-        height: 48px;
-        bottom: -48px;
-        border-bottom-left-radius: 24px;
-        border-bottom-right-radius: 24px;
-    }
 }

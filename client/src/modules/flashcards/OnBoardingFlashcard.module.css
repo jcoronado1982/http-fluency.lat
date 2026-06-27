@@ -1,30 +1,68 @@
 .page {
-    max-width: 920px;
+    width: min(100%, 720px);
     margin: 0 auto;
-    padding: 40px 24px 64px;
+    min-height: 100dvh;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    padding: 40px 24px;
+    box-sizing: border-box;
     color: #e2e8f0;
     font-family: var(--font-family-body);
 }
 
 .eyebrow {
-    margin: 0 0 14px;
-    color: #93c5fd;
+    margin: 0;
+    color: #f2b36f;
     font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 
+.progressHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.progressCopy {
+    margin: 0;
+    color: #c8b29a;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.progressTrack {
+    width: 100%;
+    height: 4px;
+    margin: 12px 0 28px;
+    border-radius: 999px;
+    background: rgba(100, 116, 139, 0.35);
+    overflow: hidden;
+}
+
+.progressFill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+    box-shadow: 0 0 18px rgba(251, 191, 36, 0.34);
+}
+
 .hero {
     position: relative;
     overflow: hidden;
-    padding: 30px 30px 28px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 36px 38px 34px;
     border-radius: 28px;
-    border: 1px solid rgba(125, 119, 221, 0.32);
+    border: 1px solid rgba(65, 79, 109, 0.52);
     background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.14), transparent 32%),
-        radial-gradient(circle at 84% 14%, rgba(244, 114, 182, 0.16), transparent 24%),
-        linear-gradient(180deg, rgba(18, 30, 56, 0.96), rgba(10, 19, 43, 0.98));
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.08), transparent 30%),
+        radial-gradient(circle at 84% 14%, rgba(251, 191, 36, 0.06), transparent 24%),
+        linear-gradient(180deg, rgba(24, 30, 47, 0.98), rgba(16, 22, 38, 0.99));
     box-shadow:
         0 24px 70px rgba(2, 8, 23, 0.35),
         0 0 0 1px rgba(255, 255, 255, 0.03) inset;
@@ -45,27 +83,33 @@
 
 .title {
     margin: 0;
-    color: #f8fafc;
+    color: #f4f1ea;
     font-family: var(--font-family-display);
-    font-size: clamp(2.1rem, 4vw, 3.4rem);
+    font-size: 2rem;
     line-height: 0.98;
     letter-spacing: -0.03em;
+}
+
+.studyTitle {
+    font-size: 2rem;
 }
 
 .subtitle {
     max-width: 640px;
     margin: 14px 0 0;
-    color: #cbd5e1;
-    font-size: 1rem;
-    line-height: 1.65;
+    color: #c7b39d;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    font-weight: 600;
 }
 
-.tourHint {
-    max-width: 640px;
-    margin: 10px 0 0;
-    color: #93c5fd;
-    font-size: 0.92rem;
-    line-height: 1.55;
+.subtitleLead,
+.subtitleQuestion {
+    display: block;
+}
+
+.subtitleQuestion {
+    margin-top: 2px;
 }
 
 .grid {
@@ -77,13 +121,17 @@
 
 .optionCard {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
     overflow: hidden;
-    min-height: 166px;
+    min-height: 170px;
     padding: 24px;
-    border: 1px solid rgba(148, 163, 184, 0.2);
-    border-radius: 24px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
-    color: #f8fafc;
+    border: 1px solid rgba(49, 61, 87, 0.88);
+    border-radius: 26px;
+    background: linear-gradient(180deg, rgba(18, 25, 43, 0.95), rgba(18, 25, 43, 0.82));
+    color: #f4f1ea;
     text-align: left;
     cursor: pointer;
     transition:
@@ -95,32 +143,61 @@
 
 .optionCard:hover {
     transform: translateY(-2px);
-    border-color: rgba(125, 211, 252, 0.42);
+    border-color: rgba(80, 95, 126, 0.9);
     box-shadow: 0 18px 44px rgba(15, 23, 42, 0.26);
 }
 
 .optionCardSelected {
-    border-color: rgba(250, 204, 21, 0.75);
+    border-color: rgba(34, 197, 94, 0.78);
     background:
-        radial-gradient(circle at top right, rgba(250, 204, 21, 0.18), transparent 28%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.05));
+        radial-gradient(circle at top right, rgba(34, 197, 94, 0.12), transparent 28%),
+        linear-gradient(180deg, rgba(24, 58, 45, 0.95), rgba(24, 58, 45, 0.86));
     box-shadow:
-        0 0 0 1px rgba(250, 204, 21, 0.22) inset,
+        0 0 0 1px rgba(74, 222, 128, 0.2) inset,
         0 22px 52px rgba(15, 23, 42, 0.32);
 }
 
 .optionFlag {
     display: block;
-    margin-bottom: 14px;
-    font-size: 2.1rem;
+    color: #f2d8bd;
+    font-size: 1.9rem;
+    line-height: 1;
+    white-space: nowrap;
 }
 
 .optionTitle {
     margin: 0;
-    font-size: 1.45rem;
+    max-width: none;
+    color: #ead8c5;
+    font-size: 1.35rem;
     line-height: 1.2;
+    white-space: nowrap;
     font-weight: 800;
     letter-spacing: -0.02em;
+}
+
+.optionSelectedLabel {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    color: #4ade80;
+    font-size: 0.95rem;
+    font-weight: 800;
+}
+
+.optionSelectedIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background: #4ade80;
+    color: #143828;
+    font-size: 0.8rem;
+    font-weight: 900;
+    line-height: 1;
 }
 
 .optionDescription {
@@ -137,11 +214,15 @@
 }
 
 .pillButton {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 16px;
     padding: 18px 20px;
-    border: 1px solid rgba(148, 163, 184, 0.2);
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.04);
-    color: #e2e8f0;
+    border: 1px solid rgba(63, 74, 99, 0.8);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    color: #e2d6ca;
     text-align: left;
     font-size: 1rem;
     font-weight: 600;
@@ -151,13 +232,44 @@
 
 .pillButton:hover {
     transform: translateY(-1px);
-    border-color: rgba(125, 211, 252, 0.4);
+    border-color: rgba(87, 99, 129, 0.9);
 }
 
 .pillButtonSelected {
-    border-color: rgba(34, 197, 94, 0.52);
-    background: rgba(34, 197, 94, 0.12);
-    color: #f8fafc;
+    border-color: rgba(34, 197, 94, 0.7);
+    background: rgba(34, 197, 94, 0.18);
+    color: #f4f1ea;
+    box-shadow:
+        0 0 0 1px rgba(74, 222, 128, 0.18) inset,
+        0 0 28px rgba(34, 197, 94, 0.12);
+}
+
+.pillButtonFlag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    background: rgba(5, 14, 28, 0.7);
+    font-size: 1rem;
+}
+
+.pillButtonText {
+    display: block;
+}
+
+.selectionCheck {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: #4ade80;
+    color: #143828;
+    font-size: 0.88rem;
+    font-weight: 900;
 }
 
 .pointsList {
@@ -609,14 +721,17 @@
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
+    justify-content: flex-end;
     margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(69, 80, 105, 0.38);
 }
 
 .button {
-    min-height: 46px;
-    padding: 0 20px;
+    min-height: 50px;
+    padding: 0 22px;
     border: 1px solid transparent;
-    border-radius: 14px;
+    border-radius: 999px;
     font-size: 0.95rem;
     font-weight: 700;
     cursor: pointer;
@@ -635,7 +750,7 @@
 .buttonPrimary {
     background: linear-gradient(135deg, #f59e0b, #f97316);
     color: #fff7ed;
-    box-shadow: 0 10px 24px rgba(249, 115, 22, 0.28);
+    box-shadow: 0 10px 24px rgba(249, 115, 22, 0.36);
 }
 
 .buttonSecondary {
@@ -651,14 +766,42 @@
     line-height: 1.6;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 1100px) {
     .page {
-        padding: 28px 18px 56px;
+        max-width: 720px;
+        padding: 32px 20px;
     }
 
     .hero {
-        padding: 24px 20px 22px;
-        border-radius: 24px;
+        padding: 30px 28px;
+    }
+
+    .title,
+    .studyTitle {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 760px) {
+    .page {
+        width: 100%;
+        min-height: 100dvh;
+        padding: 12px 14px;
+        align-content: center;
+        align-items: center;
+        justify-items: center;
+    }
+
+    .hero {
+        max-width: 100%;
+        padding: 20px 18px 18px;
+        border-radius: 22px;
+    }
+
+    .progressHeader {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
     }
 
     .grid {
@@ -675,6 +818,141 @@
     }
 
     .title {
-        font-size: 2.2rem;
+        font-size: clamp(2rem, 8vw, 2.4rem);
+    }
+
+    .studyTitle {
+        font-size: clamp(2rem, 8vw, 2.4rem);
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .optionCard {
+        min-height: auto;
+        padding: 20px 18px;
+        border-radius: 22px;
+    }
+
+    .optionTitle {
+        max-width: none;
+        font-size: 1.15rem;
+    }
+
+    .optionFlag {
+        font-size: 1.7rem;
+    }
+
+    .pillButton {
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        padding: 16px;
+    }
+
+    .pillButtonText {
+        font-size: 0.98rem;
+    }
+
+    .selectionCheck {
+        display: none;
+    }
+
+    .actions {
+        flex-direction: column;
+        justify-content: stretch;
+    }
+
+    .button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .optionSelectedLabel {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .page {
+        padding: 12px;
+    }
+
+    .hero {
+        width: min(100%, 30rem);
+        padding: 18px 14px 16px;
+        border-radius: 18px;
+    }
+
+    .eyebrow,
+    .progressCopy {
+        font-size: 0.78rem;
+    }
+
+    .progressTrack {
+        margin: 10px 0 22px;
+    }
+
+    .title,
+    .studyTitle {
+        font-size: clamp(1.8rem, 10vw, 2.15rem);
+        line-height: 1.02;
+    }
+
+    .subtitle {
+        margin-top: 12px;
+        font-size: 0.95rem;
+    }
+
+    .pillList,
+    .grid {
+        gap: 14px;
+        margin-top: 22px;
+    }
+
+    .pillButton {
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    .pillButtonFlag {
+        width: 30px;
+        height: 30px;
+        font-size: 0.95rem;
+    }
+
+    .optionCard {
+        gap: 10px;
+        padding: 18px 16px;
+        border-radius: 20px;
+    }
+
+    .optionFlag {
+        font-size: 1.5rem;
+    }
+
+    .optionTitle {
+        font-size: 1.05rem;
+        line-height: 1.15;
+    }
+
+    .optionSelectedLabel {
+        font-size: 0.88rem;
+    }
+
+    .optionSelectedIcon {
+        display: none;
+    }
+
+    .actions {
+        margin-top: 22px;
+        padding-top: 16px;
+    }
+
+    .button {
+        min-height: 48px;
+        padding: 0 18px;
+        font-size: 0.92rem;
     }
 }
