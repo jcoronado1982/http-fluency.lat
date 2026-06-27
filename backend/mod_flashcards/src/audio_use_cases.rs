@@ -13,17 +13,52 @@ use crate::{is_landing_demo_namespace, FlashcardsConfig};
 const GEMINI_TTS_MODEL: &str = "gemini-2.5-flash-preview-tts";
 const SPANISH_TTS_BACKEND: &str = "cloud-gemini-es-419-v1";
 const GEMINI_MALE_VOICES: &[&str] = &[
-    "Algenib", "Algieba", "Alnilam", "Charon", "Enceladus", "Iapetus", "Orus", "Fenrir",
-    "Puck", "Sadaltager", "Umbriel",
+    "Algenib",
+    "Algieba",
+    "Alnilam",
+    "Charon",
+    "Enceladus",
+    "Iapetus",
+    "Orus",
+    "Fenrir",
+    "Puck",
+    "Sadaltager",
+    "Umbriel",
 ];
 const GEMINI_FEMALE_VOICES: &[&str] = &[
-    "Achernar", "Autonoe", "Callirrhoe", "Erinome", "Gacrux", "Kore", "Laomedeia",
-    "Sulafat", "Zephyr", "Aoede",
+    "Achernar",
+    "Autonoe",
+    "Callirrhoe",
+    "Erinome",
+    "Gacrux",
+    "Kore",
+    "Laomedeia",
+    "Sulafat",
+    "Zephyr",
+    "Aoede",
 ];
 const GEMINI_VOICE_POOL: &[&str] = &[
-    "Achernar", "Algenib", "Algieba", "Alnilam", "Autonoe", "Aoede", "Callirrhoe", "Charon",
-    "Enceladus", "Erinome", "Fenrir", "Gacrux", "Iapetus", "Kore", "Laomedeia", "Orus",
-    "Puck", "Sadaltager", "Sulafat", "Umbriel", "Zephyr",
+    "Achernar",
+    "Algenib",
+    "Algieba",
+    "Alnilam",
+    "Autonoe",
+    "Aoede",
+    "Callirrhoe",
+    "Charon",
+    "Enceladus",
+    "Erinome",
+    "Fenrir",
+    "Gacrux",
+    "Iapetus",
+    "Kore",
+    "Laomedeia",
+    "Orus",
+    "Puck",
+    "Sadaltager",
+    "Sulafat",
+    "Umbriel",
+    "Zephyr",
 ];
 
 /// Voces premade ElevenLabs para el landing demo (etiqueta, voice_id).
@@ -230,11 +265,7 @@ impl AudioUseCases {
                 .await
             {
                 Ok(bytes) => {
-                    tracing::info!(
-                        "✨ Demo ElevenLabs → {} (voz={})",
-                        blob_path,
-                        label
-                    );
+                    tracing::info!("✨ Demo ElevenLabs → {} (voz={})", blob_path, label);
                     self.storage_repo
                         .upload_blob(&blob_path, bytes, Self::audio_mime_type(true))
                         .await?;
@@ -320,7 +351,12 @@ impl AudioUseCases {
         if !is_admin {
             let global_file = self.deterministic_audio_filename(req, None, false);
             let global_path = format!("{}/{}", self.config.gcs_audio_prefix, global_file);
-            if self.storage_repo.blob_exists(&global_path).await.unwrap_or(false) {
+            if self
+                .storage_repo
+                .blob_exists(&global_path)
+                .await
+                .unwrap_or(false)
+            {
                 tracing::info!("✅ Audio global fallback: {}", global_path);
                 return Ok(Some(self.build_result(&global_file, "", true)));
             }
@@ -612,7 +648,12 @@ impl AudioUseCases {
 
     async fn try_cached_audio(&self, file_name: &str) -> Result<Option<AudioSynthResult>> {
         let blob_path = format!("{}/{}", self.config.gcs_audio_prefix, file_name);
-        if self.storage_repo.blob_exists(&blob_path).await.unwrap_or(false) {
+        if self
+            .storage_repo
+            .blob_exists(&blob_path)
+            .await
+            .unwrap_or(false)
+        {
             tracing::info!("✅ Audio activo encontrado: {}", blob_path);
             return Ok(Some(self.build_result(file_name, "", true)));
         }
@@ -632,7 +673,10 @@ impl AudioUseCases {
     }
 
     fn audio_stem(blob_path: &str) -> &str {
-        blob_path.rsplit_once('.').map(|(stem, _)| stem).unwrap_or(blob_path)
+        blob_path
+            .rsplit_once('.')
+            .map(|(stem, _)| stem)
+            .unwrap_or(blob_path)
     }
 
     fn slugify(&self, text: &str, max_len: usize) -> String {

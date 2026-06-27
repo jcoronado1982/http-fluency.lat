@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useUIContext } from '../context/UIContext';
 import config from '../config';
 import { getAuthenticatedHomePath, getOnboardingModules } from '../modules';
 import OnBoardingFlashcard from '../modules/flashcards/OnBoardingFlashcard';
+import { preloadFlashcardStart } from '../modules/flashcards/preload';
 
 const OnboardingPage = () => {
     const navigate = useNavigate();
@@ -14,6 +15,12 @@ const OnboardingPage = () => {
         () => getOnboardingModules(config, { language, user }),
         [language, user],
     );
+
+    useEffect(() => {
+        if (user?.email) {
+            void preloadFlashcardStart(user.email);
+        }
+    }, [user?.email]);
 
     if (loading) return null;
     if (!isAuthenticated) return <Navigate to="/login" replace />;

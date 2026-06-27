@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { AI_ENABLED } from '../../../config/api';
+import { useDialog } from '../../../context/AppContext';
 import { tutorPort } from '../composition';
 import {
   useBackendFeatures,
@@ -23,6 +24,7 @@ import {
 
 export function useStorySession(userId) {
   const queryClient = useQueryClient();
+  const { confirm } = useDialog();
   const lastEpisodeIdRef = useRef(null);
   const storyId = STORY_ID;
 
@@ -253,10 +255,13 @@ export function useStorySession(userId) {
     );
   }
 
-  function handleReset() {
-    const confirmed = window.confirm(
-      'Se reiniciara el progreso de esta historia. Deseas continuar?',
-    );
+  async function handleReset() {
+    const confirmed = await confirm({
+      title: '¿Reiniciar progreso?',
+      message: 'Se reiniciará el progreso de esta historia. ¿Deseas continuar?',
+      tone: 'danger',
+      confirmLabel: 'Reiniciar',
+    });
     if (!confirmed) return;
 
     resetProgressMutation.mutate(

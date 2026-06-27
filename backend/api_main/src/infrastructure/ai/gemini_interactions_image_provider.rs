@@ -82,7 +82,9 @@ impl GeminiInteractionsImageProvider {
             }
         }
 
-        Err(anyhow!("Gemini image: no image block in interaction response"))
+        Err(anyhow!(
+            "Gemini image: no image block in interaction response"
+        ))
     }
 }
 
@@ -96,7 +98,9 @@ fn decode_image_b64(data: &str) -> Result<Vec<u8>> {
 impl ImageGenerator for GeminiInteractionsImageProvider {
     async fn generate(&self, prompt: &str) -> Result<Vec<u8>> {
         if self.api_key.is_empty() || self.api_key == "DISABLED" {
-            return Err(anyhow!("Gemini API key no configurada para imágenes del demo"));
+            return Err(anyhow!(
+                "Gemini API key no configurada para imágenes del demo"
+            ));
         }
 
         info!(
@@ -126,7 +130,10 @@ impl ImageGenerator for GeminiInteractionsImageProvider {
             .context("Gemini image: HTTP request failed")?;
 
         let status = resp.status();
-        let text = resp.text().await.context("Gemini image: read body failed")?;
+        let text = resp
+            .text()
+            .await
+            .context("Gemini image: read body failed")?;
 
         if !status.is_success() {
             return Err(anyhow!(

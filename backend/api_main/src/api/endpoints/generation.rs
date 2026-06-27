@@ -1,19 +1,21 @@
 use crate::api::dto::generation::{
-    DeleteAudioBody, DeleteImageBody, GenerateImageBody, GenerateImageResponse,
-    ResolveImageBody, SynthesizeSpeechBody, SynthesizeSpeechResponse,
+    DeleteAudioBody, DeleteImageBody, GenerateImageBody, GenerateImageResponse, ResolveImageBody,
+    SynthesizeSpeechBody, SynthesizeSpeechResponse,
 };
 use crate::api::mappers::flashcards::{
     to_audio_synth_request, to_delete_audio_request, to_image_gen_request, to_upload_image_request,
 };
-use crate::api::middleware::auth::{extract_claims, extract_claims_or_guest, require_premium_role, resolve_effective_role};
+use crate::api::middleware::auth::{
+    extract_claims, extract_claims_or_guest, require_premium_role, resolve_effective_role,
+};
 use crate::AppState;
-use mod_flashcards::is_landing_demo_namespace;
 use axum::{
     extract::{Multipart, State},
     http::StatusCode,
     response::IntoResponse,
     Json,
 };
+use mod_flashcards::is_landing_demo_namespace;
 
 /// Solo busca audio en disco (sin TTS). El cliente luego hace GET a /card_audio/… vía Caddy.
 pub async fn resolve_audio(

@@ -14,7 +14,7 @@ const DIPHTHONGS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=421s";
 const CONSONANTS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=600s";
 
 const IconPronunciation = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="#378add" strokeWidth="2.2">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
         <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
         <line x1="12" y1="19" x2="12" y2="23" />
@@ -22,7 +22,7 @@ const IconPronunciation = () => (
     </svg>
 );
 
-const FloatingMenu = () => {
+const FloatingMenu = ({ mobileTrigger = null }) => {
     const {
         isFloatingMenuOpen: isOpen,
         setIsFloatingMenuOpen: setIsOpen,
@@ -58,12 +58,18 @@ const FloatingMenu = () => {
 
     const openExternal = (url) => { window.open(url, "_blank"); close(); };
 
+    const toggleMenu = () => {
+        setIsOpen((open) => !open);
+        setShowPronun(false);
+    };
+
     return (
         <div className="floatingMenuContainer" ref={containerRef}>
+            {mobileTrigger?.({ isOpen, toggleMenu })}
 
             <button
                 className="floatingMainButton"
-                onClick={() => { setIsOpen(!isOpen); setShowPronun(false); }}
+                onClick={toggleMenu}
                 aria-label="Menú de estudio"
                 aria-expanded={isOpen}
                 data-tour="menu-estudio"
@@ -82,37 +88,36 @@ const FloatingMenu = () => {
                         {moduleFloatingItems.map((item, index) => (
                             <React.Fragment key={item.id}>
                                 {item.sectionLabel && (index === 0 || moduleFloatingItems[index - 1]?.sectionLabel !== item.sectionLabel) && (
-                                    <span className="menuSectionLabel">{item.sectionLabel}</span>
+                                    <span className="fmSectionLabel">{item.sectionLabel}</span>
                                 )}
                                 <button
                                     className="floatingOption"
                                     onClick={item.onClick}
                                     data-tour={item.id === 'flashcards-categories' ? 'catalogo-categorias' : undefined}
                                 >
-                                    <span className={`optionIcon ${item.iconColor}`}>{item.icon}</span>
-                                    <span className="optionText">
-                                        <span className="optionName">{item.name}</span>
-                                        <span className="optionSub">{item.sub}</span>
+                                    <span className={`optionIcon ${item.iconColor || ''}`}>{item.icon}</span>
+                                    <span className="fmOptionText">
+                                        <span className="fmOptionName">{item.name}</span>
+                                        <span className="fmOptionSub">{item.sub}</span>
                                     </span>
                                 </button>
                             </React.Fragment>
                         ))}
-                        <div className="menuDivider" />
+                        <div className="fmDivider" />
                     </>
                 )}
 
                 {/* ── REFERENCIAS ── */}
-                <span className="menuSectionLabel">{t.practice}</span>
+                <span className="fmSectionLabel">{t.practice}</span>
 
-                {/* Pronunciación con submenu inline */}
                 <button
                     className={`floatingOption ${showPronun ? "active" : ""}`}
                     onClick={() => setShowPronun(!showPronun)}
                 >
-                    <span className="optionIcon blue"><IconPronunciation /></span>
-                    <span className="optionText">
-                        <span className="optionName">{t.pronunciation}</span>
-                        <span className="optionSub">
+                    <span className="optionIcon brand"><IconPronunciation /></span>
+                    <span className="fmOptionText">
+                        <span className="fmOptionName">{t.pronunciation}</span>
+                        <span className="fmOptionSub">
                             {showPronun ? t.close : t.pronunciationSub}
                         </span>
                     </span>
@@ -120,40 +125,28 @@ const FloatingMenu = () => {
 
                 {showPronun && (
                     <>
-                        <button
-                            className="floatingOption submenuItem"
-                            onClick={() => openExternal(VOWELS_URL)}
-                        >
-                            <span className="optionText">
-                                <span className="optionName">{t.vowels}</span>
-                            </span>
+                        <button className="floatingOption submenuItem" onClick={() => openExternal(VOWELS_URL)}>
+                            <span className="fmOptionText"><span className="fmOptionName">{t.vowels}</span></span>
                         </button>
-                        <button
-                            className="floatingOption submenuItem"
-                            onClick={() => openExternal(DIPHTHONGS_URL)}
-                        >
-                            <span className="optionText">
-                                <span className="optionName">{t.diphthongs}</span>
-                            </span>
+                        <button className="floatingOption submenuItem" onClick={() => openExternal(DIPHTHONGS_URL)}>
+                            <span className="fmOptionText"><span className="fmOptionName">{t.diphthongs}</span></span>
                         </button>
-                        <button
-                            className="floatingOption submenuItem"
-                            onClick={() => openExternal(CONSONANTS_URL)}
-                        >
-                            <span className="optionText">
-                                <span className="optionName">{t.consonants}</span>
-                            </span>
+                        <button className="floatingOption submenuItem" onClick={() => openExternal(CONSONANTS_URL)}>
+                            <span className="fmOptionText"><span className="fmOptionName">{t.consonants}</span></span>
                         </button>
                     </>
                 )}
 
-                <div className="menuDivider" />
+                <div className="fmDivider" />
 
                 {/* ── CUENTA ── */}
-                <span className="menuSectionLabel">{t.account}</span>
-                
+                <span className="fmSectionLabel">{t.account}</span>
+
                 <div className="userProfileItem">
-                    <img src={user?.picture} alt="User" className="userAvatar" />
+                    {user?.picture
+                        ? <img src={user.picture} alt="" className="userAvatar" />
+                        : <span className="userAvatarFallback">{(user?.name || user?.email || '?').charAt(0).toUpperCase()}</span>
+                    }
                     <div className="userInfo">
                         <span className="userName">{user?.name}</span>
                         <span className="userRole">{user?.role}</span>
@@ -165,14 +158,14 @@ const FloatingMenu = () => {
                     onClick={() => { logout(); close(); }}
                 >
                     <span className="optionIcon red">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                             <polyline points="16 17 21 12 16 7" />
                             <line x1="21" y1="12" x2="9" y2="12" />
                         </svg>
                     </span>
-                    <span className="optionText">
-                        <span className="optionName">{t.logout}</span>
+                    <span className="fmOptionText">
+                        <span className="fmOptionName">{t.logout}</span>
                     </span>
                 </button>
 

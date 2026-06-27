@@ -1,4 +1,4 @@
-const ONBOARDING_DISABLED_TEMPORARILY = true;
+const ONBOARDING_DISABLED_TEMPORARILY = false;
 
 export function shouldShowOnboarding(user) {
     if (ONBOARDING_DISABLED_TEMPORARILY) return false;

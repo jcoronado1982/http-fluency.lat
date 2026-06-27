@@ -1,9 +1,9 @@
+use anyhow::Result;
 use fluency_core::domain::models::flashcard::DeckData;
 use fluency_core::domain::models::user_activity::{LearningStats, B2_VOCABULARY_TARGET};
 use fluency_core::ports::db_repository::{CardProgressRepository, UserActivityRepository};
 use fluency_core::ports::storage::StorageRepository;
 use std::sync::Arc;
-use anyhow::Result;
 
 pub mod audio_use_cases;
 pub mod batch;

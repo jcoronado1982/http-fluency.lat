@@ -105,7 +105,8 @@ export default function FlashcardPage() {
 
     const {
         currentCard, loadingStage: flashcardLoadingStage, filteredData, masterData, currentDeckName,
-        nextCard, prevCard, selectedGroup, changeDeck, setSelectedGroup, justCompletedInSession,
+        nextCard, prevCard, markAsLearned, resetDeck,
+        selectedGroup, changeDeck, setSelectedGroup, justCompletedInSession,
     } = useFlashcardContext();
     const isPronounsCategory = currentCategory === 'pronouns';
     const { progress, currentTask, reset, setProgress, setCurrentTask } = usePageLoader();
@@ -123,11 +124,33 @@ export default function FlashcardPage() {
     useEffect(() => {
         registerUiBridgeHandler('openCatalog', () => setIsCatalogVisible(true));
         registerUiBridgeHandler('openIpa', () => setIsIpaModalOpen(true));
+        registerUiBridgeHandler('nextCard', () => nextCard());
+        registerUiBridgeHandler('prevCard', () => prevCard());
+        registerUiBridgeHandler('markLearned', () => { void markAsLearned(); });
+        registerUiBridgeHandler('resetDeck', () => resetDeck());
+        registerUiBridgeHandler('flipCard', () => {
+            const card = document.querySelector('[data-tour="boton-voltear-tarjeta"]');
+            if (card instanceof HTMLElement && card.getAttribute('data-flipped') !== 'true') {
+                card.click();
+            }
+        });
         return () => {
             unregisterUiBridgeHandler('openCatalog');
             unregisterUiBridgeHandler('openIpa');
+            unregisterUiBridgeHandler('nextCard');
+            unregisterUiBridgeHandler('prevCard');
+            unregisterUiBridgeHandler('markLearned');
+            unregisterUiBridgeHandler('resetDeck');
+            unregisterUiBridgeHandler('flipCard');
         };
-    }, [setIsCatalogVisible, setIsIpaModalOpen]);
+    }, [
+        markAsLearned,
+        nextCard,
+        prevCard,
+        resetDeck,
+        setIsCatalogVisible,
+        setIsIpaModalOpen,
+    ]);
 
     useEffect(() => {
         flashcardPort.touchStudyDay().catch(() => {});

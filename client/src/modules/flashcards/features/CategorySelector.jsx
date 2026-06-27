@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from './CategorySelector.module.css';
 import { useUIContext } from '../../../context/UIContext';
+import { useDialog } from '../../../context/AppContext';
 import { useFlashcardUiContext } from '../context/FlashcardUiContext';
 import { useFlashcardContext } from '../context/FlashcardContext';
 import { useCategoryContext } from '../context/CategoryContext';
@@ -33,8 +34,9 @@ const formatName = (name, t) => {
 
 function CategorySelector() {
     const { language = 'en' } = useUIContext();
+    const { confirm } = useDialog();
     const { setIsCatalogVisible } = useFlashcardUiContext();
-    const { categories, currentCategory, changeCategory } = useCategoryContext();
+    const { categories, currentCategory, changeCategory, isLoading: categoriesLoading } = useCategoryContext();
     const t = getFlashcardTranslations(language).categorySelector;
 
     const { categoryTotals } = useCategoryContext();
@@ -103,9 +105,11 @@ function CategorySelector() {
         event.stopPropagation();
 
         const groupLabel = t.groups?.[groupName] || groupName;
-        const shouldReset = window.confirm(
-            t.restartGroupConfirm.replace('{group}', groupLabel),
-        );
+        const shouldReset = await confirm({
+            title: t.restartGroupConfirm.replace('{group}', groupLabel),
+            tone: 'danger',
+            confirmLabel: t.restartGroup,
+        });
 
         if (!shouldReset) return;
 
@@ -129,8 +133,8 @@ function CategorySelector() {
     }, []);
 
     return (
-        <div className={styles.categorySelectorOverlay} data-tour="catalogo-modal">
-            <div className={styles.dashboardContainer}>
+        <div className={styles.categorySelectorOverlay}>
+            <div className={styles.dashboardContainer} data-tour="catalogo-modal">
                 {/* Botón de cerrar */}
                 <button className={styles.closeBtn} onClick={() => setIsCatalogVisible(false)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -140,6 +144,9 @@ function CategorySelector() {
                 <aside className={styles.sidebar} data-tour="panel-categorias">
                     <h3 className={styles.sidebarTitle}>{t.categoryTitle}</h3>
                     <nav className={styles.categoryNav}>
+                        {categoriesLoading && categories.length === 0 && (
+                            <p className={styles.sidebarLoading}>{t.loadingCategories || '…'}</p>
+                        )}
                         {categories.map(cat => {
                             const isActive = cat === currentCategory;
                             const count = categoryTotals[cat] ?? '…';

@@ -91,13 +91,14 @@ export default function DemoFlashcardSession({
         setSelectedGroup: noop,
         updateCardImagePath,
         isLandingDemo: true,
+        demoStudyLanguage: language === 'es' ? 'en' : 'es',
         buildDemoImagePath: buildLandingDemoImagePath,
         demoImagePromptExtraRef: promptExtraRef,
         imagePromptApplySignal: imagePromptApplySignal,
     }), [
         currentCard, currentIndex, filteredData, masterData,
         nextCard, prevCard, markAsLearned, resetDeck, updateCardImagePath,
-        promptExtraRef, imagePromptApplySignal,
+        promptExtraRef, imagePromptApplySignal, language,
     ]);
 
     const [isAudioLoading, setIsAudioLoading] = useState(false);

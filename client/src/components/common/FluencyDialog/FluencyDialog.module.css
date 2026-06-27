@@ -1,0 +1,155 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(5, 10, 20, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    animation: fadeIn 0.18s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.card {
+    position: relative;
+    width: min(100%, 420px);
+    padding: 0;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #111827;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.5),
+        0 32px 80px rgba(0, 0, 0, 0.55),
+        0 8px 24px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+    animation: slideUp 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Accent stripe at the top for danger tone */
+.accentBar {
+    height: 3px;
+    background: linear-gradient(90deg, #f87171, #ef4444);
+}
+
+.accentBarDefault {
+    background: linear-gradient(90deg, #2dd4bf, #7d77dd);
+}
+
+.body {
+    padding: 28px 28px 24px;
+}
+
+.title {
+    margin: 0;
+    color: #f1f5f9;
+    font-family: var(--font-family-body, system-ui);
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+}
+
+.message {
+    margin: 8px 0 0;
+    color: #64748b;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(0, 0, 0, 0.18);
+}
+
+.button {
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+    white-space: nowrap;
+}
+
+.buttonCancel {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+}
+
+.buttonCancel:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #cbd5e1;
+}
+
+.buttonConfirm {
+    background: #1e293b;
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #e2e8f0;
+}
+
+.buttonConfirm:hover {
+    background: #273449;
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.buttonDanger {
+    background: #7f1d1d;
+    border-color: rgba(248, 113, 113, 0.3);
+    color: #fca5a5;
+}
+
+.buttonDanger:hover {
+    background: #991b1b;
+    border-color: rgba(248, 113, 113, 0.5);
+    color: #fecaca;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+@media (max-width: 520px) {
+    .overlay {
+        padding: 12px;
+        align-items: flex-end;
+    }
+
+    .card {
+        width: 100%;
+        border-radius: 16px 16px 12px 12px;
+    }
+
+    .actions {
+        flex-direction: column-reverse;
+    }
+
+    .button {
+        width: 100%;
+        height: 42px;
+        font-size: 0.925rem;
+    }
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FiShield } from 'react-icons/fi';
+import { LuShieldCheck } from 'react-icons/lu';
 import './Layout.css';
 import { useAppContext } from '../../../context/AppContext';
 import { useAuth } from '../../../context/AuthContext';
@@ -34,6 +34,11 @@ export default function Sidebar() {
 
     return (
         <aside className={`app-sidebar ${isOpen ? 'open' : 'closed'}`}>
+            <div className="sidebar-brand">
+                <img src="/logo.avif" alt="Fluency" className="sidebar-brand-logo" />
+                <span className="sidebar-brand-name">Fluency</span>
+            </div>
+
             <nav>
                 <ul className="mainNav">
                     {moduleNavSections.map((section, sectionIndex) => (
@@ -48,7 +53,7 @@ export default function Sidebar() {
                                         className={`nav-link ${location.pathname === item.to ? 'active' : ''}`}
                                         data-tour={item.id === 'flashcards' ? 'flashcards-nav' : undefined}
                                     >
-                                        <span className={`sidebarIcon ${item.color}`}>{item.icon}</span>
+                                        <span className="sidebarIcon">{item.icon}</span>
                                         <span className="optionText">
                                             <span className="optionName">{item.name}</span>
                                             <span className="optionSub">{item.sub}</span>
@@ -69,7 +74,7 @@ export default function Sidebar() {
                                     onClick={goTo('/admin')}
                                     className={`nav-link ${location.pathname === '/admin' ? 'active' : ''}`}
                                 >
-                                    <span className="sidebarIcon rose"><FiShield /></span>
+                                    <span className="sidebarIcon sidebarIcon--admin"><LuShieldCheck /></span>
                                     <span className="optionText">
                                         <span className="optionName">{t.users}</span>
                                         <span className="optionSub">{t.realtimeActivity}</span>

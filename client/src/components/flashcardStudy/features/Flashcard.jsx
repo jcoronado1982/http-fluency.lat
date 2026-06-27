@@ -35,7 +35,14 @@ function Flashcard() {
         isPhonicsModalOpen,
     } = useFlashcardUiContext();
     const { currentCategory } = useCategoryContext();
-    const { currentCard: cardData, currentDeckName, updateCardImagePath } = useFlashcardContext();
+    const {
+        currentCard: cardData,
+        currentDeckName,
+        updateCardImagePath,
+        isLandingDemo = false,
+        demoStudyLanguage,
+    } = useFlashcardContext();
+    const cardLanguage = isLandingDemo && demoStudyLanguage ? demoStudyLanguage : studyLanguage;
     const [prevCardId, setPrevCardId] = useState(null);
     const isAnyOverlayOpen =
         isCatalogVisible ||
@@ -107,15 +114,15 @@ function Flashcard() {
         const title = getCardTitle({
             name: cardData.name,
             definitions: cardData.definitions || [],
-        }, studyLanguage);
-        const audioLang = getAudioLang(studyLanguage);
+        }, cardLanguage);
+        const audioLang = getAudioLang(cardLanguage);
 
         if (title) void prefetchAudio(title, audioLang);
         defs.forEach((def) => {
-            const exampleText = studyLanguage === 'es' ? def.usage_example : def.usage_example_es;
+            const exampleText = cardLanguage === 'en' ? def.usage_example : def.usage_example_es;
             if (exampleText) void prefetchAudio(exampleText, audioLang);
         });
-    }, [cardData, studyLanguage, isAnyOverlayOpen, prefetchAudio]);
+    }, [cardData, cardLanguage, isAnyOverlayOpen, prefetchAudio]);
 
     useEffect(() => {
         if (!cardData) return;
@@ -133,12 +140,12 @@ function Flashcard() {
             const title = getCardTitle({
                 name: cardData.name,
                 definitions: cardData.definitions || [],
-            }, studyLanguage);
+            }, cardLanguage);
             if (title && !isAnyOverlayOpen) {
-                void playAudio(title, getAudioLang(studyLanguage));
+                void playAudio(title, getAudioLang(cardLanguage));
             }
         }
-    }, [cardData, setAppMessage, prevCardId, stopAudio, playAudio, studyLanguage, isAnyOverlayOpen]);
+    }, [cardData, setAppMessage, prevCardId, stopAudio, playAudio, cardLanguage, isAnyOverlayOpen]);
 
     useEffect(() => {
         if (!cardData?.irregular) return;
@@ -172,7 +179,7 @@ function Flashcard() {
                 data-flipped={isFlipped ? 'true' : 'false'}
                 role="button"
                 aria-pressed={isFlipped}
-                aria-label={studyLanguage === 'es' ? 'Voltear tarjeta' : 'Flip card'}
+                aria-label={language === 'es' ? 'Voltear tarjeta' : 'Flip card'}
             >
 
 
@@ -198,12 +205,12 @@ function Flashcard() {
                     canDeleteImages={canDeleteImages}
                     deleteAudio={deleteAudio}
                     isGeneratingAudio={isGeneratingAudio}
-                    currentLanguage={studyLanguage}
+                    currentLanguage={cardLanguage}
                 />
                 <CardBack
                     cardData={cardData}
                     activeForm={activeForm}
-                    currentLanguage={studyLanguage}
+                    currentLanguage={cardLanguage}
                 />
             </div>
         </div>

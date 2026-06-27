@@ -1,13 +1,13 @@
 use anyhow::Result;
 use dashmap::DashMap;
-use serde_json::json;
-use std::sync::Arc;
 use fluency_core::domain::models::story::{ProgressResponse, ProgressUpdate, StoryScreen};
 use fluency_core::ports::db_repository::PronounPracticeRepository;
 use fluency_core::ports::image::ImageGenerator;
 use fluency_core::ports::image_compressor::ImageCompressor;
 use fluency_core::ports::storage::StorageRepository;
 use fluency_core::ports::tutor::AITutor;
+use serde_json::json;
+use std::sync::Arc;
 use tokio::sync::broadcast;
 use tracing::{error, info};
 
@@ -146,8 +146,7 @@ impl StoryUseCases {
             for screen in screens {
                 let img_url = screen.content["image_url"].as_str().unwrap_or("");
                 let missing = Self::needs_image_regeneration(img_url)
-                    || !Self::image_exists_in_storage(&storage_repo, &gcs_prefix, img_url)
-                        .await;
+                    || !Self::image_exists_in_storage(&storage_repo, &gcs_prefix, img_url).await;
                 if missing {
                     screens_to_gen.push(screen.clone());
                     story_data_for_ai.push(json!({

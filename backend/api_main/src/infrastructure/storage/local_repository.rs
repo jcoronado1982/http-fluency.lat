@@ -545,9 +545,7 @@ impl StorageRepository for LocalStorageRepository {
             fs::create_dir_all(parent).await?;
         }
         fs::write(&path, &content).await?;
-        self.exists_cache
-            .insert(blob_path.to_string(), true)
-            .await;
+        self.exists_cache.insert(blob_path.to_string(), true).await;
 
         if self.sync_to_oracle {
             // Oracle es el único repositorio persistente. SCP es síncrono:

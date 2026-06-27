@@ -170,11 +170,7 @@ pub async fn touch_study_day(
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
     let claims = extract_claims(&state, &headers)?;
     match state.deck_use_cases.touch_study_day(&claims.email).await {
-        Ok(_) => Ok((
-            StatusCode::OK,
-            Json(serde_json::json!({ "success": true })),
-        )
-            .into_response()),
+        Ok(_) => Ok((StatusCode::OK, Json(serde_json::json!({ "success": true }))).into_response()),
         Err(e) => Err((StatusCode::INTERNAL_SERVER_ERROR, e.to_string())),
     }
 }

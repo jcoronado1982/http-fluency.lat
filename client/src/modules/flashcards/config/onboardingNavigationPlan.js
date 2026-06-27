@@ -13,11 +13,11 @@ const buildSteps = (locale) => {
         {
             id: 'menu-hamburguesa',
             selector: '[data-tour="menu-hamburguesa"]',
-            advanceOnTapOnly: true,
+            performAction: 'openSidebar',
             label: es ? 'Abre el menú' : 'Open the menu',
             hint: es
-                ? 'Toca el botón ☰ arriba a la izquierda para abrir el menú lateral.'
-                : 'Tap the ☰ button in the top-left to open the side menu.',
+                ? 'Toca el botón ☰ arriba a la izquierda o pulsa Siguiente para abrir el menú lateral.'
+                : 'Tap the ☰ button in the top-left or press Next to open the side menu.',
             fallback: es
                 ? 'Primero abre el menú lateral. Ahí aparecen los módulos que puedes usar.'
                 : 'First open the side menu. That is where your available modules appear.',
@@ -28,13 +28,13 @@ const buildSteps = (locale) => {
             id: 'cargar-modulo-flashcards',
             selector: '[data-tour="flashcards-nav"]',
             markOptionsSelector: '[data-tour="flashcards-nav"]',
-            advanceOnTapOnly: true,
+            performAction: 'navigateFlashcards',
             tooltipPlacement: 'right',
             tooltipGap: 14,
             label: es ? 'Carga el módulo Flashcards' : 'Load the Flashcards module',
             hint: es
-                ? 'Toca esta opción del menú lateral para entrar al módulo de Flashcards.'
-                : 'Tap this side-menu option to enter the Flashcards module.',
+                ? 'Toca esta opción del menú lateral o pulsa Siguiente para entrar al módulo de Flashcards.'
+                : 'Tap this side-menu option or press Next to enter the Flashcards module.',
             fallback: es
                 ? 'Esta es la opción que carga Flashcards. Cuando quieras estudiar palabras, entra por aquí.'
                 : 'This is the option that loads Flashcards. Whenever you want to study words, enter here.',
@@ -63,7 +63,7 @@ const buildSteps = (locale) => {
             id: 'elegir-categoria',
             highlightMode: 'zone',
             selector: '[data-tour="panel-categorias"]',
-            zoneSelector: '[data-tour="catalogo-modal"]',
+            zoneSelector: '[data-tour="panel-categorias"]',
             sectionSelector: '[data-tour="panel-categorias"]',
             tapSelector: '[data-tour="categoria-item"]',
             markOptionsSelector: '[data-tour="categoria-item"]',
@@ -98,19 +98,58 @@ const buildSteps = (locale) => {
         {
             id: 'boton-voltear-tarjeta',
             selector: '[data-tour="boton-voltear-tarjeta"]',
+            performAction: 'flipCard',
+            acceptKeyboard: true,
+            keyboardKeys: ['ArrowUp', 'ArrowDown'],
+            tooltipPlacement: 'top',
             label: es ? 'Voltear tarjeta' : 'Flip card',
             hint: es
-                ? 'Toca la tarjeta central para voltearla y ver la traducción o imagen.'
-                : 'Tap the center card to flip it and see the translation or image.',
+                ? 'Toca la tarjeta central o usa las teclas ↑ ↓ del teclado para voltearla y ver la traducción.'
+                : 'Tap the center card or press ↑ ↓ on your keyboard to flip it and see the translation.',
             fallback: es
-                ? 'Esta es tu tarjeta de estudio: palabra, fonética y ejemplos. Haz clic para voltearla.'
-                : 'This is your study card: word, phonetics, and examples. Tap to flip it.',
+                ? 'Esta es tu tarjeta de estudio: palabra, fonética y ejemplos.'
+                : 'This is your study card: word, phonetics, and examples.',
             prep: { sidebar: false, floatingMenu: false, catalog: false },
             gate: isCardFlipped,
+            gateTimeoutMs: 8000,
+        },
+        {
+            id: 'boton-anterior-tarjeta',
+            selector: '[data-tour="boton-anterior-tarjeta"]',
+            performAction: 'prevCard',
+            acceptKeyboard: true,
+            keyboardKeys: ['ArrowLeft'],
+            tooltipPlacement: 'top',
+            label: es ? 'Tarjeta anterior ←' : 'Previous card ←',
+            hint: es
+                ? 'Toca la flecha izquierda o pulsa ← en el teclado para volver a la tarjeta anterior.'
+                : 'Tap the left arrow or press ← on your keyboard to go to the previous card.',
+            fallback: es
+                ? 'Así retrocedes palabra por palabra dentro del bloque.'
+                : 'This is how you move back word by word in the block.',
+            prep: { sidebar: false, floatingMenu: false, catalog: false },
+            gate: () => true,
+        },
+        {
+            id: 'indicador-tarjetas',
+            selector: '[data-tour="boton-contador-tarjetas"]',
+            advanceWithoutAction: true,
+            tooltipPlacement: 'top',
+            label: es ? 'Indicador de progreso' : 'Progress indicator',
+            hint: es
+                ? 'Este contador muestra en qué tarjeta vas dentro del bloque actual (por ejemplo, 1 / 20).'
+                : 'This counter shows which card you are on in the current block (for example, 1 / 20).',
+            fallback: es
+                ? 'Úsalo para orientarte mientras practicas el bloque.'
+                : 'Use it to track your position while practicing the block.',
+            prep: { sidebar: false, floatingMenu: false, catalog: false },
+            gate: () => true,
         },
         {
             id: 'boton-marcar-aprendida',
             selector: '[data-tour="boton-marcar-aprendida"]',
+            performAction: 'markLearned',
+            tooltipPlacement: 'top',
             label: es ? 'Marcar aprendida ✓' : 'Mark learned ✓',
             hint: es
                 ? 'Cuando domines la palabra, toca el botón verde ✓.'
@@ -124,13 +163,32 @@ const buildSteps = (locale) => {
         {
             id: 'boton-siguiente-tarjeta',
             selector: '[data-tour="boton-siguiente-tarjeta"]',
+            performAction: 'nextCard',
+            acceptKeyboard: true,
+            keyboardKeys: ['ArrowRight'],
+            tooltipPlacement: 'top',
             label: es ? 'Siguiente tarjeta →' : 'Next card →',
             hint: es
-                ? 'Toca la flecha derecha para pasar a la siguiente palabra.'
-                : 'Tap the right arrow for the next word.',
+                ? 'Toca la flecha derecha o pulsa → en el teclado para pasar a la siguiente palabra.'
+                : 'Tap the right arrow or press → on your keyboard for the next word.',
             fallback: es
                 ? 'Así avanzas palabra por palabra en el bloque.'
                 : 'This is how you move word by word through the block.',
+            prep: { sidebar: false, floatingMenu: false, catalog: false },
+            gate: () => true,
+        },
+        {
+            id: 'boton-reiniciar-bloque',
+            selector: '[data-tour="boton-reiniciar-bloque"]',
+            advanceWithoutAction: true,
+            tooltipPlacement: 'top',
+            label: es ? 'Reiniciar bloque' : 'Reset block',
+            hint: es
+                ? 'Este botón reinicia el bloque actual de la categoría donde estás: vuelves al inicio del mazo sin cambiar de categoría.'
+                : 'This button resets the current block in your category: you return to the start of the deck without leaving the category.',
+            fallback: es
+                ? 'Úsalo cuando quieras repasar el mismo bloque desde cero.'
+                : 'Use it when you want to review the same block from the beginning.',
             prep: { sidebar: false, floatingMenu: false, catalog: false },
             gate: () => true,
         },
@@ -139,7 +197,7 @@ const buildSteps = (locale) => {
 
 export const ONBOARDING_NAV_PLAN = {
     es: {
-        coach: 'Tour de producto · Fluency',
+        coach: 'Guía interactiva · Fluency',
         routeLabel: 'Paso',
         back: 'Atrás',
         finish: 'Comenzar a aprender',
@@ -152,11 +210,11 @@ export const ONBOARDING_NAV_PLAN = {
         tapRequired: 'Toca la opción resaltada para avanzar. El botón Siguiente no aplica en este paso.',
         stateTimeout: 'La pantalla no cambió como esperábamos. Intenta tocar de nuevo la opción marcada.',
         finalTitle: '¡Recorrido completado!',
-        finalBody: 'Ya abriste el menú, entraste al módulo Flashcards, abriste el catálogo, elegiste categoría y subtema, y probaste los controles. ¡A practicar!',
+        finalBody: 'Ya abriste el menú, entraste al módulo Flashcards, abriste el catálogo, elegiste categoría y subtema, y probaste voltear, navegar con flechas, el indicador, marcar aprendida y reiniciar bloque. ¡A practicar!',
         steps: buildSteps('es'),
     },
     en: {
-        coach: 'Product Tour · Fluency',
+        coach: 'Interactive Guide · Fluency',
         routeLabel: 'Step',
         back: 'Back',
         finish: 'Start learning',
@@ -169,7 +227,7 @@ export const ONBOARDING_NAV_PLAN = {
         tapRequired: 'Tap the highlighted option to continue. The Next button does not apply on this step.',
         stateTimeout: 'The screen did not change as expected. Try tapping a marked option again.',
         finalTitle: 'Tour complete!',
-        finalBody: 'You opened the menu, entered the Flashcards module, opened the catalog, picked category and subtopic, and tried the controls. Time to practice!',
+        finalBody: 'You opened the menu, entered the Flashcards module, opened the catalog, picked category and subtopic, and tried flip, arrow navigation, the counter, mark learned, and reset block. Time to practice!',
         steps: buildSteps('en'),
     },
 };

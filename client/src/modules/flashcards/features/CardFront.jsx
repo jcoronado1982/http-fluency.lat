@@ -8,7 +8,7 @@ import { FaSpinner } from 'react-icons/fa';
 import { FiPlay, FiHeadphones, FiRefreshCw } from 'react-icons/fi';
 import { useAuth } from '../../../context/AuthContext';
 import { useFlashcardContext } from '../context/FlashcardContext';
-import { getCardTitle, getAudioLang } from './cardLanguageUtils';
+import { getCardTitle, getAudioLang, isLearningEnglish } from './cardLanguageUtils';
 
 // ---------------------------------------------------------------------------
 // Mapa de formas verbales → datos a mostrar (OCP: extensible sin modificar)
@@ -135,7 +135,7 @@ function CardFront({
             </h2>
 
             {/* Fonética */}
-            {currentLanguage === 'es' && (
+            {isLearningEnglish(currentLanguage) && (
                 <div className={styles.phoneticContainer}>
                     <span className={styles.phonetic}>{displayData.phonetic}</span>
                     <button

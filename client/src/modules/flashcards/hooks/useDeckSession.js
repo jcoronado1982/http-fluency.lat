@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useCategoryContext } from '../context/CategoryContext';
 import { useUIContext } from '../../../context/UIContext';
+import { useDialog } from '../../../context/AppContext';
 import { flashcardPort } from '../composition';
 import { useAuth } from '../../../context/AuthContext';
+import { getFlashcardTranslations } from '../config/translations';
 import { markUserNavigation } from '../navigationIntent';
 import {
     filterUnlearned,
@@ -21,10 +23,13 @@ import {
     LAST_DECK_KEY_PREFIX,
     writeResumeSession,
 } from '../config/sessionKeys';
+import { consumeFlashcardPreload } from '../preload';
 
 export function useDeckSession(resumeSession = null) {
     const { currentCategory } = useCategoryContext();
-    const { setAppMessage } = useUIContext();
+    const { setAppMessage, language = 'en' } = useUIContext();
+    const { confirm } = useDialog();
+    const controlsCopy = getFlashcardTranslations(language).controls;
     const { isAuthenticated, user } = useAuth();
 
     const [masterData, setMasterData] = useState([]);
@@ -47,6 +52,17 @@ export function useDeckSession(resumeSession = null) {
         setFilteredData([]);
         setResetKey((k) => k + 1);
         try {
+            const preloaded = await consumeFlashcardPreload(user.email);
+            if (
+                preloaded?.category === category
+                && preloaded?.deck === deck
+                && Array.isArray(preloaded.deckData)
+            ) {
+                setMasterData(preloaded.deckData);
+                setFilteredData(filterUnlearned(preloaded.deckData));
+                return;
+            }
+
             const data = await flashcardPort.fetchDeckData(user.email, category, deck);
             const normalized = normalizeDeckResponse(data);
             setMasterData(normalized);
@@ -79,6 +95,25 @@ export function useDeckSession(resumeSession = null) {
             setIsDeckLoading(true);
             setLoadingStage('loading_decks');
             try {
+                const preloaded = await consumeFlashcardPreload(user?.email, resumeSession);
+                if (
+                    preloaded?.category === currentCategory
+                    && Array.isArray(preloaded.deckNames)
+                    && preloaded.deckNames.length > 0
+                ) {
+                    const names = preloaded.deckNames;
+                    setDeckNames(names);
+                    const storageKey = `${LAST_DECK_KEY_PREFIX}${currentCategory}`;
+                    const preferredDeck = resumeSession?.category === currentCategory && resumeSession?.deck
+                        && names.includes(resumeSession.deck)
+                        ? resumeSession.deck
+                        : (preloaded.deck && names.includes(preloaded.deck)
+                            ? preloaded.deck
+                            : resolvePersistedChoice(storageKey, names, names[0]));
+                    setCurrentDeckName(preferredDeck);
+                    return;
+                }
+
                 const result = await flashcardPort.fetchDecksForCategory(currentCategory);
                 if (result.success && Array.isArray(result.files)) {
                     const names = sortDeckNames(result.files);
@@ -98,7 +133,7 @@ export function useDeckSession(resumeSession = null) {
             }
         };
         loadDecks();
-    }, [currentCategory, setAppMessage, isAuthenticated, resumeSession?.category, resumeSession?.deck]);
+    }, [currentCategory, setAppMessage, isAuthenticated, resumeSession, user?.email]);
 
     useEffect(() => {
         if (currentCategory && currentDeckName && isAuthenticated) {
@@ -190,7 +225,16 @@ export function useDeckSession(resumeSession = null) {
     };
 
     const resetDeck = async () => {
-        if (!user?.email || !window.confirm('¿Resetear progreso?')) return;
+        if (!user?.email) return;
+
+        const shouldReset = await confirm({
+            title: controlsCopy.resetConfirmTitle,
+            message: controlsCopy.resetConfirmMessage,
+            tone: 'danger',
+            confirmLabel: controlsCopy.reset,
+        });
+        if (!shouldReset) return;
+
         try {
             await flashcardPort.resetDeckStatus(user.email, currentCategory, currentDeckName);
             loadFlashcards(currentCategory, currentDeckName);

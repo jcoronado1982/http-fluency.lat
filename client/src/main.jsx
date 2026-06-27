@@ -4,14 +4,14 @@ import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './context/AuthContext.jsx';
 import { initModules } from './modules/index.js';
-import { detectBrowserLanguage } from './utils/browserLanguage.js';
+import { getInitialInterfaceLanguage } from './utils/browserLanguage.js';
 
 const queryClient = new QueryClient();
 const rootEl = document.getElementById('root');
 const root = ReactDOM.createRoot(rootEl);
 
 function BootstrapLoading() {
-  const locale = detectBrowserLanguage();
+  const locale = getInitialInterfaceLanguage();
   return (
     <div style={{
       height: '100vh',

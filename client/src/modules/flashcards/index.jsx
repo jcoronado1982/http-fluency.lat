@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { FiLayers } from 'react-icons/fi';
+import { LuLayers, LuGrid2X2 } from 'react-icons/lu';
 import ProtectedRoute from '../../components/common/ProtectedRoute';
 import FlashcardPage from './FlashcardPage';
 import FlashcardOverlays from './FlashcardOverlays';
@@ -17,10 +17,9 @@ import { audioPort, imagePort, imageCompressionService } from './composition';
 import { isDefaultHomeModule } from '../index';
 
 const IconVowelChart = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="#7f77dd" strokeWidth="2.2">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="4" y="4" width="16" height="16" rx="2" />
-        <path d="M4 9h16" />
-        <path d="M9 4v16" />
+        <path d="M4 9h16M9 4v16" />
     </svg>
 );
 
@@ -62,8 +61,8 @@ const flashcardsModule = {
             items: [{
                 id: 'flashcards',
                 to,
-                icon: <FiLayers />,
-                color: 'teal',
+                icon: <LuLayers />,
+                color: 'brand',
                 name: t.flashcards,
                 sub: t.wordCollections,
             }],
@@ -98,8 +97,8 @@ const flashcardsModule = {
                 id: 'flashcards-categories',
                 sectionLabel: t.learn,
                 onClick: () => openFromShell('openCatalog', { openCatalog: true }),
-                icon: <FiLayers />,
-                iconColor: 'teal',
+                icon: <LuLayers />,
+                iconColor: 'brand',
                 name: t.categories,
                 sub: t.wordCollections,
             },

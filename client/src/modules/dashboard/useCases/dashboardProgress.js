@@ -1,3 +1,5 @@
+import catalogOrder from '../../flashcards/config/catalogOrder.json';
+
 export const LEVELS = [
     { id: 'A1', min: 0, max: 700, wordsMin: 500, wordsMax: 700, premium: false },
     { id: 'A2', min: 700, max: 1200, wordsMin: 1000, wordsMax: 1200, premium: false },
@@ -11,6 +13,14 @@ export const B2_TARGET = 5000;
 export const XP_PER_WORD = 8;
 export const STREAK_XP_REWARD = 10;
 export const SECONDS_PER_CARD = 30;
+const CATALOG_CATEGORIES = Array.isArray(catalogOrder.categories) ? catalogOrder.categories : [];
+const LEVEL_TO_DECK_KEY = {
+    A1: '1-basic',
+    A2: '2-intermediate',
+    B1: '3-advanced',
+    B2: '3-advanced',
+};
+const QUICK_ACCESS_ACCENTS = ['#38bdf8', '#7c3aed', '#f97316'];
 
 export function formatWordsRange(level, language = 'en') {
     const locale = language === 'es' ? 'es' : 'en';
@@ -104,6 +114,46 @@ export function getStreakMessage(stats, labels) {
     if (stats?.streak_at_risk && streak > 0) return labels.streakAtRisk;
     if (streak > 0) return labels.streakComeBack;
     return labels.streakStartShort;
+}
+
+function getDeckKeyForLevel(levelId) {
+    return LEVEL_TO_DECK_KEY[levelId] || LEVEL_TO_DECK_KEY.A1;
+}
+
+function getFirstDeckName(categoryEntry, deckKey) {
+    const deckEntries = Array.isArray(categoryEntry?.decks?.[deckKey]) ? categoryEntry.decks[deckKey] : [];
+    if (deckEntries[0]?.name) return deckEntries[0].name;
+    const fallbackDeckKey = Object.keys(categoryEntry?.decks || {})[0];
+    const fallbackDeckEntries = fallbackDeckKey ? categoryEntry.decks?.[fallbackDeckKey] : [];
+    return fallbackDeckEntries?.[0]?.name || fallbackDeckKey || null;
+}
+
+export function getDashboardQuickAccessItems({
+    levelId,
+    currentCategory = null,
+    language = 'en',
+    limit = 3,
+} = {}) {
+    const deckKey = getDeckKeyForLevel(levelId);
+    const currentIndex = currentCategory ? CATALOG_CATEGORIES.findIndex((entry) => entry.name === currentCategory) : -1;
+    const rotated = currentIndex >= 0
+        ? [
+            ...CATALOG_CATEGORIES.slice(currentIndex + 1),
+            ...CATALOG_CATEGORIES.slice(0, currentIndex),
+        ]
+        : CATALOG_CATEGORIES;
+    const candidates = rotated.filter((entry) => entry.name !== currentCategory);
+    const matched = candidates.filter((entry) => Array.isArray(entry.decks?.[deckKey]) && entry.decks[deckKey].length > 0);
+
+    return (matched.length > 0 ? matched : candidates)
+        .slice(0, limit)
+        .map((entry, index) => ({
+            category: entry.name,
+            categoryLabel: formatCategoryLabel(entry.name, language),
+            deckName: getFirstDeckName(entry, deckKey),
+            levelId: levelId || 'A1',
+            accent: QUICK_ACCESS_ACCENTS[index % QUICK_ACCESS_ACCENTS.length],
+        }));
 }
 
 export function isLevelReached(masteredCount, level) {

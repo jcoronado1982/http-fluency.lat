@@ -155,8 +155,7 @@ impl ImageUseCases {
                     "{}/{}/{}_card_{}_def{}{}",
                     req.category, deck_prefix, deck_prefix, req.index, req.def_index, form_suffix
                 );
-                let global_avif =
-                    format!("{}/{}.avif", self.config.gcs_images_prefix, global_base);
+                let global_avif = format!("{}/{}.avif", self.config.gcs_images_prefix, global_base);
                 if let Ok(true) = self.storage_repo.blob_exists(&global_avif).await {
                     return Ok((
                         format!(
@@ -388,10 +387,7 @@ impl ImageUseCases {
 
         let mut deleted_any = false;
         for ext in [".avif", ".jpg", ".png", ".jpeg"] {
-            let blob_path = format!(
-                "{}/{}{}",
-                self.config.gcs_images_prefix, base_pattern, ext
-            );
+            let blob_path = format!("{}/{}{}", self.config.gcs_images_prefix, base_pattern, ext);
             if let Ok(true) = self.storage_repo.blob_exists(&blob_path).await {
                 if self.storage_repo.delete_blob(&blob_path).await.is_ok() {
                     tracing::info!("✅ Deleted: {}", blob_path);

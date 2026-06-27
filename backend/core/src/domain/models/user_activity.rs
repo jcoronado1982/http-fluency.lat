@@ -89,7 +89,8 @@ mod tests {
 
     #[test]
     fn streak_is_active_when_studied_today() {
-        let (days, today, at_risk) = compute_streak_display(Some("2026-06-23"), 5, "2026-06-23", "2026-06-22");
+        let (days, today, at_risk) =
+            compute_streak_display(Some("2026-06-23"), 5, "2026-06-23", "2026-06-22");
         assert_eq!(days, 5);
         assert!(today);
         assert!(!at_risk);
@@ -97,7 +98,8 @@ mod tests {
 
     #[test]
     fn streak_is_at_risk_after_missing_today() {
-        let (days, today, at_risk) = compute_streak_display(Some("2026-06-22"), 5, "2026-06-23", "2026-06-22");
+        let (days, today, at_risk) =
+            compute_streak_display(Some("2026-06-22"), 5, "2026-06-23", "2026-06-22");
         assert_eq!(days, 5);
         assert!(!today);
         assert!(at_risk);
@@ -105,7 +107,8 @@ mod tests {
 
     #[test]
     fn streak_resets_when_gap_is_too_long() {
-        let (days, today, at_risk) = compute_streak_display(Some("2026-06-20"), 5, "2026-06-23", "2026-06-22");
+        let (days, today, at_risk) =
+            compute_streak_display(Some("2026-06-20"), 5, "2026-06-23", "2026-06-22");
         assert_eq!(days, 0);
         assert!(!today);
         assert!(!at_risk);

@@ -129,6 +129,7 @@ dependencies = [
  "http 1.4.0",
  "image",
  "jsonwebtoken",
+ "mod_flashcards",
  "mod_shell",
  "moka",
  "num_cpus",
@@ -2680,6 +2681,21 @@ dependencies = [
  "libc",
  "wasi",
  "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "mod_flashcards"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "chrono",
+ "fluency_core",
+ "rand 0.8.6",
+ "serde",
+ "serde_json",
+ "tracing",
+ "uuid",
 ]
 
 [[package]]

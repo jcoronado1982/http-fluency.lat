@@ -73,16 +73,12 @@ const OnBoardingFlashcard = ({
         setStudyLanguage,
         setIsHeaderSuppressed,
     } = useUIContext();
-    const browserLocale = useMemo(() => {
-        if (typeof navigator === 'undefined') return 'en';
-        return navigator.language?.toLowerCase().startsWith('es') ? 'es' : 'en';
-    }, []);
     const locale = language === 'es' ? 'es' : 'en';
     const t = COPY[locale];
     const [currentStep, setCurrentStep] = useState(1);
     const [selectedStudyLanguage, setSelectedStudyLanguage] = useState(studyLanguage === 'es' ? 'es' : 'en');
     const [selectedInterfaceLanguage, setSelectedInterfaceLanguage] = useState(
-        language === 'es' ? 'es' : browserLocale,
+        language === 'es' ? 'es' : 'en',
     );
     const progressPercent = Math.round((currentStep / STEP_TOTAL) * 100);
 

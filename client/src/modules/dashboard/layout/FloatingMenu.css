@@ -10,44 +10,42 @@
 
 .floatingMainButton {
     background-color: transparent;
-    color: #ffffff;
     border: none;
     width: 42px;
     height: 42px;
     cursor: pointer;
-    box-shadow: none;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
+    border-radius: 10px;
+    color: #94a3b8;
+    transition: background 160ms ease, color 160ms ease;
 }
 
 .floatingMainButton:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.07);
+    color: #f8fafc;
 }
 
+/* ─── Panel ──────────────────────────────────────────────────────────────────── */
 .floatingOptions {
     position: absolute;
-    top: calc(100% + 12px);
+    top: calc(100% + 10px);
     right: 0;
-    transform: translateY(-12px) scale(0.95);
+    transform: translateY(-8px) scale(0.97);
+    transform-origin: top right;
     display: flex;
     flex-direction: column;
     opacity: 0;
     pointer-events: none;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    background: rgba(18, 32, 53, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding: 12px;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    width: 230px;
+    transition: opacity 200ms ease, transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    background: #0d1526;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255,255,255,0.03);
+    padding: 8px;
+    width: 236px;
     z-index: 1260;
-    transform-origin: top right;
 }
 
 .floatingOptions.show {
@@ -56,148 +54,181 @@
     pointer-events: auto;
 }
 
-.menuSectionLabel {
-    font-size: 12px;
-    color: #ffffff;
+/* ─── Section labels and dividers ───────────────────────────────────────────── */
+.floatingOptions .fmSectionLabel {
+    display: block;
+    padding: 8px 10px 4px;
+    color: #475569;
+    font-size: 0.64rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    padding: 8px 12px 6px;
-    font-weight: 700;
 }
 
-.menuDivider {
+.floatingOptions .fmDivider {
     height: 1px;
-    background: rgba(255, 255, 255, 0.08);
-    margin: 8px 4px;
+    background: rgba(255, 255, 255, 0.05);
+    margin: 6px 4px;
 }
 
+/* ─── Option row ─────────────────────────────────────────────────────────────── */
 .floatingOption {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 10px 12px;
-    border-radius: 12px;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 10px;
     background: transparent;
     border: none;
     cursor: pointer;
-    transition: all 0.2s ease;
     width: 100%;
     text-align: left;
-    color: #c5dced;
+    color: #94a3b8;
+    transition: background 140ms ease, color 140ms ease;
 }
 
 .floatingOption:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-    transform: translateX(4px);
+    background: rgba(255, 255, 255, 0.05);
+    color: #e2e8f0;
 }
+
+.floatingOption:hover .optionIcon { color: #e2e8f0; }
 
 .floatingOption.active {
-    background-color: rgba(255, 255, 255, 0.05);
+    background: rgba(45, 212, 191, 0.07);
+    color: #f8fafc;
 }
 
+.floatingOption.active .optionIcon { color: #2dd4bf; }
+
+/* Submenu indented items */
 .floatingOption.submenuItem {
-    padding-left: 54px;
-    min-height: 32px;
-    opacity: 0.8;
+    padding-left: 42px;
+    min-height: 30px;
 }
 
-.floatingOption.submenuItem:hover {
-    opacity: 1;
-    background-color: rgba(255, 255, 255, 0.04);
-    transform: translateX(6px);
-}
-
-.floatingOption.submenuItem .optionName {
-    font-size: 12px;
+.floatingOption.submenuItem .fmOptionName {
+    font-size: 0.78rem;
     font-weight: 500;
+    color: #64748b;
 }
 
+.floatingOption.submenuItem:hover .fmOptionName { color: #cbd5e1; }
+
+/* ─── Option icon ────────────────────────────────────────────────────────────── */
 .optionIcon {
-    width: 32px;
-    height: 32px;
-    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 20px;
+    height: 20px;
     flex-shrink: 0;
-    transition: transform 0.2s ease;
+    color: #475569;
+    transition: color 140ms ease;
 }
-
-.floatingOption:hover .optionIcon {
-    transform: scale(1.1);
-}
-
-.optionIcon.teal { background: rgba(29, 158, 117, 0.2); }
-.optionIcon.purple { background: rgba(127, 119, 221, 0.2); }
-.optionIcon.amber { background: rgba(239, 159, 39, 0.2); }
-.optionIcon.blue { background: rgba(55, 138, 221, 0.2); }
 
 .optionIcon svg {
-    width: 18px;
-    height: 18px;
+    width: 17px !important;
+    height: 17px !important;
+    stroke-width: 1.75px !important;
 }
 
-.optionText {
+/* Semantic color variants — icon color only, no background box */
+.optionIcon.brand   { color: #2dd4bf; }
+.optionIcon.purple  { color: #7d77dd; }
+.optionIcon.premium { color: #facc15; }
+.optionIcon.red     { color: #f43f5e; }
+
+/* ─── Option text ────────────────────────────────────────────────────────────── */
+.fmOptionText {
     display: flex;
     flex-direction: column;
+    gap: 1px;
+    min-width: 0;
 }
 
-.optionName {
-    font-size: 14px;
+.fmOptionName {
+    font-size: 0.85rem;
     font-weight: 600;
-    color: #ffffff;
+    color: #e2e8f0;
     line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.optionSub {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.4);
-    margin-top: 2px;
+.fmOptionSub {
+    font-size: 0.69rem;
+    color: #475569;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-@media (max-width: 768px) {
-    .floatingMenuContainer {
-        padding-right: 0;
-    }
+.floatingOption:hover .fmOptionName { color: #f8fafc; }
+.floatingOption:hover .fmOptionSub  { color: #64748b; }
 
-    .floatingOptions {
-        right: -8px;
-        width: 240px;
-    }
-}
+/* ─── User profile block ─────────────────────────────────────────────────────── */
 .userProfileItem {
     display: flex;
     align-items: center;
-    padding: 12px 16px;
-    gap: 12px;
+    gap: 10px;
+    padding: 10px 10px 8px;
 }
 
 .userAvatar {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
-    border: 2px solid #38bdf8;
+    border: 1.5px solid rgba(45, 212, 191, 0.4);
     object-fit: cover;
+    flex-shrink: 0;
+}
+
+.userAvatarFallback {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(45, 212, 191, 0.4);
+    background: linear-gradient(135deg, #2dd4bf, #7d77dd);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 800;
 }
 
 .userInfo {
     display: flex;
     flex-direction: column;
-    text-align: left;
+    gap: 1px;
+    min-width: 0;
 }
 
 .userName {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: #f8fafc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .userRole {
-    font-size: 0.75rem;
-    color: #94a3b8;
+    font-size: 0.68rem;
+    color: #475569;
     text-transform: capitalize;
 }
 
-.logoutBtn:hover .optionIcon.red {
-    background: rgba(239, 68, 68, 0.1);
+/* Logout hover */
+.logoutBtn:hover .optionIcon.red { color: #f87171; }
+.logoutBtn:hover .fmOptionName   { color: #f87171; }
+
+@media (max-width: 768px) {
+    .floatingOptions {
+        right: -4px;
+        width: 244px;
+    }
 }

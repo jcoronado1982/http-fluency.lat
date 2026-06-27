@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiBook, FiEdit3 } from 'react-icons/fi';
+import { LuBookOpen, LuPenLine } from 'react-icons/lu';
 import ProtectedRoute from '../../components/common/ProtectedRoute';
 import CoursePage from './CoursePage';
 import PracticePage from './PracticePage';
@@ -40,8 +40,8 @@ const pronounModule = {
       items.push({
         id: 'pronoun-reference',
         to: isHome && !config.features.pronounPractice ? '/' : '/pronoun-reference',
-        icon: <FiBook />,
-        color: 'purple',
+        icon: <LuBookOpen />,
+        color: 'brand',
         name: t.table,
         sub: t.pronounsReference,
       });
@@ -51,8 +51,8 @@ const pronounModule = {
       items.push({
         id: 'pronoun-practice',
         to: isHome ? '/' : '/pronoun-practice',
-        icon: <FiEdit3 />,
-        color: 'purple',
+        icon: <LuPenLine />,
+        color: 'brand',
         name: t.practice,
         sub: t.pronounPractice,
       });

@@ -79,10 +79,7 @@ pub async fn redirect_audio(
                 let body = Body::from_stream(stream);
                 return (
                     [
-                        (
-                            header::CONTENT_TYPE,
-                            HeaderValue::from_static(content_type),
-                        ),
+                        (header::CONTENT_TYPE, HeaderValue::from_static(content_type)),
                         (
                             header::CACHE_CONTROL,
                             HeaderValue::from_static(cache_control),
@@ -93,7 +90,11 @@ pub async fn redirect_audio(
                     .into_response();
             }
             Err(e) => {
-                tracing::warn!("No se pudo abrir audio local {}: {}", disk_path.display(), e);
+                tracing::warn!(
+                    "No se pudo abrir audio local {}: {}",
+                    disk_path.display(),
+                    e
+                );
             }
         }
     }
@@ -101,10 +102,7 @@ pub async fn redirect_audio(
     match state.storage_repo.download_blob(&blob_path).await {
         Ok(bytes) => (
             [
-                (
-                    header::CONTENT_TYPE,
-                    HeaderValue::from_static(content_type),
-                ),
+                (header::CONTENT_TYPE, HeaderValue::from_static(content_type)),
                 (
                     header::CACHE_CONTROL,
                     HeaderValue::from_static(cache_control),

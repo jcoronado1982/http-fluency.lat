@@ -1,56 +1,112 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import config from '../../../config';
+import nounsImage from '../../../assets/Nouns.png';
+import verbsImage from '../../../assets/Verbs.png';
+import adjectivesImage from '../../../assets/Adjectives.png';
+import adverbsImage from '../../../assets/Adverb.png';
+import prepositionsImage from '../../../assets/Preposition.png';
+import pronounsImage from '../../../assets/Pronouns.png';
+import connectorsImage from '../../../assets/Connectors.png';
+import determinantImage from '../../../assets/Determinant.png';
+import phrasalVerbsImage from '../../../assets/Phrasal Verbs.png';
 import { getModuleResumeSession, isDefaultHomeModule } from '../../index';
 import { learningStatsPort } from '../composition';
 import {
-    STREAK_XP_REWARD,
     computeLevelProgress,
     computeXp,
     estimateMinutesRemaining,
     formatCategoryLabel,
-    formatWordsRange,
+    getDashboardQuickAccessItems,
     getStreakMessage,
     getTimeGreeting,
     isLevelActive,
-    isLevelReached,
-    XP_PER_WORD,
 } from '../useCases/dashboardProgress';
 import AnimatedNumber from './AnimatedNumber';
 
-const RING = 88;
-const STROKE = 8;
-const R = (RING - STROKE) / 2;
-const C = 2 * Math.PI * R;
+const RING = 156;
+const STROKE = 12;
+const RADIUS = (RING - STROKE) / 2;
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
-function MiniRing({ percent, className = '' }) {
-    const offset = C - (percent / 100) * C;
+const CATEGORY_IMAGES = {
+    nouns: nounsImage,
+    verbs: verbsImage,
+    adjectives: adjectivesImage,
+    adverbs: adverbsImage,
+    preposition: prepositionsImage,
+    pronouns: pronounsImage,
+    connectors: connectorsImage,
+    determinant: determinantImage,
+    phrasal_verbs: phrasalVerbsImage,
+};
+
+function ProgressRing({ percent, labels, value, target, locale }) {
+    const offset = CIRCUMFERENCE - (percent / 100) * CIRCUMFERENCE;
+
     return (
-        <svg className={`dash-mini-ring ${className}`} width={RING} height={RING} viewBox={`0 0 ${RING} ${RING}`} aria-hidden>
-            <circle className="dash-mini-ring-track" cx={RING / 2} cy={RING / 2} r={R} strokeWidth={STROKE} />
-            <circle
-                className="dash-mini-ring-fill"
-                cx={RING / 2}
-                cy={RING / 2}
-                r={R}
-                strokeWidth={STROKE}
-                strokeDasharray={C}
-                strokeDashoffset={offset}
+        <div className="dash-main-ring-wrap">
+            <svg className="dash-main-ring" width={RING} height={RING} viewBox={`0 0 ${RING} ${RING}`} aria-hidden>
+                <circle className="dash-main-ring-track" cx={RING / 2} cy={RING / 2} r={RADIUS} strokeWidth={STROKE} />
+                <circle
+                    className="dash-main-ring-fill"
+                    cx={RING / 2}
+                    cy={RING / 2}
+                    r={RADIUS}
+                    strokeWidth={STROKE}
+                    strokeDasharray={CIRCUMFERENCE}
+                    strokeDashoffset={offset}
+                />
+            </svg>
+            <div className="dash-main-ring-copy">
+                <strong><AnimatedNumber value={value} duration={900} /></strong>
+                <small>/ {target.toLocaleString(locale)} {labels.xpLabel}</small>
+                <span><AnimatedNumber value={percent} duration={900} />% {percent === 100 ? labels.ringComplete : labels.ringGoal}</span>
+            </div>
+        </div>
+    );
+}
+
+function StreakIcon() {
+    return (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path
+                d="M12 22c4-2.5 7-6.5 7-11.5C19 6.5 16.5 4 13.5 4c-1.2 0-2.3.4-3.2 1.1C9.4 4.4 8.3 4 7 4 4 4 2 6.5 2 10.5 2 15.5 5 19.5 9 22"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M12 22V12M12 12c-1.5-2-3-3.5-3-6 0-1.5 1-2.5 2.5-2.5.8 0 1.5.3 2 1 1-1.5 2.2-2.2 3.8-2.2 2.2 0 4 1.8 4 4 0 2.5-1.5 4-3 6"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
             />
         </svg>
     );
 }
 
-function StatPill({ children, title, description }) {
+function WordsIcon() {
     return (
-        <span className="dash-stat-pill-wrap" tabIndex={0}>
-            <span className="dash-stat-pill">{children}</span>
-            <span className="dash-stat-tooltip" role="tooltip">
-                <strong className="dash-stat-tooltip-title">{title}</strong>
-                <span className="dash-stat-tooltip-body">{description}</span>
-            </span>
-        </span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M5 8h8M5 12h6M5 16h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            <path
+                d="M14 7h5v10h-5M17 7v10"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path d="M14 12h5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
     );
+}
+
+function levelCopy(step, labels) {
+    if (step.premium) return labels.premiumLevelLabel;
+    return labels.levelNames?.[step.id] || step.id;
 }
 
 export default function DashboardHero({ stats, statsLoading, labels, language, userName }) {
@@ -61,19 +117,29 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
     const mastered = stats?.mastered_count ?? 0;
     const streak = stats?.streak_days ?? 0;
     const level = computeLevelProgress(mastered, language);
-    const xp = computeXp(mastered);
+    const locale = language === 'es' ? 'es' : 'en';
+    const levelXpSpan = level.current.max - level.current.min;
+    const xpInLevel = computeXp(level.wordsInLevel);
+    const xpTarget = computeXp(levelXpSpan);
     const greeting = getTimeGreeting(language, userName);
     const streakMsg = stats ? getStreakMessage(stats, labels) : labels.streakStartShort;
+    const quickAccessItems = getDashboardQuickAccessItems({
+        levelId: level.currentLevel,
+        currentCategory: session?.category,
+        language,
+        limit: 3,
+    });
 
-    const cardLabel = session?.cardWord || session?.deck || labels.defaultLesson;
-    const categoryLabel = formatCategoryLabel(session?.category, language);
+    const activeCategory = session?.category || quickAccessItems[0]?.category || 'nouns';
+    const categoryLabel = formatCategoryLabel(activeCategory, language);
+    const courseImage = CATEGORY_IMAGES[activeCategory] || nounsImage;
     const cardsRemaining = session?.cardsRemaining ?? 0;
     const minutesLeft = estimateMinutesRemaining(cardsRemaining);
 
-    const onContinue = () => {
+    const openSession = (resumeSession = session) => {
         learningStatsPort.touchStudyDay().catch(() => {});
-        if (session) {
-            navigate(flashcardPath, { state: { resumeSession: session } });
+        if (resumeSession) {
+            navigate(flashcardPath, { state: { resumeSession } });
         } else {
             navigate(flashcardPath);
         }
@@ -91,164 +157,122 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
         <section className="dash-hero">
             <header className="dash-hero-greeting">
                 <h1>{greeting}</h1>
+                <p>{labels.heroSubtitle}</p>
             </header>
 
-            <article className="dash-hero-card dash-mission">
-                <span className="dash-mission-eyebrow">{labels.continueEyebrow}</span>
-                <div className="dash-mission-body">
-                    <div className="dash-mission-copy">
-                        <h2 className="dash-mission-title">
-                            <span className="dash-mission-bolt" aria-hidden>⚡</span>
-                            {labels.continueLesson}
-                        </h2>
-                        <p className="dash-mission-topic">
-                            {session
-                                ? labels.missionTopic
-                                    .replace('{word}', cardLabel)
-                                    .replace('{category}', categoryLabel)
-                                : labels.missionFallback}
-                        </p>
-                        {session && cardsRemaining > 0 && (
-                            <p className="dash-mission-meta">
-                                {labels.cardsRemaining.replace('{n}', String(cardsRemaining))}
-                                {' · '}
-                                {labels.minutesLeft.replace('{n}', String(minutesLeft))}
-                            </p>
-                        )}
+            <div className="dash-top-grid">
+                <article className="dash-course-card" style={{ '--dash-course-image': `url("${courseImage}")` }}>
+                    <span className="dash-course-badge">{labels.currentGoal}</span>
+                    <h2>{labels.courseTitle.replace('{category}', categoryLabel)}</h2>
+                    <p>
+                        {session
+                            ? labels.courseMeta
+                                .replace('{category}', categoryLabel)
+                                .replace('{deck}', session.deck || labels.defaultDeck)
+                            : labels.missionFallback}
+                    </p>
+                    {session && cardsRemaining > 0 && (
+                        <span className="dash-course-progress-copy">
+                            {labels.cardsRemaining.replace('{n}', String(cardsRemaining))}
+                            {' · '}
+                            {labels.minutesLeft.replace('{n}', String(minutesLeft))}
+                        </span>
+                    )}
+                    <div className="dash-course-progress" aria-hidden="true">
+                        <span style={{ width: `${level.levelPercent}%` }} />
                     </div>
-                    <button type="button" className="dash-mission-cta" onClick={onContinue}>
+                    <button type="button" className="dash-course-cta" onClick={() => openSession()}>
                         {labels.continueButton}
                     </button>
+                </article>
+
+                <aside className="dash-side-stack">
+                    <article className="dash-ring-card">
+                        <ProgressRing
+                            percent={level.levelPercent}
+                            labels={labels}
+                            value={xpInLevel}
+                            target={xpTarget}
+                            locale={locale}
+                        />
+                    </article>
+
+                    <div className="dash-mini-stats">
+                        <article className="dash-mini-stat dash-mini-stat--streak">
+                            <span className="dash-mini-stat-icon" aria-hidden>
+                                <StreakIcon />
+                            </span>
+                            <div className="dash-mini-stat-copy">
+                                <strong>{streak}</strong>
+                                <small>{labels.streakStatLabel}</small>
+                            </div>
+                        </article>
+                        <article className="dash-mini-stat dash-mini-stat--words">
+                            <span className="dash-mini-stat-icon" aria-hidden>
+                                <WordsIcon />
+                            </span>
+                            <div className="dash-mini-stat-copy">
+                                <strong>{level.targetForLevel.toLocaleString(locale)}</strong>
+                                <small>{labels.wordsStatLabel}</small>
+                            </div>
+                        </article>
+                    </div>
+                </aside>
+            </div>
+
+            <article className="dash-path-card">
+                <header className="dash-path-header">
+                    <h3>{labels.proficiencyPath}</h3>
+                    <p>{labels.proficiencyPathSub}</p>
+                </header>
+                <div className="dash-path-steps">
+                    {level.levels.map((step, index) => {
+                        const active = isLevelActive(mastered, step, level.currentLevel);
+                        return (
+                            <div
+                                key={step.id}
+                                className={`dash-path-step ${active ? 'is-active' : ''} ${step.premium ? 'is-premium' : ''}`}
+                            >
+                                {index > 0 && <span className="dash-path-line" aria-hidden />}
+                                <span className="dash-path-dot">{step.id}</span>
+                                <strong>{levelCopy(step, labels)}</strong>
+                            </div>
+                        );
+                    })}
                 </div>
-                <p className="dash-mission-reward">
-                    <span aria-hidden>⭐</span>
-                    {labels.nextReward.replace('{xp}', String(STREAK_XP_REWARD))}
+                <p className="dash-path-note">{streakMsg}</p>
+                <p className="dash-path-current">
+                    {labels.currentLevelLabel.replace(
+                        '{level}',
+                        levelCopy(level.current, labels),
+                    )}
                 </p>
             </article>
 
-            <article className="dash-hero-card dash-progress-panel">
-                <div className="dash-tiles">
-                    <article className={`dash-tile dash-tile--streak ${stats?.studied_today ? 'is-live' : ''} ${stats?.streak_at_risk ? 'is-risk' : ''}`}>
-                        <div className="dash-tile-glow" aria-hidden />
-                        <span className="dash-tile-label">🔥 {labels.streakLabel}</span>
-                        <p className="dash-tile-value">
-                            <AnimatedNumber value={streak} className="dash-tile-number" />
-                            <span className="dash-tile-unit">
-                                {streak === 1 ? labels.daySingular : labels.dayPlural}
+            <div className="dash-bottom-grid">
+                {quickAccessItems.map((item) => {
+                    const itemImage = CATEGORY_IMAGES[item.category] || nounsImage;
+                    return (
+                        <button
+                            key={`${item.category}-${item.deckName}`}
+                            type="button"
+                            className="dash-category-card"
+                            onClick={() => openSession({
+                                category: item.category,
+                                deck: item.deckName,
+                            })}
+                        >
+                            <span className="dash-category-card-title">{item.categoryLabel}</span>
+                            <span className="dash-category-thumb" style={{ '--dash-category-image': `url("${itemImage}")` }}>
+                                <span>{item.levelId}</span>
                             </span>
-                        </p>
-                        <p className="dash-tile-hint">{streakMsg}</p>
-                    </article>
-
-                    <article className="dash-tile dash-tile--words">
-                        <div className="dash-tile-glow dash-tile-glow--teal" aria-hidden />
-                        <span className="dash-tile-label">🎯 {labels.wordsLabel}</span>
-                        <div className="dash-tile-ring-row">
-                            <div className="dash-tile-ring-wrap">
-                                <MiniRing percent={level.levelPercent} />
-                                <span className="dash-tile-ring-pct">
-                                    <AnimatedNumber value={level.levelPercent} duration={1100} />
-                                    %
-                                </span>
-                            </div>
-                            <div className="dash-tile-words-copy">
-                                <p className="dash-tile-value dash-tile-value--compact">
-                                    <AnimatedNumber value={mastered} className="dash-tile-number dash-tile-number--sm" />
-                                    <span className="dash-tile-slash">/</span>
-                                    {level.targetForLevel.toLocaleString(language === 'es' ? 'es' : 'en')}
-                                </p>
-                                <p className="dash-tile-hint">
-                                    {labels.wordsRequiredHint
-                                        .replace('{range}', level.wordsRequiredRange)
-                                        .replace('{level}', level.currentLevel)}
-                                </p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <div className="dash-panel-divider" />
-
-                <div className="dash-journey">
-                    <div className="dash-journey-header">
-                        <div className="dash-journey-header-text">
-                            <span className="dash-journey-level">{level.currentLevel}</span>
-                            <span className="dash-journey-goal">
-                                {labels.levelGoal.replace('{range}', level.wordsRequiredRange)}
-                            </span>
-                        </div>
-                        <span className="dash-journey-bar-wrap">
-                            <span
-                                className="dash-journey-bar-fill"
-                                style={{ width: `${level.levelPercent}%` }}
-                            />
-                        </span>
-                        <span className="dash-journey-percent">{level.levelPercent}%</span>
-                    </div>
-
-                    <p className="dash-journey-required-title">{labels.wordsRequiredTitle}</p>
-
-                    <div className="dash-journey-steps">
-                        {level.levels.map((step, index) => {
-                            const reached = isLevelReached(mastered, step);
-                            const active = isLevelActive(mastered, step, level.currentLevel);
-                            const locale = language === 'es' ? 'es' : 'en';
-                            return (
-                                <div
-                                    key={step.id}
-                                    className={`dash-journey-step ${reached ? 'is-done' : ''} ${active ? 'is-active' : ''} ${step.premium ? 'is-premium' : ''}`}
-                                >
-                                    {index > 0 && (
-                                        <span className={`dash-journey-step-connector ${reached ? 'is-done' : ''}`} aria-hidden />
-                                    )}
-                                    <span className="dash-journey-dot">{step.id}</span>
-                                    <span className="dash-journey-step-range">
-                                        {formatWordsRange(step, locale)}
-                                    </span>
-                                    {step.premium && (
-                                        <span className="dash-journey-premium">{labels.premiumBadge}</span>
-                                    )}
-                                </div>
-                            );
-                        })}
-                    </div>
-
-                    {level.nextLevel && !level.isMaxLevel && (
-                        <p className={`dash-journey-next ${level.isNextPremium ? 'is-premium' : ''}`}>
-                            {level.isNextPremium
-                                ? labels.nextLevelPremium.replace('{range}', level.nextWordsRequiredRange)
-                                : labels.nextLevelDetail
-                                    .replace('{level}', level.nextLevel)
-                                    .replace('{range}', level.nextWordsRequiredRange)}
-                            {!level.isNextPremium && level.wordsToNext > 0 && (
-                                <span className="dash-journey-next-count">
-                                    {labels.wordsToGo.replace(
-                                        '{n}',
-                                        level.wordsToNext.toLocaleString(language === 'es' ? 'es' : 'en'),
-                                    )}
-                                </span>
-                            )}
-                        </p>
-                    )}
-                </div>
-
-                <div className="dash-panel-divider" />
-
-                <div className="dash-quick-stats">
-                    <StatPill
-                        title={labels.statXpTipTitle}
-                        description={labels.statXpTip.replace('{xp}', String(XP_PER_WORD))}
-                    >
-                        ⭐ <AnimatedNumber value={xp} duration={900} /> XP
-                    </StatPill>
-                    <StatPill
-                        title={labels.statLevelTipTitle}
-                        description={labels.statLevelTip.replace('{level}', level.currentLevel)}
-                    >
-                        🎯 {level.currentLevel} {labels.levelShort}
-                    </StatPill>
-                </div>
-            </article>
+                            <strong>{item.deckName}</strong>
+                            <small>{labels.quickAccessSubtitle.replace('{level}', item.levelId)}</small>
+                            <span className="dash-category-action">{labels.quickAccessButton}</span>
+                        </button>
+                    );
+                })}
+            </div>
         </section>
     );
 }

@@ -142,10 +142,7 @@ mod tests {
 
     #[test]
     fn resolves_roger_voice_label() {
-        assert_eq!(
-            resolve_elevenlabs_voice_id("Roger"),
-            "CwhRBWXzGAHq8TQ4Fs17"
-        );
+        assert_eq!(resolve_elevenlabs_voice_id("Roger"), "CwhRBWXzGAHq8TQ4Fs17");
     }
 
     #[test]

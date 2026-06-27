@@ -15,21 +15,42 @@ import {
     waitForCondition,
 } from './config/onboardingUiAutomation';
 import { computeTooltipLayout } from './config/computeTooltipLayout';
+import { invokeUiBridge } from './uiBridge';
+import { preloadFlashcardStart } from './preload';
 import styles from './FlashcardOnboardingTour.module.css';
 
 const TOOLTIP_WIDTH = 340;
 const TOOLTIP_ESTIMATED_HEIGHT = 220;
 const HIGHLIGHT_PADDING = 8;
 const SIDEBAR_TRANSITION_MS = 420;
+const CONTROLS_TRANSITION_MS = 320;
 const WRONG_TAP_COOLDOWN_MS = 2200;
 const GATE_TIMEOUT_MS = 5000;
 const NAV_TAP_ADVANCE_DELAY_MS = 180;
+const KEYBOARD_ADVANCE_DELAY_MS = 160;
+
+const UI_BRIDGE_ACTIONS = new Set([
+    'nextCard',
+    'prevCard',
+    'markLearned',
+    'resetDeck',
+    'flipCard',
+]);
+
+const CONTROL_STEP_IDS = new Set([
+    'boton-voltear-tarjeta',
+    'boton-anterior-tarjeta',
+    'indicador-tarjetas',
+    'boton-marcar-aprendida',
+    'boton-siguiente-tarjeta',
+    'boton-reiniciar-bloque',
+]);
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
 export default function FlashcardOnboardingTour() {
     const { language = 'en', setIsSidebarOpen, setIsFloatingMenuOpen } = useUIContext();
-    const { completeOnboarding } = useAuth();
+    const { completeOnboarding, user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const { setIsCatalogVisible } = useFlashcardUiContext();
@@ -45,6 +66,12 @@ export default function FlashcardOnboardingTour() {
     const [positionVersion, setPositionVersion] = useState(0);
     const tooltipRef = useRef(null);
     const wrongTapCooldownRef = useRef(0);
+
+    useEffect(() => {
+        if (!isOnboardingTour || !user?.email) return undefined;
+        void preloadFlashcardStart(user.email);
+        return undefined;
+    }, [isOnboardingTour, user?.email]);
 
     useEffect(() => {
         setStepFeedback('enter');
@@ -212,7 +239,8 @@ export default function FlashcardOnboardingTour() {
             activeStep?.id === 'menu-hamburguesa'
             || activeStep?.id === 'cargar-modulo-flashcards'
             || activeStep?.id === 'catalogo-categorias'
-        ) ? SIDEBAR_TRANSITION_MS : 100;
+        ) ? SIDEBAR_TRANSITION_MS
+            : (CONTROL_STEP_IDS.has(activeStep?.id) ? CONTROLS_TRANSITION_MS : 100);
         transitionTimer = window.setTimeout(syncRect, delay);
         window.addEventListener('scroll', syncRect, true);
         window.addEventListener('resize', syncRect);
@@ -240,6 +268,23 @@ export default function FlashcardOnboardingTour() {
             return true;
         }
 
+        if (activeStep.performAction === 'navigateFlashcards') {
+            const nav = queryTourTarget('[data-tour="flashcards-nav"]');
+            if (nav instanceof HTMLElement) {
+                nav.click();
+                return true;
+            }
+            const target = '/flashcard?onboarding_tour=flashcards';
+            if (`${location.pathname}${location.search}` !== target) {
+                navigate(target);
+            }
+            return true;
+        }
+
+        if (activeStep.performAction && UI_BRIDGE_ACTIONS.has(activeStep.performAction)) {
+            return invokeUiBridge(activeStep.performAction);
+        }
+
         const tapSelector = activeStep.tapSelector || activeStep.selector;
         const target = queryTourTarget(tapSelector);
         if (target instanceof HTMLElement) {
@@ -256,7 +301,7 @@ export default function FlashcardOnboardingTour() {
         }
 
         return false;
-    }, [activeStep, isZoneStep, setIsCatalogVisible, setIsSidebarOpen]);
+    }, [activeStep, isZoneStep, location.pathname, location.search, navigate, setIsCatalogVisible, setIsSidebarOpen]);
 
     const advanceStep = useCallback(async ({ skipClick = false } = {}) => {
         if (!activeStep || isAdvancing) return;
@@ -264,7 +309,12 @@ export default function FlashcardOnboardingTour() {
         setIsAdvancing(true);
         if (!skipClick) {
             performTargetClick();
-            if (activeStep.performAction === 'openCatalog') {
+            if (
+                activeStep.performAction === 'openCatalog'
+                || activeStep.performAction === 'openSidebar'
+                || activeStep.performAction === 'navigateFlashcards'
+                || activeStep.performAction === 'flipCard'
+            ) {
                 await new Promise((resolve) => {
                     window.requestAnimationFrame(() => {
                         window.requestAnimationFrame(resolve);
@@ -315,8 +365,33 @@ export default function FlashcardOnboardingTour() {
             setStepFeedback('tap_required');
             return;
         }
+        if (activeStep?.advanceWithoutAction) {
+            advanceStep({ skipClick: true });
+            return;
+        }
         advanceStep({ skipClick: false });
     }, [activeStep, advanceStep]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined' || !activeStep?.acceptKeyboard || isAdvancing) return undefined;
+
+        const allowedKeys = activeStep.keyboardKeys || [];
+        if (!allowedKeys.length) return undefined;
+
+        const handleKeyDown = (event) => {
+            const tag = event.target?.tagName;
+            if (tag === 'INPUT' || tag === 'TEXTAREA' || event.target?.isContentEditable) return;
+            if (tooltipRef.current?.contains(event.target)) return;
+            if (!allowedKeys.includes(event.key)) return;
+
+            window.setTimeout(() => {
+                advanceStep({ skipClick: true });
+            }, KEYBOARD_ADVANCE_DELAY_MS);
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [activeStep, advanceStep, isAdvancing]);
 
     useEffect(() => {
         if (typeof window === 'undefined' || !activeStep || targetMissing) return undefined;

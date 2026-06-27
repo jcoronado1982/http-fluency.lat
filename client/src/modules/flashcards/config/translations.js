@@ -12,6 +12,7 @@ export const flashcardTranslations = {
         },
         categorySelector: {
             categoryTitle: "CATEGORÍA",
+            loadingCategories: "Cargando categorías…",
             level: "Nivel",
             cards: "cartas en total",
             cardsInLevel: "cartas en este nivel",
@@ -198,6 +199,8 @@ export const flashcardTranslations = {
             prev: "Anterior",
             next: "Siguiente",
             reset: "Reiniciar",
+            resetConfirmTitle: "¿Resetear progreso?",
+            resetConfirmMessage: "Se borrará el avance de aprendizaje de este bloque.",
             correct: "Marcar como Aprendida",
             play: "Reproducir Audio",
             work: "Palabra:"
@@ -232,6 +235,7 @@ export const flashcardTranslations = {
         },
         categorySelector: {
             categoryTitle: "CATEGORY",
+            loadingCategories: "Loading categories…",
             level: "Level",
             cards: "total cards",
             cardsInLevel: "cards in this level",
@@ -418,6 +422,8 @@ export const flashcardTranslations = {
             prev: "Previous",
             next: "Next",
             reset: "Reset",
+            resetConfirmTitle: "Reset progress?",
+            resetConfirmMessage: "Learning progress for this block will be cleared.",
             correct: "Mark as Learned",
             play: "Play Audio",
             work: "Word:"
