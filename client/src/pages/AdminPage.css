@@ -3,6 +3,7 @@
     max-width: 1100px;
     margin: 0 auto;
     color: #e2e8f0;
+    font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
 }
 
 .admin-header h1 {

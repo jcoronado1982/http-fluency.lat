@@ -9,9 +9,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 1100px;
+    max-width: var(--shell-content-max-width);
     margin: 0 auto;
-    padding: 72px 40px 104px;
+    padding: 72px var(--lp-section-inline-padding, var(--shell-content-inline-padding)) 104px;
 }
 
 .lp-why-eyebrow {
@@ -64,6 +64,12 @@
     text-wrap: balance;
 }
 
+.lp-why-grid-wrap {
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
 .lp-why-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -80,7 +86,7 @@
     flex-direction: row;
     align-items: flex-start;
     gap: 18px;
-    padding: 32px 28px;
+    padding: 20px;
     background: rgba(8,4,10,0.65);
     transition: background 0.2s;
 }

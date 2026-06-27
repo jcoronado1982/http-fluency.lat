@@ -10,6 +10,7 @@ html, body {
 :root {
   --font-family-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-family-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-family-app: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 
   /* Lumina Serif Dark — type scale */
   --text-display-lg: clamp(2.625rem, 3.25vw + 0.85rem, 3.5rem);
@@ -58,4 +59,12 @@ button {
 
 button:hover {
   border-color: #646cff;
+}
+
+/* Tipografía de la app autenticada (no aplica a landing / login / pricing públicos) */
+.app-layout,
+.minimal-app-shell {
+  font-family: var(--font-family-app);
+  --font-family-body: var(--font-family-app);
+  --font-family-display: var(--font-family-app);
 }

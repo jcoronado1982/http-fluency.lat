@@ -1,7 +1,18 @@
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
-const DEFAULT_GAP = 16;
+export const TOOLTIP_VISUAL_GAP = 20;
 const ARROW_CLAMP = 24;
+
+const ARROW_OVERHANG = {
+    bottom: 17,
+    top: 17,
+    right: 14,
+    left: 12,
+};
+
+export function boxGapForPlacement(placement, visualGap = TOOLTIP_VISUAL_GAP) {
+    return visualGap + (ARROW_OVERHANG[placement] ?? 0);
+}
 
 /**
  * Posiciona el tooltip anclado al centro del anchor con flecha triangular clara.
@@ -11,7 +22,7 @@ export function computeTooltipLayout({
     viewport,
     tooltipWidth,
     tooltipHeight,
-    gap = DEFAULT_GAP,
+    gap = TOOLTIP_VISUAL_GAP,
     preferredPlacements,
 }) {
     if (!anchorRect) return null;
@@ -83,20 +94,20 @@ function layoutForPlacement(
     let arrowOffset;
 
     if (placement === 'bottom') {
-        top = anchorRect.bottom + gap;
+        top = anchorRect.bottom + boxGapForPlacement('bottom', gap);
         left = clamp(anchorCx - tooltipWidth / 2, margin, viewport.width - tooltipWidth - margin);
         arrowOffset = anchorCx - left;
     } else if (placement === 'top') {
-        top = anchorRect.top - tooltipHeight - gap;
+        top = anchorRect.top - tooltipHeight - boxGapForPlacement('top', gap);
         left = clamp(anchorCx - tooltipWidth / 2, margin, viewport.width - tooltipWidth - margin);
         arrowOffset = anchorCx - left;
     } else if (placement === 'right') {
         top = clamp(anchorCy - tooltipHeight / 2, margin, viewport.height - tooltipHeight - margin);
-        left = anchorRect.right + gap;
+        left = anchorRect.right + boxGapForPlacement('right', gap);
         arrowOffset = anchorCy - top;
     } else if (placement === 'left') {
         top = clamp(anchorCy - tooltipHeight / 2, margin, viewport.height - tooltipHeight - margin);
-        left = anchorRect.left - tooltipWidth - gap;
+        left = anchorRect.left - tooltipWidth - boxGapForPlacement('left', gap);
         arrowOffset = anchorCy - top;
     } else {
         return null;

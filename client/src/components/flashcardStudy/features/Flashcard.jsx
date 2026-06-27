@@ -6,7 +6,8 @@ import CardFront from './CardFront.jsx';
 import CardBack from './CardBack.jsx';
 import { useUIContext } from '../../../context/UIContext';
 import { useFlashcardUiContext, useFlashcardContext, useCategoryContext } from '../context/flashcardStudyContext';
-import { getCardTitle, getAudioLang, getAudioLangForConjugation } from './cardLanguageUtils';
+import { getCardTitle, getAudioLang, getAudioLangForConjugation, isLearningEnglish } from './cardLanguageUtils';
+import { registerUiBridgeHandler, unregisterUiBridgeHandler } from '../../../modules/flashcards/uiBridge';
 
 const getDefinitionsForForm = (card, form) => {
     if (!card) return [];
@@ -72,8 +73,12 @@ function Flashcard() {
 
     const buildAllBlurred = useCallback((form = activeForm) => {
         if (!cardData) return {};
-        return getDefinitionsForForm(cardData, form).reduce((acc, _, i) => ({ ...acc, [i]: true }), {});
-    }, [cardData, activeForm]);
+        const defs = getDefinitionsForForm(cardData, form);
+        if (isLandingDemo) {
+            return defs.reduce((acc, _, i) => ({ ...acc, [i]: false }), {});
+        }
+        return defs.reduce((acc, _, i) => ({ ...acc, [i]: true }), {});
+    }, [cardData, activeForm, isLandingDemo]);
 
     const revealDefinition = useCallback((defIndex, form = activeForm) => {
         if (!cardData) return;
@@ -152,6 +157,58 @@ function Flashcard() {
 
         setBlurredState(buildAllBlurred(activeForm));
     }, [activeForm, cardData, buildAllBlurred]);
+
+    useEffect(() => {
+        const blurAllPhrases = () => {
+            setBlurredState(buildAllBlurred(activeForm));
+        };
+        const revealPhrase = () => {
+            if (!cardData) return;
+            revealDefinition(0);
+            void ensureImageForDefinition(0);
+        };
+        const revealAndPlayPhrase = () => {
+            if (!cardData) return;
+            const defs = getDefinitionsForForm(cardData, activeForm);
+            const def = defs[0];
+            if (!def) return;
+
+            revealDefinition(0);
+            void ensureImageForDefinition(0);
+            const exampleText = isLearningEnglish(cardLanguage)
+                ? def.usage_example
+                : def.usage_example_es;
+            if (exampleText?.trim()) {
+                void playAudio(exampleText.trim(), getAudioLang(cardLanguage));
+            }
+        };
+        const playPhrase = () => {
+            if (!cardData) return;
+            const defs = getDefinitionsForForm(cardData, activeForm);
+            const def = defs[0];
+            if (!def) return;
+
+            revealDefinition(0);
+            void ensureImageForDefinition(0);
+            const exampleText = isLearningEnglish(cardLanguage)
+                ? def.usage_example
+                : def.usage_example_es;
+            if (exampleText?.trim()) {
+                void playAudio(exampleText.trim(), getAudioLang(cardLanguage));
+            }
+        };
+
+        registerUiBridgeHandler('blurPhrases', blurAllPhrases);
+        registerUiBridgeHandler('revealPhrase', revealPhrase);
+        registerUiBridgeHandler('revealAndPlayPhrase', revealAndPlayPhrase);
+        registerUiBridgeHandler('playPhrase', playPhrase);
+        return () => {
+            unregisterUiBridgeHandler('blurPhrases');
+            unregisterUiBridgeHandler('revealPhrase');
+            unregisterUiBridgeHandler('revealAndPlayPhrase');
+            unregisterUiBridgeHandler('playPhrase');
+        };
+    }, [activeForm, buildAllBlurred, cardData, cardLanguage, ensureImageForDefinition, playAudio, revealDefinition]);
 
     useEffect(() => () => {
         stopAudio();

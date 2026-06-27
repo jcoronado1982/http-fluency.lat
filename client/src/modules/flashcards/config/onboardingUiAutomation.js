@@ -65,8 +65,89 @@ export function isCardFlipped() {
     return card?.getAttribute('data-flipped') === 'true';
 }
 
+export function isCardFaceUp() {
+    return !isCardFlipped();
+}
+
 export function queryTourTarget(selector) {
     return document.querySelector(selector);
+}
+
+export function isTourTargetRectStable(rect, { minSize = 40, maxAspectRatio = 1.35 } = {}) {
+    if (!rect || rect.width < minSize || rect.height < minSize) return false;
+    const ratio = Math.max(rect.width, rect.height) / Math.min(rect.width, rect.height);
+    return ratio <= maxAspectRatio;
+}
+
+export function normalizeCompactTourRect(rect, { width = 56, height = 56 } = {}) {
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    return {
+        top: cy - height / 2,
+        left: cx - width / 2,
+        right: cx + width / 2,
+        bottom: cy + height / 2,
+        width,
+        height,
+    };
+}
+
+export function measureTourTarget(selector, {
+    compactHighlight,
+    requireStableRect = false,
+    requireVisible = false,
+    requirePhraseRevealed = false,
+} = {}) {
+    const target = document.querySelector(selector);
+    if (!(target instanceof Element)) return { target: null, rect: null };
+    if (requireVisible && !isTourElementVisible(target)) return { target: null, rect: null };
+    if (requirePhraseRevealed && !isPhraseExampleRevealed(target)) {
+        return { target: null, rect: null };
+    }
+
+    const rawRect = target.getBoundingClientRect();
+    if (requireStableRect && !isTourTargetRectStable(rawRect)) {
+        return { target: null, rect: null };
+    }
+
+    const rect = compactHighlight
+        ? normalizeCompactTourRect(rawRect, compactHighlight)
+        : rawRect;
+
+    return { target, rect };
+}
+
+export function isTourElementVisible(element) {
+    if (!(element instanceof Element)) return false;
+
+    let node = element;
+    while (node instanceof Element) {
+        const style = window.getComputedStyle(node);
+        if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) {
+            return false;
+        }
+        node = node.parentElement;
+    }
+
+    return true;
+}
+
+export function isPhraseExampleRevealed(playButton) {
+    if (!(playButton instanceof Element)) return false;
+    const row = playButton.closest('li');
+    if (!row) return false;
+    return Boolean(row.querySelector('[data-phrase-revealed="true"]'));
+}
+
+export function isPhraseAudioTourTargetReady(selector, options = {}) {
+    const { target, rect } = measureTourTarget(selector, {
+        requireVisible: true,
+        requireStableRect: true,
+        requirePhraseRevealed: true,
+        compactHighlight: { width: 56, height: 56 },
+        ...options,
+    });
+    return Boolean(target && rect);
 }
 
 export function readUiSnapshot() {

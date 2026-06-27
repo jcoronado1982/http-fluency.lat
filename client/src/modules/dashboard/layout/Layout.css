@@ -6,19 +6,23 @@
     padding: 6px 24px;
     background-color: #122035;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    /* era 0.05 */
+    font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
+    --font-family-body: var(--font-family-app);
+    --font-family-display: var(--font-family-app);
     position: absolute;
-    /* Absolute relative to main-content */
     top: 0;
     left: 0;
     right: 0;
     z-index: 1100;
     box-sizing: border-box;
     transform: translateY(-76px);
-    /* Hide using transform */
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    /* era 0.05 */
+    overflow: visible;
+}
+
+.app-header button {
+    font-family: inherit;
 }
 
 .app-header.sidebar-open,
@@ -38,17 +42,25 @@
     align-items: center;
     gap: 4px;
     min-width: 0;
+    font-family: inherit;
 }
 
 .header-controls {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
+    min-width: 0;
+    flex-shrink: 0;
+    font-family: inherit;
 }
 
 .tone-selector-wrapper {
     display: flex;
     align-items: center;
+}
+
+.study-language-selector-wrapper {
+    display: none;
 }
 
 .menu-wrapper {
@@ -77,8 +89,8 @@
 }
 
 .hamburger-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     fill: #ffffff;
 }
 
@@ -101,7 +113,7 @@
 .app-brand-name {
     display: none;
     color: #ffffff;
-    font-family: var(--font-family-display);
+    font-family: inherit;
     font-size: 1.15rem;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -113,7 +125,7 @@
     width: 36px;
     height: 36px;
     padding: 0;
-    border: 2px solid rgba(125, 119, 221, 0.55);
+    border: 2px solid rgba(244, 114, 182, 0.45);
     border-radius: 50%;
     background: rgba(30, 41, 59, 0.9);
     overflow: hidden;
@@ -123,7 +135,7 @@
 }
 
 .header-user-avatar:hover {
-    border-color: rgba(45, 212, 191, 0.75);
+    border-color: rgba(244, 114, 182, 0.75);
     transform: scale(1.04);
 }
 
@@ -140,7 +152,8 @@
     color: #ffffff;
     font-size: 0.82rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #2dd4bf, #7d77dd);
+    font-family: inherit;
+    background: linear-gradient(135deg, #be185d, #f472b6 50%, #fb923c);
 }
 
 /* --- Sidebar (Menú Lateral) --- */
@@ -158,6 +171,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    font-family: var(--font-family-app, var(--font-family-body));
 }
 
 .sidebar-overlay {
@@ -199,7 +213,7 @@
 
 .sidebar-brand-name {
     color: #f8fafc;
-    font-family: var(--font-family-display);
+    font-family: var(--font-family-app, var(--font-family-body));
     font-size: 1.12rem;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -263,12 +277,12 @@
 .nav-link:hover .sidebarIcon { color: #cbd5e1; }
 
 .nav-link.active {
-    background: rgba(45, 212, 191, 0.08);
-    border-left-color: #2dd4bf;
+    background: rgba(244, 114, 182, 0.08);
+    border-left-color: #f472b6;
     color: #f8fafc;
 }
 
-.nav-link.active .sidebarIcon { color: #2dd4bf; }
+.nav-link.active .sidebarIcon { color: #f472b6; }
 
 /* ─── Sidebar icon ───────────────────────────────────────────────────────────── */
 .sidebarIcon {
@@ -319,13 +333,13 @@
     text-overflow: ellipsis;
 }
 
-.nav-link.active .optionSub { color: rgba(45, 212, 191, 0.6); }
+.nav-link.active .optionSub { color: rgba(244, 114, 182, 0.65); }
 
 /* Subcategory indented links */
 .app-sidebar .parentItem    { margin-bottom: 8px; }
 .app-sidebar .parentLink    { display: flex; align-items: center; gap: 11px; padding: 9px 10px; border-radius: 10px; text-decoration: none; color: #64748b; font-weight: 500; font-size: 0.9rem; transition: background 160ms ease, color 160ms ease; border: none; cursor: pointer; }
 .app-sidebar .parentLink:hover   { background: rgba(255,255,255,0.05); color: #cbd5e1; }
-.app-sidebar .parentLink.active  { background: rgba(45,212,191,0.08); color: #f8fafc; }
+.app-sidebar .parentLink.active  { background: rgba(244, 114, 182, 0.08); color: #f8fafc; }
 .app-sidebar .subCategory        { list-style: none; padding: 0; margin: 2px 0 0 0; max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0.4,0,0.2,1); }
 .app-sidebar .subCategory.open   { max-height: 500px; }
 .app-sidebar .subCategory .nav-link { padding-left: 40px; }
@@ -333,7 +347,10 @@
 .header-account {
     display: flex;
     align-items: center;
+    gap: 8px;
     position: relative;
+    flex-shrink: 0;
+    overflow: visible;
 }
 
 /* Mobile Header Adjustments */
@@ -370,15 +387,13 @@
     }
 
     .header-account .floatingMainButton {
-        display: none;
+        display: flex;
     }
 
     .header-account .floatingMenuContainer {
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 36px;
-        height: 36px;
+        position: relative;
+        width: auto;
+        height: auto;
     }
 
     .app-header.sidebar-open + .page-content,

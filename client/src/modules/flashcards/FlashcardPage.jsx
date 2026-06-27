@@ -18,6 +18,7 @@ import { flashcardPort, audioPort, imagePort, imageCompressionService } from './
 import {
     registerUiBridgeHandler,
     unregisterUiBridgeHandler,
+    invokeUiBridge,
 } from './uiBridge';
 
 const FLASHCARD_LOADING_COPY = {
@@ -99,6 +100,7 @@ export default function FlashcardPage() {
     const {
         isFloatingMenuOpen, isSidebarOpen,
         language = 'en',
+        studyLanguage = 'en',
         setIsHeaderSuppressed,
     } = useUIContext();
     const { currentCategory, changeCategory, loadingStage: categoryLoadingStage } = useCategoryContext();
@@ -134,6 +136,21 @@ export default function FlashcardPage() {
                 card.click();
             }
         });
+        registerUiBridgeHandler('unflipCard', () => {
+            const card = document.querySelector('[data-tour="boton-voltear-tarjeta"]');
+            if (card instanceof HTMLElement && card.getAttribute('data-flipped') === 'true') {
+                card.click();
+            }
+        });
+        registerUiBridgeHandler('prepareReproducirAudioStep', () => {
+            const card = document.querySelector('[data-tour="boton-voltear-tarjeta"]');
+            if (card instanceof HTMLElement && card.getAttribute('data-flipped') === 'true') {
+                card.click();
+            }
+            window.setTimeout(() => {
+                invokeUiBridge('revealPhrase');
+            }, 900);
+        });
         return () => {
             unregisterUiBridgeHandler('openCatalog');
             unregisterUiBridgeHandler('openIpa');
@@ -142,6 +159,8 @@ export default function FlashcardPage() {
             unregisterUiBridgeHandler('markLearned');
             unregisterUiBridgeHandler('resetDeck');
             unregisterUiBridgeHandler('flipCard');
+            unregisterUiBridgeHandler('unflipCard');
+            unregisterUiBridgeHandler('prepareReproducirAudioStep');
         };
     }, [
         markAsLearned,
@@ -263,7 +282,7 @@ export default function FlashcardPage() {
             imagePort={imagePort}
             imageCompressionService={imageCompressionService}
         >
-        <div className="flashcard-page-wrapper">
+        <div className="flashcard-page-wrapper" data-onboarding-tour={isOnboardingTour ? 'true' : undefined}>
             {masterData.length > 0 && !isOverlayOpen && !shouldShowLoading && !shouldShowCompletionCard && (
                 <div className={`${styles.cardCounter} ${isPronounsCategory ? styles.pronounsCounter : ''}`}>
                     <div className={styles.counterItem}>
@@ -318,7 +337,7 @@ export default function FlashcardPage() {
                             <div className="all-done-message">No hay tarjetas disponibles en este momento.</div>
                         )
                     ) : (
-                        <Flashcard key={`${currentCategory}-${currentDeckName}-${currentCard.id}-${language}`} />
+                        <Flashcard key={`${currentCategory}-${currentDeckName}-${currentCard.id}-${language}-${studyLanguage}`} />
                     )}
                     {!shouldShowLoading && !shouldShowCompletionCard && <Controls />}
                 </div>

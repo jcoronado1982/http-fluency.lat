@@ -1,19 +1,45 @@
 .page {
     width: min(100%, 720px);
     margin: 0 auto;
-    min-height: 100dvh;
+    height: 100dvh;
+    max-height: 100dvh;
+    min-height: 0;
     display: grid;
     align-items: center;
     justify-items: center;
-    padding: 40px 24px;
+    padding: clamp(12px, 2vh, 32px) clamp(14px, 3vw, 24px);
     box-sizing: border-box;
-    color: #e2e8f0;
+    overflow: hidden;
+    color: #ffffff;
     font-family: var(--font-family-body);
+}
+
+:global(.app-layout:has([data-onboarding-wizard])),
+:global(.minimal-app-shell:has([data-onboarding-wizard])) {
+    height: 100dvh;
+    max-height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+}
+
+:global(.app-layout:has([data-onboarding-wizard]) .main-content),
+:global(.minimal-app-shell:has([data-onboarding-wizard]) .page-content) {
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+:global(.app-layout:has([data-onboarding-wizard]) .page-content),
+:global(.minimal-app-shell:has([data-onboarding-wizard]) .page-content) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0;
 }
 
 .eyebrow {
     margin: 0;
-    color: #38bdf8;
+    color: #f472b6;
     font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -29,7 +55,7 @@
 
 .progressCopy {
     margin: 0;
-    color: #c8b29a;
+    color: #f472b6;
     font-size: 0.9rem;
     font-weight: 700;
 }
@@ -37,7 +63,7 @@
 .progressTrack {
     width: 100%;
     height: 4px;
-    margin: 12px 0 28px;
+    margin: 12px 0 20px;
     border-radius: 999px;
     background: rgba(100, 116, 139, 0.35);
     overflow: hidden;
@@ -47,20 +73,23 @@
     display: block;
     height: 100%;
     border-radius: inherit;
-    background: linear-gradient(90deg, #2dd4bf, #38bdf8);
-    box-shadow: 0 0 14px rgba(56, 189, 248, 0.3);
+    background: linear-gradient(90deg, #be185d, #f472b6 55%, #fb923c);
+    box-shadow: 0 0 14px rgba(244, 114, 182, 0.35);
 }
 
 .hero {
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    max-height: 100%;
     width: 100%;
     box-sizing: border-box;
     padding: 36px 38px 34px;
     border-radius: 28px;
     border: 1px solid rgba(65, 79, 109, 0.52);
     background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.08), transparent 30%),
+        radial-gradient(circle at top left, rgba(244, 114, 182, 0.08), transparent 30%),
         radial-gradient(circle at 84% 14%, rgba(251, 191, 36, 0.06), transparent 24%),
         linear-gradient(180deg, rgba(24, 30, 47, 0.98), rgba(16, 22, 38, 0.99));
     box-shadow:
@@ -83,8 +112,8 @@
 
 .title {
     margin: 0;
-    color: #f4f1ea;
-    font-family: var(--font-family-display);
+    color: #ffffff;
+    font-family: inherit;
     font-size: 2rem;
     line-height: 0.98;
     letter-spacing: -0.03em;
@@ -96,11 +125,11 @@
 
 .subtitle {
     max-width: 640px;
-    margin: 14px 0 0;
-    color: #c7b39d;
+    margin: 20px 0 0;
+    color: #ffffff;
     font-size: 1.05rem;
-    line-height: 1.7;
-    font-weight: 600;
+    line-height: 1.65;
+    font-weight: 400;
 }
 
 .subtitleLead,
@@ -108,8 +137,20 @@
     display: block;
 }
 
+.subtitleLead {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #f472b6;
+    letter-spacing: -0.01em;
+}
+
 .subtitleQuestion {
-    margin-top: 2px;
+    margin-top: 14px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.92);
 }
 
 .grid {
@@ -126,12 +167,12 @@
     align-items: flex-start;
     gap: 12px;
     overflow: hidden;
-    min-height: 170px;
+    min-height: auto;
     padding: 24px;
     border: 1px solid rgba(49, 61, 87, 0.88);
     border-radius: 26px;
     background: linear-gradient(180deg, rgba(18, 25, 43, 0.95), rgba(18, 25, 43, 0.82));
-    color: #f4f1ea;
+    color: #ffffff;
     text-align: left;
     cursor: pointer;
     transition:
@@ -148,28 +189,46 @@
 }
 
 .optionCardSelected {
-    border-color: rgba(34, 197, 94, 0.78);
+    border-color: rgba(244, 114, 182, 0.78);
     background:
-        radial-gradient(circle at top right, rgba(34, 197, 94, 0.12), transparent 28%),
-        linear-gradient(180deg, rgba(24, 58, 45, 0.95), rgba(24, 58, 45, 0.86));
+        radial-gradient(circle at top right, rgba(244, 114, 182, 0.14), transparent 28%),
+        linear-gradient(180deg, rgba(58, 24, 40, 0.95), rgba(40, 18, 32, 0.86));
     box-shadow:
-        0 0 0 1px rgba(74, 222, 128, 0.2) inset,
+        0 0 0 1px rgba(244, 114, 182, 0.22) inset,
         0 22px 52px rgba(15, 23, 42, 0.32);
 }
 
-.optionFlag {
-    display: block;
-    color: #f2d8bd;
+.optionFlagRow {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: 8px;
+}
+
+.optionFlagGroup {
+    color: #ffffff;
     font-size: 1.9rem;
     line-height: 1;
     white-space: nowrap;
 }
 
+.optionFlagArrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.25rem;
+    color: #ffffff;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+}
+
 .optionTitle {
     margin: 0;
     max-width: none;
-    color: #ead8c5;
-    font-size: 1.35rem;
+    color: #ffffff;
+    font-size: 1.2rem;
     line-height: 1.2;
     white-space: nowrap;
     font-weight: 800;
@@ -181,7 +240,7 @@
     align-items: center;
     gap: 8px;
     margin-top: 4px;
-    color: #4ade80;
+    color: #ffffff;
     font-size: 0.95rem;
     font-weight: 800;
 }
@@ -193,8 +252,8 @@
     width: 20px;
     height: 20px;
     border-radius: 999px;
-    background: #4ade80;
-    color: #143828;
+    background: linear-gradient(135deg, #be185d, #f472b6 55%, #fb923c);
+    color: #ffffff;
     font-size: 0.8rem;
     font-weight: 900;
     line-height: 1;
@@ -202,7 +261,7 @@
 
 .optionDescription {
     margin: 10px 0 0;
-    color: #cbd5e1;
+    color: #ffffff;
     font-size: 0.96rem;
     line-height: 1.55;
 }
@@ -210,7 +269,7 @@
 .pillList {
     display: grid;
     gap: 14px;
-    margin-top: 28px;
+    margin-top: 20px;
 }
 
 .pillButton {
@@ -222,7 +281,7 @@
     border: 1px solid rgba(63, 74, 99, 0.8);
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.03);
-    color: #e2d6ca;
+    color: #ffffff;
     text-align: left;
     font-size: 1rem;
     font-weight: 600;
@@ -236,12 +295,12 @@
 }
 
 .pillButtonSelected {
-    border-color: rgba(34, 197, 94, 0.7);
-    background: rgba(34, 197, 94, 0.18);
-    color: #f4f1ea;
+    border-color: rgba(244, 114, 182, 0.75);
+    background: linear-gradient(135deg, rgba(190, 24, 93, 0.22), rgba(244, 114, 182, 0.14));
+    color: #ffffff;
     box-shadow:
-        0 0 0 1px rgba(74, 222, 128, 0.18) inset,
-        0 0 28px rgba(34, 197, 94, 0.12);
+        0 0 0 1px rgba(244, 114, 182, 0.2) inset,
+        0 0 28px rgba(190, 24, 93, 0.18);
 }
 
 .pillButtonFlag {
@@ -266,8 +325,8 @@
     width: 22px;
     height: 22px;
     border-radius: 999px;
-    background: #4ade80;
-    color: #143828;
+    background: linear-gradient(135deg, #be185d, #f472b6 55%, #fb923c);
+    color: #ffffff;
     font-size: 0.88rem;
     font-weight: 900;
 }
@@ -286,17 +345,17 @@
 
 .tourCommand {
     padding: 20px 22px;
-    border: 1px solid rgba(56, 189, 248, 0.22);
+    border: 1px solid rgba(244, 114, 182, 0.22);
     border-radius: 24px;
     background:
-        radial-gradient(circle at top right, rgba(56, 189, 248, 0.08), transparent 30%),
-        linear-gradient(180deg, rgba(45, 212, 191, 0.06), rgba(15, 23, 42, 0.16));
+        radial-gradient(circle at top right, rgba(244, 114, 182, 0.08), transparent 30%),
+        linear-gradient(180deg, rgba(190, 24, 93, 0.06), rgba(15, 23, 42, 0.16));
 }
 
 .tourCommandLabel {
     display: inline-block;
     margin-bottom: 8px;
-    color: #38bdf8;
+    color: #f472b6;
     font-size: 0.78rem;
     font-weight: 800;
     letter-spacing: 0.08em;
@@ -305,14 +364,14 @@
 
 .tourCommandTitle {
     margin: 0;
-    color: #fff7ed;
+    color: #ffffff;
     font-size: 1.32rem;
     font-weight: 800;
 }
 
 .tourCommandText {
     margin: 8px 0 0;
-    color: #bae6fd;
+    color: #ffffff;
     line-height: 1.6;
 }
 
@@ -322,9 +381,9 @@
     gap: 14px;
     align-items: start;
     padding: 18px 18px 16px;
-    border: 1px solid rgba(125, 211, 252, 0.22);
+    border: 1px solid rgba(244, 114, 182, 0.22);
     border-radius: 22px;
-    background: linear-gradient(180deg, rgba(56, 189, 248, 0.08), rgba(125, 119, 221, 0.08));
+    background: linear-gradient(180deg, rgba(244, 114, 182, 0.08), rgba(251, 146, 60, 0.08));
 }
 
 .coachAvatar {
@@ -339,7 +398,7 @@
 
 .coachLabel {
     margin: 0 0 6px;
-    color: #93c5fd;
+    color: #f472b6;
     font-size: 0.78rem;
     font-weight: 800;
     letter-spacing: 0.08em;
@@ -348,7 +407,7 @@
 
 .coachText {
     margin: 0;
-    color: #dbeafe;
+    color: #ffffff;
     line-height: 1.6;
 }
 
@@ -385,20 +444,20 @@
     border: 1px solid rgba(148, 163, 184, 0.18);
     border-radius: 999px;
     background: rgba(15, 23, 42, 0.26);
-    color: #94a3b8;
+    color: #ffffff;
     font-size: 0.82rem;
     font-weight: 700;
 }
 
 .routeStepActive {
-    border-color: rgba(56, 189, 248, 0.38);
-    background: rgba(56, 189, 248, 0.14);
-    color: #e0f2fe;
+    border-color: rgba(244, 114, 182, 0.38);
+    background: rgba(244, 114, 182, 0.14);
+    color: #f472b6;
 }
 
 .tourSectionLabel {
     margin: 0 0 14px;
-    color: #f8fafc;
+    color: #f472b6;
     font-size: 0.82rem;
     font-weight: 800;
     letter-spacing: 0.12em;
@@ -413,7 +472,7 @@
     padding: 12px;
     border: 1px solid transparent;
     border-radius: 16px;
-    color: #cbd5e1;
+    color: #ffffff;
 }
 
 .tourNavItem + .tourNavItem {
@@ -426,19 +485,19 @@
 }
 
 .tourNavItem strong {
-    color: #f8fafc;
+    color: #ffffff;
     font-size: 0.98rem;
 }
 
 .tourNavItem span {
-    color: #94a3b8;
+    color: #ffffff;
     font-size: 0.88rem;
 }
 
 .tourNavItemActive {
-    border-color: rgba(56, 189, 248, 0.32);
-    background: rgba(56, 189, 248, 0.08);
-    box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.1) inset;
+    border-color: rgba(244, 114, 182, 0.32);
+    background: rgba(244, 114, 182, 0.08);
+    box-shadow: 0 0 0 1px rgba(244, 114, 182, 0.1) inset;
 }
 
 .tourNavIcon {
@@ -465,7 +524,7 @@
 
 .catalogHint {
     margin: 6px 0 0;
-    color: #94a3b8;
+    color: #ffffff;
     font-size: 0.92rem;
     line-height: 1.5;
 }
@@ -486,20 +545,20 @@
 }
 
 .categoryCard strong {
-    color: #f8fafc;
+    color: #ffffff;
     font-size: 0.95rem;
 }
 
 .categoryCard span {
-    color: #94a3b8;
+    color: #ffffff;
     font-size: 0.84rem;
     line-height: 1.5;
 }
 
 .categoryCardActive {
-    border-color: rgba(56, 189, 248, 0.38);
-    background: rgba(56, 189, 248, 0.08);
-    box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.12) inset;
+    border-color: rgba(244, 114, 182, 0.38);
+    background: rgba(244, 114, 182, 0.08);
+    box-shadow: 0 0 0 1px rgba(244, 114, 182, 0.12) inset;
 }
 
 .lessonCard {
@@ -510,13 +569,13 @@
 }
 
 .lessonCardActive {
-    border-color: rgba(56, 189, 248, 0.42);
-    box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.14) inset;
+    border-color: rgba(244, 114, 182, 0.42);
+    box-shadow: 0 0 0 1px rgba(244, 114, 182, 0.14) inset;
 }
 
 .lessonLabel {
     margin: 0 0 10px;
-    color: #93c5fd;
+    color: #f472b6;
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -525,14 +584,14 @@
 
 .topicPanelTitle {
     margin: 0;
-    color: #f8fafc;
+    color: #ffffff;
     font-size: 1.08rem;
     font-weight: 700;
 }
 
 .topicPanelBody {
     margin: 8px 0 12px;
-    color: #cbd5e1;
+    color: #ffffff;
     line-height: 1.6;
 }
 
@@ -547,21 +606,21 @@
     border: 1px solid rgba(148, 163, 184, 0.2);
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.05);
-    color: #e2e8f0;
+    color: #ffffff;
     font-size: 0.86rem;
     font-weight: 600;
 }
 
 .lessonChipAccent {
-    border-color: rgba(56, 189, 248, 0.42);
-    background: rgba(56, 189, 248, 0.12);
-    color: #e0f2fe;
+    border-color: rgba(244, 114, 182, 0.42);
+    background: rgba(244, 114, 182, 0.12);
+    color: #ffffff;
 }
 
 .lessonChipFocus {
-    border-color: rgba(34, 197, 94, 0.42);
-    background: rgba(34, 197, 94, 0.12);
-    color: #dcfce7;
+    border-color: rgba(244, 114, 182, 0.42);
+    background: rgba(190, 24, 93, 0.12);
+    color: #ffffff;
 }
 
 .flashcardDemo {
@@ -585,13 +644,13 @@
 }
 
 .flashcardFaceBack {
-    background: linear-gradient(180deg, rgba(56, 189, 248, 0.08), rgba(125, 119, 221, 0.06));
+    background: linear-gradient(180deg, rgba(244, 114, 182, 0.08), rgba(125, 119, 221, 0.06));
 }
 
 .flashcardLabel {
     display: inline-block;
     margin-bottom: 12px;
-    color: #93c5fd;
+    color: #f472b6;
     font-size: 0.78rem;
     font-weight: 800;
     letter-spacing: 0.08em;
@@ -601,8 +660,8 @@
 .flashcardWord,
 .flashcardMeaning {
     display: block;
-    color: #f8fafc;
-    font-family: var(--font-family-display);
+    color: #ffffff;
+    font-family: inherit;
     font-size: 1.55rem;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -615,7 +674,7 @@
 .flashcardHint {
     display: block;
     margin-top: 14px;
-    color: #cbd5e1;
+    color: #ffffff;
     font-size: 0.92rem;
 }
 
@@ -623,7 +682,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 14px;
-    color: #94a3b8;
+    color: #ffffff;
     font-size: 0.88rem;
     font-weight: 700;
 }
@@ -645,7 +704,7 @@
     width: 54px;
     height: 54px;
     border-radius: 18px;
-    background: linear-gradient(135deg, #2dd4bf, #7d77dd);
+    background: linear-gradient(135deg, #be185d, #f472b6 50%, #fb923c);
     color: #ffffff;
     font-size: 1.1rem;
     font-weight: 800;
@@ -653,14 +712,14 @@
 
 .tourStepTitle {
     margin: 0 0 6px;
-    color: #f8fafc;
+    color: #ffffff;
     font-size: 1.08rem;
     font-weight: 700;
 }
 
 .tourStepText {
     margin: 0;
-    color: #cbd5e1;
+    color: #ffffff;
     line-height: 1.6;
 }
 
@@ -686,14 +745,14 @@
 
 .pointTitle {
     margin: 0 0 8px;
-    color: #f8fafc;
+    color: #ffffff;
     font-size: 1.1rem;
     font-weight: 700;
 }
 
 .pointDescription {
     margin: 0;
-    color: #cbd5e1;
+    color: #ffffff;
     line-height: 1.6;
 }
 
@@ -707,14 +766,14 @@
 
 .summaryTitle {
     margin: 0 0 12px;
-    color: #f8fafc;
+    color: #ffffff;
     font-size: 1.05rem;
     font-weight: 700;
 }
 
 .summaryText {
     margin: 0 0 8px;
-    color: #cbd5e1;
+    color: #ffffff;
 }
 
 .actions {
@@ -722,8 +781,8 @@
     gap: 12px;
     flex-wrap: wrap;
     justify-content: flex-end;
-    margin-top: 28px;
-    padding-top: 20px;
+    margin-top: 20px;
+    padding-top: 16px;
     border-top: 1px solid rgba(69, 80, 105, 0.38);
 }
 
@@ -748,21 +807,21 @@
 }
 
 .buttonPrimary {
-    background: linear-gradient(135deg, #2dd4bf, #7d77dd);
+    background: linear-gradient(135deg, #be185d, #f472b6 50%, #fb923c);
     color: #ffffff;
-    box-shadow: 0 10px 24px rgba(45, 212, 191, 0.25);
+    box-shadow: 0 10px 24px rgba(190, 24, 93, 0.3);
 }
 
 .buttonSecondary {
     background: rgba(30, 41, 59, 0.8);
     border-color: #334155;
-    color: #cbd5e1;
+    color: #ffffff;
 }
 
 .emptyState {
     max-width: 640px;
     margin: 28px auto 0;
-    color: #cbd5e1;
+    color: #ffffff;
     line-height: 1.6;
 }
 
@@ -785,7 +844,8 @@
 @media (max-width: 760px) {
     .page {
         width: 100%;
-        min-height: 100dvh;
+        height: 100dvh;
+        max-height: 100dvh;
         padding: 12px 14px;
         align-content: center;
         align-items: center;
@@ -838,10 +898,10 @@
 
     .optionTitle {
         max-width: none;
-        font-size: 1.15rem;
+        font-size: 1.2rem;
     }
 
-    .optionFlag {
+    .optionFlagGroup {
         font-size: 1.7rem;
     }
 
@@ -928,12 +988,12 @@
         border-radius: 20px;
     }
 
-    .optionFlag {
+    .optionFlagGroup {
         font-size: 1.5rem;
     }
 
     .optionTitle {
-        font-size: 1.05rem;
+        font-size: 1.2rem;
         line-height: 1.15;
     }
 

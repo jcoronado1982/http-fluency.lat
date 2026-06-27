@@ -37,9 +37,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 1100px;
+    max-width: var(--shell-content-max-width);
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 var(--lp-section-inline-padding, var(--shell-content-inline-padding));
     position: relative;
     z-index: 1;
 }
@@ -66,6 +66,8 @@
     grid-template-columns: 1fr;
     gap: 16px;
     width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .lp-vocab-first-card {
@@ -73,7 +75,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 14px;
-    padding: 28px 26px;
+    padding: 20px;
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     background: rgba(8, 4, 10, 0.55);
@@ -160,6 +162,6 @@
     }
 
     .lp-vocab-first-card {
-        padding: 30px 24px;
+        padding: 20px;
     }
 }

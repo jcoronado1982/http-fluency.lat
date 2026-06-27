@@ -6,7 +6,7 @@
   padding: 24px;
   background: #0f172a;
   color: #f8fafc;
-  font-family: var(--font-family-body);
+  font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
 }
 
 .arcadeStatePanel,
@@ -20,7 +20,7 @@
   padding: 24px;
   background: #0f172a;
   color: #f8fafc;
-  font-family: var(--font-family-body);
+  font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
 }
 
 .historySidebar,
@@ -64,7 +64,7 @@
 }
 
 .episodeHistoryItem.current {
-  border-color: rgba(56, 189, 248, 0.45);
+  border-color: rgba(244, 114, 182, 0.45);
 }
 
 .episodeHistoryHeader {
@@ -83,8 +83,8 @@
 .epNum {
   padding: 4px 8px;
   border-radius: 999px;
-  background: rgba(56, 189, 248, 0.18);
-  color: #38bdf8;
+  background: rgba(244, 114, 182, 0.18);
+  color: #f472b6;
   font-size: 0.72rem;
   font-weight: 800;
 }
@@ -94,7 +94,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: var(--font-family-display);
+  font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
   font-weight: 700;
 }
 
@@ -138,7 +138,7 @@
 
 .storyTitle {
   margin: 0 0 10px;
-  font-family: var(--font-family-display);
+  font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
   font-size: clamp(2rem, 3vw, 3.2rem);
   line-height: 1;
   letter-spacing: -0.02em;
@@ -150,12 +150,12 @@
   align-items: center;
   padding: 8px 14px;
   border-radius: 999px;
-  background: rgba(14, 165, 233, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.22);
+  background: rgba(190, 24, 93, 0.12);
+  border: 1px solid rgba(244, 114, 182, 0.22);
 }
 
 .episodeNumber {
-  color: #38bdf8;
+  color: #f472b6;
   font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -185,7 +185,7 @@
 
 .progressBarFill {
   height: 100%;
-  background: linear-gradient(90deg, #38bdf8, #22c55e);
+  background: linear-gradient(90deg, #be185d, #f472b6 55%, #fb923c);
   transition: width 0.3s ease;
 }
 
@@ -198,12 +198,12 @@
   margin: 0;
   color: #69db7c;
   text-align: center;
-  font-family: var(--font-family-display);
+  font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
 }
 
 .narrativeBox {
   padding: 18px 20px;
-  border-left: 4px solid rgba(56, 189, 248, 0.55);
+  border-left: 4px solid rgba(244, 114, 182, 0.55);
   border-radius: 20px;
   background: rgba(15, 23, 42, 0.55);
 }
@@ -292,8 +292,8 @@
 }
 
 .tutorMsgBox {
-  background: rgba(56, 189, 248, 0.09);
-  border-left: 4px solid #38bdf8;
+  background: rgba(244, 114, 182, 0.09);
+  border-left: 4px solid #f472b6;
 }
 
 .errorMsgBox {
@@ -309,7 +309,7 @@
 }
 
 .tutorMsg {
-  color: #7dd3fc;
+  color: #f9a8d4;
 }
 
 .errorMsg {
@@ -332,8 +332,8 @@
   gap: 8px;
   padding: 8px 12px;
   border-radius: 12px;
-  background: rgba(56, 189, 248, 0.14);
-  color: #7dd3fc;
+  background: rgba(244, 114, 182, 0.14);
+  color: #f9a8d4;
 }
 
 .imagePlaceholder {
@@ -374,7 +374,7 @@
 }
 
 .aiLoaderCircle {
-  border-top-color: #38bdf8;
+  border-top-color: #f472b6;
 }
 
 .aiLoaderCircleInner {
@@ -448,7 +448,7 @@
 .sideScoreValue,
 .statBigValue {
   color: #f8fafc;
-  font-family: var(--font-family-display);
+  font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
   font-weight: 800;
 }
 
@@ -485,7 +485,7 @@
 
 .congratsTitle {
   margin: 0;
-  font-family: var(--font-family-display);
+  font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
   font-size: clamp(2.2rem, 4vw, 3.4rem);
 }
 
@@ -527,7 +527,7 @@
 }
 
 .btnPrimary {
-  background: linear-gradient(135deg, #2563eb, #38bdf8);
+  background: linear-gradient(135deg, #be185d, #f472b6 50%, #fb923c);
   color: #fff;
 }
 
@@ -564,7 +564,7 @@
 
 .eli5Header h3 {
   margin: 0 0 14px;
-  font-family: var(--font-family-display);
+  font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
 }
 
 .eli5Reference {
@@ -590,7 +590,7 @@
 
 .arcadeStateTitle {
   margin: 0;
-  font-family: var(--font-family-display);
+  font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
   font-size: 2rem;
 }
 

@@ -64,6 +64,7 @@ export default function Header() {
                     <LanguageSelector
                         currentLanguage={language}
                         onLanguageChange={setLanguage}
+                        ariaLabel={language === 'es' ? 'Idioma de la interfaz' : 'Interface language'}
                     />
                 </div>
                 <div className="header-account">

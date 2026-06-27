@@ -118,7 +118,7 @@ function CardFront({
                                 title="Actualizar voz aleatoria"
                                 disabled={isDisabled}
                             >
-                                <FiRefreshCw size={18} />
+                                <FiRefreshCw size={24} strokeWidth={2.5} />
                             </button>
                         )}
                     </div>
@@ -126,10 +126,13 @@ function CardFront({
                         className={`${styles.soundButton} ${isGeneratingAudio && activeAudioText === title ? styles.loadingAudioBtn : ''}`}
                         onClick={(e) => { e.stopPropagation(); playDefinitionMedia(0, title, getAudioLang(currentLanguage)); }}
                         disabled={isGeneratingAudio}
+                        data-tour="boton-reproducir-audio-palabra"
+                        title={isLearningEnglish(currentLanguage) ? 'Reproducir palabra' : 'Play word'}
+                        aria-label={isLearningEnglish(currentLanguage) ? 'Reproducir palabra' : 'Play word'}
                     >
                         {isGeneratingAudio && activeAudioText === title
                             ? <FaSpinner className={styles.spinner} />
-                            : <FiPlay size={22} />}
+                            : <FiPlay size={24} strokeWidth={2.5} />}
                     </button>
                 </div>
             </h2>
@@ -145,7 +148,7 @@ function CardFront({
                         disabled={isDisabled}
                         title="Tabla IPA"
                     >
-                        <FiHeadphones size={18} />
+                        <FiHeadphones size={22} />
                     </button>
                 </div>
             )}
@@ -198,7 +201,7 @@ function CardFront({
                 onUploadClick={triggerUpload}
                 onImageError={handleImageError}
                 canCustomizeImages={canCustomizeImages}
-                canDeleteImages={canDeleteImages}
+                canDeleteImages={canDeleteImages && !isLandingDemo}
                 isDisabled={isDisabled}
                 isLandingDemo={isLandingDemo}
             />

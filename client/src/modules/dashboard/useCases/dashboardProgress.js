@@ -20,7 +20,7 @@ const LEVEL_TO_DECK_KEY = {
     B1: '3-advanced',
     B2: '3-advanced',
 };
-const QUICK_ACCESS_ACCENTS = ['#38bdf8', '#7c3aed', '#f97316'];
+const QUICK_ACCESS_ACCENTS = ['#f472b6', '#fb923c', '#be185d'];
 
 export function formatWordsRange(level, language = 'en') {
     const locale = language === 'es' ? 'es' : 'en';

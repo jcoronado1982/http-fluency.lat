@@ -117,6 +117,7 @@
     border: 1px solid #334155;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
     color: #ffffff;
+    font-family: var(--font-family-app, var(--font-family-body));
 }
 
 
@@ -207,8 +208,8 @@
     background: transparent;
     border: 1px solid transparent;
     border-radius: 50%;
-    width: 44px;
-    height: 44px;
+    width: 52px;
+    height: 52px;
     font-size: 1em;
     cursor: pointer;
     flex-shrink: 0;
@@ -216,22 +217,30 @@
     align-items: center;
     justify-content: center;
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    color: #4dabf7;
+    color: #f472b6;
     box-shadow: none;
     backface-visibility: hidden;
 }
 
-.examplePlayBtn:hover {
-    background: rgba(77, 171, 247, 0.15);
-    border-color: #4dabf7;
-    color: #4dabf7;
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(77, 171, 247, 0.3);
+.examplePlayBtn svg {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    stroke-width: 2.5;
+}
+
+.examplePlayBtn:hover,
+.exampleRow:hover .examplePlayBtn {
+    background: rgba(244, 114, 182, 0.15);
+    border-color: #f472b6;
+    color: #f472b6;
+    box-shadow: 0 0 15px rgba(244, 114, 182, 0.35);
 }
 
 .allExamplesContainer li div {
     line-height: 1.4;
-    font-size: 1.15em;
+    font-size: 1.5rem;
     white-space: normal;
     overflow: visible;
     color: #b8b8b8;
@@ -242,7 +251,7 @@
     padding: 1px 0px;
     color: #f0f0f0;
     font-weight: 300;
-    font-size: 1.3em;
+    font-size: 1.5rem;
     font-family: var(--font-family-body);
     letter-spacing: 0.01em;
 }
@@ -376,9 +385,9 @@
     position: static;
     background-color: transparent;
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    color: #4dabf7;
-    width: 44px;
-    height: 44px;
+    color: #f472b6;
+    width: 52px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -387,11 +396,19 @@
     flex-shrink: 0;
 }
 
-.soundButton:hover {
-    background: rgba(77, 171, 247, 0.15);
-    border-color: #4dabf7;
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(77, 171, 247, 0.3);
+.soundButton svg {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    stroke-width: 2.5;
+}
+
+.soundButton:hover,
+.nameContainer:hover .soundButton {
+    background: rgba(244, 114, 182, 0.15);
+    border-color: #f472b6;
+    box-shadow: 0 0 20px rgba(244, 114, 182, 0.35);
 }
 
 .highlightedWord,
@@ -576,9 +593,9 @@
     background-color: transparent;
     border: none;
     border-radius: 50%;
-    width: auto;
-    height: auto;
-    min-width: 0;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
     padding: 0 !important;
     margin: 0;
     font-size: 1em;
@@ -591,6 +608,11 @@
     color: #838b9d;
     backface-visibility: hidden;
     line-height: 0;
+}
+
+.ipaChartBtn svg {
+    width: 22px;
+    height: 22px;
 }
 
 .ipaChartBtn:hover {
@@ -882,14 +904,14 @@
 }
 
 .rotateVoiceBtn {
-    width: 44px;
-    height: 44px;
+    width: 52px;
+    height: 52px;
     padding: 0;
     margin-left: 14px;
     border-radius: 50%;
     background: transparent;
     border: 1px solid transparent;
-    color: #838b9d;
+    color: #f472b6;
     cursor: pointer;
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
     opacity: 1;
@@ -902,12 +924,21 @@
     backface-visibility: hidden;
 }
 
+.rotateVoiceBtn svg {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    stroke-width: 2.5;
+}
+
 .phraseContainer {
     flex: 1;
     min-width: 0;
     position: relative;
     white-space: normal;
     line-height: 1.4;
+    font-size: 1.5rem;
     overflow: visible;
     /* Promueve capa de composición para que Safari pinte el resaltado dentro de la tarjeta 3D */
     transform: translate3d(0, 0, 0);
@@ -943,11 +974,11 @@
 }
 
 .rotateVoiceBtn:hover:not(:disabled) {
-    background: rgba(77, 171, 247, 0.15);
-    border-color: #4dabf7;
-    color: #4dabf7;
+    background: rgba(244, 114, 182, 0.15);
+    border-color: #f472b6;
+    color: #f472b6;
     transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(77, 171, 247, 0.3);
+    box-shadow: 0 0 15px rgba(244, 114, 182, 0.35);
 }
 
 .rotateVoiceBtn:disabled {
@@ -967,10 +998,10 @@
     align-items: center;
     gap: 12px;
     padding: 12px 24px;
-    background: rgba(30, 41, 59, 0.6);
+    background: rgba(21, 28, 44, 0.72);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
     color: #f8fafc;
@@ -979,10 +1010,10 @@
 }
 
 .cardCounter:hover {
-    background: rgba(30, 41, 59, 0.8);
-    border-color: rgba(56, 189, 248, 0.4);
+    background: rgba(21, 28, 44, 0.85);
+    border-color: rgba(244, 114, 182, 0.35);
     transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(244, 114, 182, 0.12);
 }
 
 .counterItem {
@@ -995,7 +1026,7 @@
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: #94a3b8;
+    color: #f8fafc;
     margin-bottom: 2px;
     font-weight: 800;
 }
@@ -1007,11 +1038,10 @@
 }
 
 .learnedValue {
-    color: #38bdf8;
-    /* Sky-400 */
+    color: #f472b6;
     font-weight: 900;
     font-size: 1.6rem;
-    text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+    text-shadow: 0 0 20px rgba(244, 114, 182, 0.45);
     line-height: 1;
 }
 
@@ -1150,7 +1180,7 @@
     }
 
     .allExamplesContainer li div span {
-        font-size: 1.2rem !important;
+        font-size: 1.5rem !important;
     }
 
     .allExamplesContainer li div span.highlightedWord {
@@ -1159,26 +1189,39 @@
     }
 
     .examplePlayBtn {
-        width: 50px !important;
-        height: 50px !important;
+        width: 56px !important;
+        height: 56px !important;
     }
 
     .soundButton {
-        width: 50px !important;
-        height: 50px !important;
+        width: 56px !important;
+        height: 56px !important;
         margin-left: auto !important;
         align-self: center !important;
     }
 
     .soundButton svg {
-        width: 30px !important;
-        height: 30px !important;
+        width: 24px !important;
+        height: 24px !important;
     }
 
     .examplePlayBtn svg,
     .soundButton svg {
-        width: 30px !important;
-        height: 30px !important;
+        width: 24px !important;
+        height: 24px !important;
+        min-width: 24px !important;
+        min-height: 24px !important;
+    }
+
+    .ipaChartBtn {
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+    }
+
+    .ipaChartBtn svg {
+        width: 24px !important;
+        height: 24px !important;
     }
 
     .conjugationForm {
@@ -1218,8 +1261,8 @@
     .titleContainer .rotateVoiceBtn {
         position: static !important;
         transform: none !important;
-        width: 50px !important;
-        height: 50px !important;
+        width: 52px !important;
+        height: 52px !important;
     }
 
     .titleContainer .rotateVoiceBtn:hover:not(:disabled) {
@@ -1301,7 +1344,7 @@
 }
 
 .conjugationItem:focus-visible {
-    outline: 2px solid rgba(56, 189, 248, 0.65);
+    outline: 2px solid rgba(244, 114, 182, 0.65);
     outline-offset: 2px;
 }
 
@@ -1388,9 +1431,9 @@
 
 /* --- Active State for Conjugation --- */
 .activeConjugation {
-    background: rgba(56, 189, 248, 0.12) !important;
-    border-color: rgba(56, 189, 248, 0.5) !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(56, 189, 248, 0.2);
+    background: rgba(244, 114, 182, 0.12) !important;
+    border-color: rgba(244, 114, 182, 0.45) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(244, 114, 182, 0.22);
     transform: translateY(-3px);
     z-index: 5;
     border-radius: 16px;
@@ -1398,54 +1441,65 @@
 }
 
 .activeConjugation .conjugationForm {
-    color: #38bdf8;
-    text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+    color: #f472b6;
+    text-shadow: 0 0 10px rgba(244, 114, 182, 0.35);
 }
 
 .activeConjugation .conjugationPhonetic {
     color: #a0a0a0; /* El mismo gris del fonético principal para mejor legibilidad */
 }
 
-/* Demo landing — solo colores y tipografía (misma tarjeta que la sesión interna) */
+/* Demo landing — layout y flip; colores/tipografía heredan la app */
 :global([data-landing-demo]) .flashcardContainer,
 :global([data-landing-demo]) .cardFront,
 :global([data-landing-demo]) .cardBack,
 :global([data-landing-demo]) .controlsWrapper {
-    font-family: var(--font-family-body);
+    font-family: var(--font-family-app, var(--font-family-body));
+}
+
+/* Demo landing — espaciados reducidos para que la imagen gane protagonismo */
+:global([data-landing-demo]) .card {
+    border-radius: 24px !important;
+    box-shadow: none !important;
+    background: transparent !important;
 }
 
 :global([data-landing-demo]) .cardFront,
 :global([data-landing-demo]) .cardBack {
-    border-color: rgba(125, 119, 221, 0.35);
-    background:
-        radial-gradient(circle at 80% 10%, rgba(45, 212, 191, 0.12), transparent 50%),
-        linear-gradient(145deg, rgba(125, 119, 221, 0.2), #0f172a 100%);
-    color: #f8fafc;
+    padding: 14px 16px 14px !important;
+    border: 1px solid #334155 !important;
+    border-radius: 24px !important;
+    background: #1e293b !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45) !important;
+    background-clip: padding-box;
 }
 
-:global([data-landing-demo]) .cardBack {
-    border-color: rgba(244, 114, 182, 0.28);
-    background:
-        radial-gradient(circle at 20% 90%, rgba(190, 24, 93, 0.1), transparent 50%),
-        linear-gradient(145deg, rgba(190, 24, 93, 0.14), #0f172a 100%);
+:global([data-landing-demo]) .phonetic {
+    margin-bottom: 10px !important;
 }
 
-:global([data-landing-demo]) .soundButton,
-:global([data-landing-demo]) .examplePlayBtn {
-    color: #2dd4bf;
+:global([data-landing-demo]) .allExamplesContainer {
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
 }
 
-:global([data-landing-demo]) .soundButton:hover,
-:global([data-landing-demo]) .examplePlayBtn:hover {
-    background: rgba(45, 212, 191, 0.12);
-    border-color: rgba(45, 212, 191, 0.4);
-    box-shadow: 0 0 14px rgba(45, 212, 191, 0.22);
+:global([data-landing-demo]) .allExamplesContainer ul {
+    gap: 2px !important;
 }
 
-:global([data-landing-demo]) .activeConjugation {
-    background: rgba(125, 119, 221, 0.14) !important;
-    border-color: rgba(125, 119, 221, 0.45) !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 16px rgba(125, 119, 221, 0.18) !important;
+:global([data-landing-demo]) .allExamplesContainer li,
+:global([data-landing-demo]) .exampleRow {
+    padding: 3px 6px !important;
+}
+
+:global([data-landing-demo]) .imagePlaceholder {
+    margin: 6px 0 0 !important;
+    flex: 1 1 0 !important;
+    height: auto !important;
+    min-height: 160px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 18px !important;
 }
 
 :global([data-landing-demo]) .conjugationForm {
@@ -1471,43 +1525,6 @@
     text-overflow: unset !important;
 }
 
-:global([data-landing-demo]) .activeConjugation .conjugationForm {
-    color: #f472b6 !important;
-    text-shadow: 0 0 10px rgba(244, 114, 182, 0.3);
-}
-
-:global([data-landing-demo]) .conjugationTable {
-    background: rgba(244, 114, 182, 0.05);
-    border-color: rgba(244, 114, 182, 0.15);
-}
-
-:global([data-landing-demo]) .highlightedWord {
-    color: #140810 !important;
-    background: linear-gradient(135deg, #2dd4bf, #7d77dd) !important;
-}
-
-:global([data-landing-demo]) .phrasalVerbBack {
-    color: #f472b6;
-    text-shadow: 0 0 10px rgba(244, 114, 182, 0.2);
-}
-
-:global([data-landing-demo]) .meaningBack {
-    color: #2dd4bf;
-    text-shadow: 0 0 10px rgba(45, 212, 191, 0.2);
-}
-
-:global([data-landing-demo]) .usageExampleEn strong {
-    color: #f472b6;
-}
-
-:global([data-landing-demo]) .imagePlaceholder {
-    border-color: rgba(125, 119, 221, 0.22);
-    box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.6),
-        inset 0 0 20px rgba(244, 114, 182, 0.04),
-        0 0 12px rgba(45, 212, 191, 0.06);
-}
-
 /* Flip en landing: sin rotateY 3D (overflow-x del .lp lo rompe) — solo fade + z-index */
 :global([data-landing-demo]) .card {
     transform: none !important;
@@ -1523,12 +1540,13 @@
 }
 
 :global([data-landing-demo]) .flashcardContainer {
-    overflow: hidden;
+    overflow: visible;
     perspective: none;
     width: 100%;
     max-width: 100%;
     height: clamp(480px, 52vw, 600px);
     min-height: 460px;
+    border-radius: 24px;
 }
 
 @media (max-width: 768px) {
@@ -1539,7 +1557,8 @@
         height: clamp(440px, 132vw, 560px);
         min-height: 440px;
         margin: 0 auto;
-        overflow: hidden;
+        overflow: visible;
+        border-radius: clamp(18px, 4vw, 24px);
     }
 
     :global([data-landing-demo]) .card {
@@ -1547,16 +1566,16 @@
         max-width: 100%;
         min-width: 0;
         margin: 0;
+        border-radius: clamp(18px, 4vw, 24px) !important;
     }
 
     :global([data-landing-demo]) .cardFront,
     :global([data-landing-demo]) .cardBack {
-        padding: 14px 16px 0 !important;
-        border-radius: 22px !important;
-        border-color: rgba(125, 119, 221, 0.35) !important;
-        background:
-            radial-gradient(circle at 80% 10%, rgba(45, 212, 191, 0.12), transparent 50%),
-            linear-gradient(145deg, rgba(125, 119, 221, 0.2), #0f172a 100%) !important;
+        padding: clamp(12px, 2vw, 16px) clamp(12px, 2vw, 16px) 14px !important;
+        border-radius: clamp(18px, 4vw, 24px) !important;
+        border: 1px solid #334155 !important;
+        background: #1e293b !important;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45) !important;
         overflow: hidden;
         min-width: 0;
         max-width: 100%;
@@ -1650,23 +1669,32 @@
     }
 
     :global([data-landing-demo]) .allExamplesContainer li div span {
-        font-size: 0.98rem !important;
-    }
-
-    :global([data-landing-demo]) .examplePlayBtn,
-    :global([data-landing-demo]) .soundButton {
-        width: 34px !important;
-        height: 34px !important;
-        flex-shrink: 0;
-    }
-
-    :global([data-landing-demo]) .examplePlayBtn svg,
-    :global([data-landing-demo]) .soundButton svg {
-        width: 18px !important;
-        height: 18px !important;
+        font-size: 1.5rem !important;
     }
 }
 
 :global([data-landing-demo]) .phoneticContainer {
     display: none !important;
+}
+
+:global(body:has([data-tour-step='presentacion-tarjeta'])) :global([data-onboarding-tour='true']) .allExamplesContainer li .phraseContainer {
+    filter: blur(4px);
+    color: #b8b8b8;
+    cursor: default;
+    pointer-events: none;
+}
+
+:global(body:has([data-tour-step='presentacion-tarjeta'])) :global([data-onboarding-tour='true']) .allExamplesContainer li .phraseContainer span {
+    color: #b8b8b8;
+}
+
+:global(body:has([data-tour-step='reproducir-audio'])) :global([data-onboarding-tour='true']) .allExamplesContainer li .phraseContainer {
+    filter: none !important;
+    color: inherit;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+:global(body:has([data-tour-step='reproducir-audio'])) :global([data-onboarding-tour='true']) .allExamplesContainer li .phraseContainer span {
+    color: inherit;
 }

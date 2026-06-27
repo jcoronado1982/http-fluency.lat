@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { FiMoreVertical } from "react-icons/fi";
 import "./FloatingMenu.css";
 import { useAppContext } from '../../../context/AppContext';
 import { useAuth } from '../../../context/AuthContext';
@@ -68,17 +69,14 @@ const FloatingMenu = ({ mobileTrigger = null }) => {
             {mobileTrigger?.({ isOpen, toggleMenu })}
 
             <button
+                type="button"
                 className="floatingMainButton"
                 onClick={toggleMenu}
-                aria-label="Menú de estudio"
+                aria-label={language === 'es' ? 'Menú de estudio' : 'Study menu'}
                 aria-expanded={isOpen}
                 data-tour="menu-estudio"
             >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                    <circle cx="12" cy="5" r="2" />
-                    <circle cx="12" cy="12" r="2" />
-                    <circle cx="12" cy="19" r="2" />
-                </svg>
+                <FiMoreVertical className="floatingMainButtonIcon" size={24} strokeWidth={2} aria-hidden="true" />
             </button>
 
             <div className={`floatingOptions ${isOpen ? "show" : ""}`}>

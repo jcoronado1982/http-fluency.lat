@@ -24,6 +24,12 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
                     const exampleText = isLearningEnglish(currentLanguage)
                         ? def.usage_example
                         : def.usage_example_es;
+                    if (!exampleText?.trim()) return null;
+
+                    const playPhraseLabel = isLearningEnglish(currentLanguage)
+                        ? 'Reproducir frase'
+                        : 'Play phrase';
+
                     return (
                     <li key={di} className={styles.exampleRow}>
                         <button
@@ -31,14 +37,19 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
                             className={`${styles.examplePlayBtn} ${isGeneratingAudio && activeAudioText === exampleText ? styles.loadingAudioBtn : ''}`}
                             onClick={(e) => { e.stopPropagation(); playDefinitionMedia(di, exampleText, getAudioLang(currentLanguage)); }}
                             disabled={isDisabled}
+                            data-tour={di === 0 ? 'boton-reproducir-audio-frase' : undefined}
+                            data-tour-role={di === 0 ? 'phrase-audio-play' : undefined}
+                            title={playPhraseLabel}
+                            aria-label={playPhraseLabel}
                         >
                             {isGeneratingAudio && activeAudioText === exampleText
                                 ? <FaSpinner className={styles.spinner} />
-                                : <FiPlay size={18} />}
+                                : <FiPlay size={24} strokeWidth={2.5} />}
                         </button>
 
                         <div
-                            className={`${styles.phraseContainer} ${blurredState[di] ? styles.blurredText : ''}`}
+                            className={`${styles.phraseContainer} ${blurredState[di] !== false ? styles.blurredText : ''}`}
+                            data-phrase-revealed={blurredState[di] === false ? 'true' : undefined}
                             onClick={(e) => { e.stopPropagation(); toggleBlur(di); }}
                         >
                             <HighlightedText
@@ -56,7 +67,7 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
                                 title="Actualizar voz aleatoria"
                                 disabled={isDisabled}
                             >
-                                <FiRefreshCw size={18} />
+                                <FiRefreshCw size={24} strokeWidth={2.5} />
                             </button>
                         )}
 

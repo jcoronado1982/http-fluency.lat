@@ -11,10 +11,11 @@ import {
 import {
     isCatalogOpen,
     isFlashcardsModuleReady,
+    measureTourTarget,
     queryTourTarget,
     waitForCondition,
 } from './config/onboardingUiAutomation';
-import { computeTooltipLayout } from './config/computeTooltipLayout';
+import { computeTooltipLayout, TOOLTIP_VISUAL_GAP, boxGapForPlacement } from './config/computeTooltipLayout';
 import { invokeUiBridge } from './uiBridge';
 import { preloadFlashcardStart } from './preload';
 import styles from './FlashcardOnboardingTour.module.css';
@@ -28,6 +29,18 @@ const WRONG_TAP_COOLDOWN_MS = 2200;
 const GATE_TIMEOUT_MS = 5000;
 const NAV_TAP_ADVANCE_DELAY_MS = 180;
 const KEYBOARD_ADVANCE_DELAY_MS = 160;
+
+const getTourTargetMeasureOptions = (step) => ({
+    compactHighlight: step?.compactHighlight,
+    requireStableRect: Boolean(step?.requireStableTargetRect),
+    requireVisible: Boolean(step?.requireVisibleTarget),
+    requirePhraseRevealed: Boolean(step?.waitForPhraseRevealed),
+});
+
+const measureStepTarget = (selector, step) => {
+    if (!selector) return { target: null, rect: null };
+    return measureTourTarget(selector, getTourTargetMeasureOptions(step));
+};
 
 const UI_BRIDGE_ACTIONS = new Set([
     'nextCard',
@@ -63,19 +76,73 @@ export default function FlashcardOnboardingTour() {
     const [targetRect, setTargetRect] = useState(null);
     const [targetMissing, setTargetMissing] = useState(false);
     const [isAdvancing, setIsAdvancing] = useState(false);
+    const [isAssistantPaused, setIsAssistantPaused] = useState(false);
     const [positionVersion, setPositionVersion] = useState(0);
     const tooltipRef = useRef(null);
     const wrongTapCooldownRef = useRef(0);
+    const stepIndexRef = useRef(0);
+    const navGenerationRef = useRef(0);
+    const navBusyRef = useRef(false);
+    const pendingTimersRef = useRef(new Set());
+
+    const clearPendingTimers = useCallback(() => {
+        pendingTimersRef.current.forEach((timerId) => {
+            window.clearTimeout(timerId);
+        });
+        pendingTimersRef.current.clear();
+    }, []);
+
+    const scheduleTourTask = useCallback((task, delay = 0) => {
+        const generation = navGenerationRef.current;
+        const timerId = window.setTimeout(() => {
+            pendingTimersRef.current.delete(timerId);
+            if (navGenerationRef.current !== generation) return;
+            task();
+        }, delay);
+        pendingTimersRef.current.add(timerId);
+        return timerId;
+    }, []);
+
+    const invalidatePendingNavigation = useCallback(() => {
+        navGenerationRef.current += 1;
+        clearPendingTimers();
+    }, [clearPendingTimers]);
+
+    const commitStepIndex = useCallback((nextIndex, { navigationLock = false } = {}) => {
+        const clamped = clamp(nextIndex, 0, copy.steps.length);
+        if (clamped === stepIndexRef.current) return false;
+
+        invalidatePendingNavigation();
+        setIsAssistantPaused(false);
+        stepIndexRef.current = clamped;
+        setIsAdvancing(false);
+        setStepFeedback('enter');
+        setTargetMissing(false);
+        setStepIndex(clamped);
+
+        if (navigationLock) {
+            navBusyRef.current = true;
+            window.setTimeout(() => {
+                navBusyRef.current = false;
+            }, 320);
+        }
+
+        return true;
+    }, [copy.steps.length, invalidatePendingNavigation]);
+
+    useEffect(() => {
+        stepIndexRef.current = stepIndex;
+        setTargetRect(null);
+        setTargetMissing(false);
+    }, [stepIndex]);
+
+    useEffect(() => () => clearPendingTimers(), [clearPendingTimers]);
 
     useEffect(() => {
         if (!isOnboardingTour || !user?.email) return undefined;
         void preloadFlashcardStart(user.email);
         return undefined;
     }, [isOnboardingTour, user?.email]);
-
-    useEffect(() => {
-        setStepFeedback('enter');
-    }, [stepIndex]);
 
     const [viewport, setViewport] = useState({
         width: typeof window === 'undefined' ? 1280 : window.innerWidth,
@@ -85,7 +152,9 @@ export default function FlashcardOnboardingTour() {
     const isFinalStep = isOnboardingTour && stepIndex >= copy.steps.length;
     const activeStep = isOnboardingTour && !isFinalStep ? copy.steps[stepIndex] : null;
     const isZoneStep = activeStep?.highlightMode === 'zone';
-    const stepCounterText = `${stepIndex + 1} / ${copy.steps.length}`;
+    const stepCounterText = isFinalStep
+        ? `${copy.steps.length} / ${copy.steps.length}`
+        : `${stepIndex + 1} / ${copy.steps.length}`;
     const bodyText = useMemo(() => {
         if (isFinalStep) return copy.finalBody;
         if (targetMissing) return copy.elementMissing;
@@ -130,6 +199,22 @@ export default function FlashcardOnboardingTour() {
     }, [activeStep, isOnboardingTour, setIsCatalogVisible, setIsFloatingMenuOpen, setIsSidebarOpen]);
 
     useEffect(() => {
+        if (!isOnboardingTour || !activeStep?.enterAction) return undefined;
+        invokeUiBridge(activeStep.enterAction);
+    }, [activeStep?.enterAction, activeStep?.id, isOnboardingTour]);
+
+    useEffect(() => {
+        if (!isAssistantPaused) return undefined;
+
+        document.querySelectorAll('[data-tour-active], [data-tour-zone-active], [data-tour-marked], [data-tour-section-active]').forEach((node) => {
+            node.removeAttribute('data-tour-active');
+            node.removeAttribute('data-tour-zone-active');
+            node.removeAttribute('data-tour-marked');
+            node.removeAttribute('data-tour-section-active');
+        });
+    }, [isAssistantPaused]);
+
+    useEffect(() => {
         if (typeof document === 'undefined') return undefined;
 
         document.querySelectorAll('[data-tour-marked]').forEach((node) => {
@@ -141,6 +226,13 @@ export default function FlashcardOnboardingTour() {
         document.querySelectorAll('[data-tour-section-active]').forEach((node) => {
             node.removeAttribute('data-tour-section-active');
         });
+
+        if (isAssistantPaused) return undefined;
+
+        if (activeStep?.waitForTarget) {
+            const { target } = measureStepTarget(activeStep.selector, activeStep);
+            if (!target) return undefined;
+        }
 
         if (activeStep?.sectionSelector) {
             const section = document.querySelector(activeStep.sectionSelector);
@@ -161,10 +253,10 @@ export default function FlashcardOnboardingTour() {
                 node.removeAttribute('data-tour-section-active');
             });
         };
-    }, [activeStep, stepIndex]);
+    }, [activeStep, isAssistantPaused, stepIndex, targetRect]);
 
     useEffect(() => {
-        if (typeof window === 'undefined') return undefined;
+        if (typeof window === 'undefined' || isAssistantPaused) return undefined;
 
         const updateViewport = () => {
             setViewport({
@@ -194,8 +286,8 @@ export default function FlashcardOnboardingTour() {
             }
 
             const highlightSelector = activeStep.zoneSelector || activeStep.selector;
-            const target = queryTourTarget(highlightSelector);
-            if (target) {
+            const { target, rect } = measureStepTarget(highlightSelector, activeStep);
+            if (target && rect) {
                 if (activeTarget !== target) {
                     activeTarget?.removeAttribute('data-tour-active');
                     activeTarget?.removeAttribute('data-tour-zone-active');
@@ -210,7 +302,6 @@ export default function FlashcardOnboardingTour() {
                     }
                 }
 
-                const rect = target.getBoundingClientRect();
                 const isVisible = rect.width > 0
                     && rect.height > 0
                     && rect.bottom > 0
@@ -225,7 +316,10 @@ export default function FlashcardOnboardingTour() {
                 }
             }
 
-            if (attempts < 80) {
+            const maxAttempts = activeStep?.maxSyncAttempts
+                ?? (activeStep?.targetSyncDelayMs ? 140 : 80);
+
+            if (attempts < maxAttempts) {
                 attempts += 1;
                 frameId = window.requestAnimationFrame(syncRect);
                 return;
@@ -235,7 +329,7 @@ export default function FlashcardOnboardingTour() {
             setTargetMissing(true);
         };
 
-        const delay = (
+        const delay = activeStep?.targetSyncDelayMs ?? (
             activeStep?.id === 'menu-hamburguesa'
             || activeStep?.id === 'cargar-modulo-flashcards'
             || activeStep?.id === 'catalogo-categorias'
@@ -253,7 +347,33 @@ export default function FlashcardOnboardingTour() {
             window.removeEventListener('scroll', syncRect, true);
             window.removeEventListener('resize', syncRect);
         };
-    }, [activeStep, isZoneStep, stepIndex, viewport.height, viewport.width]);
+    }, [activeStep, isAssistantPaused, isZoneStep, stepIndex, viewport.height, viewport.width]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined' || activeStep?.id !== 'reproducir-audio') return undefined;
+
+        const cardRoot = document.querySelector('[data-tour="flashcard-contenedor"]');
+        if (!(cardRoot instanceof HTMLElement)) return undefined;
+
+        const remeasurePhraseButton = () => {
+            const { target, rect } = measureStepTarget(activeStep.selector, activeStep);
+            if (!target || !rect) return;
+            setTargetRect(rect);
+            setTargetMissing(false);
+            setPositionVersion((current) => current + 1);
+        };
+
+        const observer = new MutationObserver(() => {
+            window.requestAnimationFrame(remeasurePhraseButton);
+        });
+        observer.observe(cardRoot, {
+            attributes: true,
+            attributeFilter: ['data-flipped', 'data-phrase-revealed'],
+            subtree: true,
+            childList: true,
+        });
+        return () => observer.disconnect();
+    }, [activeStep]);
 
     const performTargetClick = useCallback(() => {
         if (!activeStep) return false;
@@ -306,6 +426,9 @@ export default function FlashcardOnboardingTour() {
     const advanceStep = useCallback(async ({ skipClick = false } = {}) => {
         if (!activeStep || isAdvancing) return;
 
+        const generation = navGenerationRef.current;
+        const fromStep = stepIndexRef.current;
+
         setIsAdvancing(true);
         if (!skipClick) {
             performTargetClick();
@@ -323,44 +446,102 @@ export default function FlashcardOnboardingTour() {
             }
         }
 
+        if (navGenerationRef.current !== generation || stepIndexRef.current !== fromStep) {
+            setIsAdvancing(false);
+            return;
+        }
+
         const gateFn = typeof activeStep.gate === 'function' ? activeStep.gate : () => true;
         const gateTimeout = activeStep.gateTimeoutMs ?? GATE_TIMEOUT_MS;
         const passed = await waitForCondition(gateFn, { timeout: gateTimeout });
 
+        if (navGenerationRef.current !== generation || stepIndexRef.current !== fromStep) {
+            setIsAdvancing(false);
+            return;
+        }
+
         if (passed) {
-            setStepIndex((current) => current + 1);
+            if (activeStep.exitAction) {
+                invokeUiBridge(activeStep.exitAction);
+            }
+
+            const exitDelay = activeStep.exitDelayMs ?? 0;
+            if (exitDelay > 0) {
+                setIsAssistantPaused(true);
+                const exitDeadline = Date.now() + exitDelay;
+                while (Date.now() < exitDeadline) {
+                    if (navGenerationRef.current !== generation || stepIndexRef.current !== fromStep) {
+                        setIsAssistantPaused(false);
+                        setIsAdvancing(false);
+                        return;
+                    }
+                    await new Promise((resolve) => window.setTimeout(resolve, 50));
+                }
+            }
+
+            const postDelay = activeStep.postGateDelayMs ?? 0;
+            if (postDelay > 0) {
+                setIsAssistantPaused(true);
+                const deadline = Date.now() + postDelay;
+                while (Date.now() < deadline) {
+                    if (navGenerationRef.current !== generation || stepIndexRef.current !== fromStep) {
+                        setIsAssistantPaused(false);
+                        setIsAdvancing(false);
+                        return;
+                    }
+                    await new Promise((resolve) => window.setTimeout(resolve, 50));
+                }
+            }
+
+            if (navGenerationRef.current !== generation || stepIndexRef.current !== fromStep) {
+                setIsAssistantPaused(false);
+                setIsAdvancing(false);
+                return;
+            }
+
+            if (activeStep.exitBlurAction) {
+                invokeUiBridge(activeStep.exitBlurAction);
+            }
+
+            if (postDelay > 0 || exitDelay > 0) {
+                setIsAssistantPaused(false);
+            }
+
+            commitStepIndex(fromStep + 1);
             setTargetMissing(false);
         } else {
             setStepFeedback('gate_timeout');
         }
         setIsAdvancing(false);
-    }, [activeStep, isAdvancing, performTargetClick]);
+    }, [activeStep, commitStepIndex, isAdvancing, performTargetClick]);
 
     useEffect(() => {
         if (activeStep?.id !== 'cargar-modulo-flashcards' || isAdvancing) return undefined;
         if (stepFeedback !== 'gate_timeout') return undefined;
         if (!isFlashcardsModuleReady()) return undefined;
 
-        const timer = window.setTimeout(() => {
+        const timerId = scheduleTourTask(() => {
             advanceStep({ skipClick: true });
         }, 120);
 
-        return () => window.clearTimeout(timer);
-    }, [activeStep, advanceStep, isAdvancing, location.pathname, stepFeedback]);
+        return () => window.clearTimeout(timerId);
+    }, [activeStep, advanceStep, isAdvancing, location.pathname, scheduleTourTask, stepFeedback]);
 
     useEffect(() => {
         if (activeStep?.id !== 'catalogo-categorias' || isAdvancing) return undefined;
         if (stepFeedback !== 'gate_timeout') return undefined;
         if (!isCatalogOpen()) return undefined;
 
-        const timer = window.setTimeout(() => {
+        const timerId = scheduleTourTask(() => {
             advanceStep({ skipClick: true });
         }, 120);
 
-        return () => window.clearTimeout(timer);
-    }, [activeStep, advanceStep, isAdvancing, stepFeedback]);
+        return () => window.clearTimeout(timerId);
+    }, [activeStep, advanceStep, isAdvancing, scheduleTourTask, stepFeedback]);
 
-    const handleNext = useCallback(() => {
+    const handleNext = useCallback((event) => {
+        event?.stopPropagation();
+        if (isAdvancing || navBusyRef.current) return;
         if (activeStep?.advanceOnTapOnly) {
             setStepFeedback('tap_required');
             return;
@@ -370,7 +551,7 @@ export default function FlashcardOnboardingTour() {
             return;
         }
         advanceStep({ skipClick: false });
-    }, [activeStep, advanceStep]);
+    }, [activeStep, advanceStep, isAdvancing]);
 
     useEffect(() => {
         if (typeof window === 'undefined' || !activeStep?.acceptKeyboard || isAdvancing) return undefined;
@@ -384,14 +565,14 @@ export default function FlashcardOnboardingTour() {
             if (tooltipRef.current?.contains(event.target)) return;
             if (!allowedKeys.includes(event.key)) return;
 
-            window.setTimeout(() => {
+            scheduleTourTask(() => {
                 advanceStep({ skipClick: true });
             }, KEYBOARD_ADVANCE_DELAY_MS);
         };
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [activeStep, advanceStep, isAdvancing]);
+    }, [activeStep, advanceStep, isAdvancing, scheduleTourTask]);
 
     useEffect(() => {
         if (typeof window === 'undefined' || !activeStep || targetMissing) return undefined;
@@ -409,14 +590,24 @@ export default function FlashcardOnboardingTour() {
             }
 
             const tappedOption = event.target.closest(tapSelector);
-            if (tappedOption) {
-                if (activeStep.performAction === 'openCatalog') {
+            if (tappedOption && event.isTrusted) {
+                if (activeStep.advanceOnTapOnly) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    if (activeStep.performAction === 'openCatalog') {
+                        setIsCatalogVisible(true);
+                    } else if (activeStep.performAction && UI_BRIDGE_ACTIONS.has(activeStep.performAction)) {
+                        invokeUiBridge(activeStep.performAction);
+                    } else if (tappedOption instanceof HTMLElement) {
+                        tappedOption.click();
+                    }
+                } else if (activeStep.performAction === 'openCatalog') {
                     setIsCatalogVisible(true);
                 }
                 const tapDelay = activeStep.id === 'cargar-modulo-flashcards'
                     ? NAV_TAP_ADVANCE_DELAY_MS
                     : 80;
-                window.setTimeout(() => {
+                scheduleTourTask(() => {
                     advanceStep({ skipClick: true });
                 }, tapDelay);
                 return;
@@ -434,7 +625,7 @@ export default function FlashcardOnboardingTour() {
 
         document.addEventListener('click', handleTap, true);
         return () => document.removeEventListener('click', handleTap, true);
-    }, [activeStep, advanceStep, isAdvancing, isZoneStep, setIsCatalogVisible, targetMissing]);
+    }, [activeStep, advanceStep, isAdvancing, isZoneStep, scheduleTourTask, setIsCatalogVisible, targetMissing]);
 
     const anchorRect = useMemo(() => {
         if (!targetRect) return null;
@@ -447,8 +638,8 @@ export default function FlashcardOnboardingTour() {
 
         const tapSelector = activeStep?.tapSelector || activeStep?.selector;
         if (!isZoneStep && tapSelector) {
-            const tapTarget = queryTourTarget(tapSelector);
-            if (tapTarget) return tapTarget.getBoundingClientRect();
+            const { rect } = measureStepTarget(tapSelector, activeStep);
+            if (rect) return rect;
         }
 
         return targetRect;
@@ -496,9 +687,8 @@ export default function FlashcardOnboardingTour() {
             tooltipWidth,
             tooltipHeight,
             gap: activeStep?.tooltipGap,
-            preferredPlacements: activeStep?.tooltipPlacement
-                ? [activeStep.tooltipPlacement]
-                : undefined,
+            preferredPlacements: activeStep?.tooltipPlacements
+                ?? (activeStep?.tooltipPlacement ? [activeStep.tooltipPlacement] : undefined),
         });
 
         if (!layout) {
@@ -509,7 +699,11 @@ export default function FlashcardOnboardingTour() {
             );
             return {
                 style: {
-                    top: clamp(layoutAnchor.bottom + 14, 16, viewport.height - tooltipHeight - 16),
+                    top: clamp(
+                        layoutAnchor.bottom + boxGapForPlacement('bottom', activeStep?.tooltipGap ?? TOOLTIP_VISUAL_GAP),
+                        16,
+                        viewport.height - tooltipHeight - 16,
+                    ),
                     left,
                     '--arrow-x': `${layoutAnchor.left + layoutAnchor.width / 2 - left}px`,
                 },
@@ -530,6 +724,7 @@ export default function FlashcardOnboardingTour() {
     }, [
         activeStep?.tooltipGap,
         activeStep?.tooltipPlacement,
+        activeStep?.tooltipPlacements,
         anchorRect,
         positionVersion,
         viewport.height,
@@ -541,16 +736,23 @@ export default function FlashcardOnboardingTour() {
         navigate(location.pathname, { replace: true });
     };
 
-    const handleBack = () => {
-        if (stepIndex === 0) return;
-        setStepIndex((current) => current - 1);
-    };
+    const handleBack = useCallback((event) => {
+        event?.stopPropagation();
+        event?.preventDefault();
+        if (stepIndexRef.current === 0 || isAdvancing || navBusyRef.current) return;
+        commitStepIndex(stepIndexRef.current - 1, { navigationLock: true });
+    }, [commitStepIndex, isAdvancing]);
 
     const handleClose = () => {
         navigate('/onboarding', { replace: true });
     };
 
-    if (!isOnboardingTour) return null;
+    if (!isOnboardingTour || isAssistantPaused) return null;
+
+    const shouldHoldTourForTarget = Boolean(
+        activeStep?.waitForTarget && !targetRect && !targetMissing,
+    );
+    if (shouldHoldTourForTarget) return null;
 
     const tourUi = (
         <div className={styles.overlay}>
@@ -579,6 +781,8 @@ export default function FlashcardOnboardingTour() {
             <section
                 ref={tooltipRef}
                 className={styles.tooltip}
+                data-tour-step={activeStep?.id || 'final'}
+                data-tour-step-index={stepIndex}
                 data-placement={tooltipLayout.placement || undefined}
                 style={tooltipLayout.style}
             >
@@ -597,9 +801,16 @@ export default function FlashcardOnboardingTour() {
                 <p className={styles.body}>{bodyText}</p>
 
                 <div className={styles.actions}>
-                    <button type="button" className={styles.secondaryButton} onClick={handleBack} disabled={stepIndex === 0}>
-                        {copy.back}
-                    </button>
+                    {stepIndex > 0 && (
+                        <button
+                            type="button"
+                            className={styles.secondaryButton}
+                            onClick={handleBack}
+                            disabled={isAdvancing}
+                        >
+                            {copy.back}
+                        </button>
+                    )}
                     {!isFinalStep ? (
                         <button
                             type="button"

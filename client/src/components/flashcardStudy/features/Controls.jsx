@@ -22,6 +22,7 @@ function Controls() {
         const handleKeyDown = (e) => {
             const tag = e.target?.tagName;
             if (tag === 'INPUT' || tag === 'TEXTAREA' || e.target?.isContentEditable) return;
+            if (document.querySelector('[data-onboarding-tour="true"]')) return;
             if (isBusy) return;
 
             if (e.key === 'ArrowLeft') {

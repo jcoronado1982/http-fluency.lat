@@ -4,17 +4,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: clamp(12px, 2vh, 24px);
+    margin-top: 0;
     width: 100%;
     max-width: 620px;
     padding: 12px 20px;
     box-sizing: border-box;
-    background: rgba(30, 41, 59, 0.45);
+    font-family: var(--font-family-app, var(--font-family-body));
+    background: rgba(21, 28, 44, 0.72);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 24px;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    box-shadow: 
+    box-shadow:
         0 15px 35px rgba(0, 0, 0, 0.35),
         inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
@@ -63,58 +64,66 @@
 }
 
 /* Specific styles using composes */
-.prevCardBtn {
-    background: rgba(148, 163, 184, 0.1);
-    border: 1px solid rgba(148, 163, 184, 0.2);
-    border-radius: 12px;
-    width: 48px;
-    height: 48px;
+.prevCardBtn,
+.nextCardBtn,
+.resetButton,
+.correctButton {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    width: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: none;
+}
+
+.prevCardBtn {
     color: #94a3b8;
-    backdrop-filter: blur(4px);
+}
+
+.prevCardBtn svg,
+.nextCardBtn svg,
+.resetButton svg {
+    width: 36px;
+    height: 36px;
 }
 
 .prevCardBtn svg {
-    width: 22px;
-    height: 22px;
     stroke-width: 2.5px;
 }
 
-.prevCardBtn:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
-    color: #ffffff;
-    transform: translateY(-2px) scale(1.05);
-}
-
-.nextCardBtn {
-    background: rgba(56, 189, 248, 0.15);
-    border: 1px solid rgba(56, 189, 248, 0.3);
-    border-radius: 12px;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    color: #38bdf8;
-}
-
 .nextCardBtn svg {
-    width: 22px;
-    height: 22px;
     stroke-width: 3px;
 }
 
-.nextCardBtn:hover:not(:disabled) {
-    background: rgba(56, 189, 248, 0.25);
+.resetButton svg {
+    stroke-width: 2.5px;
+}
+
+.prevCardBtn:hover:not(:disabled),
+.prevCardBtn:focus-visible:not(:disabled) {
+    background: rgba(244, 114, 182, 0.1);
+    border-color: rgba(244, 114, 182, 0.35);
+    color: #f472b6;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 18px rgba(244, 114, 182, 0.2);
+}
+
+.nextCardBtn {
+    color: #94a3b8;
+}
+
+.nextCardBtn:hover:not(:disabled),
+.nextCardBtn:focus-visible:not(:disabled) {
+    background: rgba(244, 114, 182, 0.15);
+    border-color: rgba(244, 114, 182, 0.35);
+    color: #f472b6;
     transform: translateY(-2px) scale(1.1);
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+    box-shadow: 0 0 20px rgba(244, 114, 182, 0.32);
 }
 
 /* Hover rules consolidated */
@@ -159,120 +168,49 @@
 
 
 .resetButton {
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.2);
-    border-radius: 12px;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     color: #ef4444;
 }
 
-.resetButton svg {
-    width: 22px;
-    height: 22px;
-    stroke-width: 2.5px;
-}
-
-.resetButton:hover:not(:disabled) {
-    background: rgba(239, 68, 68, 0.2);
-    border-color: #ef4444;
+.resetButton:hover:not(:disabled),
+.resetButton:focus-visible:not(:disabled) {
+    background: rgba(244, 114, 182, 0.12);
+    border-color: rgba(244, 114, 182, 0.35);
+    color: #f87171;
     transform: rotate(-15deg) scale(1.1);
+    box-shadow: 0 0 18px rgba(244, 114, 182, 0.2);
 }
 
 .correctButton {
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.2);
-    border-radius: 12px;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     color: #10b981;
 }
 
 .correctButton svg {
-    width: 26px;
-    height: 26px;
+    width: 38px;
+    height: 38px;
     stroke-width: 3px;
 }
 
-.correctButton:hover:not(:disabled) {
-    background: rgba(16, 185, 129, 0.2);
-    border-color: #10b981;
+.correctButton:hover:not(:disabled),
+.correctButton:focus-visible:not(:disabled) {
+    background: rgba(244, 114, 182, 0.12);
+    border-color: rgba(244, 114, 182, 0.35);
+    color: #34d399;
     transform: translateY(-2px) scale(1.1);
+    box-shadow: 0 0 18px rgba(244, 114, 182, 0.2);
 }
 
 .cardCounter {
-    font-size: 1.3em;
+    font-size: 1.35em;
     font-weight: 600;
-    color: #ffffff;
+    color: #f8fafc;
     margin: 0;
-    min-width: 60px;
+    min-width: 68px;
     text-align: center;
-    line-height: 48px;
+    line-height: 56px;
 }
 
 :global([data-landing-demo]) .controlsWrapper {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(244, 114, 182, 0.22);
     max-width: 100%;
-}
-
-:global([data-landing-demo]) .prevCardBtn {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.12);
-    color: #94a3b8;
-}
-
-:global([data-landing-demo]) .prevCardBtn:hover:not(:disabled) {
-    background: rgba(125, 119, 221, 0.15);
-    border-color: rgba(125, 119, 221, 0.4);
-    color: #f8fafc;
-}
-
-:global([data-landing-demo]) .nextCardBtn {
-    background: rgba(125, 119, 221, 0.15);
-    border-color: rgba(125, 119, 221, 0.35);
-    color: #c4b5fd;
-}
-
-:global([data-landing-demo]) .nextCardBtn:hover:not(:disabled) {
-    background: rgba(125, 119, 221, 0.25);
-    box-shadow: 0 0 16px rgba(125, 119, 221, 0.28);
-}
-
-:global([data-landing-demo]) .correctButton {
-    background: rgba(45, 212, 191, 0.12);
-    border-color: rgba(45, 212, 191, 0.35);
-    color: #5eead4;
-}
-
-:global([data-landing-demo]) .correctButton:hover:not(:disabled) {
-    background: rgba(45, 212, 191, 0.2);
-    border-color: #2dd4bf;
-}
-
-:global([data-landing-demo]) .resetButton {
-    background: rgba(244, 114, 182, 0.08);
-    border-color: rgba(244, 114, 182, 0.25);
-    color: #f472b6;
-}
-
-:global([data-landing-demo]) .resetButton:hover:not(:disabled) {
-    background: rgba(244, 114, 182, 0.16);
-    border-color: #f472b6;
-}
-
-:global([data-landing-demo]) .cardCounter {
-    color: #f8fafc;
 }
 
 @media (max-width: 768px) {
@@ -283,23 +221,28 @@
     .actionBtn,
     .resetButton,
     .correctButton {
-        width: 52px;
-        height: 52px;
+        width: 56px;
+        height: 56px;
     }
 
     .nav svg,
     .prevCardBtn svg,
     .nextCardBtn svg,
     .actionBtn svg,
-    .resetButton svg,
+    .resetButton svg {
+        width: 36px;
+        height: 36px;
+    }
+
     .correctButton svg {
-        width: 24px;
-        height: 24px;
+        width: 38px;
+        height: 38px;
     }
 
     .cardCounter {
-        line-height: 52px;
-        font-size: 1.3em;
+        line-height: 56px;
+        font-size: 1.35em;
+        min-width: 68px;
     }
 
     :global([data-landing-demo]) .controlsWrapper {
@@ -312,20 +255,6 @@
     }
 
     :global([data-landing-demo]) .controls {
-        gap: 10px;
-    }
-
-    :global([data-landing-demo]) .prevCardBtn,
-    :global([data-landing-demo]) .nextCardBtn,
-    :global([data-landing-demo]) .resetButton,
-    :global([data-landing-demo]) .correctButton {
-        width: 44px;
-        height: 44px;
-    }
-
-    :global([data-landing-demo]) .cardCounter {
-        font-size: 1rem;
-        line-height: 44px;
-        min-width: 52px;
+        gap: 20px;
     }
 }

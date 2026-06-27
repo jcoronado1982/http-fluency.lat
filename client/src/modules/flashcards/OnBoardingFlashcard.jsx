@@ -10,8 +10,8 @@ const COPY = {
             { id: 'en', title: 'Ver la app en Inglés', flag: '🇺🇸' },
         ],
         studyOptions: [
-            { id: 'en', title: 'Quiero aprender Inglés', flag: '🇪🇸 → 🇬🇧 🇺🇸' },
-            { id: 'es', title: 'Quiero aprender Español', flag: '🇬🇧 🇺🇸 → 🇪🇸' },
+            { id: 'en', title: 'Quiero aprender Inglés', fromFlags: '🇪🇸', toFlags: '🇬🇧 🇺🇸' },
+            { id: 'es', title: 'Quiero aprender Español', fromFlags: '🇬🇧 🇺🇸', toFlags: '🇪🇸' },
         ],
         stepLabel: 'Flujo de Onboarding: Paso',
         next: 'Siguiente',
@@ -36,8 +36,8 @@ const COPY = {
             { id: 'en', title: 'View the app in English', flag: '🇺🇸' },
         ],
         studyOptions: [
-            { id: 'en', title: 'I want to learn English', flag: '🇪🇸 → 🇬🇧 🇺🇸' },
-            { id: 'es', title: 'I want to learn Spanish', flag: '🇬🇧 🇺🇸 → 🇪🇸' },
+            { id: 'en', title: 'I want to learn English', fromFlags: '🇪🇸', toFlags: '🇬🇧 🇺🇸' },
+            { id: 'es', title: 'I want to learn Spanish', fromFlags: '🇬🇧 🇺🇸', toFlags: '🇪🇸' },
         ],
         stepLabel: 'Onboarding Flow: Step',
         next: 'Next',
@@ -89,6 +89,19 @@ const OnBoardingFlashcard = ({
             setIsHeaderSuppressed(false);
         };
     }, [currentStep, setIsHeaderSuppressed]);
+
+    useEffect(() => {
+        const previousBodyOverflow = document.body.style.overflow;
+        const previousHtmlOverflow = document.documentElement.style.overflow;
+
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+
+        return () => {
+            document.body.style.overflow = previousBodyOverflow;
+            document.documentElement.style.overflow = previousHtmlOverflow;
+        };
+    }, []);
 
     useEffect(() => {
         void preloadFlashcardStart(user?.email);
@@ -185,7 +198,11 @@ const OnBoardingFlashcard = ({
                                     }}
                                     className={`${styles.optionCard} ${isSelected ? styles.optionCardSelected : ''}`}
                                 >
-                                    <span className={styles.optionFlag}>{option.flag}</span>
+                                    <span className={styles.optionFlagRow}>
+                                        <span className={styles.optionFlagGroup}>{option.fromFlags}</span>
+                                        <span className={styles.optionFlagArrow} aria-hidden="true">→</span>
+                                        <span className={styles.optionFlagGroup}>{option.toFlags}</span>
+                                    </span>
                                     <h2 className={styles.optionTitle}>{option.title}</h2>
                                     {isSelected && (
                                         <span className={styles.optionSelectedLabel}>
@@ -205,7 +222,7 @@ const OnBoardingFlashcard = ({
     };
 
     return (
-        <main className={styles.page}>
+        <main className={styles.page} data-onboarding-wizard="true">
             <section className={styles.hero}>
                 <div className={styles.progressHeader}>
                     <p className={styles.eyebrow}>

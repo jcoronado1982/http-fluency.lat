@@ -175,7 +175,7 @@ function CategorySelector() {
                 <main className={styles.mainContent}>
                     {/* Header superior */}
                     <div className={styles.header}>
-                        <div className={styles.levelSelector}>
+                        <div className={styles.levelSelector} data-tour="catalogo-nivel">
                             <span className={styles.selectorLabel}>{t.level}</span>
                             <div className={styles.levelButtons}>
                                 {['basic', 'intermediate', 'advanced'].map(lvl => {

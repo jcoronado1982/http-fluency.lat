@@ -261,7 +261,7 @@ export default function LandingPage() {
                 <div className="lp-zone-flow">
                 {/* ── HERO ── */}
                 <section className="lp-hero">
-                    <div className="lp-hero-inner">
+                    <div className="lp-section-inner lp-hero-inner">
                         <div className="lp-hero-copy">
                             <p className="lp-hero-eyebrow">{t.heroEyebrow}</p>
                             <h1 className="lp-hero-title">
@@ -333,6 +333,7 @@ export default function LandingPage() {
                         <span className="lp-why-eyebrow">{t.whyEyebrow}</span>
                         <h2 className="lp-why-title">{t.whyTitle}</h2>
                         <p className="lp-why-subtitle">{t.whySubtitle}</p>
+                        <div className="lp-why-grid-wrap">
                         <div className="lp-why-grid">
                             <article className="lp-why-card">
                                 <div className="lp-why-card-icon lp-why-card-icon--rose">
@@ -370,6 +371,7 @@ export default function LandingPage() {
                                     <p>{t.highlightAiDesc}</p>
                                 </div>
                             </article>
+                        </div>
                         </div>
 
                         <div className="lp-why-cta-tail">

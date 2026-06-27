@@ -10,18 +10,49 @@
     min-height: 100vh;
     background-color: #0f172a;
     overflow-x: hidden;
-    font-family: var(--font-family-body);
+    font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
+    --font-family-body: var(--font-family-app);
+    --font-family-display: var(--font-family-app);
+    --brand-rose: #f472b6;
+    --brand-rose-dark: #be185d;
+    --brand-orange: #fb923c;
+    --brand-gradient: linear-gradient(90deg, #be185d, #f472b6 55%, #fb923c);
+    --brand-gradient-btn: linear-gradient(135deg, #be185d, #f472b6 50%, #fb923c);
+    --brand-surface: #151c2c;
+    --app-sidebar-width: 260px;
 }
 
 .minimal-app-shell {
     min-height: 100vh;
     width: 100%;
     background-color: #0f172a;
+    font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
+    --font-family-body: var(--font-family-app);
+    --font-family-display: var(--font-family-app);
+    --brand-rose: #f472b6;
+    --brand-rose-dark: #be185d;
+    --brand-orange: #fb923c;
+    --brand-gradient: linear-gradient(90deg, #be185d, #f472b6 55%, #fb923c);
+    --brand-gradient-btn: linear-gradient(135deg, #be185d, #f472b6 50%, #fb923c);
+    --brand-surface: #151c2c;
+}
+
+.main-content,
+.page-content {
+    font-family: inherit;
 }
 
 .flashcard-page-wrapper {
     position: relative;
     width: 100%;
+}
+
+/* Flashcard app + demo landing: misma tipografía y tokens de marca */
+.flashcard-page-wrapper[data-landing-demo],
+.flashcard-page-wrapper:not([data-landing-demo]) {
+    font-family: var(--font-family-app);
+    --font-family-body: var(--font-family-app);
+    --font-family-display: var(--font-family-app);
 }
 
 /* Flashcard app: dimensiones dinámicas según viewport (no aplica a landing demo) */
@@ -84,7 +115,13 @@
 
 /* Cuando el sidebar está abierto, empuja el contenido */
 .main-content.sidebar-open {
-    padding-left: 260px;
+    padding-left: var(--app-sidebar-width, 260px);
+}
+
+.main-content > .shell-footer--app {
+    flex-shrink: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* No necesita padding superior, porque el Header

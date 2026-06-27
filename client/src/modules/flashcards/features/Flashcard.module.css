@@ -265,7 +265,7 @@
     box-shadow:
         0 20px 50px rgba(0, 0, 0, 0.6),
         inset 0 0 20px rgba(255, 255, 255, 0.05),
-        0 0 15px rgba(56, 189, 248, 0.05);
+        0 0 15px rgba(244, 114, 182, 0.05);
     /* Brillo ambiental sutil */
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -310,9 +310,9 @@
 }
 
 .uploadImageBtn {
-    color: #38bdf8;
-    background: rgba(56, 189, 248, 0.1);
-    border-color: rgba(56, 189, 248, 0.2);
+    color: #f472b6;
+    background: rgba(244, 114, 182, 0.1);
+    border-color: rgba(244, 114, 182, 0.2);
 }
 
 .imageControlBtn:hover {
@@ -329,10 +329,10 @@
 }
 
 .uploadImageBtn:hover {
-    background: rgba(56, 189, 248, 0.25);
-    border-color: #38bdf8;
-    color: #38bdf8;
-    box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+    background: rgba(244, 114, 182, 0.25);
+    border-color: #f472b6;
+    color: #f472b6;
+    box-shadow: 0 0 15px rgba(244, 114, 182, 0.3);
 }
 
 
@@ -768,7 +768,7 @@
     padding: 32px;
     overflow: hidden;
     background:
-        radial-gradient(circle at center, rgba(56, 189, 248, 0.08), transparent 42%),
+        radial-gradient(circle at center, rgba(244, 114, 182, 0.08), transparent 42%),
         linear-gradient(180deg, rgba(15, 23, 42, 0.78), rgba(15, 23, 42, 0.7));
     backdrop-filter: blur(12px);
 }
@@ -797,7 +797,7 @@
     width: 62px;
     height: 62px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(56, 189, 248, 0.26), rgba(56, 189, 248, 0));
+    background: radial-gradient(circle, rgba(244, 114, 182, 0.26), rgba(244, 114, 182, 0));
     filter: blur(6px);
 }
 
@@ -806,10 +806,10 @@
     width: 100%;
     height: 100%;
     border: 3px solid transparent;
-    border-top-color: #38bdf8;
+    border-top-color: #f472b6;
     border-radius: 50%;
     animation: spin 2.8s linear infinite;
-    filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.4));
+    filter: drop-shadow(0 0 10px rgba(244, 114, 182, 0.4));
 }
 
 .aiLoaderCircleInner {
@@ -860,13 +860,13 @@
     0%,
     100% {
         opacity: 0.5;
-        filter: drop-shadow(0 0 5px #38bdf8);
+        filter: drop-shadow(0 0 5px #f472b6);
         transform: scale(0.9);
     }
 
     50% {
         opacity: 1;
-        filter: drop-shadow(0 0 15px #38bdf8);
+        filter: drop-shadow(0 0 15px #f472b6);
         transform: scale(1.1);
     }
 }
@@ -967,10 +967,10 @@
     align-items: center;
     gap: 12px;
     padding: 12px 24px;
-    background: rgba(30, 41, 59, 0.6);
+    background: rgba(21, 28, 44, 0.72);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
     color: #f8fafc;
@@ -979,10 +979,10 @@
 }
 
 .cardCounter:hover {
-    background: rgba(30, 41, 59, 0.8);
-    border-color: rgba(56, 189, 248, 0.4);
+    background: rgba(21, 28, 44, 0.85);
+    border-color: rgba(244, 114, 182, 0.35);
     transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(244, 114, 182, 0.12);
 }
 
 .counterItem {
@@ -995,7 +995,7 @@
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: #94a3b8;
+    color: #f8fafc;
     margin-bottom: 2px;
     font-weight: 800;
 }
@@ -1007,11 +1007,10 @@
 }
 
 .learnedValue {
-    color: #38bdf8;
-    /* Sky-400 */
+    color: #f472b6;
     font-weight: 900;
     font-size: 1.6rem;
-    text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+    text-shadow: 0 0 20px rgba(244, 114, 182, 0.45);
     line-height: 1;
 }
 
@@ -1301,7 +1300,7 @@
 }
 
 .conjugationItem:focus-visible {
-    outline: 2px solid rgba(56, 189, 248, 0.65);
+    outline: 2px solid rgba(244, 114, 182, 0.65);
     outline-offset: 2px;
 }
 
@@ -1388,9 +1387,9 @@
 
 /* --- Active State for Conjugation --- */
 .activeConjugation {
-    background: rgba(56, 189, 248, 0.12) !important;
-    border-color: rgba(56, 189, 248, 0.5) !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(56, 189, 248, 0.2);
+    background: rgba(244, 114, 182, 0.12) !important;
+    border-color: rgba(244, 114, 182, 0.5) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(244, 114, 182, 0.2);
     transform: translateY(-3px);
     z-index: 5;
     border-radius: 16px;
@@ -1398,8 +1397,8 @@
 }
 
 .activeConjugation .conjugationForm {
-    color: #38bdf8;
-    text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+    color: #f472b6;
+    text-shadow: 0 0 10px rgba(244, 114, 182, 0.4);
 }
 
 .activeConjugation .conjugationPhonetic {
@@ -1432,7 +1431,7 @@
 
 :global([data-landing-demo]) .soundButton,
 :global([data-landing-demo]) .examplePlayBtn {
-    color: #2dd4bf;
+    color: #f472b6;
 }
 
 :global([data-landing-demo]) .soundButton:hover,
@@ -1483,7 +1482,7 @@
 
 :global([data-landing-demo]) .highlightedWord {
     color: #140810 !important;
-    background: linear-gradient(135deg, #2dd4bf, #7d77dd) !important;
+    background: linear-gradient(135deg, #be185d, #f472b6 50%, #fb923c) !important;
 }
 
 :global([data-landing-demo]) .phrasalVerbBack {
@@ -1492,7 +1491,7 @@
 }
 
 :global([data-landing-demo]) .meaningBack {
-    color: #2dd4bf;
+    color: #f472b6;
     text-shadow: 0 0 10px rgba(45, 212, 191, 0.2);
 }
 

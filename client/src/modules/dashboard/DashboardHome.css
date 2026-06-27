@@ -1,18 +1,24 @@
-/* ─── Design tokens (aligned with flashcard palette) ──────────────────────── */
+/* ─── Design tokens (aligned with onboarding / flashcard palette) ─────────── */
 .dashboard-home {
     width: min(100%, 960px);
     margin: 0 auto;
     padding: 32px 32px 44px;
     color: #f8fafc;
-    font-family: var(--font-family-body);
-    --dash-surface:   #1e293b;
+    font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
+    --font-family-body: var(--font-family-app);
+    --font-family-display: var(--font-family-app);
+    --dash-surface:   #151c2c;
     --dash-surface-2: #0f172a;
-    --dash-border:    #334155;
+    --dash-border:    rgba(255, 255, 255, 0.08);
     --dash-muted:     #94a3b8;
-    --dash-accent:    #38bdf8;
-    --dash-teal:      #2dd4bf;
-    --dash-purple:    #7d77dd;
+    --dash-accent:    #f472b6;
+    --dash-accent-2:  #be185d;
+    --dash-accent-3:  #fb923c;
+    --dash-teal:      #f472b6;
+    --dash-purple:    #be185d;
     --dash-premium:   #facc15;
+    --dash-gradient:  linear-gradient(90deg, #be185d, #f472b6 55%, #fb923c);
+    --dash-gradient-btn: linear-gradient(135deg, #be185d, #f472b6 50%, #fb923c);
 }
 
 .dashboard-home,
@@ -60,7 +66,7 @@
 .dash-hero-greeting h1 {
     margin: 0;
     color: #ffffff;
-    font-family: var(--font-family-display);
+    font-family: inherit;
     font-size: 1.58rem;
     line-height: 1.05;
     font-weight: 800;
@@ -124,8 +130,8 @@
     margin-bottom: 12px;
     padding: 4px 10px;
     border-radius: 999px;
-    background: var(--dash-accent);
-    color: #0c1a2e;
+    background: var(--dash-gradient);
+    color: #ffffff;
     font-size: 0.58rem;
     font-weight: 900;
     text-transform: uppercase;
@@ -135,7 +141,7 @@
 .dash-course-card h2 {
     margin: 0 0 5px;
     color: #ffffff;
-    font-family: var(--font-family-display);
+    font-family: inherit;
     font-size: 1.35rem;
     line-height: 1.1;
     font-weight: 900;
@@ -168,10 +174,11 @@
     display: block;
     height: 100%;
     border-radius: inherit;
-    background: linear-gradient(90deg, var(--dash-teal), var(--dash-accent));
+    background: var(--dash-gradient);
+    box-shadow: 0 0 14px rgba(244, 114, 182, 0.35);
 }
 
-/* CTA – same gradient as flashcard complete screen */
+/* CTA – same gradient as onboarding primary buttons */
 .dash-course-cta {
     width: fit-content;
     min-width: 128px;
@@ -179,18 +186,18 @@
     padding: 0 20px;
     border: 0;
     border-radius: 10px;
-    background: linear-gradient(135deg, var(--dash-teal), var(--dash-purple));
+    background: var(--dash-gradient-btn);
     color: #ffffff;
     font-weight: 800;
     font-size: 0.82rem;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(45, 212, 191, 0.22);
+    box-shadow: 0 8px 20px rgba(190, 24, 93, 0.28);
     transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
 .dash-course-cta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(45, 212, 191, 0.32);
+    box-shadow: 0 12px 28px rgba(190, 24, 93, 0.36);
 }
 
 /* ─── Side stack (ring + mini stats) ──────────────────────────────────────── */
@@ -231,9 +238,9 @@
 
 .dash-main-ring-fill {
     fill: none;
-    stroke: var(--dash-teal);
+    stroke: #f472b6;
     stroke-linecap: round;
-    filter: drop-shadow(0 0 8px rgba(45, 212, 191, 0.4));
+    filter: drop-shadow(0 0 8px rgba(244, 114, 182, 0.45));
     transition: stroke-dashoffset 700ms ease;
 }
 
@@ -262,7 +269,7 @@
 }
 
 .dash-main-ring-copy span {
-    color: var(--dash-teal);
+    color: var(--dash-accent);
     font-size: 0.68rem;
     font-weight: 800;
     text-transform: uppercase;
@@ -295,13 +302,13 @@
 }
 
 .dash-mini-stat--streak .dash-mini-stat-icon {
-    background: rgba(125, 119, 221, 0.16);
-    color: #7d77dd;
+    background: rgba(190, 24, 93, 0.14);
+    color: #f472b6;
 }
 
 .dash-mini-stat--words .dash-mini-stat-icon {
-    background: rgba(45, 212, 191, 0.14);
-    color: #2dd4bf;
+    background: rgba(244, 114, 182, 0.14);
+    color: #f9a8d4;
 }
 
 .dash-mini-stat-copy {
@@ -341,7 +348,7 @@
 .dash-path-header h3 {
     margin: 0;
     color: #ffffff;
-    font-family: var(--font-family-display);
+    font-family: inherit;
     font-size: 1.08rem;
     font-weight: 800;
     line-height: 1.2;
@@ -398,7 +405,7 @@
 .dash-path-step.is-active .dash-path-dot {
     border-color: var(--dash-accent);
     color: var(--dash-accent);
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.45);
+    box-shadow: 0 0 20px rgba(244, 114, 182, 0.45);
 }
 
 .dash-path-step.is-premium .dash-path-dot {
@@ -465,8 +472,8 @@
 
 .dash-category-card:hover {
     transform: translateY(-3px);
-    border-color: rgba(56, 189, 248, 0.45);
-    box-shadow: 0 24px 44px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    border-color: rgba(244, 114, 182, 0.45);
+    box-shadow: 0 24px 44px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(244, 114, 182, 0.08);
 }
 
 .dash-category-card-title {
