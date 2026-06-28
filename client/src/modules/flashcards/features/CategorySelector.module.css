@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   z-index: 2000;
   background: rgba(15, 23, 42, 0.8);
   backdrop-filter: blur(20px);
@@ -470,7 +470,7 @@
   .dashboardContainer {
     flex-direction: column;
     height: auto;
-    min-height: calc(100vh - 30px);
+    min-height: calc(100dvh - 30px);
     max-height: none;
     overflow: visible;
   }
@@ -511,5 +511,40 @@
   .categoryCount {
     margin-left: 6px;
     flex-shrink: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .categorySelectorOverlay {
+    padding: 10px max(10px, env(safe-area-inset-right, 0px)) max(10px, env(safe-area-inset-bottom, 0px)) max(10px, env(safe-area-inset-left, 0px));
+    align-items: stretch;
+  }
+
+  .dashboardContainer {
+    min-height: calc(100dvh - 20px);
+    max-height: none;
+    border-radius: 18px;
+  }
+
+  .sidebar {
+    padding: 12px;
+  }
+
+  .categoryNav {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .categoryBtn {
+    padding: 10px;
+  }
+
+  .mainContent {
+    padding: 12px;
+  }
+
+  .groupsGrid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
   }
 }

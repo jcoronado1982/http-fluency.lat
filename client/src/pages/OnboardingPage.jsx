@@ -58,7 +58,7 @@ const OnboardingPage = () => {
     }
 
     return (
-        <main style={{ padding: '2rem', maxWidth: '56rem', margin: '0 auto' }}>
+        <main style={{ padding: 'clamp(1rem, 4vw, 2rem)', maxWidth: '56rem', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
             <h1>Onboarding</h1>
             <p style={{ marginTop: '2rem' }}>
                 No hay una sesion de onboarding asociada a los modulos activos de este usuario.

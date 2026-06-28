@@ -241,6 +241,11 @@
 @media (max-width: 768px) {
     .floatingOptions {
         right: -4px;
-        width: 244px;
+        width: min(244px, calc(100vw - 20px));
+        max-height: min(72vh, calc(100dvh - 72px - env(safe-area-inset-top, 0px)));
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
     }
 }

@@ -1,7 +1,7 @@
 /* Footer compartido — misma estructura; variantes solo cambian color */
 .shell-footer {
     color: #f8fafc;
-    padding: 16px 12px 22px;
+    padding: 16px 12px calc(22px + env(safe-area-inset-bottom, 0px));
     text-align: center;
     box-sizing: border-box;
     font-family: var(--font-family-app, var(--font-family-body));

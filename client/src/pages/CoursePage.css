@@ -73,8 +73,8 @@
 }
 
 .courseCard {
-    width: fit-content;
-    min-width: 700px;
+    width: 100%;
+    min-width: 0;
     max-width: 900px;
     background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
     border-radius: 32px;

@@ -603,6 +603,40 @@ td.pricing-table-premium-col strong { color: var(--c-pink); }
     .pricing-btn--nav { min-height: 36px; padding: 0.45rem 1rem; font-size: 0.8125rem; }
     .pricing-hero { padding: 44px var(--pricing-section-inline-padding) 32px; }
     .pricing-card { padding: 28px 24px 26px; }
+
+    .pricing-comparison {
+        padding: 40px 0;
+    }
+
+    .pricing-table-wrap {
+        padding: 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .pricing-table th,
+    .pricing-table td {
+        padding: 12px 14px;
+        font-size: 0.82rem;
+    }
+
+    .pricing-table th {
+        font-size: 0.72rem;
+        letter-spacing: 0.04em;
+    }
+
+    .pricing-cta-bottom {
+        padding: 48px 0;
+    }
+
+    .pricing-cta-actions {
+        width: 100%;
+    }
+
+    .pricing-cta-actions .pricing-btn {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
 }
 
 .pricing-why-card {

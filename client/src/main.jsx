@@ -18,7 +18,7 @@ function BootstrapLoading() {
   const locale = getInitialInterfaceLanguage();
   return (
     <div style={{
-      height: '100vh',
+      height: '100dvh',
       background: '#0f172a',
       display: 'flex',
       justifyContent: 'center',

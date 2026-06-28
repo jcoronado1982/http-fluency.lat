@@ -3,6 +3,8 @@
 .modal {
     position: fixed;
     inset: 0;
+    padding: max(12px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+    box-sizing: border-box;
     /* Oscurecimiento profundo en armonía con #0f172a */
     background: rgba(15, 23, 42, 0.75);
     backdrop-filter: blur(8px);
@@ -263,6 +265,8 @@
 @media (max-width: 600px) {
     .modalContent {
         padding: 24px 20px 20px;
+        max-height: min(92dvh, calc(100dvh - 24px));
+        overflow-y: auto;
     }
     
     .axisTop {

@@ -21,8 +21,147 @@ import { preloadFlashcardStart } from './preload';
 import styles from './FlashcardOnboardingTour.module.css';
 
 const TOOLTIP_WIDTH = 340;
+const TOOLTIP_WIDTH_MOBILE = 292;
 const TOOLTIP_ESTIMATED_HEIGHT = 220;
+const TOOLTIP_ESTIMATED_HEIGHT_MOBILE = 168;
 const HIGHLIGHT_PADDING = 8;
+const HIGHLIGHT_PADDING_MOBILE = 6;
+
+const readViewportInsets = (viewportWidth) => {
+    if (typeof window === 'undefined') {
+        return { top: 0, right: 0, bottom: 0, left: 0, edge: 8 };
+    }
+
+    const probe = document.createElement('div');
+    probe.style.cssText = [
+        'position:fixed',
+        'top:0',
+        'left:0',
+        'padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)',
+        'visibility:hidden',
+        'pointer-events:none',
+    ].join(';');
+    document.body.appendChild(probe);
+    const style = window.getComputedStyle(probe);
+    const top = Number.parseFloat(style.paddingTop) || 0;
+    const right = Number.parseFloat(style.paddingRight) || 0;
+    const bottom = Number.parseFloat(style.paddingBottom) || 0;
+    const left = Number.parseFloat(style.paddingLeft) || 0;
+    probe.remove();
+
+    const edge = viewportWidth <= 520 ? 12 : viewportWidth <= 768 ? 10 : 6;
+    return { top, right, bottom, left, edge };
+};
+
+const getTooltipMetrics = (viewportWidth) => ({
+    width: viewportWidth <= 520 ? TOOLTIP_WIDTH_MOBILE : TOOLTIP_WIDTH,
+    height: viewportWidth <= 520 ? TOOLTIP_ESTIMATED_HEIGHT_MOBILE : TOOLTIP_ESTIMATED_HEIGHT,
+});
+
+const isSidebarTourStep = (step) => Boolean(
+    step?.prep?.sidebar || step?.id === 'cargar-modulo-flashcards',
+);
+
+const isFloatingMenuTourStep = (step) => Boolean(step?.prep?.floatingMenu);
+
+const resolveTooltipPlacements = (step, viewport, anchorRect) => {
+    const configured = step?.tooltipPlacements
+        ?? (step?.tooltipPlacement ? [step.tooltipPlacement] : undefined);
+
+    if (!anchorRect || viewport.width > 768) {
+        return configured;
+    }
+
+    if (isFloatingMenuTourStep(step)) {
+        const tail = (configured || []).filter((placement) => placement !== 'left' && placement !== 'right');
+        return ['bottom', 'top', ...tail];
+    }
+
+    const inSidebarZone = anchorRect.right <= Math.min(280, viewport.width * 0.72);
+
+    if (inSidebarZone || isSidebarTourStep(step)) {
+        const tail = (configured || []).filter((placement) => placement !== 'right' && placement !== 'left');
+        return ['bottom', 'top', ...tail];
+    }
+
+    return configured;
+};
+
+const shouldUseMobileSheet = (step, viewport, anchorRect) => {
+    if (viewport.width > 768 || !anchorRect) return false;
+
+    if (isFloatingMenuTourStep(step)) return true;
+
+    return isSidebarTourStep(step)
+        && anchorRect.right <= Math.min(300, viewport.width * 0.75);
+};
+
+const tooltipOverlapsAnchor = (layout, anchorRect, tooltipWidth, tooltipHeight) => {
+    if (!layout || !anchorRect) return false;
+
+    const top = layout.top;
+    const left = layout.left;
+    if (typeof top !== 'number' || typeof left !== 'number') return false;
+
+    const gap = 10;
+    const tooltipRect = {
+        top,
+        left,
+        right: left + tooltipWidth,
+        bottom: top + tooltipHeight,
+    };
+
+    return !(
+        tooltipRect.right <= anchorRect.left - gap
+        || tooltipRect.left >= anchorRect.right + gap
+        || tooltipRect.bottom <= anchorRect.top - gap
+        || tooltipRect.top >= anchorRect.bottom + gap
+    );
+};
+
+const buildMobileSheetLayout = (viewport, layoutMargin = 14) => {
+    const insets = readViewportInsets(viewport.width);
+    const bottomOffset = layoutMargin + insets.bottom;
+    return {
+        style: {
+            top: 'auto',
+            left: insets.left + layoutMargin,
+            bottom: bottomOffset,
+            width: `calc(100vw - ${insets.left + insets.right + layoutMargin * 2}px)`,
+            transform: 'none',
+            '--arrow-x': '50%',
+        },
+        placement: null,
+        arrowOffset: 0,
+        mobileSheet: true,
+    };
+};
+
+const MOBILE_SHEET_RESERVE_PX = 210;
+
+const scrollSidebarTourTarget = (target, viewport) => {
+    if (!(target instanceof Element) || viewport.width > 768) {
+        target.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'auto' });
+        return;
+    }
+
+    const sidebarNav = target.closest('.app-sidebar nav');
+    if (sidebarNav instanceof HTMLElement) {
+        const navRect = sidebarNav.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        const idealTop = Math.min(
+            navRect.top + 20,
+            viewport.height - MOBILE_SHEET_RESERVE_PX - targetRect.height - 16,
+        );
+        const delta = targetRect.top - idealTop;
+        if (Math.abs(delta) > 6) {
+            sidebarNav.scrollTop += delta;
+        }
+        return;
+    }
+
+    target.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'auto' });
+};
 const SIDEBAR_TRANSITION_MS = 420;
 const CONTROLS_TRANSITION_MS = 320;
 const WRONG_TAP_COOLDOWN_MS = 2200;
@@ -298,16 +437,20 @@ export default function FlashcardOnboardingTour() {
                         activeTarget.setAttribute('data-tour-active', 'true');
                     }
                     if (!isZoneStep) {
-                        target.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'auto' });
+                        scrollSidebarTourTarget(target, viewport);
                     }
                 }
 
+                const sheetReserve = shouldUseMobileSheet(activeStep, viewport, rect)
+                    ? MOBILE_SHEET_RESERVE_PX
+                    : 0;
                 const isVisible = rect.width > 0
                     && rect.height > 0
                     && rect.bottom > 0
                     && rect.right > 0
                     && rect.top < viewport.height
-                    && rect.left < viewport.width;
+                    && rect.left < viewport.width
+                    && rect.bottom <= viewport.height - sheetReserve;
 
                 if (isVisible) {
                     setTargetRect(rect);
@@ -648,10 +791,17 @@ export default function FlashcardOnboardingTour() {
     const focusBox = useMemo(() => {
         if (!targetRect || isFinalStep) return null;
 
-        const top = clamp(targetRect.top - HIGHLIGHT_PADDING, 0, viewport.height);
-        const left = clamp(targetRect.left - HIGHLIGHT_PADDING, 0, viewport.width);
-        const right = clamp(targetRect.right + HIGHLIGHT_PADDING, 0, viewport.width);
-        const bottom = clamp(targetRect.bottom + HIGHLIGHT_PADDING, 0, viewport.height);
+        const insets = readViewportInsets(viewport.width);
+        const pad = viewport.width <= 520 ? HIGHLIGHT_PADDING_MOBILE : HIGHLIGHT_PADDING;
+        const minTop = insets.top + insets.edge;
+        const minLeft = insets.left + insets.edge;
+        const maxRight = viewport.width - insets.right - insets.edge;
+        const maxBottom = viewport.height - insets.bottom - insets.edge;
+
+        const top = clamp(targetRect.top - pad, minTop, maxBottom);
+        const left = clamp(targetRect.left - pad, minLeft, maxRight);
+        const right = clamp(targetRect.right + pad, minLeft, maxRight);
+        const bottom = clamp(targetRect.bottom + pad, minTop, maxBottom);
 
         return {
             top,
@@ -664,8 +814,10 @@ export default function FlashcardOnboardingTour() {
     }, [isFinalStep, targetRect, viewport.height, viewport.width]);
 
     const tooltipLayout = useMemo(() => {
-        const tooltipWidth = tooltipRef.current?.offsetWidth || TOOLTIP_WIDTH;
-        const tooltipHeight = tooltipRef.current?.offsetHeight || TOOLTIP_ESTIMATED_HEIGHT;
+        const tooltipMetrics = getTooltipMetrics(viewport.width);
+        const layoutMargin = viewport.width <= 520 ? 14 : 12;
+        const tooltipWidth = tooltipRef.current?.offsetWidth || tooltipMetrics.width;
+        const tooltipHeight = tooltipRef.current?.offsetHeight || tooltipMetrics.height;
         const layoutAnchor = anchorRect;
 
         if (!layoutAnchor) {
@@ -678,8 +830,15 @@ export default function FlashcardOnboardingTour() {
                 },
                 placement: null,
                 arrowOffset: 0,
+                mobileSheet: false,
             };
         }
+
+        if (shouldUseMobileSheet(activeStep, viewport, layoutAnchor)) {
+            return buildMobileSheetLayout(viewport, layoutMargin);
+        }
+
+        const preferredPlacements = resolveTooltipPlacements(activeStep, viewport, layoutAnchor);
 
         const layout = computeTooltipLayout({
             anchorRect: layoutAnchor,
@@ -687,41 +846,45 @@ export default function FlashcardOnboardingTour() {
             tooltipWidth,
             tooltipHeight,
             gap: activeStep?.tooltipGap,
-            preferredPlacements: activeStep?.tooltipPlacements
-                ?? (activeStep?.tooltipPlacement ? [activeStep.tooltipPlacement] : undefined),
+            margin: layoutMargin,
+            preferredPlacements,
         });
 
-        if (!layout) {
-            const left = clamp(
-                layoutAnchor.left + layoutAnchor.width / 2 - tooltipWidth / 2,
-                16,
-                viewport.width - tooltipWidth - 16,
-            );
-            return {
-                style: {
-                    top: clamp(
-                        layoutAnchor.bottom + boxGapForPlacement('bottom', activeStep?.tooltipGap ?? TOOLTIP_VISUAL_GAP),
-                        16,
-                        viewport.height - tooltipHeight - 16,
-                    ),
-                    left,
-                    '--arrow-x': `${layoutAnchor.left + layoutAnchor.width / 2 - left}px`,
-                },
-                placement: 'bottom',
-                arrowOffset: layoutAnchor.left + layoutAnchor.width / 2 - left,
-            };
+        const fallbackLeft = clamp(
+            layoutAnchor.left + layoutAnchor.width / 2 - tooltipWidth / 2,
+            layoutMargin,
+            viewport.width - tooltipWidth - layoutMargin,
+        );
+        const fallbackLayout = layout ?? {
+            top: clamp(
+                layoutAnchor.bottom + boxGapForPlacement('bottom', activeStep?.tooltipGap ?? TOOLTIP_VISUAL_GAP),
+                layoutMargin,
+                viewport.height - tooltipHeight - layoutMargin,
+            ),
+            left: fallbackLeft,
+            placement: 'bottom',
+            arrowOffset: layoutAnchor.left + layoutAnchor.width / 2 - fallbackLeft,
+        };
+
+        if (
+            viewport.width <= 768
+            && tooltipOverlapsAnchor(fallbackLayout, layoutAnchor, tooltipWidth, tooltipHeight)
+        ) {
+            return buildMobileSheetLayout(viewport, layoutMargin);
         }
 
         return {
             style: {
-                top: layout.top,
-                left: layout.left,
-                '--arrow-x': `${layout.arrowOffset}px`,
+                top: fallbackLayout.top,
+                left: fallbackLayout.left,
+                '--arrow-x': `${fallbackLayout.arrowOffset}px`,
             },
-            placement: layout.placement,
-            arrowOffset: layout.arrowOffset,
+            placement: fallbackLayout.placement,
+            arrowOffset: fallbackLayout.arrowOffset,
+            mobileSheet: false,
         };
     }, [
+        activeStep,
         activeStep?.tooltipGap,
         activeStep?.tooltipPlacement,
         activeStep?.tooltipPlacements,
@@ -784,6 +947,7 @@ export default function FlashcardOnboardingTour() {
                 data-tour-step={activeStep?.id || 'final'}
                 data-tour-step-index={stepIndex}
                 data-placement={tooltipLayout.placement || undefined}
+                data-mobile-sheet={tooltipLayout.mobileSheet ? 'true' : undefined}
                 style={tooltipLayout.style}
             >
                 <header className={styles.tooltipHeader}>

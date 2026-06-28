@@ -23,11 +23,12 @@ export function computeTooltipLayout({
     tooltipWidth,
     tooltipHeight,
     gap = TOOLTIP_VISUAL_GAP,
+    margin = 12,
     preferredPlacements,
 }) {
     if (!anchorRect) return null;
 
-    const margin = 12;
+    const edgeMargin = margin;
     const anchorCx = anchorRect.left + anchorRect.width / 2;
     const anchorCy = anchorRect.top + anchorRect.height / 2;
     const isHeaderZone = anchorRect.top < 120;
@@ -55,12 +56,12 @@ export function computeTooltipLayout({
             viewport,
             tooltipWidth,
             tooltipHeight,
-            margin,
+            margin: edgeMargin,
             anchorCx,
             anchorCy,
             gap,
         });
-        if (layout && fits(layout, viewport, tooltipWidth, tooltipHeight, margin)) {
+        if (layout && fits(layout, viewport, tooltipWidth, tooltipHeight, edgeMargin)) {
             return layout;
         }
     }
@@ -70,7 +71,7 @@ export function computeTooltipLayout({
         viewport,
         tooltipWidth,
         tooltipHeight,
-        margin,
+        margin: edgeMargin,
         anchorCx,
         anchorCy,
         gap,

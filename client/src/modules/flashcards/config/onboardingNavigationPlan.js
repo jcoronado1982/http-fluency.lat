@@ -15,6 +15,10 @@ const buildSteps = (locale) => {
             id: 'menu-hamburguesa',
             selector: '[data-tour="menu-hamburguesa"]',
             performAction: 'openSidebar',
+            compactHighlight: { width: 40, height: 40 },
+            tooltipPlacement: 'bottom',
+            tooltipPlacements: ['bottom', 'right', 'top'],
+            tooltipGap: 10,
             label: es ? 'Abre el menú' : 'Open the menu',
             hint: es
                 ? 'Toca el botón ☰ arriba a la izquierda o pulsa Siguiente para abrir el menú lateral.'
@@ -31,6 +35,8 @@ const buildSteps = (locale) => {
             markOptionsSelector: '[data-tour="flashcards-nav"]',
             performAction: 'navigateFlashcards',
             tooltipPlacement: 'right',
+            tooltipPlacements: ['right', 'bottom', 'top'],
+            tooltipGap: 10,
             label: es ? 'Carga el módulo Flashcards' : 'Load the Flashcards module',
             hint: es
                 ? 'Toca esta opción del menú lateral o pulsa Siguiente para entrar al módulo de Flashcards.'
@@ -47,6 +53,8 @@ const buildSteps = (locale) => {
             selector: '[data-tour="catalogo-categorias"]',
             performAction: 'openCatalog',
             tooltipPlacement: 'left',
+            tooltipPlacements: ['left', 'bottom', 'top'],
+            tooltipGap: 10,
             gateTimeoutMs: 10000,
             label: es ? 'Catálogo de vocabulario' : 'Vocabulary catalog',
             hint: es

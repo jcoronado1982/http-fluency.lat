@@ -10,21 +10,21 @@
     position: fixed;
     inset: 0;
     z-index: 50001;
-    background: rgba(2, 6, 23, 0.42);
+    background: rgba(2, 6, 23, 0.58);
     pointer-events: auto;
 }
 
 .scrimBlock {
     position: fixed;
     z-index: 50001;
-    background: rgba(2, 6, 23, 0.42);
-    backdrop-filter: blur(1px);
+    background: rgba(2, 6, 23, 0.58);
+    backdrop-filter: blur(2px);
     pointer-events: auto;
 }
 
 .scrimBlockZone {
-    background: rgba(2, 6, 23, 0.2);
-    backdrop-filter: blur(1px);
+    background: rgba(2, 6, 23, 0.34);
+    backdrop-filter: blur(2px);
 }
 
 .highlight {
@@ -382,13 +382,142 @@
     cursor: not-allowed;
 }
 
+@media (max-width: 768px) {
+    .scrim,
+    .scrimBlock {
+        background: rgba(2, 6, 23, 0.74);
+    }
+
+    .scrimBlockZone {
+        background: rgba(2, 6, 23, 0.48);
+    }
+
+    .highlight {
+        border-radius: 12px;
+        border-width: 1.5px;
+    }
+
+    .tooltip[data-mobile-sheet='true'] {
+        width: calc(100vw - 28px) !important;
+        max-width: none;
+        border-radius: 16px;
+        box-shadow: 0 16px 40px rgba(2, 8, 23, 0.62);
+    }
+
+    .tooltip[data-mobile-sheet='true']::before,
+    .tooltip[data-mobile-sheet='true']::after {
+        display: none;
+    }
+
+    .tooltip[data-mobile-sheet='true'] .eyebrow {
+        display: none;
+    }
+
+    .tooltip[data-mobile-sheet='true'] .tooltipHeader {
+        padding: 10px 14px 0;
+    }
+
+    .tooltip[data-mobile-sheet='true'] .title {
+        margin-top: 4px;
+        padding: 0 14px;
+        font-size: 0.88rem;
+    }
+
+    .tooltip[data-mobile-sheet='true'] .body {
+        margin-top: 6px;
+        padding: 0 14px 2px;
+        max-height: none;
+        font-size: 0.78rem;
+        line-height: 1.45;
+    }
+
+    .tooltip[data-mobile-sheet='true'] .actions {
+        display: flex;
+        gap: 10px;
+        margin: 8px 14px calc(10px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .tooltip[data-mobile-sheet='true'] .primaryButton,
+    .tooltip[data-mobile-sheet='true'] .secondaryButton {
+        flex: 1;
+        min-height: 40px;
+    }
+}
+
 @media (max-width: 520px) {
     .tooltip {
-        width: min(340px, calc(100vw - 24px));
-        max-height: min(50vh, 340px);
+        width: min(292px, calc(100vw - 28px));
+        max-height: none;
+        border-radius: 14px;
+    }
+
+    .tooltipHeader {
+        padding: 10px 12px 0;
+    }
+
+    .stepBadge {
+        font-size: 0.72rem;
+        letter-spacing: 0.06em;
+    }
+
+    .closeButton {
+        width: 26px;
+        height: 26px;
+        font-size: 1.2rem;
+    }
+
+    .eyebrow {
+        margin-top: 6px;
+        padding: 0 12px;
+        font-size: 0.68rem;
+        letter-spacing: 0.06em;
+    }
+
+    .title {
+        margin-top: 8px;
+        padding: 0 12px;
+        font-size: 0.82rem;
+        line-height: 1.3;
     }
 
     .body {
-        max-height: min(28vh, 160px);
+        margin-top: 8px;
+        padding: 0 12px 2px;
+        font-size: 0.8rem;
+        line-height: 1.5;
+        max-height: min(24vh, 132px);
+    }
+
+    .loadingLabel {
+        margin: 8px 12px 0;
+        padding: 6px 8px;
+        font-size: 0.68rem;
+    }
+
+    .actions {
+        gap: 8px;
+        margin: 10px 12px 12px;
+    }
+
+    .primaryButton,
+    .secondaryButton {
+        min-height: 38px;
+        padding: 0 14px;
+        border-radius: 12px;
+        font-size: 0.82rem;
+    }
+
+    .tooltip[data-placement='bottom']::before {
+        top: -13px;
+        border-left-width: 11px;
+        border-right-width: 11px;
+        border-bottom-width: 13px;
+    }
+
+    .tooltip[data-placement='top']::after {
+        bottom: -13px;
+        border-left-width: 11px;
+        border-right-width: 11px;
+        border-top-width: 13px;
     }
 }
