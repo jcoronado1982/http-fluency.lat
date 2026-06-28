@@ -25,6 +25,10 @@
     padding: clamp(10px, 2vw, 12px) clamp(12px, 3vw, 20px);
 }
 
+:global(.flashcard-page-wrapper[data-onboarding-tour="true"]:not([data-landing-demo])) .controlsWrapper {
+    margin-top: clamp(18px, 2.5vh, 28px);
+}
+
 
 /* --- Button Controls Row --- */
 .controls {
