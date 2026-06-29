@@ -6,7 +6,8 @@ import CardFront from './CardFront.jsx';
 import CardBack from './CardBack.jsx';
 import { useUIContext } from '../../../context/UIContext';
 import { useFlashcardUiContext, useFlashcardContext, useCategoryContext } from '../context/flashcardStudyContext';
-import { getCardTitle, getAudioLang, getAudioLangForConjugation } from './cardLanguageUtils';
+import { getCardTitle, getAudioLang, getAudioLangForConjugation, isLearningEnglish } from './cardLanguageUtils';
+import { registerUiBridgeHandler, unregisterUiBridgeHandler } from '../uiBridge';
 
 const getDefinitionsForForm = (card, form) => {
     if (!card) return [];
@@ -25,6 +26,7 @@ function Flashcard() {
         isFloatingMenuOpen,
         isSidebarOpen,
         language = 'en',
+        studyLanguage = 'en',
     } = useUIContext();
     const {
         setIsAudioLoading,
@@ -34,7 +36,16 @@ function Flashcard() {
         isPhonicsModalOpen,
     } = useFlashcardUiContext();
     const { currentCategory } = useCategoryContext();
-    const { currentCard: cardData, currentDeckName, updateCardImagePath } = useFlashcardContext();
+    const {
+        currentCard: cardData,
+        currentDeckName,
+        filteredData = [],
+        currentIndex = 0,
+        updateCardImagePath,
+        isLandingDemo = false,
+        demoStudyLanguage,
+    } = useFlashcardContext();
+    const cardLanguage = isLandingDemo && demoStudyLanguage ? demoStudyLanguage : studyLanguage;
     const [prevCardId, setPrevCardId] = useState(null);
     const isAnyOverlayOpen =
         isCatalogVisible ||
@@ -55,7 +66,7 @@ function Flashcard() {
     });
 
     const {
-        isImageLoading, isGeneratingImage, imageUrl, imageRef,
+        isImageLoading, isGeneratingImage, imageUrl, imageRef, currentDefIndex,
         ensureImageForDefinition, ensureImageForForm, deleteImage, uploadImage,
         handleImageError, canCustomizeImages, canDeleteImages,
     } = useImageGeneration({
@@ -64,8 +75,12 @@ function Flashcard() {
 
     const buildAllBlurred = useCallback((form = activeForm) => {
         if (!cardData) return {};
-        return getDefinitionsForForm(cardData, form).reduce((acc, _, i) => ({ ...acc, [i]: true }), {});
-    }, [cardData, activeForm]);
+        const defs = getDefinitionsForForm(cardData, form);
+        if (isLandingDemo) {
+            return defs.reduce((acc, _, i) => ({ ...acc, [i]: false }), {});
+        }
+        return defs.reduce((acc, _, i) => ({ ...acc, [i]: true }), {});
+    }, [cardData, activeForm, isLandingDemo]);
 
     const revealDefinition = useCallback((defIndex, form = activeForm) => {
         if (!cardData) return;
@@ -99,22 +114,40 @@ function Flashcard() {
         });
     }, [ensureImageForDefinition, cardData, activeForm]);
 
-    useEffect(() => {
-        if (!cardData || isAnyOverlayOpen) return;
+    const prefetchCardAudio = useCallback((card) => {
+        if (!card || isAnyOverlayOpen) return;
 
-        const defs = getDefinitionsForForm(cardData, 'v1');
+        const defs = getDefinitionsForForm(card, 'v1');
         const title = getCardTitle({
-            name: cardData.name,
-            definitions: cardData.definitions || [],
-        }, language);
-        const audioLang = getAudioLang(language);
+            name: card.name,
+            definitions: card.definitions || [],
+        }, cardLanguage);
+        const audioLang = getAudioLang(cardLanguage);
+        const cardVerbName = card.name;
 
-        if (title) void prefetchAudio(title, audioLang);
+        if (title) void prefetchAudio(title, audioLang, cardVerbName);
         defs.forEach((def) => {
-            const exampleText = language === 'es' ? def.usage_example : def.usage_example_es;
-            if (exampleText) void prefetchAudio(exampleText, audioLang);
+            const exampleText = cardLanguage === 'en' ? def.usage_example : def.usage_example_es;
+            if (exampleText) void prefetchAudio(exampleText, audioLang, cardVerbName);
         });
-    }, [cardData, language, isAnyOverlayOpen, prefetchAudio]);
+    }, [cardLanguage, isAnyOverlayOpen, prefetchAudio]);
+
+    useEffect(() => {
+        if (!cardData) return;
+        prefetchCardAudio(cardData);
+    }, [cardData, prefetchCardAudio]);
+
+    useEffect(() => {
+        if (!filteredData.length || isAnyOverlayOpen) return;
+
+        const nextIndex = (currentIndex + 1) % filteredData.length;
+        const prevIndex = (currentIndex - 1 + filteredData.length) % filteredData.length;
+
+        if (nextIndex !== currentIndex) prefetchCardAudio(filteredData[nextIndex]);
+        if (prevIndex !== currentIndex && prevIndex !== nextIndex) {
+            prefetchCardAudio(filteredData[prevIndex]);
+        }
+    }, [filteredData, currentIndex, isAnyOverlayOpen, prefetchCardAudio]);
 
     useEffect(() => {
         if (!cardData) return;
@@ -132,18 +165,70 @@ function Flashcard() {
             const title = getCardTitle({
                 name: cardData.name,
                 definitions: cardData.definitions || [],
-            }, language);
+            }, cardLanguage);
             if (title && !isAnyOverlayOpen) {
-                void playAudio(title, getAudioLang(language));
+                void playAudio(title, getAudioLang(cardLanguage));
             }
         }
-    }, [cardData, setAppMessage, prevCardId, stopAudio, playAudio, language, isAnyOverlayOpen]);
+    }, [cardData, setAppMessage, prevCardId, stopAudio, playAudio, cardLanguage, isAnyOverlayOpen, buildAllBlurred]);
 
     useEffect(() => {
         if (!cardData?.irregular) return;
 
         setBlurredState(buildAllBlurred(activeForm));
     }, [activeForm, cardData, buildAllBlurred]);
+
+    useEffect(() => {
+        const blurAllPhrases = () => {
+            setBlurredState(buildAllBlurred(activeForm));
+        };
+        const revealPhrase = () => {
+            if (!cardData) return;
+            revealDefinition(0);
+            void ensureImageForDefinition(0);
+        };
+        const revealAndPlayPhrase = () => {
+            if (!cardData) return;
+            const defs = getDefinitionsForForm(cardData, activeForm);
+            const def = defs[0];
+            if (!def) return;
+
+            revealDefinition(0);
+            void ensureImageForDefinition(0);
+            const exampleText = isLearningEnglish(cardLanguage)
+                ? def.usage_example
+                : def.usage_example_es;
+            if (exampleText?.trim()) {
+                void playAudio(exampleText.trim(), getAudioLang(cardLanguage));
+            }
+        };
+        const playPhrase = () => {
+            if (!cardData) return;
+            const defs = getDefinitionsForForm(cardData, activeForm);
+            const def = defs[0];
+            if (!def) return;
+
+            revealDefinition(0);
+            void ensureImageForDefinition(0);
+            const exampleText = isLearningEnglish(cardLanguage)
+                ? def.usage_example
+                : def.usage_example_es;
+            if (exampleText?.trim()) {
+                void playAudio(exampleText.trim(), getAudioLang(cardLanguage));
+            }
+        };
+
+        registerUiBridgeHandler('blurPhrases', blurAllPhrases);
+        registerUiBridgeHandler('revealPhrase', revealPhrase);
+        registerUiBridgeHandler('revealAndPlayPhrase', revealAndPlayPhrase);
+        registerUiBridgeHandler('playPhrase', playPhrase);
+        return () => {
+            unregisterUiBridgeHandler('blurPhrases');
+            unregisterUiBridgeHandler('revealPhrase');
+            unregisterUiBridgeHandler('revealAndPlayPhrase');
+            unregisterUiBridgeHandler('playPhrase');
+        };
+    }, [activeForm, buildAllBlurred, cardData, cardLanguage, ensureImageForDefinition, playAudio, revealDefinition]);
 
     useEffect(() => () => {
         stopAudio();
@@ -163,8 +248,16 @@ function Flashcard() {
     if (!cardData) return <div className={styles.flashcardContainer}>Cargando datos...</div>;
 
     return (
-        <div className={styles.flashcardContainer}>
-            <div className={`${styles.card} ${isFlipped ? styles.flipped : ''}`} onClick={() => setIsFlipped(p => !p)}>
+        <div className={styles.flashcardContainer} data-tour="flashcard-contenedor">
+            <div
+                className={`${styles.card} ${isFlipped ? styles.flipped : ''}`}
+                onClick={() => setIsFlipped(p => !p)}
+                data-tour="boton-voltear-tarjeta"
+                data-flipped={isFlipped ? 'true' : 'false'}
+                role="button"
+                aria-pressed={isFlipped}
+                aria-label={language === 'es' ? 'Voltear tarjeta' : 'Flip card'}
+            >
 
 
                 <CardFront
@@ -181,6 +274,7 @@ function Flashcard() {
                     isGeneratingImage={isGeneratingImage}
                     imageUrl={imageUrl}
                     imageRef={imageRef}
+                    imageKey={`${activeForm}-${currentDefIndex}`}
                     playDefinitionMedia={playDefinitionMedia}
                     deleteImage={deleteImage}
                     uploadImage={uploadImage}
@@ -189,12 +283,12 @@ function Flashcard() {
                     canDeleteImages={canDeleteImages}
                     deleteAudio={deleteAudio}
                     isGeneratingAudio={isGeneratingAudio}
-                    currentLanguage={language}
+                    currentLanguage={cardLanguage}
                 />
                 <CardBack
                     cardData={cardData}
                     activeForm={activeForm}
-                    currentLanguage={language}
+                    currentLanguage={cardLanguage}
                 />
             </div>
         </div>

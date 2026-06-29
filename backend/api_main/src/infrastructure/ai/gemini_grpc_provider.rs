@@ -312,7 +312,7 @@ Output ONLY the final scene description (60-85 words) in English."#;
         pos_category: &str,
         meaning: Option<&str>,
         usage_example: Option<&str>,
-        scene_complement: Option<&str>,
+        _scene_complement: Option<&str>,
     ) -> Result<String> {
         if self.api_key == "DISABLED" {
             return Ok(phrase.to_string());
@@ -324,10 +324,8 @@ Output ONLY the final scene description (60-85 words) in English."#;
                 gemini_system_for_landing, GEMINI_SYSTEM_COMPLEMENT_MODE,
             };
 
-            if let Some(comp) = scene_complement.map(str::trim).filter(|s| !s.is_empty()) {
-                let example = usage_example
-                    .filter(|s| !s.is_empty())
-                    .unwrap_or(phrase);
+            if let Some(comp) = _scene_complement.map(str::trim).filter(|s| !s.is_empty()) {
+                let example = usage_example.filter(|s| !s.is_empty()).unwrap_or(phrase);
                 let user = build_complement_mode_user_message(example, meaning, comp);
                 return self
                     .call(
@@ -345,9 +343,9 @@ Output ONLY the final scene description (60-85 words) in English."#;
                 pos_category,
                 meaning,
                 usage_example,
-                scene_complement,
+                _scene_complement,
             );
-            let system = gemini_system_for_landing(scene_complement);
+            let system = gemini_system_for_landing(_scene_complement);
             return self
                 .call(&system, &user, 0.5, "gemini-3.1-flash-lite", None)
                 .await;
@@ -367,6 +365,81 @@ Output ONLY the final scene description (60-85 words) in English."#;
         let user = format!("Text: \"{}\"\nTone: \"{}\"", text, tone);
         self.call(system, &user, 0.5, "gemini-3.1-flash-lite", None)
             .await
+    }
+
+    async fn guide_onboarding_step(
+        &self,
+        locale: &str,
+        step_id: &str,
+        step_index: u32,
+        step_total: u32,
+        event: &str,
+        target_label: &str,
+        target_hint: &str,
+        wrong_target_label: Option<&str>,
+        user_name: Option<&str>,
+        ui_state: Option<&str>,
+    ) -> Result<String> {
+        if self.api_key == "DISABLED" {
+            return Ok(format!(
+                r#"{{"message":"{}"}}"#,
+                target_hint.replace('"', "\\\"")
+            ));
+        }
+
+        let language_rule = if locale == "es" {
+            "Responde SIEMPRE en español claro, motivador y conciso."
+        } else {
+            "Always respond in clear, motivating, concise English."
+        };
+
+        let greeting = user_name
+            .map(|name| format!("Saluda al usuario por su nombre ({name}) solo en event=enter y paso 1."))
+            .unwrap_or_default();
+
+        let system = format!(
+            r#"Eres Gemini actuando como agente de navegación inteligente dentro de Fluency, módulo Flashcards.
+
+IDENTIFICACIÓN HTML (ignora clases CSS decorativas):
+- data-tour: nombre del componente en el mapa (menu-hamburguesa, categoria-item, boton-voltear-tarjeta…)
+- data-categoria: categoría gramatical (pronombres, verbos…)
+- aria-expanded / aria-current: estado de menús y selección
+- ui_state.visible_targets: elementos visibles que el usuario puede tocar ahora
+
+REGLAS:
+1. Usa ui_state y visible_targets para explicar la acción correcta como si estuvieras mirando la pantalla.
+2. El frontend ya marca el target correcto; tú solo dices qué hacer y por qué, sin repetir textos técnicos.
+3. Si el paso abre navegación, explica cuál opción debe marcar/cargar y cómo reconocerla.
+4. Solo sugiere acciones sobre el target_hint actual; no saltes pasos.
+5. No copies literalmente target_label ni target_hint; son contexto para entender la navegación.
+6. Si event=element_missing, advierte que el elemento aún no está en pantalla.
+7. Si event=state_timeout, indica que la vista no cambió y repite la acción esperada.
+8. Si event=wrong_tap, corrige señalando el elemento correcto en lenguaje natural.
+9. Máximo 55 palabras en "message". Tono claro, práctico y natural.
+{language_rule}
+{greeting}
+RESPONDE SOLO JSON: {{"message":"..."}}"#,
+        );
+
+        let mut user = format!(
+            "step_id={}\nstep={}/{}\nevent={}\ntarget_label={}\ntarget_hint={}",
+            step_id, step_index, step_total, event, target_label, target_hint
+        );
+        if let Some(wrong) = wrong_target_label {
+            user.push_str(&format!("\nwrong_target_label={}", wrong));
+        }
+        if let Some(state) = ui_state {
+            user.push_str(&format!("\nui_state={}", state));
+        }
+
+        self.call(
+            &system,
+            &user,
+            if event == "wrong_tap" || event == "state_timeout" { 0.35 } else { 0.5 },
+            "gemini-3.1-flash-lite",
+            Some("application/json"),
+        )
+        .await
     }
 }
 

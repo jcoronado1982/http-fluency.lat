@@ -39,6 +39,11 @@ git checkout "$BRANCH" -q 2>/dev/null || true
 
 if [[ "$BRANCH" == "dev-full" ]]; then
   ./scripts/sparse-module.sh full
+  if [[ -f "client/env-profiles/full.profile" ]]; then
+    cp client/env-profiles/full.profile client/.env.development
+  elif [[ -f "client/.env.development.local" ]]; then
+    cp client/.env.development.local client/.env.development
+  fi
 else
   ./scripts/sparse-module.sh "${SPARSE_MODULES[@]}"
   cp "client/env-profiles/${PROFILE}.profile" client/.env.development

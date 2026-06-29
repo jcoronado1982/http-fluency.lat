@@ -3,6 +3,8 @@ import styles from './Flashcard.module.css';
 import { FaSpinner } from 'react-icons/fa';
 import { FiPlay } from 'react-icons/fi';
 
+import { isLearningEnglish } from './cardLanguageUtils';
+
 /**
  * ConjugationTable — responsable ÚNICAMENTE de renderizar la tabla v1/v2/v3.
  * SRP: no maneja estado de imagen ni audio global.
@@ -16,7 +18,7 @@ function ConjugationTable({ cardData, activeForm, onConjugationSelect, activeAud
         { key: 'v3', form: cardData.irregular.participle?.form, phonetic: cardData.irregular.participle?.phonetic },
     ];
 
-    if (currentLanguage !== 'es') return null; // No conjugations when UI is in English (studying Spanish)
+    if (!isLearningEnglish(currentLanguage)) return null;
 
     const handleFormSelect = (key, form) => {
         onConjugationSelect?.(key, form);

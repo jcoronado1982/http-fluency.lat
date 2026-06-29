@@ -8,6 +8,22 @@ use axum::{
 };
 use serde::Deserialize;
 
+/// Un ítem dentro del lote de actualización de progreso.
+#[derive(Debug, Deserialize)]
+pub struct CardUpdateItem {
+    pub index: usize,
+    pub learned: bool,
+}
+
+/// Payload del endpoint bulk: envía N actualizaciones en una sola petición.
+#[derive(Debug, Deserialize)]
+pub struct UpdateBatchRequest {
+    pub user_id: String,
+    pub category: String,
+    pub deck: String,
+    pub cards: Vec<CardUpdateItem>,
+}
+
 /// HTTP request DTO — lives in the API layer, not in domain.
 #[derive(Debug, Deserialize)]
 pub struct UpdateStatusRequest {
@@ -38,6 +54,50 @@ pub struct DeckQuery {
     pub user_id: String,
     pub category: String,
     pub deck: String,
+}
+
+/// POST /api/update-batch — persiste hasta BATCH_SIZE tarjetas en una sola petición.
+pub async fn update_cards_batch(
+    State(state): State<AppState>,
+    headers: axum::http::HeaderMap,
+    Json(payload): Json<UpdateBatchRequest>,
+) -> Result<impl IntoResponse, (StatusCode, String)> {
+    use crate::api::middleware::auth::extract_claims;
+    let claims = extract_claims(&state, &headers)?;
+    if claims.role != "admin" && claims.email != payload.user_id {
+        return Err((StatusCode::FORBIDDEN, "No autorizado".to_string()));
+    }
+    if payload.cards.is_empty() {
+        return Ok((
+            StatusCode::OK,
+            Json(serde_json::json!({ "success": true, "saved": 0 })),
+        )
+            .into_response());
+    }
+    const MAX_BATCH: usize = 50;
+    if payload.cards.len() > MAX_BATCH {
+        return Err((
+            StatusCode::BAD_REQUEST,
+            format!("El lote no puede superar {} tarjetas", MAX_BATCH),
+        ));
+    }
+    let pairs: Vec<(usize, bool)> = payload
+        .cards
+        .iter()
+        .map(|c| (c.index, c.learned))
+        .collect();
+    match state
+        .deck_use_cases
+        .update_cards_batch(&payload.user_id, &payload.category, &payload.deck, &pairs)
+        .await
+    {
+        Ok(_) => Ok((
+            StatusCode::OK,
+            Json(serde_json::json!({ "success": true, "saved": pairs.len() })),
+        )
+            .into_response()),
+        Err(e) => Err((StatusCode::INTERNAL_SERVER_ERROR, e.to_string())),
+    }
 }
 
 pub async fn get_categories(State(state): State<AppState>) -> impl IntoResponse {
@@ -170,11 +230,7 @@ pub async fn touch_study_day(
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
     let claims = extract_claims(&state, &headers)?;
     match state.deck_use_cases.touch_study_day(&claims.email).await {
-        Ok(_) => Ok((
-            StatusCode::OK,
-            Json(serde_json::json!({ "success": true })),
-        )
-            .into_response()),
+        Ok(_) => Ok((StatusCode::OK, Json(serde_json::json!({ "success": true }))).into_response()),
         Err(e) => Err((StatusCode::INTERNAL_SERVER_ERROR, e.to_string())),
     }
 }

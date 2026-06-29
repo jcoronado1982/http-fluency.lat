@@ -50,7 +50,6 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
         return () => {
             if (timeout) clearTimeout(timeout);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [imageUrl, imageKey, imageRef]);
 
     const showLoader = isProcessActive || (imageUrl && isDecoding);

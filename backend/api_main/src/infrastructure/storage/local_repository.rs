@@ -4,7 +4,7 @@ use crate::domain::repositories::storage::StorageRepository;
 use anyhow::{Context, Result};
 use async_trait::async_trait;
 use moka::future::Cache;
-use std::path::{Path, PathBuf};
+use std::path::{Component, Path, PathBuf};
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::fs;
@@ -132,7 +132,37 @@ impl LocalStorageRepository {
         self.base_path.join(relative)
     }
 
+    fn validate_relative_path(relative_path: &str) -> Result<()> {
+        let relative = relative_path.trim_start_matches('/');
+        if relative.is_empty()
+            || relative.contains('\\')
+            || relative.contains('\0')
+            || relative.contains('\n')
+            || relative.contains('\r')
+            || relative.contains('\t')
+            || relative.contains('\'')
+            || relative.contains('"')
+            || relative.contains(';')
+            || relative.contains('&')
+            || relative.contains('|')
+            || relative.contains('`')
+            || relative.contains('$')
+        {
+            anyhow::bail!("Ruta de storage inválida");
+        }
+
+        for component in Path::new(relative).components() {
+            match component {
+                Component::Normal(segment) if !segment.is_empty() => {}
+                _ => anyhow::bail!("Ruta de storage inválida"),
+            }
+        }
+
+        Ok(())
+    }
+
     /// Ruta local del blob (Oracle prod: mismo disco que sirve Caddy en /card_audio).
+    #[allow(dead_code)]
     pub fn local_blob_path(&self, blob_path: &str) -> PathBuf {
         self.get_full_path(blob_path)
     }
@@ -146,6 +176,7 @@ impl LocalStorageRepository {
 
     /// Descarga bytes de Oracle via HTTP (reutiliza pool de conexiones).
     async fn fetch_from_oracle(&self, path: &str) -> Result<Vec<u8>> {
+        Self::validate_relative_path(path)?;
         let url = format!(
             "{}/{}",
             self.oracle_base_url(),
@@ -170,6 +201,7 @@ impl LocalStorageRepository {
 
     /// Lee bytes directamente del disco de Oracle (sin pasar por HTTP/CDN).
     async fn fetch_from_oracle_ssh(&self, blob_path: &str) -> Result<Vec<u8>> {
+        Self::validate_relative_path(blob_path)?;
         if self.oracle_host.is_empty() {
             return Err(anyhow::anyhow!("Oracle host no configurado"));
         }
@@ -213,6 +245,7 @@ impl LocalStorageRepository {
 
     /// Lista entradas en Oracle via Caddy browse (reutiliza pool de conexiones).
     async fn list_oracle_entries(&self, rel_path: &str, dirs_only: bool) -> Result<Vec<String>> {
+        Self::validate_relative_path(rel_path)?;
         let url = format!(
             "{}/{}/",
             self.oracle_base_url(),
@@ -263,6 +296,7 @@ impl LocalStorageRepository {
     /// Retorna `Result<()>` para que el caller pueda propagar el error al cliente
     /// en vez de devolver una URL que apunta a un archivo que nunca llegó a Oracle.
     async fn scp_to_oracle(&self, local_path: &Path, remote_relative: &str) -> Result<()> {
+        Self::validate_relative_path(remote_relative)?;
         let cp = self.control_path();
         let parent_dir = Path::new(remote_relative)
             .parent()
@@ -379,6 +413,7 @@ impl StorageRepository for LocalStorageRepository {
     }
 
     async fn list_decks(&self, category: &str) -> Result<Vec<String>> {
+        Self::validate_relative_path(category)?;
         let cache_key = format!("decks:{}/{}", self.json_prefix, category);
         if let Some(cached) = self.list_cache.get(&cache_key).await {
             return Ok((*cached).clone());
@@ -427,6 +462,8 @@ impl StorageRepository for LocalStorageRepository {
     }
 
     async fn get_deck_data(&self, category: &str, deck_name: &str) -> Result<DeckData> {
+        Self::validate_relative_path(category)?;
+        Self::validate_relative_path(deck_name)?;
         let mut full_name = deck_name.to_string();
         if !full_name.ends_with(".json") {
             full_name.push_str(".json");
@@ -475,6 +512,8 @@ impl StorageRepository for LocalStorageRepository {
     }
 
     async fn save_deck_data(&self, category: &str, deck_name: &str, data: &DeckData) -> Result<()> {
+        Self::validate_relative_path(category)?;
+        Self::validate_relative_path(deck_name)?;
         let mut full_name = deck_name.to_string();
         if !full_name.ends_with(".json") {
             full_name.push_str(".json");
@@ -516,6 +555,7 @@ impl StorageRepository for LocalStorageRepository {
     }
 
     async fn download_blob(&self, blob_path: &str) -> Result<Vec<u8>> {
+        Self::validate_relative_path(blob_path)?;
         // Copia local reciente (p. ej. recién generada): evita 404 por lag HTTP/CDN de Oracle.
         let path = self.get_full_path(blob_path);
         if path.exists() {
@@ -540,14 +580,13 @@ impl StorageRepository for LocalStorageRepository {
         content: Vec<u8>,
         _content_type: &str,
     ) -> Result<()> {
+        Self::validate_relative_path(blob_path)?;
         let path = self.get_full_path(blob_path);
         if let Some(parent) = path.parent() {
             fs::create_dir_all(parent).await?;
         }
         fs::write(&path, &content).await?;
-        self.exists_cache
-            .insert(blob_path.to_string(), true)
-            .await;
+        self.exists_cache.insert(blob_path.to_string(), true).await;
 
         if self.sync_to_oracle {
             // Oracle es el único repositorio persistente. SCP es síncrono:
@@ -564,6 +603,7 @@ impl StorageRepository for LocalStorageRepository {
     }
 
     async fn blob_exists(&self, blob_path: &str) -> Result<bool> {
+        Self::validate_relative_path(blob_path)?;
         if let Some(cached) = self.exists_cache.get(blob_path).await {
             return Ok(cached);
         }
@@ -576,6 +616,7 @@ impl StorageRepository for LocalStorageRepository {
     }
 
     async fn find_blob_by_prefix(&self, prefix: &str) -> Result<Option<String>> {
+        Self::validate_relative_path(prefix)?;
         let prefix_path = Path::new(prefix);
         let dir_str = prefix_path
             .parent()
@@ -635,6 +676,8 @@ impl StorageRepository for LocalStorageRepository {
     }
 
     async fn rename_blob(&self, from_path: &str, to_path: &str) -> Result<()> {
+        Self::validate_relative_path(from_path)?;
+        Self::validate_relative_path(to_path)?;
         let remote_from = format!(
             "{}/{}",
             self.oracle_remote_path,
@@ -696,6 +739,7 @@ impl StorageRepository for LocalStorageRepository {
     }
 
     async fn delete_blob(&self, blob_path: &str) -> Result<()> {
+        Self::validate_relative_path(blob_path)?;
         // Borrar local si existe (backends efímeros pueden tener copia temporal)
         let path = self.get_full_path(blob_path);
         if path.exists() {
@@ -737,6 +781,7 @@ impl StorageRepository for LocalStorageRepository {
     }
 
     async fn list_files_in_dir(&self, rel_dir: &str) -> Result<Vec<String>> {
+        Self::validate_relative_path(rel_dir)?;
         let rel = rel_dir.trim_start_matches('/');
         let mut names = Vec::new();
 
@@ -768,6 +813,7 @@ impl StorageRepository for LocalStorageRepository {
 
 impl LocalStorageRepository {
     async fn blob_exists_uncached(&self, blob_path: &str) -> Result<bool> {
+        Self::validate_relative_path(blob_path)?;
         if self.sync_to_oracle && !self.oracle_host.is_empty() {
             let remote_file = format!(
                 "{}/{}",
@@ -820,6 +866,7 @@ impl LocalStorageRepository {
 
     /// Un solo `ls` por directorio — mucho más rápido que HEAD por archivo.
     async fn list_oracle_dir_via_ssh(&self, rel_dir: &str) -> Result<Vec<String>> {
+        Self::validate_relative_path(rel_dir)?;
         let remote_dir = format!("{}/{}", self.oracle_remote_path, rel_dir);
         let cp = self.control_path();
 

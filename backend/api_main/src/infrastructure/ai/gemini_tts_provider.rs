@@ -13,6 +13,7 @@ use crate::infrastructure::ai::gemini_voices::normalize_gemini_voice;
 use crate::infrastructure::ai::pcm_ogg::pcm_s16le_mono_to_ogg;
 
 /// Modelo canónico para hashes de caché de audio (no cambia aunque se use fallback).
+#[allow(dead_code)]
 pub const GEMINI_TTS_MODEL: &str = "gemini-2.5-flash-preview-tts";
 
 /// Modelo activo para síntesis. Flash/Pro comentados: cuota agotada en TESTAI.

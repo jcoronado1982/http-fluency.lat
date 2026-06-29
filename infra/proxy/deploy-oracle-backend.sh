@@ -69,7 +69,7 @@ docker run -d \
   -e GOOGLE_CLIENT_ID="$GOOGLE_CLIENT_ID" \
   -e JWT_SECRET="$JWT_SECRET" \
   -e SUPER_ADMIN_EMAIL="$SUPER_ADMIN_EMAIL" \
-  -e SURREAL_URL="${SURREAL_URL:-127.0.0.1:8001}" \
+  -e SURREAL_URL="${SURREAL_URL:-10.0.1.138:8080}" \
   -e SURREAL_NS="${SURREAL_NS:-flashcard}" \
   -e SURREAL_DB="${SURREAL_DB:-flashcard}" \
   -e SURREAL_USER="${SURREAL_USER:-root}" \

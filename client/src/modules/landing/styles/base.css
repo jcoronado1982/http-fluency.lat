@@ -7,6 +7,7 @@
 }
 
 .lp {
+    --lp-section-inline-padding: 20px;
     --c-bg: #0d0509;
     --c-bg2: #140810;
     --c-rose: #be185d;
@@ -146,9 +147,9 @@ main,
     display: flex;
     align-items: center;
     gap: 24px;
-    max-width: 1100px;
+    max-width: var(--shell-content-max-width, 1280px);
     margin: 0 auto;
-    padding: 14px 28px;
+    padding: 14px var(--shell-content-inline-padding, 32px);
 }
 
 .lp-brand {
@@ -183,6 +184,10 @@ main,
     justify-content: center;
     align-items: center;
     gap: 36px;
+}
+
+@media (min-width: 720px) {
+    .lp-nav-links { display: flex; }
 }
 
 .lp-nav-links a {
@@ -260,7 +265,7 @@ main,
     left: 0;
     right: 0;
     height: 1.5px;
-    background: var(--c-orange);
+    background: linear-gradient(90deg, var(--c-rose), var(--c-pink) 55%, var(--c-orange));
     border-radius: 999px;
 }
 
@@ -352,9 +357,9 @@ main,
 
 /* ── Shared section layout ── */
 .lp-section-inner {
-    max-width: 1100px;
+    max-width: var(--shell-content-max-width, 1280px);
     margin: 0 auto;
-    padding: 0 24px;
+    padding-inline: var(--lp-section-inline-padding, var(--shell-content-inline-padding, 32px));
 }
 
 /* ── Zone 1: hero — fondo transparente, solo glow radial ── */

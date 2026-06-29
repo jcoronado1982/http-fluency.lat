@@ -10,9 +10,6 @@
 }
 
 .lp-hero-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 40px;
     display: grid;
     grid-template-columns: 1fr;
     gap: 48px;
@@ -23,7 +20,7 @@
 }
 
 .lp-hero-copy {
-    max-width: 31rem;
+    max-width: 100%;
 }
 
 .lp-hero-eyebrow {
@@ -148,7 +145,11 @@
     min-width: 0;
     overflow: visible;
     margin-bottom: 0;
-    gap: 14px;
+    gap: 20px;
+}
+
+[data-landing-demo] .controlsWrapper {
+    margin-top: 16px !important;
 }
 
 [data-landing-demo] .lp-demo-card-frame {
@@ -156,7 +157,7 @@
     width: 100%;
     max-width: 100%;
     min-width: 0;
-    overflow: hidden;
+    overflow: visible;
     padding-top: 13px;
 }
 
@@ -171,8 +172,8 @@
     margin: 0;
     padding: 6px 14px 6px 12px;
     border-radius: 999px;
-    background: rgba(20, 8, 16, 0.94);
-    border: 1px solid rgba(244, 114, 182, 0.85);
+    background: #140810;
+    border: 1px solid #f472b6;
     font-family: var(--font-family-body);
     font-size: 0.6875rem;
     font-weight: 700;
@@ -182,7 +183,8 @@
     white-space: nowrap;
     pointer-events: none;
     transform: translateY(-50%);
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.32);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    isolation: isolate;
 }
 
 [data-landing-demo] .lp-demo-badge-dot {
@@ -211,9 +213,9 @@
 }
 
 .lp-demo-prompt--card {
-    width: 85%;
-    max-width: 620px;
-    margin: 0 auto 8px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 18px;
     padding: 0;
     background: transparent;
     border: none;
@@ -223,23 +225,34 @@
     align-items: flex-end;
 }
 
+.lp-demo-prompt--card.is-open {
+    align-items: stretch;
+    margin-bottom: 18px;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    background: #1e293b;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+
 .lp-demo-prompt-toggle {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 7px;
     width: auto;
     align-self: flex-end;
-    padding: 7px 14px;
+    padding: 6px 13px;
     border-radius: 10px;
-    border: 1px solid rgba(125, 119, 221, 0.20);
-    background: rgba(15, 23, 42, 0.40);
+    border: 1px solid #334155;
+    background: #1e293b;
     color: var(--c-muted);
-    font-size: 0.78rem;
-    font-weight: 400;
+    font-size: 0.76rem;
+    font-weight: 500;
     cursor: pointer;
     transition: border-color 0.2s, color 0.2s, background 0.2s;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
 }
 
 .lp-demo-prompt-toggle svg {
@@ -248,38 +261,52 @@
 }
 
 .lp-demo-prompt-toggle:hover {
-    border-color: rgba(125, 119, 221, 0.45);
+    border-color: #475569;
     color: var(--c-text);
-    background: rgba(125, 119, 221, 0.08);
+    background: #243044;
 }
 
 .lp-demo-prompt--card.is-open .lp-demo-prompt-toggle {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-color: transparent;
+    width: 100%;
+    align-self: stretch;
+    justify-content: flex-end;
+    margin-bottom: 0;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #334155;
+    box-shadow: none;
+    background: #1e293b;
 }
 
 .lp-demo-prompt-body {
-    padding: 14px;
-    border: 1px solid rgba(125, 119, 221, 0.28);
-    border-top: none;
-    border-radius: 0 0 12px 12px;
-    background: rgba(15, 23, 42, 0.55);
+    width: 100%;
+    padding: 14px 16px 16px;
+    border: none;
+    border-radius: 0;
+    background: #1e293b;
+    box-shadow: none;
 }
 
 .lp-demo-prompt--card .lp-demo-prompt-input {
-    border-color: rgba(125, 119, 221, 0.28);
+    border-color: #334155;
+    background: #0f172a;
+}
+
+.lp-demo-prompt--card .lp-demo-prompt-input:focus {
+    border-color: #2dd4bf;
+    box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.15);
 }
 
 .lp-demo-prompt--card .lp-demo-prompt-apply {
-    border-color: rgba(125, 119, 221, 0.35);
-    background: rgba(125, 119, 221, 0.12);
+    border-color: #334155;
+    background: #0f172a;
     color: var(--c-muted2);
 }
 
 .lp-demo-prompt--card .lp-demo-prompt-apply:hover {
-    border-color: rgba(45, 212, 191, 0.45);
-    background: rgba(45, 212, 191, 0.12);
+    border-color: #2dd4bf;
+    background: #132033;
     color: var(--c-teal);
 }
 
@@ -381,34 +408,34 @@
     gap: 0;
 }
 
-/* Demo card — borde único coherente */
-[data-landing-demo] .card {
-    box-shadow:
-        0 0 0 1px rgba(125, 119, 221, 0.22),
-        0 18px 44px rgba(0, 0, 0, 0.38);
-}
-
-[data-landing-demo] .cardFront,
-[data-landing-demo] .cardBack {
-    border: 1px solid rgba(125, 119, 221, 0.34) !important;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
-    border-radius: 28px !important;
-}
-
-[data-landing-demo] .controlsWrapper {
-    border: 1px solid rgba(125, 119, 221, 0.28) !important;
-    background: rgba(15, 23, 42, 0.55) !important;
-    box-shadow: none !important;
-}
-
+/* Demo: hereda estilos de tarjeta/controles de la app; solo ajustes de layout */
 [data-landing-demo] .imagePlaceholder {
-    border: 1px solid rgba(125, 119, 221, 0.28) !important;
-    box-shadow: none !important;
+    width: 100% !important;
+    height: auto !important;
+    flex: 1 1 auto !important;
+    min-height: clamp(140px, 22vw, 200px) !important;
+    max-height: clamp(180px, 28vw, 240px) !important;
+    margin: clamp(8px, 1.5vh, 14px) auto clamp(6px, 1vh, 10px) !important;
+    border-radius: clamp(14px, 2vw, 20px) !important;
 }
 
-[data-landing-demo] .conjugationTable {
-    border: 1px solid rgba(125, 119, 221, 0.28) !important;
-    background: rgba(15, 23, 42, 0.35) !important;
+@media (min-width: 769px) {
+    [data-landing-demo] .nameContainer {
+        padding-right: 52px !important;
+    }
+
+    [data-landing-demo] .conjugationTable {
+        margin: 8px auto 10px !important;
+    }
+
+    [data-landing-demo] .flashcardContainer {
+        height: clamp(480px, 40vw, 520px) !important;
+        min-height: 480px !important;
+    }
+
+    [data-landing-demo] .controlsWrapper {
+        margin-top: 18px !important;
+    }
 }
 
 .lp-demo-widget-placeholder {

@@ -1,0 +1,16 @@
+/* Tokens de marca — app autenticada (flashcards, dashboard, pronombres, admin, login) */
+.app-layout,
+.minimal-app-shell,
+.flashcard-page-wrapper:not([data-landing-demo]),
+.admin-page,
+.arcadeContainer,
+.arcadeStatePanel,
+.completionOverlay,
+.courseContainer {
+  --brand-rose: #f472b6;
+  --brand-rose-dark: #be185d;
+  --brand-orange: #fb923c;
+  --brand-gradient: linear-gradient(90deg, #be185d, #f472b6 55%, #fb923c);
+  --brand-gradient-btn: linear-gradient(135deg, #be185d, #f472b6 50%, #fb923c);
+  --brand-surface: #151c2c;
+}

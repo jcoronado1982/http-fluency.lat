@@ -217,6 +217,8 @@ stages:
           deploy-caddy.sh
           deploy-oracle-backend.sh
           deploy-surrealdb.sh
+          deploy-surrealdb-oci1.sh
+          oci1-db-tuning.sh
           docker-gcr-auth.sh
           bootstrap-oracle.sh
           sync-json-to-oracle.sh
@@ -323,6 +325,8 @@ stages:
           deploy-caddy.sh
           deploy-oracle-backend.sh
           deploy-surrealdb.sh
+          deploy-surrealdb-oci1.sh
+          oci1-db-tuning.sh
           docker-gcr-auth.sh
           bootstrap-oracle.sh
           sync-json-to-oracle.sh
@@ -360,7 +364,7 @@ stages:
           export SUPER_ADMIN_EMAIL="$(SUPER_ADMIN_EMAIL_VAL)"
           export GOOGLE_CREDENTIALS_JSON="$(GCP_CREDS_B64)"
           export RUST_LOG=info
-          export SURREAL_URL=127.0.0.1:8001
+          export SURREAL_URL=10.0.1.138:8080
           export SURREAL_USER=root
           export SURREAL_PASS=root
 
@@ -430,55 +434,35 @@ stages:
           fi
           echo "Oracle Mirror OK"
 
-  # ── B. OCI-1 Mirror ────────────────────────────────────────────────
+  # ── B. OCI-1 — SurrealDB dedicado (500 usuarios concurrentes) ───────────
   - job: Mirror_OCI1
-    displayName: 'OCI-1 Mirror (129.158.214.227)'
+    displayName: 'OCI-1 DB Dedicada (129.158.214.227)'
     dependsOn: Mirror_Oracle
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
     pool: { name: 'Default' }
     steps:
-    - script: |
-        set -euo pipefail
-        command -v sshpass >/dev/null || { echo "sshpass no instalado en el agente"; exit 1; }
-        GCP_CREDS_B64="$(printf '%s' '$(GCP_KEY_JSON)' | base64 -w0)"
-        cat > $(Agent.TempDirectory)/deploy-oci1.sh << EOF
-        #!/bin/bash
-        set -euo pipefail
-        IMAGE="gcr.io/launch-490115/flashcard-backend:latest"
-        CONTAINER="flashcard-backend-node"
-        GOOGLE_CREDENTIALS_JSON="${GCP_CREDS_B64}"
-        KEY_TMP="\$(mktemp /tmp/gcp-key-XXXXXX)"
-        AUTH_TMP="\$(mktemp -d /tmp/docker-auth-XXXXXX)"
-        chmod 600 "\$KEY_TMP"
-        chmod 700 "\$AUTH_TMP"
-        trap 'rm -rf "\$AUTH_TMP" "\$KEY_TMP" /tmp/gcp-deploy-key.json' EXIT
-        printf '%s' "\$GOOGLE_CREDENTIALS_JSON" | base64 -d > "\$KEY_TMP"
-        export DOCKER_CONFIG="\$AUTH_TMP"
-        cat "\$KEY_TMP" | docker login -u _json_key --password-stdin https://gcr.io >/dev/null
-        docker pull "\$IMAGE"
-        rm -rf "\$AUTH_TMP"
-        unset DOCKER_CONFIG
-        docker stop "\$CONTAINER" 2>/dev/null || true
-        docker rm   "\$CONTAINER" 2>/dev/null || true
-        docker run -d --name "\$CONTAINER" -p 8080:8080 --restart always \
-          -e DATABASE_URL="$(DATABASE_URL)" \
-          -e GEMINI_API_KEY="$(GEMINI_API_KEY)" \
-          -e GCP_API_KEY="$(GCP_API_KEY)" \
-          -e GOOGLE_CREDENTIALS_JSON="\$GOOGLE_CREDENTIALS_JSON" \
-          -e RUST_LOG="info" \
-          -e GOOGLE_CLIENT_ID="$(GOOGLE_CLIENT_ID)" \
-          -e JWT_SECRET="$(JWT_SECRET)" \
-          "\$IMAGE"
-        rm -f "\$KEY_TMP" /tmp/gcp-deploy-key.json
-        echo "OCI-1 Mirror OK"
-        EOF
-        chmod +x $(Agent.TempDirectory)/deploy-oci1.sh
-        sshpass -p '$(OCI_PASSWORD)' scp -o StrictHostKeyChecking=no \
-          $(Agent.TempDirectory)/deploy-oci1.sh \
-          root@129.158.214.227:/tmp/
-        sshpass -p '$(OCI_PASSWORD)' ssh -o StrictHostKeyChecking=no \
-          root@129.158.214.227 'bash /tmp/deploy-oci1.sh'
-      displayName: 'Deploy OCI-1'
+    - task: CopyFilesOverSSH@0
+      displayName: 'Sync OCI-1 DB scripts'
+      inputs:
+        sshEndpoint: $(ociSshConn)
+        sourceFolder: 'infra/proxy'
+        contents: |
+          deploy-surrealdb-oci1.sh
+          oci1-db-tuning.sh
+        targetFolder: '/root/smart-proxy/infra-proxy'
+        cleanTargetFolder: false
+    - task: SSH@0
+      displayName: 'Deploy SurrealDB OCI-1 (800m, host network)'
+      inputs:
+        sshEndpoint: $(ociSshConn)
+        runOptions: inline
+        failOnStdErr: false
+        inline: |
+          set -euo pipefail
+          chmod +x /root/smart-proxy/infra-proxy/deploy-surrealdb-oci1.sh
+          chmod +x /root/smart-proxy/infra-proxy/oci1-db-tuning.sh
+          bash /root/smart-proxy/infra-proxy/deploy-surrealdb-oci1.sh
+          echo "OCI-1 DB deploy OK"
 
   # ── C. AWS Mirror ───────────────────────────────────────────────────
   - job: Mirror_AWS

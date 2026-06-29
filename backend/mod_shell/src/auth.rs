@@ -109,6 +109,7 @@ impl AuthUseCases {
                     } else {
                         "viewer".to_string()
                     },
+                    onboarding_completed: false,
                     created_at: Utc::now(),
                     last_login: Utc::now(),
                 };
@@ -137,6 +138,16 @@ impl AuthUseCases {
 
     pub async fn get_user_profile(&self, email: &str) -> Result<Option<User>> {
         self.user_repo.get_user_by_email(email).await
+    }
+
+    pub async fn set_onboarding_completed(
+        &self,
+        email: &str,
+        completed: bool,
+    ) -> Result<Option<User>> {
+        self.user_repo
+            .set_onboarding_completed(email, completed)
+            .await
     }
 
     async fn validate_google_token(&self, id_token: &str) -> Result<GooglePayload> {
@@ -278,11 +289,7 @@ impl AuthUseCases {
     /// - admin siempre conserva su rol.
     /// - Suscripción activa y no vencida → premium.
     /// - Sin suscripción o vencida → viewer.
-    fn resolve_role(
-        &self,
-        user: &User,
-        sub: Option<&Subscription>,
-    ) -> String {
+    fn resolve_role(&self, user: &User, sub: Option<&Subscription>) -> String {
         if Self::is_admin_role(&user.role) {
             return "admin".to_string();
         }
@@ -292,11 +299,7 @@ impl AuthUseCases {
         }
     }
 
-    fn generate_jwt(
-        &self,
-        user: &User,
-        sub: Option<&Subscription>,
-    ) -> Result<String> {
+    fn generate_jwt(&self, user: &User, sub: Option<&Subscription>) -> Result<String> {
         let default_exp = Utc::now()
             .checked_add_signed(ChronoDuration::days(7))
             .expect("valid timestamp");
@@ -343,6 +346,7 @@ impl AuthUseCases {
             name: "Invitado Local".to_string(),
             picture: None,
             role: "admin".to_string(),
+            onboarding_completed: false,
             created_at: now,
             last_login: now,
         };

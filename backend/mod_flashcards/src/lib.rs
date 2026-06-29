@@ -1,9 +1,9 @@
+use anyhow::Result;
 use fluency_core::domain::models::flashcard::DeckData;
 use fluency_core::domain::models::user_activity::{LearningStats, B2_VOCABULARY_TARGET};
 use fluency_core::ports::db_repository::{CardProgressRepository, UserActivityRepository};
 use fluency_core::ports::storage::StorageRepository;
 use std::sync::Arc;
-use anyhow::Result;
 
 pub mod audio_use_cases;
 pub mod batch;
@@ -12,9 +12,59 @@ pub mod landing_demo_image_prompt;
 
 /// Categoría de storage para el demo del landing (aislada del sistema interno).
 pub const LANDING_DEMO_CATEGORY: &str = "landing-demo";
+const MAX_STORAGE_SEGMENT_LEN: usize = 96;
 
 pub fn is_landing_demo_namespace(category: &str) -> bool {
     category == LANDING_DEMO_CATEGORY
+}
+
+pub fn safe_storage_segment(value: &str, field: &str) -> Result<String> {
+    let trimmed = value.trim();
+    if trimmed.is_empty() || trimmed.len() > MAX_STORAGE_SEGMENT_LEN {
+        anyhow::bail!("{field} inválido");
+    }
+
+    if trimmed
+        .chars()
+        .all(|c| c.is_ascii_alphanumeric() || matches!(c, '-' | '_'))
+    {
+        return Ok(trimmed.to_ascii_lowercase());
+    }
+
+    anyhow::bail!("{field} contiene caracteres no permitidos")
+}
+
+pub fn safe_deck_prefix(deck: &str) -> Result<String> {
+    let trimmed = deck.trim();
+    let without_ext = trimmed.strip_suffix(".json").unwrap_or(trimmed);
+    safe_storage_segment(without_ext, "deck")
+}
+
+pub fn safe_form_suffix(form: Option<&str>) -> Result<String> {
+    match form.map(str::trim).filter(|value| !value.is_empty()) {
+        None | Some("v1") => Ok(String::new()),
+        Some("v2") => Ok("_v2".to_string()),
+        Some("v3") => Ok("_v3".to_string()),
+        Some(_) => anyhow::bail!("form inválido"),
+    }
+}
+
+pub fn safe_language_suffix(lang: Option<&str>) -> Result<String> {
+    match lang.map(str::trim).filter(|value| !value.is_empty()) {
+        None | Some("en") => Ok(String::new()),
+        Some(value) => {
+            let normalized = value.to_ascii_lowercase();
+            if normalized.len() <= 16
+                && normalized
+                    .chars()
+                    .all(|c| c.is_ascii_alphanumeric() || c == '-')
+            {
+                Ok(format!("_{normalized}"))
+            } else {
+                anyhow::bail!("lang inválido")
+            }
+        }
+    }
 }
 
 #[derive(Clone)]
@@ -174,6 +224,35 @@ impl DeckUseCases {
 
     pub async fn list_files_in_dir(&self, rel_dir: &str) -> Result<Vec<String>> {
         self.storage_repo.list_files_in_dir(rel_dir).await
+    }
+
+    /// Persiste un lote de actualizaciones de tarjetas en una sola operación.
+    /// Equivalente a llamar `update_card_status` N veces pero con una sola petición HTTP.
+    pub async fn update_cards_batch(
+        &self,
+        user_id: &str,
+        category: &str,
+        deck_name: &str,
+        cards: &[(usize, bool)],
+    ) -> Result<()> {
+        if cards.is_empty() {
+            return Ok(());
+        }
+        let deck_key = deck_name.replace(".json", "");
+        let normalized: Vec<(i32, bool)> = cards
+            .iter()
+            .map(|&(idx, learned)| (idx as i32, learned))
+            .collect();
+
+        self.db_repo
+            .upsert_cards_batch(user_id, category, &deck_key, &normalized)
+            .await?;
+
+        let any_learned = cards.iter().any(|&(_, learned)| learned);
+        if any_learned {
+            self.activity_repo.record_study_day(user_id).await?;
+        }
+        Ok(())
     }
 
     pub async fn touch_study_day(&self, user_id: &str) -> Result<()> {

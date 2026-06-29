@@ -11,6 +11,7 @@ Cualquier IA asistente de codificación en este editor debe seguir estas instruc
 ## 🗺️ 2. Foco de Contexto Inteligente (Mapa de Dominios)
 *   Antes de leer o modificar archivos, consulta `docs/MAPA_DOMINIOS.md` y activa sparse-checkout del módulo relevante (`./scripts/sparse-module.sh flashcards|pronoun`).
 *   Carga únicamente el shell compartido + el módulo activo para mantener la ventana de contexto limpia.
+*   **Infraestructura Oracle/DB (Jun 2026):** Antes de tocar deploy, SurrealDB, Caddy o servidores, leer `docs/infrastructure/ARQUITECTURA_ORACLE_DB.md`. SurrealDB vive en OCI-1 (`10.0.1.138:8080`), no en el proxy. Postgres está en Azure, no en OCI-1.
 
 ## ⚙️ 3. Metodología del Arnés (Emulación Nativa)
 Para ahorrar los tokens de API de Google AI Studio del usuario, la IA del editor debe asumir las funciones del arnés de forma nativa utilizando sus herramientas de chat e integración:

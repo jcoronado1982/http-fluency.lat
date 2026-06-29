@@ -1,4 +1,5 @@
 pub mod flashcard;
+pub mod onboarding;
 pub mod story;
 pub mod subscription;
 pub mod tutor;

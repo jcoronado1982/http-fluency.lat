@@ -1,9 +1,7 @@
 use mod_flashcards::audio_use_cases::AudioSynthRequest;
 use mod_flashcards::image_use_cases::{ImageGenRequest, UploadImageRequest};
 
-use crate::api::dto::generation::{
-    DeleteAudioBody, GenerateImageBody, SynthesizeSpeechBody,
-};
+use crate::api::dto::generation::{DeleteAudioBody, GenerateImageBody, SynthesizeSpeechBody};
 
 pub fn to_audio_synth_request(body: SynthesizeSpeechBody) -> AudioSynthRequest {
     AudioSynthRequest {

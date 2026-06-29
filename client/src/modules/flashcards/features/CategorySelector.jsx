@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import styles from './CategorySelector.module.css';
 import { useUIContext } from '../../../context/UIContext';
+import { useDialog } from '../../../context/AppContext';
 import { useFlashcardUiContext } from '../context/FlashcardUiContext';
 import { useFlashcardContext } from '../context/FlashcardContext';
 import { useCategoryContext } from '../context/CategoryContext';
 import { getFlashcardTranslations } from '../config/translations';
 import { sortGroups } from '../config/catalogOrder';
+import { categoryToTourSlug } from '../config/onboardingUiAutomation';
 
 // Los totales son dinámicos — vienen del contexto que obtiene el conteo real del backend
 
@@ -32,8 +34,9 @@ const formatName = (name, t) => {
 
 function CategorySelector() {
     const { language = 'en' } = useUIContext();
+    const { confirm } = useDialog();
     const { setIsCatalogVisible } = useFlashcardUiContext();
-    const { categories, currentCategory, changeCategory } = useCategoryContext();
+    const { categories, currentCategory, changeCategory, isLoading: categoriesLoading } = useCategoryContext();
     const t = getFlashcardTranslations(language).categorySelector;
 
     const { categoryTotals } = useCategoryContext();
@@ -70,7 +73,6 @@ function CategorySelector() {
             if (aComplete === bComplete) return 0;
             return aComplete ? 1 : -1;
         });
-
     // "3-advanced" contiene la subcadena "basic" → hay que evaluar advanced antes que basic.
     const getLevelFromDeckName = (deckName) => {
         if (!deckName) return 'basic';
@@ -96,16 +98,17 @@ function CategorySelector() {
 
     const handleGroupClick = (groupName) => {
         setSelectedGroup(groupName === 'General' ? null : groupName);
-        setIsCatalogVisible(false);
     };
 
     const handleGroupReset = async (event, groupName) => {
         event.stopPropagation();
 
         const groupLabel = t.groups?.[groupName] || groupName;
-        const shouldReset = window.confirm(
-            t.restartGroupConfirm.replace('{group}', groupLabel),
-        );
+        const shouldReset = await confirm({
+            title: t.restartGroupConfirm.replace('{group}', groupLabel),
+            tone: 'danger',
+            confirmLabel: t.restartGroup,
+        });
 
         if (!shouldReset) return;
 
@@ -130,16 +133,19 @@ function CategorySelector() {
 
     return (
         <div className={styles.categorySelectorOverlay}>
-            <div className={styles.dashboardContainer}>
+            <div className={styles.dashboardContainer} data-tour="catalogo-modal">
                 {/* Botón de cerrar */}
                 <button className={styles.closeBtn} onClick={() => setIsCatalogVisible(false)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
 
                 {/* Sidebar Izquierda */}
-                <aside className={styles.sidebar}>
+                <aside className={styles.sidebar} data-tour="panel-categorias">
                     <h3 className={styles.sidebarTitle}>{t.categoryTitle}</h3>
                     <nav className={styles.categoryNav}>
+                        {categoriesLoading && categories.length === 0 && (
+                            <p className={styles.sidebarLoading}>{t.loadingCategories || '…'}</p>
+                        )}
                         {categories.map(cat => {
                             const isActive = cat === currentCategory;
                             const count = categoryTotals[cat] ?? '…';
@@ -149,6 +155,9 @@ function CategorySelector() {
                                     key={cat}
                                     className={`${styles.categoryBtn} ${isActive ? styles.activeCategory : ''}`}
                                     onClick={() => handleCategoryClick(cat)}
+                                    data-tour="categoria-item"
+                                    data-categoria={categoryToTourSlug(cat)}
+                                    aria-current={isActive ? 'true' : undefined}
                                 >
                                     <span className={styles.categoryInfo}>
                                         <span className={styles.dot} style={{ backgroundColor: dotColor }} />
@@ -165,7 +174,7 @@ function CategorySelector() {
                 <main className={styles.mainContent}>
                     {/* Header superior */}
                     <div className={styles.header}>
-                        <div className={styles.levelSelector}>
+                        <div className={styles.levelSelector} data-tour="catalogo-nivel">
                             <span className={styles.selectorLabel}>{t.level}</span>
                             <div className={styles.levelButtons}>
                                 {['basic', 'intermediate', 'advanced'].map(lvl => {
@@ -193,8 +202,8 @@ function CategorySelector() {
                     </div>
 
                     {/* Grilla de grupos */}
-                    <div className={styles.groupsGrid}>
-                        {groupsList.map(group => {
+                    <div className={styles.groupsGrid} data-tour="catalogo-grid">
+                        {groupsList.map((group) => {
                             const progressPercent = (group.learned / group.total) * 100;
                             const isComplete = group.learned === group.total;
                             const isNew = group.learned === 0;
@@ -212,6 +221,7 @@ function CategorySelector() {
                                     onClick={isComplete ? undefined : () => handleGroupClick(group.name)}
                                     style={{ '--card-accent': categoryColor }}
                                     aria-disabled={isComplete}
+                                    data-tour={!isComplete ? 'boton-abrir-categoria' : undefined}
                                 >
                                     <div className={styles.groupHeader}>
                                         <h4 className={styles.groupName}>{t.groups && t.groups[group.name] ? t.groups[group.name] : group.name}</h4>

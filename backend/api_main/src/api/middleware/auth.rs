@@ -1,7 +1,7 @@
-#[cfg(feature = "auth")]
-pub use mod_shell::auth::Claims;
 use crate::AppState;
 use axum::http::StatusCode;
+#[cfg(feature = "auth")]
+pub use mod_shell::auth::Claims;
 
 #[cfg(not(feature = "auth"))]
 #[derive(Debug, serde::Serialize, serde::Deserialize, Clone)]
@@ -14,10 +14,8 @@ pub struct Claims {
 }
 
 /// Extrae JWT si existe; si no, devuelve un viewer invitado (solo lectura de caché global).
-pub fn extract_claims_or_guest(
-    state: &AppState,
-    headers: &axum::http::HeaderMap,
-) -> Claims {
+#[cfg(feature = "flashcards")]
+pub fn extract_claims_or_guest(state: &AppState, headers: &axum::http::HeaderMap) -> Claims {
     extract_claims(state, headers).unwrap_or_else(|_| Claims {
         sub: "guest".to_string(),
         email: "guest@fluency.lat".to_string(),

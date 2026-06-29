@@ -8,6 +8,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  build: {
+    chunkSizeWarningLimit: 1600,
+  },
   server: {
     port: 5173,
     allowedHosts: true,

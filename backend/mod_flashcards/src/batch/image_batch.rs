@@ -1,5 +1,5 @@
-use fluency_core::domain::models::flashcard::Flashcard;
 use crate::image_use_cases::ImageGenRequest;
+use fluency_core::domain::models::flashcard::Flashcard;
 use std::collections::HashSet;
 use std::io::{stdout, Write};
 
@@ -15,7 +15,10 @@ pub async fn run_batch_image_generation(
     run_batch(ctx, BatchMode::GenerateAndLink, filter).await
 }
 
-pub async fn run_batch_image_linking(ctx: super::context::ImageBatchContext, filter: BatchFilter) -> anyhow::Result<()> {
+pub async fn run_batch_image_linking(
+    ctx: super::context::ImageBatchContext,
+    filter: BatchFilter,
+) -> anyhow::Result<()> {
     run_batch(ctx, BatchMode::LinkOnly, filter).await
 }
 
@@ -65,7 +68,11 @@ struct DefSlot {
     def_index: usize,
 }
 
-async fn run_batch(ctx: super::context::ImageBatchContext, mode: BatchMode, filter: BatchFilter) -> anyhow::Result<()> {
+async fn run_batch(
+    ctx: super::context::ImageBatchContext,
+    mode: BatchMode,
+    filter: BatchFilter,
+) -> anyhow::Result<()> {
     let title = match mode {
         BatchMode::GenerateAndLink => "GENERACIÓN MASIVA + ENLACE JSON",
         BatchMode::LinkOnly => "ENLACE MASIVO DE IMÁGENES EXISTENTES",
@@ -128,10 +135,7 @@ async fn run_batch(ctx: super::context::ImageBatchContext, mode: BatchMode, filt
             println!("  📦 Mazo: {deck_name}");
             let _ = stdout().flush();
 
-            let mut deck_data = ctx
-                .deck
-                .get_deck_json(&cat_name, &deck_name)
-                .await?;
+            let mut deck_data = ctx.deck.get_deck_json(&cat_name, &deck_name).await?;
             let card_count = deck_data.flashcards().len();
 
             let img_dir = format!("{images_prefix}/{cat_name}/{deck_prefix}");

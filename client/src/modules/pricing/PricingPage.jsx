@@ -11,6 +11,7 @@ import { getAuthenticatedHomePath } from '../index';
 import { pricingLandingSectionLink } from './config/publicNavigation';
 import { getPricingPlanCards } from './config/planCatalog';
 import { getPricingTranslations } from './translations';
+import ShellFooter from '../../components/shell/ShellFooter';
 import './PricingPage.css';
 
 const FEATURE_ICONS = [FiBook, FiZap, FiVolume2, FiGlobe, FiImage, FiImage, FiVolume2, FiStar];
@@ -197,6 +198,7 @@ export default function PricingPage() {
                 <section className="pricing-comparison">
                     <div className="pricing-comparison-inner">
                         <h2 className="pricing-comparison-title">{t.comparison.title}</h2>
+                        <div className="pricing-table-wrap">
                         <div className="pricing-table-wrapper">
                             <table className="pricing-table">
                                 <thead>
@@ -231,6 +233,7 @@ export default function PricingPage() {
                                 </tbody>
                             </table>
                         </div>
+                        </div>
                     </div>
                 </section>
 
@@ -238,6 +241,7 @@ export default function PricingPage() {
                 <section className="pricing-why">
                     <div className="pricing-why-inner">
                         <h2>{t.why.title}</h2>
+                        <div className="pricing-why-grid-wrap">
                         <div className="pricing-why-grid">
                             <div className="pricing-why-card">
                                 <FiStar className="pricing-why-icon" />
@@ -260,6 +264,7 @@ export default function PricingPage() {
                                 <p>{t.why.c4Desc}</p>
                             </div>
                         </div>
+                        </div>
                     </div>
                 </section>
 
@@ -281,15 +286,14 @@ export default function PricingPage() {
                 </section>
             </main>
 
-            {/* FOOTER */}
-            <footer className="pricing-footer">
-                <div className="pricing-footer-inner">
-                    <p>© 2026 Fluency · <a href="https://fluency.lat" target="_blank" rel="noopener noreferrer">fluency.lat</a></p>
-                    <p className="pricing-footer-note">
-                        {t.footer.note}
-                    </p>
-                </div>
-            </footer>
+            <ShellFooter
+                variant="landing"
+                labels={{
+                    documentation: t.footer.documentation,
+                    portfolio: t.footer.portfolio,
+                    github: t.footer.github,
+                }}
+            />
         </div>
     );
 }

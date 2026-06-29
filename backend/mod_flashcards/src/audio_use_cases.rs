@@ -8,22 +8,60 @@ use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
 use std::sync::Arc;
 
-use crate::{is_landing_demo_namespace, FlashcardsConfig};
+use crate::{
+    is_landing_demo_namespace, safe_deck_prefix, safe_language_suffix, safe_storage_segment,
+    FlashcardsConfig,
+};
 
 const GEMINI_TTS_MODEL: &str = "gemini-2.5-flash-preview-tts";
 const SPANISH_TTS_BACKEND: &str = "cloud-gemini-es-419-v1";
 const GEMINI_MALE_VOICES: &[&str] = &[
-    "Algenib", "Algieba", "Alnilam", "Charon", "Enceladus", "Iapetus", "Orus", "Fenrir",
-    "Puck", "Sadaltager", "Umbriel",
+    "Algenib",
+    "Algieba",
+    "Alnilam",
+    "Charon",
+    "Enceladus",
+    "Iapetus",
+    "Orus",
+    "Fenrir",
+    "Puck",
+    "Sadaltager",
+    "Umbriel",
 ];
 const GEMINI_FEMALE_VOICES: &[&str] = &[
-    "Achernar", "Autonoe", "Callirrhoe", "Erinome", "Gacrux", "Kore", "Laomedeia",
-    "Sulafat", "Zephyr", "Aoede",
+    "Achernar",
+    "Autonoe",
+    "Callirrhoe",
+    "Erinome",
+    "Gacrux",
+    "Kore",
+    "Laomedeia",
+    "Sulafat",
+    "Zephyr",
+    "Aoede",
 ];
 const GEMINI_VOICE_POOL: &[&str] = &[
-    "Achernar", "Algenib", "Algieba", "Alnilam", "Autonoe", "Aoede", "Callirrhoe", "Charon",
-    "Enceladus", "Erinome", "Fenrir", "Gacrux", "Iapetus", "Kore", "Laomedeia", "Orus",
-    "Puck", "Sadaltager", "Sulafat", "Umbriel", "Zephyr",
+    "Achernar",
+    "Algenib",
+    "Algieba",
+    "Alnilam",
+    "Autonoe",
+    "Aoede",
+    "Callirrhoe",
+    "Charon",
+    "Enceladus",
+    "Erinome",
+    "Fenrir",
+    "Gacrux",
+    "Iapetus",
+    "Kore",
+    "Laomedeia",
+    "Orus",
+    "Puck",
+    "Sadaltager",
+    "Sulafat",
+    "Umbriel",
+    "Zephyr",
 ];
 
 /// Voces premade ElevenLabs para el landing demo (etiqueta, voice_id).
@@ -122,23 +160,24 @@ impl AudioUseCases {
 
     /// Comprueba si el audio global (capa admin) ya está en storage.
     pub async fn global_audio_exists(&self, req: &AudioSynthRequest) -> Result<bool> {
-        let blob_path = self.global_audio_blob_path(req);
+        let blob_path = self.global_audio_blob_path(req)?;
         self.storage_repo.blob_exists(&blob_path).await
     }
 
     /// Nombre de archivo OGG global (sin prefijo `card_audio/`).
-    pub fn global_audio_basename(&self, req: &AudioSynthRequest) -> String {
-        self.deterministic_audio_filename(req, None, false)
+    pub fn global_audio_basename(&self, req: &AudioSynthRequest) -> Result<String> {
+        Ok(self
+            .deterministic_audio_filename(req, None, false)?
             .rsplit('/')
             .next()
             .unwrap_or("")
-            .to_string()
+            .to_string())
     }
 
     /// Ruta completa del blob global (p. ej. para logs del batch).
-    pub fn global_audio_blob_path(&self, req: &AudioSynthRequest) -> String {
-        let file_name = self.deterministic_audio_filename(req, None, false);
-        format!("{}/{}", self.config.gcs_audio_prefix, file_name)
+    pub fn global_audio_blob_path(&self, req: &AudioSynthRequest) -> Result<String> {
+        let file_name = self.deterministic_audio_filename(req, None, false)?;
+        Ok(format!("{}/{}", self.config.gcs_audio_prefix, file_name))
     }
 
     /// Precarga audio en la **capa global compartida** (misma ruta que si un admin lo genera desde la UI).
@@ -219,7 +258,7 @@ impl AudioUseCases {
 
         if demo_elevenlabs {
             let (label, id) = self.pick_random_elevenlabs_voice(req.exclude_voice.as_deref());
-            let file_name = self.deterministic_audio_filename(req, user_segment.as_deref(), true);
+            let file_name = self.deterministic_audio_filename(req, user_segment.as_deref(), true)?;
             let blob_path = format!("{}/{}", self.config.gcs_audio_prefix, file_name);
 
             match self
@@ -230,11 +269,7 @@ impl AudioUseCases {
                 .await
             {
                 Ok(bytes) => {
-                    tracing::info!(
-                        "✨ Demo ElevenLabs → {} (voz={})",
-                        blob_path,
-                        label
-                    );
+                    tracing::info!("✨ Demo ElevenLabs → {} (voz={})", blob_path, label);
                     self.storage_repo
                         .upload_blob(&blob_path, bytes, Self::audio_mime_type(true))
                         .await?;
@@ -252,7 +287,7 @@ impl AudioUseCases {
         }
 
         let voice = self.pick_random_voice(req.exclude_voice.as_deref());
-        let file_name = self.deterministic_audio_filename(req, user_segment.as_deref(), false);
+        let file_name = self.deterministic_audio_filename(req, user_segment.as_deref(), false)?;
         let blob_path = format!("{}/{}", self.config.gcs_audio_prefix, file_name);
 
         tracing::info!(
@@ -297,30 +332,32 @@ impl AudioUseCases {
         }
 
         if demo_elevenlabs {
-            let el_name = self.deterministic_audio_filename(req, user_segment.as_deref(), true);
+            let el_name = self.deterministic_audio_filename(req, user_segment.as_deref(), true)?;
             if let Some(result) = self.try_cached_audio(&el_name).await? {
                 return Ok(Some(result));
             }
         }
 
-        let file_name = self.deterministic_audio_filename(req, user_segment.as_deref(), false);
+        let file_name = self.deterministic_audio_filename(req, user_segment.as_deref(), false)?;
         if let Some(result) = self.try_cached_audio(&file_name).await? {
             return Ok(Some(result));
         }
 
-        let deck_prefix = req.deck.replace(".json", "");
+        let deck_prefix = safe_deck_prefix(&req.deck)?;
         let verb_slug = self.slugify(&req.verb_name.as_deref().unwrap_or("none"), 40);
         let text_slug = self.slugify(&req.text, 40);
-        let lang_suffix = match req.lang.as_deref() {
-            Some(l) if !l.is_empty() && l != "en" => format!("_{}", l),
-            _ => "".to_string(),
-        };
+        let lang_suffix = safe_language_suffix(req.lang.as_deref())?;
         let skip_legacy = Self::is_non_english_lang(req.lang.as_deref());
 
         if !is_admin {
-            let global_file = self.deterministic_audio_filename(req, None, false);
+            let global_file = self.deterministic_audio_filename(req, None, false)?;
             let global_path = format!("{}/{}", self.config.gcs_audio_prefix, global_file);
-            if self.storage_repo.blob_exists(&global_path).await.unwrap_or(false) {
+            if self
+                .storage_repo
+                .blob_exists(&global_path)
+                .await
+                .unwrap_or(false)
+            {
                 tracing::info!("✅ Audio global fallback: {}", global_path);
                 return Ok(Some(self.build_result(&global_file, "", true)));
             }
@@ -370,7 +407,7 @@ impl AudioUseCases {
         } else {
             Some(user_path_segment(user_email))
         };
-        let file_name = self.deterministic_audio_filename(req, user_segment.as_deref(), false);
+        let file_name = self.deterministic_audio_filename(req, user_segment.as_deref(), false)?;
         let blob_path = format!("{}/{}", self.config.gcs_audio_prefix, file_name);
 
         if self
@@ -383,7 +420,7 @@ impl AudioUseCases {
         }
 
         if self.uses_elevenlabs_demo(is_landing_demo_namespace(&req.category)) {
-            let el_name = self.deterministic_audio_filename(req, user_segment.as_deref(), true);
+            let el_name = self.deterministic_audio_filename(req, user_segment.as_deref(), true)?;
             let el_path = format!("{}/{}", self.config.gcs_audio_prefix, el_name);
             if self
                 .storage_repo
@@ -395,13 +432,10 @@ impl AudioUseCases {
             }
         }
 
-        let deck_prefix = req.deck.replace(".json", "");
+        let deck_prefix = safe_deck_prefix(&req.deck)?;
         let verb_slug = self.slugify(&req.verb_name.as_deref().unwrap_or("none"), 40);
         let text_slug = self.slugify(&req.text, 40);
-        let lang_suffix = match req.lang.as_deref() {
-            Some(l) if !l.is_empty() && l != "en" => format!("_{}", l),
-            _ => "".to_string(),
-        };
+        let lang_suffix = safe_language_suffix(req.lang.as_deref())?;
 
         if let Some(legacy) = self
             .find_legacy_audio(req, &deck_prefix, &verb_slug, &text_slug, &lang_suffix)
@@ -612,7 +646,12 @@ impl AudioUseCases {
 
     async fn try_cached_audio(&self, file_name: &str) -> Result<Option<AudioSynthResult>> {
         let blob_path = format!("{}/{}", self.config.gcs_audio_prefix, file_name);
-        if self.storage_repo.blob_exists(&blob_path).await.unwrap_or(false) {
+        if self
+            .storage_repo
+            .blob_exists(&blob_path)
+            .await
+            .unwrap_or(false)
+        {
             tracing::info!("✅ Audio activo encontrado: {}", blob_path);
             return Ok(Some(self.build_result(file_name, "", true)));
         }
@@ -632,7 +671,10 @@ impl AudioUseCases {
     }
 
     fn audio_stem(blob_path: &str) -> &str {
-        blob_path.rsplit_once('.').map(|(stem, _)| stem).unwrap_or(blob_path)
+        blob_path
+            .rsplit_once('.')
+            .map(|(stem, _)| stem)
+            .unwrap_or(blob_path)
     }
 
     fn slugify(&self, text: &str, max_len: usize) -> String {
@@ -656,14 +698,17 @@ impl AudioUseCases {
         req: &AudioSynthRequest,
         user_segment: Option<&str>,
         elevenlabs: bool,
-    ) -> String {
-        let verb_norm = req
-            .verb_name
-            .as_deref()
-            .filter(|s| !s.is_empty())
-            .unwrap_or("none");
+    ) -> Result<String> {
+        let category = safe_storage_segment(&req.category, "category")?;
+        let deck_prefix = safe_deck_prefix(&req.deck)?;
+        let verb_norm = self.slugify(
+            req.verb_name
+                .as_deref()
+                .filter(|s| !s.is_empty())
+                .unwrap_or("none"),
+            40,
+        );
         let base_slug = self.slugify(&req.text, 40);
-        let deck_prefix = req.deck.replace(".json", "");
 
         let mut hasher = DefaultHasher::new();
         req.text.hash(&mut hasher);
@@ -683,10 +728,7 @@ impl AudioUseCases {
         UNIFIED_AUDIO_FORMAT.hash(&mut hasher);
         let hash = hasher.finish();
 
-        let lang_suffix = match req.lang.as_deref() {
-            Some(l) if !l.is_empty() && l != "en" => format!("_{}", l),
-            _ => "".to_string(),
-        };
+        let lang_suffix = safe_language_suffix(req.lang.as_deref())?;
 
         let ext = if is_landing_demo_namespace(&req.category) && elevenlabs {
             "mp3"
@@ -696,11 +738,11 @@ impl AudioUseCases {
 
         let rel = format!(
             "{}/{}/{}_{}_{}{}_{:x}.{ext}",
-            req.category, deck_prefix, deck_prefix, verb_norm, base_slug, lang_suffix, hash
+            category, deck_prefix, deck_prefix, verb_norm, base_slug, lang_suffix, hash
         );
-        match user_segment {
+        Ok(match user_segment {
             Some(seg) => format!("users/{}/{}", seg, rel),
             None => rel,
-        }
+        })
     }
 }

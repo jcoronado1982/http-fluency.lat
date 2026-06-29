@@ -21,14 +21,14 @@
 //!   --batch-gen-audio verbs 1-basic      → un mazo
 
 use super::context::BatchFilter;
-use fluency_core::domain::models::flashcard::Flashcard;
+use super::context::BatchSettings;
 use crate::audio_use_cases::{AudioSynthRequest, AudioUseCases};
 use crate::DeckUseCases;
-use super::context::BatchSettings;
-use std::sync::Arc;
+use fluency_core::domain::models::flashcard::Flashcard;
 use std::collections::HashSet;
 use std::io::{stdout, Write};
 use std::path::PathBuf;
+use std::sync::Arc;
 
 const EN_LANG: &str = "en";
 const PHONICS_CATEGORY: &str = "phonics";
@@ -48,7 +48,10 @@ pub async fn run_batch_audio_generation(
     run_batch_audio(ctx, filter).await
 }
 
-async fn run_batch_audio(ctx: super::context::AudioBatchContext, filter: BatchFilter) -> anyhow::Result<()> {
+async fn run_batch_audio(
+    ctx: super::context::AudioBatchContext,
+    filter: BatchFilter,
+) -> anyhow::Result<()> {
     println!("\n========================================================");
     println!("🎧 GENERACIÓN MASIVA DE AUDIO EN INGLÉS (RUST BATCH)");
     println!("   Motor: Gemini AI Studio → Opus (CPU local) → Oracle");
@@ -92,7 +95,8 @@ async fn run_batch_audio(ctx: super::context::AudioBatchContext, filter: BatchFi
         && filter.deck.is_none();
 
     if run_phonics {
-        global_counter += process_phonics(&deck, &settings, &batch_audio, &mut stats, &failures_log).await?;
+        global_counter +=
+            process_phonics(&deck, &settings, &batch_audio, &mut stats, &failures_log).await?;
     }
 
     let mut categories = deck.list_categories().await?;
@@ -141,10 +145,7 @@ async fn run_batch_audio(ctx: super::context::AudioBatchContext, filter: BatchFi
             println!("  📦 Mazo: {deck_id}");
             let _ = stdout().flush();
 
-            let audio_dir = format!(
-                "{}/{}/{}",
-                settings.gcs_audio_prefix, cat_name, deck_id
-            );
+            let audio_dir = format!("{}/{}/{}", settings.gcs_audio_prefix, cat_name, deck_id);
             let mut file_index: HashSet<String> = deck
                 .list_files_in_dir(&audio_dir)
                 .await?
@@ -156,9 +157,7 @@ async fn run_batch_audio(ctx: super::context::AudioBatchContext, filter: BatchFi
             );
             let _ = stdout().flush();
 
-            let deck_data = deck
-                .get_deck_json(&cat_name, &deck_name)
-                .await?;
+            let deck_data = deck.get_deck_json(&cat_name, &deck_name).await?;
             let card_count = deck_data.flashcards().len();
             println!("  🏷️  Procesando {card_count} tarjetas (solo frases EN)...");
             let _ = stdout().flush();
@@ -272,7 +271,9 @@ async fn process_one_item(
                 card_label: card_label.unwrap_or("-").to_string(),
                 verb: req.verb_name.clone().unwrap_or_else(|| "none".to_string()),
                 text: req.text.clone(),
-                expected_blob: batch_audio.global_audio_blob_path(req),
+                expected_blob: batch_audio
+                    .global_audio_blob_path(req)
+                    .unwrap_or_else(|_| "-".to_string()),
                 error: err_msg.clone(),
             };
 
@@ -299,7 +300,7 @@ async fn synthesize_shared_global(
     file_index: &mut HashSet<String>,
     req: &AudioSynthRequest,
 ) -> anyhow::Result<SynthOutcome> {
-    let basename = batch_audio.global_audio_basename(req);
+    let basename = batch_audio.global_audio_basename(req)?;
     if file_index.contains(&basename) {
         return Ok(SynthOutcome::Skipped("cached".into()));
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiZap } from 'react-icons/fi';
+import { LuZap } from 'react-icons/lu';
 import PricingPage from './PricingPage';
 import CheckoutPage from './CheckoutPage';
 import { getPricingTranslations } from './translations';
@@ -27,8 +27,8 @@ const pricingModule = {
         return [{
             id: 'pricing-upgrade-float',
             sectionLabel: t.floatingMenu.sectionLabel,
-            icon: <FiZap />,
-            iconColor: 'orange',
+            icon: <LuZap />,
+            iconColor: 'premium',
             name: t.floatingMenu.name,
             sub: t.floatingMenu.sub,
             onClick: () => {

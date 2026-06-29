@@ -10,6 +10,7 @@ pub struct SurrealUser {
     pub name: String,
     pub picture: Option<String>,
     pub role: String,
+    pub onboarding_completed: Option<bool>,
     pub created_at: Datetime,
     pub last_login: Datetime,
 }
@@ -22,6 +23,7 @@ impl From<SurrealUser> for User {
             name: value.name,
             picture: value.picture,
             role: value.role,
+            onboarding_completed: value.onboarding_completed.unwrap_or(false),
             created_at: value.created_at.0,
             last_login: value.last_login.0,
         }

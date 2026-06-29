@@ -1,6 +1,8 @@
 use super::connection::SurrealConnection;
 use super::models::SurrealUserActivityStats;
-use crate::domain::models::user_activity::{build_learning_stats, ClientInfo, LearningStats, UserActivityStats};
+use crate::domain::models::user_activity::{
+    build_learning_stats, ClientInfo, LearningStats, UserActivityStats,
+};
 use crate::domain::repositories::db_repository::UserActivityRepository;
 use anyhow::Result;
 use async_trait::async_trait;

@@ -35,16 +35,13 @@ mod tests {
 
     #[test]
     fn compress_logo_png_to_avif_works() {
-        use image::{ImageBuffer, Rgb, ImageFormat};
+        use image::{ImageBuffer, ImageFormat, Rgb};
         let img: ImageBuffer<Rgb<u8>, Vec<u8>> = ImageBuffer::from_fn(512, 512, |x, y| {
             Rgb([(x % 256) as u8, (y % 256) as u8, 128])
         });
         let mut original = Vec::new();
-        img.write_to(
-            &mut std::io::Cursor::new(&mut original),
-            ImageFormat::Png,
-        )
-        .expect("PNG sintético de prueba");
+        img.write_to(&mut std::io::Cursor::new(&mut original), ImageFormat::Png)
+            .expect("PNG sintético de prueba");
 
         let avif_bytes = compress_bytes_to_avif(&original, 80)
             .expect("la compresión AVIF debe funcionar con PNG de prueba");
@@ -69,19 +66,15 @@ mod tests {
 
     #[test]
     fn downscales_non_512_to_card_size_before_avif() {
-        use image::{ImageBuffer, Rgb, ImageFormat};
+        use image::{ImageBuffer, ImageFormat, Rgb};
         let img: ImageBuffer<Rgb<u8>, Vec<u8>> = ImageBuffer::from_fn(1024, 1024, |x, y| {
             Rgb([(x % 256) as u8, (y % 256) as u8, 64])
         });
         let mut original = Vec::new();
-        img.write_to(
-            &mut std::io::Cursor::new(&mut original),
-            ImageFormat::Png,
-        )
-        .expect("PNG sintético");
+        img.write_to(&mut std::io::Cursor::new(&mut original), ImageFormat::Png)
+            .expect("PNG sintético");
 
-        let avif_bytes = compress_bytes_to_avif(&original, 80)
-            .expect("AVIF tras resize");
+        let avif_bytes = compress_bytes_to_avif(&original, 80).expect("AVIF tras resize");
 
         assert!(!avif_bytes.is_empty());
     }

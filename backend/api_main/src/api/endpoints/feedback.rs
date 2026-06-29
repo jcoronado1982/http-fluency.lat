@@ -110,7 +110,9 @@ fn email_handle(email: &str) -> String {
     }
 }
 
-async fn read_feedback_records(path: &Path) -> Result<Vec<DemoFeedbackRecord>, (StatusCode, String)> {
+async fn read_feedback_records(
+    path: &Path,
+) -> Result<Vec<DemoFeedbackRecord>, (StatusCode, String)> {
     let content = match tokio::fs::read_to_string(path).await {
         Ok(c) => c,
         Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
@@ -190,7 +192,10 @@ pub async fn submit_demo_feedback(
 
     let comment = body.comment.trim();
     if comment.is_empty() {
-        return Err((StatusCode::BAD_REQUEST, "El comentario está vacío".to_string()));
+        return Err((
+            StatusCode::BAD_REQUEST,
+            "El comentario está vacío".to_string(),
+        ));
     }
     if comment.len() > 500 {
         return Err((

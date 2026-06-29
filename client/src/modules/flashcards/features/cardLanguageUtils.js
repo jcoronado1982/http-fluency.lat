@@ -7,16 +7,21 @@ export function simplifySpanishMeaning(meaning) {
         .trim();
 }
 
-export function getCardTitle(displayData, currentLanguage) {
-    if (currentLanguage === 'es') {
+/** studyLanguage: idioma que el usuario quiere aprender ('en' | 'es'). */
+export function isLearningEnglish(studyLanguage) {
+    return studyLanguage === 'en';
+}
+
+export function getCardTitle(displayData, studyLanguage) {
+    if (isLearningEnglish(studyLanguage)) {
         return displayData.name;
     }
     return simplifySpanishMeaning(displayData.definitions?.[0]?.meaning || displayData.name);
 }
 
-/** Idioma TTS del texto visible (UI es → inglés; UI en → español). */
-export function getAudioLang(uiLanguage) {
-    return uiLanguage === 'es' ? 'en' : 'es';
+/** TTS del texto visible en la tarjeta (mismo idioma que se estudia). */
+export function getAudioLang(studyLanguage) {
+    return isLearningEnglish(studyLanguage) ? 'en' : 'es';
 }
 
 /** Conjugaciones e IPA de verbos en inglés. */

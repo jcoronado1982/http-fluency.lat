@@ -38,10 +38,34 @@
 :global(.flashcard-page-wrapper:not([data-landing-demo])) .imagePlaceholder {
     width: 100%;
     flex: 1 1 0;
-    min-height: clamp(80px, 20dvh, 420px);
+    min-height: clamp(90px, 18dvh, 400px);
     height: auto;
     max-width: 100%;
-    margin: clamp(8px, 1.5vh, 16px) auto clamp(10px, 1.5vh, 20px);
+    margin: clamp(6px, 1vh, 12px) auto clamp(10px, 1.5vh, 16px);
+    min-width: 0;
+    align-self: stretch;
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .conjugationTable {
+    margin: 4px auto 8px;
+    padding: 8px 10px;
+    gap: 8px;
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer {
+    margin-top: 4px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer li,
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .exampleRow {
+    padding: 4px 6px;
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .imagePlaceholder {
+    margin-top: 10px;
+    flex-shrink: 1;
 }
 
 :global(.flashcard-page-wrapper:not([data-landing-demo])) .allExamplesContainer {
@@ -117,6 +141,7 @@
     border: 1px solid #334155;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
     color: #ffffff;
+    font-family: var(--font-family-app, var(--font-family-body));
 }
 
 
@@ -134,14 +159,18 @@
     font-size: clamp(1.5rem, 5vw, 2.5em);
     font-weight: 800;
     color: #ffffff;
-    margin: 0 0 2px 0;
+    margin: 0;
     text-transform: capitalize;
     letter-spacing: -0.02em;
-    line-height: 1.05;
+    line-height: 1;
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-    width: 100%;
+    width: auto;
+    max-width: 100%;
     border-bottom: none;
-    padding-bottom: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     word-wrap: break-word;
     overflow-wrap: break-word;
     text-align: center;
@@ -207,8 +236,8 @@
     background: transparent;
     border: 1px solid transparent;
     border-radius: 50%;
-    width: 44px;
-    height: 44px;
+    width: 52px;
+    height: 52px;
     font-size: 1em;
     cursor: pointer;
     flex-shrink: 0;
@@ -216,22 +245,30 @@
     align-items: center;
     justify-content: center;
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    color: #4dabf7;
+    color: #f472b6;
     box-shadow: none;
     backface-visibility: hidden;
 }
 
-.examplePlayBtn:hover {
-    background: rgba(77, 171, 247, 0.15);
-    border-color: #4dabf7;
-    color: #4dabf7;
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(77, 171, 247, 0.3);
+.examplePlayBtn svg {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    stroke-width: 2.5;
+}
+
+.examplePlayBtn:hover,
+.exampleRow:hover .examplePlayBtn {
+    background: rgba(244, 114, 182, 0.15);
+    border-color: #f472b6;
+    color: #f472b6;
+    box-shadow: 0 0 15px rgba(244, 114, 182, 0.35);
 }
 
 .allExamplesContainer li div {
     line-height: 1.4;
-    font-size: 1.15em;
+    font-size: 1.5rem;
     white-space: normal;
     overflow: visible;
     color: #b8b8b8;
@@ -242,7 +279,7 @@
     padding: 1px 0px;
     color: #f0f0f0;
     font-weight: 300;
-    font-size: 1.3em;
+    font-size: 1.5rem;
     font-family: var(--font-family-body);
     letter-spacing: 0.01em;
 }
@@ -376,9 +413,9 @@
     position: static;
     background-color: transparent;
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    color: #4dabf7;
-    width: 44px;
-    height: 44px;
+    color: #f472b6;
+    width: 52px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -387,11 +424,19 @@
     flex-shrink: 0;
 }
 
-.soundButton:hover {
-    background: rgba(77, 171, 247, 0.15);
-    border-color: #4dabf7;
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(77, 171, 247, 0.3);
+.soundButton svg {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    stroke-width: 2.5;
+}
+
+.soundButton:hover,
+.wordHeader:hover .soundButton {
+    background: rgba(244, 114, 182, 0.15);
+    border-color: #f472b6;
+    box-shadow: 0 0 20px rgba(244, 114, 182, 0.35);
 }
 
 .highlightedWord,
@@ -555,14 +600,36 @@
 
 /* ------------------------------------------------------------------- */
 
-.phoneticContainer {
-    display: flex;
+.phoneticRow {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 2px;
-    margin: 0 auto 16px;
-    width: fit-content;
-    max-width: 100%;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.wordBlock .phoneticRow {
+    margin-top: 0;
+}
+
+.wordBlock .ipaChartBtn {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+}
+
+.wordBlock .ipaChartBtn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.phoneticRow .phonetic {
+    margin: 0;
+    padding: 0;
+    display: inline;
+    line-height: 1;
 }
 
 .phoneticContainer .phonetic {
@@ -576,9 +643,9 @@
     background-color: transparent;
     border: none;
     border-radius: 50%;
-    width: auto;
-    height: auto;
-    min-width: 0;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
     padding: 0 !important;
     margin: 0;
     font-size: 1em;
@@ -591,6 +658,11 @@
     color: #838b9d;
     backface-visibility: hidden;
     line-height: 0;
+}
+
+.ipaChartBtn svg {
+    width: 22px;
+    height: 22px;
 }
 
 .ipaChartBtn:hover {
@@ -882,14 +954,14 @@
 }
 
 .rotateVoiceBtn {
-    width: 44px;
-    height: 44px;
+    width: 52px;
+    height: 52px;
     padding: 0;
     margin-left: 14px;
     border-radius: 50%;
     background: transparent;
     border: 1px solid transparent;
-    color: #838b9d;
+    color: #f472b6;
     cursor: pointer;
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
     opacity: 1;
@@ -902,12 +974,21 @@
     backface-visibility: hidden;
 }
 
+.rotateVoiceBtn svg {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    stroke-width: 2.5;
+}
+
 .phraseContainer {
     flex: 1;
     min-width: 0;
     position: relative;
     white-space: normal;
     line-height: 1.4;
+    font-size: 1.5rem;
     overflow: visible;
     /* Promueve capa de composición para que Safari pinte el resaltado dentro de la tarjeta 3D */
     transform: translate3d(0, 0, 0);
@@ -920,6 +1001,8 @@
 }
 
 .titleContainer {
+    grid-column: 2;
+    justify-self: center;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -943,11 +1026,11 @@
 }
 
 .rotateVoiceBtn:hover:not(:disabled) {
-    background: rgba(77, 171, 247, 0.15);
-    border-color: #4dabf7;
-    color: #4dabf7;
+    background: rgba(244, 114, 182, 0.15);
+    border-color: #f472b6;
+    color: #f472b6;
     transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(77, 171, 247, 0.3);
+    box-shadow: 0 0 15px rgba(244, 114, 182, 0.35);
 }
 
 .rotateVoiceBtn:disabled {
@@ -967,10 +1050,10 @@
     align-items: center;
     gap: 12px;
     padding: 12px 24px;
-    background: rgba(30, 41, 59, 0.6);
+    background: rgba(21, 28, 44, 0.72);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
     color: #f8fafc;
@@ -979,10 +1062,10 @@
 }
 
 .cardCounter:hover {
-    background: rgba(30, 41, 59, 0.8);
-    border-color: rgba(56, 189, 248, 0.4);
+    background: rgba(21, 28, 44, 0.85);
+    border-color: rgba(244, 114, 182, 0.35);
     transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(244, 114, 182, 0.12);
 }
 
 .counterItem {
@@ -995,7 +1078,7 @@
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: #94a3b8;
+    color: #f8fafc;
     margin-bottom: 2px;
     font-weight: 800;
 }
@@ -1007,11 +1090,10 @@
 }
 
 .learnedValue {
-    color: #38bdf8;
-    /* Sky-400 */
+    color: #f472b6;
     font-weight: 900;
     font-size: 1.6rem;
-    text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+    text-shadow: 0 0 20px rgba(244, 114, 182, 0.45);
     line-height: 1;
 }
 
@@ -1031,8 +1113,18 @@
 
 @media (max-width: 768px) {
     :global(.flashcard-page-wrapper:not([data-landing-demo])) .flashcardContainer {
-        height: var(--fc-card-height, clamp(340px, calc(100dvh - 220px), 620px));
-        min-height: var(--fc-card-min-height, 340px);
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 100%;
+        height: var(--fc-card-height);
+        min-height: var(--fc-card-min-height, 200px);
+        max-height: var(--fc-card-height);
+        overflow: hidden;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .flashcardContainer .card {
+        height: 100%;
+        min-height: 0;
     }
 
     :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront,
@@ -1050,11 +1142,71 @@
     }
 
     :global(.flashcard-page-wrapper:not([data-landing-demo])) .imagePlaceholder {
-        height: auto !important;
         flex: 1 1 0 !important;
-        min-height: clamp(72px, 16dvh, 280px) !important;
-        margin: clamp(6px, 1vh, 12px) auto clamp(8px, 1vh, 14px) !important;
+        min-height: clamp(72px, 14dvh, 180px) !important;
+        height: auto !important;
+        max-height: none !important;
+        margin: 6px auto 8px !important;
         border-radius: clamp(12px, 3vw, 16px) !important;
+        min-width: 0 !important;
+        align-self: stretch !important;
+        flex-shrink: 1 !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .imagePlaceholder {
+        margin-top: 12px !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .conjugationTable {
+        margin: 0 auto 4px !important;
+        padding: 10px 6px 5px 6px !important;
+        gap: 4px !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .conjugationItem {
+        padding: 3px !important;
+        gap: 1px !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .conjugationForm {
+        font-size: 1.05em !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .conjugationPhonetic {
+        font-size: 0.85em !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer {
+        margin-top: 2px !important;
+        margin-bottom: 10px !important;
+        flex-shrink: 0 !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer ul {
+        gap: 2px !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer li,
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .exampleRow {
+        padding: 2px 4px !important;
+        gap: 8px !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .examplePlayBtn,
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .exampleRow .rotateVoiceBtn {
+        width: 46px !important;
+        height: 46px !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .titleContainer {
+        height: auto !important;
+        min-height: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .allExamplesContainer {
+        flex-shrink: 0;
+        min-height: 0;
     }
 
     .cardCounter {
@@ -1096,25 +1248,37 @@
 
     .name {
         font-size: 2rem !important;
-        margin-top: -6px !important;
-        margin-bottom: 0 !important;
-        line-height: 1.05 !important;
-        padding-right: 0 !important;
-        padding-left: 0 !important;
+        margin: 0 !important;
+        line-height: 1 !important;
+        padding: 0 !important;
         display: flex !important;
+        justify-content: center !important;
         align-items: center !important;
-        min-height: 52px !important;
+        min-height: 0 !important;
+        width: auto !important;
+        max-width: 100% !important;
     }
 
-    .phoneticContainer {
-        gap: 2px !important;
-        margin-top: 0 !important;
-        margin-bottom: 8px !important;
-        width: fit-content !important;
+    .wordHeader {
+        --fc-word-side-slot: 56px;
     }
 
-    .phoneticContainer .phonetic {
-        margin-bottom: 0 !important;
+    .wordBlock {
+        row-gap: 0 !important;
+    }
+
+    .wordHeader > .soundButton {
+        transform: none !important;
+    }
+
+    .phoneticRow {
+        gap: 4px !important;
+    }
+
+    .wordBlock .ipaChartBtn {
+        width: 26px !important;
+        height: 26px !important;
+        min-width: 26px !important;
     }
 
     .phonetic {
@@ -1125,9 +1289,9 @@
         padding: 0 !important;
     }
 
-    .imagePlaceholder {
-        height: 320px !important; /* Aumentado de 250px para aprovechar mejor el espacio */
-        margin: 10px auto 0px auto !important;
+    :global([data-landing-demo]) .imagePlaceholder {
+        height: 320px !important;
+        margin: 10px auto 0 auto !important;
         border-radius: 16px !important;
     }
 
@@ -1150,7 +1314,11 @@
     }
 
     .allExamplesContainer li div span {
-        font-size: 1.2rem !important;
+        font-size: 1.25rem !important;
+    }
+
+    .phraseContainer {
+        font-size: 1.25rem !important;
     }
 
     .allExamplesContainer li div span.highlightedWord {
@@ -1159,26 +1327,41 @@
     }
 
     .examplePlayBtn {
-        width: 50px !important;
-        height: 50px !important;
+        width: 48px !important;
+        height: 48px !important;
     }
 
     .soundButton {
-        width: 50px !important;
-        height: 50px !important;
-        margin-left: auto !important;
+        width: 56px !important;
+        height: 56px !important;
+        margin-left: 0 !important;
         align-self: center !important;
+        grid-column: 3;
+        justify-self: end;
     }
 
     .soundButton svg {
-        width: 30px !important;
-        height: 30px !important;
+        width: 24px !important;
+        height: 24px !important;
     }
 
     .examplePlayBtn svg,
     .soundButton svg {
-        width: 30px !important;
-        height: 30px !important;
+        width: 24px !important;
+        height: 24px !important;
+        min-width: 24px !important;
+        min-height: 24px !important;
+    }
+
+    .ipaChartBtn {
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+    }
+
+    .ipaChartBtn svg {
+        width: 24px !important;
+        height: 24px !important;
     }
 
     .conjugationForm {
@@ -1186,14 +1369,26 @@
     }
 
     .nameContainer {
+        --fc-word-side-slot: 56px;
         align-items: center !important;
         transform: translateY(-4px) !important;
     }
 
     .titleContainer {
+        grid-column: 2 !important;
+        justify-self: center !important;
+        display: inline-flex !important;
         align-items: center !important;
-        flex: 1 !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        position: relative !important;
+        width: auto !important;
+        max-width: 100% !important;
         min-width: 0 !important;
+        height: auto !important;
+        min-height: 0 !important;
+        padding-top: 0 !important;
+        flex: none !important;
     }
 
     .phraseContainer {
@@ -1205,21 +1400,11 @@
         width: auto !important;
     }
 
-    .titleContainer {
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 8px !important;
-        position: relative !important;
-        width: 100% !important;
-        height: 70px !important;
-    }
-
     .titleContainer .rotateVoiceBtn {
         position: static !important;
         transform: none !important;
-        width: 50px !important;
-        height: 50px !important;
+        width: 52px !important;
+        height: 52px !important;
     }
 
     .titleContainer .rotateVoiceBtn:hover:not(:disabled) {
@@ -1301,7 +1486,7 @@
 }
 
 .conjugationItem:focus-visible {
-    outline: 2px solid rgba(56, 189, 248, 0.65);
+    outline: 2px solid rgba(244, 114, 182, 0.65);
     outline-offset: 2px;
 }
 
@@ -1378,19 +1563,103 @@
 }
 
 .nameContainer {
-    display: flex;
+    --fc-word-side-slot: 52px;
+    display: grid;
+    grid-template-columns: var(--fc-word-side-slot) minmax(0, 1fr) var(--fc-word-side-slot);
+    align-items: center;
+    width: 100%;
+    gap: 0;
+}
+
+.wordHeader {
+    --fc-word-side-slot: 52px;
+    position: relative;
+    width: 100%;
+    flex-shrink: 0;
+    display: grid;
+    grid-template-columns: var(--fc-word-side-slot) minmax(0, 1fr) var(--fc-word-side-slot);
+    align-items: start;
+    box-sizing: border-box;
+}
+
+.wordBlock {
+    grid-column: 2;
+    justify-self: center;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    row-gap: 6px;
+    column-gap: 8px;
+    max-width: 100%;
+    width: fit-content;
+}
+
+.wordBlock .name {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    text-align: left;
+    display: block;
+    width: auto;
+}
+
+.wordBlock > .rotateVoiceBtn {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+}
+
+.wordBlock > .phonetic {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+    text-align: left;
+    margin: 0;
+    display: inline;
+}
+
+.wordBlock > .ipaChartBtn {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: center;
+}
+
+.wordHeader > .soundButton {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+    align-self: start;
+    position: relative;
+    top: auto;
+    right: auto;
+    margin: 0;
+}
+
+.wordTitleRow {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    gap: 10px;
+    gap: 8px;
+    max-width: 100%;
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .wordBlock {
+    row-gap: clamp(4px, 0.6vh, 8px);
+    column-gap: 8px;
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .wordHeader {
+    margin-bottom: 10px;
+    margin-top: 5px;
 }
 
 
 /* --- Active State for Conjugation --- */
 .activeConjugation {
-    background: rgba(56, 189, 248, 0.12) !important;
-    border-color: rgba(56, 189, 248, 0.5) !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(56, 189, 248, 0.2);
+    background: rgba(244, 114, 182, 0.12) !important;
+    border-color: rgba(244, 114, 182, 0.45) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(244, 114, 182, 0.22);
     transform: translateY(-3px);
     z-index: 5;
     border-radius: 16px;
@@ -1398,54 +1667,65 @@
 }
 
 .activeConjugation .conjugationForm {
-    color: #38bdf8;
-    text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+    color: #f472b6;
+    text-shadow: 0 0 10px rgba(244, 114, 182, 0.35);
 }
 
 .activeConjugation .conjugationPhonetic {
     color: #a0a0a0; /* El mismo gris del fonético principal para mejor legibilidad */
 }
 
-/* Demo landing — solo colores y tipografía (misma tarjeta que la sesión interna) */
+/* Demo landing — layout y flip; colores/tipografía heredan la app */
 :global([data-landing-demo]) .flashcardContainer,
 :global([data-landing-demo]) .cardFront,
 :global([data-landing-demo]) .cardBack,
 :global([data-landing-demo]) .controlsWrapper {
-    font-family: var(--font-family-body);
+    font-family: var(--font-family-app, var(--font-family-body));
+}
+
+/* Demo landing — espaciados reducidos para que la imagen gane protagonismo */
+:global([data-landing-demo]) .card {
+    border-radius: 24px !important;
+    box-shadow: none !important;
+    background: transparent !important;
 }
 
 :global([data-landing-demo]) .cardFront,
 :global([data-landing-demo]) .cardBack {
-    border-color: rgba(125, 119, 221, 0.35);
-    background:
-        radial-gradient(circle at 80% 10%, rgba(45, 212, 191, 0.12), transparent 50%),
-        linear-gradient(145deg, rgba(125, 119, 221, 0.2), #0f172a 100%);
-    color: #f8fafc;
+    padding: 14px 16px 14px !important;
+    border: 1px solid #334155 !important;
+    border-radius: 24px !important;
+    background: #1e293b !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45) !important;
+    background-clip: padding-box;
 }
 
-:global([data-landing-demo]) .cardBack {
-    border-color: rgba(244, 114, 182, 0.28);
-    background:
-        radial-gradient(circle at 20% 90%, rgba(190, 24, 93, 0.1), transparent 50%),
-        linear-gradient(145deg, rgba(190, 24, 93, 0.14), #0f172a 100%);
+:global([data-landing-demo]) .phonetic {
+    margin-bottom: 10px !important;
 }
 
-:global([data-landing-demo]) .soundButton,
-:global([data-landing-demo]) .examplePlayBtn {
-    color: #2dd4bf;
+:global([data-landing-demo]) .allExamplesContainer {
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
 }
 
-:global([data-landing-demo]) .soundButton:hover,
-:global([data-landing-demo]) .examplePlayBtn:hover {
-    background: rgba(45, 212, 191, 0.12);
-    border-color: rgba(45, 212, 191, 0.4);
-    box-shadow: 0 0 14px rgba(45, 212, 191, 0.22);
+:global([data-landing-demo]) .allExamplesContainer ul {
+    gap: 2px !important;
 }
 
-:global([data-landing-demo]) .activeConjugation {
-    background: rgba(125, 119, 221, 0.14) !important;
-    border-color: rgba(125, 119, 221, 0.45) !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 16px rgba(125, 119, 221, 0.18) !important;
+:global([data-landing-demo]) .allExamplesContainer li,
+:global([data-landing-demo]) .exampleRow {
+    padding: 3px 6px !important;
+}
+
+:global([data-landing-demo]) .imagePlaceholder {
+    margin: 6px 0 0 !important;
+    flex: 1 1 0 !important;
+    height: auto !important;
+    min-height: 160px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 18px !important;
 }
 
 :global([data-landing-demo]) .conjugationForm {
@@ -1471,43 +1751,6 @@
     text-overflow: unset !important;
 }
 
-:global([data-landing-demo]) .activeConjugation .conjugationForm {
-    color: #f472b6 !important;
-    text-shadow: 0 0 10px rgba(244, 114, 182, 0.3);
-}
-
-:global([data-landing-demo]) .conjugationTable {
-    background: rgba(244, 114, 182, 0.05);
-    border-color: rgba(244, 114, 182, 0.15);
-}
-
-:global([data-landing-demo]) .highlightedWord {
-    color: #140810 !important;
-    background: linear-gradient(135deg, #2dd4bf, #7d77dd) !important;
-}
-
-:global([data-landing-demo]) .phrasalVerbBack {
-    color: #f472b6;
-    text-shadow: 0 0 10px rgba(244, 114, 182, 0.2);
-}
-
-:global([data-landing-demo]) .meaningBack {
-    color: #2dd4bf;
-    text-shadow: 0 0 10px rgba(45, 212, 191, 0.2);
-}
-
-:global([data-landing-demo]) .usageExampleEn strong {
-    color: #f472b6;
-}
-
-:global([data-landing-demo]) .imagePlaceholder {
-    border-color: rgba(125, 119, 221, 0.22);
-    box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.6),
-        inset 0 0 20px rgba(244, 114, 182, 0.04),
-        0 0 12px rgba(45, 212, 191, 0.06);
-}
-
 /* Flip en landing: sin rotateY 3D (overflow-x del .lp lo rompe) — solo fade + z-index */
 :global([data-landing-demo]) .card {
     transform: none !important;
@@ -1523,12 +1766,13 @@
 }
 
 :global([data-landing-demo]) .flashcardContainer {
-    overflow: hidden;
+    overflow: visible;
     perspective: none;
     width: 100%;
     max-width: 100%;
     height: clamp(480px, 52vw, 600px);
     min-height: 460px;
+    border-radius: 24px;
 }
 
 @media (max-width: 768px) {
@@ -1539,7 +1783,8 @@
         height: clamp(440px, 132vw, 560px);
         min-height: 440px;
         margin: 0 auto;
-        overflow: hidden;
+        overflow: visible;
+        border-radius: clamp(18px, 4vw, 24px);
     }
 
     :global([data-landing-demo]) .card {
@@ -1547,16 +1792,16 @@
         max-width: 100%;
         min-width: 0;
         margin: 0;
+        border-radius: clamp(18px, 4vw, 24px) !important;
     }
 
     :global([data-landing-demo]) .cardFront,
     :global([data-landing-demo]) .cardBack {
-        padding: 14px 16px 0 !important;
-        border-radius: 22px !important;
-        border-color: rgba(125, 119, 221, 0.35) !important;
-        background:
-            radial-gradient(circle at 80% 10%, rgba(45, 212, 191, 0.12), transparent 50%),
-            linear-gradient(145deg, rgba(125, 119, 221, 0.2), #0f172a 100%) !important;
+        padding: clamp(12px, 2vw, 16px) clamp(12px, 2vw, 16px) 14px !important;
+        border-radius: clamp(18px, 4vw, 24px) !important;
+        border: 1px solid #334155 !important;
+        background: #1e293b !important;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45) !important;
         overflow: hidden;
         min-width: 0;
         max-width: 100%;
@@ -1570,6 +1815,21 @@
         font-size: clamp(1.75rem, 6.6vw, 2.15rem) !important;
         text-align: center !important;
         padding: 10px 0 !important;
+    }
+
+    :global([data-landing-demo]) .wordHeader {
+        --fc-word-side-slot: 40px;
+    }
+
+    :global([data-landing-demo]) .wordHeader > .soundButton {
+        position: relative !important;
+        transform: none !important;
+        margin: 0 !important;
+    }
+
+    :global([data-landing-demo]) .wordTitleRow {
+        width: 100% !important;
+        justify-content: center !important;
     }
 
     :global([data-landing-demo]) .nameContainer {
@@ -1595,10 +1855,6 @@
     :global([data-landing-demo]) .soundButton {
         margin-left: 0 !important;
         margin-top: 0 !important;
-        position: absolute !important;
-        right: 0 !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
     }
 
     :global([data-landing-demo]) .conjugationTable {
@@ -1650,23 +1906,33 @@
     }
 
     :global([data-landing-demo]) .allExamplesContainer li div span {
-        font-size: 0.98rem !important;
-    }
-
-    :global([data-landing-demo]) .examplePlayBtn,
-    :global([data-landing-demo]) .soundButton {
-        width: 34px !important;
-        height: 34px !important;
-        flex-shrink: 0;
-    }
-
-    :global([data-landing-demo]) .examplePlayBtn svg,
-    :global([data-landing-demo]) .soundButton svg {
-        width: 18px !important;
-        height: 18px !important;
+        font-size: 1.5rem !important;
     }
 }
 
+:global([data-landing-demo]) .phoneticRow,
 :global([data-landing-demo]) .phoneticContainer {
     display: none !important;
+}
+
+:global(body:has([data-tour-step='presentacion-tarjeta'])) :global([data-onboarding-tour='true']) .allExamplesContainer li .phraseContainer {
+    filter: blur(4px);
+    color: #b8b8b8;
+    cursor: default;
+    pointer-events: none;
+}
+
+:global(body:has([data-tour-step='presentacion-tarjeta'])) :global([data-onboarding-tour='true']) .allExamplesContainer li .phraseContainer span {
+    color: #b8b8b8;
+}
+
+:global(body:has([data-tour-step='reproducir-audio'])) :global([data-onboarding-tour='true']) .allExamplesContainer li .phraseContainer {
+    filter: none !important;
+    color: inherit;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+:global(body:has([data-tour-step='reproducir-audio'])) :global([data-onboarding-tour='true']) .allExamplesContainer li .phraseContainer span {
+    color: inherit;
 }

@@ -80,6 +80,48 @@ export function getModuleNavSections(config, context) {
   });
 }
 
+function getOnboardingRegistry(language = 'en') {
+  void language;
+
+  return [
+    // Futuro:
+    // {
+    //   id: 'pronoun',
+    //   enabled: (config, user) => config.features.pronounPractice && userHasModule(user, 'pronoun'),
+    //   path: () => '/pronoun-practice',
+    //   name: 'Pronouns',
+    //   description: '...'
+    // }
+  ];
+}
+
+export function getOnboardingModules(config, context = {}) {
+  const { language = 'en', user = null } = context;
+
+  const registryEntries = getOnboardingRegistry(language)
+    .filter((entry) => {
+      if (typeof entry.enabled === 'function') return entry.enabled(config, user);
+      return entry.enabled !== false;
+    })
+    .map((entry) => ({
+      id: entry.id,
+      moduleId: entry.id,
+      session: entry.session || null,
+      name: entry.name,
+      description: entry.description,
+      to: typeof entry.path === 'function' ? entry.path(config, user) : entry.path,
+    }));
+
+  const moduleEntries = getEnabledModules(config).flatMap((module) => {
+    if (typeof module.onboarding !== 'function') return [];
+    return module.onboarding({ ...context, config }) || [];
+  });
+
+  return [...moduleEntries, ...registryEntries].filter((entry, index, entries) => (
+    entries.findIndex((candidate) => candidate.id === entry.id) === index
+  ));
+}
+
 export function getModuleOverlays(config) {
   return getEnabledModules(config).flatMap((module) => {
     if (typeof module.overlays !== 'function') return [];

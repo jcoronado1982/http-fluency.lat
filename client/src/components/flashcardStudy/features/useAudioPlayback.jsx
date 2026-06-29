@@ -260,7 +260,7 @@ export function useAudioPlayback({
         }
 
         return { playbackUrl: resolvedUrl, voiceName, fromCache: !!data.from_cache };
-    }, [currentCategory, currentDeckName, invalidateCacheEntry, setAppMessage, warmSessionCache]);
+    }, [audioPort, currentCategory, currentDeckName, invalidateCacheEntry, setAppMessage, warmSessionCache]);
 
     const startPlayback = useCallback(async (originalText, playbackUrl, voiceLabel, playbackRequestId) => {
         const { wordIntervals } = buildWordIntervals(originalText);
@@ -432,10 +432,12 @@ export function useAudioPlayback({
         setIsAudioLoading,
     ]);
 
-    const prefetchAudio = useCallback(async (originalText, lang = 'en') => {
+    const prefetchAudio = useCallback(async (originalText, lang = 'en', verbNameOverride = null) => {
         if (!originalText || !currentCategory) return;
 
-        const finalVerbName = currentDeckName === 'phonics' ? originalText : verbName;
+        const finalVerbName = currentDeckName === 'phonics'
+            ? originalText
+            : (verbNameOverride ?? verbName);
         const key = buildCacheKey(currentCategory, currentDeckName, originalText, lang, finalVerbName);
 
         const cached = sessionCacheRef.current.get(key);
@@ -494,7 +496,7 @@ export function useAudioPlayback({
             console.error('Error rotating audio:', err);
             setAppMessage({ text: `Error al actualizar voz: ${err.message}`, isError: true });
         }
-    }, [currentCategory, currentDeckName, verbName, setAppMessage, playAudio, invalidateCacheEntry]);
+    }, [audioPort, currentCategory, currentDeckName, verbName, setAppMessage, playAudio, invalidateCacheEntry]);
 
     return {
         playAudio,

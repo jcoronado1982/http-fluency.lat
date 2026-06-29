@@ -3,6 +3,7 @@
     max-width: 1100px;
     margin: 0 auto;
     color: #e2e8f0;
+    font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
 }
 
 .admin-header h1 {
@@ -159,4 +160,30 @@
 .pagination-info {
     color: #94a3b8;
     font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+    .admin-page {
+        padding: 1rem max(12px, env(safe-area-inset-right, 0px)) calc(1.25rem + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+    }
+
+    .admin-header h1 {
+        font-size: 1.25rem;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 0.65rem 0.75rem;
+        font-size: 0.8rem;
+    }
+
+    .admin-pagination {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: stretch;
+    }
+
+    .admin-pagination button {
+        width: 100%;
+    }
 }

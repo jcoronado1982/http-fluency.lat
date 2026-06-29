@@ -1,4 +1,5 @@
 use anyhow::Result;
+use fluency_core::domain::models::onboarding::OnboardingGuideRequest;
 use fluency_core::domain::models::tutor::TutorRequest;
 use fluency_core::ports::db_repository::PronounPracticeRepository;
 use fluency_core::ports::tutor::AITutor;
@@ -30,14 +31,15 @@ impl TutorUseCases {
 
         // Log to DB if it's an error using Rust 1.95.0 if-let guards for cleaner logic
         if let Ok(data) = serde_json::from_str::<Value>(&result_str) {
-            match (self.db_repo.as_ref(), request.user_id, request.story_id, request.screen_id)
-            {
-                (
-                    Some(db_repo),
-                    Some(user_id),
-                    Some(story_id),
-                    Some(screen_id),
-                ) if !data["is_correct"].as_bool().unwrap_or(true) => {
+            match (
+                self.db_repo.as_ref(),
+                request.user_id,
+                request.story_id,
+                request.screen_id,
+            ) {
+                (Some(db_repo), Some(user_id), Some(story_id), Some(screen_id))
+                    if !data["is_correct"].as_bool().unwrap_or(true) =>
+                {
                     let _ = db_repo
                         .log_user_error(
                             &user_id,
@@ -78,5 +80,31 @@ impl TutorUseCases {
         self.ai_tutor
             .improve_prompt_for_image(phrase, pos_category, meaning, usage_example)
             .await
+    }
+
+    pub async fn guide_onboarding_step(&self, request: OnboardingGuideRequest) -> Result<String> {
+        let raw = self
+            .ai_tutor
+            .guide_onboarding_step(
+                &request.locale,
+                &request.step_id,
+                request.step_index,
+                request.step_total,
+                &request.event,
+                &request.target_label,
+                &request.target_hint,
+                request.wrong_target_label.as_deref(),
+                request.user_name.as_deref(),
+                request.ui_state.as_deref(),
+            )
+            .await?;
+
+        if let Ok(parsed) = serde_json::from_str::<serde_json::Value>(&raw) {
+            if let Some(message) = parsed["message"].as_str() {
+                return Ok(message.to_string());
+            }
+        }
+
+        Ok(raw)
     }
 }

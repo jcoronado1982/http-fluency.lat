@@ -1,13 +1,14 @@
 .pageLoader {
-    --loader-accent: #2f7ef7;
-    --loader-accent-2: #45c2ff;
+    --loader-accent: #be185d;
+    --loader-accent-2: #f472b6;
+    --loader-accent-3: #fb923c;
     --loader-bg: #0b1424;
-    --loader-surface: rgba(22, 37, 68, 0.95);
-    --loader-surface-2: rgba(21, 35, 64, 0.98);
-    --loader-text: #f7f9fd;
-    --loader-muted: #7c93be;
-    --loader-track: rgba(42, 55, 83, 0.72);
-    --loader-border: rgba(90, 150, 255, 0.12);
+    --loader-surface: rgba(21, 28, 44, 0.95);
+    --loader-surface-2: rgba(15, 23, 42, 0.98);
+    --loader-text: #f8fafc;
+    --loader-muted: #94a3b8;
+    --loader-track: rgba(100, 116, 139, 0.35);
+    --loader-border: rgba(244, 114, 182, 0.14);
     font-family: inherit;
 
     position: fixed;
@@ -22,8 +23,8 @@
     box-sizing: border-box;
     overflow: hidden;
     background:
-        radial-gradient(circle at 50% 18%, rgba(48, 116, 255, 0.12), transparent 20%),
-        radial-gradient(circle at 50% 78%, rgba(40, 86, 165, 0.08), transparent 30%),
+        radial-gradient(circle at 50% 18%, rgba(244, 114, 182, 0.1), transparent 20%),
+        radial-gradient(circle at 50% 78%, rgba(190, 24, 93, 0.06), transparent 30%),
         linear-gradient(180deg, #09111f 0%, var(--loader-bg) 100%);
 }
 
@@ -39,8 +40,9 @@
     text-align: center;
     overflow: hidden;
     background:
-        radial-gradient(circle at top, rgba(58, 124, 255, 0.12), transparent 44%),
+        radial-gradient(circle at top, rgba(244, 114, 182, 0.1), transparent 44%),
         linear-gradient(180deg, var(--loader-surface), var(--loader-surface-2));
+    border: 1px solid var(--loader-border);
     box-shadow:
         0 20px 52px rgba(0, 0, 0, 0.26),
         inset 0 1px 0 rgba(255, 255, 255, 0.03);
@@ -61,14 +63,14 @@
     width: 100%;
     height: 2px;
     overflow: hidden;
-    background: rgba(69, 194, 255, 0.03);
+    background: rgba(244, 114, 182, 0.04);
 }
 
 .topBarGlow {
     display: block;
     width: 52%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, var(--loader-accent-2), transparent);
+    background: linear-gradient(90deg, transparent, var(--loader-accent-2), var(--loader-accent-3), transparent);
     animation: topBarDrift 2.4s ease-in-out infinite;
 }
 
@@ -76,7 +78,7 @@
     margin: 0;
     color: var(--loader-text);
     font-family: var(--font-family-display);
-    font-size: clamp(1.85rem, 4vw, 2.5rem);
+    font-size: clamp(1.45rem, 3vw, 1.95rem);
     line-height: 0.95;
     letter-spacing: -0.02em;
     font-weight: 700;
@@ -115,8 +117,8 @@
     position: relative;
     height: 100%;
     border-radius: inherit;
-    background: linear-gradient(90deg, var(--loader-accent) 0%, var(--loader-accent-2) 100%);
-    box-shadow: 0 0 16px rgba(69, 194, 255, 0.32);
+    background: linear-gradient(90deg, var(--loader-accent), var(--loader-accent-2) 55%, var(--loader-accent-3));
+    box-shadow: 0 0 14px rgba(244, 114, 182, 0.35);
     transition: width 420ms ease;
 }
 
@@ -141,7 +143,7 @@
 
 .progressLabel {
     min-width: 0;
-    color: #4fa4ff;
+    color: #f472b6;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -149,7 +151,7 @@
 }
 
 .progressPercent {
-    color: #8da5cf;
+    color: #cbd5e1;
     font-weight: 700;
 }
 
@@ -184,7 +186,8 @@
     }
 
     .title {
-        font-size: 1.52rem;
+        font-size: 1.28rem;
+        max-width: 11ch;
     }
 
     .subtitle,

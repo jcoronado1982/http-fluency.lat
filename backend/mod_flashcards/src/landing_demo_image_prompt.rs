@@ -111,7 +111,11 @@ pub fn build_complement_mode_user_message(
 }
 
 pub fn gemini_system_for_landing(scene_complement: Option<&str>) -> String {
-    if scene_complement.map(str::trim).filter(|s| !s.is_empty()).is_some() {
+    if scene_complement
+        .map(str::trim)
+        .filter(|s| !s.is_empty())
+        .is_some()
+    {
         GEMINI_SYSTEM_COMPLEMENT_MODE.to_string()
     } else {
         GEMINI_SYSTEM.to_string()
@@ -121,9 +125,25 @@ pub fn gemini_system_for_landing(scene_complement: Option<&str>) -> String {
 pub fn suggests_outdoor_scene(text: &str) -> bool {
     let t = text.to_lowercase();
     [
-        "outside", "outdoor", "exterior", "fuera", "afuera", "jardín", "jardin", "garden",
-        "yard", "street", "calle", "patio", "lawn", "césped", "cesped", "playa", "beach",
-        "frente a", "in front of",
+        "outside",
+        "outdoor",
+        "exterior",
+        "fuera",
+        "afuera",
+        "jardín",
+        "jardin",
+        "garden",
+        "yard",
+        "street",
+        "calle",
+        "patio",
+        "lawn",
+        "césped",
+        "cesped",
+        "playa",
+        "beach",
+        "frente a",
+        "in front of",
     ]
     .iter()
     .any(|k| t.contains(k))
@@ -157,10 +177,7 @@ pub fn build_demo_image_prompt(visual_description: &str, scene_complement: Optio
     );
 
     if let Some(c) = scene_complement.map(str::trim).filter(|s| !s.is_empty()) {
-        prompt.push_str(&format!(
-            " CRITICAL — visibly include ALL of: {}.",
-            c
-        ));
+        prompt.push_str(&format!(" CRITICAL — visibly include ALL of: {}.", c));
     }
 
     prompt
@@ -203,16 +220,15 @@ mod tests {
 
     #[test]
     fn detects_outdoor_complement() {
-        assert!(suggests_outdoor_scene("coloca a nino fuera en una casa grande"));
+        assert!(suggests_outdoor_scene(
+            "coloca a nino fuera en una casa grande"
+        ));
         assert!(!suggests_outdoor_scene("un niño en la cocina"));
     }
 
     #[test]
     fn demo_image_prompt_uses_outdoor_light_for_fuera() {
-        let p = build_demo_image_prompt(
-            "A family at a large house.",
-            Some("nino y padres fuera"),
-        );
+        let p = build_demo_image_prompt("A family at a large house.", Some("nino y padres fuera"));
         assert!(p.contains("outdoor"));
         assert!(p.contains("CRITICAL"));
     }

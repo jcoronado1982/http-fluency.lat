@@ -1,8 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useCategoryContext } from '../context/CategoryContext';
+import { useFlashcardUiContext } from '../context/FlashcardUiContext';
 import { useUIContext } from '../../../context/UIContext';
+import { useDialog } from '../../../context/AppContext';
 import { flashcardPort } from '../composition';
 import { useAuth } from '../../../context/AuthContext';
+import { getFlashcardTranslations } from '../config/translations';
 import { markUserNavigation } from '../navigationIntent';
 import {
     filterUnlearned,
@@ -21,10 +24,17 @@ import {
     LAST_DECK_KEY_PREFIX,
     writeResumeSession,
 } from '../config/sessionKeys';
+import { consumeFlashcardPreload } from '../preload';
+
+/** Número de tarjetas acumuladas antes de forzar un flush automático. */
+const BATCH_FLUSH_SIZE = 8;
 
 export function useDeckSession(resumeSession = null) {
     const { currentCategory } = useCategoryContext();
-    const { setAppMessage } = useUIContext();
+    const { setIsCatalogVisible } = useFlashcardUiContext();
+    const { setAppMessage, language = 'en' } = useUIContext();
+    const { confirm } = useDialog();
+    const controlsCopy = getFlashcardTranslations(language).controls;
     const { isAuthenticated, user } = useAuth();
 
     const [masterData, setMasterData] = useState([]);
@@ -39,6 +49,15 @@ export function useDeckSession(resumeSession = null) {
     const [justCompletedInSession, setJustCompletedInSession] = useState(false);
     const [resumeApplied, setResumeApplied] = useState(false);
 
+    /**
+     * Lote de progreso pendiente de enviar.
+     * Clave: card.id  →  Valor: { index, learned, category, deck }
+     * Se acumula hasta BATCH_FLUSH_SIZE o hasta que el usuario cambia de deck/grupo.
+     */
+    const pendingBatchRef = useRef(new Map());
+    /** Contexto activo en el momento de acumular (para el flush correcto al cambiar). */
+    const batchContextRef = useRef({ category: null, deck: null, userId: null });
+
     const loadFlashcards = useCallback(async (category, deck) => {
         if (!category || !deck || !user?.email) return;
         setIsDeckLoading(true);
@@ -47,6 +66,17 @@ export function useDeckSession(resumeSession = null) {
         setFilteredData([]);
         setResetKey((k) => k + 1);
         try {
+            const preloaded = await consumeFlashcardPreload(user.email);
+            if (
+                preloaded?.category === category
+                && preloaded?.deck === deck
+                && Array.isArray(preloaded.deckData)
+            ) {
+                setMasterData(preloaded.deckData);
+                setFilteredData(filterUnlearned(preloaded.deckData));
+                return;
+            }
+
             const data = await flashcardPort.fetchDeckData(user.email, category, deck);
             const normalized = normalizeDeckResponse(data);
             setMasterData(normalized);
@@ -79,6 +109,25 @@ export function useDeckSession(resumeSession = null) {
             setIsDeckLoading(true);
             setLoadingStage('loading_decks');
             try {
+                const preloaded = await consumeFlashcardPreload(user?.email, resumeSession);
+                if (
+                    preloaded?.category === currentCategory
+                    && Array.isArray(preloaded.deckNames)
+                    && preloaded.deckNames.length > 0
+                ) {
+                    const names = preloaded.deckNames;
+                    setDeckNames(names);
+                    const storageKey = `${LAST_DECK_KEY_PREFIX}${currentCategory}`;
+                    const preferredDeck = resumeSession?.category === currentCategory && resumeSession?.deck
+                        && names.includes(resumeSession.deck)
+                        ? resumeSession.deck
+                        : (preloaded.deck && names.includes(preloaded.deck)
+                            ? preloaded.deck
+                            : resolvePersistedChoice(storageKey, names, names[0]));
+                    setCurrentDeckName(preferredDeck);
+                    return;
+                }
+
                 const result = await flashcardPort.fetchDecksForCategory(currentCategory);
                 if (result.success && Array.isArray(result.files)) {
                     const names = sortDeckNames(result.files);
@@ -98,7 +147,7 @@ export function useDeckSession(resumeSession = null) {
             }
         };
         loadDecks();
-    }, [currentCategory, setAppMessage, isAuthenticated, resumeSession?.category, resumeSession?.deck]);
+    }, [currentCategory, setAppMessage, isAuthenticated, resumeSession, user?.email]);
 
     useEffect(() => {
         if (currentCategory && currentDeckName && isAuthenticated) {
@@ -162,8 +211,61 @@ export function useDeckSession(resumeSession = null) {
         });
     }, [currentCategory, currentDeckName, currentIndex, filteredData, selectedGroup, masterData]);
 
+    /**
+     * Envía el lote pendiente al backend en una sola petición POST /api/update-batch.
+     * Se llama automáticamente al cambiar de deck/grupo, al desmontar y en beforeunload.
+     * @param {{ silent?: boolean }} [opts]
+     */
+    const flushProgress = useCallback(async ({ silent = false } = {}) => {
+        const batch = pendingBatchRef.current;
+        if (batch.size === 0) return;
+
+        const { category, deck, userId } = batchContextRef.current;
+        if (!category || !deck || !userId) return;
+
+        const cards = Array.from(batch.values()).map(({ index, learned }) => ({ index, learned }));
+        pendingBatchRef.current = new Map();
+
+        try {
+            await flashcardPort.updateCardsBatch(userId, category, deck, cards);
+        } catch (err) {
+            if (!silent) {
+                setAppMessage({ text: `Error al guardar progreso: ${err.message}`, isError: true });
+            }
+        }
+    }, [setAppMessage]);
+
+    /**
+     * Versión fire-and-forget para beforeunload (no puede usar async/await).
+     * Usa fetch con keepalive: true para que el navegador complete la petición
+     * incluso si la página se está cerrando.
+     */
+    const flushProgressBeacon = useCallback(() => {
+        const batch = pendingBatchRef.current;
+        if (batch.size === 0) return;
+        const { category, deck, userId } = batchContextRef.current;
+        if (!category || !deck || !userId) return;
+
+        const cards = Array.from(batch.values()).map(({ index, learned }) => ({ index, learned }));
+        pendingBatchRef.current = new Map();
+
+        const apiBase = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || '';
+        try {
+            fetch(`${apiBase}/api/update-batch`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: userId, category, deck, cards }),
+                keepalive: true,
+                credentials: 'include',
+            });
+        } catch (_) {
+            // No podemos hacer nada en beforeunload
+        }
+    }, []);
+
     const changeDeck = (newDeck) => {
         markUserNavigation();
+        void flushProgress({ silent: true });
         setCurrentDeckName(newDeck);
         localStorage.setItem(`${LAST_DECK_KEY_PREFIX}${currentCategory}`, newDeck);
     };
@@ -177,20 +279,42 @@ export function useDeckSession(resumeSession = null) {
     const markAsLearned = async () => {
         const card = filteredData[currentIndex];
         if (!card || !user?.email) return;
-        try {
-            await flashcardPort.updateCardStatus(user.email, currentCategory, currentDeckName, card.id, true);
-            const { updated, remaining, completed } = computeFilteredAfterLearn(masterData, card.id, selectedGroup);
-            setMasterData(updated);
-            setFilteredData(remaining);
-            if (completed) setJustCompletedInSession(true);
-            setCurrentIndex((prev) => computeNextIndex(prev, remaining.length));
-        } catch {
-            setAppMessage({ text: 'Error al actualizar', isError: true });
+
+        // Actualización optimista: la UI avanza de inmediato sin esperar la red.
+        const { updated, remaining, completed } = computeFilteredAfterLearn(masterData, card.id, selectedGroup);
+        setMasterData(updated);
+        setFilteredData(remaining);
+        if (completed) setJustCompletedInSession(true);
+        setCurrentIndex((prev) => computeNextIndex(prev, remaining.length));
+
+        // Registrar en el lote pendiente usando el índice original de la tarjeta.
+        batchContextRef.current = {
+            category: currentCategory,
+            deck: currentDeckName,
+            userId: user.email,
+        };
+        pendingBatchRef.current.set(card.id, { index: card.id, learned: true });
+
+        // Flush automático cuando el lote alcanza el tamaño máximo.
+        if (pendingBatchRef.current.size >= BATCH_FLUSH_SIZE) {
+            void flushProgress({ silent: true });
         }
     };
 
     const resetDeck = async () => {
-        if (!user?.email || !window.confirm('¿Resetear progreso?')) return;
+        if (!user?.email) return;
+
+        const shouldReset = await confirm({
+            title: controlsCopy.resetConfirmTitle,
+            message: controlsCopy.resetConfirmMessage,
+            tone: 'danger',
+            confirmLabel: controlsCopy.reset,
+        });
+        if (!shouldReset) return;
+
+        // Al resetear, descartamos el lote pendiente (el reset los borra de la DB de todas formas).
+        pendingBatchRef.current = new Map();
+
         try {
             await flashcardPort.resetDeckStatus(user.email, currentCategory, currentDeckName);
             loadFlashcards(currentCategory, currentDeckName);
@@ -204,6 +328,9 @@ export function useDeckSession(resumeSession = null) {
 
         const targetCards = getGroupLearnedCards(masterData, groupName);
         if (targetCards.length === 0) return false;
+
+        // Vaciar lote antes de resetear un grupo (no tiene sentido guardar tarjetas que se van a desaprender).
+        pendingBatchRef.current = new Map();
 
         setIsDeckLoading(true);
         setLoadingStage('loading_cards');
@@ -240,10 +367,26 @@ export function useDeckSession(resumeSession = null) {
 
     const changeGroup = (group) => {
         markUserNavigation();
+        void flushProgress({ silent: true });
         setSelectedGroup(group);
         setResetKey((k) => k + 1);
         setJustCompletedInSession(false);
+        setIsCatalogVisible(false);
     };
+
+    // Flush al desmontar el componente (navegación SPA, cierre de sesión, etc.)
+    useEffect(() => {
+        return () => {
+            void flushProgress({ silent: true });
+        };
+    }, [flushProgress]);
+
+    // Flush en beforeunload (cierre de pestaña / recarga de página).
+    // Usa keepalive fetch para que el navegador complete la petición tras cerrar.
+    useEffect(() => {
+        window.addEventListener('beforeunload', flushProgressBeacon);
+        return () => window.removeEventListener('beforeunload', flushProgressBeacon);
+    }, [flushProgressBeacon]);
 
     return {
         masterData,
@@ -265,5 +408,6 @@ export function useDeckSession(resumeSession = null) {
         selectedGroup,
         setSelectedGroup: changeGroup,
         justCompletedInSession,
+        flushProgress,
     };
 }

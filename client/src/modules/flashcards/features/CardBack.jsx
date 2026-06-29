@@ -1,7 +1,32 @@
 // src/features/flashcards/CardBack.jsx
 import React from 'react';
 import styles from './Flashcard.module.css';
-import { getCardTitle } from './cardLanguageUtils';
+import { getCardTitle, isLearningEnglish } from './cardLanguageUtils';
+
+const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+function HighlightedExample({ text, term }) {
+    const content = text || '';
+    const highlight = term?.split(' / ')[0]?.trim();
+    if (!highlight) return <>"{content}" </>;
+
+    const pattern = new RegExp(`\\b(${escapeRegExp(highlight)})\\b`, 'gi');
+    const parts = content.split(pattern);
+
+    return (
+        <>
+            "
+            {parts.map((part, index) => (
+                part.toLowerCase() === highlight.toLowerCase() ? (
+                    <strong key={`${part}-${index}`}>{part}</strong>
+                ) : (
+                    <React.Fragment key={`${part}-${index}`}>{part}</React.Fragment>
+                )
+            ))}
+            "{' '}
+        </>
+    );
+}
 
 function CardBack({ cardData, activeForm, currentLanguage }) {
     const getDisplayDefinitions = () => {
@@ -47,24 +72,20 @@ function CardBack({ cardData, activeForm, currentLanguage }) {
                 <div key={i} className={styles.definitionBlockBack}>
                     <p className={styles.meaningSentence}>
                         <span className={styles.phrasalVerbBack}>
-                            {currentLanguage === 'es' ? displayData.name : title}
+                            {isLearningEnglish(currentLanguage) ? displayData.name : title}
                         </span>{' '}
-                        {currentLanguage === 'es' ? 'significa' : 'means'}{' '}
+                        {isLearningEnglish(currentLanguage) ? 'means' : 'significa'}{' '}
                         <strong className={styles.meaningBack}>
-                            {currentLanguage === 'es' ? def.meaning : displayData.name}
+                            {isLearningEnglish(currentLanguage) ? def.meaning : displayData.name}
                         </strong>
                     </p>
-                    <p
-                        className={styles.usageExampleEn}
-                        dangerouslySetInnerHTML={{
-                            __html: `"${(currentLanguage === 'es' ? def.usage_example : def.usage_example)
-                                ?.replace(
-                                    new RegExp(`\\b(${displayData.name.split(' / ')[0]})\\b`, 'gi'),
-                                    '<strong>$1</strong>'
-                                )}" `
-                        }}
-                    />
-                    {def.alternative_example && currentLanguage !== 'es' && (
+                    <p className={styles.usageExampleEn}>
+                        <HighlightedExample
+                            text={isLearningEnglish(currentLanguage) ? def.usage_example : def.usage_example_es}
+                            term={displayData.name}
+                        />
+                    </p>
+                    {def.alternative_example && isLearningEnglish(currentLanguage) && (
                         <p className={styles.alternativeExample}>
                             <em>Alternativa:</em> "{def.alternative_example}"
                         </p>

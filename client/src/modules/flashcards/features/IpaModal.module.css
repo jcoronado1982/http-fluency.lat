@@ -3,6 +3,8 @@
 .modal {
     position: fixed;
     inset: 0;
+    padding: max(12px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+    box-sizing: border-box;
     /* Oscurecimiento profundo en armonía con #0f172a */
     background: rgba(15, 23, 42, 0.75);
     backdrop-filter: blur(8px);
@@ -31,7 +33,7 @@
     animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     box-sizing: border-box;
     /* Tipografía global del sistema */
-    font-family: var(--font-family-body);
+    font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
 }
 
 @keyframes scaleIn {
@@ -149,7 +151,7 @@
     border-radius: 12px;
     font-size: 15px;
     font-weight: 600;
-    font-family: var(--font-family-body);
+    font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -176,12 +178,12 @@
 .ipaBtnLong {
     background: rgba(14, 165, 233, 0.15);
     border-color: rgba(14, 165, 233, 0.3);
-    color: #38bdf8;
+    color: #f472b6;
 }
 
 .ipaBtnLong:hover {
     background: rgba(14, 165, 233, 0.25);
-    border-color: #38bdf8;
+    border-color: #f472b6;
     color: #ffffff;
     box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
 }
@@ -263,6 +265,8 @@
 @media (max-width: 600px) {
     .modalContent {
         padding: 24px 20px 20px;
+        max-height: min(92dvh, calc(100dvh - 24px));
+        overflow-y: auto;
     }
     
     .axisTop {

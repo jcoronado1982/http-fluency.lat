@@ -28,6 +28,7 @@ impl UserRepository for SurrealUserRepository {
             name: String,
             picture: Option<String>,
             role: String,
+            onboarding_completed: bool,
             created_at: chrono::DateTime<chrono::Utc>,
             last_login: chrono::DateTime<chrono::Utc>,
         }
@@ -37,6 +38,7 @@ impl UserRepository for SurrealUserRepository {
             name: user.name,
             picture: user.picture,
             role: user.role,
+            onboarding_completed: user.onboarding_completed,
             created_at: user.created_at,
             last_login: user.last_login,
         };
@@ -57,6 +59,23 @@ impl UserRepository for SurrealUserRepository {
         updated
             .map(Into::into)
             .ok_or_else(|| anyhow!("Failed to upsert user"))
+    }
+
+    async fn set_onboarding_completed(&self, email: &str, completed: bool) -> Result<Option<User>> {
+        let mut res = self
+            .0
+            .db
+            .query(
+                "
+            UPDATE type::thing('user', $email) SET onboarding_completed = $completed;
+            SELECT * FROM type::thing('user', $email);
+        ",
+            )
+            .bind(("email", email))
+            .bind(("completed", completed))
+            .await?;
+        let updated: Option<SurrealUser> = res.take(1)?;
+        Ok(updated.map(Into::into))
     }
 
     async fn list_all_users(&self) -> Result<Vec<User>> {

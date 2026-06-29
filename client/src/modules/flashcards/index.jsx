@@ -1,14 +1,17 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { FiLayers } from 'react-icons/fi';
+import { LuLayers, LuGrid2X2 } from 'react-icons/lu';
 import ProtectedRoute from '../../components/common/ProtectedRoute';
 import FlashcardPage from './FlashcardPage';
 import FlashcardOverlays from './FlashcardOverlays';
+import FlashcardOnboardingTour from './FlashcardOnboardingTour';
+import OnBoardingFlashcard from './OnBoardingFlashcard';
 import { CategoryProvider } from './context/CategoryContext';
 import { FlashcardProvider } from './context/FlashcardContext';
 import { FlashcardUiProvider } from './context/FlashcardUiContext';
 import { getFlashcardFloatingMenuLabels, getFlashcardSidebarLabels } from './config/translations';
 import { readResumeSession } from './config/sessionKeys';
+import { preloadFlashcardStart } from './preload';
 import { invokeUiBridge } from './uiBridge';
 import { StudyMediaProvider } from '../../components/flashcardStudy';
 import { STUDY_MEDIA_VARIANT_APP } from '../../contracts/studyMediaVariants';
@@ -16,10 +19,9 @@ import { audioPort, imagePort, imageCompressionService } from './composition';
 import { isDefaultHomeModule } from '../index';
 
 const IconVowelChart = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="#7f77dd" strokeWidth="2.2">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="4" y="4" width="16" height="16" rx="2" />
-        <path d="M4 9h16" />
-        <path d="M9 4v16" />
+        <path d="M4 9h16M9 4v16" />
     </svg>
 );
 
@@ -61,8 +63,8 @@ const flashcardsModule = {
             items: [{
                 id: 'flashcards',
                 to,
-                icon: <FiLayers />,
-                color: 'teal',
+                icon: <LuLayers />,
+                color: 'brand',
                 name: t.flashcards,
                 sub: t.wordCollections,
             }],
@@ -76,9 +78,26 @@ const flashcardsModule = {
             imageCompressionService={imageCompressionService}
         >
             <FlashcardOverlays />
+            <FlashcardOnboardingTour />
         </StudyMediaProvider>
     ),
     shellProviders: (config) => (config.features.flashcards ? [FlashcardUiProvider] : []),
+    onboarding: ({ language = 'en', config, user }) => {
+        if (!config.features.flashcards) return [];
+        const isEs = language === 'es';
+        return [{
+            id: 'flashcards',
+            moduleId: 'flashcards',
+            session: 'OnBoardingFlashcard',
+            component: OnBoardingFlashcard,
+            preload: user?.email ? () => preloadFlashcardStart(user.email) : null,
+            name: 'Flashcards',
+            description: isEs
+                ? 'Configura tu experiencia inicial de vocabulario, mazos y estudio.'
+                : 'Set up your initial vocabulary, deck, and study experience.',
+            to: isDefaultHomeModule('flashcards', config) ? '/' : '/flashcard',
+        }];
+    },
     readResumeSession,
     floatingMenuItems: ({ language, config, navigate, close, location }) => {
         if (!config.features.flashcards) return [];
@@ -88,15 +107,16 @@ const flashcardsModule = {
             close();
             const onHome = location?.pathname === homePath;
             if (onHome && invokeUiBridge(action)) return;
-            navigate(homePath, { state });
+            const search = location?.search || '';
+            navigate(`${homePath}${search}`, { state });
         };
         return [
             {
                 id: 'flashcards-categories',
                 sectionLabel: t.learn,
                 onClick: () => openFromShell('openCatalog', { openCatalog: true }),
-                icon: <FiLayers />,
-                iconColor: 'teal',
+                icon: <LuLayers />,
+                iconColor: 'brand',
                 name: t.categories,
                 sub: t.wordCollections,
             },

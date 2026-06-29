@@ -5,6 +5,7 @@ mod infrastructure;
 mod modules;
 
 use axum::{
+    http::HeaderValue,
     routing::{get, post},
     Router,
 };
@@ -25,20 +26,27 @@ use crate::domain::repositories::db_repository::{
     CardProgressRepository, PronounPracticeRepository, SubscriptionRepository,
     UserActivityRepository, UserRepository,
 };
+#[cfg(any(feature = "flashcards", feature = "pronoun_practice"))]
 use crate::domain::repositories::image::ImageGenerator;
+#[cfg(any(feature = "flashcards", feature = "pronoun_practice"))]
 use crate::domain::repositories::image_compressor::ImageCompressor;
 #[cfg(feature = "payments")]
 use crate::domain::repositories::payment::PaymentProvider;
 use crate::domain::repositories::storage::StorageRepository;
 use crate::domain::repositories::tutor::AITutor;
+#[cfg(any(feature = "flashcards", feature = "pronoun_practice"))]
 use crate::infrastructure::ai::avif_compressor::AvifCompressor;
+#[cfg(any(feature = "flashcards", feature = "pronoun_practice"))]
 use crate::infrastructure::ai::comfy_provider::ComfyUIProvider;
+#[cfg(feature = "flashcards")]
+use crate::infrastructure::ai::elevenlabs_tts_provider::ElevenLabsTtsProvider;
 use crate::infrastructure::ai::gemini_grpc_provider::GeminiGrpcProvider;
 #[cfg(feature = "flashcards")]
 use crate::infrastructure::ai::gemini_interactions_image_provider::GeminiInteractionsImageProvider;
 #[cfg(feature = "flashcards")]
-    use crate::infrastructure::ai::elevenlabs_tts_provider::ElevenLabsTtsProvider;
-    use crate::infrastructure::ai::routing_tts_provider::RoutingTtsProvider;
+use crate::infrastructure::ai::gemini_tts_provider::GeminiTtsProvider;
+#[cfg(feature = "flashcards")]
+use crate::infrastructure::ai::routing_tts_provider::RoutingTtsProvider;
 #[cfg(feature = "payments")]
 use crate::infrastructure::payment::null_payment_provider::NullPaymentProvider;
 #[cfg(feature = "payments")]
@@ -50,14 +58,12 @@ use crate::infrastructure::storage::surreal::{
     SurrealSubscriptionRepository, SurrealUserActivityRepository, SurrealUserRepository,
 };
 #[cfg(feature = "flashcards")]
-use crate::infrastructure::ai::gemini_tts_provider::GeminiTtsProvider;
+use mod_flashcards::audio_use_cases::AudioUseCases;
 #[cfg(feature = "flashcards")]
 use mod_flashcards::batch::{
     parse_batch_filter, run_batch_audio_generation, run_batch_image_generation,
     run_batch_image_linking, AudioBatchContext, BatchSettings, ImageBatchContext,
 };
-#[cfg(feature = "flashcards")]
-use mod_flashcards::audio_use_cases::AudioUseCases;
 #[cfg(feature = "flashcards")]
 use mod_flashcards::image_use_cases::ImageUseCases;
 #[cfg(feature = "flashcards")]
@@ -180,10 +186,14 @@ async fn async_main() -> anyhow::Result<()> {
             let conn = Arc::new(conn);
             (
                 Arc::new(SurrealUserRepository(conn.clone())) as Arc<dyn UserRepository>,
-                Arc::new(SurrealSubscriptionRepository(conn.clone())) as Arc<dyn SubscriptionRepository>,
-                Arc::new(SurrealCardProgressRepository(conn.clone())) as Arc<dyn CardProgressRepository>,
-                Arc::new(SurrealPronounRepository(conn.clone())) as Arc<dyn PronounPracticeRepository>,
-                Arc::new(SurrealUserActivityRepository(conn.clone())) as Arc<dyn UserActivityRepository>,
+                Arc::new(SurrealSubscriptionRepository(conn.clone()))
+                    as Arc<dyn SubscriptionRepository>,
+                Arc::new(SurrealCardProgressRepository(conn.clone()))
+                    as Arc<dyn CardProgressRepository>,
+                Arc::new(SurrealPronounRepository(conn.clone()))
+                    as Arc<dyn PronounPracticeRepository>,
+                Arc::new(SurrealUserActivityRepository(conn.clone()))
+                    as Arc<dyn UserActivityRepository>,
             )
         }
         Err(e) => {
@@ -216,10 +226,12 @@ async fn async_main() -> anyhow::Result<()> {
     } else {
         tracing::warn!("⚠️ ELEVENLABS_API_KEY no configurada — demo usará Google TTS");
     }
+    #[cfg(any(feature = "flashcards", feature = "pronoun_practice"))]
     let image_gen: Arc<dyn ImageGenerator> = Arc::new(ComfyUIProvider::new(&settings));
     #[cfg(feature = "flashcards")]
     let landing_demo_image_gen: Arc<dyn ImageGenerator> =
         Arc::new(GeminiInteractionsImageProvider::new(&settings));
+    #[cfg(any(feature = "flashcards", feature = "pronoun_practice"))]
     let image_compressor: Arc<dyn ImageCompressor> = Arc::new(AvifCompressor);
 
     // 1000 slots: soporte para ráfagas de imágenes generadas en batch sin perder eventos SSE.
@@ -227,7 +239,11 @@ async fn async_main() -> anyhow::Result<()> {
 
     // --- Compose use cases (application layer) ---
     #[cfg(feature = "flashcards")]
-    let deck_use_cases = Arc::new(DeckUseCases::new(storage_repo.clone(), card_repo.clone(), activity_repo.clone()));
+    let deck_use_cases = Arc::new(DeckUseCases::new(
+        storage_repo.clone(),
+        card_repo.clone(),
+        activity_repo.clone(),
+    ));
     #[cfg(feature = "flashcards")]
     let flashcards_config = Arc::new(FlashcardsConfig {
         gcs_audio_prefix: settings.gcs_audio_prefix.clone(),
@@ -313,10 +329,7 @@ async fn async_main() -> anyhow::Result<()> {
         notification_sender,
     };
 
-    let cors = CorsLayer::new()
-        .allow_origin(Any)
-        .allow_methods(Any)
-        .allow_headers(Any);
+    let cors = cors_layer();
 
     // --- BATCH MODE ---
     // Uso:
@@ -372,6 +385,10 @@ async fn async_main() -> anyhow::Result<()> {
             "/api/explain-like-child",
             post(api::endpoints::tutor::explain_like_child),
         )
+        .route(
+            "/api/onboarding-guide",
+            post(api::endpoints::tutor::guide_onboarding),
+        )
         // Notifications (SSE — excluido del timeout global)
         .route(
             "/api/notifications/events",
@@ -391,6 +408,10 @@ async fn async_main() -> anyhow::Result<()> {
                 post(api::endpoints::auth::dev_guest_login),
             )
             .route("/api/auth/me", get(api::endpoints::auth::get_me))
+            .route(
+                "/api/auth/onboarding",
+                post(api::endpoints::auth::update_onboarding),
+            )
             .route(
                 "/api/presence/heartbeat",
                 post(api::endpoints::presence::heartbeat),
@@ -450,4 +471,43 @@ async fn async_main() -> anyhow::Result<()> {
     let listener = tokio::net::TcpListener::bind(addr).await?;
     axum::serve(listener, app).await?;
     Ok(())
+}
+
+fn cors_layer() -> CorsLayer {
+    let configured = std::env::var("CORS_ALLOWED_ORIGINS")
+        .or_else(|_| std::env::var("APP_ALLOWED_ORIGINS"))
+        .unwrap_or_default();
+    if configured.trim() == "*" {
+        return CorsLayer::new()
+            .allow_origin(Any)
+            .allow_methods(Any)
+            .allow_headers(Any);
+    }
+    let origins: Vec<HeaderValue> = configured
+        .split(',')
+        .map(str::trim)
+        .filter(|origin| !origin.is_empty())
+        .filter_map(|origin| match origin.parse::<HeaderValue>() {
+            Ok(value) => Some(value),
+            Err(_) => {
+                tracing::warn!("Origen CORS ignorado por inválido: {}", origin);
+                None
+            }
+        })
+        .collect();
+
+    if origins.is_empty() {
+        tracing::warn!(
+            "CORS abierto: define CORS_ALLOWED_ORIGINS para restringirlo por entorno sin cambiar código"
+        );
+        return CorsLayer::new()
+            .allow_origin(Any)
+            .allow_methods(Any)
+            .allow_headers(Any);
+    }
+
+    CorsLayer::new()
+        .allow_origin(origins)
+        .allow_methods(Any)
+        .allow_headers(Any)
 }

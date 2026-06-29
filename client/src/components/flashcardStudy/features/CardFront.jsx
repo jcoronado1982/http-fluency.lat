@@ -8,7 +8,7 @@ import { FaSpinner } from 'react-icons/fa';
 import { FiPlay, FiHeadphones, FiRefreshCw } from 'react-icons/fi';
 import { useAuth } from '../../../context/AuthContext';
 import { useFlashcardContext } from '../context/flashcardStudyContext';
-import { getCardTitle, getAudioLang } from './cardLanguageUtils';
+import { getCardTitle, getAudioLang, isLearningEnglish } from './cardLanguageUtils';
 
 // ---------------------------------------------------------------------------
 // Mapa de formas verbales → datos a mostrar (OCP: extensible sin modificar)
@@ -46,7 +46,6 @@ const DISPLAY_DATA_MAP = {
 function CardFront({
     cardData,
     onOpenIpaModal,
-    playAudio,
     playDefinitionMedia,
     activeAudioText,
     highlightedWordIndex,
@@ -56,6 +55,7 @@ function CardFront({
     isGeneratingImage,
     imageUrl,
     imageRef,
+    imageKey,
     deleteImage,
     uploadImage,
     handleImageError,
@@ -103,52 +103,54 @@ function CardFront({
     return (
         <div className={styles.cardFront}>
             {/* Nombre + botón borrar audio */}
-            <h2 className={styles.name}>
-                <div className={styles.nameContainer}>
-                    <div className={styles.titleContainer}>
+            <div className={styles.wordHeader}>
+                <button
+                    className={`${styles.soundButton} ${isGeneratingAudio && activeAudioText === title ? styles.loadingAudioBtn : ''}`}
+                    onClick={(e) => { e.stopPropagation(); playDefinitionMedia(0, title, getAudioLang(currentLanguage)); }}
+                    disabled={isGeneratingAudio}
+                    data-tour="boton-reproducir-audio-palabra"
+                    title={isLearningEnglish(currentLanguage) ? 'Reproducir palabra' : 'Play word'}
+                    aria-label={isLearningEnglish(currentLanguage) ? 'Reproducir palabra' : 'Play word'}
+                >
+                    {isGeneratingAudio && activeAudioText === title
+                        ? <FaSpinner className={styles.spinner} />
+                        : <FiPlay size={24} strokeWidth={2.5} />}
+                </button>
+
+                <div className={styles.wordBlock}>
+                    <h2 className={styles.name}>
                         <HighlightedText
                             text={title}
                             activeAudioText={activeAudioText}
                             highlightedWordIndex={highlightedWordIndex}
                         />
-                        {isAdmin && !(isGeneratingAudio && activeAudioText === title) && (
+                    </h2>
+                    {isAdmin && !(isGeneratingAudio && activeAudioText === title) && (
+                        <button
+                            className={styles.rotateVoiceBtn}
+                            onClick={(e) => handleRotateVoice(e, title, getAudioLang(currentLanguage))}
+                            title="Actualizar voz aleatoria"
+                            disabled={isDisabled}
+                        >
+                            <FiRefreshCw size={24} strokeWidth={2.5} />
+                        </button>
+                    )}
+                    {isLearningEnglish(currentLanguage) && (
+                        <>
+                            <span className={styles.phonetic}>{displayData.phonetic}</span>
                             <button
-                                className={styles.rotateVoiceBtn}
-                                onClick={(e) => handleRotateVoice(e, title, getAudioLang(currentLanguage))}
-                                title="Actualizar voz aleatoria"
+                                type="button"
+                                className={styles.ipaChartBtn}
+                                onClick={(e) => { e.stopPropagation(); onOpenIpaModal(); }}
                                 disabled={isDisabled}
+                                title="Tabla IPA"
                             >
-                                <FiRefreshCw size={18} />
+                                <FiHeadphones size={22} />
                             </button>
-                        )}
-                    </div>
-                    <button
-                        className={`${styles.soundButton} ${isGeneratingAudio && activeAudioText === title ? styles.loadingAudioBtn : ''}`}
-                        onClick={(e) => { e.stopPropagation(); playDefinitionMedia(0, title, getAudioLang(currentLanguage)); }}
-                        disabled={isGeneratingAudio}
-                    >
-                        {isGeneratingAudio && activeAudioText === title
-                            ? <FaSpinner className={styles.spinner} />
-                            : <FiPlay size={22} />}
-                    </button>
+                        </>
+                    )}
                 </div>
-            </h2>
-
-            {/* Fonética */}
-            {currentLanguage === 'es' && (
-                <div className={styles.phoneticContainer}>
-                    <span className={styles.phonetic}>{displayData.phonetic}</span>
-                    <button
-                        type="button"
-                        className={styles.ipaChartBtn}
-                        onClick={(e) => { e.stopPropagation(); onOpenIpaModal(); }}
-                        disabled={isDisabled}
-                        title="Tabla IPA"
-                    >
-                        <FiHeadphones size={18} />
-                    </button>
-                </div>
-            )}
+            </div>
 
             {/* Tabla de conjugación (componente propio) */}
             <ConjugationTable
@@ -191,14 +193,14 @@ function CardFront({
                 isGeneratingImage={isGeneratingImage}
                 isUploading={isUploading}
                 imageUrl={imageUrl}
-                imageKey={activeForm}
+                imageKey={imageKey}
                 imageRef={imageRef}
                 altText={title}
                 onDelete={deleteImage}
                 onUploadClick={triggerUpload}
                 onImageError={handleImageError}
                 canCustomizeImages={canCustomizeImages}
-                canDeleteImages={canDeleteImages}
+                canDeleteImages={canDeleteImages && !isLandingDemo}
                 isDisabled={isDisabled}
                 isLandingDemo={isLandingDemo}
             />

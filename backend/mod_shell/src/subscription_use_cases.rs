@@ -1,6 +1,8 @@
 use anyhow::{anyhow, Result};
 use chrono::Utc;
-use fluency_core::domain::models::subscription::{Subscription, SubscriptionPlan, SubscriptionStatus};
+use fluency_core::domain::models::subscription::{
+    Subscription, SubscriptionPlan, SubscriptionStatus,
+};
 use fluency_core::ports::db_repository::SubscriptionRepository;
 use fluency_core::ports::payment::PaymentProvider;
 use std::sync::Arc;

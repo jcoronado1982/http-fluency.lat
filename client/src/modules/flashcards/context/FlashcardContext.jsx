@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { useContext } from 'react';
 import { FlashcardContext as StudyFlashcardContext } from '../../../components/flashcardStudy/context/flashcardStudyContext';
 import { useDeckSession } from '../hooks/useDeckSession';
 

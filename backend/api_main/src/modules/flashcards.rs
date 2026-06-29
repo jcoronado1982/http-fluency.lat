@@ -23,6 +23,10 @@ pub fn register_routes(app: Router<AppState>) -> Router<AppState> {
         post(api::endpoints::decks::update_card_status),
     )
     .route(
+        "/api/update-batch",
+        post(api::endpoints::decks::update_cards_batch),
+    )
+    .route(
         "/api/reset-all",
         post(api::endpoints::decks::reset_all_statuses),
     )

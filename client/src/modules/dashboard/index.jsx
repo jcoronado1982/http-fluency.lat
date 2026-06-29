@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiHome } from 'react-icons/fi';
+import { LuLayoutDashboard } from 'react-icons/lu';
 import ProtectedRoute from '../../components/common/ProtectedRoute';
 import { DASHBOARD_HOME_PATH } from '../routingPaths';
 import DashboardShell from './DashboardShell';
@@ -9,7 +9,6 @@ import { getDashboardTranslations } from './config/translations';
 const dashboardModule = {
     id: 'dashboard',
     enabled: (config) => config.features.dashboard,
-    /** Componente layout con <Outlet /> para rutas con layout !== 'bare'. */
     appShell: DashboardShell,
     routes: (config) => {
         if (!config.features.dashboard) return [];
@@ -31,8 +30,8 @@ const dashboardModule = {
             items: [{
                 id: 'dashboard-home',
                 to: DASHBOARD_HOME_PATH,
-                icon: <FiHome />,
-                color: 'purple',
+                icon: <LuLayoutDashboard />,
+                color: 'brand',
                 name: t.homeName,
                 sub: t.homeSub,
             }],

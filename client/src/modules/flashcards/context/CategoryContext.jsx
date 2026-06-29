@@ -5,6 +5,7 @@ import { useAuth } from '../../../context/AuthContext';
 import { FALLBACK_CATEGORIES, sortCategories } from '../config/catalogOrder';
 import { markUserNavigation } from '../navigationIntent';
 import { parseCategoriesResponse, resolvePersistedChoice } from '../useCases/deckUseCases';
+import { consumeFlashcardPreload } from '../preload';
 import { LAST_CATEGORY_KEY } from '../config/sessionKeys';
 
 export const CategoryContext = StudyCategoryContext;
@@ -15,7 +16,7 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
     const [currentCategory, setCurrentCategory] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [loadingStage, setLoadingStage] = useState('loading_categories');
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, user } = useAuth();
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -23,38 +24,47 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
             setLoadingStage(null);
             return;
         }
+
+        const resolvePreferredCategory = (nextCategories) => {
+            if (resumeSession?.category && nextCategories.includes(resumeSession.category)) {
+                return resumeSession.category;
+            }
+            return resolvePersistedChoice(LAST_CATEGORY_KEY, nextCategories, nextCategories[0] ?? null);
+        };
+
+        const applyCategories = (nextCategories, totals) => {
+            setCategories(nextCategories);
+            setCategoryTotals(totals);
+            setCurrentCategory(resolvePreferredCategory(nextCategories));
+        };
+
         const load = async () => {
             setIsLoading(true);
             setLoadingStage('loading_categories');
             try {
+                const preloaded = await consumeFlashcardPreload(user?.email, resumeSession);
+                if (preloaded?.categories?.length) {
+                    applyCategories(preloaded.categories, preloaded.categoryTotals ?? {});
+                    return;
+                }
+
                 const result = await flashcardPort.fetchCategories();
                 const { names, totals } = parseCategoriesResponse(result);
                 const sorted = sortCategories(names);
                 const nextCategories = sorted.length > 0 ? sorted : [...FALLBACK_CATEGORIES];
-                setCategories(nextCategories);
-                setCategoryTotals(totals);
-                const preferred = resumeSession?.category
-                    && nextCategories.includes(resumeSession.category)
-                    ? resumeSession.category
-                    : resolvePersistedChoice(LAST_CATEGORY_KEY, nextCategories, nextCategories[0] ?? null);
-                setCurrentCategory(preferred);
+                applyCategories(nextCategories, totals);
             } catch {
                 console.error('No se pudieron cargar las categorías. Usando fallback local.');
                 const fallback = [...FALLBACK_CATEGORIES];
-                setCategories(fallback);
-                setCategoryTotals({});
-                const preferred = resumeSession?.category
-                    && fallback.includes(resumeSession.category)
-                    ? resumeSession.category
-                    : resolvePersistedChoice(LAST_CATEGORY_KEY, fallback, fallback[0] ?? null);
-                setCurrentCategory(preferred);
+                applyCategories(fallback, {});
             } finally {
                 setLoadingStage(null);
                 setIsLoading(false);
             }
         };
+
         load();
-    }, [isAuthenticated, resumeSession?.category]);
+    }, [isAuthenticated, user?.email, resumeSession]);
 
     const changeCategory = useCallback((cat) => {
         markUserNavigation();

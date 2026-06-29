@@ -8,8 +8,10 @@
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
-  overflow: auto; /* Allow scroll if content is too big */
+  height: 100dvh;
+  overflow: auto;
+  padding: max(12px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+  box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
 }
 
@@ -28,7 +30,7 @@
   /* --- Modificaciones --- */
   display: flex; /* Usamos flex para el layout interno */
   flex-direction: column;
-  max-height: 85vh; /* Altura máxima */
+  max-height: min(85dvh, calc(100dvh - 24px));
 }
 
 /* Simple fade-in animation */
@@ -101,13 +103,13 @@
   align-items: center;
   margin-top: 0;
   margin-bottom: 15px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
 }
 
 .ruleText {
   font-size: 1.3em;
   font-weight: 700;
-  color: #007bff; /* Azul */
+  color: #f472b6;
 }
 
 .ruleSoundsLike {
@@ -215,4 +217,36 @@
   font-size: 0.9em;
   color: #6c757d;
   font-family: 'Courier New', Courier, monospace; /* Fuente monoespaciada para IPA */
+}
+
+@media (max-width: 600px) {
+  .modalContent {
+    width: min(96%, 800px);
+    padding: 16px 14px 18px;
+    border-radius: 12px;
+  }
+
+  .rulesContainer {
+    padding-right: 8px;
+    margin-top: 12px;
+  }
+
+  .ruleTitle {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .ruleText {
+    font-size: 1.1em;
+  }
+
+  .examplesGrid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .exampleButton {
+    padding: 10px;
+  }
 }

@@ -104,7 +104,7 @@ cp "$PROXY_DIR/aws-health-monitor.sh" /usr/local/bin/aws-health-monitor.sh
 chmod +x /usr/local/bin/oracle-ram-monitor.sh /usr/local/bin/aws-health-monitor.sh
 
 if $DEPLOY_BACKEND; then
-  bash "$PROXY_DIR/deploy-surrealdb.sh"
+  # NOTA: SurrealDB ahora vive en OCI-1 (10.0.1.138), ya no se despliega en el proxy
   bash "$PROXY_DIR/deploy-oracle-backend.sh"
 fi
 

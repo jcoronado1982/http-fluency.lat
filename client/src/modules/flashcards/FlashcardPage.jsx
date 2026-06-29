@@ -18,6 +18,7 @@ import { flashcardPort, audioPort, imagePort, imageCompressionService } from './
 import {
     registerUiBridgeHandler,
     unregisterUiBridgeHandler,
+    invokeUiBridge,
 } from './uiBridge';
 
 const FLASHCARD_LOADING_COPY = {
@@ -89,6 +90,7 @@ const FLASHCARD_LOADING_COPY = {
 
 export default function FlashcardPage() {
     const location = useLocation();
+    const isOnboardingTour = new URLSearchParams(location.search).get('onboarding_tour') === 'flashcards';
     const {
         isCatalogVisible,
         setIsCatalogVisible,
@@ -98,13 +100,15 @@ export default function FlashcardPage() {
     const {
         isFloatingMenuOpen, isSidebarOpen,
         language = 'en',
+        studyLanguage = 'en',
         setIsHeaderSuppressed,
     } = useUIContext();
     const { currentCategory, changeCategory, loadingStage: categoryLoadingStage } = useCategoryContext();
 
     const {
         currentCard, loadingStage: flashcardLoadingStage, filteredData, masterData, currentDeckName,
-        nextCard, prevCard, selectedGroup, changeDeck, setSelectedGroup, justCompletedInSession,
+        nextCard, prevCard, markAsLearned, resetDeck,
+        selectedGroup, changeDeck, setSelectedGroup, justCompletedInSession,
     } = useFlashcardContext();
     const isPronounsCategory = currentCategory === 'pronouns';
     const { progress, currentTask, reset, setProgress, setCurrentTask } = usePageLoader();
@@ -122,11 +126,50 @@ export default function FlashcardPage() {
     useEffect(() => {
         registerUiBridgeHandler('openCatalog', () => setIsCatalogVisible(true));
         registerUiBridgeHandler('openIpa', () => setIsIpaModalOpen(true));
+        registerUiBridgeHandler('nextCard', () => nextCard());
+        registerUiBridgeHandler('prevCard', () => prevCard());
+        registerUiBridgeHandler('markLearned', () => { void markAsLearned(); });
+        registerUiBridgeHandler('resetDeck', () => resetDeck());
+        registerUiBridgeHandler('flipCard', () => {
+            const card = document.querySelector('[data-tour="boton-voltear-tarjeta"]');
+            if (card instanceof HTMLElement && card.getAttribute('data-flipped') !== 'true') {
+                card.click();
+            }
+        });
+        registerUiBridgeHandler('unflipCard', () => {
+            const card = document.querySelector('[data-tour="boton-voltear-tarjeta"]');
+            if (card instanceof HTMLElement && card.getAttribute('data-flipped') === 'true') {
+                card.click();
+            }
+        });
+        registerUiBridgeHandler('prepareReproducirAudioStep', () => {
+            const card = document.querySelector('[data-tour="boton-voltear-tarjeta"]');
+            if (card instanceof HTMLElement && card.getAttribute('data-flipped') === 'true') {
+                card.click();
+            }
+            window.setTimeout(() => {
+                invokeUiBridge('revealPhrase');
+            }, 900);
+        });
         return () => {
             unregisterUiBridgeHandler('openCatalog');
             unregisterUiBridgeHandler('openIpa');
+            unregisterUiBridgeHandler('nextCard');
+            unregisterUiBridgeHandler('prevCard');
+            unregisterUiBridgeHandler('markLearned');
+            unregisterUiBridgeHandler('resetDeck');
+            unregisterUiBridgeHandler('flipCard');
+            unregisterUiBridgeHandler('unflipCard');
+            unregisterUiBridgeHandler('prepareReproducirAudioStep');
         };
-    }, [setIsCatalogVisible, setIsIpaModalOpen]);
+    }, [
+        markAsLearned,
+        nextCard,
+        prevCard,
+        resetDeck,
+        setIsCatalogVisible,
+        setIsIpaModalOpen,
+    ]);
 
     useEffect(() => {
         flashcardPort.touchStudyDay().catch(() => {});
@@ -184,9 +227,9 @@ export default function FlashcardPage() {
     }, [activeLoadingStage, loadingCopy, reset, setCurrentTask, setProgress]);
 
     useEffect(() => {
-        setIsHeaderSuppressed(shouldShowLoading);
+        setIsHeaderSuppressed(shouldShowLoading && !isOnboardingTour);
         return () => setIsHeaderSuppressed(false);
-    }, [shouldShowLoading, setIsHeaderSuppressed]);
+    }, [shouldShowLoading, isOnboardingTour, setIsHeaderSuppressed]);
 
     const handleContinueRecommendation = useCallback(() => {
         if (!recommendation) {
@@ -239,7 +282,11 @@ export default function FlashcardPage() {
             imagePort={imagePort}
             imageCompressionService={imageCompressionService}
         >
-        <div className="flashcard-page-wrapper">
+        <div
+            className="flashcard-page-wrapper"
+            data-onboarding-tour={isOnboardingTour ? 'true' : undefined}
+            data-catalog-open={isCatalogVisible ? 'true' : undefined}
+        >
             {masterData.length > 0 && !isOverlayOpen && !shouldShowLoading && !shouldShowCompletionCard && (
                 <div className={`${styles.cardCounter} ${isPronounsCategory ? styles.pronounsCounter : ''}`}>
                     <div className={styles.counterItem}>
@@ -294,7 +341,7 @@ export default function FlashcardPage() {
                             <div className="all-done-message">No hay tarjetas disponibles en este momento.</div>
                         )
                     ) : (
-                        <Flashcard key={`${currentCategory}-${currentDeckName}-${currentCard.id}-${language}`} />
+                        <Flashcard key={`${currentCategory}-${currentDeckName}-${language}-${studyLanguage}`} />
                     )}
                     {!shouldShowLoading && !shouldShowCompletionCard && <Controls />}
                 </div>

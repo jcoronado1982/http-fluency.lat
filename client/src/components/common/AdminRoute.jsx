@@ -50,7 +50,7 @@ const LOADING_COPY = {
 };
 
 const AdminRoute = ({ children }) => {
-    const { isAuthenticated, loading, loadingStage, role } = useAuth();
+    const { isAuthenticated, loading, loadingStage, role, onboardingRequired } = useAuth();
     const { language = 'en' } = useUIContext();
     const locale = language === 'es' ? 'es' : 'en';
     const copy = LOADING_COPY[locale][loadingStage] ?? LOADING_COPY[locale].fallback;
@@ -75,6 +75,10 @@ const AdminRoute = ({ children }) => {
                 state={entryPath === '/login' ? { from: '/admin' } : undefined}
             />
         );
+    }
+
+    if (onboardingRequired) {
+        return <Navigate to="/onboarding" replace />;
     }
 
     if (role !== 'admin') {
