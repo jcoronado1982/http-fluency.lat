@@ -1,5 +1,9 @@
 /* ── Responsive ── */
 @media (min-width: 720px) {
+    .lp {
+        --lp-section-inline-padding: 60px;
+    }
+
     .lp-nav-links { display: flex; }
 
     .lp-hero-inner {
@@ -60,6 +64,14 @@
         --lp-mobile-title-size: 1.75rem;
         --lp-mobile-title-line: 1.15;
         --lp-mobile-trust-size: 0.6875rem;
+    }
+
+    .lp-section-inner {
+        padding-inline: 20px;
+    }
+
+    .lp .shell-footer-content {
+        padding-inline: 20px;
     }
 
     .lp-hero-title,
