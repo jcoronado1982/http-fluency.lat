@@ -80,6 +80,7 @@ stages:
         curl -fsSL https://bun.sh/install | bash
         export PATH=$HOME/.bun/bin:$PATH
         cd client
+        cp env-profiles/production.profile .env.production
         bun install --frozen-lockfile
         # Vacío → same-origin: /api va al mismo dominio (prod, QA o cualquier subdominio)
         VITE_API_URL='' bun run build
