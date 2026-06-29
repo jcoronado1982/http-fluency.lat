@@ -42,7 +42,7 @@ export const imageCompressionService = {
                 currentFile = new File([singleBlob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", { type: "image/jpeg" });
             } catch (e) {
                 console.error('[Compresor] Fallo al convertir HEIC:', e);
-                throw new Error('No se pudo decodificar el archivo HEIC.');
+                throw new Error('No se pudo decodificar el archivo HEIC.', { cause: e });
             }
         }
 

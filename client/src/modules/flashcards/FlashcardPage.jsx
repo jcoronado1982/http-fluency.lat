@@ -282,7 +282,11 @@ export default function FlashcardPage() {
             imagePort={imagePort}
             imageCompressionService={imageCompressionService}
         >
-        <div className="flashcard-page-wrapper" data-onboarding-tour={isOnboardingTour ? 'true' : undefined}>
+        <div
+            className="flashcard-page-wrapper"
+            data-onboarding-tour={isOnboardingTour ? 'true' : undefined}
+            data-catalog-open={isCatalogVisible ? 'true' : undefined}
+        >
             {masterData.length > 0 && !isOverlayOpen && !shouldShowLoading && !shouldShowCompletionCard && (
                 <div className={`${styles.cardCounter} ${isPronounsCategory ? styles.pronounsCounter : ''}`}>
                     <div className={styles.counterItem}>
@@ -337,7 +341,7 @@ export default function FlashcardPage() {
                             <div className="all-done-message">No hay tarjetas disponibles en este momento.</div>
                         )
                     ) : (
-                        <Flashcard key={`${currentCategory}-${currentDeckName}-${currentCard.id}-${language}-${studyLanguage}`} />
+                        <Flashcard key={`${currentCategory}-${currentDeckName}-${language}-${studyLanguage}`} />
                     )}
                     {!shouldShowLoading && !shouldShowCompletionCard && <Controls />}
                 </div>

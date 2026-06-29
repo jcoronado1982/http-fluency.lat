@@ -12,7 +12,6 @@ import { pricingLandingSectionLink } from './config/publicNavigation';
 import { getPricingPlanCards } from './config/planCatalog';
 import { getPricingTranslations } from './translations';
 import ShellFooter from '../../components/shell/ShellFooter';
-import { getLandingTranslations } from '../landing/config/translations';
 import './PricingPage.css';
 
 const FEATURE_ICONS = [FiBook, FiZap, FiVolume2, FiGlobe, FiImage, FiImage, FiVolume2, FiStar];
@@ -52,7 +51,6 @@ export default function PricingPage() {
     const { isAuthenticated } = useAuth();
     const location = useLocation();
     const t = getPricingTranslations(language);
-    const landingFooterLabels = getLandingTranslations(language);
     const [billing, setBilling] = useState('annual');
     const premiumPlan = getPricingPlanCards()[billing];
 
@@ -291,9 +289,9 @@ export default function PricingPage() {
             <ShellFooter
                 variant="landing"
                 labels={{
-                    documentation: landingFooterLabels.footerDocumentation,
-                    portfolio: landingFooterLabels.footerPortfolio,
-                    github: landingFooterLabels.footerGithub,
+                    documentation: t.footer.documentation,
+                    portfolio: t.footer.portfolio,
+                    github: t.footer.github,
                 }}
             />
         </div>

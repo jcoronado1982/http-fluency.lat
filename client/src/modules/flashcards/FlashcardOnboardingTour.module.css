@@ -400,6 +400,8 @@
     .tooltip[data-mobile-sheet='true'] {
         width: calc(100vw - 28px) !important;
         max-width: none;
+        max-height: min(34dvh, 216px);
+        overflow: hidden;
         border-radius: 16px;
         box-shadow: 0 16px 40px rgba(2, 8, 23, 0.62);
     }
@@ -426,7 +428,8 @@
     .tooltip[data-mobile-sheet='true'] .body {
         margin-top: 6px;
         padding: 0 14px 2px;
-        max-height: none;
+        max-height: min(13dvh, 74px);
+        overflow-y: auto;
         font-size: 0.78rem;
         line-height: 1.45;
     }

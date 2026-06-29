@@ -312,7 +312,7 @@ Output ONLY the final scene description (60-85 words) in English."#;
         pos_category: &str,
         meaning: Option<&str>,
         usage_example: Option<&str>,
-        scene_complement: Option<&str>,
+        _scene_complement: Option<&str>,
     ) -> Result<String> {
         if self.api_key == "DISABLED" {
             return Ok(phrase.to_string());
@@ -324,7 +324,7 @@ Output ONLY the final scene description (60-85 words) in English."#;
                 gemini_system_for_landing, GEMINI_SYSTEM_COMPLEMENT_MODE,
             };
 
-            if let Some(comp) = scene_complement.map(str::trim).filter(|s| !s.is_empty()) {
+            if let Some(comp) = _scene_complement.map(str::trim).filter(|s| !s.is_empty()) {
                 let example = usage_example.filter(|s| !s.is_empty()).unwrap_or(phrase);
                 let user = build_complement_mode_user_message(example, meaning, comp);
                 return self
@@ -343,9 +343,9 @@ Output ONLY the final scene description (60-85 words) in English."#;
                 pos_category,
                 meaning,
                 usage_example,
-                scene_complement,
+                _scene_complement,
             );
-            let system = gemini_system_for_landing(scene_complement);
+            let system = gemini_system_for_landing(_scene_complement);
             return self
                 .call(&system, &user, 0.5, "gemini-3.1-flash-lite", None)
                 .await;

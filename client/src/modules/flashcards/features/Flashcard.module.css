@@ -1057,28 +1057,44 @@
     }
 
     .cardCounter {
-        position: fixed !important;
-        top: calc(env(safe-area-inset-top, 0px) + 80px) !important;
-        right: 12px !important;
+        position: static !important;
+        top: auto !important;
+        right: auto !important;
         left: auto !important;
         transform: none !important;
-        margin: 0 !important;
-        width: fit-content !important;
+        margin: 15px 20px 10px auto !important;
+        width: calc(100% - (var(--fc-page-inline-padding, 12px) * 2)) !important;
+        max-width: var(--fc-card-max-width, 620px) !important;
         display: flex !important;
-        padding: 0 !important;
+        justify-content: flex-end !important;
+        padding: 0 4px !important;
         border-radius: 0 !important;
         box-shadow: none !important;
         background: transparent !important;
         border: none !important;
-        z-index: 1200 !important;
+        z-index: auto !important;
     }
 
     .cardCounter.pronounsCounter {
-        top: calc(env(safe-area-inset-top, 0px) + 80px) !important;
+        margin-top: 8px !important;
     }
 
     .counterItem {
-        align-items: flex-end !important; /* Alinear textos a la derecha */
+        flex-direction: row !important;
+        align-items: baseline !important;
+        gap: 10px !important;
+        min-width: 0 !important;
+        white-space: nowrap !important;
+    }
+
+    .counterLabel {
+        margin-bottom: 0 !important;
+        white-space: nowrap !important;
+    }
+
+    .counterValues {
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
     }
 
     .learnedValue {
@@ -1211,7 +1227,8 @@
         gap: 8px !important;
         position: relative !important;
         width: 100% !important;
-        height: 70px !important;
+        height: 55px !important;
+        padding-top: 8px !important;
     }
 
     .titleContainer .rotateVoiceBtn {

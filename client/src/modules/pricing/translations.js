@@ -99,6 +99,9 @@ export const PRICING_TRANSLATIONS = {
             btnPremium: 'Go to Premium',
         },
         footer: {
+            documentation: 'Documentation',
+            portfolio: 'Portfolio',
+            github: 'GitHub',
             note: 'Prices are in USD. Payments are processed securely.',
         }
     },
@@ -202,6 +205,9 @@ export const PRICING_TRANSLATIONS = {
             btnPremium: 'Ir a Premium',
         },
         footer: {
+            documentation: 'Documentación',
+            portfolio: 'Portfolio',
+            github: 'GitHub',
             note: 'Los precios están en USD. Los pagos se procesan de forma segura.',
         }
     }

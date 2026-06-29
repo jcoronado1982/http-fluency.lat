@@ -7,7 +7,7 @@ import CardBack from './CardBack.jsx';
 import { useUIContext } from '../../../context/UIContext';
 import { useFlashcardUiContext, useFlashcardContext, useCategoryContext } from '../context/flashcardStudyContext';
 import { getCardTitle, getAudioLang, getAudioLangForConjugation, isLearningEnglish } from './cardLanguageUtils';
-import { registerUiBridgeHandler, unregisterUiBridgeHandler } from '../../../modules/flashcards/uiBridge';
+import { registerUiBridgeHandler, unregisterUiBridgeHandler } from '../uiBridge';
 
 const getDefinitionsForForm = (card, form) => {
     if (!card) return [];
@@ -39,6 +39,8 @@ function Flashcard() {
     const {
         currentCard: cardData,
         currentDeckName,
+        filteredData = [],
+        currentIndex = 0,
         updateCardImagePath,
         isLandingDemo = false,
         demoStudyLanguage,
@@ -64,7 +66,7 @@ function Flashcard() {
     });
 
     const {
-        isImageLoading, isGeneratingImage, imageUrl, imageRef,
+        isImageLoading, isGeneratingImage, imageUrl, imageRef, currentDefIndex,
         ensureImageForDefinition, ensureImageForForm, deleteImage, uploadImage,
         handleImageError, canCustomizeImages, canDeleteImages,
     } = useImageGeneration({
@@ -112,22 +114,40 @@ function Flashcard() {
         });
     }, [ensureImageForDefinition, cardData, activeForm]);
 
-    useEffect(() => {
-        if (!cardData || isAnyOverlayOpen) return;
+    const prefetchCardAudio = useCallback((card) => {
+        if (!card || isAnyOverlayOpen) return;
 
-        const defs = getDefinitionsForForm(cardData, 'v1');
+        const defs = getDefinitionsForForm(card, 'v1');
         const title = getCardTitle({
-            name: cardData.name,
-            definitions: cardData.definitions || [],
+            name: card.name,
+            definitions: card.definitions || [],
         }, cardLanguage);
         const audioLang = getAudioLang(cardLanguage);
+        const cardVerbName = card.name;
 
-        if (title) void prefetchAudio(title, audioLang);
+        if (title) void prefetchAudio(title, audioLang, cardVerbName);
         defs.forEach((def) => {
             const exampleText = cardLanguage === 'en' ? def.usage_example : def.usage_example_es;
-            if (exampleText) void prefetchAudio(exampleText, audioLang);
+            if (exampleText) void prefetchAudio(exampleText, audioLang, cardVerbName);
         });
-    }, [cardData, cardLanguage, isAnyOverlayOpen, prefetchAudio]);
+    }, [cardLanguage, isAnyOverlayOpen, prefetchAudio]);
+
+    useEffect(() => {
+        if (!cardData) return;
+        prefetchCardAudio(cardData);
+    }, [cardData, prefetchCardAudio]);
+
+    useEffect(() => {
+        if (!filteredData.length || isAnyOverlayOpen) return;
+
+        const nextIndex = (currentIndex + 1) % filteredData.length;
+        const prevIndex = (currentIndex - 1 + filteredData.length) % filteredData.length;
+
+        if (nextIndex !== currentIndex) prefetchCardAudio(filteredData[nextIndex]);
+        if (prevIndex !== currentIndex && prevIndex !== nextIndex) {
+            prefetchCardAudio(filteredData[prevIndex]);
+        }
+    }, [filteredData, currentIndex, isAnyOverlayOpen, prefetchCardAudio]);
 
     useEffect(() => {
         if (!cardData) return;
@@ -150,7 +170,7 @@ function Flashcard() {
                 void playAudio(title, getAudioLang(cardLanguage));
             }
         }
-    }, [cardData, setAppMessage, prevCardId, stopAudio, playAudio, cardLanguage, isAnyOverlayOpen]);
+    }, [cardData, setAppMessage, prevCardId, stopAudio, playAudio, cardLanguage, isAnyOverlayOpen, buildAllBlurred]);
 
     useEffect(() => {
         if (!cardData?.irregular) return;
@@ -254,6 +274,7 @@ function Flashcard() {
                     isGeneratingImage={isGeneratingImage}
                     imageUrl={imageUrl}
                     imageRef={imageRef}
+                    imageKey={`${activeForm}-${currentDefIndex}`}
                     playDefinitionMedia={playDefinitionMedia}
                     deleteImage={deleteImage}
                     uploadImage={uploadImage}

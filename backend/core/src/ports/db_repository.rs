@@ -62,6 +62,16 @@ pub trait CardProgressRepository: Send + Sync {
     ) -> Result<Vec<i32>>;
     async fn reset_card_progress(&self, user_id: &str, category: &str, deck: &str) -> Result<()>;
     async fn count_learned_cards(&self, user_id: &str) -> Result<i32>;
+
+    /// Guarda el estado de múltiples tarjetas en una sola operación.
+    /// Reduce N peticiones HTTP a 1 cuando el frontend hace flush del lote.
+    async fn upsert_cards_batch(
+        &self,
+        user_id: &str,
+        category: &str,
+        deck: &str,
+        cards: &[(i32, bool)],
+    ) -> Result<()>;
 }
 
 #[async_trait]

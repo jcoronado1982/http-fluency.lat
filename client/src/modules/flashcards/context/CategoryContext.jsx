@@ -64,7 +64,7 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
         };
 
         load();
-    }, [isAuthenticated, user?.email, resumeSession?.category]);
+    }, [isAuthenticated, user?.email, resumeSession]);
 
     const changeCategory = useCallback((cat) => {
         markUserNavigation();

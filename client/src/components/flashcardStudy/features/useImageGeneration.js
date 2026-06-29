@@ -75,7 +75,7 @@ export function useImageGeneration({
     const [isImageLoading, setIsImageLoading] = useState(true);
     const [isGeneratingImage, setIsGeneratingImage] = useState(false);
     const [imageUrl, setImageUrl] = useState(null);
-    const [, setCurrentDefIndex] = useState(0);
+    const [currentDefIndex, setCurrentDefIndex] = useState(0);
     const imageRef = useRef(null);
     const imageAttempts = useRef({});
     const activeGenerations = useRef({});
@@ -165,7 +165,7 @@ export function useImageGeneration({
             });
         }
         return null;
-    }, [cardData, currentCategory, currentDeckName, activeForm, isLandingDemo]);
+    }, [cardData, currentCategory, currentDeckName, activeForm, isLandingDemo, imagePort]);
 
     const applyLoadedImage = useCallback((url, path, defIndex, form) => {
         if (form !== activeFormRef.current) return;
@@ -186,7 +186,7 @@ export function useImageGeneration({
         const url = imagePort.buildUrl(normalizedPath, cacheBust);
         applyLoadedImage(url, normalizedPath, defIndex, form);
         return true;
-    }, [applyLoadedImage]);
+    }, [applyLoadedImage, imagePort]);
 
     const fetchViaGenerate = useCallback(async (defIndex, forceRegenerate, seq, pipelineForm) => {
         const requestForm = pipelineForm ?? activeFormRef.current;
@@ -316,7 +316,7 @@ export function useImageGeneration({
         }
     }, [
         cardData, currentCategory, currentDeckName, setAppMessage,
-        updateCardImagePath, canGenerateImages,
+        updateCardImagePath, canGenerateImages, demoImagePromptExtraRef, imagePort, isLandingDemo,
         setImageFromPath, clearGeneratingUiTimer, waitForGenerationSlot,
         releasePipelineLoading,
     ]);
@@ -496,7 +496,7 @@ export function useImageGeneration({
         cardData, currentCategory, currentDeckName, isAuthenticated,
         buildGlobalFallbackPath, isLandingDemo,
         canGenerateImages, setImageFromPath, fetchViaGenerate, setAppMessage,
-        clearGeneratingUiTimer, releasePipelineLoading,
+        clearGeneratingUiTimer, imagePort, releasePipelineLoading,
     ]);
 
     const ensureImageForDefinition = useCallback(async (defIndex, options = {}) => {
@@ -569,12 +569,41 @@ export function useImageGeneration({
         setIsGeneratingImage(false);
         isTransitioningRef.current = true;
         clearGeneratingUiTimer();
-    }, [activeForm, cardData?.id, clearGeneratingUiTimer]);
+    }, [activeForm, cardData, clearGeneratingUiTimer]);
+
+    const ensureImageRef = useRef(ensureImageForDefinition);
+    ensureImageRef.current = ensureImageForDefinition;
+
+    const imageBootstrapRef = useRef({
+        cardId: null,
+        form: null,
+        category: null,
+        deck: null,
+        authReady: false,
+    });
 
     useEffect(() => {
         if (authLoading || !cardData || !currentCategory) return;
-        ensureImageForDefinition(0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+        const snapshot = {
+            cardId: cardData.id,
+            form: activeForm,
+            category: currentCategory,
+            deck: currentDeckName,
+            authReady: true,
+        };
+        const prev = imageBootstrapRef.current;
+        const shouldBootstrap =
+            prev.cardId !== snapshot.cardId
+            || prev.form !== snapshot.form
+            || prev.category !== snapshot.category
+            || prev.deck !== snapshot.deck
+            || !prev.authReady;
+
+        if (!shouldBootstrap) return;
+
+        imageBootstrapRef.current = snapshot;
+        ensureImageRef.current(0);
     }, [authLoading, cardData?.id, currentCategory, currentDeckName, activeForm]);
 
     const prevApplySignalRef = useRef(0);
@@ -592,8 +621,7 @@ export function useImageGeneration({
         imageUrlRef.current = null;
         setImageUrl(null);
         ensureImageForDefinition(defIndex, { forceRegenerate: true });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [imagePromptApplySignal, currentCategory, authLoading, cardData?.id]);
+    }, [imagePromptApplySignal, currentCategory, authLoading, cardData, ensureImageForDefinition]);
 
     useEffect(() => () => clearGeneratingUiTimer(), [clearGeneratingUiTimer]);
 
@@ -665,7 +693,7 @@ export function useImageGeneration({
     }, [
         cardData, currentCategory, currentDeckName,
         setAppMessage, updateCardImagePath, ensureImageForDefinition, getActiveDefinitions, activeForm,
-        clearGeneratingUiTimer,
+        clearGeneratingUiTimer, imagePort,
     ]);
 
     const uploadImage = useCallback(async (file) => {
@@ -715,6 +743,7 @@ export function useImageGeneration({
     }, [
         cardData, currentCategory, currentDeckName,
         setAppMessage, updateCardImagePath, activeForm, setImageFromPath, clearGeneratingUiTimer,
+        imageCompressionService, imagePort,
     ]);
 
     return {
@@ -722,6 +751,7 @@ export function useImageGeneration({
         isGeneratingImage,
         imageUrl,
         imageRef,
+        currentDefIndex,
         displayImageForIndex,
         ensureImageForDefinition,
         ensureImageForForm,

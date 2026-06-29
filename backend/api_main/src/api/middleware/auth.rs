@@ -14,6 +14,7 @@ pub struct Claims {
 }
 
 /// Extrae JWT si existe; si no, devuelve un viewer invitado (solo lectura de caché global).
+#[cfg(feature = "flashcards")]
 pub fn extract_claims_or_guest(state: &AppState, headers: &axum::http::HeaderMap) -> Claims {
     extract_claims(state, headers).unwrap_or_else(|_| Claims {
         sub: "guest".to_string(),

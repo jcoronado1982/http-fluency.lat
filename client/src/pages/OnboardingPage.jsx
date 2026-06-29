@@ -4,8 +4,6 @@ import { useAuth } from '../context/AuthContext';
 import { useUIContext } from '../context/UIContext';
 import config from '../config';
 import { getAuthenticatedHomePath, getOnboardingModules } from '../modules';
-import OnBoardingFlashcard from '../modules/flashcards/OnBoardingFlashcard';
-import { preloadFlashcardStart } from '../modules/flashcards/preload';
 
 const OnboardingPage = () => {
     const navigate = useNavigate();
@@ -17,10 +15,11 @@ const OnboardingPage = () => {
     );
 
     useEffect(() => {
-        if (user?.email) {
-            void preloadFlashcardStart(user.email);
+        const preload = activeModules.find((module) => typeof module.preload === 'function')?.preload;
+        if (preload) {
+            void preload();
         }
-    }, [user?.email]);
+    }, [activeModules]);
 
     if (loading) return null;
     if (!isAuthenticated) return <Navigate to="/login" replace />;
@@ -46,9 +45,10 @@ const OnboardingPage = () => {
 
     const activeSessionModule = activeModules[0] || null;
 
-    if (activeSessionModule?.session === 'OnBoardingFlashcard') {
+    if (activeSessionModule?.component) {
+        const OnboardingComponent = activeSessionModule.component;
         return (
-            <OnBoardingFlashcard
+            <OnboardingComponent
                 module={activeSessionModule}
                 user={user}
                 onStart={handleStartModule}

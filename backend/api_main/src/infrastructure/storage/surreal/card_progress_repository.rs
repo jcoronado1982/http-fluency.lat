@@ -86,6 +86,48 @@ impl CardProgressRepository for SurrealCardProgressRepository {
         Ok(())
     }
 
+    async fn upsert_cards_batch(
+        &self,
+        user_id: &str,
+        category: &str,
+        deck: &str,
+        cards: &[(i32, bool)],
+    ) -> Result<()> {
+        if cards.is_empty() {
+            return Ok(());
+        }
+        let category = category.to_lowercase();
+        let deck = deck.to_lowercase();
+        for &(card_index, learned) in cards {
+            let id = format!(
+                "card_progress:['{}', '{}', '{}', {}]",
+                user_id, category, deck, card_index
+            );
+            let learned_at = if learned { Some(chrono::Utc::now()) } else { None };
+            self.0
+                .db
+                .query(
+                    "UPDATE type::thing($id) MERGE {
+                        user_id: $user_id,
+                        category: $category,
+                        deck: $deck,
+                        card_index: $card_index,
+                        learned: $learned,
+                        learned_at: $learned_at
+                    }",
+                )
+                .bind(("id", id))
+                .bind(("user_id", user_id.to_string()))
+                .bind(("category", category.clone()))
+                .bind(("deck", deck.clone()))
+                .bind(("card_index", card_index))
+                .bind(("learned", learned))
+                .bind(("learned_at", learned_at))
+                .await?;
+        }
+        Ok(())
+    }
+
     async fn count_learned_cards(&self, user_id: &str) -> Result<i32> {
         let mut response = self
             .0

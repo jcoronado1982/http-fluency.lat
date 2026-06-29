@@ -9,7 +9,7 @@ import config from '../../../config';
 import { getModuleNavSections } from '../../index';
 
 export default function Sidebar() {
-    const { isSidebarOpen: isOpen, language = 'en' } = useAppContext();
+    const { isSidebarOpen: isOpen, setIsSidebarOpen, language = 'en' } = useAppContext();
     const { isAdmin } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
@@ -26,6 +26,7 @@ export default function Sidebar() {
 
     const goTo = (to) => (event) => {
         event.preventDefault();
+        setIsSidebarOpen(false);
         const target = resolveTo(to);
         if (`${location.pathname}${location.search}` !== target) {
             navigate(target);

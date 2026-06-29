@@ -38,10 +38,34 @@
 :global(.flashcard-page-wrapper:not([data-landing-demo])) .imagePlaceholder {
     width: 100%;
     flex: 1 1 0;
-    min-height: clamp(80px, 20dvh, 420px);
+    min-height: clamp(90px, 18dvh, 400px);
     height: auto;
     max-width: 100%;
-    margin: clamp(8px, 1.5vh, 16px) auto clamp(10px, 1.5vh, 20px);
+    margin: clamp(6px, 1vh, 12px) auto clamp(10px, 1.5vh, 16px);
+    min-width: 0;
+    align-self: stretch;
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .conjugationTable {
+    margin: 4px auto 8px;
+    padding: 8px 10px;
+    gap: 8px;
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer {
+    margin-top: 4px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer li,
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .exampleRow {
+    padding: 4px 6px;
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .imagePlaceholder {
+    margin-top: 10px;
+    flex-shrink: 1;
 }
 
 :global(.flashcard-page-wrapper:not([data-landing-demo])) .allExamplesContainer {
@@ -135,14 +159,18 @@
     font-size: clamp(1.5rem, 5vw, 2.5em);
     font-weight: 800;
     color: #ffffff;
-    margin: 0 0 2px 0;
+    margin: 0;
     text-transform: capitalize;
     letter-spacing: -0.02em;
-    line-height: 1.05;
+    line-height: 1;
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-    width: 100%;
+    width: auto;
+    max-width: 100%;
     border-bottom: none;
-    padding-bottom: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     word-wrap: break-word;
     overflow-wrap: break-word;
     text-align: center;
@@ -405,7 +433,7 @@
 }
 
 .soundButton:hover,
-.nameContainer:hover .soundButton {
+.wordHeader:hover .soundButton {
     background: rgba(244, 114, 182, 0.15);
     border-color: #f472b6;
     box-shadow: 0 0 20px rgba(244, 114, 182, 0.35);
@@ -572,14 +600,36 @@
 
 /* ------------------------------------------------------------------- */
 
-.phoneticContainer {
-    display: flex;
+.phoneticRow {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 2px;
-    margin: 0 auto 16px;
-    width: fit-content;
-    max-width: 100%;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.wordBlock .phoneticRow {
+    margin-top: 0;
+}
+
+.wordBlock .ipaChartBtn {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+}
+
+.wordBlock .ipaChartBtn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.phoneticRow .phonetic {
+    margin: 0;
+    padding: 0;
+    display: inline;
+    line-height: 1;
 }
 
 .phoneticContainer .phonetic {
@@ -951,6 +1001,8 @@
 }
 
 .titleContainer {
+    grid-column: 2;
+    justify-self: center;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1061,8 +1113,18 @@
 
 @media (max-width: 768px) {
     :global(.flashcard-page-wrapper:not([data-landing-demo])) .flashcardContainer {
-        height: var(--fc-card-height, clamp(340px, calc(100dvh - 220px), 620px));
-        min-height: var(--fc-card-min-height, 340px);
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 100%;
+        height: var(--fc-card-height);
+        min-height: var(--fc-card-min-height, 200px);
+        max-height: var(--fc-card-height);
+        overflow: hidden;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .flashcardContainer .card {
+        height: 100%;
+        min-height: 0;
     }
 
     :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront,
@@ -1080,11 +1142,71 @@
     }
 
     :global(.flashcard-page-wrapper:not([data-landing-demo])) .imagePlaceholder {
-        height: auto !important;
         flex: 1 1 0 !important;
-        min-height: clamp(72px, 16dvh, 280px) !important;
-        margin: clamp(6px, 1vh, 12px) auto clamp(8px, 1vh, 14px) !important;
+        min-height: clamp(72px, 14dvh, 180px) !important;
+        height: auto !important;
+        max-height: none !important;
+        margin: 6px auto 8px !important;
         border-radius: clamp(12px, 3vw, 16px) !important;
+        min-width: 0 !important;
+        align-self: stretch !important;
+        flex-shrink: 1 !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .imagePlaceholder {
+        margin-top: 12px !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .conjugationTable {
+        margin: 0 auto 4px !important;
+        padding: 10px 6px 5px 6px !important;
+        gap: 4px !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .conjugationItem {
+        padding: 3px !important;
+        gap: 1px !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .conjugationForm {
+        font-size: 1.05em !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .conjugationPhonetic {
+        font-size: 0.85em !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer {
+        margin-top: 2px !important;
+        margin-bottom: 10px !important;
+        flex-shrink: 0 !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer ul {
+        gap: 2px !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer li,
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .exampleRow {
+        padding: 2px 4px !important;
+        gap: 8px !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .examplePlayBtn,
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .exampleRow .rotateVoiceBtn {
+        width: 46px !important;
+        height: 46px !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .titleContainer {
+        height: auto !important;
+        min-height: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .allExamplesContainer {
+        flex-shrink: 0;
+        min-height: 0;
     }
 
     .cardCounter {
@@ -1126,25 +1248,37 @@
 
     .name {
         font-size: 2rem !important;
-        margin-top: -6px !important;
-        margin-bottom: 0 !important;
-        line-height: 1.05 !important;
-        padding-right: 0 !important;
-        padding-left: 0 !important;
+        margin: 0 !important;
+        line-height: 1 !important;
+        padding: 0 !important;
         display: flex !important;
+        justify-content: center !important;
         align-items: center !important;
-        min-height: 52px !important;
+        min-height: 0 !important;
+        width: auto !important;
+        max-width: 100% !important;
     }
 
-    .phoneticContainer {
-        gap: 2px !important;
-        margin-top: 0 !important;
-        margin-bottom: 8px !important;
-        width: fit-content !important;
+    .wordHeader {
+        --fc-word-side-slot: 56px;
     }
 
-    .phoneticContainer .phonetic {
-        margin-bottom: 0 !important;
+    .wordBlock {
+        row-gap: 0 !important;
+    }
+
+    .wordHeader > .soundButton {
+        transform: none !important;
+    }
+
+    .phoneticRow {
+        gap: 4px !important;
+    }
+
+    .wordBlock .ipaChartBtn {
+        width: 26px !important;
+        height: 26px !important;
+        min-width: 26px !important;
     }
 
     .phonetic {
@@ -1155,9 +1289,9 @@
         padding: 0 !important;
     }
 
-    .imagePlaceholder {
-        height: 320px !important; /* Aumentado de 250px para aprovechar mejor el espacio */
-        margin: 10px auto 0px auto !important;
+    :global([data-landing-demo]) .imagePlaceholder {
+        height: 320px !important;
+        margin: 10px auto 0 auto !important;
         border-radius: 16px !important;
     }
 
@@ -1180,7 +1314,11 @@
     }
 
     .allExamplesContainer li div span {
-        font-size: 1.5rem !important;
+        font-size: 1.25rem !important;
+    }
+
+    .phraseContainer {
+        font-size: 1.25rem !important;
     }
 
     .allExamplesContainer li div span.highlightedWord {
@@ -1189,15 +1327,17 @@
     }
 
     .examplePlayBtn {
-        width: 56px !important;
-        height: 56px !important;
+        width: 48px !important;
+        height: 48px !important;
     }
 
     .soundButton {
         width: 56px !important;
         height: 56px !important;
-        margin-left: auto !important;
+        margin-left: 0 !important;
         align-self: center !important;
+        grid-column: 3;
+        justify-self: end;
     }
 
     .soundButton svg {
@@ -1229,14 +1369,26 @@
     }
 
     .nameContainer {
+        --fc-word-side-slot: 56px;
         align-items: center !important;
         transform: translateY(-4px) !important;
     }
 
     .titleContainer {
+        grid-column: 2 !important;
+        justify-self: center !important;
+        display: inline-flex !important;
         align-items: center !important;
-        flex: 1 !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        position: relative !important;
+        width: auto !important;
+        max-width: 100% !important;
         min-width: 0 !important;
+        height: auto !important;
+        min-height: 0 !important;
+        padding-top: 0 !important;
+        flex: none !important;
     }
 
     .phraseContainer {
@@ -1246,16 +1398,6 @@
         min-width: 0 !important;
         display: block !important;
         width: auto !important;
-    }
-
-    .titleContainer {
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 8px !important;
-        position: relative !important;
-        width: 100% !important;
-        height: 70px !important;
     }
 
     .titleContainer .rotateVoiceBtn {
@@ -1421,11 +1563,95 @@
 }
 
 .nameContainer {
-    display: flex;
+    --fc-word-side-slot: 52px;
+    display: grid;
+    grid-template-columns: var(--fc-word-side-slot) minmax(0, 1fr) var(--fc-word-side-slot);
+    align-items: center;
+    width: 100%;
+    gap: 0;
+}
+
+.wordHeader {
+    --fc-word-side-slot: 52px;
+    position: relative;
+    width: 100%;
+    flex-shrink: 0;
+    display: grid;
+    grid-template-columns: var(--fc-word-side-slot) minmax(0, 1fr) var(--fc-word-side-slot);
+    align-items: start;
+    box-sizing: border-box;
+}
+
+.wordBlock {
+    grid-column: 2;
+    justify-self: center;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    row-gap: 6px;
+    column-gap: 8px;
+    max-width: 100%;
+    width: fit-content;
+}
+
+.wordBlock .name {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    text-align: left;
+    display: block;
+    width: auto;
+}
+
+.wordBlock > .rotateVoiceBtn {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+}
+
+.wordBlock > .phonetic {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+    text-align: left;
+    margin: 0;
+    display: inline;
+}
+
+.wordBlock > .ipaChartBtn {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: center;
+}
+
+.wordHeader > .soundButton {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+    align-self: start;
+    position: relative;
+    top: auto;
+    right: auto;
+    margin: 0;
+}
+
+.wordTitleRow {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    gap: 10px;
+    gap: 8px;
+    max-width: 100%;
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .wordBlock {
+    row-gap: clamp(4px, 0.6vh, 8px);
+    column-gap: 8px;
+}
+
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .wordHeader {
+    margin-bottom: 10px;
+    margin-top: 5px;
 }
 
 
@@ -1591,6 +1817,21 @@
         padding: 10px 0 !important;
     }
 
+    :global([data-landing-demo]) .wordHeader {
+        --fc-word-side-slot: 40px;
+    }
+
+    :global([data-landing-demo]) .wordHeader > .soundButton {
+        position: relative !important;
+        transform: none !important;
+        margin: 0 !important;
+    }
+
+    :global([data-landing-demo]) .wordTitleRow {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
     :global([data-landing-demo]) .nameContainer {
         transform: none !important;
         gap: 6px !important;
@@ -1614,10 +1855,6 @@
     :global([data-landing-demo]) .soundButton {
         margin-left: 0 !important;
         margin-top: 0 !important;
-        position: absolute !important;
-        right: 0 !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
     }
 
     :global([data-landing-demo]) .conjugationTable {
@@ -1673,6 +1910,7 @@
     }
 }
 
+:global([data-landing-demo]) .phoneticRow,
 :global([data-landing-demo]) .phoneticContainer {
     display: none !important;
 }

@@ -17,7 +17,7 @@ export default function StoryStage({
   isAnalyzing,
   resolvedImageUrl,
   showStoryImage,
-  showImageLoader,
+  showImageLoader: _showImageLoader,
   onImageError,
   onSpeak,
   onCheck,

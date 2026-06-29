@@ -64,6 +64,8 @@ const isSidebarTourStep = (step) => Boolean(
 
 const isFloatingMenuTourStep = (step) => Boolean(step?.prep?.floatingMenu);
 
+const isCatalogCategoryTourStep = (step) => step?.id === 'elegir-categoria';
+
 const resolveTooltipPlacements = (step, viewport, anchorRect) => {
     const configured = step?.tooltipPlacements
         ?? (step?.tooltipPlacement ? [step.tooltipPlacement] : undefined);
@@ -91,6 +93,8 @@ const shouldUseMobileSheet = (step, viewport, anchorRect) => {
     if (viewport.width > 768 || !anchorRect) return false;
 
     if (isFloatingMenuTourStep(step)) return true;
+
+    if (isCatalogCategoryTourStep(step)) return true;
 
     return isSidebarTourStep(step)
         && anchorRect.right <= Math.min(300, viewport.width * 0.75);
@@ -142,6 +146,23 @@ const MOBILE_SHEET_RESERVE_PX = 210;
 const scrollSidebarTourTarget = (target, viewport) => {
     if (!(target instanceof Element) || viewport.width > 768) {
         target.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'auto' });
+        return;
+    }
+
+    const categoryPanel = target.closest('[data-tour="panel-categorias"]');
+    const categoryScroller = categoryPanel?.querySelector('[data-tour="categoria-item"]')?.parentElement;
+    if (categoryScroller instanceof HTMLElement && categoryScroller.contains(target)) {
+        const scrollerRect = categoryScroller.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        const visibleBottom = Math.min(scrollerRect.bottom, viewport.height - MOBILE_SHEET_RESERVE_PX - 12);
+        const desiredTop = Math.min(
+            targetRect.top,
+            visibleBottom - targetRect.height,
+        );
+        const delta = targetRect.top - Math.max(scrollerRect.top + 8, desiredTop);
+        if (Math.abs(delta) > 6) {
+            categoryScroller.scrollTop += delta;
+        }
         return;
     }
 
@@ -216,7 +237,7 @@ export default function FlashcardOnboardingTour() {
     const [targetMissing, setTargetMissing] = useState(false);
     const [isAdvancing, setIsAdvancing] = useState(false);
     const [isAssistantPaused, setIsAssistantPaused] = useState(false);
-    const [positionVersion, setPositionVersion] = useState(0);
+    const [, setPositionVersion] = useState(0);
     const tooltipRef = useRef(null);
     const wrongTapCooldownRef = useRef(0);
     const stepIndexRef = useRef(0);
@@ -319,7 +340,7 @@ export default function FlashcardOnboardingTour() {
         });
         observer.observe(el);
         return () => observer.disconnect();
-    }, []);
+    }, [isAssistantPaused]);
 
     useEffect(() => {
         if (!isOnboardingTour) return undefined;
@@ -407,7 +428,7 @@ export default function FlashcardOnboardingTour() {
         updateViewport();
         window.addEventListener('resize', updateViewport);
         return () => window.removeEventListener('resize', updateViewport);
-    }, []);
+    }, [isAssistantPaused]);
 
     useEffect(() => {
         if (typeof window === 'undefined') return undefined;
@@ -490,7 +511,7 @@ export default function FlashcardOnboardingTour() {
             window.removeEventListener('scroll', syncRect, true);
             window.removeEventListener('resize', syncRect);
         };
-    }, [activeStep, isAssistantPaused, isZoneStep, stepIndex, viewport.height, viewport.width]);
+    }, [activeStep, isAssistantPaused, isZoneStep, stepIndex, viewport]);
 
     useEffect(() => {
         if (typeof window === 'undefined' || activeStep?.id !== 'reproducir-audio') return undefined;
@@ -734,6 +755,9 @@ export default function FlashcardOnboardingTour() {
 
             const tappedOption = event.target.closest(tapSelector);
             if (tappedOption && event.isTrusted) {
+                if (activeStep.id === 'elegir-subtema') {
+                    setIsCatalogVisible(false);
+                }
                 if (activeStep.advanceOnTapOnly) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -786,7 +810,7 @@ export default function FlashcardOnboardingTour() {
         }
 
         return targetRect;
-    }, [activeStep, isZoneStep, positionVersion, targetRect]);
+    }, [activeStep, isZoneStep, targetRect]);
 
     const focusBox = useMemo(() => {
         if (!targetRect || isFinalStep) return null;
@@ -885,17 +909,12 @@ export default function FlashcardOnboardingTour() {
         };
     }, [
         activeStep,
-        activeStep?.tooltipGap,
-        activeStep?.tooltipPlacement,
-        activeStep?.tooltipPlacements,
         anchorRect,
-        positionVersion,
-        viewport.height,
-        viewport.width,
+        viewport,
     ]);
 
-    const handleFinish = async () => {
-        await completeOnboarding();
+    const handleFinish = () => {
+        completeOnboarding();
         navigate(location.pathname, { replace: true });
     };
 

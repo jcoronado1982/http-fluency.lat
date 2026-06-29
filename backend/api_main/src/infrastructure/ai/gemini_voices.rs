@@ -2,6 +2,7 @@
 //! Género según documentación oficial de Cloud TTS Gemini.
 
 /// Voces masculinas (Google Cloud Gemini-TTS).
+#[allow(dead_code)]
 pub const GEMINI_MALE_VOICES: &[&str] = &[
     "Algenib",
     "Algieba",
@@ -17,6 +18,7 @@ pub const GEMINI_MALE_VOICES: &[&str] = &[
 ];
 
 /// Voces femeninas — incluye las de tu lista original.
+#[allow(dead_code)]
 pub const GEMINI_FEMALE_VOICES: &[&str] = &[
     "Achernar",
     "Autonoe",
@@ -55,6 +57,7 @@ pub const GEMINI_VOICE_POOL: &[&str] = &[
     "Zephyr",
 ];
 
+#[allow(dead_code)]
 pub fn is_gemini_voice(name: &str) -> bool {
     GEMINI_VOICE_POOL
         .iter()
@@ -69,6 +72,7 @@ pub fn normalize_gemini_voice(name: &str) -> &'static str {
         .unwrap_or("Charon")
 }
 
+#[allow(dead_code)]
 pub fn is_male_voice(name: &str) -> bool {
     GEMINI_MALE_VOICES
         .iter()

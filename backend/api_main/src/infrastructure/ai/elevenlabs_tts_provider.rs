@@ -8,6 +8,7 @@ use crate::config::Settings;
 use crate::domain::repositories::audio::AudioGenerator;
 
 /// Bump al cambiar backend/voz/formato del demo para invalidar caché de audio landing-demo.
+#[allow(dead_code)]
 pub const ELEVENLABS_TTS_BACKEND: &str = "elevenlabs-premade-v1";
 
 const DEFAULT_MODEL: &str = "eleven_v3";

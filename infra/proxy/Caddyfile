@@ -80,7 +80,7 @@ fluency.lat, www.fluency.lat {
     # Exponer SurrealDB de forma segura para los servidores espejo (AWS y Cloud Run)
     handle /db/* {
         uri strip_prefix /db
-        reverse_proxy localhost:8001
+        reverse_proxy 10.0.1.138:8080
     }
 
     # Resto de rutas protegidas por el centinela
@@ -172,7 +172,7 @@ qa.fluency.lat {
     # Exponer SurrealDB de forma segura
     handle /db/* {
         uri strip_prefix /db
-        reverse_proxy localhost:8001
+        reverse_proxy 10.0.1.138:8080
     }
 
     handle {

@@ -123,6 +123,16 @@ impl CardProgressRepository for NullDbRepository {
     async fn count_learned_cards(&self, _user_id: &str) -> Result<i32> {
         Ok(0)
     }
+
+    async fn upsert_cards_batch(
+        &self,
+        _user_id: &str,
+        _category: &str,
+        _deck: &str,
+        _cards: &[(i32, bool)],
+    ) -> Result<()> {
+        Ok(())
+    }
 }
 
 #[async_trait]

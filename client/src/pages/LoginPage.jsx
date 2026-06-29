@@ -4,7 +4,6 @@ import './LoginPage.css';
 
 import config from '../config';
 import { getAuthenticatedHomePath } from '../modules';
-import { getLandingTranslations } from '../modules/landing/config/translations';
 import { useAuth } from '../context/AuthContext';
 import { useUIContext } from '../context/UIContext';
 import { markDemoFeedbackReturn } from '../utils/demoFeedbackStorage';
@@ -31,18 +30,26 @@ const LOGIN_LOADING_COPY = {
 
 const LOGIN_COPY = {
     es: {
+        brand: 'Fluency',
         subtitle: 'Inicia sesión para continuar',
         demoSubtitle: 'Inicia sesión para enviar tu comentario sobre el demo.',
         or: 'o',
         apple: 'Continuar con Apple',
         appleSoon: 'Próximamente',
+        footerDocumentation: 'Documentación',
+        footerPortfolio: 'Portfolio',
+        footerGithub: 'GitHub',
     },
     en: {
+        brand: 'Fluency',
         subtitle: 'Sign in to continue',
         demoSubtitle: 'Sign in to send your feedback about the demo.',
         or: 'or',
         apple: 'Sign in with Apple',
         appleSoon: 'Coming soon',
+        footerDocumentation: 'Documentation',
+        footerPortfolio: 'Portfolio',
+        footerGithub: 'GitHub',
     },
 };
 
@@ -77,7 +84,7 @@ function LangToggle({ language, setLanguage }) {
 }
 
 const LoginPage = () => {
-    const { login, isAuthenticated, loading } = useAuth();
+    const { login, isAuthenticated, loading, user } = useAuth();
     const { language = 'en', setLanguage } = useUIContext();
     const navigate = useNavigate();
     const location = useLocation();
@@ -95,7 +102,6 @@ const LoginPage = () => {
     const locale = language === 'es' ? 'es' : 'en';
     const loadingCopy = LOGIN_LOADING_COPY[locale];
     const loginCopy = LOGIN_COPY[locale];
-    const landingCopy = getLandingTranslations(language);
     const targetState = useMemo(
         () => (demoFeedbackReturn ? { demoFeedbackReturn: true } : undefined),
         [demoFeedbackReturn],
@@ -125,9 +131,11 @@ const LoginPage = () => {
             && location.pathname === '/'
             && (location.hash === '#demo' || location.hash === '');
         if (!onLoginPage && onLandingForFeedback) return;
-        if (!demoFeedbackReturn && location.pathname === targetPath) return;
+        if (!demoFeedbackReturn && location.pathname === targetPath && !shouldShowOnboarding(user)) return;
         if (demoFeedbackReturn && location.pathname === '/' && location.hash === '#demo') return;
-        navigate(targetPath, { replace: true, state: targetState });
+        const nextPath = shouldShowOnboarding(user) ? '/onboarding' : targetPath;
+        if (!demoFeedbackReturn && location.pathname === nextPath) return;
+        navigate(nextPath, { replace: true, state: nextPath === '/onboarding' ? undefined : targetState });
     }, [
         isAuthenticated,
         loading,
@@ -137,6 +145,7 @@ const LoginPage = () => {
         demoFeedbackReturn,
         location.pathname,
         location.hash,
+        user,
     ]);
 
     useEffect(() => {
@@ -214,7 +223,7 @@ const LoginPage = () => {
                 <div className="lp-nav-inner">
                     <Link to="/" className="lp-brand">
                         <img src="/logo.avif" alt="" className="lp-brand-logo" />
-                        <span className="lp-brand-name">{landingCopy.brand}</span>
+                        <span className="lp-brand-name">{loginCopy.brand}</span>
                     </Link>
                     <div className="lp-nav-end">
                         <LangToggle language={language} setLanguage={setLanguage} />
@@ -252,9 +261,9 @@ const LoginPage = () => {
             <ShellFooter
                 variant="landing"
                 labels={{
-                    documentation: landingCopy.footerDocumentation,
-                    portfolio: landingCopy.footerPortfolio,
-                    github: landingCopy.footerGithub,
+                    documentation: loginCopy.footerDocumentation,
+                    portfolio: loginCopy.footerPortfolio,
+                    github: loginCopy.footerGithub,
                 }}
             />
 

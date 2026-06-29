@@ -39,7 +39,7 @@ export function createImageHttpAdapter(http) {
         try {
             return await http.delete('/api/delete-image', { category, deck, index, def_index: defIndex, form });
         } catch (err) {
-            throw new Error(err.message || 'Error en el servidor al eliminar');
+            throw new Error(err.message || 'Error en el servidor al eliminar', { cause: err });
         }
     },
 

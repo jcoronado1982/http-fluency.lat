@@ -18,6 +18,16 @@ export function createFlashcardHttpAdapter(httpClient) {
         updateCardStatus: (userId, category, deck, index, learned) =>
             httpClient.post('/api/update-status', { user_id: userId, category, deck, index, learned }),
 
+        /**
+         * Envía un lote de actualizaciones en una sola petición HTTP.
+         * @param {string} userId
+         * @param {string} category
+         * @param {string} deck
+         * @param {Array<{index: number, learned: boolean}>} cards
+         */
+        updateCardsBatch: (userId, category, deck, cards) =>
+            httpClient.post('/api/update-batch', { user_id: userId, category, deck, cards }),
+
         resetDeckStatus: (userId, category, deck) =>
             httpClient.post('/api/reset-all', { user_id: userId, category, deck, confirm: true }),
 

@@ -110,25 +110,7 @@ else
     echo "⚠️  ADVERTENCIA: No se encontró el directorio de ComfyUI en $COMFY_DIR"
 fi
 
-# 5. Iniciar Frontend en segundo plano
-echo "🌐 Iniciando Frontend (Vite)..."
-cd "$REPO_ROOT/client" || exit
-npm run dev -- --port 5173 --host 0.0.0.0 &
-cd "$REPO_ROOT" || exit
-
-# 6. Resumen de Accesos y Servicios
-echo ""
-echo "================================================================"
-echo "🚀 FLASHCARD AI - SISTEMA COMPLETO INICIADO (RUST BACKEND)"
-echo "================================================================"
-echo "🖥️  FRONTEND (UI):     http://localhost:5173"
-echo "🛠️  BACKEND (API):    http://localhost:8081 (RUST)"
-echo "📊 DATABASE (DB):     localhost:5432 (PostgreSQL)"
-echo "🤖 AI SERVICES:       Gemini, Google TTS, ComfyUI (Flux.2)"
-echo "================================================================"
-echo ""
-
-# 7. Iniciar Backend Rust (Proceso persistente)
+# 5. Iniciar Backend Rust
 echo "🔥 [BACKEND] Iniciando Rust Backend..."
 cd "$REPO_ROOT/backend" || exit
 
@@ -191,6 +173,24 @@ else
     kill $BACKEND_PID 2>/dev/null
     exit 1
 fi
+
+# 6. Iniciar Frontend solo cuando el backend ya acepta tráfico.
+echo "🌐 Iniciando Frontend (Vite)..."
+cd "$REPO_ROOT/client" || exit
+npm run dev -- --port 5173 --host 0.0.0.0 &
+cd "$REPO_ROOT" || exit
+
+# 7. Resumen de Accesos y Servicios
+echo ""
+echo "================================================================"
+echo "🚀 FLASHCARD AI - SISTEMA COMPLETO INICIADO (RUST BACKEND)"
+echo "================================================================"
+echo "🖥️  FRONTEND (UI):     http://localhost:5173"
+echo "🛠️  BACKEND (API):    http://localhost:8081 (RUST)"
+echo "📊 DATABASE (DB):     localhost:5432 (PostgreSQL)"
+echo "🤖 AI SERVICES:       Gemini, Google TTS, ComfyUI (Flux.2)"
+echo "================================================================"
+echo ""
 
 # Traer el proceso al frente para mantener el script vivo
 wait $BACKEND_PID

@@ -5,11 +5,13 @@ import ProtectedRoute from '../../components/common/ProtectedRoute';
 import FlashcardPage from './FlashcardPage';
 import FlashcardOverlays from './FlashcardOverlays';
 import FlashcardOnboardingTour from './FlashcardOnboardingTour';
+import OnBoardingFlashcard from './OnBoardingFlashcard';
 import { CategoryProvider } from './context/CategoryContext';
 import { FlashcardProvider } from './context/FlashcardContext';
 import { FlashcardUiProvider } from './context/FlashcardUiContext';
 import { getFlashcardFloatingMenuLabels, getFlashcardSidebarLabels } from './config/translations';
 import { readResumeSession } from './config/sessionKeys';
+import { preloadFlashcardStart } from './preload';
 import { invokeUiBridge } from './uiBridge';
 import { StudyMediaProvider } from '../../components/flashcardStudy';
 import { STUDY_MEDIA_VARIANT_APP } from '../../contracts/studyMediaVariants';
@@ -80,6 +82,22 @@ const flashcardsModule = {
         </StudyMediaProvider>
     ),
     shellProviders: (config) => (config.features.flashcards ? [FlashcardUiProvider] : []),
+    onboarding: ({ language = 'en', config, user }) => {
+        if (!config.features.flashcards) return [];
+        const isEs = language === 'es';
+        return [{
+            id: 'flashcards',
+            moduleId: 'flashcards',
+            session: 'OnBoardingFlashcard',
+            component: OnBoardingFlashcard,
+            preload: user?.email ? () => preloadFlashcardStart(user.email) : null,
+            name: 'Flashcards',
+            description: isEs
+                ? 'Configura tu experiencia inicial de vocabulario, mazos y estudio.'
+                : 'Set up your initial vocabulary, deck, and study experience.',
+            to: isDefaultHomeModule('flashcards', config) ? '/' : '/flashcard',
+        }];
+    },
     readResumeSession,
     floatingMenuItems: ({ language, config, navigate, close, location }) => {
         if (!config.features.flashcards) return [];

@@ -41,7 +41,7 @@
 /* ─── Panel ──────────────────────────────────────────────────────────────────── */
 .floatingOptions {
     position: absolute;
-    top: calc(100% + 10px);
+    top: calc(100% + 15px);
     right: 0;
     transform: translateY(-8px) scale(0.97);
     transform-origin: top right;

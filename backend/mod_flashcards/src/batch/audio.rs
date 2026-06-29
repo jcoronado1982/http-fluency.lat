@@ -271,7 +271,9 @@ async fn process_one_item(
                 card_label: card_label.unwrap_or("-").to_string(),
                 verb: req.verb_name.clone().unwrap_or_else(|| "none".to_string()),
                 text: req.text.clone(),
-                expected_blob: batch_audio.global_audio_blob_path(req),
+                expected_blob: batch_audio
+                    .global_audio_blob_path(req)
+                    .unwrap_or_else(|_| "-".to_string()),
                 error: err_msg.clone(),
             };
 
@@ -298,7 +300,7 @@ async fn synthesize_shared_global(
     file_index: &mut HashSet<String>,
     req: &AudioSynthRequest,
 ) -> anyhow::Result<SynthOutcome> {
-    let basename = batch_audio.global_audio_basename(req);
+    let basename = batch_audio.global_audio_basename(req)?;
     if file_index.contains(&basename) {
         return Ok(SynthOutcome::Skipped("cached".into()));
     }

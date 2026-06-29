@@ -148,6 +148,10 @@
     gap: 20px;
 }
 
+[data-landing-demo] .controlsWrapper {
+    margin-top: 16px !important;
+}
+
 [data-landing-demo] .lp-demo-card-frame {
     position: relative;
     width: 100%;
@@ -425,8 +429,12 @@
     }
 
     [data-landing-demo] .flashcardContainer {
-        height: clamp(500px, 44vw, 545px) !important;
+        height: clamp(480px, 40vw, 520px) !important;
         min-height: 480px !important;
+    }
+
+    [data-landing-demo] .controlsWrapper {
+        margin-top: 18px !important;
     }
 }
 

@@ -3,6 +3,31 @@ import React from 'react';
 import styles from './Flashcard.module.css';
 import { getCardTitle, isLearningEnglish } from './cardLanguageUtils';
 
+const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+function HighlightedExample({ text, term }) {
+    const content = text || '';
+    const highlight = term?.split(' / ')[0]?.trim();
+    if (!highlight) return <>"{content}" </>;
+
+    const pattern = new RegExp(`\\b(${escapeRegExp(highlight)})\\b`, 'gi');
+    const parts = content.split(pattern);
+
+    return (
+        <>
+            "
+            {parts.map((part, index) => (
+                part.toLowerCase() === highlight.toLowerCase() ? (
+                    <strong key={`${part}-${index}`}>{part}</strong>
+                ) : (
+                    <React.Fragment key={`${part}-${index}`}>{part}</React.Fragment>
+                )
+            ))}
+            "{' '}
+        </>
+    );
+}
+
 function CardBack({ cardData, activeForm, currentLanguage }) {
     const getDisplayDefinitions = () => {
         if (activeForm === 'v1' || !cardData.irregular) {
@@ -54,16 +79,12 @@ function CardBack({ cardData, activeForm, currentLanguage }) {
                             {isLearningEnglish(currentLanguage) ? def.meaning : displayData.name}
                         </strong>
                     </p>
-                    <p
-                        className={styles.usageExampleEn}
-                        dangerouslySetInnerHTML={{
-                            __html: `"${(isLearningEnglish(currentLanguage) ? def.usage_example : def.usage_example_es)
-                                ?.replace(
-                                    new RegExp(`\\b(${displayData.name.split(' / ')[0]})\\b`, 'gi'),
-                                    '<strong>$1</strong>'
-                                )}" `
-                        }}
-                    />
+                    <p className={styles.usageExampleEn}>
+                        <HighlightedExample
+                            text={isLearningEnglish(currentLanguage) ? def.usage_example : def.usage_example_es}
+                            term={displayData.name}
+                        />
+                    </p>
                     {def.alternative_example && isLearningEnglish(currentLanguage) && (
                         <p className={styles.alternativeExample}>
                             <em>Alternativa:</em> "{def.alternative_example}"

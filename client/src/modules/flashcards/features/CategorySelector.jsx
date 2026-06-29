@@ -98,7 +98,6 @@ function CategorySelector() {
 
     const handleGroupClick = (groupName) => {
         setSelectedGroup(groupName === 'General' ? null : groupName);
-        setIsCatalogVisible(false);
     };
 
     const handleGroupReset = async (event, groupName) => {
@@ -204,7 +203,7 @@ function CategorySelector() {
 
                     {/* Grilla de grupos */}
                     <div className={styles.groupsGrid} data-tour="catalogo-grid">
-                        {groupsList.map((group, index) => {
+                        {groupsList.map((group) => {
                             const progressPercent = (group.learned / group.total) * 100;
                             const isComplete = group.learned === group.total;
                             const isNew = group.learned === 0;

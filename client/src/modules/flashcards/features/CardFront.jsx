@@ -7,7 +7,6 @@ import DefinitionList from './DefinitionList';
 import { FaSpinner } from 'react-icons/fa';
 import { FiPlay, FiHeadphones, FiRefreshCw } from 'react-icons/fi';
 import { useAuth } from '../../../context/AuthContext';
-import { useFlashcardContext } from '../context/FlashcardContext';
 import { getCardTitle, getAudioLang, isLearningEnglish } from './cardLanguageUtils';
 
 // ---------------------------------------------------------------------------
@@ -46,7 +45,6 @@ const DISPLAY_DATA_MAP = {
 function CardFront({
     cardData,
     onOpenIpaModal,
-    playAudio,
     playDefinitionMedia,
     activeAudioText,
     highlightedWordIndex,
@@ -70,7 +68,6 @@ function CardFront({
     const [isUploading, setIsUploading] = useState(false);
     const uploadInputRef = useRef(null);
     const { user } = useAuth();
-    const { isLandingDemo = false } = useFlashcardContext() ?? {};
     const isAdmin = user?.role === 'admin';
 
     const displayData = (DISPLAY_DATA_MAP[activeForm] || DISPLAY_DATA_MAP.v1)(cardData);

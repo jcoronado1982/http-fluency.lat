@@ -17,6 +17,24 @@ use axum::{
 };
 use mod_flashcards::is_landing_demo_namespace;
 
+const MAX_TTS_TEXT_LEN: usize = 500;
+const MAX_IMAGE_PROMPT_LEN: usize = 1_200;
+const MAX_SCENE_COMPLEMENT_LEN: usize = 500;
+const MAX_UPLOAD_IMAGE_BYTES: usize = 8 * 1024 * 1024;
+
+fn validate_len(value: &str, max: usize, field: &str) -> Result<(), (StatusCode, String)> {
+    if value.trim().is_empty() {
+        return Err((StatusCode::BAD_REQUEST, format!("{field} está vacío")));
+    }
+    if value.len() > max {
+        return Err((
+            StatusCode::BAD_REQUEST,
+            format!("{field} supera el límite de {max} caracteres"),
+        ));
+    }
+    Ok(())
+}
+
 /// Solo busca audio en disco (sin TTS). El cliente luego hace GET a /card_audio/… vía Caddy.
 pub async fn resolve_audio(
     State(state): State<AppState>,
@@ -25,6 +43,7 @@ pub async fn resolve_audio(
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
     let claims = extract_claims_or_guest(&state, &headers);
     let role = resolve_effective_role(&state, &claims).await;
+    validate_len(&body.text, MAX_TTS_TEXT_LEN, "text")?;
     let req = to_audio_synth_request(body);
 
     match state
@@ -51,6 +70,7 @@ pub async fn synthesize_speech(
     let role = resolve_effective_role(&state, &claims).await;
 
     // Viewers: caché global. Namespace landing-demo: invitados pueden generar audio aislado.
+    validate_len(&body.text, MAX_TTS_TEXT_LEN, "text")?;
     let req = to_audio_synth_request(body);
 
     state
@@ -122,6 +142,15 @@ pub async fn generate_image(
         extract_claims(&state, &headers)?
     };
     let role = resolve_effective_role(&state, &claims).await;
+    validate_len(&body.prompt, MAX_IMAGE_PROMPT_LEN, "prompt")?;
+    if let Some(scene) = body.scene_complement.as_deref() {
+        if scene.len() > MAX_SCENE_COMPLEMENT_LEN {
+            return Err((
+                StatusCode::BAD_REQUEST,
+                format!("scene_complement supera el límite de {MAX_SCENE_COMPLEMENT_LEN} caracteres"),
+            ));
+        }
+    }
     if !is_demo {
         require_premium_role(&role)?;
     }
@@ -146,6 +175,7 @@ pub async fn delete_audio(
     let claims = extract_claims(&state, &headers)?;
     let role = resolve_effective_role(&state, &claims).await;
     require_premium_role(&role)?;
+    validate_len(&body.text, MAX_TTS_TEXT_LEN, "text")?;
     let is_admin = role == "admin";
 
     let req = to_delete_audio_request(body);
@@ -280,6 +310,12 @@ pub async fn upload_image(
                     .await
                     .map_err(|e| (StatusCode::BAD_REQUEST, e.to_string()))?
                     .to_vec();
+                if file_data.len() > MAX_UPLOAD_IMAGE_BYTES {
+                    return Err((
+                        StatusCode::PAYLOAD_TOO_LARGE,
+                        "La imagen supera el límite de 8 MB".to_string(),
+                    ));
+                }
             }
             _ => {}
         }
@@ -289,6 +325,15 @@ pub async fn upload_image(
         return Err((
             StatusCode::BAD_REQUEST,
             "Faltan campos obligatorios o el archivo está vacío".to_string(),
+        ));
+    }
+    if !matches!(
+        content_type.as_str(),
+        "image/avif" | "image/jpeg" | "image/png" | "image/webp"
+    ) {
+        return Err((
+            StatusCode::BAD_REQUEST,
+            "Tipo de imagen no permitido".to_string(),
         ));
     }
 

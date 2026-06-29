@@ -76,8 +76,8 @@ const buildSteps = (locale) => {
             markOptionsSelector: '[data-tour="categoria-item"]',
             label: es ? 'Elige una categoría' : 'Pick a category',
             hint: es
-                ? 'Toca cualquier categoría de la columna izquierda: Pronombres, Verbos, Sustantivos, etc.'
-                : 'Tap any category in the left column: Pronouns, Verbs, Nouns, etc.',
+                ? 'Toca cualquier categoría: Pronombres, Verbos, Sustantivos, etc.'
+                : 'Tap any category: Pronouns, Verbs, Nouns, etc.',
             fallback: es
                 ? 'Todas las categorías están marcadas. Elige la que quieras estudiar: verbos, sustantivos, pronombres, conectores…'
                 : 'All categories are marked. Pick what you want to study: verbs, nouns, pronouns, connectors…',

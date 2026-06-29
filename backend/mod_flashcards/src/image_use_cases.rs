@@ -5,7 +5,7 @@ use fluency_core::ports::storage::StorageRepository;
 use fluency_core::ports::tutor::AITutor;
 use std::sync::Arc;
 
-use crate::{is_landing_demo_namespace, FlashcardsConfig};
+use crate::{is_landing_demo_namespace, safe_deck_prefix, safe_form_suffix, safe_storage_segment, FlashcardsConfig};
 
 /// Convierte un email en un segmento de path seguro para URL/filesystem.
 /// Ejemplo: "user@example.com" → "user_example_com"
@@ -117,8 +117,9 @@ impl ImageUseCases {
             ));
         }
 
-        let deck_prefix = req.deck.replace(".json", "");
-        let form_suffix = self.form_suffix(req.form.as_deref());
+        let category = safe_storage_segment(&req.category, "category")?;
+        let deck_prefix = safe_deck_prefix(&req.deck)?;
+        let form_suffix = safe_form_suffix(req.form.as_deref())?;
         let user_segment = if is_admin || is_demo {
             None
         } else {
@@ -128,11 +129,11 @@ impl ImageUseCases {
         let base_pattern = match &user_segment {
             Some(seg) => format!(
                 "users/{}/{}/{}/{}_card_{}_def{}{}",
-                seg, req.category, deck_prefix, deck_prefix, req.index, req.def_index, form_suffix
+                seg, category, deck_prefix, deck_prefix, req.index, req.def_index, form_suffix
             ),
             None => format!(
                 "{}/{}/{}_card_{}_def{}{}",
-                req.category, deck_prefix, deck_prefix, req.index, req.def_index, form_suffix
+                category, deck_prefix, deck_prefix, req.index, req.def_index, form_suffix
             ),
         };
 
@@ -153,7 +154,7 @@ impl ImageUseCases {
             if !is_admin {
                 let global_base = format!(
                     "{}/{}/{}_card_{}_def{}{}",
-                    req.category, deck_prefix, deck_prefix, req.index, req.def_index, form_suffix
+                    category, deck_prefix, deck_prefix, req.index, req.def_index, form_suffix
                 );
                 let global_avif = format!("{}/{}.avif", self.config.gcs_images_prefix, global_base);
                 if let Ok(true) = self.storage_repo.blob_exists(&global_avif).await {
@@ -173,7 +174,7 @@ impl ImageUseCases {
                 if let Some(seg) = &user_segment {
                     let v1_personal = format!(
                         "users/{}/{}/{}/{}_card_{}_def{}",
-                        seg, req.category, deck_prefix, deck_prefix, req.index, req.def_index
+                        seg, category, deck_prefix, deck_prefix, req.index, req.def_index
                     );
                     let v1_personal_avif =
                         format!("{}/{}.avif", self.config.gcs_images_prefix, v1_personal);
@@ -194,7 +195,7 @@ impl ImageUseCases {
                 }
                 let v1_global = format!(
                     "{}/{}/{}_card_{}_def{}",
-                    req.category, deck_prefix, deck_prefix, req.index, req.def_index
+                    category, deck_prefix, deck_prefix, req.index, req.def_index
                 );
                 let v1_global_avif =
                     format!("{}/{}.avif", self.config.gcs_images_prefix, v1_global);
@@ -239,7 +240,7 @@ impl ImageUseCases {
         let visual_description = match if is_demo {
             self.ai_tutor.improve_prompt_for_landing_demo_image(
                 &req.prompt,
-                &req.category,
+                &category,
                 req.meaning.as_deref(),
                 req.usage_example.as_deref(),
                 req.scene_complement.as_deref(),
@@ -247,7 +248,7 @@ impl ImageUseCases {
         } else {
             self.ai_tutor.improve_prompt_for_image(
                 &req.prompt,
-                &req.category,
+                &category,
                 req.meaning.as_deref(),
                 req.usage_example.as_deref(),
             )
@@ -369,8 +370,9 @@ impl ImageUseCases {
         user_email: &str,
         is_admin: bool,
     ) -> Result<bool> {
-        let deck_prefix = deck.replace(".json", "");
-        let form_suffix = self.form_suffix(form);
+        let category = safe_storage_segment(category, "category")?;
+        let deck_prefix = safe_deck_prefix(deck)?;
+        let form_suffix = safe_form_suffix(form)?;
 
         let base_pattern = if is_admin {
             format!(
@@ -413,12 +415,13 @@ impl ImageUseCases {
         user_email: &str,
         role: &str,
     ) -> Result<Option<String>> {
-        let deck_prefix = deck.replace(".json", "");
-        let form_suffix = self.form_suffix(form);
+        let category = safe_storage_segment(category, "category")?;
+        let deck_prefix = safe_deck_prefix(deck)?;
+        let form_suffix = safe_form_suffix(form)?;
         let images_prefix = &self.config.gcs_images_prefix;
 
         let role = normalize_role(role);
-        let is_demo = is_landing_demo_namespace(category);
+        let is_demo = is_landing_demo_namespace(&category);
 
         tracing::info!(
             "🔍 resolve_image: category={} deck={} index={} def={} form={:?} role={}",
@@ -508,18 +511,23 @@ impl ImageUseCases {
         user_email: &str,
         is_admin: bool,
     ) -> Result<String> {
-        let deck_prefix = req.deck.replace(".json", "");
-        let form_suffix = self.form_suffix(req.form.as_deref());
+        let category = safe_storage_segment(&req.category, "category")?;
+        let deck_prefix = safe_deck_prefix(&req.deck)?;
+        let form_suffix = safe_form_suffix(req.form.as_deref())?;
 
         let extension = std::path::Path::new(&req.file_name)
             .extension()
             .and_then(|s| s.to_str())
             .unwrap_or("png");
+        let extension = match extension.to_ascii_lowercase().as_str() {
+            "avif" | "jpg" | "jpeg" | "png" | "webp" => extension.to_ascii_lowercase(),
+            _ => anyhow::bail!("Extensión de imagen no permitida"),
+        };
 
         let final_name = if is_admin {
             format!(
                 "{}/{}/{}_card_{}_def{}{}.{}",
-                req.category,
+                category,
                 deck_prefix,
                 deck_prefix,
                 req.card_index,
@@ -532,7 +540,7 @@ impl ImageUseCases {
             format!(
                 "users/{}/{}/{}/{}_card_{}_def{}{}.{}",
                 seg,
-                req.category,
+                category,
                 deck_prefix,
                 deck_prefix,
                 req.card_index,
@@ -572,10 +580,4 @@ impl ImageUseCases {
         parts.join("_")
     }
 
-    fn form_suffix(&self, form: Option<&str>) -> String {
-        match form {
-            Some("v1") | None | Some("") => String::new(),
-            Some(f) => format!("_{}", f),
-        }
-    }
 }

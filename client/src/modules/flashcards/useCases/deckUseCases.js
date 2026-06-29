@@ -3,6 +3,10 @@
  * Equivalente frontend de `backend/mod_flashcards`.
  */
 
+import { LANDING_DEMO_CATEGORY } from '../../../contracts/landingDemoNamespace';
+
+const isAppStudyCategory = (name) => name && name !== LANDING_DEMO_CATEGORY;
+
 const normalizeDefinitions = (defs) =>
     (defs || []).map((def) => ({ ...def, imagePath: def.imagePath ?? null }));
 
@@ -67,10 +71,14 @@ export const parseCategoriesResponse = (result) => {
         ? result
         : (result?.success && Array.isArray(result.categories) ? result.categories : []);
 
-    const names = items.map((c) => (typeof c === 'object' ? c?.name : c)).filter(Boolean);
+    const names = items
+        .map((c) => (typeof c === 'object' ? c?.name : c))
+        .filter((name) => isAppStudyCategory(name));
     const totals = {};
     items.forEach((c) => {
-        if (c && typeof c === 'object' && c.name) totals[c.name] = c.total;
+        if (c && typeof c === 'object' && c.name && isAppStudyCategory(c.name)) {
+            totals[c.name] = c.total;
+        }
     });
 
     return { names, totals };

@@ -32,7 +32,6 @@ export const AuthProvider = ({ children }) => {
         setUser(authData.user);
         setLoadingStage('syncing_session');
 
-        // Sincronizar rol con el servidor (localStorage puede decir "admin" con JWT viejo "viewer").
         httpClient.get('/api/auth/me')
             .then((me) => {
                 const nextUser = {
@@ -40,13 +39,8 @@ export const AuthProvider = ({ children }) => {
                     role: me.effective_role || authData.user.role,
                     onboarding_completed: me.onboarding_completed === true,
                 };
-                const roleChanged = nextUser.role !== authData.user.role;
-                const onboardingChanged = nextUser.onboarding_completed !== authData.user.onboarding_completed;
-                if (roleChanged || onboardingChanged) {
-                    const updatedUser = nextUser;
-                    authRepository.saveAuthData({ ...authData, user: updatedUser });
-                    setUser(updatedUser);
-                }
+                authRepository.saveAuthData({ token: authData.token, user: nextUser });
+                setUser(nextUser);
             })
             .catch((err) => console.warn('No se pudo sincronizar rol desde /api/auth/me:', err))
             .finally(() => {
@@ -57,11 +51,26 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (idToken) => {
         const data = await authRepository.loginWithGoogle(idToken);
-        if (data.success) {
-            authRepository.saveAuthData(data);
-            setUser(data.user);
+        if (!data.success) return data;
+
+        authRepository.saveAuthData(data);
+        setUser(data.user);
+
+        try {
+            const me = await httpClient.get('/api/auth/me');
+            const syncedUser = {
+                ...data.user,
+                role: me.effective_role || data.user.role,
+                onboarding_completed: me.onboarding_completed === true,
+            };
+            const next = { ...data, user: syncedUser };
+            authRepository.saveAuthData(next);
+            setUser(syncedUser);
+            return next;
+        } catch (err) {
+            console.warn('No se pudo sincronizar onboarding desde /api/auth/me:', err);
+            return data;
         }
-        return data;
     };
 
     const loginAsGuest = async () => {
@@ -75,8 +84,10 @@ export const AuthProvider = ({ children }) => {
                 authRepository.saveAuthData(data);
                 setUser(data.user);
             }
+            return data;
         } catch (err) {
             console.error('Dev guest login failed:', err);
+            return null;
         }
     };
 
@@ -87,15 +98,31 @@ export const AuthProvider = ({ children }) => {
         navigate(getPublicEntryPathForConfig(config), { replace: true });
     };
 
-    const completeOnboarding = async () => {
-        if (!user?.email) return;
-        const response = await httpClient.post('/api/auth/onboarding', { completed: true });
-        if (!response?.user) return;
+    const completeOnboarding = () => {
+        if (!user?.email) return null;
+
         const authData = authRepository.getAuthData();
+        const optimisticUser = { ...user, onboarding_completed: true };
         if (authData?.token) {
-            authRepository.saveAuthData({ token: authData.token, user: response.user });
+            authRepository.saveAuthData({ token: authData.token, user: optimisticUser });
         }
-        setUser(response.user);
+        setUser(optimisticUser);
+
+        httpClient.post('/api/auth/onboarding', { completed: true })
+            .then((response) => {
+                const syncedUser = response?.user
+                    ? { ...response.user, onboarding_completed: true }
+                    : optimisticUser;
+                if (authData?.token) {
+                    authRepository.saveAuthData({ token: authData.token, user: syncedUser });
+                }
+                setUser(syncedUser);
+            })
+            .catch((err) => {
+                console.warn('No se pudo sincronizar onboarding con el servidor:', err);
+            });
+
+        return optimisticUser;
     };
 
     const role = user?.role ?? 'viewer';

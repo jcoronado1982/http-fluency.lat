@@ -81,19 +81,9 @@ export function getModuleNavSections(config, context) {
 }
 
 function getOnboardingRegistry(language = 'en') {
-  const isEs = language === 'es';
+  void language;
 
   return [
-    {
-      id: 'flashcards',
-      session: 'OnBoardingFlashcard',
-      enabled: (config) => config.features.flashcards,
-      path: (config) => (isDefaultHomeModule('flashcards', config) ? '/' : '/flashcard'),
-      name: isEs ? 'Flashcards' : 'Flashcards',
-      description: isEs
-        ? 'Configura tu experiencia inicial de vocabulario, mazos y estudio.'
-        : 'Set up your initial vocabulary, deck, and study experience.',
-    },
     // Futuro:
     // {
     //   id: 'pronoun',
@@ -108,7 +98,7 @@ function getOnboardingRegistry(language = 'en') {
 export function getOnboardingModules(config, context = {}) {
   const { language = 'en', user = null } = context;
 
-  return getOnboardingRegistry(language)
+  const registryEntries = getOnboardingRegistry(language)
     .filter((entry) => {
       if (typeof entry.enabled === 'function') return entry.enabled(config, user);
       return entry.enabled !== false;
@@ -121,6 +111,15 @@ export function getOnboardingModules(config, context = {}) {
       description: entry.description,
       to: typeof entry.path === 'function' ? entry.path(config, user) : entry.path,
     }));
+
+  const moduleEntries = getEnabledModules(config).flatMap((module) => {
+    if (typeof module.onboarding !== 'function') return [];
+    return module.onboarding({ ...context, config }) || [];
+  });
+
+  return [...moduleEntries, ...registryEntries].filter((entry, index, entries) => (
+    entries.findIndex((candidate) => candidate.id === entry.id) === index
+  ));
 }
 
 export function getModuleOverlays(config) {

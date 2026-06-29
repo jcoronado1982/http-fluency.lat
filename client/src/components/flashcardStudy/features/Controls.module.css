@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 0;
+    margin-top: var(--fc-controls-gap, calc(clamp(12px, 2vh, 24px) + 10px));
     width: 100%;
     max-width: 620px;
     padding: 12px 20px;
@@ -23,12 +23,8 @@
 :global(.flashcard-page-wrapper:not([data-landing-demo])) .controlsWrapper {
     max-width: var(--fc-card-max-width, 620px);
     padding: clamp(10px, 2vw, 12px) clamp(12px, 3vw, 20px);
+    margin-bottom: var(--fc-controls-spacing-extra, 10px);
 }
-
-:global(.flashcard-page-wrapper[data-onboarding-tour="true"]:not([data-landing-demo])) .controlsWrapper {
-    margin-top: clamp(18px, 2.5vh, 28px);
-}
-
 
 /* --- Button Controls Row --- */
 .controls {
@@ -73,16 +69,24 @@
 .resetButton,
 .correctButton {
     background: transparent;
-    border: 1px solid transparent;
-    border-radius: 14px;
+    border: none;
+    border-radius: 12px;
     width: 56px;
     height: 56px;
+    min-width: 56px;
+    min-height: 56px;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
     box-shadow: none;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    overflow: hidden;
 }
 
 .prevCardBtn {
@@ -94,6 +98,7 @@
 .resetButton svg {
     width: 36px;
     height: 36px;
+    flex-shrink: 0;
 }
 
 .prevCardBtn svg {
@@ -109,25 +114,18 @@
 }
 
 .prevCardBtn:hover:not(:disabled),
-.prevCardBtn:focus-visible:not(:disabled) {
+.prevCardBtn:focus-visible:not(:disabled),
+.nextCardBtn:hover:not(:disabled),
+.nextCardBtn:focus-visible:not(:disabled) {
     background: rgba(244, 114, 182, 0.1);
-    border-color: rgba(244, 114, 182, 0.35);
     color: #f472b6;
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 0 18px rgba(244, 114, 182, 0.2);
+    box-shadow: inset 0 0 0 2px rgba(244, 114, 182, 0.35);
+    transform: none;
+    outline: none;
 }
 
 .nextCardBtn {
     color: #94a3b8;
-}
-
-.nextCardBtn:hover:not(:disabled),
-.nextCardBtn:focus-visible:not(:disabled) {
-    background: rgba(244, 114, 182, 0.15);
-    border-color: rgba(244, 114, 182, 0.35);
-    color: #f472b6;
-    transform: translateY(-2px) scale(1.1);
-    box-shadow: 0 0 20px rgba(244, 114, 182, 0.32);
 }
 
 /* Hover rules consolidated */
@@ -178,10 +176,10 @@
 .resetButton:hover:not(:disabled),
 .resetButton:focus-visible:not(:disabled) {
     background: rgba(244, 114, 182, 0.12);
-    border-color: rgba(244, 114, 182, 0.35);
     color: #f87171;
-    transform: rotate(-15deg) scale(1.1);
-    box-shadow: 0 0 18px rgba(244, 114, 182, 0.2);
+    box-shadow: inset 0 0 0 2px rgba(244, 114, 182, 0.35);
+    transform: none;
+    outline: none;
 }
 
 .correctButton {
@@ -197,10 +195,10 @@
 .correctButton:hover:not(:disabled),
 .correctButton:focus-visible:not(:disabled) {
     background: rgba(244, 114, 182, 0.12);
-    border-color: rgba(244, 114, 182, 0.35);
     color: #34d399;
-    transform: translateY(-2px) scale(1.1);
-    box-shadow: 0 0 18px rgba(244, 114, 182, 0.2);
+    box-shadow: inset 0 0 0 2px rgba(244, 114, 182, 0.35);
+    transform: none;
+    outline: none;
 }
 
 .cardCounter {
@@ -218,6 +216,23 @@
 }
 
 @media (max-width: 768px) {
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .controlsWrapper {
+        flex-shrink: 0;
+        position: relative;
+        z-index: 2;
+        padding: 8px 10px;
+        margin-top: 0;
+        margin-bottom: env(safe-area-inset-bottom, 0px);
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .controls {
+        gap: 10px;
+        max-width: 100%;
+        overflow: hidden;
+    }
 
     .nav,
     .prevCardBtn,
@@ -225,8 +240,10 @@
     .actionBtn,
     .resetButton,
     .correctButton {
-        width: 56px;
-        height: 56px;
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        min-height: 48px;
     }
 
     .nav svg,
@@ -234,19 +251,20 @@
     .nextCardBtn svg,
     .actionBtn svg,
     .resetButton svg {
-        width: 36px;
-        height: 36px;
+        width: 32px;
+        height: 32px;
     }
 
     .correctButton svg {
-        width: 38px;
-        height: 38px;
+        width: 34px;
+        height: 34px;
     }
 
     .cardCounter {
-        line-height: 56px;
-        font-size: 1.35em;
-        min-width: 68px;
+        line-height: 48px;
+        font-size: 1.2em;
+        min-width: 60px;
+        flex: 1 1 auto;
     }
 
     :global([data-landing-demo]) .controlsWrapper {
