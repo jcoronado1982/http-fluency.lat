@@ -5,7 +5,7 @@ import { getPublicEntryPathForConfig } from '../modules';
 import { authRepository } from '../repositories/AuthRepository';
 import { httpClient } from '../services/httpClient';
 import { usePresence } from '../hooks/usePresence';
-import { shouldShowOnboarding } from '../utils/onboardingStorage';
+import { shouldShowOnboarding, markOnboardingDone, resolveOnboardingCompleted } from '../utils/onboardingStorage';
 
 const AuthContext = createContext();
 
@@ -34,13 +34,23 @@ export const AuthProvider = ({ children }) => {
 
         httpClient.get('/api/auth/me')
             .then((me) => {
+                const onboardingCompleted = resolveOnboardingCompleted(
+                    authData.user,
+                    me.onboarding_completed === true,
+                );
                 const nextUser = {
                     ...authData.user,
                     role: me.effective_role || authData.user.role,
-                    onboarding_completed: me.onboarding_completed === true,
+                    onboarding_completed: onboardingCompleted,
                 };
                 authRepository.saveAuthData({ token: authData.token, user: nextUser });
                 setUser(nextUser);
+
+                if (onboardingCompleted && me.onboarding_completed !== true) {
+                    httpClient.post('/api/auth/onboarding', { completed: true }).catch((err) => {
+                        console.warn('No se pudo re-sincronizar onboarding con el servidor:', err);
+                    });
+                }
             })
             .catch((err) => console.warn('No se pudo sincronizar rol desde /api/auth/me:', err))
             .finally(() => {
@@ -61,7 +71,10 @@ export const AuthProvider = ({ children }) => {
             const syncedUser = {
                 ...data.user,
                 role: me.effective_role || data.user.role,
-                onboarding_completed: me.onboarding_completed === true,
+                onboarding_completed: resolveOnboardingCompleted(
+                    data.user,
+                    me.onboarding_completed === true,
+                ),
             };
             const next = { ...data, user: syncedUser };
             authRepository.saveAuthData(next);
@@ -98,31 +111,32 @@ export const AuthProvider = ({ children }) => {
         navigate(getPublicEntryPathForConfig(config), { replace: true });
     };
 
-    const completeOnboarding = () => {
+    const completeOnboarding = async () => {
         if (!user?.email) return null;
 
         const authData = authRepository.getAuthData();
         const optimisticUser = { ...user, onboarding_completed: true };
+        markOnboardingDone(user.email);
         if (authData?.token) {
             authRepository.saveAuthData({ token: authData.token, user: optimisticUser });
         }
         setUser(optimisticUser);
 
-        httpClient.post('/api/auth/onboarding', { completed: true })
-            .then((response) => {
-                const syncedUser = response?.user
-                    ? { ...response.user, onboarding_completed: true }
-                    : optimisticUser;
-                if (authData?.token) {
-                    authRepository.saveAuthData({ token: authData.token, user: syncedUser });
-                }
-                setUser(syncedUser);
-            })
-            .catch((err) => {
-                console.warn('No se pudo sincronizar onboarding con el servidor:', err);
-            });
-
-        return optimisticUser;
+        try {
+            const response = await httpClient.post('/api/auth/onboarding', { completed: true });
+            const syncedUser = response?.user
+                ? { ...response.user, onboarding_completed: true }
+                : optimisticUser;
+            markOnboardingDone(syncedUser.email || user.email);
+            if (authData?.token) {
+                authRepository.saveAuthData({ token: authData.token, user: syncedUser });
+            }
+            setUser(syncedUser);
+            return syncedUser;
+        } catch (err) {
+            console.warn('No se pudo sincronizar onboarding con el servidor:', err);
+            return optimisticUser;
+        }
     };
 
     const role = user?.role ?? 'viewer';

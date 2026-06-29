@@ -67,8 +67,8 @@ impl UserRepository for SurrealUserRepository {
             .db
             .query(
                 "
-            UPDATE type::thing('user', $email) SET onboarding_completed = $completed;
-            SELECT * FROM type::thing('user', $email);
+            UPDATE user SET onboarding_completed = $completed WHERE email = $email;
+            SELECT * FROM user WHERE email = $email LIMIT 1;
         ",
             )
             .bind(("email", email))
