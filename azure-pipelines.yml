@@ -441,28 +441,19 @@ stages:
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
     pool: { name: 'Default' }
     steps:
-    - task: CopyFilesOverSSH@0
-      displayName: 'Sync OCI-1 DB scripts'
-      inputs:
-        sshEndpoint: $(ociSshConn)
-        sourceFolder: 'infra/proxy'
-        contents: |
-          deploy-surrealdb-oci1.sh
-          oci1-db-tuning.sh
-        targetFolder: '/root/smart-proxy/infra-proxy'
-        cleanTargetFolder: false
-    - task: SSH@0
+    - script: |
+        set -euo pipefail
+        command -v sshpass >/dev/null || { echo "sshpass no instalado en el agente"; exit 1; }
+        OCI_HOST="129.158.214.227"
+        REMOTE_DIR="/root/smart-proxy/infra-proxy"
+        sshpass -p '$(OCI_PASSWORD)' ssh -o StrictHostKeyChecking=no "root@${OCI_HOST}" "mkdir -p ${REMOTE_DIR}"
+        sshpass -p '$(OCI_PASSWORD)' scp -o StrictHostKeyChecking=no \
+          infra/proxy/deploy-surrealdb-oci1.sh \
+          infra/proxy/oci1-db-tuning.sh \
+          "root@${OCI_HOST}:${REMOTE_DIR}/"
+        sshpass -p '$(OCI_PASSWORD)' ssh -o StrictHostKeyChecking=no "root@${OCI_HOST}" \
+          "chmod +x ${REMOTE_DIR}/deploy-surrealdb-oci1.sh ${REMOTE_DIR}/oci1-db-tuning.sh && bash ${REMOTE_DIR}/deploy-surrealdb-oci1.sh && echo OCI-1 DB deploy OK"
       displayName: 'Deploy SurrealDB OCI-1 (800m, host network)'
-      inputs:
-        sshEndpoint: $(ociSshConn)
-        runOptions: inline
-        failOnStdErr: false
-        inline: |
-          set -euo pipefail
-          chmod +x /root/smart-proxy/infra-proxy/deploy-surrealdb-oci1.sh
-          chmod +x /root/smart-proxy/infra-proxy/oci1-db-tuning.sh
-          bash /root/smart-proxy/infra-proxy/deploy-surrealdb-oci1.sh
-          echo "OCI-1 DB deploy OK"
 
   # ── C. AWS Mirror ───────────────────────────────────────────────────
   - job: Mirror_AWS
