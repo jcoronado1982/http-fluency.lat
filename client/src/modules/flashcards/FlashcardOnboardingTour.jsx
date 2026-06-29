@@ -913,8 +913,8 @@ export default function FlashcardOnboardingTour() {
         viewport,
     ]);
 
-    const handleFinish = () => {
-        completeOnboarding();
+    const handleFinish = async () => {
+        await completeOnboarding();
         navigate(location.pathname, { replace: true });
     };
 

@@ -145,9 +145,20 @@ impl AuthUseCases {
         email: &str,
         completed: bool,
     ) -> Result<Option<User>> {
-        self.user_repo
+        if let Some(user) = self
+            .user_repo
             .set_onboarding_completed(email, completed)
-            .await
+            .await?
+        {
+            return Ok(Some(user));
+        }
+
+        let Some(mut existing) = self.user_repo.get_user_by_email(email).await? else {
+            return Ok(None);
+        };
+
+        existing.onboarding_completed = completed;
+        Ok(Some(self.user_repo.upsert_user(existing).await?))
     }
 
     async fn validate_google_token(&self, id_token: &str) -> Result<GooglePayload> {
