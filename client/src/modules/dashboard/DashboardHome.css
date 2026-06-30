@@ -1,7 +1,7 @@
 /* ─── Design tokens (aligned with onboarding / flashcard palette) ─────────── */
 .dashboard-home {
     --shell-content-inline-padding: 60px;
-    padding-block: 32px 44px;
+    padding-block: 30px 40px;
     color: #f8fafc;
     font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
     --font-family-body: var(--font-family-app);
@@ -28,7 +28,7 @@
 /* ─── Hero layout ──────────────────────────────────────────────────────────── */
 .dash-hero {
     display: grid;
-    gap: 20px;
+    gap: 30px;
     margin-bottom: 20px;
 }
 
@@ -102,6 +102,7 @@
     position: relative;
     display: grid;
     align-content: end;
+    aspect-ratio: 7 / 4;
     min-height: 286px;
     padding: 92px 24px 22px;
     border-radius: 20px;
@@ -115,8 +116,7 @@
     background:
         linear-gradient(180deg, rgba(15, 23, 42, 0.12), rgba(15, 23, 42, 0.86)),
         linear-gradient(90deg, rgba(15, 23, 42, 0.78), rgba(15, 23, 42, 0.14)),
-        var(--dash-course-image) center / contain no-repeat,
-        radial-gradient(circle at 50% 35%, rgba(71, 85, 105, 0.34), transparent 58%),
+        var(--dash-course-image) center / cover no-repeat,
         linear-gradient(145deg, #111827, #0f172a);
     filter: saturate(0.8) brightness(1.6);
 }
@@ -396,7 +396,7 @@
 .dash-mini-stats {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 24px;
 }
 
 .dash-mini-stat {
