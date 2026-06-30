@@ -318,7 +318,7 @@
 .dash-side-stack {
     display: grid;
     grid-template-rows: minmax(220px, 1fr) auto;
-    gap: 12px;
+    gap: 20px;
     min-width: 0;
 }
 
@@ -394,7 +394,7 @@
 .dash-mini-stats {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 20px;
 }
 
 .dash-mini-stat {
@@ -449,8 +449,11 @@
 /* ─── Proficiency path card ────────────────────────────────────────────────── */
 .dash-path-card {
     display: grid;
-    gap: 18px;
-    padding: 26px 24px 22px;
+    gap: clamp(14px, 1.5vw, 18px);
+    padding:
+        clamp(24px, 2.4vw, 30px)
+        clamp(32px, 6vw, 80px)
+        clamp(22px, 2.4vw, 30px);
     border-radius: 20px;
 }
 
@@ -479,7 +482,7 @@
 .dash-path-steps {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+    gap: clamp(8px, 1.4vw, 16px);
 }
 
 .dash-path-step {
@@ -692,6 +695,10 @@
 
     .dash-mini-stat {
         min-height: 82px;
+    }
+
+    .dash-path-card {
+        padding: 24px 36px 22px;
     }
 }
 
