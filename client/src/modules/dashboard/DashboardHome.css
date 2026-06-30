@@ -560,14 +560,15 @@
 /* ─── Bottom grid – category cards ────────────────────────────────────────── */
 .dash-bottom-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 16px;
+    align-items: stretch;
 }
 
 .dash-category-card {
     display: grid;
     gap: 8px;
-    min-height: 224px;
+    min-height: 216px;
     padding: 16px;
     border-radius: 16px;
     color: #f8fafc;
@@ -577,10 +578,14 @@
 }
 
 /* Accent top border per card (uses inline --dash-cat-accent set in JSX or default) */
-.dash-category-card:nth-child(1),
-.dash-category-card:nth-child(2),
-.dash-category-card:nth-child(3) {
+.dash-category-card {
     border-top: 1px solid var(--dash-border);
+}
+
+@media (max-width: 1120px) {
+    .dash-bottom-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 }
 
 .dash-category-card:hover {

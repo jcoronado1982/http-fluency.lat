@@ -129,7 +129,7 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
         levelId: level.currentLevel,
         currentCategory: session?.category,
         language,
-        limit: 3,
+        limit: 4,
     }), [language, level.currentLevel, session?.category]);
     const carouselItems = useMemo(() => {
         const items = getDashboardCarouselItems({
