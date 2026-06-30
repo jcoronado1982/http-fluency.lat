@@ -1,5 +1,6 @@
 /* ─── Design tokens (aligned with onboarding / flashcard palette) ─────────── */
 .dashboard-home {
+    --shell-content-inline-padding: 60px;
     padding-block: 32px 44px;
     color: #f8fafc;
     font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
@@ -646,6 +647,7 @@
 /* ─── Responsive ───────────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
     .dashboard-home {
+        --shell-content-inline-padding: 36px;
         padding-block: 24px 34px;
     }
 
@@ -693,6 +695,7 @@
 
 @media (max-width: 620px) {
     .dashboard-home {
+        --shell-content-inline-padding: 20px;
         padding-block: 12px 28px;
     }
 
@@ -938,6 +941,7 @@
 
 @media (max-width: 380px) {
     .dashboard-home {
+        --shell-content-inline-padding: 16px;
         padding-block: 10px 24px;
     }
 
