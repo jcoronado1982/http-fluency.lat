@@ -82,7 +82,7 @@
 .dash-top-grid {
     display: grid;
     grid-template-columns: minmax(0, 3fr) minmax(320px, 2fr);
-    gap: 20px;
+    gap: 40px;
     align-items: stretch;
 }
 
@@ -115,7 +115,9 @@
     background:
         linear-gradient(180deg, rgba(15, 23, 42, 0.12), rgba(15, 23, 42, 0.86)),
         linear-gradient(90deg, rgba(15, 23, 42, 0.78), rgba(15, 23, 42, 0.14)),
-        var(--dash-course-image) center / cover;
+        var(--dash-course-image) center / contain no-repeat,
+        radial-gradient(circle at 50% 35%, rgba(71, 85, 105, 0.34), transparent 58%),
+        linear-gradient(145deg, #111827, #0f172a);
     filter: saturate(0.8) brightness(1.6);
 }
 
@@ -384,7 +386,7 @@
 
 .dash-main-ring-copy span {
     color: var(--dash-accent);
-    font-size: 0.68rem;
+    font-size: 1rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.04em;
