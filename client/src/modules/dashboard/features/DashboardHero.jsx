@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import config from '../../../config';
 import nounsImage from '../../../assets/Nouns.png';
@@ -17,6 +18,7 @@ import {
     computeXp,
     estimateMinutesRemaining,
     formatCategoryLabel,
+    getDashboardCarouselItems,
     getDashboardQuickAccessItems,
     getStreakMessage,
     getTimeGreeting,
@@ -123,18 +125,51 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
     const xpTarget = computeXp(levelXpSpan);
     const greeting = getTimeGreeting(language, userName);
     const streakMsg = stats ? getStreakMessage(stats, labels) : labels.streakStartShort;
-    const quickAccessItems = getDashboardQuickAccessItems({
+    const quickAccessItems = useMemo(() => getDashboardQuickAccessItems({
         levelId: level.currentLevel,
         currentCategory: session?.category,
         language,
         limit: 3,
-    });
+    }), [language, level.currentLevel, session?.category]);
+    const carouselItems = useMemo(() => {
+        const items = getDashboardCarouselItems({
+            levelId: level.currentLevel,
+            currentCategory: session?.category,
+            currentSession: session,
+            language,
+        });
 
-    const activeCategory = session?.category || quickAccessItems[0]?.category || 'nouns';
-    const categoryLabel = formatCategoryLabel(activeCategory, language);
+        if (items.length === 0) {
+            items.push({
+                key: 'fallback-nouns',
+                category: 'nouns',
+                categoryLabel: formatCategoryLabel('nouns', language),
+                deckName: labels.defaultDeck,
+                resumeSession: null,
+                cardsRemaining: 0,
+                isCurrentGoal: true,
+            });
+        }
+
+        return items;
+    }, [language, labels.defaultDeck, level.currentLevel, session]);
+    const [activeSlide, setActiveSlide] = useState(0);
+
+    const carouselSignature = carouselItems.map((item) => item.key).join('|');
+
+    useEffect(() => {
+        setActiveSlide(0);
+    }, [carouselSignature]);
+
+    const activeCourse = carouselItems[activeSlide] || carouselItems[0];
+    const activeCategory = activeCourse?.category || 'nouns';
+    const categoryLabel = activeCourse?.categoryLabel || formatCategoryLabel(activeCategory, language);
     const courseImage = CATEGORY_IMAGES[activeCategory] || nounsImage;
-    const cardsRemaining = session?.cardsRemaining ?? 0;
+    const cardsRemaining = activeCourse?.cardsRemaining ?? 0;
     const minutesLeft = estimateMinutesRemaining(cardsRemaining);
+    const canCycleCourses = carouselItems.length > 1;
+    const previousCourseLabel = language === 'es' ? 'Categoría anterior' : 'Previous category';
+    const nextCourseLabel = language === 'es' ? 'Siguiente categoría' : 'Next category';
 
     const openSession = (resumeSession = session) => {
         learningStatsPort.touchStudyDay().catch(() => {});
@@ -143,6 +178,11 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
         } else {
             navigate(flashcardPath);
         }
+    };
+
+    const cycleCourse = (direction) => {
+        if (!canCycleCourses) return;
+        setActiveSlide((current) => (current + direction + carouselItems.length) % carouselItems.length);
     };
 
     if (statsLoading) {
@@ -162,16 +202,48 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
 
             <div className="dash-top-grid">
                 <article className="dash-course-card" style={{ '--dash-course-image': `url("${courseImage}")` }}>
-                    <span className="dash-course-badge">{labels.currentGoal}</span>
+                    <div className="dash-course-topbar">
+                        <span className="dash-course-badge">
+                            {activeCourse?.isCurrentGoal ? labels.currentGoal : categoryLabel}
+                        </span>
+                    </div>
+                    {canCycleCourses && (
+                        <>
+                            <button
+                                type="button"
+                                className="dash-course-carousel-btn dash-course-carousel-btn--prev"
+                                onClick={() => cycleCourse(-1)}
+                                aria-label={previousCourseLabel}
+                            >
+                                <FiChevronLeft aria-hidden />
+                            </button>
+                            <button
+                                type="button"
+                                className="dash-course-carousel-btn dash-course-carousel-btn--next"
+                                onClick={() => cycleCourse(1)}
+                                aria-label={nextCourseLabel}
+                            >
+                                <FiChevronRight aria-hidden />
+                            </button>
+                            <div className="dash-course-carousel-dots" aria-hidden>
+                                {carouselItems.map((item, index) => (
+                                    <span
+                                        key={item.key}
+                                        className={`dash-course-carousel-dot ${index === activeSlide ? 'is-active' : ''}`}
+                                    />
+                                ))}
+                            </div>
+                        </>
+                    )}
                     <h2>{labels.courseTitle.replace('{category}', categoryLabel)}</h2>
                     <p>
-                        {session
+                        {activeCourse?.resumeSession
                             ? labels.courseMeta
                                 .replace('{category}', categoryLabel)
-                                .replace('{deck}', session.deck || labels.defaultDeck)
+                                .replace('{deck}', activeCourse.deckLabel || activeCourse.deckName || labels.defaultDeck)
                             : labels.missionFallback}
                     </p>
-                    {session && cardsRemaining > 0 && (
+                    {cardsRemaining > 0 && (
                         <span className="dash-course-progress-copy">
                             {labels.cardsRemaining.replace('{n}', String(cardsRemaining))}
                             {' · '}
@@ -181,7 +253,11 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
                     <div className="dash-course-progress" aria-hidden="true">
                         <span style={{ width: `${level.levelPercent}%` }} />
                     </div>
-                    <button type="button" className="dash-course-cta" onClick={() => openSession()}>
+                    <button
+                        type="button"
+                        className="dash-course-cta"
+                        onClick={() => openSession(activeCourse?.resumeSession)}
+                    >
                         {labels.continueButton}
                     </button>
                 </article>
@@ -266,7 +342,7 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
                             <span className="dash-category-thumb" style={{ '--dash-category-image': `url("${itemImage}")` }}>
                                 <span>{item.levelId}</span>
                             </span>
-                            <strong>{item.deckName}</strong>
+                            <strong>{item.deckLabel || item.deckName}</strong>
                             <small>{labels.quickAccessSubtitle.replace('{level}', item.levelId)}</small>
                             <span className="dash-category-action">{labels.quickAccessButton}</span>
                         </button>

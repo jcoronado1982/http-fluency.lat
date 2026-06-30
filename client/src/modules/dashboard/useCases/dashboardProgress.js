@@ -1,4 +1,5 @@
 import catalogOrder from '../../flashcards/config/catalogOrder.json';
+import { getFlashcardTranslations } from '../../flashcards/config/translations';
 
 export const LEVELS = [
     { id: 'A1', min: 0, max: 700, wordsMin: 500, wordsMax: 700, premium: false },
@@ -74,18 +75,29 @@ export function formatCategoryLabel(category, language = 'en') {
     if (!category) return '';
     const lower = category.toLowerCase();
     const es = {
-        verbs: 'verbos',
-        nouns: 'sustantivos',
-        pronouns: 'pronombres',
-        adjectives: 'adjetivos',
-        adverbs: 'adverbios',
-        preposition: 'preposiciones',
-        connectors: 'conectores',
-        determinant: 'determinantes',
-        phrasal_verbs: 'phrasal verbs',
+        verbs: 'Verbos',
+        nouns: 'Sustantivos',
+        pronouns: 'Pronombres',
+        adjectives: 'Adjetivos',
+        adverbs: 'Adverbios',
+        preposition: 'Preposiciones',
+        connectors: 'Conectores',
+        determinant: 'Determinantes',
+        phrasal_verbs: 'Verbos frasales',
     };
     if (language === 'es' && es[lower]) return es[lower];
     return lower.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+export function formatDeckLabel(deckName, language = 'en') {
+    if (!deckName) return '';
+    if (language !== 'es') return deckName;
+    const phrasalPrefix = 'Phrasal Verbs: ';
+    if (deckName.startsWith(phrasalPrefix)) {
+        return `Verbos frasales: ${deckName.slice(phrasalPrefix.length)}`;
+    }
+    const translated = getFlashcardTranslations('es')?.categorySelector?.groups?.[deckName];
+    return translated || deckName;
 }
 
 export function getTimeGreeting(language, name) {
@@ -151,9 +163,58 @@ export function getDashboardQuickAccessItems({
             category: entry.name,
             categoryLabel: formatCategoryLabel(entry.name, language),
             deckName: getFirstDeckName(entry, deckKey),
+            deckLabel: formatDeckLabel(getFirstDeckName(entry, deckKey), language),
             levelId: levelId || 'A1',
             accent: QUICK_ACCESS_ACCENTS[index % QUICK_ACCESS_ACCENTS.length],
         }));
+}
+
+export function getDashboardCarouselItems({
+    levelId,
+    currentCategory = null,
+    currentSession = null,
+    language = 'en',
+} = {}) {
+    const deckKey = getDeckKeyForLevel(levelId);
+    const entries = Array.isArray(CATALOG_CATEGORIES) ? [...CATALOG_CATEGORIES] : [];
+    const currentIndex = currentCategory ? entries.findIndex((entry) => entry.name === currentCategory) : -1;
+    const rotated = currentIndex >= 0
+        ? [
+            ...entries.slice(currentIndex),
+            ...entries.slice(0, currentIndex),
+        ]
+        : entries;
+
+    const categoryItems = rotated
+        .filter((entry) => entry.name !== currentSession?.category)
+        .map((entry) => ({
+            key: `category-${entry.name}`,
+            category: entry.name,
+            categoryLabel: formatCategoryLabel(entry.name, language),
+            deckName: getFirstDeckName(entry, deckKey) || '',
+            deckLabel: formatDeckLabel(getFirstDeckName(entry, deckKey), language),
+            resumeSession: {
+                category: entry.name,
+                deck: getFirstDeckName(entry, deckKey),
+            },
+            cardsRemaining: 0,
+            isCurrentGoal: false,
+        }));
+
+    if (currentSession?.category && currentSession?.deck) {
+        categoryItems.unshift({
+            key: `session-${currentSession.category}-${currentSession.deck}`,
+            category: currentSession.category,
+            categoryLabel: formatCategoryLabel(currentSession.category, language),
+            deckName: currentSession.deck,
+            deckLabel: formatDeckLabel(currentSession.deck, language),
+            resumeSession: currentSession,
+            cardsRemaining: currentSession.cardsRemaining ?? 0,
+            isCurrentGoal: true,
+        });
+    }
+
+    return categoryItems;
 }
 
 export function isLevelReached(masteredCount, level) {
