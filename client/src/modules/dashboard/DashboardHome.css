@@ -562,16 +562,16 @@
 .dash-bottom-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 16px;
+    gap: 14px;
     align-items: stretch;
 }
 
 .dash-category-card {
     display: grid;
-    gap: 8px;
-    min-height: 216px;
-    padding: 16px;
-    border-radius: 16px;
+    gap: 6px;
+    min-height: 184px;
+    padding: 14px;
+    border-radius: 14px;
     color: #f8fafc;
     text-align: left;
     cursor: pointer;
@@ -597,13 +597,13 @@
 
 .dash-category-card-title {
     color: #e2e8f0;
-    font-size: 0.86rem;
+    font-size: 0.82rem;
     font-weight: 700;
 }
 
 .dash-category-thumb {
     position: relative;
-    height: 96px;
+    height: 78px;
     overflow: hidden;
     border-radius: 8px;
     background:
@@ -625,20 +625,20 @@
 
 .dash-category-card strong {
     color: #ffffff;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     line-height: 1.25;
 }
 
 .dash-category-card small {
     color: var(--dash-muted);
-    font-size: 0.68rem;
+    font-size: 0.64rem;
     line-height: 1.35;
 }
 
 .dash-category-action {
     align-self: end;
     color: var(--dash-accent);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -928,14 +928,14 @@
     }
 
     .dash-category-card {
-        flex: 0 0 min(72vw, 220px);
-        min-height: 188px;
+        flex: 0 0 min(70vw, 210px);
+        min-height: 166px;
         scroll-snap-align: start;
-        border-radius: 16px;
+        border-radius: 14px;
     }
 
     .dash-category-thumb {
-        height: 82px;
+        height: 70px;
     }
 }
 
@@ -971,6 +971,6 @@
 
     .dash-category-card {
         flex: 0 0 min(78vw, 200px);
-        min-height: 170px;
+        min-height: 158px;
     }
 }
