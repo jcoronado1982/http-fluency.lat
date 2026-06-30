@@ -81,7 +81,7 @@
 /* ─── Top grid (course card + side stack) ──────────────────────────────────── */
 .dash-top-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.95fr) minmax(230px, 0.95fr);
+    grid-template-columns: minmax(0, 3fr) minmax(320px, 2fr);
     gap: 20px;
     align-items: stretch;
 }
@@ -654,7 +654,7 @@
     }
 
     .dash-top-grid {
-        grid-template-columns: minmax(0, 1.5fr) minmax(156px, 0.85fr);
+        grid-template-columns: minmax(0, 3fr) minmax(240px, 2fr);
     }
 
     .dash-course-card {
