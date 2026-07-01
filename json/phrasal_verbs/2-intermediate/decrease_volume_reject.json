@@ -1,0 +1,41 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "turn down",
+        "phonetic": "/tɜrn daʊn/",
+        "spoken_phonetic_us": "/tɜrn daʊn/",
+        "search_term": "phrasal verb/decrease volume/reject",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Bajar (el volumen, la calefacción)",
+                "usage_example": "Could you turn down the TV? It's too loud.",
+                "pronunciation_guide_es": "/kud_iu_tern_DAUN_de_tiVI? its_TU_LAUD/",
+                "alternative_example": "Could you decrease the volume of the TV?",
+                "usage_example_es": "¿Podrías bajar la TV? Está muy alta.",
+                "char_count": "one",
+                "usage_context_en": "volume/level",
+                "usage_context_es": "volumen/nivel",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_37_def0.avif"
+            },
+            {
+                "meaning": "Rechazar (una oferta, una invitación)",
+                "usage_example": "She turned down the job offer.",
+                "pronunciation_guide_es": "/shi_ternd_DAUN_de_YOB_Ofer/",
+                "alternative_example": "She rejected the job offer.",
+                "usage_example_es": "Ella rechazó la oferta de trabajo.",
+                "char_count": "one",
+                "usage_context_en": "decisions/work/social",
+                "usage_context_es": "decisiones/trabajo/social",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_37_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Turn",
+        "category": "Intermediate"
+    }
+]

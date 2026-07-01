@@ -1,0 +1,52 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "take off",
+        "phonetic": "/teɪk ɔf/",
+        "spoken_phonetic_us": "/teɪk ɔf/",
+        "search_term": "phrasal verb/remove clothing/airplane/leave",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Quitarse (ropa, zapatos)",
+                "usage_example": "Please take off your shoes at the door.",
+                "pronunciation_guide_es": "/plis_teik_OF_iur_SHUS_at_de_DOR/",
+                "alternative_example": "Please remove your shoes at the door.",
+                "usage_example_es": "Por favor, quítate los zapatos en la puerta.",
+                "char_count": "one",
+                "usage_context_en": "clothing/instructions",
+                "usage_context_es": "ropa/instrucciones",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_27_def0.avif"
+            },
+            {
+                "meaning": "Despegar (un avión)",
+                "usage_example": "What time does the plane take off?",
+                "pronunciation_guide_es": "/uat_TAIM_das_de_PLEIN_teik_OF/",
+                "alternative_example": "What time does the plane depart/leave?",
+                "usage_example_es": "¿A qué hora despega el avión?",
+                "char_count": "one",
+                "usage_context_en": "travel/aviation",
+                "usage_context_es": "viajes/aviación",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_27_def1.avif"
+            },
+            {
+                "meaning": "Irse (repentinamente, informal)",
+                "usage_example": "He saw the police and took off.",
+                "pronunciation_guide_es": "/hi_SO_de_poLIS_and_tuk_OF/",
+                "alternative_example": "He saw the police and ran away.",
+                "usage_example_es": "Él vio a la policía y se fue (huyó).",
+                "char_count": "one",
+                "usage_context_en": "leaving quickly/informal",
+                "usage_context_es": "irse rápido/informal",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_27_def2.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Take",
+        "category": "Basic"
+    }
+]

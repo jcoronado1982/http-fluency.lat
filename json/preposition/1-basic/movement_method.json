@@ -1,0 +1,39 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "through",
+        "phonetic": "/θruː/",
+        "spoken_phonetic_us": "/θruː/",
+        "search_term": "preposition/movement/method",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Movement & Method",
+        "definitions": [
+            {
+                "meaning": "A través de (lugar)",
+                "usage_example": "We walked through the forest.",
+                "pronunciation_guide_es": "/ui_UOKT_ZRU_de_FOR-est/",
+                "usage_example_es": "Caminamos a través del bosque.",
+                "char_count": "5",
+                "usage_context_en": "Moving in one side and out the other side of an enclosed space.",
+                "usage_context_es": "Moviéndose por un lado y saliendo por el otro de un espacio cerrado.",
+                "imagePath": "/card_images/preposition/2-intermediate/2-intermediate_card_1_def0.avif"
+            },
+            {
+                "meaning": "Mediante / Por medio de",
+                "usage_example": "I found the job through a friend.",
+                "pronunciation_guide_es": "/ai_FAUND_de_YOB_ZRU_a_FREND/",
+                "usage_example_es": "Encontré el trabajo por medio de un amigo.",
+                "char_count": "7",
+                "usage_context_en": "Used to indicate the means or method by which something is achieved.",
+                "usage_context_es": "Usado para indicar el medio o método por el cual se logra algo.",
+                "imagePath": "/card_images/preposition/2-intermediate/2-intermediate_card_1_def1.avif"
+            }
+        ],
+        "category": "Basic"
+    }
+]

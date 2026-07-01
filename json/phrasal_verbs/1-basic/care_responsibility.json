@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "take care of",
+        "phonetic": "/take care of/",
+        "spoken_phonetic_us": "/take care of/",
+        "search_term": "phrasal verb/care/responsibility",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Cuidar / Encargarse de",
+                "usage_example": "I will take care of it.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "I will handle it.",
+                "usage_example_es": "Yo me encargaré de eso.",
+                "char_count": "one",
+                "usage_context_en": "responsibility/care",
+                "usage_context_es": "responsabilidad/cuidado"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Take",
+        "category": "Basic"
+    }
+]

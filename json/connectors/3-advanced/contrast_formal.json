@@ -1,0 +1,28 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "whereas",
+        "phonetic": "/wɛərˈæz/",
+        "spoken_phonetic_us": "/wɛrˈæz/",
+        "search_term": "conjunction/contrast/formal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Contrast",
+        "definitions": [
+            {
+                "meaning": "Mientras que (formal)",
+                "usage_example": "She is young, whereas I am old.",
+                "pronunciation_guide_es": "/shi_is_IONG_uer-AS_ai_am_OLD/",
+                "usage_example_es": "Ella es joven, mientras que yo soy viejo.",
+                "char_count": "6",
+                "usage_context_en": "A formal way to contrast two facts.",
+                "usage_context_es": "Una forma formal de contrastar dos hechos.",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_12_def0.avif"
+            }
+        ]
+    }
+]

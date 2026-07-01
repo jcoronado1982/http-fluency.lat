@@ -1,0 +1,39 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "stand for",
+        "phonetic": "/stand for/",
+        "spoken_phonetic_us": "/stand for/",
+        "search_term": "phrasal verb/meaning/values",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Representar / Significar",
+                "usage_example": "What does this symbol stand for?",
+                "pronunciation_guide_es": "",
+                "alternative_example": "What does this symbol mean?",
+                "usage_example_es": "¿Qué representa este símbolo?",
+                "char_count": "one",
+                "usage_context_en": "meaning/symbols",
+                "usage_context_es": "significado/símbolos"
+            },
+            {
+                "meaning": "Defender / Apoyar un principio",
+                "usage_example": "She stands for equality.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "She supports equality.",
+                "usage_example_es": "Ella defiende la igualdad.",
+                "char_count": "one",
+                "usage_context_en": "values/principles",
+                "usage_context_es": "valores/principios"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Stand",
+        "category": "Advanced"
+    }
+]

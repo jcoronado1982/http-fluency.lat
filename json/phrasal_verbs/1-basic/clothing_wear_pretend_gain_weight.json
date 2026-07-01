@@ -1,0 +1,63 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "put on",
+        "phonetic": "/pʊt ɑn/",
+        "spoken_phonetic_us": "/pʊt ɑn/",
+        "search_term": "phrasal verb/clothing/wear/pretend/gain weight",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Ponerse (ropa)",
+                "usage_example": "Put on your jacket. It's cold outside.",
+                "pronunciation_guide_es": "/put_ON_iur_YAket. its_KOLD_autSAID/",
+                "alternative_example": "Wear your jacket. It's cold outside.",
+                "usage_example_es": "Ponte la chaqueta. Hace frío afuera.",
+                "char_count": "one",
+                "usage_context_en": "clothing/daily routine",
+                "usage_context_es": "ropa/rutina diaria",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_7_def0.avif"
+            },
+            {
+                "meaning": "Poner (música, un programa)",
+                "usage_example": "Can you put on some music?",
+                "pronunciation_guide_es": "/kæn_iu_put_ON_sam_MIUsik/",
+                "alternative_example": "Can you play some music?",
+                "usage_example_es": "¿Puedes poner algo de música?",
+                "char_count": "one",
+                "usage_context_en": "media/entertainment",
+                "usage_context_es": "medios/entretenimiento",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_7_def1.avif"
+            },
+            {
+                "meaning": "Ganar (peso)",
+                "usage_example": "He put on 10 pounds over the holidays.",
+                "pronunciation_guide_es": "/hi_put_ON_ten_PAUNDS_Over_de_HOlides/",
+                "alternative_example": "He gained 10 pounds over the holidays.",
+                "usage_example_es": "Él ganó 10 libras (kilos) durante las vacaciones.",
+                "char_count": "one",
+                "usage_context_en": "health/weight",
+                "usage_context_es": "salud/peso",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_7_def2.avif"
+            },
+            {
+                "meaning": "Fingir (una emoción)",
+                "usage_example": "She wasn't really sad. She just put it on.",
+                "pronunciation_guide_es": "/shi_UAsent_RIli_SAD. shi_yost_PU_rit_ON/",
+                "alternative_example": "She wasn't really sad. She just pretended.",
+                "usage_example_es": "No estaba realmente triste. Solo lo fingió.",
+                "char_count": "one",
+                "usage_context_en": "emotions/pretending",
+                "usage_context_es": "emociones/fingir",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_7_def3.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Put",
+        "category": "Basic"
+    }
+]

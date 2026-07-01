@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "set in",
+        "phonetic": "/sɛt ɪn/",
+        "spoken_phonetic_us": "/sɛɾ ɪn/",
+        "search_term": "phrasal verb/begin/weather/illness",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Instalarse, empezar (algo negativo y duradero)",
+                "usage_example": "The rain has set in for the weekend.",
+                "pronunciation_guide_es": "/de_REIN_has_set_IN_for_de_UIkend/",
+                "alternative_example": "The rain has started and will likely continue.",
+                "usage_example_es": "La lluvia se ha instalado para (todo) el fin de semana.",
+                "char_count": "one",
+                "usage_context_en": "weather/illness/negative start",
+                "usage_context_es": "clima/enfermedad/inicio negativo",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_22_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Set",
+        "category": "Advanced"
+    }
+]

@@ -1,0 +1,23 @@
+[
+    {
+        "name": "please",
+        "phonetic": "/pliz/",
+        "spoken_phonetic_us": "/pliz/",
+        "search_term": "survival/polite-expression",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Survival: Street Basics",
+        "definitions": [
+            {
+                "meaning": "Por favor",
+                "usage_example": "Help me, please.",
+                "pronunciation_guide_es": "/HELP_mi_PLIS/",
+                "usage_example_es": "Ayúdeme, por favor.",
+                "char_count": "3",
+                "usage_context_en": "Used to make requests polite.",
+                "usage_context_es": "Usado para hacer solicitudes de forma educada."
+            }
+        ]
+    }
+]

@@ -1,0 +1,28 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "provided that",
+        "phonetic": "/prəˈvaɪdɪd ðæt/",
+        "spoken_phonetic_us": "/prəˈvaɪdɪd ðæt/",
+        "search_term": "phrase/condition/formal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Condition",
+        "definitions": [
+            {
+                "meaning": "Siempre que / Con la condición de que",
+                "usage_example": "The bank will lend the money, provided that you have security.",
+                "pronunciation_guide_es": "/de_BANK_uil_LEND_de_MO-ni_pro-VAI-ded_dat_iu_HAV_se-KIU-ri-ti/",
+                "usage_example_es": "El banco prestará el dinero, siempre que tengas una garantía.",
+                "char_count": "10",
+                "usage_context_en": "A formal way to say 'if' or 'as long as'.",
+                "usage_context_es": "Una forma formal de decir 'si' o 'siempre y cuando'.",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_37_def0.avif"
+            }
+        ]
+    }
+]

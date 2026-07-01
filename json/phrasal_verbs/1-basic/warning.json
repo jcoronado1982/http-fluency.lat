@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "look out",
+        "phonetic": "/look out/",
+        "spoken_phonetic_us": "/look out/",
+        "search_term": "phrasal verb/warning",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "¡Cuidado! / Tener cuidado",
+                "usage_example": "Look out! A car is coming.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "Be careful!",
+                "usage_example_es": "¡Cuidado! Viene un carro.",
+                "char_count": "one",
+                "usage_context_en": "warning/danger",
+                "usage_context_es": "advertencia/peligro"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Look",
+        "category": "Basic"
+    }
+]

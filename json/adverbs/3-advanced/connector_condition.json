@@ -1,0 +1,32 @@
+[
+    {
+        "name": "otherwise",
+        "phonetic": "/ˈʌðərwaɪz/",
+        "spoken_phonetic_us": "/ˈʌðərwaɪz/",
+        "search_term": "adverb/connector/condition",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Connectors: Condition",
+        "definitions": [
+            {
+                "meaning": "De lo contrario / Si no",
+                "usage_example": "Study hard, otherwise you will fail.",
+                "pronunciation_guide_es": "/STO-di_HARD_O-der-uais_iu_uil_FEIL/",
+                "usage_example_es": "Estudia duro, de lo contrario reprobarás.",
+                "char_count": 6,
+                "usage_context_en": "Used to state the consequence if a condition is not met.",
+                "usage_context_es": "Usado para indicar la consecuencia si no se cumple una condición."
+            },
+            {
+                "meaning": "De otra manera / Diferente",
+                "usage_example": "He is quiet, but she is otherwise.",
+                "pronunciation_guide_es": "/hi_is_CUAI-et_bot_shi_is_O-der-uais/",
+                "usage_example_es": "Él es callado, pero ella es diferente.",
+                "char_count": 7,
+                "usage_context_en": "In a different way; differently.",
+                "usage_context_es": "De una manera diferente; diferentemente."
+            }
+        ]
+    }
+]

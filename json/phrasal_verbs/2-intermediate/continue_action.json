@@ -1,0 +1,41 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "carry on",
+        "phonetic": "/ˈkɛri ɑn/",
+        "spoken_phonetic_us": "/ˈkɛri ɑn/",
+        "search_term": "phrasal verb/continue/action",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Continuar (haciendo algo)",
+                "usage_example": "Please carry on with your work.",
+                "pronunciation_guide_es": "/plis_KEri_ON_uith_iur_UORK/",
+                "alternative_example": "Please continue with your work.",
+                "usage_example_es": "Por favor, continúa con tu trabajo.",
+                "char_count": "one",
+                "usage_context_en": "work/instructions",
+                "usage_context_es": "trabajo/instrucciones",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_16_def0.avif"
+            },
+            {
+                "meaning": "Comportarse mal, hacer un escándalo",
+                "usage_example": "He was carrying on about the noise.",
+                "pronunciation_guide_es": "/hi_uas_KEri-ing_ON_aBAUT_de_NOIS/",
+                "alternative_example": "He was complaining loudly about the noise.",
+                "usage_example_es": "Estaba haciendo un escándalo por el ruido.",
+                "char_count": "one",
+                "usage_context_en": "complaining/behavior",
+                "usage_context_es": "quejarse/comportamiento",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_16_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Carry",
+        "category": "Intermediate"
+    }
+]

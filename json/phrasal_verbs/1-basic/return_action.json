@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "come back",
+        "phonetic": "/kʌm bæk/",
+        "spoken_phonetic_us": "/kʌm bæk/",
+        "search_term": "phrasal verb/return/action",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Regresar, volver",
+                "usage_example": "What time did you come back home?",
+                "pronunciation_guide_es": "/uat_TAIM_did_iu_kam_BAK_HOUM/",
+                "alternative_example": "What time did you return home?",
+                "usage_example_es": "¿A qué hora regresaste a casa?",
+                "char_count": "one",
+                "usage_context_en": "daily routine/returning",
+                "usage_context_es": "rutina diaria/regresar",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_25_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Come",
+        "category": "Basic"
+    }
+]

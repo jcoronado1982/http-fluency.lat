@@ -1,0 +1,28 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "moreover",
+        "phonetic": "/mɔrˈoʊvər/",
+        "spoken_phonetic_us": "/mɔrˈoʊvər/",
+        "search_term": "adverb/addition/formal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Addition",
+        "definitions": [
+            {
+                "meaning": "Además / Es más (formal)",
+                "usage_example": "The plan is risky. Moreover, it is expensive.",
+                "pronunciation_guide_es": "/de_PLAN_is_RIS-ki_mor-OU-ver_it_is_ex-PEN-siv/",
+                "usage_example_es": "El plan es arriesgado. Además, es caro.",
+                "char_count": "7",
+                "usage_context_en": "As a further matter; besides (used to add a stronger, related point).",
+                "usage_context_es": "Como un punto adicional; además (usado para añadir un punto más fuerte y relacionado).",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_4_def0.avif"
+            }
+        ]
+    }
+]

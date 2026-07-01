@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "instead of",
+        "phonetic": "/ɪnˈstɛd əv/",
+        "spoken_phonetic_us": "/ɪnˈstɛd əv/",
+        "search_term": "preposition/replacement",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Substitution",
+        "definitions": [
+            {
+                "meaning": "En lugar de",
+                "usage_example": "I will have tea instead of coffee.",
+                "pronunciation_guide_es": "/ai_uil_HAV_TI_in-STED_of_CO-fi/",
+                "usage_example_es": "Tomaré té en lugar de café.",
+                "char_count": "7",
+                "usage_context_en": "Used to indicate a replacement or alternative.",
+                "usage_context_es": "Usado para indicar un reemplazo o alternativa.",
+                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_5_def0.avif"
+            }
+        ],
+        "category": "Intermediate"
+    }
+]

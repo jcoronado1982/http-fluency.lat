@@ -1,0 +1,41 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "get by",
+        "phonetic": "/ɡɛt baɪ/",
+        "spoken_phonetic_us": "/ɡɛt baɪ/",
+        "search_term": "phrasal verb survival/finance/pass",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "arreglárselas, sobrevivir con lo mínimo",
+                "usage_example": "She needs to get by without money.",
+                "pronunciation_guide_es": "/shi_nids_tu_guet_bai_wi-daut_mani/",
+                "alternative_example": "She has to survive without money.",
+                "usage_example_es": "Ella necesita arreglárselas sin dinero.",
+                "char_count": "one",
+                "usage_context_en": "survival/finance",
+                "usage_context_es": "supervivencia/finanzas",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_43_def0.avif"
+            },
+            {
+                "meaning": "pasar por un lugar estrecho",
+                "usage_example": "Can you move so I can get by?",
+                "pronunciation_guide_es": "/ken_iu_muv_so_ai_ken_guer_BAI/",
+                "alternative_example": "Can you move so I can pass?",
+                "usage_example_es": "¿Puedes moverte para que yo pueda pasar?",
+                "char_count": "two",
+                "usage_context_en": "pass",
+                "usage_context_es": "pasar",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_43_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Get",
+        "category": "Basic"
+    }
+]

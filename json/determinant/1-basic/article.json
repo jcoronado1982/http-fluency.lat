@@ -1,0 +1,83 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": true,
+        "learned_at": null,
+        "name": "a",
+        "phonetic": "/eɪ/",
+        "spoken_phonetic_us": "/ə/",
+        "search_term": "determiner/article",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Articles",
+        "definitions": [
+            {
+                "meaning": "Un / Una",
+                "usage_example": "I need a pen.",
+                "pronunciation_guide_es": "/ai_NID_a_PEN/",
+                "usage_example_es": "Necesito un bolígrafo.",
+                "char_count": "4",
+                "usage_context_en": "Used before a singular countable noun that begins with a consonant sound.",
+                "usage_context_es": "Usado antes de un sustantivo contable singular que empieza con sonido de consonante.",
+                "imagePath": "/card_images/determinant/1-basic/1-basic_card_0_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": true,
+        "learned_at": null,
+        "name": "an",
+        "phonetic": "/æn/",
+        "spoken_phonetic_us": "/ən/",
+        "search_term": "determiner/article",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Articles",
+        "definitions": [
+            {
+                "meaning": "Un / Una",
+                "usage_example": "I want an apple.",
+                "pronunciation_guide_es": "/ai_UANT_an_A-pol/",
+                "usage_example_es": "Quiero una manzana.",
+                "char_count": "4",
+                "usage_context_en": "Used before a singular countable noun that begins with a vowel sound.",
+                "usage_context_es": "Usado antes de un sustantivo contable singular que empieza con sonido de vocal.",
+                "imagePath": "/card_images/determinant/1-basic/1-basic_card_1_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "the",
+        "phonetic": "/ðə/",
+        "spoken_phonetic_us": "/ði/",
+        "search_term": "determiner/article",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Articles",
+        "definitions": [
+            {
+                "meaning": "El / La / Los / Las",
+                "usage_example": "The car is red. The apples are green.",
+                "pronunciation_guide_es": "/de_CAR_is_RED_de_A-pols_ar_GRIN/",
+                "usage_example_es": "El carro es rojo. Las manzanas son verdes.",
+                "char_count": "7",
+                "usage_context_en": "Used to refer to a specific, known noun (singular or plural).",
+                "usage_context_es": "Usado para referirse a un sustantivo específico y conocido (singular o plural).",
+                "imagePath": "/card_images/determinant/1-basic/1-basic_card_2_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    }
+]

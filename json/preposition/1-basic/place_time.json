@@ -1,0 +1,150 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "in",
+        "phonetic": "/ɪn/",
+        "spoken_phonetic_us": "/ɪn/",
+        "search_term": "preposition/place/time",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Place & Time",
+        "definitions": [
+            {
+                "meaning": "En (lugar)",
+                "usage_example": "The keys are in the box.",
+                "pronunciation_guide_es": "/de_KIS_ar_in_de_BOX/",
+                "usage_example_es": "Las llaves están en la caja.",
+                "char_count": "6",
+                "usage_context_en": "Used for enclosed spaces (cities, countries, rooms, boxes).",
+                "usage_context_es": "Usado para espacios cerrados (ciudades, países, cuartos, cajas).",
+                "imagePath": "/card_images/preposition/1-basic/1-basic_card_0_def0.avif"
+            },
+            {
+                "meaning": "En (tiempo)",
+                "usage_example": "My birthday is in October.",
+                "pronunciation_guide_es": "/mai_BERZ-dei_is_in_ok-TOU-ber/",
+                "usage_example_es": "Mi cumpleaños es en octubre.",
+                "char_count": "5",
+                "usage_context_en": "Used for non-specific time (months, years, seasons).",
+                "usage_context_es": "Usado para tiempo no específico (meses, años, estaciones).",
+                "imagePath": "/card_images/preposition/1-basic/1-basic_card_0_def1.avif"
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "on",
+        "phonetic": "/ɒn/",
+        "spoken_phonetic_us": "/ɑn/",
+        "search_term": "preposition/place/time",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Place & Time",
+        "definitions": [
+            {
+                "meaning": "En / Sobre (lugar)",
+                "usage_example": "The book is on the table.",
+                "pronunciation_guide_es": "/de_BUK_is_on_de_TEI-bol/",
+                "usage_example_es": "El libro está sobre la mesa.",
+                "char_count": "6",
+                "usage_context_en": "Used for surfaces (tables, floors, walls, streets).",
+                "usage_context_es": "Usado para superficies (mesas, pisos, paredes, calles).",
+                "imagePath": "/card_images/preposition/1-basic/1-basic_card_1_def0.avif"
+            },
+            {
+                "meaning": "En / El (tiempo)",
+                "usage_example": "The meeting is on Friday.",
+                "pronunciation_guide_es": "/de_MI-ting_is_on_FRAI-dei/",
+                "usage_example_es": "La reunión es el viernes.",
+                "char_count": "5",
+                "usage_context_en": "Used for specific days and dates.",
+                "usage_context_es": "Usado para días y fechas específicos.",
+                "imagePath": "/card_images/preposition/1-basic/1-basic_card_1_def1.avif"
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "at",
+        "phonetic": "/æt/",
+        "spoken_phonetic_us": "/æt/",
+        "search_term": "preposition/place/time",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Place & Time",
+        "definitions": [
+            {
+                "meaning": "En (lugar específico)",
+                "usage_example": "I will meet you at the station.",
+                "pronunciation_guide_es": "/ai_uil_MIT_iu_at_de_STEI-shon/",
+                "usage_example_es": "Te veré en la estación.",
+                "char_count": "7",
+                "usage_context_en": "Used for specific points or locations (the station, the corner, home).",
+                "usage_context_es": "Usado para puntos o lugares específicos (la estación, la esquina, casa).",
+                "imagePath": "/card_images/preposition/1-basic/1-basic_card_2_def0.avif"
+            },
+            {
+                "meaning": "A (tiempo)",
+                "usage_example": "The movie starts at 9 PM.",
+                "pronunciation_guide_es": "/de_MU-vi_STARTS_at_NAIN_pi-EM/",
+                "usage_example_es": "La película empieza a las 9 PM.",
+                "char_count": "6",
+                "usage_context_en": "Used for a specific time on the clock.",
+                "usage_context_es": "Usado para una hora específica del reloj.",
+                "imagePath": "/card_images/preposition/1-basic/1-basic_card_2_def1.avif"
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "past",
+        "phonetic": "/pɑːst/",
+        "spoken_phonetic_us": "/pæst/",
+        "search_term": "preposition/place/time",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Movement & Direction",
+        "definitions": [
+            {
+                "meaning": "Pasando / Más allá de (lugar)",
+                "usage_example": "Go past the church and turn left.",
+                "pronunciation_guide_es": "/gou_PAST_de_CHERCH_and_TERN_LEFT/",
+                "usage_example_es": "Pasa la iglesia y gira a la izquierda.",
+                "char_count": "7",
+                "usage_context_en": "To or on the further side of something.",
+                "usage_context_es": "Hacia o en el lado más lejano de algo.",
+                "imagePath": "/card_images/preposition/2-intermediate/2-intermediate_card_17_def0.avif"
+            },
+            {
+                "meaning": "Pasadas (la hora)",
+                "usage_example": "It is ten past three.",
+                "pronunciation_guide_es": "/it_is_TEN_PAST_ZRI/",
+                "usage_example_es": "Son las tres y diez (diez pasadas las tres).",
+                "char_count": "5",
+                "usage_context_en": "Used to tell time, meaning 'after'.",
+                "usage_context_es": "Usado para decir la hora, significando 'después de'.",
+                "imagePath": "/card_images/preposition/2-intermediate/2-intermediate_card_17_def1.avif"
+            }
+        ],
+        "category": "Basic"
+    }
+]

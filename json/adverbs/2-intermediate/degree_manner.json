@@ -1,0 +1,23 @@
+[
+    {
+        "name": "exactly",
+        "phonetic": "/ɪɡˈzæktli/",
+        "spoken_phonetic_us": "/ɪɡˈzæktli/",
+        "search_term": "adverb/degree/manner",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Manner",
+        "definitions": [
+            {
+                "meaning": "Exactamente / Exacto",
+                "usage_example": "That is exactly what I mean.",
+                "pronunciation_guide_es": "/dat_is_eg-ZAKT-li_uat_ai_MIN/",
+                "usage_example_es": "Eso es exactamente lo que quiero decir.",
+                "char_count": "6",
+                "usage_context_en": "Used to emphasize precision or correctness.",
+                "usage_context_es": "Usado para enfatizar precisión o corrección."
+            }
+        ]
+    }
+]

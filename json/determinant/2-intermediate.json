@@ -5,71 +5,25 @@
     "example": null,
     "learned": false,
     "learned_at": null,
-    "name": "another",
-    "phonetic": "/əˈnʌðər/",
-    "spoken_phonetic_us": "/əˈnʌðər/",
+    "name": "lots of",
+    "phonetic": "/lɒts əv/",
+    "spoken_phonetic_us": "/lɑts əv/",
     "search_term": "determiner/quantifier",
     "is_verb": false,
     "force_generation": false,
     "group_name": "Determiners: Quantifiers",
     "definitions": [
       {
-        "meaning": "Otro/a (uno más, adicional)",
-        "usage_example": "Can I have another cookie?",
-        "pronunciation_guide_es": "/can_ai_HAV_a-NO-der_CU-ki/",
-        "usage_example_es": "¿Puedo tomar otra galleta?",
-        "char_count": "5",
-        "usage_context_en": "Used for one more, additional, singular countable noun.",
-        "usage_context_es": "Usado para uno más, adicional, sustantivo contable singular.",
-        "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_0_def0.avif"
-      },
-      {
-        "meaning": "Otro/a (diferente)",
-        "usage_example": "Let's meet another day.",
-        "pronunciation_guide_es": "/lets_MIT_a-NO-der_DEI/",
-        "usage_example_es": "Reunámonos otro día.",
-        "char_count": "4",
-        "usage_context_en": "Used for a different singular countable noun.",
-        "usage_context_es": "Usado para un sustantivo contable singular diferente.",
-        "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_0_def1.avif"
+        "meaning": "Mucho / Mucha / Muchos / Muchas (Informal)",
+        "usage_example": "She has lots of money.",
+        "pronunciation_guide_es": "/shi_HAS_LOTS_of_MO-ni/",
+        "usage_example_es": "Ella tiene mucho dinero.",
+        "char_count": 5,
+        "usage_context_en": "An informal version of 'a lot of'.",
+        "usage_context_es": "Una versión informal de 'a lot of'."
       }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "other",
-    "phonetic": "/ˈʌðər/",
-    "spoken_phonetic_us": "/ˈʌðər/",
-    "search_term": "determiner/quantifier",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Quantifiers",
-    "definitions": [
-      {
-        "meaning": "Otro/a / Otros/as (general)",
-        "usage_example": "Do you have other options?",
-        "pronunciation_guide_es": "/du_iu_HAV_O-der_OP-shons/",
-        "usage_example_es": "¿Tienes otras opciones?",
-        "char_count": "5",
-        "usage_context_en": "Used for different or additional plural or uncountable nouns.",
-        "usage_context_es": "Usado para sustantivos plurales o incontables diferentes o adicionales.",
-        "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_1_def0.avif"
-      },
-      {
-        "meaning": "El/La otro/a (específico)",
-        "usage_example": "The other key is on the table.",
-        "pronunciation_guide_es": "/di_O-der_KI_is_on_de_TEI-bol/",
-        "usage_example_es": "La otra llave está en la mesa.",
-        "char_count": "7",
-        "usage_context_en": "Used with 'the' to refer to the second of two specific things.",
-        "usage_context_es": "Usado con 'the' para referirse al segundo de dos objetos específicos.",
-        "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_1_def1.avif"
-      }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -95,7 +49,8 @@
         "usage_context_es": "Usado para significar 'uno u otro' de dos opciones.",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_2_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -121,59 +76,8 @@
         "usage_context_es": "Usado para significar 'ni uno ni el otro' de dos opciones.",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_3_def0.avif"
       }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "both",
-    "phonetic": "/boʊθ/",
-    "spoken_phonetic_us": "/boʊθ/",
-    "search_term": "determiner/distributive",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Distributives",
-    "definitions": [
-      {
-        "meaning": "Ambos/as / Los/Las dos",
-        "usage_example": "Both my parents are doctors.",
-        "pronunciation_guide_es": "/BOUZ_mai_PA-rents_ar_DOK-tors/",
-        "usage_example_es": "Ambos de mis padres son doctores.",
-        "char_count": "5",
-        "usage_context_en": "Used to refer to two people or things together.",
-        "usage_context_es": "Usado para referirse a dos personas o cosas juntas.",
-        "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_4_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "all",
-    "phonetic": "/ɔːl/",
-    "spoken_phonetic_us": "/ɔːl/",
-    "search_term": "determiner/quantifier",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Quantifiers",
-    "definitions": [
-      {
-        "meaning": "Todo/a / Todos/as",
-        "usage_example": "All the food is ready.",
-        "pronunciation_guide_es": "/OL_de_FUD_is_RE-di/",
-        "usage_example_es": "Toda la comida está lista.",
-        "char_count": "5",
-        "usage_context_en": "Used to refer to the whole quantity or extent of something.",
-        "usage_context_es": "Usado para referirse a la cantidad total o extensión de algo.",
-        "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_5_def0.avif"
-      }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -199,7 +103,8 @@
         "usage_context_es": "Más de dos pero no muchos; un número mediano e indefinido.",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_6_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -225,59 +130,8 @@
         "usage_context_es": "Una cantidad grande o suficiente; más que suficiente.",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_7_def0.avif"
       }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "enough",
-    "phonetic": "/ɪˈnʌf/",
-    "spoken_phonetic_us": "/ɪˈnʌf/",
-    "search_term": "determiner/quantifier",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Quantifiers",
-    "definitions": [
-      {
-        "meaning": "Suficiente(s)",
-        "usage_example": "I don't have enough money.",
-        "pronunciation_guide_es": "/ai_DONT_HAV_i-NOF_MO-ni/",
-        "usage_example_es": "No tengo suficiente dinero.",
-        "char_count": "5",
-        "usage_context_en": "As much or as many as is necessary or required.",
-        "usage_context_es": "Tanto o tantos como sea necesario o requerido.",
-        "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_8_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": true,
-    "learned_at": null,
-    "name": "more",
-    "phonetic": "/mɔːr/",
-    "spoken_phonetic_us": "/mɔr/",
-    "search_term": "determiner/quantifier",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Quantifiers",
-    "definitions": [
-      {
-        "meaning": "Más",
-        "usage_example": "I need more time.",
-        "pronunciation_guide_es": "/ai_NID_MOR_TAIM/",
-        "usage_example_es": "Necesito más tiempo.",
-        "char_count": "4",
-        "usage_context_en": "A greater or additional amount or degree.",
-        "usage_context_es": "Una cantidad o grado mayor o adicional.",
-        "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_9_def0.avif"
-      }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -303,33 +157,8 @@
         "usage_context_es": "El mayor en cantidad, cuantía o grado; casi todos.",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_10_def0.avif"
       }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "less",
-    "phonetic": "/lɛs/",
-    "spoken_phonetic_us": "/lɛs/",
-    "search_term": "determiner/quantifier",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Quantifiers",
-    "definitions": [
-      {
-        "meaning": "Menos (incontable)",
-        "usage_example": "I have less money than you.",
-        "pronunciation_guide_es": "/ai_HAV_LES_MO-ni_dan_IU/",
-        "usage_example_es": "Tengo menos dinero que tú.",
-        "char_count": "6",
-        "usage_context_en": "A smaller amount of (used with uncountable nouns).",
-        "usage_context_es": "Una cantidad menor de (usado con sustantivos incontables).",
-        "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_11_def0.avif"
-      }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -355,7 +184,8 @@
         "usage_context_es": "Un número menor de (usado con sustantivos contables).",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_12_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -381,7 +211,8 @@
         "usage_context_es": "Usado con un determinante posesivo (mi, tu, su) para enfatizar posesión.",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_13_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -417,33 +248,8 @@
         "usage_context_es": "Usado para énfasis (similar a 'so').",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_14_def1.avif"
       }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "same",
-    "phonetic": "/seɪm/",
-    "spoken_phonetic_us": "/seɪm/",
-    "search_term": "determiner/demonstrative",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Other",
-    "definitions": [
-      {
-        "meaning": "Mismo/a / Mismos/as",
-        "usage_example": "We have the same car.",
-        "pronunciation_guide_es": "/ui_HAV_de_SEIM_CAR/",
-        "usage_example_es": "Tenemos el mismo carro.",
-        "char_count": "5",
-        "usage_context_en": "Used to identify something as being identical; not different.",
-        "usage_context_es": "Usado para identificar algo como idéntico; no diferente.",
-        "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_15_def0.avif"
-      }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -469,7 +275,8 @@
         "usage_context_es": "Usado para referirse a una persona o cosa específica sin nombrarla.",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_16_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -495,7 +302,8 @@
         "usage_context_es": "Todo/a; entero/a (usado con sustantivos singulares).",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_17_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -521,7 +329,8 @@
         "usage_context_es": "Sin dejar ninguna parte fuera; todo (a menudo para énfasis).",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_18_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -547,33 +356,8 @@
         "usage_context_es": "Más de uno; diferentes tipos de.",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_19_def0.avif"
       }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "different",
-    "phonetic": "/ˈdɪfərənt/",
-    "spoken_phonetic_us": "/ˈdɪfərənt/",
-    "search_term": "adjective/describing",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Other",
-    "definitions": [
-      {
-        "meaning": "Diferente / Distinto/a",
-        "usage_example": "I have a different opinion.",
-        "pronunciation_guide_es": "/ai_HAV_a_DI-fe-rent_o-PI-nion/",
-        "usage_example_es": "Tengo una opinión diferente.",
-        "char_count": "5",
-        "usage_context_en": "Not the same as another or each other.",
-        "usage_context_es": "No igual a otro o entre sí.",
-        "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_20_def0.avif"
-      }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -599,7 +383,8 @@
         "usage_context_es": "Usado para referirse a dos personas o cosas juntas (usado antes de 'the', 'my', 'them', 'us').",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_21_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -625,7 +410,8 @@
         "usage_context_es": "Ni uno solo de un grupo de tres o más.",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_22_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -651,7 +437,8 @@
         "usage_context_es": "Exactamente el 50% de algo.",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_23_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -677,7 +464,8 @@
         "usage_context_es": "Dos veces más en cantidad o número.",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_24_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -703,7 +491,8 @@
         "usage_context_es": "Perteneciente a alguna persona (no especificada).",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_25_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -729,6 +518,250 @@
         "usage_context_es": "Perteneciente a cada persona en un grupo.",
         "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_26_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "whose",
+    "phonetic": "/huːz/",
+    "spoken_phonetic_us": "/huːz/",
+    "search_term": "determiner/possessive/interrogative",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Possessives",
+    "definitions": [
+      {
+        "meaning": "¿De quién?",
+        "usage_example": "Whose keys are these?",
+        "pronunciation_guide_es": "/HUS_KIS_ar_DIS/",
+        "usage_example_es": "¿De quién son estas llaves?",
+        "char_count": "4",
+        "usage_context_en": "Used to ask about possession.",
+        "usage_context_es": "Usado para preguntar sobre posesión."
+      },
+      {
+        "meaning": "Cuyo/a / Cuyos/as",
+        "usage_example": "The man whose car was stolen.",
+        "pronunciation_guide_es": "/de_MAN_HUS_CAR_uas_STO-len/",
+        "usage_example_es": "El hombre cuyo carro fue robado.",
+        "char_count": "6",
+        "usage_context_en": "Used as a relative pronoun to show possession.",
+        "usage_context_es": "Usado como pronombre relativo para mostrar posesión."
+      }
+    ],
+    "category": "Intermediate"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "all of",
+    "phonetic": "/ɔːl əv/",
+    "spoken_phonetic_us": "/ɔːl əv/",
+    "search_term": "determiner/partitive",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Partitives",
+    "definitions": [
+      {
+        "meaning": "Todos/as (de)",
+        "usage_example": "All of the people left.",
+        "pronunciation_guide_es": "/OL_of_de_PI-pol_LEFT/",
+        "usage_example_es": "Todas las personas se fueron.",
+        "char_count": "5",
+        "usage_context_en": "The entire quantity of a specific group.",
+        "usage_context_es": "La cantidad total de un grupo específico."
+      }
+    ],
+    "category": "Intermediate"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "some of",
+    "phonetic": "/sʌm əv/",
+    "spoken_phonetic_us": "/səm əv/",
+    "search_term": "determiner/partitive",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Partitives",
+    "definitions": [
+      {
+        "meaning": "Algunos de / Algo de",
+        "usage_example": "Some of the students are here.",
+        "pronunciation_guide_es": "/SOM_of_de_STU-dents_ar_HIR/",
+        "usage_example_es": "Algunos de los estudiantes están aquí.",
+        "char_count": "6",
+        "usage_context_en": "An unspecified amount or number of a specific group.",
+        "usage_context_es": "Una cantidad o número no especificado de un grupo específico."
+      }
+    ],
+    "category": "Intermediate"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "most of",
+    "phonetic": "/moʊst əv/",
+    "spoken_phonetic_us": "/moʊst əv/",
+    "search_term": "determiner/partitive",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Partitives",
+    "definitions": [
+      {
+        "meaning": "La mayoría de",
+        "usage_example": "Most of the food is gone.",
+        "pronunciation_guide_es": "/MOUST_of_de_FUD_is_GON/",
+        "usage_example_es": "La mayoría de la comida se acabó.",
+        "char_count": "6",
+        "usage_context_en": "The largest part or number of a specific group.",
+        "usage_context_es": "La mayor parte o número de un grupo específico."
+      }
+    ],
+    "category": "Intermediate"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "much of",
+    "phonetic": "/mʌtʃ əv/",
+    "spoken_phonetic_us": "/mʌtʃ əv/",
+    "search_term": "determiner/partitive",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Partitives",
+    "definitions": [
+      {
+        "meaning": "Mucho de",
+        "usage_example": "Much of the time was wasted.",
+        "pronunciation_guide_es": "/MOCH_of_de_TAIM_uas_UEIS-ted/",
+        "usage_example_es": "Mucho del tiempo fue desperdiciado.",
+        "char_count": "6",
+        "usage_context_en": "A large amount of a specific uncountable noun.",
+        "usage_context_es": "Una gran cantidad de un sustantivo incontable específico."
+      }
+    ],
+    "category": "Intermediate"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "each of",
+    "phonetic": "/iːtʃ əv/",
+    "spoken_phonetic_us": "/iːtʃ əv/",
+    "search_term": "determiner/partitive",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Partitives",
+    "definitions": [
+      {
+        "meaning": "Cada uno de",
+        "usage_example": "Each of the students passed.",
+        "pronunciation_guide_es": "/ICH_of_de_STU-dents_PAST/",
+        "usage_example_es": "Cada uno de los estudiantes aprobó.",
+        "char_count": "5",
+        "usage_context_en": "Used to refer to every individual member of a specific group.",
+        "usage_context_es": "Usado para referirse a cada miembro individual de un grupo específico."
+      }
+    ],
+    "category": "Intermediate"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "either of",
+    "phonetic": "/ˈaɪðər əv/",
+    "spoken_phonetic_us": "/ˈiːðər əv/",
+    "search_term": "determiner/partitive",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Partitives",
+    "definitions": [
+      {
+        "meaning": "Cualquiera de (los dos)",
+        "usage_example": "Either of the books is fine.",
+        "pronunciation_guide_es": "/AI-der_of_de_BUKS_is_FAIN/",
+        "usage_example_es": "Cualquiera de los dos libros está bien.",
+        "char_count": "6",
+        "usage_context_en": "One or the other of two specific things (used before 'the', 'my', 'them').",
+        "usage_context_es": "Uno u otro de dos cosas específicas (usado antes de 'the', 'my', 'them')."
+      }
+    ],
+    "category": "Intermediate"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "neither of",
+    "phonetic": "/ˈnaɪðər əv/",
+    "spoken_phonetic_us": "/ˈniːðər əv/",
+    "search_term": "determiner/partitive",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Partitives",
+    "definitions": [
+      {
+        "meaning": "Ninguno de (los dos)",
+        "usage_example": "Neither of them came.",
+        "pronunciation_guide_es": "/NAI-der_of_dem_KEIM/",
+        "usage_example_es": "Ninguno de los dos vino.",
+        "char_count": "4",
+        "usage_context_en": "Not one and not the other of two specific things (used before 'the', 'my', 'them').",
+        "usage_context_es": "Ni uno ni el otro de dos cosas específicas (usado antes de 'the', 'my', 'them')."
+      }
+    ],
+    "category": "Intermediate"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "part of",
+    "phonetic": "/pɑːrt əv/",
+    "spoken_phonetic_us": "/pɑrt əv/",
+    "search_term": "determiner/partitive",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Partitives",
+    "definitions": [
+      {
+        "meaning": "Parte de",
+        "usage_example": "Part of the problem is communication.",
+        "pronunciation_guide_es": "/PART_of_de_PRO-blem_is_co-miu-ni-KEI-shon/",
+        "usage_example_es": "Parte del problema es la comunicación.",
+        "char_count": "6",
+        "usage_context_en": "A piece or section of a whole.",
+        "usage_context_es": "Una pieza o sección de un todo."
+      }
+    ],
+    "category": "Intermediate"
   }
 ]

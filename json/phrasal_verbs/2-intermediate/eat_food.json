@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "pick at",
+        "phonetic": "/pɪk æt/",
+        "spoken_phonetic_us": "/pɪ 'kæt/",
+        "search_term": "phrasal verb/eat/food",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Picotear (comida, comer sin ganas)",
+                "usage_example": "She is just picking at her food.",
+                "pronunciation_guide_es": "/shis_yost_PIking_AT_her_FUD/",
+                "alternative_example": "She is eating her food without appetite.",
+                "usage_example_es": "Ella solo está picoteando su comida.",
+                "char_count": "one",
+                "usage_context_en": "eating/health",
+                "usage_context_es": "comer/salud",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_6_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Pick",
+        "category": "Intermediate"
+    }
+]

@@ -1,0 +1,23 @@
+[
+    {
+        "name": "across",
+        "phonetic": "/əˈkrɔs/",
+        "spoken_phonetic_us": "/əˈkrɔs/",
+        "search_term": "survival/place/direction",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Survival: Street Basics",
+        "definitions": [
+            {
+                "meaning": "Al otro lado / A través",
+                "usage_example": "The store is across the street.",
+                "pronunciation_guide_es": "/de_STOR_is_a-CROS_de_STRIT/",
+                "usage_example_es": "La tienda está al otro lado de la calle.",
+                "char_count": "6",
+                "usage_context_en": "Used to say something is on the other side of a street or area.",
+                "usage_context_es": "Usado para decir que algo está al otro lado de una calle o área."
+            }
+        ]
+    }
+]

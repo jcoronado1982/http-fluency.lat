@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "run by",
+        "phonetic": "/rʌn baɪ/",
+        "spoken_phonetic_us": "/rʌn baɪ/",
+        "search_term": "phrasal verb/consult/get opinion",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Consultar (una idea) con (alguien)",
+                "usage_example": "Can I run this idea by you quickly?",
+                "pronunciation_guide_es": "/kæn_ai_RAN_dis_aiDIa_BAI_iu_KUIKli/",
+                "alternative_example": "Can I tell you this idea for your opinion?",
+                "usage_example_es": "¿Puedo consultarte esta idea rápidamente?",
+                "char_count": "one",
+                "usage_context_en": "work/getting opinion",
+                "usage_context_es": "trabajo/pedir opinión",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_18_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Run",
+        "category": "Intermediate"
+    }
+]

@@ -1,0 +1,38 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "since",
+        "phonetic": "/sɪns/",
+        "spoken_phonetic_us": "/sɪns/",
+        "search_term": "conjunction/reason/time",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Cause & Effect",
+        "definitions": [
+            {
+                "meaning": "Ya que / Puesto que (causa)",
+                "usage_example": "Since you are here, you can help.",
+                "pronunciation_guide_es": "/SINS_iu_ar_HIR_iu_can_HELP/",
+                "usage_example_es": "Ya que estás aquí, puedes ayudar.",
+                "char_count": "6",
+                "usage_context_en": "Used to introduce a reason (similar to 'because').",
+                "usage_context_es": "Usado para introducir una razón (similar a 'because').",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_23_def0.avif"
+            },
+            {
+                "meaning": "Desde (tiempo)",
+                "usage_example": "I have been here since 9 AM.",
+                "pronunciation_guide_es": "/ai_hav_bin_HIR_SINS_NAIN_ei-EM/",
+                "usage_example_es": "He estado aquí desde las 9 AM.",
+                "char_count": "6",
+                "usage_context_en": "Used to indicate a starting point in time.",
+                "usage_context_es": "Usado para indicar un punto de inicio en el tiempo.",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_23_def1.avif"
+            }
+        ]
+    }
+]

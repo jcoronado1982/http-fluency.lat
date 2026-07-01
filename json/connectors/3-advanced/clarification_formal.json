@@ -1,0 +1,28 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "that is",
+        "phonetic": "/ðæt ɪz/",
+        "spoken_phonetic_us": "/ðæt ɪz/",
+        "search_term": "phrase/clarification/formal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Clarification",
+        "definitions": [
+            {
+                "meaning": "Es decir (formal)",
+                "usage_example": "The hotel is closed; that is, we cannot stay there.",
+                "pronunciation_guide_es": "/de_ho-TEL_is_CLOUSD_dat_IS_ui_ca-NOT_STEI_der/",
+                "usage_example_es": "El hotel está cerrado; es decir, no podemos quedarnos allí.",
+                "char_count": "8",
+                "usage_context_en": "Used to explain or specify what was just said (often abbreviated as 'i.e.').",
+                "usage_context_es": "Usado para explicar o especificar lo que se acaba de decir (a menudo abreviado como 'i.e.').",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_28_def0.avif"
+            }
+        ]
+    }
+]

@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "give back",
+        "phonetic": "/give back/",
+        "spoken_phonetic_us": "/give back/",
+        "search_term": "phrasal verb/return",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Devolver",
+                "usage_example": "Please give back my phone.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "Please return my phone.",
+                "usage_example_es": "Por favor, devuélveme mi teléfono.",
+                "char_count": "one",
+                "usage_context_en": "returning items",
+                "usage_context_es": "devolver objetos"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Give",
+        "category": "Intermediate"
+    }
+]

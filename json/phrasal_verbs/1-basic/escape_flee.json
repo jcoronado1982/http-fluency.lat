@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "run away",
+        "phonetic": "/rʌn əˈweɪ/",
+        "spoken_phonetic_us": "/rʌn əˈweɪ/",
+        "search_term": "phrasal verb/escape/flee",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Escapar, huir (especialmente de casa)",
+                "usage_example": "The dog ran away, but we found him.",
+                "pronunciation_guide_es": "/de_DOG_ran_aUEI, bat_ui_FAUND_him/",
+                "alternative_example": "The dog escaped, but we found him.",
+                "usage_example_es": "El perro se escapó, pero lo encontramos.",
+                "char_count": "one",
+                "usage_context_en": "escape/fleeing",
+                "usage_context_es": "escape/huida",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_16_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Run",
+        "category": "Basic"
+    }
+]

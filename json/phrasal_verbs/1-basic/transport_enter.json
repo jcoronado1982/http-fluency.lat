@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "get in",
+        "phonetic": "/get in/",
+        "spoken_phonetic_us": "/get in/",
+        "search_term": "phrasal verb/transport/enter",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Entrar / Subirse",
+                "usage_example": "Get in the car.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "Enter the car.",
+                "usage_example_es": "Sube al carro.",
+                "char_count": "one",
+                "usage_context_en": "transport/entering",
+                "usage_context_es": "transporte/entrar"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Get",
+        "category": "Basic"
+    }
+]

@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "about",
+        "phonetic": "/əˈbaʊt/",
+        "spoken_phonetic_us": "/əˈbaʊt/",
+        "search_term": "preposition/topic",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Topic",
+        "definitions": [
+            {
+                "meaning": "Sobre / Acerca de",
+                "usage_example": "We are talking about music.",
+                "pronunciation_guide_es": "/ui_ar_TO-king_a-BAUT_MIU-sik/",
+                "usage_example_es": "Estamos hablando sobre música.",
+                "char_count": "5",
+                "usage_context_en": "Used to indicate the topic or subject.",
+                "usage_context_es": "Usado para indicar el tema o asunto.",
+                "imagePath": "/card_images/preposition/1-basic/1-basic_card_7_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    }
+]

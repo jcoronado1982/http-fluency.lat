@@ -1,0 +1,56 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "lucky",
+        "phonetic": "/ˈlʌki/",
+        "spoken_phonetic_us": "/ˈlʌki/",
+        "search_term": "adjective/intermediate/state-fortune",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "State & Fortune",
+        "category": "Intermediate",
+        "definitions": [
+            {
+                "meaning": "Afortunado/a / Con suerte",
+                "usage_example": "You are lucky to win.",
+                "pronunciation_guide_es": "/iu_ar_LO-ki_tu_UIN/",
+                "usage_example_es": "Eres afortunado de ganar.",
+                "char_count": "5",
+                "usage_context_en": "Having, bringing, or resulting from good luck.",
+                "usage_context_es": "Tener, traer o resultar de la buena suerte.",
+                "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_20_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "unlucky",
+        "phonetic": "/ʌnˈlʌki/",
+        "spoken_phonetic_us": "/ʌnˈlʌki/",
+        "search_term": "adjective/intermediate/state-fortune",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "State & Fortune",
+        "category": "Intermediate",
+        "definitions": [
+            {
+                "meaning": "Desafortunado/a / Sin suerte",
+                "usage_example": "He was unlucky in the game.",
+                "pronunciation_guide_es": "/hi_uas_on-LO-ki_in_de_GUEIM/",
+                "usage_example_es": "Él tuvo mala suerte en el juego.",
+                "char_count": "6",
+                "usage_context_en": "Having, bringing, or resulting from bad luck.",
+                "usage_context_es": "Tener, traer o resultar de la mala suerte.",
+                "imagePath": "/card_images/adjectives/3-advanced/3-advanced_card_21_def0.avif"
+            }
+        ]
+    }
+]

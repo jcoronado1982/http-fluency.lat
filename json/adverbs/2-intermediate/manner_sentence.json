@@ -1,0 +1,83 @@
+[
+    {
+        "name": "honestly",
+        "phonetic": "/ˈɒnɪstli/",
+        "spoken_phonetic_us": "/ˈɑnɪstli/",
+        "search_term": "adverb/manner/sentence",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Manner",
+        "definitions": [
+            {
+                "meaning": "Honestamente / En serio",
+                "usage_example": "Honestly, I don't know the answer.",
+                "pronunciation_guide_es": "/O-nest-li_ai_DONT_NOU_di_AN-ser/",
+                "usage_example_es": "Honestamente, no sé la respuesta.",
+                "char_count": "6",
+                "usage_context_en": "Used to emphasize the truth or sincerity of a statement.",
+                "usage_context_es": "Usado para enfatizar la verdad o sinceridad de una declaración."
+            }
+        ]
+    },
+    {
+        "name": "seriously",
+        "phonetic": "/ˈsɪəriəsli/",
+        "spoken_phonetic_us": "/ˈsɪriəsli/",
+        "search_term": "adverb/manner/sentence",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Manner",
+        "definitions": [
+            {
+                "meaning": "Seriamente / Gravemente",
+                "usage_example": "He was seriously injured.",
+                "pronunciation_guide_es": "/hi_uas_SI-ri-os-li_IN-yurd/",
+                "usage_example_es": "Él resultó gravemente herido.",
+                "char_count": "4",
+                "usage_context_en": "In a serious manner; gravely.",
+                "usage_context_es": "De manera seria; gravemente."
+            },
+            {
+                "meaning": "En serio (pregunta/énfasis)",
+                "usage_example": "Seriously, what are you doing?",
+                "pronunciation_guide_es": "/SI-ri-os-li_UAT_ar_iu_DU-ing/",
+                "usage_example_es": "En serio, ¿qué estás haciendo?",
+                "char_count": "5",
+                "usage_context_en": "Used to ask if someone is joking or to emphasize a point.",
+                "usage_context_es": "Usado para preguntar si alguien bromea o para enfatizar un punto."
+            }
+        ]
+    },
+    {
+        "name": "naturally",
+        "phonetic": "/ˈnætʃərəli/",
+        "spoken_phonetic_us": "/ˈnætʃərəli/",
+        "search_term": "adverb/manner/sentence",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Sentence",
+        "definitions": [
+            {
+                "meaning": "Naturalmente / Por supuesto",
+                "usage_example": "Naturally, I was happy to help.",
+                "pronunciation_guide_es": "/NA-chu-ra-li_ai_uas_HA-pi_tu_HELP/",
+                "usage_example_es": "Naturalmente (por supuesto), estuve feliz de ayudar.",
+                "char_count": "6",
+                "usage_context_en": "As you would expect; of course.",
+                "usage_context_es": "Como era de esperar; por supuesto."
+            },
+            {
+                "meaning": "De forma natural",
+                "usage_example": "Her hair is naturally curly.",
+                "pronunciation_guide_es": "/her_HER_is_NA-chu-ra-li_KER-li/",
+                "usage_example_es": "Su cabello es rizado de forma natural.",
+                "char_count": "5",
+                "usage_context_en": "In a way that is not artificial; without intervention.",
+                "usage_context_es": "De una manera que no es artificial; sin intervención."
+            }
+        ]
+    }
+]

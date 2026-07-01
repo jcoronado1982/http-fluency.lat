@@ -1,0 +1,58 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "drop by",
+        "phonetic": "/drɑp baɪ/",
+        "spoken_phonetic_us": "/drɑp baɪ/",
+        "search_term": "phrasal verb/visit/social/informal",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Visitar (a alguien) de pasada, sin avisar",
+                "usage_example": "I'll drop by your office later today.",
+                "pronunciation_guide_es": "/ail_DROP_bai_iur_OFis_LEIrer_tuDEI/",
+                "alternative_example": "I'll visit your office informally later today.",
+                "usage_example_es": "Pasaré por tu oficina más tarde hoy.",
+                "char_count": "one",
+                "usage_context_en": "informal visit/social",
+                "usage_context_es": "visita informal/social",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_33_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Drop",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "drop in",
+        "phonetic": "/drɑp ɪn/",
+        "spoken_phonetic_us": "/drɑp ɪn/",
+        "search_term": "phrasal verb/visit/social/informal",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Visitar (de pasada, similar a 'drop by')",
+                "usage_example": "Feel free to drop in anytime you're in town.",
+                "pronunciation_guide_es": "/fil_FRI_tu_drop_IN_Enitaim_iur_in_TAUN/",
+                "alternative_example": "Feel free to visit informally anytime you're in town.",
+                "usage_example_es": "Siéntete libre de pasar a visitar cuando estés en la ciudad.",
+                "char_count": "one",
+                "usage_context_en": "informal visit/social",
+                "usage_context_es": "visita informal/social",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_34_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Drop",
+        "category": "Intermediate"
+    }
+]

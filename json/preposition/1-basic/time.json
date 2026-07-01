@@ -1,0 +1,110 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "before",
+        "phonetic": "/bɪˈfɔr/",
+        "spoken_phonetic_us": "/bɪˈfɔr/",
+        "search_term": "preposition/time",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Time",
+        "definitions": [
+            {
+                "meaning": "Antes de",
+                "usage_example": "Wash your hands before dinner.",
+                "pronunciation_guide_es": "/UASH_iur_JANDS_bi-FOR_DI-ner/",
+                "usage_example_es": "Lávate las manos antes de cenar.",
+                "char_count": "6",
+                "usage_context_en": "During the period of time preceding a particular event.",
+                "usage_context_es": "Durante el período de tiempo que precede a un evento particular.",
+                "imagePath": "/card_images/preposition/1-basic/1-basic_card_25_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "after",
+        "phonetic": "/ˈæftər/",
+        "spoken_phonetic_us": "/ˈæftər/",
+        "search_term": "preposition/time",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Time",
+        "definitions": [
+            {
+                "meaning": "Después de",
+                "usage_example": "Call me after the meeting.",
+                "pronunciation_guide_es": "/COL_mi_AF-ter_de_MI-ting/",
+                "usage_example_es": "Llámame después de la reunión.",
+                "char_count": "5",
+                "usage_context_en": "Following in time, place, or order.",
+                "usage_context_es": "Siguiendo en tiempo, lugar u orden.",
+                "imagePath": "/card_images/preposition/1-basic/1-basic_card_24_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "until",
+        "phonetic": "/ənˈtɪl/",
+        "spoken_phonetic_us": "/ənˈtɪl/",
+        "search_term": "preposition/time",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Time",
+        "definitions": [
+            {
+                "meaning": "Hasta (tiempo)",
+                "usage_example": "I will wait until tomorrow.",
+                "pronunciation_guide_es": "/ai_uil_UEIT_on-TIL_tu-MO-rou/",
+                "usage_example_es": "Esperaré hasta mañana.",
+                "char_count": "5",
+                "usage_context_en": "Up to a particular point in time.",
+                "usage_context_es": "Hasta un punto particular en el tiempo.",
+                "imagePath": "/card_images/preposition/1-basic/1-basic_card_22_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "during",
+        "phonetic": "/ˈdjʊərɪŋ/",
+        "spoken_phonetic_us": "/ˈdʊrɪŋ/",
+        "search_term": "preposition/time",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Time",
+        "definitions": [
+            {
+                "meaning": "Durante",
+                "usage_example": "He slept during the movie.",
+                "pronunciation_guide_es": "/hi_SLEPT_DIUR-ing_de_MU-vi/",
+                "usage_example_es": "Él durmió durante la película.",
+                "char_count": "5",
+                "usage_context_en": "Used to specify a period of time in which something happens.",
+                "usage_context_es": "Usado para especificar un período de tiempo en el que algo sucede.",
+                "imagePath": "/card_images/preposition/2-intermediate/2-intermediate_card_0_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    }
+]

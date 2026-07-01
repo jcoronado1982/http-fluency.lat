@@ -1,0 +1,116 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "although",
+        "phonetic": "/ɔlˈðoʊ/",
+        "spoken_phonetic_us": "/ɔlˈðoʊ/",
+        "search_term": "conjunction/contrast",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Contrast",
+        "definitions": [
+            {
+                "meaning": "Aunque",
+                "usage_example": "Although it was cold, I went out.",
+                "pronunciation_guide_es": "/ol-DOU_it_uas_COLD_ai_UENT_AUT/",
+                "usage_example_es": "Aunque hacía frío, salí.",
+                "char_count": "6",
+                "usage_context_en": "In spite of the fact that; even though.",
+                "usage_context_es": "A pesar del hecho de que; aunque.",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_7_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "though",
+        "phonetic": "/ðoʊ/",
+        "spoken_phonetic_us": "/ðoʊ/",
+        "search_term": "conjunction/contrast",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Contrast",
+        "definitions": [
+            {
+                "meaning": "Aunque (menos formal)",
+                "usage_example": "Though it was cold, I went out.",
+                "pronunciation_guide_es": "/DOU_it_uas_COLD_ai_UENT_AUT/",
+                "usage_example_es": "Aunque hacía frío, salí.",
+                "char_count": "6",
+                "usage_context_en": "A less formal version of 'although'.",
+                "usage_context_es": "Una versión menos formal de 'although'.",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_8_def0.avif"
+            },
+            {
+                "meaning": "Sin embargo (al final)",
+                "usage_example": "He is rich. He is not happy, though.",
+                "pronunciation_guide_es": "/hi_is_RICH_hi_is_not_HA-pi_DOU/",
+                "usage_example_es": "Él es rico. No es feliz, sin embargo.",
+                "char_count": "7",
+                "usage_context_en": "Used as an adverb at the end of a sentence, meaning 'however'.",
+                "usage_context_es": "Usado como adverbio al final de una oración, significando 'sin embargo'.",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_8_def1.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "even though",
+        "phonetic": "/ˈivɪn ðoʊ/",
+        "spoken_phonetic_us": "/ˈivɪn ðoʊ/",
+        "search_term": "phrase/contrast",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Contrast",
+        "definitions": [
+            {
+                "meaning": "Aunque / A pesar de que",
+                "usage_example": "Even though it was cold, I went out.",
+                "pronunciation_guide_es": "/I-ven_DOU_it_uas_COLD_ai_UENT_AUT/",
+                "usage_example_es": "A pesar de que hacía frío, salí.",
+                "char_count": "7",
+                "usage_context_en": "A stronger, more emphatic version of 'although'.",
+                "usage_context_es": "Una versión más fuerte y enfática de 'although'.",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_9_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "on the other hand",
+        "phonetic": "/ɒn ði ˈʌðər hænd/",
+        "spoken_phonetic_us": "/ɑn ði ˈʌðər hænd/",
+        "search_term": "phrase/contrast",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Contrast",
+        "definitions": [
+            {
+                "meaning": "Por otro lado",
+                "usage_example": "This car is cheap. On the other hand, it is very old.",
+                "pronunciation_guide_es": "/dis_CAR_is_CHIP_on_di_O-der_HAND_it_is_VE-ri_OLD/",
+                "usage_example_es": "Este carro es barato. Por otro lado, es muy viejo.",
+                "char_count": "10",
+                "usage_context_en": "Used to introduce a contrasting point of view or fact.",
+                "usage_context_es": "Usado para introducir un punto de vista o hecho que contrasta.",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_10_def0.avif"
+            }
+        ]
+    }
+]

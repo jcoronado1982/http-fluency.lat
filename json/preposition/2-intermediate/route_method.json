@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "via",
+        "phonetic": "/ˈvaɪ.ə/",
+        "spoken_phonetic_us": "/ˈvaɪ.ə/",
+        "search_term": "preposition/route/method",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Route & Method",
+        "definitions": [
+            {
+                "meaning": "Por medio de / Vía",
+                "usage_example": "We flew to Paris via London.",
+                "pronunciation_guide_es": "/ui_FLU_tu_PA-ris_VAI-a_LON-don/",
+                "usage_example_es": "Volamos a París vía Londres.",
+                "char_count": "3",
+                "usage_context_en": "Traveling through a place en route to a destination.",
+                "usage_context_es": "Viajando a través de un lugar en ruta a un destino.",
+                "imagePath": "/card_images/preposition/2-intermediate/2-intermediate_card_20_def0.avif"
+            }
+        ],
+        "category": "Intermediate"
+    }
+]

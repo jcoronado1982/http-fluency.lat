@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "go along with",
+        "phonetic": "/go along with/",
+        "spoken_phonetic_us": "/go along with/",
+        "search_term": "phrasal verb/accept/agree",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Aceptar / Seguir una idea o plan",
+                "usage_example": "I don’t agree, but I’ll go along with it.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "I will accept the plan.",
+                "usage_example_es": "No estoy de acuerdo, pero lo aceptaré.",
+                "char_count": "one",
+                "usage_context_en": "agreement/compromise",
+                "usage_context_es": "acuerdo/compromiso"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Go",
+        "category": "Advanced"
+    }
+]

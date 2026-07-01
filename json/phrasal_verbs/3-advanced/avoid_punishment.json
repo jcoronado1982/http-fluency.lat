@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "get away with",
+        "phonetic": "/get away with/",
+        "spoken_phonetic_us": "/get away with/",
+        "search_term": "phrasal verb/avoid punishment",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Salirse con la suya / No recibir castigo",
+                "usage_example": "He lied and got away with it.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "He lied and was not punished.",
+                "usage_example_es": "Mintió y se salió con la suya.",
+                "char_count": "one",
+                "usage_context_en": "consequences/rules",
+                "usage_context_es": "consecuencias/reglas"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Get",
+        "category": "Advanced"
+    }
+]

@@ -1,0 +1,54 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "what",
+        "phonetic": "/wʌt/",
+        "spoken_phonetic_us": "/wʌt/",
+        "search_term": "determiner/interrogative",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Questions",
+        "category": "Basic",
+        "definitions": [
+            {
+                "meaning": "Qué / Cuál",
+                "usage_example": "What bus do I take?",
+                "pronunciation_guide_es": "/UAT_bos_du_ai_TEIK/",
+                "usage_example_es": "¿Qué bus tomo?",
+                "char_count": "5",
+                "usage_context_en": "Used before a noun to ask for specific information.",
+                "usage_context_es": "Usado antes de un sustantivo para pedir información específica."
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "which",
+        "phonetic": "/wɪtʃ/",
+        "spoken_phonetic_us": "/wɪtʃ/",
+        "search_term": "determiner/interrogative",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Questions",
+        "category": "Basic",
+        "definitions": [
+            {
+                "meaning": "Cuál / Cuáles",
+                "usage_example": "Which street is this?",
+                "pronunciation_guide_es": "/UICH_STRIT_is_dis/",
+                "usage_example_es": "¿Cuál calle es esta?",
+                "char_count": "4",
+                "usage_context_en": "Used before a noun to ask someone to choose from a known set.",
+                "usage_context_es": "Usado antes de un sustantivo para elegir entre opciones conocidas."
+            }
+        ]
+    }
+]

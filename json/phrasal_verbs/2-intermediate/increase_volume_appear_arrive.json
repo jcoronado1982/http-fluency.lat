@@ -1,0 +1,41 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "turn up",
+        "phonetic": "/tɜrn ʌp/",
+        "spoken_phonetic_us": "/tɜrn ʌp/",
+        "search_term": "phrasal verb/increase volume/appear/arrive",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Subir (el volumen, la calefacción)",
+                "usage_example": "Can you turn up the music? I love this song.",
+                "pronunciation_guide_es": "/kæn_iu_tern_AP_de_MIUsik? ai_LOV_dis_SONG/",
+                "alternative_example": "Can you increase the volume of the music?",
+                "usage_example_es": "¿Puedes subir la música? Me encanta esta canción.",
+                "char_count": "one",
+                "usage_context_en": "volume/level",
+                "usage_context_es": "volumen/nivel",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_36_def0.avif"
+            },
+            {
+                "meaning": "Aparecer, llegar (inesperadamente)",
+                "usage_example": "He finally turned up at the party at midnight.",
+                "pronunciation_guide_es": "/hi_FAInali_ternd_AP_at_de_PARi_at_MIDnait/",
+                "alternative_example": "He finally arrived at the party at midnight.",
+                "usage_example_es": "Él finalmente apareció en la fiesta a medianoche.",
+                "char_count": "one",
+                "usage_context_en": "arriving/social",
+                "usage_context_es": "llegar/social",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_36_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Turn",
+        "category": "Intermediate"
+    }
+]

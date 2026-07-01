@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "throughout",
+        "phonetic": "/θruˈaʊt/",
+        "spoken_phonetic_us": "/θruˈaʊt/",
+        "search_term": "preposition/time/place",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Place & Time",
+        "definitions": [
+            {
+                "meaning": "A lo largo de / Por todo",
+                "usage_example": "It rained throughout the day.",
+                "pronunciation_guide_es": "/it_REIND_ZRU-aut_de_DEI/",
+                "usage_example_es": "Llovió a lo largo del día.",
+                "char_count": "10",
+                "usage_context_en": "In every part of a place or object; from beginning to end of an event.",
+                "usage_context_es": "En cada parte de un lugar u objeto; de principio a fin de un evento.",
+                "imagePath": "/card_images/preposition/2-intermediate/2-intermediate_card_19_def0.avif"
+            }
+        ],
+        "category": "Intermediate"
+    }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "crowded",
+    "phonetic": "/ˈkraʊdɪd/",
+    "spoken_phonetic_us": "/ˈkraʊdɪd/",
+    "search_term": "adjective/basic/places_crowds",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Places & Crowds",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Lleno de gente / Congestionado",
+        "usage_example": "The bus is crowded.",
+        "pronunciation_guide_es": "/de_BOS_is_CRAU-ded/",
+        "usage_example_es": "El bus está lleno de gente.",
+        "char_count": "4",
+        "usage_context_en": "Full of people, with little space.",
+        "usage_context_es": "Lleno de personas, con poco espacio."
+      }
+    ]
+  }
+]

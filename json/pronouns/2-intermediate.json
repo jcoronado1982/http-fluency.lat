@@ -11,7 +11,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Todos / Todas (las personas)",
@@ -23,7 +23,8 @@
         "usage_context_es": "Todas las personas en un grupo. (Sinónimo de 'everyone').",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_0_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -37,7 +38,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Nadie",
@@ -49,7 +50,8 @@
         "usage_context_es": "Ninguna persona; nadie. (Usado como sujeto en una estructura verbal afirmativa).",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_1_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -63,7 +65,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Alguien (en preguntas)",
@@ -95,7 +97,8 @@
         "usage_context_es": "Usado en oraciones afirmativas para significar 'cualquier persona'.",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_2_def2.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -103,139 +106,26 @@
     "example": null,
     "learned": false,
     "learned_at": null,
-    "name": "each other",
-    "phonetic": "/iːtʃ ˈʌðər/",
-    "spoken_phonetic_us": "/iːtʃ ˈʌðər/",
-    "search_term": "pronoun/reciprocal",
+    "name": "somebody",
+    "phonetic": "/ˈsʌmbɒdi/",
+    "spoken_phonetic_us": "/ˈsʌmbɑdi/",
+    "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Reciprocal",
+    "group_name": "Indefinido",
     "definitions": [
       {
-        "meaning": "El uno al otro / Mutuamente (dos personas)",
-        "usage_example": "My parents love each other.",
-        "pronunciation_guide_es": "/mai_PA-rents_LOV_ich_O-der/",
-        "usage_example_es": "Mis padres se aman (el uno al otro).",
+        "meaning": "Alguien",
+        "usage_example": "Somebody is at the door.",
+        "pronunciation_guide_es": "/SOM-ba-di_is_at_de_DOR/",
+        "usage_example_es": "Alguien está en la puerta.",
         "char_count": "5",
-        "usage_context_en": "A reciprocal pronoun used when referring to two people or things.",
-        "usage_context_es": "Pronombre recíproco usado al referirse a dos personas o cosas.",
-        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_3_def0.avif"
+        "usage_context_en": "An unspecified person (used in affirmative sentences). Synonym: 'someone'.",
+        "usage_context_es": "Una persona no especificada (usado en oraciones afirmativas). Sinónimo: 'someone'.",
+        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_22_def0.avif"
       }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "one another",
-    "phonetic": "/wʌn əˈnʌðər/",
-    "spoken_phonetic_us": "/wʌn əˈnʌðər/",
-    "search_term": "pronoun/reciprocal",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Reciprocal",
-    "definitions": [
-      {
-        "meaning": "Unos a otros / Mutuamente (más de dos)",
-        "usage_example": "The team members help one another.",
-        "pronunciation_guide_es": "/de_TIM_MEM-bers_HELP_uan_a-NO-der/",
-        "usage_example_es": "Los miembros del equipo se ayudan unos a otros.",
-        "char_count": "6",
-        "usage_context_en": "A reciprocal pronoun used when referring to more than two people or things.",
-        "usage_context_es": "Pronombre recíproco usado al referirse a más de dos personas o cosas.",
-        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_4_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "mine",
-    "phonetic": "/maɪn/",
-    "spoken_phonetic_us": "/maɪn/",
-    "search_term": "pronoun/possessive",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Poss. Pronoun",
-    "definitions": [
-      {
-        "meaning": "Mío / Mía / Míos / Mías",
-        "usage_example": "This book is mine.",
-        "pronunciation_guide_es": "/dis_BUK_is_MAIN/",
-        "usage_example_es": "Este libro es mío.",
-        "char_count": "4",
-        "usage_context_en": "The possessive pronoun for 'I'. (It is not followed by a noun).",
-        "usage_context_es": "El pronombre posesivo para 'Yo'. (No va seguido de un sustantivo).",
-        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_5_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "yours",
-    "phonetic": "/jɔːrz/",
-    "spoken_phonetic_us": "/jʊrz/",
-    "search_term": "pronoun/possessive",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Poss. Pronoun",
-    "definitions": [
-      {
-        "meaning": "Tuyo / Tuya / Suyo / Suya (de usted)",
-        "usage_example": "Is this coat yours?",
-        "pronunciation_guide_es": "/is_dis_COUT_IURS/",
-        "usage_example_es": "¿Es este abrigo tuyo?",
-        "char_count": "4",
-        "usage_context_en": "The possessive pronoun for 'you'. (It is not followed by a noun).",
-        "usage_context_es": "El pronombre posesivo para 'tú/usted'. (No va seguido de un sustantivo).",
-        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_6_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "his",
-    "phonetic": "/hɪz/",
-    "spoken_phonetic_us": "/hɪz/",
-    "search_term": "determiner/pronoun/possessive",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Poss. Pronoun",
-    "definitions": [
-      {
-        "meaning": "Su / Sus (de él) (Determinante)",
-        "usage_example": "That is his car.",
-        "pronunciation_guide_es": "/dat_is_HIS_CAR/",
-        "usage_example_es": "Ese es su carro (el carro de él).",
-        "char_count": "4",
-        "usage_context_en": "The possessive determiner for 'he' (followed by a noun).",
-        "usage_context_es": "El determinante posesivo para 'él' (seguido de un sustantivo).",
-        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_7_def0.avif"
-      },
-      {
-        "meaning": "Suyo / Suyos (de él) (Pronombre)",
-        "usage_example": "The red car is his.",
-        "pronunciation_guide_es": "/de_RED_CAR_is_HIS/",
-        "usage_example_es": "El carro rojo es suyo (de él).",
-        "char_count": "5",
-        "usage_context_en": "The possessive pronoun for 'he'. (It is not followed by a noun).",
-        "usage_context_es": "El pronombre posesivo para 'él'. (No va seguido de un sustantivo).",
-        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_7_def1.avif"
-      }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -246,10 +136,10 @@
     "name": "hers",
     "phonetic": "/hɜːrz/",
     "spoken_phonetic_us": "/hɜrz/",
-    "search_term": "pronoun/possessive",
+    "search_term": "pronoun/possessive-pronoun",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Poss. Pronoun",
+    "group_name": "Posesivo (Pronombre)",
     "definitions": [
       {
         "meaning": "Suyo / Suya / Suyos / Suyas (de ella)",
@@ -261,7 +151,8 @@
         "usage_context_es": "El pronombre posesivo para 'ella'. (No va seguido de un sustantivo).",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_8_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -272,10 +163,10 @@
     "name": "ours",
     "phonetic": "/ˈaʊərz/",
     "spoken_phonetic_us": "/ˈaʊərz/",
-    "search_term": "pronoun/possessive",
+    "search_term": "pronoun/possessive-pronoun",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Poss. Pronoun",
+    "group_name": "Posesivo (Pronombre)",
     "definitions": [
       {
         "meaning": "Nuestro / Nuestra / Nuestros / Nuestras",
@@ -287,7 +178,8 @@
         "usage_context_es": "El pronombre posesivo para 'nosotros'. (No va seguido de un sustantivo).",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_9_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -298,10 +190,10 @@
     "name": "theirs",
     "phonetic": "/ðɛərz/",
     "spoken_phonetic_us": "/ðɛrz/",
-    "search_term": "pronoun/possessive",
+    "search_term": "pronoun/possessive-pronoun",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Poss. Pronoun",
+    "group_name": "Posesivo (Pronombre)",
     "definitions": [
       {
         "meaning": "Suyo / Suya / Suyos / Suyas (de ellos/ellas)",
@@ -313,43 +205,8 @@
         "usage_context_es": "El pronombre posesivo para 'ellos/ellas'. (No va seguido de un sustantivo).",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_10_def0.avif"
       }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "who",
-    "phonetic": "/huː/",
-    "spoken_phonetic_us": "/huː/",
-    "search_term": "pronoun/interrogative/relative",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Interrogative/Relative",
-    "definitions": [
-      {
-        "meaning": "¿Quién / Quiénes?",
-        "usage_example": "Who is that person?",
-        "pronunciation_guide_es": "/HU_is_dat_PER-son/",
-        "usage_example_es": "¿Quién es esa persona?",
-        "char_count": "4",
-        "usage_context_en": "Used as an interrogative pronoun to ask about a person.",
-        "usage_context_es": "Usado como pronombre interrogativo para preguntar sobre una persona.",
-        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_11_def0.avif"
-      },
-      {
-        "meaning": "Que / Quien / El cual (para personas)",
-        "usage_example": "The man who called me is here.",
-        "pronunciation_guide_es": "/de_MAN_hu_COLD_mi_is_HIR/",
-        "usage_example_es": "El hombre que me llamó está aquí.",
-        "char_count": "7",
-        "usage_context_en": "Used as a relative pronoun to introduce a clause about a person.",
-        "usage_context_es": "Usado como pronombre relativo para introducir una cláusula sobre una persona.",
-        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_11_def1.avif"
-      }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -360,10 +217,10 @@
     "name": "whose",
     "phonetic": "/huːz/",
     "spoken_phonetic_us": "/huːz/",
-    "search_term": "determiner/interrogative/relative",
+    "search_term": "pronoun/interrogative/relative",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Interrogative/Relative",
+    "group_name": "Interrogativo/Relativo",
     "definitions": [
       {
         "meaning": "¿De quién?",
@@ -385,79 +242,8 @@
         "usage_context_es": "Usado como determinante relativo para mostrar posesión.",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_12_def1.avif"
       }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "which",
-    "phonetic": "/wɪtʃ/",
-    "spoken_phonetic_us": "/wɪtʃ/",
-    "search_term": "pronoun/interrogative/relative",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Interrogative/Relative",
-    "definitions": [
-      {
-        "meaning": "¿Cuál / Cuáles?",
-        "usage_example": "Which color do you prefer?",
-        "pronunciation_guide_es": "/UICH_CO-lor_du_iu_pri-FER/",
-        "usage_example_es": "¿Cuál color prefieres?",
-        "char_count": "5",
-        "usage_context_en": "Used as an interrogative word to ask about a limited choice.",
-        "usage_context_es": "Usado como palabra interrogativa para preguntar sobre una elección limitada.",
-        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_13_def0.avif"
-      },
-      {
-        "meaning": "Que / El cual / La cual",
-        "usage_example": "The car which is red is mine.",
-        "pronunciation_guide_es": "/de_CAR_uich_is_RED_is_MAIN/",
-        "usage_example_es": "El carro que es rojo es mío.",
-        "char_count": "7",
-        "usage_context_en": "Used as a relative pronoun to introduce a clause about a thing.",
-        "usage_context_es": "Usado como pronombre relativo para introducir una cláusula sobre una cosa.",
-        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_13_def1.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "what",
-    "phonetic": "/wɒt/",
-    "spoken_phonetic_us": "/wʌt/",
-    "search_term": "pronoun/interrogative/relative",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Interrogative/Relative",
-    "definitions": [
-      {
-        "meaning": "Qué / Cuál (pregunta)",
-        "usage_example": "What is your name?",
-        "pronunciation_guide_es": "/UAT_is_iur_NEIM/",
-        "usage_example_es": "¿Cuál es tu nombre?",
-        "char_count": "4",
-        "usage_context_en": "Used as an interrogative word to ask for information (open choice).",
-        "usage_context_es": "Usado como palabra interrogativa para pedir información (elección abierta).",
-        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_14_def0.avif"
-      },
-      {
-        "meaning": "Lo que (pronombre relativo)",
-        "usage_example": "I don't know what to do.",
-        "pronunciation_guide_es": "/ai_DONT_NOU_uat_tu_DU/",
-        "usage_example_es": "No sé qué hacer. (No sé lo que debo hacer).",
-        "char_count": "6",
-        "usage_context_en": "Used as a relative pronoun to refer to 'the thing(s) that'.",
-        "usage_context_es": "Usado como pronombre relativo para referirse a 'la(s) cosa(s) que'.",
-        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_14_def1.avif"
-      }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -468,10 +254,10 @@
     "name": "both",
     "phonetic": "/boʊθ/",
     "spoken_phonetic_us": "/boʊθ/",
-    "search_term": "determiner/pronoun",
+    "search_term": "pronoun/quantifier",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Cuantificador",
     "definitions": [
       {
         "meaning": "Ambos/as (Determinante)",
@@ -493,7 +279,8 @@
         "usage_context_es": "Usado como pronombre para significar 'los dos'.",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_15_def1.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -504,10 +291,10 @@
     "name": "few",
     "phonetic": "/fjuː/",
     "spoken_phonetic_us": "/fjuː/",
-    "search_term": "determiner/pronoun",
+    "search_term": "pronoun/quantifier",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Cuantificador",
     "definitions": [
       {
         "meaning": "Pocos / Pocas (Determinante)",
@@ -529,7 +316,8 @@
         "usage_context_es": "Usado como pronombre para un número pequeño de personas o cosas.",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_16_def1.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -540,10 +328,10 @@
     "name": "many",
     "phonetic": "/ˈmɛni/",
     "spoken_phonetic_us": "/ˈmɛni/",
-    "search_term": "determiner/pronoun",
+    "search_term": "pronoun/quantifier",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Cuantificador",
     "definitions": [
       {
         "meaning": "Muchos / Muchas (Determinante)",
@@ -565,7 +353,8 @@
         "usage_context_es": "Usado como pronombre para un gran número de personas o cosas.",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_17_def1.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -576,10 +365,10 @@
     "name": "several",
     "phonetic": "/ˈsɛvərəl/",
     "spoken_phonetic_us": "/ˈsɛvərəl/",
-    "search_term": "determiner/pronoun",
+    "search_term": "pronoun/quantifier",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Cuantificador",
     "definitions": [
       {
         "meaning": "Varios/as (Determinante)",
@@ -601,7 +390,8 @@
         "usage_context_es": "Usado como pronombre para un número mediano de personas o cosas.",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_18_def1.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -612,10 +402,10 @@
     "name": "none",
     "phonetic": "/nʌn/",
     "spoken_phonetic_us": "/nʌn/",
-    "search_term": "pronoun/indefinite",
+    "search_term": "pronoun/quantifier",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Cuantificador",
     "definitions": [
       {
         "meaning": "Ninguno / Ninguna / Nada",
@@ -627,7 +417,8 @@
         "usage_context_es": "Usado como pronombre para significar 'nada' o 'ninguno'.",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_19_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -638,10 +429,10 @@
     "name": "either",
     "phonetic": "/ˈaɪðər/",
     "spoken_phonetic_us": "/ˈiːðər/",
-    "search_term": "determiner/pronoun",
+    "search_term": "pronoun/quantifier",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Cuantificador",
     "definitions": [
       {
         "meaning": "Cualquiera (de dos) (Determinante)",
@@ -663,7 +454,8 @@
         "usage_context_es": "Usado como pronombre para significar 'uno u otro'.",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_20_def1.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -674,10 +466,10 @@
     "name": "neither",
     "phonetic": "/ˈnaɪðər/",
     "spoken_phonetic_us": "/ˈniːðər/",
-    "search_term": "determiner/pronoun",
+    "search_term": "pronoun/quantifier",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Cuantificador",
     "definitions": [
       {
         "meaning": "Ninguno (de dos) (Determinante)",
@@ -699,33 +491,8 @@
         "usage_context_es": "Usado como pronombre para significar 'ni uno ni el otro'.",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_21_def1.avif"
       }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "somebody",
-    "phonetic": "/ˈsʌmbɒdi/",
-    "spoken_phonetic_us": "/ˈsʌmbɑdi/",
-    "search_term": "pronoun/indefinite",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Indefinite",
-    "definitions": [
-      {
-        "meaning": "Alguien",
-        "usage_example": "Somebody is at the door.",
-        "pronunciation_guide_es": "/SOM-ba-di_is_at_de_DOR/",
-        "usage_example_es": "Alguien está en la puerta.",
-        "char_count": "5",
-        "usage_context_en": "An unspecified person (used in affirmative sentences). Synonym: 'someone'.",
-        "usage_context_es": "Una persona no especificada (usado en oraciones afirmativas). Sinónimo: 'someone'.",
-        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_22_def0.avif"
-      }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -739,7 +506,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Alguien más",
@@ -751,7 +518,8 @@
         "usage_context_es": "Una persona diferente o adicional.",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_23_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -765,7 +533,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Alguien más (pregunta) / Nadie más (negación)",
@@ -777,7 +545,8 @@
         "usage_context_es": "Cualquier otra persona (usado en preguntas y negaciones).",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_24_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -791,7 +560,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Algo más / Otra cosa",
@@ -803,7 +572,8 @@
         "usage_context_es": "Una cosa diferente o adicional.",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_25_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -811,25 +581,53 @@
     "example": null,
     "learned": false,
     "learned_at": null,
-    "name": "themselves",
-    "phonetic": "/ðəmˈsɛlvz/",
-    "spoken_phonetic_us": "/ðəmˈsɛlvz/",
-    "search_term": "pronoun/reflexive",
+    "name": "each other",
+    "phonetic": "/iːtʃ ˈʌðər/",
+    "spoken_phonetic_us": "/iːtʃ ˈʌðər/",
+    "search_term": "pronoun/reciprocal",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Reflexive",
+    "group_name": "Recíproco",
     "definitions": [
       {
-        "meaning": "Se / A sí mismos (Reflexivo)",
-        "usage_example": "They hurt themselves.",
-        "pronunciation_guide_es": "/dei_HORT_dem-SELVS/",
-        "usage_example_es": "Se lastimaron (a sí mismos).",
-        "char_count": "3",
-        "usage_context_en": "Used when the subject and object of the verb are the same (They).",
-        "usage_context_es": "Usado cuando el sujeto y el objeto del verbo son el mismo (Ellos/Ellas).",
-        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_26_def0.avif"
+        "meaning": "El uno al otro / Mutuamente (dos personas)",
+        "usage_example": "My parents love each other.",
+        "pronunciation_guide_es": "/mai_PA-rents_LOV_ich_O-der/",
+        "usage_example_es": "Mis padres se aman (el uno al otro).",
+        "char_count": "5",
+        "usage_context_en": "A reciprocal pronoun used when referring to two people or things.",
+        "usage_context_es": "Pronombre recíproco usado al referirse a dos personas o cosas.",
+        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_3_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "one another",
+    "phonetic": "/wʌn əˈnʌðər/",
+    "spoken_phonetic_us": "/wʌn əˈnʌðər/",
+    "search_term": "pronoun/reciprocal",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Recíproco",
+    "definitions": [
+      {
+        "meaning": "Unos a otros / Mutuamente (más de dos)",
+        "usage_example": "The team members help one another.",
+        "pronunciation_guide_es": "/de_TIM_MEM-bers_HELP_uan_a-NO-der/",
+        "usage_example_es": "Los miembros del equipo se ayudan unos a otros.",
+        "char_count": "6",
+        "usage_context_en": "A reciprocal pronoun used when referring to more than two people or things.",
+        "usage_context_es": "Pronombre recíproco usado al referirse a más de dos personas o cosas.",
+        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_4_def0.avif"
+      }
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -843,7 +641,7 @@
     "search_term": "pronoun/reflexive",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Reflexive",
+    "group_name": "Reflexivo",
     "definitions": [
       {
         "meaning": "Nos / A nosotros mismos (Reflexivo)",
@@ -855,7 +653,35 @@
         "usage_context_es": "Usado cuando el sujeto y el objeto del verbo son el mismo (Nosotros/as).",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_27_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "themselves",
+    "phonetic": "/ðəmˈsɛlvz/",
+    "spoken_phonetic_us": "/ðəmˈsɛlvz/",
+    "search_term": "pronoun/reflexive",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Reflexivo",
+    "definitions": [
+      {
+        "meaning": "Se / A sí mismos (Reflexivo)",
+        "usage_example": "They hurt themselves.",
+        "pronunciation_guide_es": "/dei_HORT_dem-SELVS/",
+        "usage_example_es": "Se lastimaron (a sí mismos).",
+        "char_count": "3",
+        "usage_context_en": "Used when the subject and object of the verb are the same (They).",
+        "usage_context_es": "Usado cuando el sujeto y el objeto del verbo son el mismo (Ellos/Ellas).",
+        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_26_def0.avif"
+      }
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -869,7 +695,7 @@
     "search_term": "pronoun/reflexive",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Reflexive",
+    "group_name": "Reflexivo",
     "definitions": [
       {
         "meaning": "Se / A sí mismo (Reflexivo, neutro)",
@@ -881,7 +707,8 @@
         "usage_context_es": "Usado cuando el sujeto y el objeto del verbo son el mismo (Ello/Cosa).",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_28_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   },
   {
     "word": "",
@@ -892,10 +719,10 @@
     "name": "my own",
     "phonetic": "/maɪ oʊn/",
     "spoken_phonetic_us": "/maɪ oʊn/",
-    "search_term": "determiner/possessive/emphasis",
+    "search_term": "pronoun/possessive-emphasis",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Poss. Pronoun",
+    "group_name": "Posesivo (Pronombre)",
     "definitions": [
       {
         "meaning": "Mi propio/a",
@@ -907,6 +734,7 @@
         "usage_context_es": "Usado para enfatizar posesión ('mi').",
         "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_29_def0.avif"
       }
-    ]
+    ],
+    "category": "Intermediate"
   }
 ]

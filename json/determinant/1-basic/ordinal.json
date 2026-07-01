@@ -1,0 +1,83 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "first",
+        "phonetic": "/fɜːrst/",
+        "spoken_phonetic_us": "/fɜrst/",
+        "search_term": "determiner/ordinal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Primer / Primero / Primera",
+                "usage_example": "It is the first day of the month.",
+                "pronunciation_guide_es": "/it_is_de_FIRST_DEI_of_de_MONZ/",
+                "usage_example_es": "Es el primer día del mes.",
+                "char_count": "7",
+                "usage_context_en": "The ordinal number 1st; coming before all others.",
+                "usage_context_es": "El número ordinal 1°; que viene antes que todos los demás.",
+                "imagePath": "/card_images/determinant/1-basic/1-basic_card_28_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "next",
+        "phonetic": "/nɛkst/",
+        "spoken_phonetic_us": "/nɛkst/",
+        "search_term": "determiner/ordinal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Siguiente / Próximo/a",
+                "usage_example": "See you next week.",
+                "pronunciation_guide_es": "/SI_iu_NEKST_UIK/",
+                "usage_example_es": "Nos vemos la próxima semana.",
+                "char_count": "4",
+                "usage_context_en": "Coming immediately after the present one.",
+                "usage_context_es": "Que viene inmediatamente después del presente.",
+                "imagePath": "/card_images/determinant/1-basic/1-basic_card_29_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "last",
+        "phonetic": "/læst/",
+        "spoken_phonetic_us": "/læst/",
+        "search_term": "determiner/ordinal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Último/a / Pasado/a",
+                "usage_example": "It was the last day. / I saw him last week.",
+                "pronunciation_guide_es": "/it_uas_de_LAST_DEI_ai_SO_him_LAST_UIK/",
+                "usage_example_es": "Fue el último día. / Lo vi la semana pasada.",
+                "char_count": 4,
+                "usage_context_en": "Coming after all others; the most recent one.",
+                "usage_context_es": "Que viene después de todos los demás; el más reciente.",
+                "imagePath": "/card_images/determinant/1-basic/1-basic_card_30_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    }
+]

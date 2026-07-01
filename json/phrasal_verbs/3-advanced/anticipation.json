@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "look forward to",
+        "phonetic": "/look forward to/",
+        "spoken_phonetic_us": "/look forward to/",
+        "search_term": "phrasal verb/anticipation",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Esperar con ilusión",
+                "usage_example": "I look forward to meeting you.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "I am excited to meet you.",
+                "usage_example_es": "Espero con ilusión conocerte.",
+                "char_count": "one",
+                "usage_context_en": "future expectation",
+                "usage_context_es": "expectativa futura"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Look",
+        "category": "Advanced"
+    }
+]

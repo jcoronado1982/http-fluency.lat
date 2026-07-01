@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "put away",
+        "phonetic": "/pʊt əˈweɪ/",
+        "spoken_phonetic_us": "/pʊt əˈweɪ/",
+        "search_term": "phrasal verb/tidy/store/save money",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Guardar (algo en su lugar)",
+                "usage_example": "Please put away your toys now.",
+                "pronunciation_guide_es": "/plis_put_aUEI_iur_TOIS_NAU/",
+                "alternative_example": "Please store your toys in their proper place.",
+                "usage_example_es": "Por favor, guarda tus juguetes ahora.",
+                "char_count": "one",
+                "usage_context_en": "tidying up/chores",
+                "usage_context_es": "ordenar/quehaceres",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_11_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Put",
+        "category": "Basic"
+    }
+]

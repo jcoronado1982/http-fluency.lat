@@ -1,0 +1,41 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "bring up",
+        "phonetic": "/brɪŋ ʌp/",
+        "spoken_phonetic_us": "/brɪŋ ʌp/",
+        "search_term": "phrasal verb/conversation/parenting",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Mencionar (un tema), sacar a colación",
+                "usage_example": "Don't bring up politics at the party.",
+                "pronunciation_guide_es": "/dont_bring_AP_POlitiks_at_de_PARi/",
+                "alternative_example": "Don't mention politics at the party.",
+                "usage_example_es": "No saques el tema de la política en la fiesta.",
+                "char_count": "one",
+                "usage_context_en": "conversation topic",
+                "usage_context_es": "tema de conversación",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_5_def0.avif"
+            },
+            {
+                "meaning": "Criar (a un niño)",
+                "usage_example": "His grandparents brought him up.",
+                "pronunciation_guide_es": "/his_GRANDperents_brot_him_AP/",
+                "alternative_example": "His grandparents raised him.",
+                "usage_example_es": "Sus abuelos lo criaron.",
+                "char_count": "one",
+                "usage_context_en": "parenting/family",
+                "usage_context_es": "crianza/familia",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_5_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Bring",
+        "category": "Intermediate"
+    }
+]

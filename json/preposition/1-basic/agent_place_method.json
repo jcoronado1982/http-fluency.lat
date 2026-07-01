@@ -1,0 +1,39 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "by",
+        "phonetic": "/baɪ/",
+        "spoken_phonetic_us": "/baɪ/",
+        "search_term": "preposition/agent/place/method",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Agent, Place & Method",
+        "definitions": [
+            {
+                "meaning": "Por (agente pasivo)",
+                "usage_example": "The book was written by him.",
+                "pronunciation_guide_es": "/de_BUK_uas_RI-ten_BAI_HIM/",
+                "usage_example_es": "El libro fue escrito por él.",
+                "char_count": "6",
+                "usage_context_en": "Used to indicate the agent in a passive sentence.",
+                "usage_context_es": "Usado para indicar el agente en una oración pasiva.",
+                "imagePath": "/card_images/preposition/1-basic/1-basic_card_9_def0.avif"
+            },
+            {
+                "meaning": "Al lado de / Cerca de",
+                "usage_example": "The house is by the river.",
+                "pronunciation_guide_es": "/de_HAUS_is_bai_de_RI-ver/",
+                "usage_example_es": "La casa está al lado del río.",
+                "char_count": "6",
+                "usage_context_en": "Used to mean 'near' or 'next to'.",
+                "usage_context_es": "Usado para significar 'cerca de' o 'al lado de'.",
+                "imagePath": "/card_images/preposition/1-basic/1-basic_card_9_def1.avif"
+            }
+        ],
+        "category": "Basic"
+    }
+]

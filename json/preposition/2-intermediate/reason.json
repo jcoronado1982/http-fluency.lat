@@ -1,0 +1,83 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "because of",
+        "phonetic": "/bɪˈkɔz əv/",
+        "spoken_phonetic_us": "/bɪˈkɔz əv/",
+        "search_term": "preposition/reason",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Cause & Reason",
+        "definitions": [
+            {
+                "meaning": "Debido a / A causa de",
+                "usage_example": "He was late because of the traffic.",
+                "pronunciation_guide_es": "/hi_uas_LEIT_bi-COZ_of_de_TRA-fik/",
+                "usage_example_es": "Llegó tarde a causa del tráfico.",
+                "char_count": "7",
+                "usage_context_en": "Used to give the reason for something (synonym of 'due to').",
+                "usage_context_es": "Usado para dar la razón de algo (sinónimo de 'due to').",
+                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_2_def0.avif"
+            }
+        ],
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "due to",
+        "phonetic": "/djuː tuː/",
+        "spoken_phonetic_us": "/duː tuː/",
+        "search_term": "preposition/reason",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Cause & Reason",
+        "definitions": [
+            {
+                "meaning": "Debido a",
+                "usage_example": "The game was canceled due to the rain.",
+                "pronunciation_guide_es": "/de_GUEIM_uas_CAN-seld_DU_tu_de_REIN/",
+                "usage_example_es": "El partido fue cancelado debido a la lluvia.",
+                "char_count": "7",
+                "usage_context_en": "Used to give the reason for something (synonym of 'because of').",
+                "usage_context_es": "Usado para dar la razón de algo (sinónimo de 'because of').",
+                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_1_def0.avif"
+            }
+        ],
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "thanks to",
+        "phonetic": "/θæŋks tuː/",
+        "spoken_phonetic_us": "/θæŋks tuː/",
+        "search_term": "preposition/reason",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Cause & Reason",
+        "definitions": [
+            {
+                "meaning": "Gracias a",
+                "usage_example": "We succeeded thanks to your help.",
+                "pronunciation_guide_es": "/ui_sok-SI-ded_ZANKS_tu_iur_HELP/",
+                "usage_example_es": "Tuvimos éxito gracias a tu ayuda.",
+                "char_count": "6",
+                "usage_context_en": "Used to show a positive reason for a good outcome.",
+                "usage_context_es": "Usado para mostrar una razón positiva para un buen resultado.",
+                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_13_def0.avif"
+            }
+        ],
+        "category": "Intermediate"
+    }
+]

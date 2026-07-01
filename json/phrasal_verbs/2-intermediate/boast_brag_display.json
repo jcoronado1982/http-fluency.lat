@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "show off",
+        "phonetic": "/ʃoʊ ɔf/",
+        "spoken_phonetic_us": "/ʃoʊ ɔf/",
+        "search_term": "phrasal verb/boast/brag/display",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Presumir, alardear, fardar",
+                "usage_example": "He's just showing off his new car.",
+                "pronunciation_guide_es": "/his_yost_SHOing_OF_his_NU_CAR/",
+                "alternative_example": "He's just boasting about his new car.",
+                "usage_example_es": "Él solo está presumiendo su auto nuevo.",
+                "char_count": "one",
+                "usage_context_en": "boasting/pride",
+                "usage_context_es": "presumir/orgullo",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_25_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Show",
+        "category": "Intermediate"
+    }
+]

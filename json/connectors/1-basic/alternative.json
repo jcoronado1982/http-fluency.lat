@@ -1,0 +1,28 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "or",
+        "phonetic": "/ɔr/",
+        "spoken_phonetic_us": "/ɔr/",
+        "search_term": "connector/alternative",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Alternative",
+        "definitions": [
+            {
+                "meaning": "O (alternativa)",
+                "usage_example": "Would you like tea or coffee?",
+                "pronunciation_guide_es": "/uud_iu_laik_ti_or_co-fi/",
+                "usage_example_es": "¿Te gustaría té o café?",
+                "char_count": "2",
+                "usage_context_en": "Used to link alternatives.",
+                "usage_context_es": "Usado para enlazar alternativas.",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_39_def0.avif"
+            }
+        ]
+    }
+]

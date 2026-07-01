@@ -1,0 +1,39 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "look up",
+        "phonetic": "/look up/",
+        "spoken_phonetic_us": "/look up/",
+        "search_term": "phrasal verb/search/improve",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Buscar información",
+                "usage_example": "Look up the address online.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "Search for the address online.",
+                "usage_example_es": "Busca la dirección en internet.",
+                "char_count": "one",
+                "usage_context_en": "searching information",
+                "usage_context_es": "buscar información"
+            },
+            {
+                "meaning": "Mejorar",
+                "usage_example": "Things are looking up.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "Things are improving.",
+                "usage_example_es": "Las cosas están mejorando.",
+                "char_count": "one",
+                "usage_context_en": "improvement",
+                "usage_context_es": "mejora"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Look",
+        "category": "Intermediate"
+    }
+]

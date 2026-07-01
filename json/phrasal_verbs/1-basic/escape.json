@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "get away",
+        "phonetic": "/get away/",
+        "spoken_phonetic_us": "/get away/",
+        "search_term": "phrasal verb/escape",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Escapar / Alejarse",
+                "usage_example": "We need to get away from here.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "We need to leave this place.",
+                "usage_example_es": "Necesitamos alejarnos de aquí.",
+                "char_count": "one",
+                "usage_context_en": "danger/escape",
+                "usage_context_es": "peligro/escape"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Get",
+        "category": "Basic"
+    }
+]

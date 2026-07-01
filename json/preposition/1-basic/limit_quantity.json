@@ -1,0 +1,28 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "up to",
+        "phonetic": "/ʌp tu/",
+        "spoken_phonetic_us": "/ʌp tu/",
+        "search_term": "preposition/limit/quantity",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Limit & Quantity",
+        "definitions": [
+            {
+                "meaning": "Hasta / Como máximo",
+                "usage_example": "It costs up to 50 dollars.",
+                "pronunciation_guide_es": "/it_COSTS_OP_tu_FIF-ti_DO-lars/",
+                "usage_example_es": "Cuesta hasta 50 dólares.",
+                "char_count": "5",
+                "usage_context_en": "Used to show a maximum amount, time, or limit.",
+                "usage_context_es": "Usado para mostrar una cantidad, tiempo o límite máximo."
+            }
+        ],
+        "category": "Basic"
+    }
+]

@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "come from",
+        "phonetic": "/kʌm frʌm/",
+        "spoken_phonetic_us": "/kʌm frəm/",
+        "search_term": "phrasal verb/origin/place",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Provenir de, ser de (origen)",
+                "usage_example": "Where does this food come from?",
+                "pronunciation_guide_es": "/uer_DAS_dis_FUD_kam_FROM/",
+                "alternative_example": "What is the origin of this food?",
+                "usage_example_es": "¿De dónde proviene esta comida?",
+                "char_count": "one",
+                "usage_context_en": "origin/location",
+                "usage_context_es": "origen/lugar",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_27_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Come",
+        "category": "Basic"
+    }
+]

@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "whosoever",
+        "phonetic": "/ˌhuːsoʊˈɛvər/",
+        "spoken_phonetic_us": "/ˌhuːsoʊˈɛvər/",
+        "search_term": "pronoun/relative/formal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Other",
+        "definitions": [
+            {
+                "meaning": "Quienquiera que (formal)",
+                "usage_example": "Whosoever finds this is lucky.",
+                "pronunciation_guide_es": "/hu-sou-E-ver_FAINDS_dis_is_LO-ki/",
+                "usage_example_es": "Quienquiera que encuentre esto es afortunado.",
+                "char_count": "5",
+                "usage_context_en": "A formal or archaic word for 'whoever'.",
+                "usage_context_es": "Una palabra formal o arcaica para 'quien sea'.",
+                "imagePath": "/card_images/determinant/3-advanced/3-advanced_card_3_def0.avif"
+            }
+        ],
+        "category": "Advanced"
+    }
+]

@@ -1,0 +1,34 @@
+[
+    {
+        "name": "then",
+        "phonetic": "/ðɛn/",
+        "spoken_phonetic_us": "/ðɛn/",
+        "search_term": "adverb/time/sequence",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Time",
+        "definitions": [
+            {
+                "meaning": "Entonces / En ese momento",
+                "usage_example": "I was young then.",
+                "pronunciation_guide_es": "/ai_uas_IONG_DEN/",
+                "usage_example_es": "Yo era joven en ese momento.",
+                "char_count": 4,
+                "usage_context_en": "Referring to a specific time in the past or future.",
+                "usage_context_es": "Refiriéndose a un tiempo específico en el pasado o futuro.",
+                "imagePath": "/card_images/adverbs/1-basic/1-basic_card_12_def0.jpg"
+            },
+            {
+                "meaning": "Luego / Después",
+                "usage_example": "First I work, then I rest.",
+                "pronunciation_guide_es": "/FIRST_ai_UORK_den_ai_REST/",
+                "usage_example_es": "Primero trabajo, luego descanso.",
+                "char_count": 5,
+                "usage_context_en": "Used to indicate what happens next in a sequence.",
+                "usage_context_es": "Usado para indicar lo que sucede a continuación en una secuencia.",
+                "imagePath": "/card_images/adverbs/1-basic/1-basic_card_12_def1.jpg"
+            }
+        ]
+    }
+]

@@ -1,0 +1,41 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "take back",
+        "phonetic": "/teɪk bæk/",
+        "spoken_phonetic_us": "/teɪk bæk/",
+        "search_term": "phrasal verb/return/retract",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Retirar (lo dicho), retractarse",
+                "usage_example": "I take back what I said. I was wrong.",
+                "pronunciation_guide_es": "/ai_teik_BAK_uat_ai_SED. ai_uas_RONG/",
+                "alternative_example": "I retract what I said. I was wrong.",
+                "usage_example_es": "Retiro lo dicho. Estaba equivocado.",
+                "char_count": "one",
+                "usage_context_en": "conversation/apology",
+                "usage_context_es": "conversación/disculpa",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_32_def0.avif"
+            },
+            {
+                "meaning": "Devolver (algo a una tienda)",
+                "usage_example": "I need to take back these shoes. They don't fit.",
+                "pronunciation_guide_es": "/ai_NID_tu_teik_BAK_dis_SHUS. dey_dont_FIT/",
+                "alternative_example": "I need to return these shoes. They don't fit.",
+                "usage_example_es": "Necesito devolver estos zapatos. No me quedan.",
+                "char_count": "one",
+                "usage_context_en": "shopping/returning",
+                "usage_context_es": "compras/devolver",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_32_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Take",
+        "category": "Intermediate"
+    }
+]

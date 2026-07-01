@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "run through",
+        "phonetic": "/rʌn θru/",
+        "spoken_phonetic_us": "/rʌn θru/",
+        "search_term": "phrasal verb/review/rehearse/practice",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Repasar, ensayar (rápidamente)",
+                "usage_example": "Let's run through the plan one more time.",
+                "pronunciation_guide_es": "/lets_ran_THRU_de_PLAN_uan_MOR_TAIM/",
+                "alternative_example": "Let's review the plan one more time.",
+                "usage_example_es": "Repasemos el plan una vez más.",
+                "char_count": "one",
+                "usage_context_en": "practice/rehearsal",
+                "usage_context_es": "práctica/ensayo",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_17_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Run",
+        "category": "Intermediate"
+    }
+]

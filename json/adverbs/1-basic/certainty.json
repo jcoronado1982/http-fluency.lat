@@ -1,0 +1,23 @@
+[
+    {
+        "name": "maybe",
+        "phonetic": "/ˈmeɪbi/",
+        "spoken_phonetic_us": "/ˈmeɪbi/",
+        "search_term": "survival/certainty",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Survival: Street Basics",
+        "definitions": [
+            {
+                "meaning": "Tal vez / Quizás",
+                "usage_example": "Maybe we can ask for help.",
+                "pronunciation_guide_es": "/MEI-bi_ui_can_ASK_for_HELP/",
+                "usage_example_es": "Tal vez podamos pedir ayuda.",
+                "char_count": "6",
+                "usage_context_en": "Used when something is possible but not certain.",
+                "usage_context_es": "Usado cuando algo es posible pero no seguro."
+            }
+        ]
+    }
+]

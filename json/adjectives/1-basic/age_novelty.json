@@ -1,0 +1,93 @@
+[
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "new",
+    "phonetic": "/njuː/",
+    "spoken_phonetic_us": "/nuː/",
+    "search_term": "adjective/basic/age_novelty",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Age & Novelty",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Nuevo/a",
+        "usage_example": "I bought a new car.",
+        "pronunciation_guide_es": "/ai_BOT_a_NIU_CAR/",
+        "usage_example_es": "Compré un carro nuevo.",
+        "char_count": "5",
+        "usage_context_en": "Produced, introduced, or discovered recently; not existing before.",
+        "usage_context_es": "Producido, introducido o descubierto recientemente; que no existía antes.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_8_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "old",
+    "phonetic": "/oʊld/",
+    "spoken_phonetic_us": "/oʊld/",
+    "search_term": "adjective/basic/age_novelty",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Age & Novelty",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Viejo/a / Anciano/a",
+        "usage_example": "He is an old man.",
+        "pronunciation_guide_es": "/hi_is_an_OLD_MAN/",
+        "usage_example_es": "Él es un hombre anciano.",
+        "char_count": "5",
+        "usage_context_en": "Having lived for a long time; advanced in age.",
+        "usage_context_es": "Haber vivido por mucho tiempo; de edad avanzada.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_9_def0.avif"
+      },
+      {
+        "meaning": "Viejo/a (objeto)",
+        "usage_example": "This is my old phone.",
+        "pronunciation_guide_es": "/dis_is_mai_OLD_FOUN/",
+        "usage_example_es": "Este es mi teléfono viejo.",
+        "char_count": "5",
+        "usage_context_en": "Having existed for a long time; not new.",
+        "usage_context_es": "Que ha existido por mucho tiempo; no nuevo.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_9_def1.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "young",
+    "phonetic": "/jʌŋ/",
+    "spoken_phonetic_us": "/jʌŋ/",
+    "search_term": "adjective/basic/age_novelty",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Age & Novelty",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Joven",
+        "usage_example": "She is a young woman.",
+        "pronunciation_guide_es": "/shi_is_a_IONG_WU-man/",
+        "usage_example_es": "Ella es una mujer joven.",
+        "char_count": "5",
+        "usage_context_en": "Having lived for only a short time; not old.",
+        "usage_context_es": "Haber vivido solo por un corto tiempo; no viejo.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_10_def0.avif"
+      }
+    ]
+  }
+]

@@ -1,0 +1,23 @@
+[
+    {
+        "name": "deliberately",
+        "phonetic": "/dɪˈlɪbərətli/",
+        "spoken_phonetic_us": "/dɪˈlɪbərətli/",
+        "search_term": "adverb/manner",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Manner",
+        "definitions": [
+            {
+                "meaning": "Deliberadamente / A propósito",
+                "usage_example": "He deliberately broke the glass.",
+                "pronunciation_guide_es": "/hi_de-LI-be-ret-li_BROUK_de_GLAS/",
+                "usage_example_es": "Él rompió el vaso a propósito.",
+                "char_count": 5,
+                "usage_context_en": "Consciously and intentionally; on purpose.",
+                "usage_context_es": "Consciente e intencionalmente; a propósito."
+            }
+        ]
+    }
+]

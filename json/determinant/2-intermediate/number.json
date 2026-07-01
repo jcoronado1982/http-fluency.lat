@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "double",
+        "phonetic": "/ˈdʌbəl/",
+        "spoken_phonetic_us": "/ˈdʌbəl/",
+        "search_term": "determiner/number",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Doble",
+                "usage_example": "I paid double the price.",
+                "pronunciation_guide_es": "/ai_PEID_DO-bol_de_PRAIS/",
+                "usage_example_es": "Pagué el doble del precio.",
+                "char_count": "5",
+                "usage_context_en": "Twice as much or as many.",
+                "usage_context_es": "Dos veces más en cantidad o número.",
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_24_def0.avif"
+            }
+        ],
+        "category": "Intermediate"
+    }
+]

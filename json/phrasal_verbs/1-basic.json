@@ -5,55 +5,6 @@
     "example": null,
     "learned": false,
     "learned_at": null,
-    "name": "break up",
-    "phonetic": "/breɪk ʌp/",
-    "spoken_phonetic_us": "/breɪk ʌp/",
-    "search_term": "phrasal verb/relationships/separation",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Terminar una relación (romántica)",
-        "usage_example": "They decided to break up last month.",
-        "pronunciation_guide_es": "/dey_diSAIred_tu_breik_AP_last_month/",
-        "alternative_example": "They decided to end their relationship.",
-        "usage_example_es": "Ellos decidieron terminar el mes pasado.",
-        "char_count": "one",
-        "usage_context_en": "relationships",
-        "usage_context_es": "relaciones",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_0_def0.avif"
-      },
-      {
-        "meaning": "Terminar las clases (por vacaciones)",
-        "usage_example": "When does school break up for summer?",
-        "pronunciation_guide_es": "/uen_das_SKUL_breik_AP_for_SAmer/",
-        "alternative_example": "When does school end for summer?",
-        "usage_example_es": "¿Cuándo terminan las clases por el verano?",
-        "char_count": "one",
-        "usage_context_en": "school/holidays",
-        "usage_context_es": "colegio/vacaciones",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_0_def1.avif"
-      },
-      {
-        "meaning": "Separarse (un grupo), disolverse",
-        "usage_example": "The party broke up at midnight.",
-        "pronunciation_guide_es": "/de_PARi_brouk_AP_at_MIDnait/",
-        "alternative_example": "The party ended at midnight.",
-        "usage_example_es": "La fiesta se disolvió a medianoche.",
-        "char_count": "one",
-        "usage_context_en": "social events",
-        "usage_context_es": "eventos sociales",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_0_def2.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Break"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
     "name": "break down",
     "phonetic": "/breɪk daʊn/",
     "spoken_phonetic_us": "/breɪk daʊn/",
@@ -95,7 +46,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_1_def2.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Break"
+    "group_name": "Phrasal Verbs: Break",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -133,7 +85,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_2_def1.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Break"
+    "group_name": "Phrasal Verbs: Break",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -182,7 +135,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_3_def2.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Break"
+    "group_name": "Phrasal Verbs: Break",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -220,45 +174,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_4_def1.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Break"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "bring up",
-    "phonetic": "/brɪŋ ʌp/",
-    "spoken_phonetic_us": "/brɪŋ ʌp/",
-    "search_term": "phrasal verb/conversation/parenting",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Mencionar (un tema), sacar a colación",
-        "usage_example": "Don't bring up politics at the party.",
-        "pronunciation_guide_es": "/dont_bring_AP_POlitiks_at_de_PARi/",
-        "alternative_example": "Don't mention politics at the party.",
-        "usage_example_es": "No saques el tema de la política en la fiesta.",
-        "char_count": "one",
-        "usage_context_en": "conversation topic",
-        "usage_context_es": "tema de conversación",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_5_def0.avif"
-      },
-      {
-        "meaning": "Criar (a un niño)",
-        "usage_example": "His grandparents brought him up.",
-        "pronunciation_guide_es": "/his_GRANDperents_brot_him_AP/",
-        "alternative_example": "His grandparents raised him.",
-        "usage_example_es": "Sus abuelos lo criaron.",
-        "char_count": "one",
-        "usage_context_en": "parenting/family",
-        "usage_context_es": "crianza/familia",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_5_def1.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Bring"
+    "group_name": "Phrasal Verbs: Break",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -296,148 +213,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_6_def1.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Bring"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "bring on",
-    "phonetic": "/brɪŋ ɑn/",
-    "spoken_phonetic_us": "/brɪŋ ɑn/",
-    "search_term": "phrasal verb/cause/challenge",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Causar, provocar (generalmente algo negativo)",
-        "usage_example": "The stress brought on a headache.",
-        "pronunciation_guide_es": "/de_STRES_brot_ON_a_HEdeik/",
-        "alternative_example": "The stress caused a headache.",
-        "usage_example_es": "El estrés me provocó un dolor de cabeza.",
-        "char_count": "one",
-        "usage_context_en": "cause illness/problem",
-        "usage_context_es": "causar enfermedad/problema",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_7_def0.avif"
-      },
-      {
-        "meaning": "¡Vamos! / ¡Adelante! (aceptar un reto)",
-        "usage_example": "You want a challenge? Bring it on!",
-        "pronunciation_guide_es": "/iu_UANT_a_CHAleny?_BRINg_it_ON/",
-        "alternative_example": "You want a challenge? I accept!",
-        "usage_example_es": "¿Quieres un reto? ¡Adelante! (¡Venga!)",
-        "char_count": "one",
-        "usage_context_en": "accepting challenge",
-        "usage_context_es": "aceptar un reto",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_7_def1.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Bring"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "bring down",
-    "phonetic": "/brɪŋ daʊn/",
-    "spoken_phonetic_us": "/brɪŋ daʊn/",
-    "search_term": "phrasal verb/reduce/emotions",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Bajar (el precio), reducir",
-        "usage_example": "We need to bring down our costs.",
-        "pronunciation_guide_es": "/ui_NID_tu_bring_DAUN_aur_COSTS/",
-        "alternative_example": "We need to reduce our costs.",
-        "usage_example_es": "Necesitamos reducir nuestros costos.",
-        "char_count": "one",
-        "usage_context_en": "finance/prices",
-        "usage_context_es": "finanzas/precios",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_8_def0.avif"
-      },
-      {
-        "meaning": "Deprimir, poner triste a alguien",
-        "usage_example": "That sad movie really brought me down.",
-        "pronunciation_guide_es": "/dat_SAD_muvi_RIli_brot_mi_DAUN/",
-        "alternative_example": "That sad movie really made me sad.",
-        "usage_example_es": "Esa película triste realmente me deprimió.",
-        "char_count": "one",
-        "usage_context_en": "emotions/mood",
-        "usage_context_es": "emociones/estado de ánimo",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_8_def1.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Bring"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "bring in",
-    "phonetic": "/brɪŋ ɪn/",
-    "spoken_phonetic_us": "/brɪŋ ɪn/",
-    "search_term": "phrasal verb/money/involve",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Ganar (dinero), generar (ingresos)",
-        "usage_example": "My new job brings in more money.",
-        "pronunciation_guide_es": "/mai_NU_YOB_brings_IN_mor_MOni/",
-        "alternative_example": "My new job earns more money.",
-        "usage_example_es": "Mi nuevo trabajo genera más dinero.",
-        "char_count": "one",
-        "usage_context_en": "work/salary",
-        "usage_context_es": "trabajo/salario",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_9_def0.avif"
-      },
-      {
-        "meaning": "Involucrar (a alguien), traer (a un experto)",
-        "usage_example": "Let's bring in an expert to help us.",
-        "pronunciation_guide_es": "/lets_bring_IN_an_EKSpert_tu_HELP_as/",
-        "alternative_example": "Let's involve an expert to help us.",
-        "usage_example_es": "Traigamos a un experto para que nos ayude.",
-        "char_count": "one",
-        "usage_context_en": "work/projects",
-        "usage_context_es": "trabajo/proyectos",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_9_def1.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Bring"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "call off",
-    "phonetic": "/kɔl ɔf/",
-    "spoken_phonetic_us": "/kɔl ɔf/",
-    "search_term": "phrasal verb/cancel/stop",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Cancelar (un evento)",
-        "usage_example": "We had to call off the game due to rain.",
-        "pronunciation_guide_es": "/ui_HAD_tu_kol_OF_de_GUEIM_du_tu_REIN/",
-        "alternative_example": "We had to cancel the game due to rain.",
-        "usage_example_es": "Tuvimos que cancelar el partido debido a la lluvia.",
-        "char_count": "one",
-        "usage_context_en": "events/plans",
-        "usage_context_es": "eventos/planes",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_10_def0.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Call"
+    "group_name": "Phrasal Verbs: Bring",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -464,83 +241,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_11_def0.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Call"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "call on",
-    "phonetic": "/kɔl ɑn/",
-    "spoken_phonetic_us": "/kɔl ɑn/",
-    "search_term": "phrasal verb/ask/visit",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Recurrir (a alguien) para pedir ayuda",
-        "usage_example": "I can always call on my friends for help.",
-        "pronunciation_guide_es": "/ai_kan_OLueis_kol_ON_mai_FRENDS_for_HELP/",
-        "alternative_example": "I can always ask my friends for help.",
-        "usage_example_es": "Siempre puedo recurrir a mis amigos por ayuda.",
-        "char_count": "one",
-        "usage_context_en": "asking for help",
-        "usage_context_es": "pedir ayuda",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_12_def0.avif"
-      },
-      {
-        "meaning": "Visitar (a alguien) brevemente",
-        "usage_example": "We should call on your grandma this weekend.",
-        "pronunciation_guide_es": "/ui_shud_kol_ON_iur_GRANma_dis_UIkend/",
-        "alternative_example": "We should visit your grandma this weekend.",
-        "usage_example_es": "Deberíamos visitar a tu abuela este fin de semana.",
-        "char_count": "one",
-        "usage_context_en": "visiting people",
-        "usage_context_es": "visitar personas",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_12_def1.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Call"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "call for",
-    "phonetic": "/kɔl fɔr/",
-    "spoken_phonetic_us": "/kɔl fər/",
-    "search_term": "phrasal verb/require/demand",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Requerir, necesitar",
-        "usage_example": "This recipe calls for three eggs.",
-        "pronunciation_guide_es": "/dis_REsipi_kols_FOR_thri_EGS/",
-        "alternative_example": "This recipe requires three eggs.",
-        "usage_example_es": "Esta receta requiere tres huevos.",
-        "char_count": "one",
-        "usage_context_en": "instructions/recipes",
-        "usage_context_es": "instrucciones/recetas",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_13_def0.avif"
-      },
-      {
-        "meaning": "Pedir, exigir (públicamente)",
-        "usage_example": "The protesters are calling for change.",
-        "pronunciation_guide_es": "/de_proTEStors_ar_KOling_for_CHEINY/",
-        "alternative_example": "The protesters are demanding change.",
-        "usage_example_es": "Los manifestantes están pidiendo un cambio.",
-        "char_count": "one",
-        "usage_context_en": "public demand",
-        "usage_context_es": "exigencia pública",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_13_def1.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Call"
+    "group_name": "Phrasal Verbs: Call",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -578,7 +280,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_14_def1.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Call"
+    "group_name": "Phrasal Verbs: Call",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -627,99 +330,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_15_def2.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Calm"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "carry on",
-    "phonetic": "/ˈkɛri ɑn/",
-    "spoken_phonetic_us": "/ˈkɛri ɑn/",
-    "search_term": "phrasal verb/continue/action",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Continuar (haciendo algo)",
-        "usage_example": "Please carry on with your work.",
-        "pronunciation_guide_es": "/plis_KEri_ON_uith_iur_UORK/",
-        "alternative_example": "Please continue with your work.",
-        "usage_example_es": "Por favor, continúa con tu trabajo.",
-        "char_count": "one",
-        "usage_context_en": "work/instructions",
-        "usage_context_es": "trabajo/instrucciones",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_16_def0.avif"
-      },
-      {
-        "meaning": "Comportarse mal, hacer un escándalo",
-        "usage_example": "He was carrying on about the noise.",
-        "pronunciation_guide_es": "/hi_uas_KEri-ing_ON_aBAUT_de_NOIS/",
-        "alternative_example": "He was complaining loudly about the noise.",
-        "usage_example_es": "Estaba haciendo un escándalo por el ruido.",
-        "char_count": "one",
-        "usage_context_en": "complaining/behavior",
-        "usage_context_es": "quejarse/comportamiento",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_16_def1.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Carry"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "carry out",
-    "phonetic": "/ˈkɛri aʊt/",
-    "spoken_phonetic_us": "/ˈkɛri aʊt/",
-    "search_term": "phrasal verb/execute/complete task",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Llevar a cabo, realizar (una tarea, un plan)",
-        "usage_example": "The team will carry out the plan.",
-        "pronunciation_guide_es": "/de_TIM_uil_KEri_AUT_de_PLAN/",
-        "alternative_example": "The team will execute the plan.",
-        "usage_example_es": "El equipo llevará a cabo el plan.",
-        "char_count": "one",
-        "usage_context_en": "work/project",
-        "usage_context_es": "trabajo/proyecto",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_17_def0.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Carry"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "carry over",
-    "phonetic": "/ˈkɛri ˈoʊvər/",
-    "spoken_phonetic_us": "/ˈkɛri ˈoʊvər/",
-    "search_term": "phrasal verb/transfer/continue",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Transferir (a un nuevo período o lugar)",
-        "usage_example": "Will my vacation days carry over to next year?",
-        "pronunciation_guide_es": "/uil_mai_veKEIshen_deis_KEri_Over_tu_nekst_YIR?/",
-        "alternative_example": "Will my vacation days transfer to next year?",
-        "usage_example_es": "¿Mis días de vacaciones se transferirán al próximo año?",
-        "char_count": "one",
-        "usage_context_en": "work/rules/finance",
-        "usage_context_es": "trabajo/reglas/finanzas",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_18_def0.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Carry"
+    "group_name": "Phrasal Verbs: Calm",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -757,7 +369,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_19_def1.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Check"
+    "group_name": "Phrasal Verbs: Check",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -806,7 +419,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_20_def2.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Check"
+    "group_name": "Phrasal Verbs: Check",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -833,110 +447,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_21_def0.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Check"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "check over",
-    "phonetic": "/tʃɛk ˈoʊvər/",
-    "spoken_phonetic_us": "/tʃɛk ˈoʊvər/",
-    "search_term": "phrasal verb/examine/review/inspect",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Revisar, examinar (buscando errores)",
-        "usage_example": "Can you check over my report before I submit it?",
-        "pronunciation_guide_es": "/kæn_iu_chek_Over_mai_riPORT_biFOR_ai_sabMIT_it/",
-        "alternative_example": "Can you review my report before I submit it?",
-        "usage_example_es": "¿Puedes revisar mi informe antes de que lo entregue?",
-        "char_count": "one",
-        "usage_context_en": "work/reviewing",
-        "usage_context_es": "trabajo/revisar",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_22_def0.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Check"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "check off",
-    "phonetic": "/tʃɛk ɔf/",
-    "spoken_phonetic_us": "/tʃɛk ɔf/",
-    "search_term": "phrasal verb/list/mark/complete",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Marcar (como completado en una lista)",
-        "usage_example": "I love to check off items on my to-do list.",
-        "pronunciation_guide_es": "/ai_LOV_tu_chek_OF_AIrems_on_mai_tu_DU_list/",
-        "alternative_example": "I love to mark items as complete on my to-do list.",
-        "usage_example_es": "Me encanta marcar tareas (ítems) en mi lista de pendientes.",
-        "char_count": "one",
-        "usage_context_en": "tasks/lists",
-        "usage_context_es": "tareas/listas",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_23_def0.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Check"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "come on",
-    "phonetic": "/kʌm ɑn/",
-    "spoken_phonetic_us": "/kʌm ɑn/",
-    "search_term": "phrasal verb/encouragement/hurry",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "¡Vamos!, ¡Date prisa!",
-        "usage_example": "Come on! We're going to be late.",
-        "pronunciation_guide_es": "/kam_ON! uir_GOing_tu_bi_LEIT/",
-        "alternative_example": "Hurry up! We're going to be late.",
-        "usage_example_es": "¡Vamos! Vamos a llegar tarde.",
-        "char_count": "one",
-        "usage_context_en": "hurrying someone",
-        "usage_context_es": "apresurar a alguien",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_24_def0.avif"
-      },
-      {
-        "meaning": "¡Venga ya! (expresando incredulidad)",
-        "usage_example": "Oh, come on! You can't be serious.",
-        "pronunciation_guide_es": "/ou_kam_ON! iu_KANT_bi_SIrius/",
-        "alternative_example": "Oh, really! You can't be serious.",
-        "usage_example_es": "¡Oh, venga ya! No puedes hablar en serio.",
-        "char_count": "one",
-        "usage_context_en": "disbelief/annoyance",
-        "usage_context_es": "incredulidad/molestia",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_24_def1.avif"
-      },
-      {
-        "meaning": "Empezar (una enfermedad)",
-        "usage_example": "The show is coming on soon",
-        "pronunciation_guide_es": "/ðə SHÓU iz KÁ-ming ón sun/",
-        "alternative_example": "The show will start soon.",
-        "usage_example_es": "El programa empezará pronto",
-        "char_count": "one",
-        "usage_context_en": "comenzar",
-        "usage_context_es": "comenzar",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_24_def2.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Come"
+    "group_name": "Phrasal Verbs: Check",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -963,88 +475,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_25_def0.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Come"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "come over",
-    "phonetic": "/kʌm ˈoʊvər/",
-    "spoken_phonetic_us": "/kʌm ˈoʊvər/",
-    "search_term": "phrasal verb/visit/social",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Venir (a la casa de alguien), visitar",
-        "usage_example": "Do you want to come over for dinner?",
-        "pronunciation_guide_es": "/du_iu_UANT_tu_kam_Over_for_DIner/",
-        "alternative_example": "Do you want to visit my house for dinner?",
-        "usage_example_es": "¿Quieres venir (a mi casa) a cenar?",
-        "char_count": "one",
-        "usage_context_en": "invitation/social",
-        "usage_context_es": "invitación/social",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_26_def0.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Come"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "come from",
-    "phonetic": "/kʌm frʌm/",
-    "spoken_phonetic_us": "/kʌm frəm/",
-    "search_term": "phrasal verb/origin/place",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Provenir de, ser de (origen)",
-        "usage_example": "Where does this food come from?",
-        "pronunciation_guide_es": "/uer_DAS_dis_FUD_kam_FROM/",
-        "alternative_example": "What is the origin of this food?",
-        "usage_example_es": "¿De dónde proviene esta comida?",
-        "char_count": "one",
-        "usage_context_en": "origin/location",
-        "usage_context_es": "origen/lugar",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_27_def0.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Come"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "come up with",
-    "phonetic": "/kʌm ʌp wɪθ/",
-    "spoken_phonetic_us": "/kʌm ʌp wɪθ/",
-    "search_term": "phrasal verb/ideas/create",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Idear, proponer, ocurrirse (una idea)",
-        "usage_example": "He came up with a great idea.",
-        "pronunciation_guide_es": "/hi_keim_AP_uith_a_GREIT_aiDIa/",
-        "alternative_example": "He thought of a great idea.",
-        "usage_example_es": "Se le ocurrió una gran idea.",
-        "char_count": "one",
-        "usage_context_en": "ideas/planning",
-        "usage_context_es": "ideas/planificación",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_28_def0.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Come"
+    "group_name": "Phrasal Verbs: Come",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -1071,7 +503,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_29_def0.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Come"
+    "group_name": "Phrasal Verbs: Come",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -1109,7 +542,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_30_def1.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Come"
+    "group_name": "Phrasal Verbs: Come",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -1117,129 +551,94 @@
     "example": null,
     "learned": false,
     "learned_at": null,
-    "name": "drop off",
-    "phonetic": "/drɑp ɔf/",
-    "spoken_phonetic_us": "/drɑp ɔf/",
-    "search_term": "phrasal verb/deliver/leave/decrease/sleep",
+    "name": "come from",
+    "phonetic": "/kʌm frʌm/",
+    "spoken_phonetic_us": "/kʌm frəm/",
+    "search_term": "phrasal verb/origin/place",
     "is_phrasal_verb": true,
     "force_generation": false,
     "definitions": [
       {
-        "meaning": "Dejar (a alguien o algo) en un lugar",
-        "usage_example": "Can you drop me off at the next corner?",
-        "pronunciation_guide_es": "/kæn_iu_DROP_mi_OF_at_de_NEKST_KORner/",
-        "alternative_example": "Can you leave me at the next corner?",
-        "usage_example_es": "¿Puedes dejarme en la próxima esquina?",
+        "meaning": "Provenir de, ser de (origen)",
+        "usage_example": "Where does this food come from?",
+        "pronunciation_guide_es": "/uer_DAS_dis_FUD_kam_FROM/",
+        "alternative_example": "What is the origin of this food?",
+        "usage_example_es": "¿De dónde proviene esta comida?",
         "char_count": "one",
-        "usage_context_en": "transport/giving a ride",
-        "usage_context_es": "transporte/llevar a alguien",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_31_def0.avif"
+        "usage_context_en": "origin/location",
+        "usage_context_es": "origen/lugar",
+        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_27_def0.avif"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Come",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "come over",
+    "phonetic": "/kʌm ˈoʊvər/",
+    "spoken_phonetic_us": "/kʌm ˈoʊvər/",
+    "search_term": "phrasal verb/visit/social",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Venir (a la casa de alguien), visitar",
+        "usage_example": "Do you want to come over for dinner?",
+        "pronunciation_guide_es": "/du_iu_UANT_tu_kam_Over_for_DIner/",
+        "alternative_example": "Do you want to visit my house for dinner?",
+        "usage_example_es": "¿Quieres venir (a mi casa) a cenar?",
+        "char_count": "one",
+        "usage_context_en": "invitation/social",
+        "usage_context_es": "invitación/social",
+        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_26_def0.avif"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Come",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "find out",
+    "phonetic": "/faɪnd aʊt/",
+    "spoken_phonetic_us": "/faɪn 'daʊt/",
+    "search_term": "phrasal verb/discover/information",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Descubrir, averiguar (información)",
+        "usage_example": "I need to find out what time the store closes.",
+        "pronunciation_guide_es": "/ai_NID_tu_fain_DAUT_uat_TAIM_de_STOR_KLOses/",
+        "alternative_example": "I need to discover what time the store closes.",
+        "usage_example_es": "Necesito averiguar a qué hora cierra la tienda.",
+        "char_count": "one",
+        "usage_context_en": "getting information",
+        "usage_context_es": "obtener información",
+        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_36_def0.avif"
       },
       {
-        "meaning": "Disminuir, caer (ventas, asistencia)",
-        "usage_example": "Sales always drop off after Christmas.",
-        "pronunciation_guide_es": "/seils_OLueis_drop_OF_AFter_KRISmas/",
-        "alternative_example": "Sales always decrease after Christmas.",
-        "usage_example_es": "Las ventas siempre caen después de Navidad.",
+        "meaning": "Enterarse (de un secreto o noticia)",
+        "usage_example": "He found out that she was lying.",
+        "pronunciation_guide_es": "/hi_faun_DAUT_dat_shi_uas_LAI-ing/",
+        "alternative_example": "He learned that she was lying.",
+        "usage_example_es": "Él descubrió que ella estaba mintiendo.",
         "char_count": "one",
-        "usage_context_en": "business/statistics",
-        "usage_context_es": "negocios/estadísticas",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_31_def1.avif"
-      },
-      {
-        "meaning": "Quedarse dormido (informal)",
-        "usage_example": "I dropped off during the boring movie.",
-        "pronunciation_guide_es": "/ai_DROPT_of_DUring_de_BORing_MUvi/",
-        "alternative_example": "I fell asleep during the boring movie.",
-        "usage_example_es": "Me quedé dormido durante la película aburrida.",
-        "char_count": "one",
-        "usage_context_en": "sleep (informal)",
-        "usage_context_es": "dormir (informal)",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_31_def2.avif"
+        "usage_context_en": "discovering truth",
+        "usage_context_es": "descubrir la verdad",
+        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_36_def1.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Drop"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "drop out (of)",
-    "phonetic": "/drɑp aʊt/",
-    "spoken_phonetic_us": "/drɑ 'paʊt/",
-    "search_term": "phrasal verb/quit/school/abandon",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Abandonar (estudios, una carrera)",
-        "usage_example": "He dropped out of college after one semester.",
-        "pronunciation_guide_es": "/hi_DROPT_aut_ov_KOley_AFter_uan_seMESter/",
-        "alternative_example": "He quit college after one semester.",
-        "usage_example_es": "Él abandonó la universidad después de un semestre.",
-        "char_count": "one",
-        "usage_context_en": "school/education/quit",
-        "usage_context_es": "colegio/educación/abandonar",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_32_def0.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Drop"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "drop by",
-    "phonetic": "/drɑp baɪ/",
-    "spoken_phonetic_us": "/drɑp baɪ/",
-    "search_term": "phrasal verb/visit/social/informal",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Visitar (a alguien) de pasada, sin avisar",
-        "usage_example": "I'll drop by your office later today.",
-        "pronunciation_guide_es": "/ail_DROP_bai_iur_OFis_LEIrer_tuDEI/",
-        "alternative_example": "I'll visit your office informally later today.",
-        "usage_example_es": "Pasaré por tu oficina más tarde hoy.",
-        "char_count": "one",
-        "usage_context_en": "informal visit/social",
-        "usage_context_es": "visita informal/social",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_33_def0.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Drop"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "drop in",
-    "phonetic": "/drɑp ɪn/",
-    "spoken_phonetic_us": "/drɑp ɪn/",
-    "search_term": "phrasal verb/visit/social/informal",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Visitar (de pasada, similar a 'drop by')",
-        "usage_example": "Feel free to drop in anytime you're in town.",
-        "pronunciation_guide_es": "/fil_FRI_tu_drop_IN_Enitaim_iur_in_TAUN/",
-        "alternative_example": "Feel free to visit informally anytime you're in town.",
-        "usage_example_es": "Siéntete libre de pasar a visitar cuando estés en la ciudad.",
-        "char_count": "one",
-        "usage_context_en": "informal visit/social",
-        "usage_context_es": "visita informal/social",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_34_def0.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Drop"
+    "group_name": "Phrasal Verbs: Find",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -1288,45 +687,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_35_def2.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Figure"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "find out",
-    "phonetic": "/faɪnd aʊt/",
-    "spoken_phonetic_us": "/faɪn 'daʊt/",
-    "search_term": "phrasal verb/discover/information",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Descubrir, averiguar (información)",
-        "usage_example": "I need to find out what time the store closes.",
-        "pronunciation_guide_es": "/ai_NID_tu_fain_DAUT_uat_TAIM_de_STOR_KLOses/",
-        "alternative_example": "I need to discover what time the store closes.",
-        "usage_example_es": "Necesito averiguar a qué hora cierra la tienda.",
-        "char_count": "one",
-        "usage_context_en": "getting information",
-        "usage_context_es": "obtener información",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_36_def0.avif"
-      },
-      {
-        "meaning": "Enterarse (de un secreto o noticia)",
-        "usage_example": "He found out that she was lying.",
-        "pronunciation_guide_es": "/hi_faun_DAUT_dat_shi_uas_LAI-ing/",
-        "alternative_example": "He learned that she was lying.",
-        "usage_example_es": "Él descubrió que ella estaba mintiendo.",
-        "char_count": "one",
-        "usage_context_en": "discovering truth",
-        "usage_context_es": "descubrir la verdad",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_36_def1.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Find"
+    "group_name": "Phrasal Verbs: Figure",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -1364,7 +726,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_37_def1.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Get"
+    "group_name": "Phrasal Verbs: Get",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -1401,7 +764,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_38_def1.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Get"
+    "group_name": "Phrasal Verbs: Get",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -1449,7 +813,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_39_def2.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Get"
+    "group_name": "Phrasal Verbs: Get",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -1497,82 +862,8 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_40_def2.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Get"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "get along",
-    "phonetic": "/ɡɛt əˈlɑŋ/",
-    "spoken_phonetic_us": "/ɡɛɾ əˈlɑŋ/",
-    "search_term": "phrasal verb relationships/coping",
-    "is_phrasal_verb": true,
-    "definitions": [
-      {
-        "meaning": "llevarse bien",
-        "usage_example": "My friends and I get along really well. We’re always laughing.",
-        "pronunciation_guide_es": "/mai_frends_en_ai_guer_aLONG_RI-li_uel_uir_OL-ueis_LAF-ing/",
-        "alternative_example": "My friends and I have a very good relationship. We’re always laughing.",
-        "usage_example_es": "Mis amigos y yo nos llevamos muy bien, siempre nos estamos riendo.",
-        "char_count": "two",
-        "usage_context_en": "relationships",
-        "usage_context_es": "relaciones",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_41_def0.avif"
-      },
-      {
-        "meaning": "arreglárselas o hacer progreso",
-        "usage_example": "Despite the problems, they are somehow getting along.",
-        "pronunciation_guide_es": "/des-PAIT_da_PROB-lems_dei_ar_SOM-jau_GUER-ing_aLONG/",
-        "alternative_example": "Despite the problems, they are somehow managing.",
-        "usage_example_es": "A pesar de los problemas, de alguna manera se las están arreglando.",
-        "char_count": "multiple",
-        "usage_context_en": "coping",
-        "usage_context_es": "sobrellevar/arreglárselas",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_41_def1.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Get"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "get over",
-    "phonetic": "/ɡɛt ˈoʊvər/",
-    "spoken_phonetic_us": "/ɡɛɾ ˈoʊvər/",
-    "search_term": "phrasal verb overcome/recovery/physical movement",
-    "is_phrasal_verb": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "superar (una enfermedad o situación difícil)",
-        "usage_example": "It took him months to get over his breakup.",
-        "pronunciation_guide_es": "/it_tuk_jim_monts_tu_guer_O-ver_jis_BREIK-ap/",
-        "alternative_example": "It took him months to recover from his breakup.",
-        "usage_example_es": "Le tomó meses superar su ruptura.",
-        "char_count": "one",
-        "usage_context_en": "overcome",
-        "usage_context_es": "superar",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_42_def0.avif"
-      },
-      {
-        "meaning": "cruzar o pasar por encima de algo (físico)",
-        "usage_example": "I need to get over this high wall.",
-        "pronunciation_guide_es": "/ai_nid_tu_guer_O-ver_dis_jai_uol/",
-        "alternative_example": "I need to climb over this high wall.",
-        "usage_example_es": "Necesito pasar por encima de este muro alto.",
-        "char_count": "one",
-        "usage_context_en": "physical movement",
-        "usage_context_es": "movimiento físico",
-        "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_42_def1.avif"
-      }
-    ],
-    "group_name": "Phrasal Verbs: Get"
+    "group_name": "Phrasal Verbs: Get",
+    "category": "Basic"
   },
   {
     "word": "",
@@ -1610,6 +901,997 @@
         "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_43_def1.avif"
       }
     ],
-    "group_name": "Phrasal Verbs: Get"
+    "group_name": "Phrasal Verbs: Get",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "get in",
+    "phonetic": "/get in/",
+    "spoken_phonetic_us": "/get in/",
+    "search_term": "phrasal verb/transport/enter",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Entrar / Subirse",
+        "usage_example": "Get in the car.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "Enter the car.",
+        "usage_example_es": "Sube al carro.",
+        "char_count": "one",
+        "usage_context_en": "transport/entering",
+        "usage_context_es": "transporte/entrar"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Get",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "get back",
+    "phonetic": "/get back/",
+    "spoken_phonetic_us": "/get back/",
+    "search_term": "phrasal verb/return",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Regresar / Volver",
+        "usage_example": "I need to get back to the hotel.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "I need to return to the hotel.",
+        "usage_example_es": "Necesito volver al hotel.",
+        "char_count": "one",
+        "usage_context_en": "returning to a place",
+        "usage_context_es": "volver a un lugar"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Get",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "get away",
+    "phonetic": "/get away/",
+    "spoken_phonetic_us": "/get away/",
+    "search_term": "phrasal verb/escape",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Escapar / Alejarse",
+        "usage_example": "We need to get away from here.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "We need to leave this place.",
+        "usage_example_es": "Necesitamos alejarnos de aquí.",
+        "char_count": "one",
+        "usage_context_en": "danger/escape",
+        "usage_context_es": "peligro/escape"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Get",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "go in",
+    "phonetic": "/go in/",
+    "spoken_phonetic_us": "/go in/",
+    "search_term": "phrasal verb/movement/enter",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Entrar",
+        "usage_example": "Can we go in now?",
+        "pronunciation_guide_es": "",
+        "alternative_example": "Can we enter now?",
+        "usage_example_es": "¿Podemos entrar ahora?",
+        "char_count": "one",
+        "usage_context_en": "entering a place",
+        "usage_context_es": "entrar a un lugar"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Go",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "go out",
+    "phonetic": "/go out/",
+    "spoken_phonetic_us": "/go out/",
+    "search_term": "phrasal verb/movement/leave",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Salir",
+        "usage_example": "I need to go out for a minute.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "I need to leave for a minute.",
+        "usage_example_es": "Necesito salir por un minuto.",
+        "char_count": "one",
+        "usage_context_en": "leaving a place",
+        "usage_context_es": "salir de un lugar"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Go",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "go back",
+    "phonetic": "/go back/",
+    "spoken_phonetic_us": "/go back/",
+    "search_term": "phrasal verb/return",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Regresar / Volver",
+        "usage_example": "We need to go back home.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "We need to return home.",
+        "usage_example_es": "Necesitamos volver a casa.",
+        "char_count": "one",
+        "usage_context_en": "returning",
+        "usage_context_es": "regresar"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Go",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "go away",
+    "phonetic": "/go away/",
+    "spoken_phonetic_us": "/go away/",
+    "search_term": "phrasal verb/leave",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Irse / Alejarse",
+        "usage_example": "Please go away.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "Please leave.",
+        "usage_example_es": "Por favor, vete.",
+        "char_count": "one",
+        "usage_context_en": "leaving/asking someone to leave",
+        "usage_context_es": "irse/pedir que alguien se vaya"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Go",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "go on",
+    "phonetic": "/go on/",
+    "spoken_phonetic_us": "/go on/",
+    "search_term": "phrasal verb/continue/happen",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Continuar / Seguir",
+        "usage_example": "Please go on.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "Please continue.",
+        "usage_example_es": "Por favor, continúa.",
+        "char_count": "one",
+        "usage_context_en": "continuing",
+        "usage_context_es": "continuar"
+      },
+      {
+        "meaning": "Pasar / Suceder",
+        "usage_example": "What is going on?",
+        "pronunciation_guide_es": "",
+        "alternative_example": "What is happening?",
+        "usage_example_es": "¿Qué está pasando?",
+        "char_count": "one",
+        "usage_context_en": "asking about a situation",
+        "usage_context_es": "preguntar por una situación"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Go",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "sit down",
+    "phonetic": "/sit down/",
+    "spoken_phonetic_us": "/sit down/",
+    "search_term": "phrasal verb/body movement",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Sentarse",
+        "usage_example": "Please sit down.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "Please take a seat.",
+        "usage_example_es": "Por favor, siéntate.",
+        "char_count": "one",
+        "usage_context_en": "basic instruction",
+        "usage_context_es": "instrucción básica"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Sit",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "stand up",
+    "phonetic": "/stand up/",
+    "spoken_phonetic_us": "/stand up/",
+    "search_term": "phrasal verb/body movement",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Ponerse de pie / Levantarse",
+        "usage_example": "Please stand up.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "Please get on your feet.",
+        "usage_example_es": "Por favor, ponte de pie.",
+        "char_count": "one",
+        "usage_context_en": "basic instruction",
+        "usage_context_es": "instrucción básica"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Stand",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "hurry up",
+    "phonetic": "/hurry up/",
+    "spoken_phonetic_us": "/hurry up/",
+    "search_term": "phrasal verb/urgency",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Apurarse / Darse prisa",
+        "usage_example": "Hurry up! The bus is leaving.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "Be quick!",
+        "usage_example_es": "¡Apúrate! El bus se va.",
+        "char_count": "one",
+        "usage_context_en": "urgent instruction",
+        "usage_context_es": "instrucción urgente"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Hurry",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "hold on",
+    "phonetic": "/hold on/",
+    "spoken_phonetic_us": "/hold on/",
+    "search_term": "phrasal verb/wait/hold",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Esperar un momento",
+        "usage_example": "Hold on, please.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "Wait a moment, please.",
+        "usage_example_es": "Espera un momento, por favor.",
+        "char_count": "one",
+        "usage_context_en": "phone/conversation",
+        "usage_context_es": "teléfono/conversación"
+      },
+      {
+        "meaning": "Agarrarse / Sujetarse",
+        "usage_example": "Hold on to the rail.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "Hold the rail.",
+        "usage_example_es": "Agárrate del pasamanos.",
+        "char_count": "one",
+        "usage_context_en": "safety",
+        "usage_context_es": "seguridad"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Hold",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "look for",
+    "phonetic": "/look for/",
+    "spoken_phonetic_us": "/look for/",
+    "search_term": "phrasal verb/search",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Buscar",
+        "usage_example": "I am looking for the hospital.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "I am trying to find the hospital.",
+        "usage_example_es": "Estoy buscando el hospital.",
+        "char_count": "one",
+        "usage_context_en": "asking/searching for a place",
+        "usage_context_es": "buscar un lugar"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Look",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "look at",
+    "phonetic": "/look at/",
+    "spoken_phonetic_us": "/look at/",
+    "search_term": "phrasal verb/vision",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Mirar",
+        "usage_example": "Look at this map.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "Check this map.",
+        "usage_example_es": "Mira este mapa.",
+        "char_count": "one",
+        "usage_context_en": "visual attention",
+        "usage_context_es": "atención visual"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Look",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "look out",
+    "phonetic": "/look out/",
+    "spoken_phonetic_us": "/look out/",
+    "search_term": "phrasal verb/warning",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "¡Cuidado! / Tener cuidado",
+        "usage_example": "Look out! A car is coming.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "Be careful!",
+        "usage_example_es": "¡Cuidado! Viene un carro.",
+        "char_count": "one",
+        "usage_context_en": "warning/danger",
+        "usage_context_es": "advertencia/peligro"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Look",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "help out",
+    "phonetic": "/help out/",
+    "spoken_phonetic_us": "/help out/",
+    "search_term": "phrasal verb/help",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Ayudar",
+        "usage_example": "Can you help me out?",
+        "pronunciation_guide_es": "",
+        "alternative_example": "Can you help me?",
+        "usage_example_es": "¿Puedes ayudarme?",
+        "char_count": "one",
+        "usage_context_en": "asking for help",
+        "usage_context_es": "pedir ayuda"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Help",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "pick up",
+    "phonetic": "/pɪk ʌp/",
+    "spoken_phonetic_us": "/pɪk ʌp/",
+    "search_term": "phrasal verb/lift/collect/learn/tidy/answer phone",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Levantar (del suelo, de una superficie)",
+        "usage_example": "Can you pick up that pencil for me?",
+        "pronunciation_guide_es": "/kæn_iu_pik_AP_dat_PENsil_for_mi/",
+        "alternative_example": "Can you lift that pencil for me?",
+        "usage_example_es": "¿Puedes levantar ese lápiz por mí?",
+        "char_count": "one",
+        "usage_context_en": "physical action/lifting",
+        "usage_context_es": "acción física/levantar",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_3_def0.avif"
+      },
+      {
+        "meaning": "Recoger (a alguien, usualmente en auto)",
+        "usage_example": "I need to pick up my kids from school.",
+        "pronunciation_guide_es": "/ai_NID_tu_pik_AP_mai_KIDS_from_SKUL/",
+        "alternative_example": "I need to collect my kids from school.",
+        "usage_example_es": "Tengo que recoger a mis hijos del colegio.",
+        "char_count": "one",
+        "usage_context_en": "daily routine/transport",
+        "usage_context_es": "rutina diaria/transporte",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_3_def1.avif"
+      },
+      {
+        "meaning": "Contestar (el teléfono)",
+        "usage_example": "The phone is ringing. Please pick it up.",
+        "pronunciation_guide_es": "/de_FOUN_is_RINGing. plis_pik_it_AP/",
+        "alternative_example": "The phone is ringing. Please answer it.",
+        "usage_example_es": "El teléfono está sonando. Por favor, contéstalo.",
+        "char_count": "one",
+        "usage_context_en": "phone call",
+        "usage_context_es": "llamada telefónica",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_3_def2.avif"
+      },
+      {
+        "meaning": "Ordenar, recoger (un desorden)",
+        "usage_example": "You need to pick up your room.",
+        "pronunciation_guide_es": "/iu_NID_tu_pik_AP_iur_RUM/",
+        "alternative_example": "You need to tidy your room.",
+        "usage_example_es": "Necesitas ordenar tu cuarto.",
+        "char_count": "one",
+        "usage_context_en": "chores/tidying up",
+        "usage_context_es": "quehaceres/ordenar",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_3_def3.avif"
+      },
+      {
+        "meaning": "Aprender (un idioma, habilidad, sin esfuerzo)",
+        "usage_example": "I picked up some Spanish in Medellín.",
+        "pronunciation_guide_es": "/ai_pikt_AP_sam_SPAnish_in_medeYIN/",
+        "alternative_example": "I learned some Spanish (casually) in Medellín.",
+        "usage_example_es": "Aprendí algo de español en Medellín.",
+        "char_count": "one",
+        "usage_context_en": "learning/skills",
+        "usage_context_es": "aprender/habilidades",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_3_def4.avif"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Pick",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "put on",
+    "phonetic": "/pʊt ɑn/",
+    "spoken_phonetic_us": "/pʊt ɑn/",
+    "search_term": "phrasal verb/clothing/wear/pretend/gain weight",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Ponerse (ropa)",
+        "usage_example": "Put on your jacket. It's cold outside.",
+        "pronunciation_guide_es": "/put_ON_iur_YAket. its_KOLD_autSAID/",
+        "alternative_example": "Wear your jacket. It's cold outside.",
+        "usage_example_es": "Ponte la chaqueta. Hace frío afuera.",
+        "char_count": "one",
+        "usage_context_en": "clothing/daily routine",
+        "usage_context_es": "ropa/rutina diaria",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_7_def0.avif"
+      },
+      {
+        "meaning": "Poner (música, un programa)",
+        "usage_example": "Can you put on some music?",
+        "pronunciation_guide_es": "/kæn_iu_put_ON_sam_MIUsik/",
+        "alternative_example": "Can you play some music?",
+        "usage_example_es": "¿Puedes poner algo de música?",
+        "char_count": "one",
+        "usage_context_en": "media/entertainment",
+        "usage_context_es": "medios/entretenimiento",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_7_def1.avif"
+      },
+      {
+        "meaning": "Ganar (peso)",
+        "usage_example": "He put on 10 pounds over the holidays.",
+        "pronunciation_guide_es": "/hi_put_ON_ten_PAUNDS_Over_de_HOlides/",
+        "alternative_example": "He gained 10 pounds over the holidays.",
+        "usage_example_es": "Él ganó 10 libras (kilos) durante las vacaciones.",
+        "char_count": "one",
+        "usage_context_en": "health/weight",
+        "usage_context_es": "salud/peso",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_7_def2.avif"
+      },
+      {
+        "meaning": "Fingir (una emoción)",
+        "usage_example": "She wasn't really sad. She just put it on.",
+        "pronunciation_guide_es": "/shi_UAsent_RIli_SAD. shi_yost_PU_rit_ON/",
+        "alternative_example": "She wasn't really sad. She just pretended.",
+        "usage_example_es": "No estaba realmente triste. Solo lo fingió.",
+        "char_count": "one",
+        "usage_context_en": "emotions/pretending",
+        "usage_context_es": "emociones/fingir",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_7_def3.avif"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Put",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "put out",
+    "phonetic": "/pʊt aʊt/",
+    "spoken_phonetic_us": "/pʊ 'taʊt/",
+    "search_term": "phrasal verb/extinguish/publish/inconvenience",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Apagar (un fuego, un cigarrillo)",
+        "usage_example": "The firefighters put out the fire quickly.",
+        "pronunciation_guide_es": "/de_FAIRfaiters_put_AUT_de_FAIR_KUIKli/",
+        "alternative_example": "The firefighters extinguished the fire quickly.",
+        "usage_example_es": "Los bomberos apagaron el fuego rápidamente.",
+        "char_count": "one",
+        "usage_context_en": "fire/extinguish",
+        "usage_context_es": "fuego/apagar",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_9_def0.avif"
+      },
+      {
+        "meaning": "Sacar (la basura)",
+        "usage_example": "Don't forget to put out the trash.",
+        "pronunciation_guide_es": "/dont_forGUET_tu_put_AUT_de_TRASH/",
+        "alternative_example": "Don't forget to take the trash outside.",
+        "usage_example_es": "No olvides sacar la basura.",
+        "char_count": "one",
+        "usage_context_en": "chores/household",
+        "usage_context_es": "quehaceres/hogar",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_9_def1.avif"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Put",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "put away",
+    "phonetic": "/pʊt əˈweɪ/",
+    "spoken_phonetic_us": "/pʊt əˈweɪ/",
+    "search_term": "phrasal verb/tidy/store/save money",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Guardar (algo en su lugar)",
+        "usage_example": "Please put away your toys now.",
+        "pronunciation_guide_es": "/plis_put_aUEI_iur_TOIS_NAU/",
+        "alternative_example": "Please store your toys in their proper place.",
+        "usage_example_es": "Por favor, guarda tus juguetes ahora.",
+        "char_count": "one",
+        "usage_context_en": "tidying up/chores",
+        "usage_context_es": "ordenar/quehaceres",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_11_def0.avif"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Put",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "run away",
+    "phonetic": "/rʌn əˈweɪ/",
+    "spoken_phonetic_us": "/rʌn əˈweɪ/",
+    "search_term": "phrasal verb/escape/flee",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Escapar, huir (especialmente de casa)",
+        "usage_example": "The dog ran away, but we found him.",
+        "pronunciation_guide_es": "/de_DOG_ran_aUEI, bat_ui_FAUND_him/",
+        "alternative_example": "The dog escaped, but we found him.",
+        "usage_example_es": "El perro se escapó, pero lo encontramos.",
+        "char_count": "one",
+        "usage_context_en": "escape/fleeing",
+        "usage_context_es": "escape/huida",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_16_def0.avif"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Run",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "run out",
+    "phonetic": "/rʌn aʊt/",
+    "spoken_phonetic_us": "/rʌ 'naʊt/",
+    "search_term": "phrasal verb/exhaust/supply/finish",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Agotarse, quedarse sin (algo)",
+        "usage_example": "We ran out of milk this morning.",
+        "pronunciation_guide_es": "/ui_ran_AUT_ov_MILK_dis_MORning/",
+        "alternative_example": "We exhausted our supply of milk this morning.",
+        "usage_example_es": "Nos quedamos sin leche esta mañana.",
+        "char_count": "one",
+        "usage_context_en": "supplies/shortage",
+        "usage_context_es": "suministros/escasez",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_13_def0.avif"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Run",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "turn on",
+    "phonetic": "/tɜrn ɑn/",
+    "spoken_phonetic_us": "/tɜrn ɑn/",
+    "search_term": "phrasal verb/activate/device/arouse",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Encender (luz, aparato)",
+        "usage_example": "Can you turn on the light, please?",
+        "pronunciation_guide_es": "/kæn_iu_tern_ON_de_LAIT, plis/",
+        "alternative_example": "Can you activate the light, please?",
+        "usage_example_es": "¿Puedes encender la luz, por favor?",
+        "char_count": "one",
+        "usage_context_en": "devices/electronics",
+        "usage_context_es": "aparatos/electrónica",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_34_def0.avif"
+      },
+      {
+        "meaning": "Atraer (romántica o sexualmente)",
+        "usage_example": "That kind of confidence really turns me on.",
+        "pronunciation_guide_es": "/dat_KAIND_ov_KONfidens_RIli_TERNS_mi_ON/",
+        "alternative_example": "That kind of confidence really attracts me.",
+        "usage_example_es": "Ese tipo de confianza realmente me atrae (excita).",
+        "char_count": "one",
+        "usage_context_en": "attraction/relationships (informal)",
+        "usage_context_es": "atracción/relaciones (informal)",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_34_def1.avif"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Turn",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "turn off",
+    "phonetic": "/tɜrn ɔf/",
+    "spoken_phonetic_us": "/tɜrn ɔf/",
+    "search_term": "phrasal verb/deactivate/device/repel",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Apagar (luz, aparato)",
+        "usage_example": "Don't forget to turn off the TV.",
+        "pronunciation_guide_es": "/dont_forGUET_tu_tern_OF_de_tiVI/",
+        "alternative_example": "Don't forget to deactivate the TV.",
+        "usage_example_es": "No olvides apagar la televisión.",
+        "char_count": "one",
+        "usage_context_en": "devices/electronics",
+        "usage_context_es": "aparatos/electrónica",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_35_def0.avif"
+      },
+      {
+        "meaning": "Repeler, desagradar",
+        "usage_example": "His bad attitude really turns me off.",
+        "pronunciation_guide_es": "/his_BAD_Atitud_RIli_TERNS_mi_OF/",
+        "alternative_example": "His bad attitude really repels me.",
+        "usage_example_es": "Su mala actitud realmente me repele (desagrada).",
+        "char_count": "one",
+        "usage_context_en": "dislike/repulsion (informal)",
+        "usage_context_es": "desagrado/repulsión (informal)",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_35_def1.avif"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Turn",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "wake up",
+    "phonetic": "/weɪk ʌp/",
+    "spoken_phonetic_us": "/weɪk ʌp/",
+    "search_term": "phrasal verb/daily routine/sleep/realize",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Despertarse (dejar de dormir)",
+        "usage_example": "What time do you usually wake up?",
+        "pronunciation_guide_es": "/uat_TAIM_du_iu_IUyuali_ueik_AP/",
+        "alternative_example": "What time do you usually stop sleeping?",
+        "usage_example_es": "¿A qué hora te despiertas usualmente?",
+        "char_count": "one",
+        "usage_context_en": "daily routine",
+        "usage_context_es": "rutina diaria",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_41_def0.avif"
+      },
+      {
+        "meaning": "Despertar (a alguien)",
+        "usage_example": "Can you wake me up at 7 AM?",
+        "pronunciation_guide_es": "/kæn_iu_UEIK_mi_AP_at_SEven_ei_EM/",
+        "alternative_example": "Can you rouse me at 7 AM?",
+        "usage_example_es": "¿Me puedes despertar a las 7 AM?",
+        "char_count": "one",
+        "usage_context_en": "request/daily routine",
+        "usage_context_es": "petición/rutina diaria",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_41_def1.avif"
+      },
+      {
+        "meaning": "Espabilar, darse cuenta (metafórico)",
+        "usage_example": "You need to wake up and see the problem.",
+        "pronunciation_guide_es": "/iu_NID_tu_ueik_AP_and_SI_de_PROblem/",
+        "alternative_example": "You need to realize and see the problem.",
+        "usage_example_es": "Necesitas espabilar (despertar) y ver el problema.",
+        "char_count": "one",
+        "usage_context_en": "metaphorical/realization",
+        "usage_context_es": "metafórico/darse cuenta",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_41_def2.avif"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Wake",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "take off",
+    "phonetic": "/teɪk ɔf/",
+    "spoken_phonetic_us": "/teɪk ɔf/",
+    "search_term": "phrasal verb/remove clothing/airplane/leave",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Quitarse (ropa, zapatos)",
+        "usage_example": "Please take off your shoes at the door.",
+        "pronunciation_guide_es": "/plis_teik_OF_iur_SHUS_at_de_DOR/",
+        "alternative_example": "Please remove your shoes at the door.",
+        "usage_example_es": "Por favor, quítate los zapatos en la puerta.",
+        "char_count": "one",
+        "usage_context_en": "clothing/instructions",
+        "usage_context_es": "ropa/instrucciones",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_27_def0.avif"
+      },
+      {
+        "meaning": "Despegar (un avión)",
+        "usage_example": "What time does the plane take off?",
+        "pronunciation_guide_es": "/uat_TAIM_das_de_PLEIN_teik_OF/",
+        "alternative_example": "What time does the plane depart/leave?",
+        "usage_example_es": "¿A qué hora despega el avión?",
+        "char_count": "one",
+        "usage_context_en": "travel/aviation",
+        "usage_context_es": "viajes/aviación",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_27_def1.avif"
+      },
+      {
+        "meaning": "Irse (repentinamente, informal)",
+        "usage_example": "He saw the police and took off.",
+        "pronunciation_guide_es": "/hi_SO_de_poLIS_and_tuk_OF/",
+        "alternative_example": "He saw the police and ran away.",
+        "usage_example_es": "Él vio a la policía y se fue (huyó).",
+        "char_count": "one",
+        "usage_context_en": "leaving quickly/informal",
+        "usage_context_es": "irse rápido/informal",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_27_def2.avif"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Take",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "take out",
+    "phonetic": "/teɪk aʊt/",
+    "spoken_phonetic_us": "/teɪ 'kaʊt/",
+    "search_term": "phrasal verb/remove/trash/dating/food",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Sacar (la basura)",
+        "usage_example": "It's your turn to take out the trash.",
+        "pronunciation_guide_es": "/its_iur_TERN_tu_teik_AUT_de_TRASH/",
+        "alternative_example": "It's your turn to remove the trash.",
+        "usage_example_es": "Es tu turno de sacar la basura.",
+        "char_count": "one",
+        "usage_context_en": "chores/household",
+        "usage_context_es": "quehaceres/hogar",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_28_def0.avif"
+      },
+      {
+        "meaning": "Llevar (a alguien) a salir (cena, cine)",
+        "usage_example": "He's taking me out for dinner on Friday.",
+        "pronunciation_guide_es": "/his_TEIking_mi_AUT_for_DIner_on_FRAIdei/",
+        "alternative_example": "He's inviting me to dinner on Friday.",
+        "usage_example_es": "Él me va a llevar a cenar el viernes.",
+        "char_count": "one",
+        "usage_context_en": "dating/social",
+        "usage_context_es": "citas/social",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_28_def1.avif"
+      },
+      {
+        "meaning": "Pedir comida (para llevar)",
+        "usage_example": "Let's just get take out tonight.",
+        "pronunciation_guide_es": "/lets_yost_get_TEIK_aut_tuNAIT/",
+        "alternative_example": "Let's just get food to go tonight.",
+        "usage_example_es": "Simplemente pidamos comida para llevar esta noche.",
+        "char_count": "one",
+        "usage_context_en": "food/ordering",
+        "usage_context_es": "comida/pedir",
+        "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_28_def2.avif"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Take",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "take care of",
+    "phonetic": "/take care of/",
+    "spoken_phonetic_us": "/take care of/",
+    "search_term": "phrasal verb/care/responsibility",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Cuidar / Encargarse de",
+        "usage_example": "I will take care of it.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "I will handle it.",
+        "usage_example_es": "Yo me encargaré de eso.",
+        "char_count": "one",
+        "usage_context_en": "responsibility/care",
+        "usage_context_es": "responsabilidad/cuidado"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Take",
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "keep away",
+    "phonetic": "/keep away/",
+    "spoken_phonetic_us": "/keep away/",
+    "search_term": "phrasal verb/safety",
+    "is_phrasal_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Mantenerse alejado",
+        "usage_example": "Keep away from the fire.",
+        "pronunciation_guide_es": "",
+        "alternative_example": "Stay away from the fire.",
+        "usage_example_es": "Mantente alejado del fuego.",
+        "char_count": "one",
+        "usage_context_en": "safety/warning",
+        "usage_context_es": "seguridad/advertencia"
+      }
+    ],
+    "group_name": "Phrasal Verbs: Keep",
+    "category": "Basic"
   }
 ]

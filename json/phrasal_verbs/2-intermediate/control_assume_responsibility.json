@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "take over",
+        "phonetic": "/teɪk ˈoʊvər/",
+        "spoken_phonetic_us": "/teɪk ˈoʊvər/",
+        "search_term": "phrasal verb/control/assume responsibility",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Asumir el control, tomar el relevo",
+                "usage_example": "She will take over the company next year.",
+                "pronunciation_guide_es": "/shi_uil_teik_Over_de_KOMpani_nekst_YIR/",
+                "alternative_example": "She will assume control of the company next year.",
+                "usage_example_es": "Ella asumirá el control de la empresa el próximo año.",
+                "char_count": "one",
+                "usage_context_en": "work/control/business",
+                "usage_context_es": "trabajo/control/negocios",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_30_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Take",
+        "category": "Intermediate"
+    }
+]

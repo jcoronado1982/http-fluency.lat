@@ -1,0 +1,51 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": true,
+        "learned_at": null,
+        "name": "get on",
+        "phonetic": "/ɡɛt ɑn/",
+        "spoken_phonetic_us": "/ɡɛɾ ɑn/",
+        "search_term": "phrasal verb transport/relationships/progress",
+        "is_phrasal_verb": true,
+        "definitions": [
+            {
+                "meaning": "subirse (a un transporte)",
+                "usage_example": "The family gets on the train at the station.",
+                "pronunciation_guide_es": "/da_FA-mi-li_guets_ON_da_trein_at_da_STEI-shon/",
+                "alternative_example": "The family boards the train at the station.",
+                "usage_example_es": "La familia se sube al tren en la estación.",
+                "char_count": "multiple",
+                "usage_context_en": "transport",
+                "usage_context_es": "transporte",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_39_def0.avif"
+            },
+            {
+                "meaning": "llevarse bien con alguien",
+                "usage_example": "How are you getting on with your new flatmate?",
+                "pronunciation_guide_es": "/jau_ar_iu_GUER-in_on_uiz_iur_niu_FLAT-meit/",
+                "alternative_example": "Do you have a good relationship with your new flatmate?",
+                "usage_example_es": "¿Cómo te llevas con tu nuevo compañero de piso?",
+                "char_count": "two",
+                "usage_context_en": "relationships",
+                "usage_context_es": "relaciones",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_39_def1.avif"
+            },
+            {
+                "meaning": "arreglárselas o hacer progreso",
+                "usage_example": "How are you getting on with your homework?",
+                "pronunciation_guide_es": "/jau_ar_iu_GUER-in_on_uiz_iur_JOM-uork/",
+                "alternative_example": "How are you progressing with your homework?",
+                "usage_example_es": "¿Cómo estás progresando con tu tarea?",
+                "char_count": "one",
+                "usage_context_en": "progress",
+                "usage_context_es": "progreso",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_39_def2.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Get",
+        "category": "Basic"
+    }
+]

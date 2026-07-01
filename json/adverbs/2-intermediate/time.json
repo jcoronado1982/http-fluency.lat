@@ -1,0 +1,108 @@
+[
+    {
+        "name": "already",
+        "phonetic": "/ɔːlˈrɛdi/",
+        "spoken_phonetic_us": "/ɔlˈrɛdi/",
+        "search_term": "adverb/time",
+        "is_verb": false,
+        "learned": true,
+        "force_generation": false,
+        "group_name": "Adverbs: Time",
+        "definitions": [
+            {
+                "meaning": "Ya",
+                "usage_example": "I have already eaten.",
+                "pronunciation_guide_es": "/ai_hav_ol-RE-di_I-ten/",
+                "usage_example_es": "Ya he comido.",
+                "char_count": 4,
+                "usage_context_en": "Before or by now; sooner than expected.",
+                "usage_context_es": "Antes o por ahora; más pronto de lo esperado."
+            }
+        ]
+    },
+    {
+        "name": "still",
+        "phonetic": "/stɪl/",
+        "spoken_phonetic_us": "/stɪl/",
+        "search_term": "adverb/time",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Time",
+        "definitions": [
+            {
+                "meaning": "Todavía / Aún",
+                "usage_example": "Are you still here?",
+                "pronunciation_guide_es": "/ar_iu_STIL_HIR/",
+                "usage_example_es": "¿Todavía estás aquí?",
+                "char_count": 4,
+                "usage_context_en": "Continuing to happen or be in a situation up to the present time.",
+                "usage_context_es": "Que continúa sucediendo o estando en una situación hasta el tiempo presente.",
+                "imagePath": "/card_images/adverbs/1-basic/1-basic_card_27_def0.jpg"
+            }
+        ]
+    },
+    {
+        "name": "recently",
+        "phonetic": "/ˈriːsəntli/",
+        "spoken_phonetic_us": "/ˈriːsəntli/",
+        "search_term": "adverb/time",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Time",
+        "definitions": [
+            {
+                "meaning": "Recientemente / Hace poco",
+                "usage_example": "I saw him recently.",
+                "pronunciation_guide_es": "/ai_SO_him_RI-sent-li/",
+                "usage_example_es": "Lo vi recientemente.",
+                "char_count": "4",
+                "usage_context_en": "At a recent time; not long ago.",
+                "usage_context_es": "En un tiempo reciente; no hace mucho."
+            }
+        ]
+    },
+    {
+        "name": "eventually",
+        "phonetic": "/ɪˈvɛntʃuəli/",
+        "spoken_phonetic_us": "/ɪˈvɛntʃuəli/",
+        "search_term": "adverb/time",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Time",
+        "definitions": [
+            {
+                "meaning": "Finalmente / Al final",
+                "usage_example": "He eventually found his keys.",
+                "pronunciation_guide_es": "/hi_e-VEN-chu-a-li_FAUND_his_KIS/",
+                "usage_example_es": "Él finalmente encontró sus llaves.",
+                "char_count": "5",
+                "usage_context_en": "In the end, especially after a long time or much effort.",
+                "usage_context_es": "Al final, especialmente después de mucho tiempo o mucho esfuerzo."
+            }
+        ]
+    },
+    {
+        "name": "forever",
+        "phonetic": "/fərˈɛvər/",
+        "spoken_phonetic_us": "/fərˈɛvər/",
+        "search_term": "adverb/time",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Time",
+        "definitions": [
+            {
+                "meaning": "Para siempre",
+                "usage_example": "I will love you forever.",
+                "pronunciation_guide_es": "/ai_uil_LOV_iu_for-E-ver/",
+                "usage_example_es": "Te amaré para siempre.",
+                "char_count": "5",
+                "usage_context_en": "For all future time; for eternity.",
+                "usage_context_es": "Por todo el tiempo futuro; por la eternidad."
+            }
+        ]
+    }
+]

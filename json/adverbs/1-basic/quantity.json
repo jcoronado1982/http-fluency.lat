@@ -1,0 +1,65 @@
+[
+    {
+        "name": "enough",
+        "phonetic": "/ɪˈnʌf/",
+        "spoken_phonetic_us": "/ɪˈnʌf/",
+        "search_term": "survival/quantity",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Survival: Street Basics",
+        "definitions": [
+            {
+                "meaning": "Suficiente",
+                "usage_example": "That is enough, thank you.",
+                "pronunciation_guide_es": "/dat_is_i-NOF_THANK_iu/",
+                "usage_example_es": "Eso es suficiente, gracias.",
+                "char_count": "5",
+                "usage_context_en": "Used to say that the amount is sufficient.",
+                "usage_context_es": "Usado para decir que la cantidad es suficiente."
+            }
+        ]
+    },
+    {
+        "name": "more",
+        "phonetic": "/mɔr/",
+        "spoken_phonetic_us": "/mɔr/",
+        "search_term": "survival/quantity",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Survival: Street Basics",
+        "definitions": [
+            {
+                "meaning": "Más",
+                "usage_example": "I need more water.",
+                "pronunciation_guide_es": "/ai_NID_MOR_UO-ter/",
+                "usage_example_es": "Necesito más agua.",
+                "char_count": "4",
+                "usage_context_en": "Used to ask for or describe a greater amount.",
+                "usage_context_es": "Usado para pedir o describir una cantidad mayor."
+            }
+        ]
+    },
+    {
+        "name": "less",
+        "phonetic": "/lɛs/",
+        "spoken_phonetic_us": "/lɛs/",
+        "search_term": "survival/quantity",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Survival: Street Basics",
+        "definitions": [
+            {
+                "meaning": "Menos",
+                "usage_example": "I need less sugar.",
+                "pronunciation_guide_es": "/ai_NID_LES_SHU-gar/",
+                "usage_example_es": "Necesito menos azúcar.",
+                "char_count": "4",
+                "usage_context_en": "Used to ask for or describe a smaller amount.",
+                "usage_context_es": "Usado para pedir o describir una cantidad menor."
+            }
+        ]
+    }
+]

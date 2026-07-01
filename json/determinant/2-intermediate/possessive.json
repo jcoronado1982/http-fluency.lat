@@ -1,0 +1,83 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "own",
+        "phonetic": "/oʊn/",
+        "spoken_phonetic_us": "/oʊn/",
+        "search_term": "determiner/possessive",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Possessives",
+        "definitions": [
+            {
+                "meaning": "Propio/a",
+                "usage_example": "This is my own car.",
+                "pronunciation_guide_es": "/dis_is_mai_OUN_CAR/",
+                "usage_example_es": "Este es mi propio carro.",
+                "char_count": "5",
+                "usage_context_en": "Used with a possessive determiner (my, your, his) to emphasize ownership.",
+                "usage_context_es": "Usado con un determinante posesivo (mi, tu, su) para enfatizar posesión.",
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_13_def0.avif"
+            }
+        ],
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "somebody’s",
+        "phonetic": "/ˈsʌmbədiz/",
+        "spoken_phonetic_us": "/ˈsʌmbədiz/",
+        "search_term": "determiner/possessive",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Possessives",
+        "definitions": [
+            {
+                "meaning": "De alguien",
+                "usage_example": "I found somebody's wallet.",
+                "pronunciation_guide_es": "/ai_FAUND_SOM-bo-dis_UA-let/",
+                "usage_example_es": "Encontré la billetera de alguien.",
+                "char_count": "4",
+                "usage_context_en": "Belonging to some person (unspecified).",
+                "usage_context_es": "Perteneciente a alguna persona (no especificada).",
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_25_def0.avif"
+            }
+        ],
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "everyone’s",
+        "phonetic": "/ˈɛvriwʌnz/",
+        "spoken_phonetic_us": "/ˈɛvriwʌnz/",
+        "search_term": "determiner/possessive",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Possessives",
+        "definitions": [
+            {
+                "meaning": "De todos/as",
+                "usage_example": "What is everyone's opinion?",
+                "pronunciation_guide_es": "/uat_is_E-vri-uans_o-PI-nion/",
+                "usage_example_es": "¿Cuál es la opinión de todos?",
+                "char_count": "4",
+                "usage_context_en": "Belonging to every person in a group.",
+                "usage_context_es": "Perteneciente a cada persona en un grupo.",
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_26_def0.avif"
+            }
+        ],
+        "category": "Intermediate"
+    }
+]

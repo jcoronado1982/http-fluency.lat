@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "come up with",
+        "phonetic": "/kʌm ʌp wɪθ/",
+        "spoken_phonetic_us": "/kʌm ʌp wɪθ/",
+        "search_term": "phrasal verb/ideas/create",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Idear, proponer, ocurrirse (una idea)",
+                "usage_example": "He came up with a great idea.",
+                "pronunciation_guide_es": "/hi_keim_AP_uith_a_GREIT_aiDIa/",
+                "alternative_example": "He thought of a great idea.",
+                "usage_example_es": "Se le ocurrió una gran idea.",
+                "char_count": "one",
+                "usage_context_en": "ideas/planning",
+                "usage_context_es": "ideas/planificación",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_28_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Come",
+        "category": "Intermediate"
+    }
+]

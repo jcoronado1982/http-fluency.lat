@@ -1,0 +1,44 @@
+[
+    {
+        "name": "rarely",
+        "phonetic": "/ˈrɛərli/",
+        "spoken_phonetic_us": "/ˈrɛrli/",
+        "search_term": "adverb/frequency",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Frequency",
+        "definitions": [
+            {
+                "meaning": "Rara vez / Casi nunca",
+                "usage_example": "He rarely goes to the cinema.",
+                "pronunciation_guide_es": "/hi_RER-li_GOUS_tu_de_SI-ne-ma/",
+                "usage_example_es": "Él rara vez va al cine.",
+                "char_count": "6",
+                "usage_context_en": "Not often; seldom (approx. 5-10% of the time).",
+                "usage_context_es": "No a menudo; pocas veces (aprox. 5-10% del tiempo)."
+            }
+        ]
+    },
+    {
+        "name": "generally",
+        "phonetic": "/ˈdʒɛnərəli/",
+        "spoken_phonetic_us": "/ˈdʒɛnərəli/",
+        "search_term": "adverb/frequency",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Frequency",
+        "definitions": [
+            {
+                "meaning": "Generalmente / Por lo general",
+                "usage_example": "I generally wake up early.",
+                "pronunciation_guide_es": "/ai_YE-ne-ra-li_UEIK_OP_ER-li/",
+                "usage_example_es": "Generalmente me despierto temprano.",
+                "char_count": 5,
+                "usage_context_en": "Usually; in most cases.",
+                "usage_context_es": "Usualmente; en la mayoría de los casos."
+            }
+        ]
+    }
+]

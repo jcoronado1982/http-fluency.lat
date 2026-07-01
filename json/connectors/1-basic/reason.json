@@ -1,0 +1,28 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "because",
+        "phonetic": "/bɪˈkɔz/",
+        "spoken_phonetic_us": "/bɪˈkɔz/",
+        "search_term": "conjunction/reason",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Cause & Effect",
+        "definitions": [
+            {
+                "meaning": "Porque",
+                "usage_example": "I am tired because I worked a lot.",
+                "pronunciation_guide_es": "/ai_am_TAI-erd_bi-COZ_ai_UORKT_a_LOT/",
+                "usage_example_es": "Estoy cansado porque trabajé mucho.",
+                "char_count": "7",
+                "usage_context_en": "Used to introduce a reason or cause.",
+                "usage_context_es": "Usado para introducir una razón o causa.",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_19_def0.avif"
+            }
+        ]
+    }
+]

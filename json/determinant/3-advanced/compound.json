@@ -1,0 +1,83 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "certain other",
+        "phonetic": "/ˈsɜrtən ˈʌðər/",
+        "spoken_phonetic_us": "/ˈsɜrtən ˈʌðər/",
+        "search_term": "determiner/compound",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Other",
+        "definitions": [
+            {
+                "meaning": "Otros/as ciertos/as",
+                "usage_example": "Certain other factors were involved.",
+                "pronunciation_guide_es": "/SER-ten_O-der_FAC-tors_uer_in-VOLVD/",
+                "usage_example_es": "Ciertos otros factores estuvieron involucrados.",
+                "char_count": "5",
+                "usage_context_en": "A specific but unnamed additional group.",
+                "usage_context_es": "Un grupo adicional específico pero no nombrado.",
+                "imagePath": "/card_images/determinant/3-advanced/3-advanced_card_16_def0.avif"
+            }
+        ],
+        "category": "Advanced"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "various other",
+        "phonetic": "/ˈvɛəriəs ˈʌðər/",
+        "spoken_phonetic_us": "/ˈvɛriəs ˈʌðər/",
+        "search_term": "determiner/compound",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Other",
+        "definitions": [
+            {
+                "meaning": "Varios/as otros/as",
+                "usage_example": "He has various other reasons.",
+                "pronunciation_guide_es": "/hi_HAS_VE-ri-os_O-der_RI-sons/",
+                "usage_example_es": "Él tiene varias otras razones.",
+                "char_count": "5",
+                "usage_context_en": "Several additional and different items.",
+                "usage_context_es": "Varios ítems adicionales y diferentes.",
+                "imagePath": "/card_images/determinant/3-advanced/3-advanced_card_17_def0.avif"
+            }
+        ],
+        "category": "Advanced"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "an additional",
+        "phonetic": "/ən əˈdɪʃənəl/",
+        "spoken_phonetic_us": "/ən əˈdɪʃənəl/",
+        "search_term": "determiner/compound",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Other",
+        "definitions": [
+            {
+                "meaning": "Un/Una adicional",
+                "usage_example": "We need an additional chair.",
+                "pronunciation_guide_es": "/ui_NID_an_a-DI-sho-nal_CHER/",
+                "usage_example_es": "Necesitamos una silla adicional.",
+                "char_count": "5",
+                "usage_context_en": "One more; an extra one.",
+                "usage_context_es": "Uno más; uno extra.",
+                "imagePath": "/card_images/determinant/3-advanced/3-advanced_card_23_def0.avif"
+            }
+        ],
+        "category": "Advanced"
+    }
+]

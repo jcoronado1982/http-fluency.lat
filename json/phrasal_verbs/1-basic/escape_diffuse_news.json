@@ -1,0 +1,40 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": true,
+        "learned_at": null,
+        "name": "get out",
+        "phonetic": "/ɡɛt aʊt/",
+        "spoken_phonetic_us": "/ɡɛɾ aʊt/",
+        "search_term": "phrasal verb movement/escape/diffuse news",
+        "is_phrasal_verb": true,
+        "definitions": [
+            {
+                "meaning": "salir (de un lugar), irse",
+                "usage_example": "I get out of the house through the front door.",
+                "pronunciation_guide_es": "/ai_guer_ÁU-rov_da_jaus_zru_da_front_dor/",
+                "alternative_example": "I exit the house through the front door.",
+                "usage_example_es": "Salgo de la casa por la puerta principal.",
+                "char_count": "one",
+                "usage_context_en": "movement",
+                "usage_context_es": "movimiento",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_38_def0.avif"
+            },
+            {
+                "meaning": "hacer que una noticia se sepa o difundir",
+                "usage_example": "The news about the scandal soon got out.",
+                "pronunciation_guide_es": "/da_nius_aBAU_da_SKAN-dal_sun_gar_ÁUT/",
+                "alternative_example": "The news about the scandal soon became public.",
+                "usage_example_es": "La noticia sobre el escándalo pronto se difundió.",
+                "char_count": "one",
+                "usage_context_en": "diffuse news",
+                "usage_context_es": "difundir noticias",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_38_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Get",
+        "category": "Basic"
+    }
+]

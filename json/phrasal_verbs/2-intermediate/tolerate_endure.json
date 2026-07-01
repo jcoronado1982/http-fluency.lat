@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "put up with",
+        "phonetic": "/pʊt ʌp wɪθ/",
+        "spoken_phonetic_us": "/pʊt ʌp wɪθ/",
+        "search_term": "phrasal verb/tolerate/endure",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Soportar, aguantar (algo o a alguien)",
+                "usage_example": "I can't put up with his excuses anymore.",
+                "pronunciation_guide_es": "/ai_KANT_put_AP_uith_his_eksKIUses_eniMOR/",
+                "alternative_example": "I can't tolerate his excuses anymore.",
+                "usage_example_es": "Ya no puedo soportar sus excusas.",
+                "char_count": "one",
+                "usage_context_en": "tolerance/frustration",
+                "usage_context_es": "tolerancia/frustración",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_10_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Put",
+        "category": "Intermediate"
+    }
+]

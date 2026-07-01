@@ -1,0 +1,23 @@
+[
+    {
+        "name": "suddenly",
+        "phonetic": "/ˈsʌdənli/",
+        "spoken_phonetic_us": "/ˈsʌdənli/",
+        "search_term": "adverb/time/manner",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Manner",
+        "definitions": [
+            {
+                "meaning": "De repente / Súbitamente",
+                "usage_example": "Suddenly, the lights went out.",
+                "pronunciation_guide_es": "/SO-den-li_de_LAITS_uent_AUT/",
+                "usage_example_es": "De repente, las luces se apagaron.",
+                "char_count": "5",
+                "usage_context_en": "Quickly and unexpectedly.",
+                "usage_context_es": "Rápida e inesperadamente."
+            }
+        ]
+    }
+]

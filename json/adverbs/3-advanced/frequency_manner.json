@@ -1,0 +1,23 @@
+[
+    {
+        "name": "constantly",
+        "phonetic": "/ˈkɒnstəntli/",
+        "spoken_phonetic_us": "/ˈkɑnstəntli/",
+        "search_term": "adverb/frequency/manner",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Frequency",
+        "definitions": [
+            {
+                "meaning": "Constantemente",
+                "usage_example": "He is constantly checking his phone.",
+                "pronunciation_guide_es": "/hi_is_CON-stant-li_CHE-king_his_FOUN/",
+                "usage_example_es": "Él está constantemente revisando su teléfono.",
+                "char_count": 6,
+                "usage_context_en": "Continuously over a period of time; always.",
+                "usage_context_es": "Continuamente durante un período de tiempo; siempre."
+            }
+        ]
+    }
+]

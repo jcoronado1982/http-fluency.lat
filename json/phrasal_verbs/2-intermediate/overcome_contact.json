@@ -1,0 +1,39 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "get through",
+        "phonetic": "/get through/",
+        "spoken_phonetic_us": "/get through/",
+        "search_term": "phrasal verb/overcome/contact",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Superar / Pasar por algo difícil",
+                "usage_example": "We will get through this.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "We will survive this situation.",
+                "usage_example_es": "Vamos a superar esto.",
+                "char_count": "one",
+                "usage_context_en": "difficulty/support",
+                "usage_context_es": "dificultad/apoyo"
+            },
+            {
+                "meaning": "Comunicar por teléfono",
+                "usage_example": "I couldn’t get through to the office.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "I couldn’t reach the office.",
+                "usage_example_es": "No pude comunicarme con la oficina.",
+                "char_count": "one",
+                "usage_context_en": "phone/contact",
+                "usage_context_es": "teléfono/contacto"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Get",
+        "category": "Intermediate"
+    }
+]

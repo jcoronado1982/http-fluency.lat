@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "turn around",
+        "phonetic": "/tɜrn əˈraʊnd/",
+        "spoken_phonetic_us": "/tɜrn əˈraʊnd/",
+        "search_term": "phrasal verb/rotate/change direction/improve",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Darse la vuelta, girar",
+                "usage_example": "Turn around and let me see your back.",
+                "pronunciation_guide_es": "/tern_aRAUND_and_let_mi_SI_iur_BAK/",
+                "alternative_example": "Rotate and let me see your back.",
+                "usage_example_es": "Date la vuelta y déjame ver tu espalda.",
+                "char_count": "one",
+                "usage_context_en": "physical movement/direction",
+                "usage_context_es": "movimiento físico/dirección",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_40_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Turn",
+        "category": "Intermediate"
+    }
+]

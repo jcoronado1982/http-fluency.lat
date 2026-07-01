@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "work up",
+        "phonetic": "/wɜrk ʌp/",
+        "spoken_phonetic_us": "/wɜrk ʌp/",
+        "search_term": "phrasal verb/develop feeling/generate",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Desarrollar, generar (un sentimiento, apetito)",
+                "usage_example": "We worked up a big appetite after the hike.",
+                "pronunciation_guide_es": "/ui_uorkt_AP_a_BIG_Apetait_after_de_HAIK/",
+                "alternative_example": "We developed a big appetite after the hike.",
+                "usage_example_es": "Nos dio mucha hambre después de la caminata.",
+                "char_count": "one",
+                "usage_context_en": "feelings/hunger",
+                "usage_context_es": "sentimientos/hambre",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_45_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Work",
+        "category": "Advanced"
+    }
+]

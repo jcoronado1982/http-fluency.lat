@@ -1,0 +1,39 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "hold on",
+        "phonetic": "/hold on/",
+        "spoken_phonetic_us": "/hold on/",
+        "search_term": "phrasal verb/wait/hold",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Esperar un momento",
+                "usage_example": "Hold on, please.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "Wait a moment, please.",
+                "usage_example_es": "Espera un momento, por favor.",
+                "char_count": "one",
+                "usage_context_en": "phone/conversation",
+                "usage_context_es": "teléfono/conversación"
+            },
+            {
+                "meaning": "Agarrarse / Sujetarse",
+                "usage_example": "Hold on to the rail.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "Hold the rail.",
+                "usage_example_es": "Agárrate del pasamanos.",
+                "char_count": "one",
+                "usage_context_en": "safety",
+                "usage_context_es": "seguridad"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Hold",
+        "category": "Basic"
+    }
+]

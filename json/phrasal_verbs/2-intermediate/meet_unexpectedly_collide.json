@@ -1,0 +1,41 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "run into",
+        "phonetic": "/rʌn ˈɪntu/",
+        "spoken_phonetic_us": "/rʌn ˈɪndu/",
+        "search_term": "phrasal verb/meet unexpectedly/collide",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Encontrarse con (alguien) por casualidad",
+                "usage_example": "I ran into my old teacher at the store.",
+                "pronunciation_guide_es": "/ai_ran_INdu_mai_OLD_TIcher_at_de_STOR/",
+                "alternative_example": "I met my old teacher unexpectedly at the store.",
+                "usage_example_es": "Me encontré con mi antiguo profesor en la tienda.",
+                "char_count": "one",
+                "usage_context_en": "unexpected meeting",
+                "usage_context_es": "encuentro inesperado",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_14_def0.avif"
+            },
+            {
+                "meaning": "Chocar con (algo)",
+                "usage_example": "He ran into a tree with his bike.",
+                "pronunciation_guide_es": "/hi_ran_INdu_a_TRI_uith_his_BAIK/",
+                "alternative_example": "He collided with a tree with his bike.",
+                "usage_example_es": "Chocó contra un árbol con su bicicleta.",
+                "char_count": "one",
+                "usage_context_en": "collision/accident",
+                "usage_context_es": "colisión/accidente",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_14_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Run",
+        "category": "Intermediate"
+    }
+]

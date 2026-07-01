@@ -1,0 +1,52 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "break out",
+        "phonetic": "/breɪk aʊt/",
+        "spoken_phonetic_us": "/breɪ 'kaʊt/",
+        "search_term": "phrasal verb/escape/start suddenly",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Escapar (de la cárcel)",
+                "usage_example": "Two prisoners broke out of jail.",
+                "pronunciation_guide_es": "/tu_PRIsoners_brouk_AUT_of_YEIL/",
+                "alternative_example": "Two prisoners escaped from jail.",
+                "usage_example_es": "Dos prisioneros escaparon de la cárcel.",
+                "char_count": "one",
+                "usage_context_en": "escape/crime",
+                "usage_context_es": "escape/crimen",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_3_def0.avif"
+            },
+            {
+                "meaning": "Tener un brote (de acné, sarpullido)",
+                "usage_example": "I always break out when I'm stressed.",
+                "pronunciation_guide_es": "/ai_OLueis_breik_AUT_uen_aim_STREST/",
+                "alternative_example": "I always get pimples when I'm stressed.",
+                "usage_example_es": "Siempre me sale acné cuando estoy estresado.",
+                "char_count": "one",
+                "usage_context_en": "health/skin",
+                "usage_context_es": "salud/piel",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_3_def1.avif"
+            },
+            {
+                "meaning": "Estallar (una guerra, un incendio)",
+                "usage_example": "A fire broke out in the building.",
+                "pronunciation_guide_es": "/a_FAier_brouk_AUT_in_de_BILding/",
+                "alternative_example": "A fire started suddenly in the building.",
+                "usage_example_es": "Estalló un incendio en el edificio.",
+                "char_count": "one",
+                "usage_context_en": "emergencies/events",
+                "usage_context_es": "emergencias/eventos",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_3_def2.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Break",
+        "category": "Basic"
+    }
+]

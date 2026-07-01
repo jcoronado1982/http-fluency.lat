@@ -1,0 +1,39 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "give up",
+        "phonetic": "/give up/",
+        "spoken_phonetic_us": "/give up/",
+        "search_term": "phrasal verb/quit/stop",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Rendirse / Dejar de intentar",
+                "usage_example": "Don’t give up.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "Don’t stop trying.",
+                "usage_example_es": "No te rindas.",
+                "char_count": "one",
+                "usage_context_en": "motivation/effort",
+                "usage_context_es": "motivación/esfuerzo"
+            },
+            {
+                "meaning": "Dejar un hábito",
+                "usage_example": "He gave up smoking.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "He stopped smoking.",
+                "usage_example_es": "Él dejó de fumar.",
+                "char_count": "one",
+                "usage_context_en": "habits/health",
+                "usage_context_es": "hábitos/salud"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Give",
+        "category": "Intermediate"
+    }
+]

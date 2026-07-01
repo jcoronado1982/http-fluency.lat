@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "go over",
+        "phonetic": "/go over/",
+        "spoken_phonetic_us": "/go over/",
+        "search_term": "phrasal verb/review",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Revisar / Repasar",
+                "usage_example": "Let’s go over the plan.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "Let’s review the plan.",
+                "usage_example_es": "Repasemos el plan.",
+                "char_count": "one",
+                "usage_context_en": "review/planning",
+                "usage_context_es": "revisión/planificación"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Go",
+        "category": "Intermediate"
+    }
+]

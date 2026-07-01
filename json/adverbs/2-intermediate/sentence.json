@@ -1,0 +1,65 @@
+[
+    {
+        "name": "luckily",
+        "phonetic": "/ˈlʌkɪli/",
+        "spoken_phonetic_us": "/ˈlʌkɪli/",
+        "search_term": "adverb/sentence",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Sentence",
+        "definitions": [
+            {
+                "meaning": "Afortunadamente / Por suerte",
+                "usage_example": "Luckily, I found my keys.",
+                "pronunciation_guide_es": "/LO-ki-li_ai_FAUND_mai_KIS/",
+                "usage_example_es": "Afortunadamente, encontré mis llaves.",
+                "char_count": "4",
+                "usage_context_en": "It is fortunate that; by good luck.",
+                "usage_context_es": "Es afortunado que; por buena suerte."
+            }
+        ]
+    },
+    {
+        "name": "unfortunately",
+        "phonetic": "/ʌnˈfɔːrtʃənətli/",
+        "spoken_phonetic_us": "/ʌnˈfɔrtʃənətli/",
+        "search_term": "adverb/sentence",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Sentence",
+        "definitions": [
+            {
+                "meaning": "Desafortunadamente / Lamentablemente",
+                "usage_example": "Unfortunately, the store was closed.",
+                "pronunciation_guide_es": "/on-FOR-chu-net-li_de_STOR_uas_CLOUSD/",
+                "usage_example_es": "Desafortunadamente, la tienda estaba cerrada.",
+                "char_count": "5",
+                "usage_context_en": "It is unfortunate that; by bad luck.",
+                "usage_context_es": "Es desafortunado que; por mala suerte."
+            }
+        ]
+    },
+    {
+        "name": "personally",
+        "phonetic": "/ˈpɜːrsənəli/",
+        "spoken_phonetic_us": "/ˈpɜrsənəli/",
+        "search_term": "adverb/sentence",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Sentence",
+        "definitions": [
+            {
+                "meaning": "Personalmente / En mi opinión",
+                "usage_example": "Personally, I disagree.",
+                "pronunciation_guide_es": "/PER-so-na-li_ai_dis-a-GRI/",
+                "usage_example_es": "Personalmente, no estoy de acuerdo.",
+                "char_count": "3",
+                "usage_context_en": "Used to express one's own opinion.",
+                "usage_context_es": "Usado para expresar la opinión propia."
+            }
+        ]
+    }
+]

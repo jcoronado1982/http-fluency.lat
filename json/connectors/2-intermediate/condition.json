@@ -1,0 +1,80 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "unless",
+        "phonetic": "/ənˈlɛs/",
+        "spoken_phonetic_us": "/ənˈlɛs/",
+        "search_term": "conjunction/condition",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Condition",
+        "definitions": [
+            {
+                "meaning": "A menos que",
+                "usage_example": "I will stay home, unless it stops raining.",
+                "pronunciation_guide_es": "/ai_uil_STEI_HOUM_on-LES_it_STOPS_REI-ning/",
+                "usage_example_es": "Me quedaré en casa, a menos que deje de llover.",
+                "char_count": "7",
+                "usage_context_en": "Used to introduce a negative condition (same as 'if... not').",
+                "usage_context_es": "Usado para introducir una condición negativa (igual a 'si... no').",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_35_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "as long as",
+        "phonetic": "/æz lɔŋ æz/",
+        "spoken_phonetic_us": "/æz lɔŋ æz/",
+        "search_term": "phrase/condition",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Condition",
+        "definitions": [
+            {
+                "meaning": "Siempre y cuando / Con tal de que",
+                "usage_example": "You can go, as long as you finish your homework.",
+                "pronunciation_guide_es": "/iu_can_GOU_as_LONG_as_iu_FI-nish_iur_HOM-uork/",
+                "usage_example_es": "Puedes ir, siempre y cuando termines tu tarea.",
+                "char_count": "9",
+                "usage_context_en": "Used to introduce a condition that must be true for the main clause to be true.",
+                "usage_context_es": "Usado para introducir una condición que debe ser verdad para que la cláusula principal lo sea.",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_36_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "otherwise",
+        "phonetic": "/ˈʌðərˌwaɪz/",
+        "spoken_phonetic_us": "/ˈʌðərˌwaɪz/",
+        "search_term": "connector/condition",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Condition",
+        "definitions": [
+            {
+                "meaning": "De lo contrario",
+                "usage_example": "You need to study hard; otherwise, you will fail.",
+                "pronunciation_guide_es": "/iu_nid_tu_sta-di_jard_o-der-uais_iu_uil_feil/",
+                "usage_example_es": "Necesitas estudiar mucho; de lo contrario, reprobarás.",
+                "char_count": "9",
+                "usage_context_en": "In circumstances different from those present or considered.",
+                "usage_context_es": "En circunstancias diferentes a las presentes o consideradas.",
+                "imagePath": "/card_images/connectors/2-intermediate/2-intermediate_card_6_def0.avif"
+            }
+        ]
+    }
+]

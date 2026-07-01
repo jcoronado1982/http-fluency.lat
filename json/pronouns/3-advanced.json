@@ -8,10 +8,10 @@
     "name": "whoever",
     "phonetic": "/huːˈɛvər/",
     "spoken_phonetic_us": "/huːˈɛvər/",
-    "search_term": "pronoun/relative",
+    "search_term": "pronoun/indefinite-relative",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido/Relativo",
     "definitions": [
       {
         "meaning": "Quienquiera que / Quien sea",
@@ -23,7 +23,8 @@
         "usage_context_es": "Usado para significar 'cualquier persona que'.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_0_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -34,10 +35,10 @@
     "name": "whatever",
     "phonetic": "/wɒtˈɛvər/",
     "spoken_phonetic_us": "/wʌtˈɛvər/",
-    "search_term": "pronoun/relative/determiner",
+    "search_term": "pronoun/indefinite-relative",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido/Relativo",
     "definitions": [
       {
         "meaning": "Lo que sea / Cualquier cosa que",
@@ -59,7 +60,8 @@
         "usage_context_es": "Usado informalmente para mostrar indiferencia.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_1_def1.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -70,10 +72,10 @@
     "name": "whichever",
     "phonetic": "/wɪtʃˈɛvər/",
     "spoken_phonetic_us": "/wɪtʃˈɛvər/",
-    "search_term": "pronoun/relative/determiner",
+    "search_term": "pronoun/indefinite-relative",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido/Relativo",
     "definitions": [
       {
         "meaning": "Cualquiera (que) (opciones limitadas)",
@@ -85,7 +87,8 @@
         "usage_context_es": "Usado para significar 'cualquiera de un conjunto limitado'.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_2_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -99,7 +102,7 @@
     "search_term": "pronoun/partitive",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Partitives",
+    "group_name": "Partitivo",
     "definitions": [
       {
         "meaning": "Cada uno de nosotros",
@@ -111,7 +114,8 @@
         "usage_context_es": "Cada individuo en el grupo 'nosotros', considerado por separado.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_3_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -125,7 +129,7 @@
     "search_term": "pronoun/partitive",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Partitives",
+    "group_name": "Partitivo",
     "definitions": [
       {
         "meaning": "Ninguno de ellos/as",
@@ -137,7 +141,8 @@
         "usage_context_es": "Ni uno solo de un grupo específico de 'ellos'.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_4_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -151,7 +156,7 @@
     "search_term": "pronoun/partitive",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Partitives",
+    "group_name": "Partitivo",
     "definitions": [
       {
         "meaning": "La mayoría de ellos/as",
@@ -163,7 +168,8 @@
         "usage_context_es": "La parte más grande de un grupo específico de 'ellos'.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_5_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -177,7 +183,7 @@
     "search_term": "pronoun/partitive",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Partitives",
+    "group_name": "Partitivo",
     "definitions": [
       {
         "meaning": "Algunos de nosotros",
@@ -189,7 +195,8 @@
         "usage_context_es": "Un número no especificado del grupo 'nosotros'.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_6_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -203,7 +210,7 @@
     "search_term": "pronoun/partitive",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Partitives",
+    "group_name": "Partitivo",
     "definitions": [
       {
         "meaning": "Uno de ellos / Una de ellas",
@@ -215,7 +222,8 @@
         "usage_context_es": "Un solo miembro de un grupo específico de 'ellos'.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_7_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -229,7 +237,7 @@
     "search_term": "pronoun/partitive",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Partitives",
+    "group_name": "Partitivo",
     "definitions": [
       {
         "meaning": "Ambos / Nosotros dos",
@@ -241,7 +249,8 @@
         "usage_context_es": "Las dos personas en el grupo 'nosotros'.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_8_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -255,7 +264,7 @@
     "search_term": "pronoun/partitive",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Partitives",
+    "group_name": "Partitivo",
     "definitions": [
       {
         "meaning": "Ninguno de ellos (dos)",
@@ -267,7 +276,8 @@
         "usage_context_es": "Ni uno ni el otro de un grupo específico de dos.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_9_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -281,7 +291,7 @@
     "search_term": "pronoun/partitive",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Partitives",
+    "group_name": "Partitivo",
     "definitions": [
       {
         "meaning": "Cualquiera de ellos (dos)",
@@ -293,7 +303,8 @@
         "usage_context_es": "Uno u otro de un grupo específico de dos.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_10_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -304,10 +315,10 @@
     "name": "those who",
     "phonetic": "/ðoʊz huː/",
     "spoken_phonetic_us": "/ðoʊz huː/",
-    "search_term": "pronoun/relative",
+    "search_term": "pronoun/interrogative/relative",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Relative",
+    "group_name": "Interrogativo/Relativo",
     "definitions": [
       {
         "meaning": "Aquellos que / Los que",
@@ -319,7 +330,8 @@
         "usage_context_es": "Una forma formal de referirse a 'la gente que'.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_11_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -330,10 +342,10 @@
     "name": "the one who",
     "phonetic": "/ðə wʌn huː/",
     "spoken_phonetic_us": "/ðə wʌn huː/",
-    "search_term": "pronoun/relative",
+    "search_term": "pronoun/interrogative/relative",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Relative",
+    "group_name": "Interrogativo/Relativo",
     "definitions": [
       {
         "meaning": "El que / La que",
@@ -345,7 +357,8 @@
         "usage_context_es": "Usado para especificar una sola persona de un grupo.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_12_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -356,10 +369,10 @@
     "name": "the ones who",
     "phonetic": "/ðə wʌnz huː/",
     "spoken_phonetic_us": "/ðə wʌnz huː/",
-    "search_term": "pronoun/relative",
+    "search_term": "pronoun/interrogative/relative",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Relative",
+    "group_name": "Interrogativo/Relativo",
     "definitions": [
       {
         "meaning": "Los que / Las que",
@@ -371,7 +384,8 @@
         "usage_context_es": "Usado para especificar múltiples personas de un grupo.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_13_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -385,7 +399,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Todos los demás",
@@ -397,7 +411,8 @@
         "usage_context_es": "Todas las otras personas en el grupo.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_14_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -411,7 +426,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Alguien más",
@@ -423,7 +438,8 @@
         "usage_context_es": "Una persona diferente o adicional.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_15_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -437,7 +453,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "¿Alguien más?",
@@ -459,7 +475,8 @@
         "usage_context_es": "Ninguna otra persona (usado en negaciones).",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_16_def1.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -473,7 +490,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Alguien nuevo",
@@ -485,7 +502,8 @@
         "usage_context_es": "Una persona nueva o diferente.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_17_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -499,7 +517,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Algo nuevo",
@@ -511,131 +529,8 @@
         "usage_context_es": "Una cosa o hecho nuevo o diferente.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_18_def0.avif"
       }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "anywhere",
-    "phonetic": "/ˈɛniwɛər/",
-    "spoken_phonetic_us": "/ˈɛniwɛr/",
-    "search_term": "adverb/place",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Indefinite",
-    "definitions": [
-      {
-        "meaning": "A/En algún lugar (pregunta)",
-        "usage_example": "Are you going anywhere this summer?",
-        "pronunciation_guide_es": "/ar_iu_GO-ing_E-ni-uer_dis_SO-mer/",
-        "usage_example_es": "¿Vas a algún lugar este verano?",
-        "char_count": "6",
-        "usage_context_en": "Used in questions to mean 'any place'.",
-        "usage_context_es": "Usado en preguntas para significar 'algún lugar'.",
-        "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_19_def0.avif"
-      },
-      {
-        "meaning": "A/En ningún lugar (negación)",
-        "usage_example": "I am not going anywhere.",
-        "pronunciation_guide_es": "/ai_am_NOT_GO-ing_E-ni-uer/",
-        "usage_example_es": "No voy a ningún lugar.",
-        "char_count": "5",
-        "usage_context_en": "Used in negative sentences to mean 'no place'.",
-        "usage_context_es": "Usado en oraciones negativas para significar 'ningún lugar'.",
-        "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_19_def1.avif"
-      },
-      {
-        "meaning": "A/En cualquier lugar (afirmativo)",
-        "usage_example": "You can sit anywhere.",
-        "pronunciation_guide_es": "/iu_can_SIT_E-ni-uer/",
-        "usage_example_es": "Puedes sentarte en cualquier lugar.",
-        "char_count": "4",
-        "usage_context_en": "Used in affirmative sentences to mean 'any place, it doesn't matter which'.",
-        "usage_context_es": "Usado en oraciones afirmativas para significar 'cualquier lugar, no importa cuál'.",
-        "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_19_def2.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "somewhere",
-    "phonetic": "/ˈsʌmwɛər/",
-    "spoken_phonetic_us": "/ˈsʌmwɛr/",
-    "search_term": "adverb/place",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Indefinite",
-    "definitions": [
-      {
-        "meaning": "En/A algún lugar",
-        "usage_example": "My keys must be somewhere.",
-        "pronunciation_guide_es": "/mai_KIS_most_bi_SOM-uer/",
-        "usage_example_es": "Mis llaves deben estar en algún lugar.",
-        "char_count": "5",
-        "usage_context_en": "In or to an unspecified or unknown place.",
-        "usage_context_es": "En o a un lugar no especificado o desconocido.",
-        "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_20_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "nowhere",
-    "phonetic": "/ˈnoʊwɛər/",
-    "spoken_phonetic_us": "/ˈnoʊwɛr/",
-    "search_term": "adverb/place",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Indefinite",
-    "definitions": [
-      {
-        "meaning": "A/En ningún lugar",
-        "usage_example": "This road leads nowhere.",
-        "pronunciation_guide_es": "/dis_ROUD_LIDS_NOU-uer/",
-        "usage_example_es": "Esta carretera no lleva a ningún lugar.",
-        "char_count": "4",
-        "usage_context_en": "Not in or to any place.",
-        "usage_context_es": "No en o a ningún lugar.",
-        "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_21_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "everywhere",
-    "phonetic": "/ˈɛvriwɛər/",
-    "spoken_phonetic_us": "/ˈɛvriwɛr/",
-    "search_term": "adverb/place",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Indefinite",
-    "definitions": [
-      {
-        "meaning": "En/A todos lados / Por todas partes",
-        "usage_example": "I looked everywhere for my keys.",
-        "pronunciation_guide_es": "/ai_LUKT_E-vri-uer_for_mai_KIS/",
-        "usage_example_es": "Busqué mis llaves por todos lados.",
-        "char_count": "6",
-        "usage_context_en": "In or to all places.",
-        "usage_context_es": "En o a todos los lugares.",
-        "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_22_def0.avif"
-      }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -649,7 +544,7 @@
     "search_term": "pronoun/partitive",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Partitives",
+    "group_name": "Partitivo",
     "definitions": [
       {
         "meaning": "Todos nosotros",
@@ -661,7 +556,8 @@
         "usage_context_es": "El grupo entero de 'nosotros'.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_23_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -675,7 +571,7 @@
     "search_term": "pronoun/partitive",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Partitives",
+    "group_name": "Partitivo",
     "definitions": [
       {
         "meaning": "Todos ellos/as",
@@ -687,7 +583,8 @@
         "usage_context_es": "El grupo entero de 'ellos'.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_24_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -701,7 +598,7 @@
     "search_term": "pronoun/partitive",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Partitives",
+    "group_name": "Partitivo",
     "definitions": [
       {
         "meaning": "Algunos de ellos/as",
@@ -713,7 +610,8 @@
         "usage_context_es": "Un número no especificado de un grupo específico de 'ellos'.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_25_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   },
   {
     "word": "",
@@ -727,7 +625,7 @@
     "search_term": "pronoun/partitive",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Partitives",
+    "group_name": "Partitivo",
     "definitions": [
       {
         "meaning": "Parte de nosotros",
@@ -739,6 +637,7 @@
         "usage_context_es": "Una sección o porción del grupo 'nosotros'.",
         "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_26_def0.avif"
       }
-    ]
+    ],
+    "category": "Advanced"
   }
 ]

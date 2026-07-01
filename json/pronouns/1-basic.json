@@ -23,7 +23,8 @@
         "usage_context_es": "El pronombre de la 1ª persona singular (el hablante).",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_0_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -59,7 +60,8 @@
         "usage_context_es": "El pronombre de la 2ª persona (el oyente) como objeto.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_1_def1.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -85,7 +87,8 @@
         "usage_context_es": "El pronombre de la 3ª persona singular (masculino) como sujeto.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_2_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -111,7 +114,8 @@
         "usage_context_es": "El pronombre de la 3ª persona singular (femenino) como sujeto.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_3_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -147,7 +151,8 @@
         "usage_context_es": "El pronombre de la 3ª persona singular (cosa/animal) como objeto.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_4_def1.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -173,7 +178,8 @@
         "usage_context_es": "El pronombre de la 1ª persona plural como sujeto.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_5_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -199,7 +205,8 @@
         "usage_context_es": "El pronombre de la 3ª persona plural como sujeto.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_6_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -213,7 +220,7 @@
     "search_term": "pronoun/object",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Object",
+    "group_name": "Objeto",
     "definitions": [
       {
         "meaning": "Me / Mí",
@@ -225,7 +232,8 @@
         "usage_context_es": "El pronombre de la 1ª persona singular como objeto.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_7_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -239,7 +247,7 @@
     "search_term": "pronoun/object",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Object",
+    "group_name": "Objeto",
     "definitions": [
       {
         "meaning": "Le / Lo / A él",
@@ -251,7 +259,8 @@
         "usage_context_es": "El pronombre de la 3ª persona singular (masculino) como objeto.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_8_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -262,10 +271,10 @@
     "name": "her",
     "phonetic": "/hɜːr/",
     "spoken_phonetic_us": "/hər/",
-    "search_term": "pronoun/object/determiner",
+    "search_term": "pronoun/object/possessive-adjective",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Object",
+    "group_name": "Objeto",
     "definitions": [
       {
         "meaning": "La / Le / A ella (Objeto)",
@@ -287,7 +296,8 @@
         "usage_context_es": "El determinante posesivo de la 3ª persona singular (femenino).",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_9_def1.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -301,7 +311,7 @@
     "search_term": "pronoun/object",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Object",
+    "group_name": "Objeto",
     "definitions": [
       {
         "meaning": "Nos / Nosotros/as",
@@ -313,7 +323,8 @@
         "usage_context_es": "El pronombre de la 1ª persona plural como objeto.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_10_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -327,7 +338,7 @@
     "search_term": "pronoun/object",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Object",
+    "group_name": "Objeto",
     "definitions": [
       {
         "meaning": "Los / Las / Les / A ellos/as",
@@ -339,7 +350,8 @@
         "usage_context_es": "El pronombre de la 3ª persona plural como objeto.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_11_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -350,10 +362,10 @@
     "name": "my",
     "phonetic": "/maɪ/",
     "spoken_phonetic_us": "/maɪ/",
-    "search_term": "pronoun/possessive/adjective",
+    "search_term": "pronoun/possessive-adjective",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Poss. Adjective",
+    "group_name": "Posesivo (Adjetivo)",
     "definitions": [
       {
         "meaning": "Mi / Mis",
@@ -365,7 +377,8 @@
         "usage_context_es": "El adjetivo posesivo para 'Yo'. Siempre va seguido de un sustantivo.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_12_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -376,10 +389,10 @@
     "name": "your",
     "phonetic": "/jɔːr/",
     "spoken_phonetic_us": "/jʊr/",
-    "search_term": "pronoun/possessive/adjective",
+    "search_term": "pronoun/possessive-adjective",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Poss. Adjective",
+    "group_name": "Posesivo (Adjetivo)",
     "definitions": [
       {
         "meaning": "Tu / Tus / Su / Sus (de usted)",
@@ -391,7 +404,8 @@
         "usage_context_es": "El adjetivo posesivo para 'tú/usted'. Siempre va seguido de un sustantivo.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_13_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -402,48 +416,33 @@
     "name": "his",
     "phonetic": "/hɪz/",
     "spoken_phonetic_us": "/hɪz/",
-    "search_term": "pronoun/possessive/adjective",
+    "search_term": "pronoun/possessive-adjective/possessive-pronoun",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Poss. Adjective",
+    "group_name": "Posesivo (Pronombre)",
     "definitions": [
       {
-        "meaning": "Su / Sus (de él)",
+        "meaning": "Su / Sus (de él) (Determinante)",
         "usage_example": "That is his car.",
         "pronunciation_guide_es": "/dat_is_HIS_CAR/",
-        "usage_example_es": "Ese es su carro (de él).",
+        "usage_example_es": "Ese es su carro (el carro de él).",
         "char_count": "4",
-        "usage_context_en": "The possessive adjective for 'he'. Always followed by a noun.",
-        "usage_context_es": "El adjetivo posesivo para 'él'. Siempre va seguido de un sustantivo.",
-        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_14_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "her",
-    "phonetic": "/hɜːr/",
-    "spoken_phonetic_us": "/hər/",
-    "search_term": "pronoun/possessive/adjective",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Poss. Adjective",
-    "definitions": [
+        "usage_context_en": "The possessive determiner for 'he' (followed by a noun).",
+        "usage_context_es": "El determinante posesivo para 'él' (seguido de un sustantivo).",
+        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_7_def0.avif"
+      },
       {
-        "meaning": "Su / Sus (de ella)",
-        "usage_example": "I like her new jacket.",
-        "pronunciation_guide_es": "/ai_LAIK_her_NIU_YA-ket/",
-        "usage_example_es": "Me gusta su chaqueta nueva (de ella).",
+        "meaning": "Suyo / Suyos (de él) (Pronombre)",
+        "usage_example": "The red car is his.",
+        "pronunciation_guide_es": "/de_RED_CAR_is_HIS/",
+        "usage_example_es": "El carro rojo es suyo (de él).",
         "char_count": "5",
-        "usage_context_en": "The possessive adjective for 'she'. Always followed by a noun.",
-        "usage_context_es": "El adjetivo posesivo para 'ella'. Siempre va seguido de un sustantivo.",
-        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_15_def0.avif"
+        "usage_context_en": "The possessive pronoun for 'he'. (It is not followed by a noun).",
+        "usage_context_es": "El pronombre posesivo para 'él'. (No va seguido de un sustantivo).",
+        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_7_def1.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -454,10 +453,10 @@
     "name": "its",
     "phonetic": "/ɪts/",
     "spoken_phonetic_us": "/ɪts/",
-    "search_term": "pronoun/possessive/adjective",
+    "search_term": "pronoun/possessive-adjective",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Poss. Adjective",
+    "group_name": "Posesivo (Adjetivo)",
     "definitions": [
       {
         "meaning": "Su / Sus (de un objeto o animal)",
@@ -469,7 +468,8 @@
         "usage_context_es": "El adjetivo posesivo para 'it'. Siempre va seguido de un sustantivo.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_16_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -480,10 +480,10 @@
     "name": "our",
     "phonetic": "/ˈaʊər/",
     "spoken_phonetic_us": "/ˈaʊər/",
-    "search_term": "pronoun/possessive/adjective",
+    "search_term": "pronoun/possessive-adjective",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Poss. Adjective",
+    "group_name": "Posesivo (Adjetivo)",
     "definitions": [
       {
         "meaning": "Nuestro / Nuestra / Nuestros / Nuestras",
@@ -495,7 +495,8 @@
         "usage_context_es": "El adjetivo posesivo para 'nosotros'. Siempre va seguido de un sustantivo.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_17_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -506,10 +507,10 @@
     "name": "their",
     "phonetic": "/ðɛər/",
     "spoken_phonetic_us": "/ðɛr/",
-    "search_term": "pronoun/possessive/adjective",
+    "search_term": "pronoun/possessive-adjective",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Poss. Adjective",
+    "group_name": "Posesivo (Adjetivo)",
     "definitions": [
       {
         "meaning": "Su / Sus (de ellos/ellas)",
@@ -521,7 +522,8 @@
         "usage_context_es": "El adjetivo posesivo para 'ellos/ellas'. Siempre va seguido de un sustantivo.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_18_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -529,35 +531,26 @@
     "example": null,
     "learned": false,
     "learned_at": null,
-    "name": "myself",
-    "phonetic": "/maɪˈsɛlf/",
-    "spoken_phonetic_us": "/maɪˈsɛlf/",
-    "search_term": "pronoun/reflexive",
+    "name": "mine",
+    "phonetic": "/maɪn/",
+    "spoken_phonetic_us": "/maɪn/",
+    "search_term": "pronoun/possessive-pronoun",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Reflexive",
+    "group_name": "Posesivo (Pronombre)",
     "definitions": [
       {
-        "meaning": "Me / A mí mismo (Reflexivo)",
-        "usage_example": "I cut myself.",
-        "pronunciation_guide_es": "/ai_COT_mai-SELF/",
-        "usage_example_es": "Me corté.",
-        "char_count": "3",
-        "usage_context_en": "Used when the subject and object of the verb are the same (I).",
-        "usage_context_es": "Usado cuando el sujeto y el objeto del verbo son el mismo (Yo).",
-        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_19_def0.avif"
-      },
-      {
-        "meaning": "Yo mismo (Énfasis)",
-        "usage_example": "I did it myself.",
-        "pronunciation_guide_es": "/ai_DID_it_mai-SELF/",
-        "usage_example_es": "Lo hice yo mismo.",
+        "meaning": "Mío / Mía / Míos / Mías",
+        "usage_example": "This book is mine.",
+        "pronunciation_guide_es": "/dis_BUK_is_MAIN/",
+        "usage_example_es": "Este libro es mío.",
         "char_count": "4",
-        "usage_context_en": "Used to add emphasis to the subject (I).",
-        "usage_context_es": "Usado para añadir énfasis al sujeto (Yo).",
-        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_19_def1.avif"
+        "usage_context_en": "The possessive pronoun for 'I'. (It is not followed by a noun).",
+        "usage_context_es": "El pronombre posesivo para 'Yo'. (No va seguido de un sustantivo).",
+        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_5_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -565,107 +558,26 @@
     "example": null,
     "learned": false,
     "learned_at": null,
-    "name": "yourself",
-    "phonetic": "/jɔːrˈsɛlf/",
-    "spoken_phonetic_us": "/jərˈsɛlf/",
-    "search_term": "pronoun/reflexive",
+    "name": "yours",
+    "phonetic": "/jɔːrz/",
+    "spoken_phonetic_us": "/jʊrz/",
+    "search_term": "pronoun/possessive-pronoun",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Reflexive",
+    "group_name": "Posesivo (Pronombre)",
     "definitions": [
       {
-        "meaning": "Te / Se / A ti mismo (Reflexivo)",
-        "usage_example": "Did you hurt yourself?",
-        "pronunciation_guide_es": "/did_iu_HORT_iur-SELF/",
-        "usage_example_es": "¿Te lastimaste?",
+        "meaning": "Tuyo / Tuya / Suyo / Suya (de usted)",
+        "usage_example": "Is this coat yours?",
+        "pronunciation_guide_es": "/is_dis_COUT_IURS/",
+        "usage_example_es": "¿Es este abrigo tuyo?",
         "char_count": "4",
-        "usage_context_en": "Used when the subject and object of the verb are the same (You).",
-        "usage_context_es": "Usado cuando el sujeto y el objeto del verbo son el mismo (Tú/Usted).",
-        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_20_def0.avif"
-      },
-      {
-        "meaning": "Tú mismo / Usted mismo (Énfasis)",
-        "usage_example": "You can do it yourself.",
-        "pronunciation_guide_es": "/iu_can_DU_it_iur-SELF/",
-        "usage_example_es": "Puedes hacerlo tú mismo.",
-        "char_count": "5",
-        "usage_context_en": "Used to add emphasis to the subject (You).",
-        "usage_context_es": "Usado para añadir énfasis al sujeto (Tú/Usted).",
-        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_20_def1.avif"
+        "usage_context_en": "The possessive pronoun for 'you'. (It is not followed by a noun).",
+        "usage_context_es": "El pronombre posesivo para 'tú/usted'. (No va seguido de un sustantivo).",
+        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_6_def0.avif"
       }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "himself",
-    "phonetic": "/hɪmˈsɛlf/",
-    "spoken_phonetic_us": "/hɪmˈsɛlf/",
-    "search_term": "pronoun/reflexive",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Reflexive",
-    "definitions": [
-      {
-        "meaning": "Se / A sí mismo (Reflexivo, masculino)",
-        "usage_example": "He hurt himself.",
-        "pronunciation_guide_es": "/hi_HORT_him-SELF/",
-        "usage_example_es": "Él se lastimó.",
-        "char_count": "3",
-        "usage_context_en": "Used when the subject and object of the verb are the same (He).",
-        "usage_context_es": "Usado cuando el sujeto y el objeto del verbo son el mismo (Él).",
-        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_21_def0.avif"
-      },
-      {
-        "meaning": "Él mismo (Énfasis)",
-        "usage_example": "He built it himself.",
-        "pronunciation_guide_es": "/hi_BILT_it_him-SELF/",
-        "usage_example_es": "Él mismo lo construyó.",
-        "char_count": "4",
-        "usage_context_en": "Used to add emphasis to the subject (He).",
-        "usage_context_es": "Usado para añadir énfasis al sujeto (Él).",
-        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_21_def1.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "herself",
-    "phonetic": "/hɜːrˈsɛlf/",
-    "spoken_phonetic_us": "/hərˈsɛlf/",
-    "search_term": "pronoun/reflexive",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Reflexive",
-    "definitions": [
-      {
-        "meaning": "Se / A sí misma (Reflexivo, femenino)",
-        "usage_example": "She taught herself to play the piano.",
-        "pronunciation_guide_es": "/shi_TOT_her-SELF_tu_PLEI_de_pi-A-no/",
-        "usage_example_es": "Ella se enseñó a sí misma a tocar el piano.",
-        "char_count": "3",
-        "usage_context_en": "Used when the subject and object of the verb are the same (She).",
-        "usage_context_es": "Usado cuando el sujeto y el objeto del verbo son el mismo (Ella).",
-        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_22_def0.avif"
-      },
-      {
-        "meaning": "Ella misma (Énfasis)",
-        "usage_example": "She did it herself.",
-        "pronunciation_guide_es": "/shi_DID_it_her-SELF/",
-        "usage_example_es": "Ella misma lo hizo.",
-        "char_count": "4",
-        "usage_context_en": "Used to add emphasis to the subject (She).",
-        "usage_context_es": "Usado para añadir énfasis al sujeto (Ella).",
-        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_22_def1.avif"
-      }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -679,7 +591,7 @@
     "search_term": "pronoun/demonstrative",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Demonstrative",
+    "group_name": "Demostrativo",
     "definitions": [
       {
         "meaning": "Este / Esta / Esto",
@@ -691,7 +603,8 @@
         "usage_context_es": "Usado como pronombre para un objeto singular cerca del hablante.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_23_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -705,7 +618,7 @@
     "search_term": "pronoun/demonstrative",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Demonstrative",
+    "group_name": "Demostrativo",
     "definitions": [
       {
         "meaning": "Ese / Esa / Aquel / Aquella",
@@ -717,7 +630,8 @@
         "usage_context_es": "Usado como pronombre para un objeto singular que está lejos del hablante.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_24_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -731,7 +645,7 @@
     "search_term": "pronoun/demonstrative",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Demonstrative",
+    "group_name": "Demostrativo",
     "definitions": [
       {
         "meaning": "Estos / Estas",
@@ -743,7 +657,8 @@
         "usage_context_es": "Usado como pronombre para objetos plurales cerca del hablante.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_25_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -757,7 +672,7 @@
     "search_term": "pronoun/demonstrative",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Demonstrative",
+    "group_name": "Demostrativo",
     "definitions": [
       {
         "meaning": "Esos / Esas / Aquellos / Aquellas",
@@ -769,7 +684,119 @@
         "usage_context_es": "Usado como pronombre para objetos plurales lejos del hablante.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_26_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "who",
+    "phonetic": "/huː/",
+    "spoken_phonetic_us": "/huː/",
+    "search_term": "pronoun/interrogative/relative",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Interrogativo/Relativo",
+    "definitions": [
+      {
+        "meaning": "¿Quién / Quiénes?",
+        "usage_example": "Who is that person?",
+        "pronunciation_guide_es": "/HU_is_dat_PER-son/",
+        "usage_example_es": "¿Quién es esa persona?",
+        "char_count": "4",
+        "usage_context_en": "Used as an interrogative pronoun to ask about a person.",
+        "usage_context_es": "Usado como pronombre interrogativo para preguntar sobre una persona.",
+        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_11_def0.avif"
+      },
+      {
+        "meaning": "Que / Quien / El cual (para personas)",
+        "usage_example": "The man who called me is here.",
+        "pronunciation_guide_es": "/de_MAN_hu_COLD_mi_is_HIR/",
+        "usage_example_es": "El hombre que me llamó está aquí.",
+        "char_count": "7",
+        "usage_context_en": "Used as a relative pronoun to introduce a clause about a person.",
+        "usage_context_es": "Usado como pronombre relativo para introducir una cláusula sobre una persona.",
+        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_11_def1.avif"
+      }
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "what",
+    "phonetic": "/wɒt/",
+    "spoken_phonetic_us": "/wʌt/",
+    "search_term": "pronoun/interrogative/relative",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Interrogativo/Relativo",
+    "definitions": [
+      {
+        "meaning": "Qué / Cuál (pregunta)",
+        "usage_example": "What is your name?",
+        "pronunciation_guide_es": "/UAT_is_iur_NEIM/",
+        "usage_example_es": "¿Cuál es tu nombre?",
+        "char_count": "4",
+        "usage_context_en": "Used as an interrogative word to ask for information (open choice).",
+        "usage_context_es": "Usado como palabra interrogativa para pedir información (elección abierta).",
+        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_14_def0.avif"
+      },
+      {
+        "meaning": "Lo que (pronombre relativo)",
+        "usage_example": "I don't know what to do.",
+        "pronunciation_guide_es": "/ai_DONT_NOU_uat_tu_DU/",
+        "usage_example_es": "No sé qué hacer. (No sé lo que debo hacer).",
+        "char_count": "6",
+        "usage_context_en": "Used as a relative pronoun to refer to 'the thing(s) that'.",
+        "usage_context_es": "Usado como pronombre relativo para referirse a 'la(s) cosa(s) que'.",
+        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_14_def1.avif"
+      }
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "which",
+    "phonetic": "/wɪtʃ/",
+    "spoken_phonetic_us": "/wɪtʃ/",
+    "search_term": "pronoun/interrogative/relative",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Interrogativo/Relativo",
+    "definitions": [
+      {
+        "meaning": "¿Cuál / Cuáles?",
+        "usage_example": "Which color do you prefer?",
+        "pronunciation_guide_es": "/UICH_CO-lor_du_iu_pri-FER/",
+        "usage_example_es": "¿Cuál color prefieres?",
+        "char_count": "5",
+        "usage_context_en": "Used as an interrogative word to ask about a limited choice.",
+        "usage_context_es": "Usado como palabra interrogativa para preguntar sobre una elección limitada.",
+        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_13_def0.avif"
+      },
+      {
+        "meaning": "Que / El cual / La cual",
+        "usage_example": "The car which is red is mine.",
+        "pronunciation_guide_es": "/de_CAR_uich_is_RED_is_MAIN/",
+        "usage_example_es": "El carro que es rojo es mío.",
+        "char_count": "7",
+        "usage_context_en": "Used as a relative pronoun to introduce a clause about a thing.",
+        "usage_context_es": "Usado como pronombre relativo para introducir una cláusula sobre una cosa.",
+        "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_13_def1.avif"
+      }
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -783,7 +810,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Alguien",
@@ -795,7 +822,8 @@
         "usage_context_es": "Una persona no especificada (usado en oraciones afirmativas). Sinónimo: 'somebody'.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_27_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -809,7 +837,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Algo",
@@ -821,7 +849,8 @@
         "usage_context_es": "Una cosa no especificada (usado en oraciones afirmativas).",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_28_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -835,7 +864,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Alguien (en preguntas)",
@@ -867,7 +896,8 @@
         "usage_context_es": "Usado en oraciones afirmativas para significar 'cualquier persona'.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_29_def2.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -881,7 +911,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Algo (en preguntas)",
@@ -913,7 +943,8 @@
         "usage_context_es": "Usado en oraciones afirmativas para significar 'cualquier cosa'.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_30_def2.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -927,7 +958,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Todos / Todas (las personas)",
@@ -939,7 +970,8 @@
         "usage_context_es": "Todas las personas en un grupo. Sinónimo: 'everybody'.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_31_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -953,7 +985,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Todo (las cosas)",
@@ -965,7 +997,8 @@
         "usage_context_es": "Todas las cosas.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_32_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -979,7 +1012,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Nadie",
@@ -991,7 +1024,8 @@
         "usage_context_es": "Ninguna persona; nadie. (Usado como sujeto u objeto en una estructura verbal afirmativa).",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_33_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -1005,7 +1039,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Nada",
@@ -1018,7 +1052,8 @@
         "usage_context_es": "Ninguna cosa; nada. (Usado como sujeto u objeto en una estructura verbal afirmativa).",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_34_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -1029,10 +1064,10 @@
     "name": "each",
     "phonetic": "/iːtʃ/",
     "spoken_phonetic_us": "/iːtʃ/",
-    "search_term": "pronoun/distributive",
+    "search_term": "pronoun/quantifier",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Cuantificador",
     "definitions": [
       {
         "meaning": "Cada uno / Cada una",
@@ -1044,7 +1079,8 @@
         "usage_context_es": "Usado como pronombre para referirse a cada miembro individual de un grupo por separado.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_35_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -1055,10 +1091,10 @@
     "name": "one",
     "phonetic": "/wʌn/",
     "spoken_phonetic_us": "/wʌn/",
-    "search_term": "pronoun/generic",
+    "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Uno / Una (genérico)",
@@ -1080,7 +1116,8 @@
         "usage_context_es": "Usado para reemplazar un sustantivo contable singular específico.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_36_def1.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -1094,7 +1131,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Otro / Otra",
@@ -1116,7 +1153,8 @@
         "usage_context_es": "Usado como pronombre para significar 'uno adicional o diferente'.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_37_def1.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -1130,7 +1168,7 @@
     "search_term": "pronoun/indefinite",
     "is_verb": false,
     "force_generation": false,
-    "group_name": "Indefinite",
+    "group_name": "Indefinido",
     "definitions": [
       {
         "meaning": "Otros / Otras (los demás)",
@@ -1142,6 +1180,155 @@
         "usage_context_es": "Usado como pronombre para significar 'otras personas o cosas'.",
         "imagePath": "/card_images/pronouns/1-basic/1-basic_card_38_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "myself",
+    "phonetic": "/maɪˈsɛlf/",
+    "spoken_phonetic_us": "/maɪˈsɛlf/",
+    "search_term": "pronoun/reflexive",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Reflexivo",
+    "definitions": [
+      {
+        "meaning": "Me / A mí mismo (Reflexivo)",
+        "usage_example": "I cut myself.",
+        "pronunciation_guide_es": "/ai_COT_mai-SELF/",
+        "usage_example_es": "Me corté.",
+        "char_count": "3",
+        "usage_context_en": "Used when the subject and object of the verb are the same (I).",
+        "usage_context_es": "Usado cuando el sujeto y el objeto del verbo son el mismo (Yo).",
+        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_19_def0.avif"
+      },
+      {
+        "meaning": "Yo mismo (Énfasis)",
+        "usage_example": "I did it myself.",
+        "pronunciation_guide_es": "/ai_DID_it_mai-SELF/",
+        "usage_example_es": "Lo hice yo mismo.",
+        "char_count": "4",
+        "usage_context_en": "Used to add emphasis to the subject (I).",
+        "usage_context_es": "Usado para añadir énfasis al sujeto (Yo).",
+        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_19_def1.avif"
+      }
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "yourself",
+    "phonetic": "/jɔːrˈsɛlf/",
+    "spoken_phonetic_us": "/jərˈsɛlf/",
+    "search_term": "pronoun/reflexive",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Reflexivo",
+    "definitions": [
+      {
+        "meaning": "Te / Se / A ti mismo (Reflexivo)",
+        "usage_example": "Did you hurt yourself?",
+        "pronunciation_guide_es": "/did_iu_HORT_iur-SELF/",
+        "usage_example_es": "¿Te lastimaste?",
+        "char_count": "4",
+        "usage_context_en": "Used when the subject and object of the verb are the same (You).",
+        "usage_context_es": "Usado cuando el sujeto y el objeto del verbo son el mismo (Tú/Usted).",
+        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_20_def0.avif"
+      },
+      {
+        "meaning": "Tú mismo / Usted mismo (Énfasis)",
+        "usage_example": "You can do it yourself.",
+        "pronunciation_guide_es": "/iu_can_DU_it_iur-SELF/",
+        "usage_example_es": "Puedes hacerlo tú mismo.",
+        "char_count": "5",
+        "usage_context_en": "Used to add emphasis to the subject (You).",
+        "usage_context_es": "Usado para añadir énfasis al sujeto (Tú/Usted).",
+        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_20_def1.avif"
+      }
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "himself",
+    "phonetic": "/hɪmˈsɛlf/",
+    "spoken_phonetic_us": "/hɪmˈsɛlf/",
+    "search_term": "pronoun/reflexive",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Reflexivo",
+    "definitions": [
+      {
+        "meaning": "Se / A sí mismo (Reflexivo, masculino)",
+        "usage_example": "He hurt himself.",
+        "pronunciation_guide_es": "/hi_HORT_him-SELF/",
+        "usage_example_es": "Él se lastimó.",
+        "char_count": "3",
+        "usage_context_en": "Used when the subject and object of the verb are the same (He).",
+        "usage_context_es": "Usado cuando el sujeto y el objeto del verbo son el mismo (Él).",
+        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_21_def0.avif"
+      },
+      {
+        "meaning": "Él mismo (Énfasis)",
+        "usage_example": "He built it himself.",
+        "pronunciation_guide_es": "/hi_BILT_it_him-SELF/",
+        "usage_example_es": "Él mismo lo construyó.",
+        "char_count": "4",
+        "usage_context_en": "Used to add emphasis to the subject (He).",
+        "usage_context_es": "Usado para añadir énfasis al sujeto (Él).",
+        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_21_def1.avif"
+      }
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "herself",
+    "phonetic": "/hɜːrˈsɛlf/",
+    "spoken_phonetic_us": "/hərˈsɛlf/",
+    "search_term": "pronoun/reflexive",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Reflexivo",
+    "definitions": [
+      {
+        "meaning": "Se / A sí misma (Reflexivo, femenino)",
+        "usage_example": "She taught herself to play the piano.",
+        "pronunciation_guide_es": "/shi_TOT_her-SELF_tu_PLEI_de_pi-A-no/",
+        "usage_example_es": "Ella se enseñó a sí misma a tocar el piano.",
+        "char_count": "3",
+        "usage_context_en": "Used when the subject and object of the verb are the same (She).",
+        "usage_context_es": "Usado cuando el sujeto y el objeto del verbo son el mismo (Ella).",
+        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_22_def0.avif"
+      },
+      {
+        "meaning": "Ella misma (Énfasis)",
+        "usage_example": "She did it herself.",
+        "pronunciation_guide_es": "/shi_DID_it_her-SELF/",
+        "usage_example_es": "Ella misma lo hizo.",
+        "char_count": "4",
+        "usage_context_en": "Used to add emphasis to the subject (She).",
+        "usage_context_es": "Usado para añadir énfasis al sujeto (Ella).",
+        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_22_def1.avif"
+      }
+    ],
+    "category": "Basic"
   }
 ]

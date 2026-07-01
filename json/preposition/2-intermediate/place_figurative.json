@@ -1,0 +1,39 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "beyond",
+        "phonetic": "/bɪˈjɒnd/",
+        "spoken_phonetic_us": "/bɪˈjɑnd/",
+        "search_term": "preposition/place/figurative",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Place",
+        "definitions": [
+            {
+                "meaning": "Más allá de (lugar)",
+                "usage_example": "The village is beyond those hills.",
+                "pronunciation_guide_es": "/de_VI-lich_is_bi-YOND_dous_HILS/",
+                "usage_example_es": "El pueblo está más allá de esas colinas.",
+                "char_count": "6",
+                "usage_context_en": "At or to the further side of something; past the limits of.",
+                "usage_context_es": "En o hacia el lado más lejano de algo; pasando los límites de.",
+                "imagePath": "/card_images/preposition/2-intermediate/2-intermediate_card_12_def0.avif"
+            },
+            {
+                "meaning": "Más allá de (figurado)",
+                "usage_example": "That is beyond my understanding.",
+                "pronunciation_guide_es": "/dat_is_bi-YOND_mai_on-der-STAN-ding/",
+                "usage_example_es": "Eso está más allá de mi entendimiento.",
+                "char_count": "5",
+                "usage_context_en": "Used to mean 'outside the limits of' (e.g., understanding, belief).",
+                "usage_context_es": "Usado para significar 'fuera de los límites de' (ej. entendimiento, creencia).",
+                "imagePath": "/card_images/preposition/2-intermediate/2-intermediate_card_12_def1.avif"
+            }
+        ],
+        "category": "Intermediate"
+    }
+]

@@ -1,0 +1,28 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "meanwhile",
+        "phonetic": "/ˈminˌwaɪl/",
+        "spoken_phonetic_us": "/ˈminˌwaɪl/",
+        "search_term": "connector/time",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Time",
+        "definitions": [
+            {
+                "meaning": "Mientras tanto",
+                "usage_example": "I was studying; meanwhile, my brother was playing.",
+                "pronunciation_guide_es": "/ai_uas_sta-di-ing_min-uail_mai_bro-der_uas_plei-ing/",
+                "usage_example_es": "Yo estaba estudiando; mientras tanto, mi hermano estaba jugando.",
+                "char_count": "9",
+                "usage_context_en": "In the intervening period of time.",
+                "usage_context_es": "En el período de tiempo intermedio.",
+                "imagePath": "/card_images/connectors/2-intermediate/2-intermediate_card_7_def0.avif"
+            }
+        ]
+    }
+]

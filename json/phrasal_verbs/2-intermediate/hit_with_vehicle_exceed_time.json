@@ -1,0 +1,41 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "run over",
+        "phonetic": "/rʌn ˈoʊvər/",
+        "spoken_phonetic_us": "/rʌn ˈoʊvər/",
+        "search_term": "phrasal verb/hit with vehicle/exceed time",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Atropellar (con un vehículo)",
+                "usage_example": "A bus ran over his bicycle.",
+                "pronunciation_guide_es": "/a_BAS_ran_Over_his_BAIsikol/",
+                "alternative_example": "A bus hit his bicycle.",
+                "usage_example_es": "Un autobús atropelló su bicicleta.",
+                "char_count": "one",
+                "usage_context_en": "driving/accident",
+                "usage_context_es": "conducir/accidente",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_15_def0.avif"
+            },
+            {
+                "meaning": "Excederse (del tiempo), pasarse",
+                "usage_example": "The meeting ran over by 10 minutes.",
+                "pronunciation_guide_es": "/de_MIring_ran_Over_bai_TEN_MInits/",
+                "alternative_example": "The meeting exceeded the time by 10 minutes.",
+                "usage_example_es": "La reunión se pasó 10 minutos.",
+                "char_count": "one",
+                "usage_context_en": "time/schedule",
+                "usage_context_es": "tiempo/horario",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_15_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Run",
+        "category": "Intermediate"
+    }
+]

@@ -1,0 +1,23 @@
+[
+    {
+        "name": "surprisingly",
+        "phonetic": "/səˈpraɪzɪŋli/",
+        "spoken_phonetic_us": "/sərˈpraɪzɪŋli/",
+        "search_term": "adverb/sentence",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Sentence",
+        "definitions": [
+            {
+                "meaning": "Sorprendentemente",
+                "usage_example": "Surprisingly, the test was easy.",
+                "pronunciation_guide_es": "/sor-PRAI-sing-li_de_TEST_uas_I-si/",
+                "usage_example_es": "Sorprendentemente, el examen fue fácil.",
+                "char_count": 5,
+                "usage_context_en": "In a way that causes surprise; unexpectedly.",
+                "usage_context_es": "De una manera que causa sorpresa; inesperadamente."
+            }
+        ]
+    }
+]

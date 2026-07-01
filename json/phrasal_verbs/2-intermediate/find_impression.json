@@ -1,0 +1,39 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "come across",
+        "phonetic": "/come across/",
+        "spoken_phonetic_us": "/come across/",
+        "search_term": "phrasal verb/find/impression",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Encontrar por casualidad",
+                "usage_example": "I came across an old photo.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "I found an old photo by chance.",
+                "usage_example_es": "Encontré una foto vieja por casualidad.",
+                "char_count": "one",
+                "usage_context_en": "unexpected discovery",
+                "usage_context_es": "hallazgo casual"
+            },
+            {
+                "meaning": "Dar la impresión",
+                "usage_example": "He comes across as friendly.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "He seems friendly.",
+                "usage_example_es": "Da la impresión de ser amigable.",
+                "char_count": "one",
+                "usage_context_en": "impression/personality",
+                "usage_context_es": "impresión/personalidad"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Come",
+        "category": "Intermediate"
+    }
+]

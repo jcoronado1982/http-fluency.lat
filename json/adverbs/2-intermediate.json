@@ -1,43 +1,65 @@
 [
   {
-    "name": "carefully",
-    "phonetic": "/ˈkɛəfəli/",
-    "spoken_phonetic_us": "/ˈkɛrfəli/",
-    "search_term": "adverb/manner",
+    "name": "already",
+    "phonetic": "/ɔːlˈrɛdi/",
+    "spoken_phonetic_us": "/ɔlˈrɛdi/",
+    "search_term": "adverb/time",
     "is_verb": false,
-    "learned": false,
+    "learned": true,
     "force_generation": false,
-    "group_name": "Adverbs: Manner",
+    "group_name": "Adverbs: Time",
     "definitions": [
       {
-        "meaning": "Cuidadosamente / Con cuidado",
-        "usage_example": "Please drive carefully.",
-        "pronunciation_guide_es": "/PLIS_DRAIV_KER-fu-li/",
-        "usage_example_es": "Por favor, conduce con cuidado.",
-        "char_count": "3",
-        "usage_context_en": "In a way that avoids potential harm or mistakes.",
-        "usage_context_es": "De una manera que evita daño o errores potenciales."
+        "meaning": "Ya",
+        "usage_example": "I have already eaten.",
+        "pronunciation_guide_es": "/ai_hav_ol-RE-di_I-ten/",
+        "usage_example_es": "Ya he comido.",
+        "char_count": 4,
+        "usage_context_en": "Before or by now; sooner than expected.",
+        "usage_context_es": "Antes o por ahora; más pronto de lo esperado."
       }
     ]
   },
   {
-    "name": "easily",
-    "phonetic": "/ˈiːzɪli/",
-    "spoken_phonetic_us": "/ˈiːzɪli/",
-    "search_term": "adverb/manner",
+    "name": "still",
+    "phonetic": "/stɪl/",
+    "spoken_phonetic_us": "/stɪl/",
+    "search_term": "adverb/time",
     "is_verb": false,
     "learned": false,
+    "force_generation": false,
+    "group_name": "Adverbs: Time",
+    "definitions": [
+      {
+        "meaning": "Todavía / Aún",
+        "usage_example": "Are you still here?",
+        "pronunciation_guide_es": "/ar_iu_STIL_HIR/",
+        "usage_example_es": "¿Todavía estás aquí?",
+        "char_count": 4,
+        "usage_context_en": "Continuing to happen or be in a situation up to the present time.",
+        "usage_context_es": "Que continúa sucediendo o estando en una situación hasta el tiempo presente.",
+        "imagePath": "/card_images/adverbs/1-basic/1-basic_card_27_def0.jpg"
+      }
+    ]
+  },
+  {
+    "name": "together",
+    "phonetic": "/təˈɡɛðər/",
+    "spoken_phonetic_us": "/təˈɡɛðər/",
+    "search_term": "adverb/manner",
+    "is_verb": false,
+    "learned": true,
     "force_generation": false,
     "group_name": "Adverbs: Manner",
     "definitions": [
       {
-        "meaning": "Fácilmente",
-        "usage_example": "He passed the test easily.",
-        "pronunciation_guide_es": "/hi_PAST_de_TEST_I-si-li/",
-        "usage_example_es": "Él pasó el examen fácilmente.",
-        "char_count": "5",
-        "usage_context_en": "Without difficulty or effort.",
-        "usage_context_es": "Sin dificultad o esfuerzo."
+        "meaning": "Juntos/as",
+        "usage_example": "We work together.",
+        "pronunciation_guide_es": "/ui_UORK_tu-GUE-der/",
+        "usage_example_es": "Trabajamos juntos.",
+        "char_count": 3,
+        "usage_context_en": "With or in proximity to another person or people.",
+        "usage_context_es": "Con o en proximidad a otra persona o personas."
       }
     ]
   },
@@ -63,9 +85,9 @@
     ]
   },
   {
-    "name": "fast",
-    "phonetic": "/fæst/",
-    "spoken_phonetic_us": "/fæst/",
+    "name": "easily",
+    "phonetic": "/ˈiːzɪli/",
+    "spoken_phonetic_us": "/ˈiːzɪli/",
     "search_term": "adverb/manner",
     "is_verb": false,
     "learned": false,
@@ -73,13 +95,13 @@
     "group_name": "Adverbs: Manner",
     "definitions": [
       {
-        "meaning": "Rápido / Rápidamente",
-        "usage_example": "She runs very fast.",
-        "pronunciation_guide_es": "/shi_RONS_VE-ri_FAST/",
-        "usage_example_es": "Ella corre muy rápido.",
-        "char_count": "4",
-        "usage_context_en": "At high speed (adverb form is the same as the adjective).",
-        "usage_context_es": "A alta velocidad (la forma adverbial es igual al adjetivo)."
+        "meaning": "Fácilmente",
+        "usage_example": "He passed the test easily.",
+        "pronunciation_guide_es": "/hi_PAST_de_TEST_I-si-li/",
+        "usage_example_es": "Él pasó el examen fácilmente.",
+        "char_count": "5",
+        "usage_context_en": "Without difficulty or effort.",
+        "usage_context_es": "Sin dificultad o esfuerzo."
       }
     ]
   },
@@ -196,7 +218,7 @@
     "is_verb": false,
     "learned": false,
     "force_generation": false,
-    "group_name": "Adverbs: Degree",
+    "group_name": "Adverbs: Manner",
     "definitions": [
       {
         "meaning": "Exactamente / Exacto",
@@ -303,48 +325,6 @@
     ]
   },
   {
-    "name": "quickly",
-    "phonetic": "/ˈkwɪkli/",
-    "spoken_phonetic_us": "/ˈkwɪkli/",
-    "search_term": "adverb/manner",
-    "is_verb": false,
-    "learned": false,
-    "force_generation": false,
-    "group_name": "Adverbs: Manner",
-    "definitions": [
-      {
-        "meaning": "Rápidamente / Rápido",
-        "usage_example": "She answered quickly.",
-        "pronunciation_guide_es": "/shi_AN-serd_CUIK-li/",
-        "usage_example_es": "Ella respondió rápidamente.",
-        "char_count": "3",
-        "usage_context_en": "At a fast speed; fast.",
-        "usage_context_es": "A alta velocidad; rápido."
-      }
-    ]
-  },
-  {
-    "name": "slowly",
-    "phonetic": "/ˈsloʊli/",
-    "spoken_phonetic_us": "/ˈsloʊli/",
-    "search_term": "adverb/manner",
-    "is_verb": false,
-    "learned": false,
-    "force_generation": false,
-    "group_name": "Adverbs: Manner",
-    "definitions": [
-      {
-        "meaning": "Lentamente / Despacio",
-        "usage_example": "He is eating slowly.",
-        "pronunciation_guide_es": "/hi_is_I-ting_SLOU-li/",
-        "usage_example_es": "Él está comiendo despacio.",
-        "char_count": "4",
-        "usage_context_en": "At a slow speed.",
-        "usage_context_es": "A baja velocidad."
-      }
-    ]
-  },
-  {
     "name": "simply",
     "phonetic": "/ˈsɪmpli/",
     "spoken_phonetic_us": "/ˈsɪmpli/",
@@ -355,13 +335,22 @@
     "group_name": "Adverbs: Manner",
     "definitions": [
       {
-        "meaning": "Simplemente / Sencillamente",
+        "meaning": "Simplemente (modo)",
+        "usage_example": "You must explain it simply.",
+        "pronunciation_guide_es": "/iu_MOST_ex-PLEIN_it_SIM-pli/",
+        "usage_example_es": "Debes explicarlo simplemente.",
+        "char_count": 5,
+        "usage_context_en": "In a plain or easy-to-understand way.",
+        "usage_context_es": "De una manera llana o fácil de entender."
+      },
+      {
+        "meaning": "Simplemente / Solo (énfasis)",
         "usage_example": "It is simply a matter of time.",
         "pronunciation_guide_es": "/it_is_SIM-pli_a_MA-ter_of_TAIM/",
         "usage_example_es": "Es simplemente una cuestión de tiempo.",
-        "char_count": "6",
-        "usage_context_en": "Used to mean 'only', 'just', or 'in a simple way'.",
-        "usage_context_es": "Usado para significar 'solo', 'solamente' o 'de manera simple'."
+        "char_count": 6,
+        "usage_context_en": "Used to mean 'only', 'just', or 'absolutely'.",
+        "usage_context_es": "Usado para significar 'solo', 'solamente' o 'absolutamente'."
       }
     ]
   },
@@ -499,7 +488,7 @@
     "is_verb": false,
     "learned": false,
     "force_generation": false,
-    "group_name": "Adverbs: Sentence",
+    "group_name": "Adverbs: Manner",
     "definitions": [
       {
         "meaning": "Honestamente / En serio",
@@ -571,7 +560,7 @@
     "is_verb": false,
     "learned": false,
     "force_generation": false,
-    "group_name": "Adverbs: Manner",
+    "group_name": "Adverbs: Sentence",
     "definitions": [
       {
         "meaning": "Naturalmente / Por supuesto",
@@ -653,6 +642,27 @@
         "char_count": "5",
         "usage_context_en": "For all future time; for eternity.",
         "usage_context_es": "Por todo el tiempo futuro; por la eternidad."
+      }
+    ]
+  },
+  {
+    "name": "generally",
+    "phonetic": "/ˈdʒɛnərəli/",
+    "spoken_phonetic_us": "/ˈdʒɛnərəli/",
+    "search_term": "adverb/frequency",
+    "is_verb": false,
+    "learned": false,
+    "force_generation": false,
+    "group_name": "Adverbs: Frequency",
+    "definitions": [
+      {
+        "meaning": "Generalmente / Por lo general",
+        "usage_example": "I generally wake up early.",
+        "pronunciation_guide_es": "/ai_YE-ne-ra-li_UEIK_OP_ER-li/",
+        "usage_example_es": "Generalmente me despierto temprano.",
+        "char_count": 5,
+        "usage_context_en": "Usually; in most cases.",
+        "usage_context_es": "Usualmente; en la mayoría de los casos."
       }
     ]
   }

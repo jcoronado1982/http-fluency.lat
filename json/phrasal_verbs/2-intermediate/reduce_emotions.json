@@ -1,0 +1,41 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "bring down",
+        "phonetic": "/brɪŋ daʊn/",
+        "spoken_phonetic_us": "/brɪŋ daʊn/",
+        "search_term": "phrasal verb/reduce/emotions",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Bajar (el precio), reducir",
+                "usage_example": "We need to bring down our costs.",
+                "pronunciation_guide_es": "/ui_NID_tu_bring_DAUN_aur_COSTS/",
+                "alternative_example": "We need to reduce our costs.",
+                "usage_example_es": "Necesitamos reducir nuestros costos.",
+                "char_count": "one",
+                "usage_context_en": "finance/prices",
+                "usage_context_es": "finanzas/precios",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_8_def0.avif"
+            },
+            {
+                "meaning": "Deprimir, poner triste a alguien",
+                "usage_example": "That sad movie really brought me down.",
+                "pronunciation_guide_es": "/dat_SAD_muvi_RIli_brot_mi_DAUN/",
+                "alternative_example": "That sad movie really made me sad.",
+                "usage_example_es": "Esa película triste realmente me deprimió.",
+                "char_count": "one",
+                "usage_context_en": "emotions/mood",
+                "usage_context_es": "emociones/estado de ánimo",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_8_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Bring",
+        "category": "Intermediate"
+    }
+]

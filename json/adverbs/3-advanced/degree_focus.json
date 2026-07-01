@@ -1,0 +1,23 @@
+[
+    {
+        "name": "particularly",
+        "phonetic": "/pəˈtɪkjələli/",
+        "spoken_phonetic_us": "/pərˈtɪkjələrli/",
+        "search_term": "adverb/degree/focus",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Degree",
+        "definitions": [
+            {
+                "meaning": "Particularmente / Especialmente",
+                "usage_example": "I am not particularly busy today.",
+                "pronunciation_guide_es": "/ai_am_NOT_par-TI-kiu-lar-li_BI-si_tu-DEI/",
+                "usage_example_es": "No estoy particularmente ocupado hoy.",
+                "char_count": 6,
+                "usage_context_en": "More than usual; especially.",
+                "usage_context_es": "Más de lo usual; especialmente."
+            }
+        ]
+    }
+]

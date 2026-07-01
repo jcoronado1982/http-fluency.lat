@@ -1,0 +1,41 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "work on",
+        "phonetic": "/wɜrk ɑn/",
+        "spoken_phonetic_us": "/wɜrk ɑn/",
+        "search_term": "phrasal verb/develop/improve/project",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Trabajar en (un proyecto, una tarea)",
+                "usage_example": "What are you working on right now?",
+                "pronunciation_guide_es": "/uat_ar_iu_UORking_ON_rait_NAU/",
+                "alternative_example": "What project are you doing right now?",
+                "usage_example_es": "¿En qué estás trabajando ahora mismo?",
+                "char_count": "one",
+                "usage_context_en": "projects/tasks",
+                "usage_context_es": "proyectos/tareas",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_43_def0.avif"
+            },
+            {
+                "meaning": "Mejorar (una habilidad, un problema)",
+                "usage_example": "I need to work on my pronunciation.",
+                "pronunciation_guide_es": "/ai_NID_tu_uork_ON_mai_pronansiEIshen/",
+                "alternative_example": "I need to improve my pronunciation.",
+                "usage_example_es": "Necesito trabajar en (mejorar) mi pronunciación.",
+                "char_count": "one",
+                "usage_context_en": "self-improvement/skills",
+                "usage_context_es": "mejora personal/habilidades",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_43_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Work",
+        "category": "Intermediate"
+    }
+]

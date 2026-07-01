@@ -79,7 +79,7 @@
     "is_verb": false,
     "learned": false,
     "force_generation": false,
-    "group_name": "Adverbs: Sentence",
+    "group_name": "Adverbs: Certainty",
     "definitions": [
       {
         "meaning": "Obviamente / Evidentemente",
@@ -100,7 +100,7 @@
     "is_verb": false,
     "learned": false,
     "force_generation": false,
-    "group_name": "Adverbs: Sentence",
+    "group_name": "Adverbs: Certainty",
     "definitions": [
       {
         "meaning": "Aparentemente / Por lo visto",
@@ -156,27 +156,6 @@
     ]
   },
   {
-    "name": "generally",
-    "phonetic": "/ˈdʒɛnərəli/",
-    "spoken_phonetic_us": "/ˈdʒɛnərəli/",
-    "search_term": "adverb/frequency",
-    "is_verb": false,
-    "learned": false,
-    "force_generation": false,
-    "group_name": "Adverbs: Frequency",
-    "definitions": [
-      {
-        "meaning": "Generalmente / Por lo general",
-        "usage_example": "I generally wake up early.",
-        "pronunciation_guide_es": "/ai_YE-ne-ra-li_UEIK_OP_ER-li/",
-        "usage_example_es": "Generalmente me despierto temprano.",
-        "char_count": 5,
-        "usage_context_en": "Usually; in most cases.",
-        "usage_context_es": "Usualmente; en la mayoría de los casos."
-      }
-    ]
-  },
-  {
     "name": "normally",
     "phonetic": "/ˈnɔːməli/",
     "spoken_phonetic_us": "/ˈnɔrməli/",
@@ -205,7 +184,7 @@
     "is_verb": false,
     "learned": false,
     "force_generation": false,
-    "group_name": "Adverbs: Sentence",
+    "group_name": "Adverbs: Manner",
     "definitions": [
       {
         "meaning": "Técnicamente / En teoría",
@@ -226,7 +205,7 @@
     "is_verb": false,
     "learned": false,
     "force_generation": false,
-    "group_name": "Adverbs: Sentence",
+    "group_name": "Adverbs: Manner",
     "definitions": [
       {
         "meaning": "Francamente / Sinceramente",
@@ -483,7 +462,7 @@
     "name": "similarly",
     "phonetic": "/ˈsɪmɪlərli/",
     "spoken_phonetic_us": "/ˈsɪmɪlərli/",
-    "search_term": "adverb/manner/sentence",
+    "search_term": "adverb/connector/addition",
     "is_verb": false,
     "learned": false,
     "force_generation": false,
@@ -497,36 +476,6 @@
         "char_count": 4,
         "usage_context_en": "In a similar way.",
         "usage_context_es": "De una manera similar."
-      }
-    ]
-  },
-  {
-    "name": "simply",
-    "phonetic": "/ˈsɪmpli/",
-    "spoken_phonetic_us": "/ˈsɪmpli/",
-    "search_term": "adverb/manner/degree",
-    "is_verb": false,
-    "learned": false,
-    "force_generation": false,
-    "group_name": "Adverbs: Manner",
-    "definitions": [
-      {
-        "meaning": "Simplemente (modo)",
-        "usage_example": "You must explain it simply.",
-        "pronunciation_guide_es": "/iu_MOST_ex-PLEIN_it_SIM-pli/",
-        "usage_example_es": "Debes explicarlo simplemente.",
-        "char_count": 5,
-        "usage_context_en": "In a plain or easy-to-understand way.",
-        "usage_context_es": "De una manera llana o fácil de entender."
-      },
-      {
-        "meaning": "Simplemente / Solo (énfasis)",
-        "usage_example": "It is simply a matter of time.",
-        "pronunciation_guide_es": "/it_is_SIM-pli_a_MA-ter_of_TAIM/",
-        "usage_example_es": "Es simplemente una cuestión de tiempo.",
-        "char_count": 6,
-        "usage_context_en": "Used to mean 'only', 'just', or 'absolutely'.",
-        "usage_context_es": "Usado para significar 'solo', 'solamente' o 'absolutamente'."
       }
     ]
   },

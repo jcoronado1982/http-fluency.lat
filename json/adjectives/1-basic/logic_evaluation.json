@@ -1,0 +1,146 @@
+[
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "right",
+    "phonetic": "/raɪt/",
+    "spoken_phonetic_us": "/raɪt/",
+    "search_term": "adjective/basic/logic_evaluation",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Logic & Evaluation",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Correcto/a",
+        "usage_example": "That is the right answer.",
+        "pronunciation_guide_es": "/dat_is_de_RAIT_AN-ser/",
+        "usage_example_es": "Esa es la respuesta correcta.",
+        "char_count": "5",
+        "usage_context_en": "True or correct as a fact.",
+        "usage_context_es": "Verdadero o correcto como un hecho.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_29_def0.avif"
+      },
+      {
+        "meaning": "Derecho/a",
+        "usage_example": "Turn at the right corner.",
+        "pronunciation_guide_es": "/TERN_at_de_RAIT_COR-ner/",
+        "usage_example_es": "Gira en la esquina derecha.",
+        "char_count": "5",
+        "usage_context_en": "On or relating to the side of the body opposite the left.",
+        "usage_context_es": "En o relativo al lado del cuerpo opuesto al izquierdo.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_29_def1.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "wrong",
+    "phonetic": "/rɒŋ/",
+    "spoken_phonetic_us": "/rɔŋ/",
+    "search_term": "adjective/basic/logic_evaluation",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Logic & Evaluation",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Incorrecto/a / Equivocado/a",
+        "usage_example": "That is the wrong answer.",
+        "pronunciation_guide_es": "/dat_is_de_RONG_AN-ser/",
+        "usage_example_es": "Esa es la respuesta incorrecta.",
+        "char_count": "5",
+        "usage_context_en": "Not correct or true; incorrect.",
+        "usage_context_es": "No correcto o verdadero; incorrecto.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_30_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "true",
+    "phonetic": "/truː/",
+    "spoken_phonetic_us": "/truː/",
+    "search_term": "adjective/basic/logic_evaluation",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Logic & Evaluation",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Verdadero/a",
+        "usage_example": "That story is true.",
+        "pronunciation_guide_es": "/dat_STO-ri_is_TRU/",
+        "usage_example_es": "Esa historia es verdadera.",
+        "char_count": "4",
+        "usage_context_en": "In accordance with fact or reality.",
+        "usage_context_es": "De acuerdo con un hecho o la realidad.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_48_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "false",
+    "phonetic": "/fɔːls/",
+    "spoken_phonetic_us": "/fɔːls/",
+    "search_term": "adjective/basic/logic_evaluation",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Logic & Evaluation",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Falso/a",
+        "usage_example": "That information is false.",
+        "pronunciation_guide_es": "/dat_in-for-MEI-sion_is_FOLS/",
+        "usage_example_es": "Esa información es falsa.",
+        "char_count": "4",
+        "usage_context_en": "Not according with truth or fact; incorrect.",
+        "usage_context_es": "No conforme con la verdad o los hechos; incorrecto.",
+        "imagePath": "/card_images/adjectives/1-basic/1-basic_card_49_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "correct",
+    "phonetic": "/kəˈrɛkt/",
+    "spoken_phonetic_us": "/kəˈrɛkt/",
+    "search_term": "adjective/basic/logic_evaluation",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Logic & Evaluation",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Correcto/a",
+        "usage_example": "The address is correct.",
+        "pronunciation_guide_es": "/di_A-dres_is_co-REKT/",
+        "usage_example_es": "La dirección es correcta.",
+        "char_count": "4",
+        "usage_context_en": "Free from error; right.",
+        "usage_context_es": "Sin error; correcto."
+      }
+    ]
+  }
+]

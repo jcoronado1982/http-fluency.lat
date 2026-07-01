@@ -1,0 +1,23 @@
+[
+    {
+        "name": "precisely",
+        "phonetic": "/prɪˈsaɪsli/",
+        "spoken_phonetic_us": "/prɪˈsaɪsli/",
+        "search_term": "adverb/manner/degree",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Manner",
+        "definitions": [
+            {
+                "meaning": "Precisamente / Exactamente",
+                "usage_example": "The meeting starts at 9 AM precisely.",
+                "pronunciation_guide_es": "/de_MI-ting_STARTS_at_NAIN_ei-EM_pri-SAIS-li/",
+                "usage_example_es": "La reunión empieza a las 9 AM precisamente.",
+                "char_count": 7,
+                "usage_context_en": "In an exact way; exactly.",
+                "usage_context_es": "De manera exacta; exactamente."
+            }
+        ]
+    }
+]

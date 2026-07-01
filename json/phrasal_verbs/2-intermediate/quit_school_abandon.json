@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "drop out (of)",
+        "phonetic": "/drɑp aʊt/",
+        "spoken_phonetic_us": "/drɑ 'paʊt/",
+        "search_term": "phrasal verb/quit/school/abandon",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Abandonar (estudios, una carrera)",
+                "usage_example": "He dropped out of college after one semester.",
+                "pronunciation_guide_es": "/hi_DROPT_aut_ov_KOley_AFter_uan_seMESter/",
+                "alternative_example": "He quit college after one semester.",
+                "usage_example_es": "Él abandonó la universidad después de un semestre.",
+                "char_count": "one",
+                "usage_context_en": "school/education/quit",
+                "usage_context_es": "colegio/educación/abandonar",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_32_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Drop",
+        "category": "Intermediate"
+    }
+]

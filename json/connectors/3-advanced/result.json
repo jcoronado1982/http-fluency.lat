@@ -1,0 +1,54 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "consequently",
+        "phonetic": "/ˈkɒnsɪkwəntli/",
+        "spoken_phonetic_us": "/ˈkɑnsəkwɛntli/",
+        "search_term": "connector/result",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Cause & Effect",
+        "definitions": [
+            {
+                "meaning": "Por consiguiente / En consecuencia",
+                "usage_example": "It rained heavily; consequently, the match was canceled.",
+                "pronunciation_guide_es": "/it_reind_je-vi-li_con-se-kuent-li_de_mach_uas_can-seld/",
+                "usage_example_es": "Llovió mucho; por consiguiente, el partido fue cancelado.",
+                "char_count": "12",
+                "usage_context_en": "As a result.",
+                "usage_context_es": "Como resultado.",
+                "imagePath": "/card_images/connectors/3-advanced/3-advanced_card_0_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "hence",
+        "phonetic": "/hɛns/",
+        "spoken_phonetic_us": "/hɛns/",
+        "search_term": "connector/result",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Cause & Effect",
+        "definitions": [
+            {
+                "meaning": "De ahí que / Por lo tanto",
+                "usage_example": "He didn't study; hence his failure.",
+                "pronunciation_guide_es": "/ji_di-dent_sta-di_jens_jis_fei-liur/",
+                "usage_example_es": "No estudió; de ahí su fracaso.",
+                "char_count": "5",
+                "usage_context_en": "As a consequence; for this reason.",
+                "usage_context_es": "Como consecuencia; por esta razón.",
+                "imagePath": "/card_images/connectors/3-advanced/3-advanced_card_1_def0.avif"
+            }
+        ]
+    }
+]

@@ -1,0 +1,52 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "work out",
+        "phonetic": "/wɜrk aʊt/",
+        "spoken_phonetic_us": "/wɜr 'kaʊt/",
+        "search_term": "phrasal verb/exercise/solve/calculate/result",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Hacer ejercicio (en un gimnasio)",
+                "usage_example": "I try to work out three times a week.",
+                "pronunciation_guide_es": "/ai_TRAI_tu_uor_KAUT_thri_TAIMS_a_UIK/",
+                "alternative_example": "I try to exercise three times a week.",
+                "usage_example_es": "Intento hacer ejercicio tres veces por semana.",
+                "char_count": "one",
+                "usage_context_en": "exercise/health",
+                "usage_context_es": "ejercicio/salud",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_42_def0.avif"
+            },
+            {
+                "meaning": "Resolver (un problema), calcular",
+                "usage_example": "We need to work out a solution.",
+                "pronunciation_guide_es": "/ui_NID_tu_uor_KAUT_a_soLUshen/",
+                "alternative_example": "We need to find a solution.",
+                "usage_example_es": "Necesitamos encontrar (resolver) una solución.",
+                "char_count": "one",
+                "usage_context_en": "problem solving",
+                "usage_context_es": "resolver problemas",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_42_def1.avif"
+            },
+            {
+                "meaning": "Salir bien, funcionar (un plan)",
+                "usage_example": "I hope everything works out for you.",
+                "pronunciation_guide_es": "/ai_HOUP_Everithing_uorks_AUT_for_IU/",
+                "alternative_example": "I hope everything goes well for you.",
+                "usage_example_es": "Espero que todo te salga bien.",
+                "char_count": "one",
+                "usage_context_en": "results/outcome",
+                "usage_context_es": "resultados/desenlace",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_42_def2.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Work",
+        "category": "Intermediate"
+    }
+]

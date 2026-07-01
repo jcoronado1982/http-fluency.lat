@@ -1,0 +1,93 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "whoever",
+        "phonetic": "/huːˈɛvər/",
+        "spoken_phonetic_us": "/huːˈɛvər/",
+        "search_term": "pronoun/indefinite-relative",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Indefinido/Relativo",
+        "definitions": [
+            {
+                "meaning": "Quienquiera que / Quien sea",
+                "usage_example": "Whoever finishes first wins a prize.",
+                "pronunciation_guide_es": "/hu-E-ver_FI-ni-shes_FIRST_UINS_a_PRAIS/",
+                "usage_example_es": "Quienquiera que termine primero gana un premio.",
+                "char_count": "6",
+                "usage_context_en": "Used to mean 'any person who'.",
+                "usage_context_es": "Usado para significar 'cualquier persona que'.",
+                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_0_def0.avif"
+            }
+        ],
+        "category": "Advanced"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "whatever",
+        "phonetic": "/wɒtˈɛvər/",
+        "spoken_phonetic_us": "/wʌtˈɛvər/",
+        "search_term": "pronoun/indefinite-relative",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Indefinido/Relativo",
+        "definitions": [
+            {
+                "meaning": "Lo que sea / Cualquier cosa que",
+                "usage_example": "You can do whatever you want.",
+                "pronunciation_guide_es": "/iu_can_DU_uat-E-ver_iu_UANT/",
+                "usage_example_es": "Puedes hacer lo que sea que quieras.",
+                "char_count": "6",
+                "usage_context_en": "Used to mean 'anything or everything that'.",
+                "usage_context_es": "Usado para significar 'cualquier cosa o todo lo que'.",
+                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_1_def0.avif"
+            },
+            {
+                "meaning": "Lo que sea (informal, indiferencia)",
+                "usage_example": "Do you want pizza or pasta? Whatever.",
+                "pronunciation_guide_es": "/du_iu_UANT_PIT-sa_or_PAS-ta_uat-E-ver/",
+                "usage_example_es": "¿Quieres pizza o pasta? Lo que sea (No importa).",
+                "char_count": "6",
+                "usage_context_en": "Used informally to show indifference.",
+                "usage_context_es": "Usado informalmente para mostrar indiferencia.",
+                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_1_def1.avif"
+            }
+        ],
+        "category": "Advanced"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "whichever",
+        "phonetic": "/wɪtʃˈɛvər/",
+        "spoken_phonetic_us": "/wɪtʃˈɛvər/",
+        "search_term": "pronoun/indefinite-relative",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Indefinido/Relativo",
+        "definitions": [
+            {
+                "meaning": "Cualquiera (que) (opciones limitadas)",
+                "usage_example": "Choose whichever one you like.",
+                "pronunciation_guide_es": "/CHUS_uich-E-ver_UAN_iu_LAIK/",
+                "usage_example_es": "Elige cualquiera que te guste (de estas opciones).",
+                "char_count": "5",
+                "usage_context_en": "Used to mean 'any one from a limited set'.",
+                "usage_context_es": "Usado para significar 'cualquiera de un conjunto limitado'.",
+                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_2_def0.avif"
+            }
+        ],
+        "category": "Advanced"
+    }
+]

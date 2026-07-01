@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "turn into",
+        "phonetic": "/tɜrn ˈɪntu/",
+        "spoken_phonetic_us": "/tɜrn ˈɪndu/",
+        "search_term": "phrasal verb/become/transform",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Convertirse en, transformarse en",
+                "usage_example": "The caterpillar turned into a butterfly.",
+                "pronunciation_guide_es": "/de_KArerpillar_ternd_INdu_a_BOterflai/",
+                "alternative_example": "The caterpillar became a butterfly.",
+                "usage_example_es": "La oruga se convirtió en mariposa.",
+                "char_count": "one",
+                "usage_context_en": "transformation/change",
+                "usage_context_es": "transformación/cambio",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_38_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Turn",
+        "category": "Intermediate"
+    }
+]

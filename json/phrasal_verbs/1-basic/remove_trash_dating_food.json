@@ -1,0 +1,52 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "take out",
+        "phonetic": "/teɪk aʊt/",
+        "spoken_phonetic_us": "/teɪ 'kaʊt/",
+        "search_term": "phrasal verb/remove/trash/dating/food",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Sacar (la basura)",
+                "usage_example": "It's your turn to take out the trash.",
+                "pronunciation_guide_es": "/its_iur_TERN_tu_teik_AUT_de_TRASH/",
+                "alternative_example": "It's your turn to remove the trash.",
+                "usage_example_es": "Es tu turno de sacar la basura.",
+                "char_count": "one",
+                "usage_context_en": "chores/household",
+                "usage_context_es": "quehaceres/hogar",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_28_def0.avif"
+            },
+            {
+                "meaning": "Llevar (a alguien) a salir (cena, cine)",
+                "usage_example": "He's taking me out for dinner on Friday.",
+                "pronunciation_guide_es": "/his_TEIking_mi_AUT_for_DIner_on_FRAIdei/",
+                "alternative_example": "He's inviting me to dinner on Friday.",
+                "usage_example_es": "Él me va a llevar a cenar el viernes.",
+                "char_count": "one",
+                "usage_context_en": "dating/social",
+                "usage_context_es": "citas/social",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_28_def1.avif"
+            },
+            {
+                "meaning": "Pedir comida (para llevar)",
+                "usage_example": "Let's just get take out tonight.",
+                "pronunciation_guide_es": "/lets_yost_get_TEIK_aut_tuNAIT/",
+                "alternative_example": "Let's just get food to go tonight.",
+                "usage_example_es": "Simplemente pidamos comida para llevar esta noche.",
+                "char_count": "one",
+                "usage_context_en": "food/ordering",
+                "usage_context_es": "comida/pedir",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_28_def2.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Take",
+        "category": "Basic"
+    }
+]

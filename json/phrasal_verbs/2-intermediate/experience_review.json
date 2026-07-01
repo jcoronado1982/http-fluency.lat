@@ -1,0 +1,39 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "go through",
+        "phonetic": "/go through/",
+        "spoken_phonetic_us": "/go through/",
+        "search_term": "phrasal verb/experience/review",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Pasar por / Atravesar",
+                "usage_example": "We went through a difficult time.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "We experienced a difficult time.",
+                "usage_example_es": "Pasamos por un momento difícil.",
+                "char_count": "one",
+                "usage_context_en": "experience/difficulty",
+                "usage_context_es": "experiencia/dificultad"
+            },
+            {
+                "meaning": "Revisar cuidadosamente",
+                "usage_example": "Please go through the documents.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "Please review the documents carefully.",
+                "usage_example_es": "Por favor revisa los documentos.",
+                "char_count": "one",
+                "usage_context_en": "review/checking",
+                "usage_context_es": "revisión/verificación"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Go",
+        "category": "Intermediate"
+    }
+]

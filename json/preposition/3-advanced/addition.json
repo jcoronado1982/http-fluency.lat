@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "in addition to",
+        "phonetic": "/ɪn əˈdɪʃən tuː/",
+        "spoken_phonetic_us": "/ɪn əˈdɪʃən tuː/",
+        "search_term": "preposition/addition",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Addition",
+        "definitions": [
+            {
+                "meaning": "Además de",
+                "usage_example": "In addition to English, he speaks French.",
+                "pronunciation_guide_es": "/in_a-DI-shon_tu_ING-glish_hi_SPIKS_FRENCH/",
+                "usage_example_es": "Además de inglés, él habla francés.",
+                "char_count": "7",
+                "usage_context_en": "Used to add another item or piece of information.",
+                "usage_context_es": "Usado para añadir otro ítem o pieza de información.",
+                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_7_def0.avif"
+            }
+        ],
+        "category": "Advanced"
+    }
+]

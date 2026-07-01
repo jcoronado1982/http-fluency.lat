@@ -1,0 +1,44 @@
+[
+    {
+        "name": "yes",
+        "phonetic": "/jɛs/",
+        "spoken_phonetic_us": "/jɛs/",
+        "search_term": "survival/response",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Survival: Street Basics",
+        "definitions": [
+            {
+                "meaning": "Sí",
+                "usage_example": "Yes, I need help.",
+                "pronunciation_guide_es": "/IES_ai_NID_HELP/",
+                "usage_example_es": "Sí, necesito ayuda.",
+                "char_count": "4",
+                "usage_context_en": "Used to answer affirmatively.",
+                "usage_context_es": "Usado para responder afirmativamente."
+            }
+        ]
+    },
+    {
+        "name": "no",
+        "phonetic": "/noʊ/",
+        "spoken_phonetic_us": "/noʊ/",
+        "search_term": "survival/response",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Survival: Street Basics",
+        "definitions": [
+            {
+                "meaning": "No",
+                "usage_example": "No, I don't understand.",
+                "pronunciation_guide_es": "/NOU_ai_DONT_on-der-STAND/",
+                "usage_example_es": "No, no entiendo.",
+                "char_count": "4",
+                "usage_context_en": "Used to answer negatively or refuse something.",
+                "usage_context_es": "Usado para responder negativamente o rechazar algo."
+            }
+        ]
+    }
+]

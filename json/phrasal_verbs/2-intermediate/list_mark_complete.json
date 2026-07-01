@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "check off",
+        "phonetic": "/tʃɛk ɔf/",
+        "spoken_phonetic_us": "/tʃɛk ɔf/",
+        "search_term": "phrasal verb/list/mark/complete",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Marcar (como completado en una lista)",
+                "usage_example": "I love to check off items on my to-do list.",
+                "pronunciation_guide_es": "/ai_LOV_tu_chek_OF_AIrems_on_mai_tu_DU_list/",
+                "alternative_example": "I love to mark items as complete on my to-do list.",
+                "usage_example_es": "Me encanta marcar tareas (ítems) en mi lista de pendientes.",
+                "char_count": "one",
+                "usage_context_en": "tasks/lists",
+                "usage_context_es": "tareas/listas",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_23_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Check",
+        "category": "Intermediate"
+    }
+]

@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "as for",
+        "phonetic": "/æz fɔr/",
+        "spoken_phonetic_us": "/æz fɔr/",
+        "search_term": "preposition/reference/topic",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Reference & Topic",
+        "definitions": [
+            {
+                "meaning": "En cuanto a / Con respecto a",
+                "usage_example": "As for the money, we will pay you tomorrow.",
+                "pronunciation_guide_es": "/as_FOR_de_MO-ni_ui_uil_PEI_iu_tu-MO-rou/",
+                "usage_example_es": "En cuanto al dinero, te pagaremos mañana.",
+                "char_count": "8",
+                "usage_context_en": "Used to introduce a new topic or change the subject.",
+                "usage_context_es": "Usado para introducir un nuevo tema o cambiar de tema.",
+                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_9_def0.avif"
+            }
+        ],
+        "category": "Advanced"
+    }
+]

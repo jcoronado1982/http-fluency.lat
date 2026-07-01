@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "come over",
+        "phonetic": "/kʌm ˈoʊvər/",
+        "spoken_phonetic_us": "/kʌm ˈoʊvər/",
+        "search_term": "phrasal verb/visit/social",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Venir (a la casa de alguien), visitar",
+                "usage_example": "Do you want to come over for dinner?",
+                "pronunciation_guide_es": "/du_iu_UANT_tu_kam_Over_for_DIner/",
+                "alternative_example": "Do you want to visit my house for dinner?",
+                "usage_example_es": "¿Quieres venir (a mi casa) a cenar?",
+                "char_count": "one",
+                "usage_context_en": "invitation/social",
+                "usage_context_es": "invitación/social",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_26_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Come",
+        "category": "Basic"
+    }
+]

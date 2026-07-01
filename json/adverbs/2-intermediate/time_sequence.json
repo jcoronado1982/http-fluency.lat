@@ -1,0 +1,32 @@
+[
+    {
+        "name": "finally",
+        "phonetic": "/ˈfaɪnəli/",
+        "spoken_phonetic_us": "/ˈfaɪnəli/",
+        "search_term": "adverb/time/sequence",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Time",
+        "definitions": [
+            {
+                "meaning": "Por último / Finalmente (secuencia)",
+                "usage_example": "First, mix the flour. Finally, bake the cake.",
+                "pronunciation_guide_es": "/FIRST_miks_de_FLAUR_FAI-na-li_BEIK_de_KEIK/",
+                "usage_example_es": "Primero, mezcla la harina. Por último, hornea el pastel.",
+                "char_count": "7",
+                "usage_context_en": "Used to introduce the last item in a sequence.",
+                "usage_context_es": "Usado para introducir el último ítem en una secuencia."
+            },
+            {
+                "meaning": "Por fin / Finalmente (resultado)",
+                "usage_example": "After three hours, he finally arrived.",
+                "pronunciation_guide_es": "/AF-ter_ZRI_AU-ers_hi_FAI-na-li_a-RAIVD/",
+                "usage_example_es": "Después de tres horas, por fin llegó.",
+                "char_count": "6",
+                "usage_context_en": "After a long time, typically after difficulty or delay.",
+                "usage_context_es": "Después de mucho tiempo, típicamente después de dificultad o retraso."
+            }
+        ]
+    }
+]

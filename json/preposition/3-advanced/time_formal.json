@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "prior to",
+        "phonetic": "/ˈpraɪər tuː/",
+        "spoken_phonetic_us": "/ˈpraɪər tuː/",
+        "search_term": "preposition/time/formal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Time",
+        "definitions": [
+            {
+                "meaning": "Antes de / Previo a (formal)",
+                "usage_example": "Please finish the report prior to the meeting.",
+                "pronunciation_guide_es": "/PLIS_FI-nish_de_ri-PORT_PRAI-or_tu_de_MI-ting/",
+                "usage_example_es": "Por favor termina el informe antes de la reunión.",
+                "char_count": "8",
+                "usage_context_en": "A formal way to say 'before' a specific time or event.",
+                "usage_context_es": "Una forma formal de decir 'antes de' un tiempo o evento específico.",
+                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_8_def0.avif"
+            }
+        ],
+        "category": "Advanced"
+    }
+]

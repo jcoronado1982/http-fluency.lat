@@ -1,0 +1,39 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "for",
+        "phonetic": "/fɔr/",
+        "spoken_phonetic_us": "/fɔr/",
+        "search_term": "preposition/purpose/duration",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Time & Purpose",
+        "definitions": [
+            {
+                "meaning": "Para (propósito / destinatario)",
+                "usage_example": "This gift is for you.",
+                "pronunciation_guide_es": "/dis_GUIFT_is_for_IU/",
+                "usage_example_es": "Este regalo es para ti.",
+                "char_count": "5",
+                "usage_context_en": "Used to indicate purpose or the recipient of an action.",
+                "usage_context_es": "Usado para indicar propósito o el destinatario de una acción.",
+                "imagePath": "/card_images/preposition/1-basic/1-basic_card_5_def0.avif"
+            },
+            {
+                "meaning": "Por / Durante (tiempo)",
+                "usage_example": "I studied for two hours.",
+                "pronunciation_guide_es": "/ai_STO-did_for_TU_AU-ers/",
+                "usage_example_es": "Estudié por (durante) dos horas.",
+                "char_count": "5",
+                "usage_context_en": "Used to indicate a duration of time.",
+                "usage_context_es": "Usado para indicar una duración de tiempo.",
+                "imagePath": "/card_images/preposition/1-basic/1-basic_card_5_def1.avif"
+            }
+        ],
+        "category": "Basic"
+    }
+]

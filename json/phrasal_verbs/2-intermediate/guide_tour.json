@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "show around",
+        "phonetic": "/ʃoʊ əˈraʊnd/",
+        "spoken_phonetic_us": "/ʃoʊ əˈraʊnd/",
+        "search_term": "phrasal verb/guide/tour",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Mostrar (un lugar), hacer un tour",
+                "usage_example": "Let me show you around the new office.",
+                "pronunciation_guide_es": "/let_mi_SHO_iu_aRAUND_de_NU_Ofis/",
+                "alternative_example": "Let me give you a tour of the new office.",
+                "usage_example_es": "Déjame mostrarte la nueva oficina (hacerte un tour).",
+                "char_count": "one",
+                "usage_context_en": "tour/guide",
+                "usage_context_es": "tour/guiar",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_26_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Show",
+        "category": "Intermediate"
+    }
+]

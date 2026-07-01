@@ -1,0 +1,41 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "show up",
+        "phonetic": "/ʃoʊ ʌp/",
+        "spoken_phonetic_us": "/ʃoʊ ʌp/",
+        "search_term": "phrasal verb/arrive/appear",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Aparecer, llegar (a un evento, cita)",
+                "usage_example": "He didn't show up for work today.",
+                "pronunciation_guide_es": "/hi_DIdent_sho_AP_for_UORK_tuDEI/",
+                "alternative_example": "He didn't arrive at work today.",
+                "usage_example_es": "Él no apareció (no vino) a trabajar hoy.",
+                "char_count": "one",
+                "usage_context_en": "attendance/events",
+                "usage_context_es": "asistencia/eventos",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_24_def0.avif"
+            },
+            {
+                "meaning": "Hacer quedar mal a alguien (informal)",
+                "usage_example": "You showed me up in front of my boss!",
+                "pronunciation_guide_es": "/iu_SHOUD_mi_AP_in_FRONT_ov_mai_BOS/",
+                "alternative_example": "You embarrassed me in front of my boss!",
+                "usage_example_es": "¡Me hiciste quedar mal (me humillaste) frente a mi jefe!",
+                "char_count": "one",
+                "usage_context_en": "embarrassment/social",
+                "usage_context_es": "vergüenza/social",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_24_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Show",
+        "category": "Intermediate"
+    }
+]

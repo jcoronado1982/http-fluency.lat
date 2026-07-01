@@ -1,0 +1,52 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "put down",
+        "phonetic": "/pʊt daʊn/",
+        "spoken_phonetic_us": "/pʊt daʊn/",
+        "search_term": "phrasal verb/place/insult/euthanize",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Poner (algo) en el suelo, soltar",
+                "usage_example": "You can put down your bag here.",
+                "pronunciation_guide_es": "/iu_kan_put_DAUN_iur_BAG_HIR/",
+                "alternative_example": "You can place your bag here.",
+                "usage_example_es": "Puedes dejar tu bolso aquí.",
+                "char_count": "one",
+                "usage_context_en": "physical action/placing",
+                "usage_context_es": "acción física/colocar",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_12_def0.avif"
+            },
+            {
+                "meaning": "Menospreciar, humillar (a alguien)",
+                "usage_example": "He always puts down his coworkers.",
+                "pronunciation_guide_es": "/hi_OLueis_puts_DAUN_his_KOuorkers/",
+                "alternative_example": "He always insults his coworkers.",
+                "usage_example_es": "Él siempre menosprecia a sus compañeros de trabajo.",
+                "char_count": "one",
+                "usage_context_en": "insult/criticism",
+                "usage_context_es": "insulto/crítica",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_12_def1.avif"
+            },
+            {
+                "meaning": "Sacrificar (un animal), dormirlo",
+                "usage_example": "We had to put our old cat down.",
+                "pronunciation_guide_es": "/ui_HAD_tu_put_aur_OLD_KAT_daun/",
+                "alternative_example": "We had to euthanize our old cat.",
+                "usage_example_es": "Tuvimos que sacrificar a nuestro viejo gato.",
+                "char_count": "one",
+                "usage_context_en": "pets/euthanasia",
+                "usage_context_es": "mascotas/eutanasia",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_12_def2.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Put",
+        "category": "Intermediate"
+    }
+]

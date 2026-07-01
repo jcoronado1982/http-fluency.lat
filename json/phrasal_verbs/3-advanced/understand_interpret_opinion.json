@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "make of",
+        "phonetic": "/meɪk ʌv/",
+        "spoken_phonetic_us": "/meɪk əv/",
+        "search_term": "phrasal verb/understand/interpret/opinion",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Entender, opinar sobre (interpretar)",
+                "usage_example": "What do you make of this email?",
+                "pronunciation_guide_es": "/uat_du_iu_MEIK_ov_dis_Imeil/",
+                "alternative_example": "How do you interpret this email?",
+                "usage_example_es": "¿Qué entiendes de este email? / ¿Qué opinas?",
+                "char_count": "one",
+                "usage_context_en": "opinion/interpretation",
+                "usage_context_es": "opinión/interpretación",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_1_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Make",
+        "category": "Advanced"
+    }
+]

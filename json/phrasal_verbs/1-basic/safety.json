@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "keep away",
+        "phonetic": "/keep away/",
+        "spoken_phonetic_us": "/keep away/",
+        "search_term": "phrasal verb/safety",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Mantenerse alejado",
+                "usage_example": "Keep away from the fire.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "Stay away from the fire.",
+                "usage_example_es": "Mantente alejado del fuego.",
+                "char_count": "one",
+                "usage_context_en": "safety/warning",
+                "usage_context_es": "seguridad/advertencia"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Keep",
+        "category": "Basic"
+    }
+]

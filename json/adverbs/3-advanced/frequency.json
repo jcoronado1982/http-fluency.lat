@@ -1,0 +1,65 @@
+[
+    {
+        "name": "normally",
+        "phonetic": "/ˈnɔːməli/",
+        "spoken_phonetic_us": "/ˈnɔrməli/",
+        "search_term": "adverb/frequency",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Frequency",
+        "definitions": [
+            {
+                "meaning": "Normalmente",
+                "usage_example": "I normally take the bus.",
+                "pronunciation_guide_es": "/ai_NOR-ma-li_TEIK_de_BOS/",
+                "usage_example_es": "Normalmente tomo el autobús.",
+                "char_count": 5,
+                "usage_context_en": "Under normal or usual conditions; typically.",
+                "usage_context_es": "Bajo condiciones normales o usuales; típicamente."
+            }
+        ]
+    },
+    {
+        "name": "frequently",
+        "phonetic": "/ˈfriːkwəntli/",
+        "spoken_phonetic_us": "/ˈfriːkwəntli/",
+        "search_term": "adverb/frequency",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Frequency",
+        "definitions": [
+            {
+                "meaning": "Frecuentemente / A menudo",
+                "usage_example": "We frequently visit this park.",
+                "pronunciation_guide_es": "/ui_FRI-cuent-li_VI-sit_dis_PARK/",
+                "usage_example_es": "Visitamos este parque frecuentemente.",
+                "char_count": 5,
+                "usage_context_en": "Regularly or habitually; often.",
+                "usage_context_es": "Regularmente o habitualmente; a menudo."
+            }
+        ]
+    },
+    {
+        "name": "commonly",
+        "phonetic": "/ˈkɒmənli/",
+        "spoken_phonetic_us": "/ˈkɑmənli/",
+        "search_term": "adverb/frequency",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Adverbs: Frequency",
+        "definitions": [
+            {
+                "meaning": "Comúnmente / Habitualmente",
+                "usage_example": "This is a commonly used phrase.",
+                "pronunciation_guide_es": "/dis_is_a_CO-mon-li_IUSD_FREIS/",
+                "usage_example_es": "Esta es una frase comúnmente usada.",
+                "char_count": 6,
+                "usage_context_en": "Very often; by most people.",
+                "usage_context_es": "Muy a menudo; por la mayoría de la gente."
+            }
+        ]
+    }
+]

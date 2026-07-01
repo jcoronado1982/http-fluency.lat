@@ -1,0 +1,56 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "beneath",
+        "phonetic": "/bɪˈniːθ/",
+        "spoken_phonetic_us": "/bɪˈniːθ/",
+        "search_term": "preposition/place/formal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Place",
+        "definitions": [
+            {
+                "meaning": "Bajo / Debajo de (formal)",
+                "usage_example": "The ground beneath our feet.",
+                "pronunciation_guide_es": "/de_GRAUND_bi-NIZ_aur_FIT/",
+                "usage_example_es": "El suelo bajo nuestros pies.",
+                "char_count": "5",
+                "usage_context_en": "A formal or literary word for 'under' or 'below'.",
+                "usage_context_es": "Una palabra formal o literaria para 'under' o 'below'.",
+                "imagePath": "/card_images/preposition/2-intermediate/2-intermediate_card_11_def0.avif"
+            }
+        ],
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "upon",
+        "phonetic": "/əˈpɒn/",
+        "spoken_phonetic_us": "/əˈpɑn/",
+        "search_term": "preposition/place/formal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Place & Time",
+        "definitions": [
+            {
+                "meaning": "Sobre (formal)",
+                "usage_example": "He placed the crown upon his head.",
+                "pronunciation_guide_es": "/hi_PLEIST_de_CRAUN_a-PON_his_HED/",
+                "usage_example_es": "Él colocó la corona sobre su cabeza.",
+                "char_count": "7",
+                "usage_context_en": "A more formal or literary version of 'on'.",
+                "usage_context_es": "Una versión más formal o literaria de 'on'.",
+                "imagePath": "/card_images/preposition/2-intermediate/2-intermediate_card_16_def0.avif"
+            }
+        ],
+        "category": "Intermediate"
+    }
+]

@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": true,
+        "learned_at": null,
+        "name": "from",
+        "phonetic": "/frɒm/",
+        "spoken_phonetic_us": "/frʌm/",
+        "search_term": "preposition/origin",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Prepositions: Origin",
+        "definitions": [
+            {
+                "meaning": "De / Desde (origen)",
+                "usage_example": "I am from Colombia.",
+                "pronunciation_guide_es": "/ai_am_FROM_co-LOM-bia/",
+                "usage_example_es": "Soy de Colombia.",
+                "char_count": "4",
+                "usage_context_en": "Used to indicate the point of origin or source.",
+                "usage_context_es": "Usado para indicar el punto de origen o la fuente.",
+                "imagePath": "/card_images/preposition/1-basic/1-basic_card_4_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    }
+]

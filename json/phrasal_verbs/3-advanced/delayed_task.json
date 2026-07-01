@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "get around to",
+        "phonetic": "/get around to/",
+        "spoken_phonetic_us": "/get around to/",
+        "search_term": "phrasal verb/delayed task",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Finalmente hacer algo pendiente",
+                "usage_example": "I finally got around to answering the email.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "I finally found time to answer the email.",
+                "usage_example_es": "Finalmente pude responder el correo pendiente.",
+                "char_count": "one",
+                "usage_context_en": "delayed task",
+                "usage_context_es": "tarea aplazada"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Get",
+        "category": "Advanced"
+    }
+]

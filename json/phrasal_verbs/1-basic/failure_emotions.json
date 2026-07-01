@@ -1,0 +1,52 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "break down",
+        "phonetic": "/breɪk daʊn/",
+        "spoken_phonetic_us": "/breɪk daʊn/",
+        "search_term": "phrasal verb/failure/emotions",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Dejar de funcionar (un auto, una máquina)",
+                "usage_example": "My car broke down on the highway.",
+                "pronunciation_guide_es": "/mai_KAR_brouk_DAUN_on_de_HAIuey/",
+                "alternative_example": "My car stopped working on the highway.",
+                "usage_example_es": "Mi auto se descompuso en la autopista.",
+                "char_count": "one",
+                "usage_context_en": "machines/vehicles",
+                "usage_context_es": "máquinas/vehículos",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_1_def0.avif"
+            },
+            {
+                "meaning": "Derrumbarse (emocionalmente), romper a llorar",
+                "usage_example": "He broke down and cried after the news.",
+                "pronunciation_guide_es": "/hi_BROUK_daun_and_KRAID_after_de_NUS/",
+                "alternative_example": "He lost emotional control and cried.",
+                "usage_example_es": "Él se derrumbó y lloró después de la noticia.",
+                "char_count": "one",
+                "usage_context_en": "emotions",
+                "usage_context_es": "emociones",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_1_def1.avif"
+            },
+            {
+                "meaning": "Desglosar, explicar en partes",
+                "usage_example": "Can you break down the problem for me?",
+                "pronunciation_guide_es": "/kan_iu_breik_DAUN_de_PROblem_for_mi/",
+                "alternative_example": "Can you explain the problem in parts?",
+                "usage_example_es": "¿Puedes desglosar el problema para mí?",
+                "char_count": "one",
+                "usage_context_en": "explanation/analysis",
+                "usage_context_es": "explicación/análisis",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_1_def2.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Break",
+        "category": "Basic"
+    }
+]

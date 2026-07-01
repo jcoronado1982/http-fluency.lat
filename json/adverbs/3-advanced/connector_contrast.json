@@ -1,0 +1,44 @@
+[
+    {
+        "name": "nevertheless",
+        "phonetic": "/ˌnɛvərðəˈlɛs/",
+        "spoken_phonetic_us": "/ˌnɛvərðəˈlɛs/",
+        "search_term": "adverb/connector/contrast",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Connectors: Contrast",
+        "definitions": [
+            {
+                "meaning": "Sin embargo / No obstante (formal)",
+                "usage_example": "It was cold. Nevertheless, he went swimming.",
+                "pronunciation_guide_es": "/it_uas_COLD_ne-ver-de-LES_hi_UENT_SUI-ming/",
+                "usage_example_es": "Hacía frío. Sin embargo, fue a nadar.",
+                "char_count": 6,
+                "usage_context_en": "In spite of that; nonetheless (a very formal version of 'however').",
+                "usage_context_es": "A pesar de eso; no obstante (una versión muy formal de 'however')."
+            }
+        ]
+    },
+    {
+        "name": "nonetheless",
+        "phonetic": "/ˌnʌnðəˈlɛs/",
+        "spoken_phonetic_us": "/ˌnʌnðəˈlɛs/",
+        "search_term": "adverb/connector/contrast",
+        "is_verb": false,
+        "learned": false,
+        "force_generation": false,
+        "group_name": "Connectors: Contrast",
+        "definitions": [
+            {
+                "meaning": "Sin embargo / No obstante (formal)",
+                "usage_example": "The results are bad. Nonetheless, we must continue.",
+                "pronunciation_guide_es": "/de_ri-SOLTS_ar_BAD_non-de-LES_ui_most_con-TI-niu/",
+                "usage_example_es": "Los resultados son malos. No obstante, debemos continuar.",
+                "char_count": 7,
+                "usage_context_en": "In spite of that; nevertheless (also very formal).",
+                "usage_context_es": "A pesar de eso; sin embargo (también muy formal)."
+            }
+        ]
+    }
+]

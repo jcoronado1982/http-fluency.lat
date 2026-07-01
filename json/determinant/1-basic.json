@@ -23,7 +23,8 @@
         "usage_context_es": "Usado antes de un sustantivo contable singular que empieza con sonido de consonante.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_0_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -49,7 +50,8 @@
         "usage_context_es": "Usado antes de un sustantivo contable singular que empieza con sonido de vocal.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_1_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -75,7 +77,8 @@
         "usage_context_es": "Usado para referirse a un sustantivo específico y conocido (singular o plural).",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_2_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -101,7 +104,8 @@
         "usage_context_es": "Usado para un objeto singular que está cerca del hablante.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_3_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -127,7 +131,8 @@
         "usage_context_es": "Usado para un objeto singular que está lejos del hablante.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_4_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -153,7 +158,8 @@
         "usage_context_es": "Usado para objetos plurales que están cerca del hablante.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_5_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -179,7 +185,8 @@
         "usage_context_es": "Usado para objetos plurales que están lejos del hablante.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_6_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -205,7 +212,8 @@
         "usage_context_es": "Perteneciente a mí (el hablante).",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_7_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -231,7 +239,8 @@
         "usage_context_es": "Perteneciente a ti (el oyente).",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_8_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -257,7 +266,8 @@
         "usage_context_es": "Perteneciente a una persona masculina.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_9_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -283,7 +293,8 @@
         "usage_context_es": "Perteneciente a una persona femenina.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_10_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -309,7 +320,8 @@
         "usage_context_es": "Perteneciente a una cosa o animal.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_11_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -335,7 +347,8 @@
         "usage_context_es": "Perteneciente a nosotros (el hablante y otros).",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_12_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -360,6 +373,59 @@
         "usage_context_en": "Belonging to them (other people).",
         "usage_context_es": "Perteneciente a ellos (otras personas).",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_13_def0.avif"
+      }
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "what",
+    "phonetic": "/wʌt/",
+    "spoken_phonetic_us": "/wʌt/",
+    "search_term": "determiner/interrogative",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Questions",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Qué / Cuál",
+        "usage_example": "What bus do I take?",
+        "pronunciation_guide_es": "/UAT_bos_du_ai_TEIK/",
+        "usage_example_es": "¿Qué bus tomo?",
+        "char_count": "5",
+        "usage_context_en": "Used before a noun to ask for specific information.",
+        "usage_context_es": "Usado antes de un sustantivo para pedir información específica."
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "which",
+    "phonetic": "/wɪtʃ/",
+    "spoken_phonetic_us": "/wɪtʃ/",
+    "search_term": "determiner/interrogative",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Questions",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Cuál / Cuáles",
+        "usage_example": "Which street is this?",
+        "pronunciation_guide_es": "/UICH_STRIT_is_dis/",
+        "usage_example_es": "¿Cuál calle es esta?",
+        "char_count": "4",
+        "usage_context_en": "Used before a noun to ask someone to choose from a known set.",
+        "usage_context_es": "Usado antes de un sustantivo para elegir entre opciones conocidas."
       }
     ]
   },
@@ -387,7 +453,8 @@
         "usage_context_es": "Usado para una cantidad no especificada en oraciones afirmativas.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_14_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -423,7 +490,8 @@
         "usage_context_es": "Usado para una cantidad cero en oraciones negativas.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_15_def1.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -449,7 +517,60 @@
         "usage_context_es": "Usado para indicar cantidad cero (más fuerte que 'not any').",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_16_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "all",
+    "phonetic": "/ɔːl/",
+    "spoken_phonetic_us": "/ɔːl/",
+    "search_term": "determiner/quantifier",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Quantifiers",
+    "definitions": [
+      {
+        "meaning": "Todo/a / Todos/as",
+        "usage_example": "All the food is ready.",
+        "pronunciation_guide_es": "/OL_de_FUD_is_RE-di/",
+        "usage_example_es": "Toda la comida está lista.",
+        "char_count": "5",
+        "usage_context_en": "Used to refer to the whole quantity or extent of something.",
+        "usage_context_es": "Usado para referirse a la cantidad total o extensión de algo."
+      }
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "both",
+    "phonetic": "/boʊθ/",
+    "spoken_phonetic_us": "/boʊθ/",
+    "search_term": "determiner/distributive",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Distributives",
+    "definitions": [
+      {
+        "meaning": "Ambos/as / Los/Las dos",
+        "usage_example": "Both my parents are doctors.",
+        "pronunciation_guide_es": "/BOUZ_mai_PA-rents_ar_DOK-tors/",
+        "usage_example_es": "Ambos de mis padres son doctores.",
+        "char_count": "5",
+        "usage_context_en": "Used to refer to two people or things together.",
+        "usage_context_es": "Usado para referirse a dos personas o cosas juntas."
+      }
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -475,7 +596,8 @@
         "usage_context_es": "Usado para referirse a cada miembro individual de un grupo (por separado).",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_17_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -501,7 +623,8 @@
         "usage_context_es": "Usado para referirse a todos los miembros de un grupo colectivamente.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_18_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -527,7 +650,8 @@
         "usage_context_es": "Usado para una gran cantidad de un sustantivo incontable (principalmente en preguntas/negativos).",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_19_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -553,7 +677,8 @@
         "usage_context_es": "Usado para un gran número de un sustantivo contable.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_20_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -579,33 +704,8 @@
         "usage_context_es": "Una gran cantidad o número (usado con sustantivos contables e incontables).",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_21_def0.avif"
       }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "lots of",
-    "phonetic": "/lɒts əv/",
-    "spoken_phonetic_us": "/lɑts əv/",
-    "search_term": "determiner/quantifier",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Quantifiers",
-    "definitions": [
-      {
-        "meaning": "Mucho / Mucha / Muchos / Muchas (Informal)",
-        "usage_example": "She has lots of money.",
-        "pronunciation_guide_es": "/shi_HAS_LOTS_of_MO-ni/",
-        "usage_example_es": "Ella tiene mucho dinero.",
-        "char_count": 5,
-        "usage_context_en": "An informal version of 'a lot of'.",
-        "usage_context_es": "Una versión informal de 'a lot of'.",
-        "imagePath": "/card_images/determinant/1-basic/1-basic_card_22_def0.avif"
-      }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -631,7 +731,8 @@
         "usage_context_es": "Usado para un pequeño número de un sustantivo contable (implica cantidad negativa, 'no suficientes').",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_23_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -657,7 +758,86 @@
         "usage_context_es": "Usado para una pequeña cantidad de un sustantivo incontable (implica cantidad negativa, 'no suficiente').",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_24_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "enough",
+    "phonetic": "/ɪˈnʌf/",
+    "spoken_phonetic_us": "/ɪˈnʌf/",
+    "search_term": "determiner/quantifier",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Quantifiers",
+    "definitions": [
+      {
+        "meaning": "Suficiente(s)",
+        "usage_example": "I don't have enough money.",
+        "pronunciation_guide_es": "/ai_DONT_HAV_i-NOF_MO-ni/",
+        "usage_example_es": "No tengo suficiente dinero.",
+        "char_count": "5",
+        "usage_context_en": "As much or as many as is necessary or required.",
+        "usage_context_es": "Tanto o tantos como sea necesario o requerido."
+      }
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "more",
+    "phonetic": "/mɔːr/",
+    "spoken_phonetic_us": "/mɔr/",
+    "search_term": "determiner/quantifier",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Quantifiers",
+    "definitions": [
+      {
+        "meaning": "Más",
+        "usage_example": "I need more time.",
+        "pronunciation_guide_es": "/ai_NID_MOR_TAIM/",
+        "usage_example_es": "Necesito más tiempo.",
+        "char_count": "4",
+        "usage_context_en": "A greater or additional amount or degree.",
+        "usage_context_es": "Una cantidad o grado mayor o adicional."
+      }
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "less",
+    "phonetic": "/lɛs/",
+    "spoken_phonetic_us": "/lɛs/",
+    "search_term": "determiner/quantifier",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Quantifiers",
+    "definitions": [
+      {
+        "meaning": "Menos (incontable)",
+        "usage_example": "I have less money than you.",
+        "pronunciation_guide_es": "/ai_HAV_LES_MO-ni_dan_IU/",
+        "usage_example_es": "Tengo menos dinero que tú.",
+        "char_count": "6",
+        "usage_context_en": "A smaller amount of (used with uncountable nouns).",
+        "usage_context_es": "Una cantidad menor de (usado con sustantivos incontables)."
+      }
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -683,7 +863,8 @@
         "usage_context_es": "El número 1.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_25_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -709,7 +890,8 @@
         "usage_context_es": "El número 2.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_26_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -734,6 +916,59 @@
         "usage_context_en": "The number 3.",
         "usage_context_es": "El número 3.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_27_def0.avif"
+      }
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "four",
+    "phonetic": "/fɔːr/",
+    "spoken_phonetic_us": "/fɔr/",
+    "search_term": "determiner/number",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Numbers",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Cuatro",
+        "usage_example": "I need four tickets.",
+        "pronunciation_guide_es": "/ai_NID_FOR_TI-kets/",
+        "usage_example_es": "Necesito cuatro boletos.",
+        "char_count": "4",
+        "usage_context_en": "Used before a plural noun to show the number 4.",
+        "usage_context_es": "Usado antes de un sustantivo plural para indicar el número 4."
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "five",
+    "phonetic": "/faɪv/",
+    "spoken_phonetic_us": "/faɪv/",
+    "search_term": "determiner/number",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Numbers",
+    "category": "Basic",
+    "definitions": [
+      {
+        "meaning": "Cinco",
+        "usage_example": "We need five minutes.",
+        "pronunciation_guide_es": "/ui_NID_FAIV_MI-nits/",
+        "usage_example_es": "Necesitamos cinco minutos.",
+        "char_count": "4",
+        "usage_context_en": "Used before a plural noun to show the number 5.",
+        "usage_context_es": "Usado antes de un sustantivo plural para indicar el número 5."
       }
     ]
   },
@@ -761,7 +996,8 @@
         "usage_context_es": "El número ordinal 1°; que viene antes que todos los demás.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_28_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -787,7 +1023,8 @@
         "usage_context_es": "Que viene inmediatamente después del presente.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_29_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
   },
   {
     "word": "",
@@ -813,6 +1050,129 @@
         "usage_context_es": "Que viene después de todos los demás; el más reciente.",
         "imagePath": "/card_images/determinant/1-basic/1-basic_card_30_def0.avif"
       }
-    ]
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "another",
+    "phonetic": "/əˈnʌðər/",
+    "spoken_phonetic_us": "/əˈnʌðər/",
+    "search_term": "determiner/quantifier",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Quantifiers",
+    "definitions": [
+      {
+        "meaning": "Otro/a (uno más, adicional)",
+        "usage_example": "Can I have another cookie?",
+        "pronunciation_guide_es": "/can_ai_HAV_a-NO-der_CU-ki/",
+        "usage_example_es": "¿Puedo tomar otra galleta?",
+        "char_count": "5",
+        "usage_context_en": "Used for one more, additional, singular countable noun.",
+        "usage_context_es": "Usado para uno más, adicional, sustantivo contable singular."
+      },
+      {
+        "meaning": "Otro/a (diferente)",
+        "usage_example": "Let's meet another day.",
+        "pronunciation_guide_es": "/lets_MIT_a-NO-der_DEI/",
+        "usage_example_es": "Reunámonos otro día.",
+        "char_count": "4",
+        "usage_context_en": "Used for a different singular countable noun.",
+        "usage_context_es": "Usado para un sustantivo contable singular diferente."
+      }
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "other",
+    "phonetic": "/ˈʌðər/",
+    "spoken_phonetic_us": "/ˈʌðər/",
+    "search_term": "determiner/quantifier",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Quantifiers",
+    "definitions": [
+      {
+        "meaning": "Otro/a / Otros/as (general)",
+        "usage_example": "Do you have other options?",
+        "pronunciation_guide_es": "/du_iu_HAV_O-der_OP-shons/",
+        "usage_example_es": "¿Tienes otras opciones?",
+        "char_count": "5",
+        "usage_context_en": "Used for different or additional plural or uncountable nouns.",
+        "usage_context_es": "Usado para sustantivos plurales o incontables diferentes o adicionales."
+      },
+      {
+        "meaning": "El/La otro/a (específico)",
+        "usage_example": "The other key is on the table.",
+        "pronunciation_guide_es": "/di_O-der_KI_is_on_de_TEI-bol/",
+        "usage_example_es": "La otra llave está en la mesa.",
+        "char_count": "7",
+        "usage_context_en": "Used with 'the' to refer to the second of two specific things.",
+        "usage_context_es": "Usado con 'the' para referirse al segundo de dos objetos específicos."
+      }
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "same",
+    "phonetic": "/seɪm/",
+    "spoken_phonetic_us": "/seɪm/",
+    "search_term": "determiner/demonstrative",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Other",
+    "definitions": [
+      {
+        "meaning": "Mismo/a / Mismos/as",
+        "usage_example": "We have the same car.",
+        "pronunciation_guide_es": "/ui_HAV_de_SEIM_CAR/",
+        "usage_example_es": "Tenemos el mismo carro.",
+        "char_count": "5",
+        "usage_context_en": "Used to identify something as being identical; not different.",
+        "usage_context_es": "Usado para identificar algo como idéntico; no diferente."
+      }
+    ],
+    "category": "Basic"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "different",
+    "phonetic": "/ˈdɪfərənt/",
+    "spoken_phonetic_us": "/ˈdɪfərənt/",
+    "search_term": "adjective/describing",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Determiners: Other",
+    "definitions": [
+      {
+        "meaning": "Diferente / Distinto/a",
+        "usage_example": "I have a different opinion.",
+        "pronunciation_guide_es": "/ai_HAV_a_DI-fe-rent_o-PI-nion/",
+        "usage_example_es": "Tengo una opinión diferente.",
+        "char_count": "5",
+        "usage_context_en": "Not the same as another or each other.",
+        "usage_context_es": "No igual a otro o entre sí."
+      }
+    ],
+    "category": "Basic"
   }
 ]

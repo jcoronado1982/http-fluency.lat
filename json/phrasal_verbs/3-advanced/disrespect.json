@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "look down on",
+        "phonetic": "/look down on/",
+        "spoken_phonetic_us": "/look down on/",
+        "search_term": "phrasal verb/disrespect",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Mirar por encima del hombro / Despreciar",
+                "usage_example": "She looks down on people without money.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "She thinks she is better than them.",
+                "usage_example_es": "Ella desprecia a la gente sin dinero.",
+                "char_count": "one",
+                "usage_context_en": "attitude/social judgment",
+                "usage_context_es": "actitud/juicio social"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Look",
+        "category": "Advanced"
+    }
+]

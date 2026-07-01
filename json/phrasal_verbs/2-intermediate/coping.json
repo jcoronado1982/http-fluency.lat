@@ -1,0 +1,40 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "get along",
+        "phonetic": "/ɡɛt əˈlɑŋ/",
+        "spoken_phonetic_us": "/ɡɛɾ əˈlɑŋ/",
+        "search_term": "phrasal verb relationships/coping",
+        "is_phrasal_verb": true,
+        "definitions": [
+            {
+                "meaning": "llevarse bien",
+                "usage_example": "My friends and I get along really well. We’re always laughing.",
+                "pronunciation_guide_es": "/mai_frends_en_ai_guer_aLONG_RI-li_uel_uir_OL-ueis_LAF-ing/",
+                "alternative_example": "My friends and I have a very good relationship. We’re always laughing.",
+                "usage_example_es": "Mis amigos y yo nos llevamos muy bien, siempre nos estamos riendo.",
+                "char_count": "two",
+                "usage_context_en": "relationships",
+                "usage_context_es": "relaciones",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_41_def0.avif"
+            },
+            {
+                "meaning": "arreglárselas o hacer progreso",
+                "usage_example": "Despite the problems, they are somehow getting along.",
+                "pronunciation_guide_es": "/des-PAIT_da_PROB-lems_dei_ar_SOM-jau_GUER-ing_aLONG/",
+                "alternative_example": "Despite the problems, they are somehow managing.",
+                "usage_example_es": "A pesar de los problemas, de alguna manera se las están arreglando.",
+                "char_count": "multiple",
+                "usage_context_en": "coping",
+                "usage_context_es": "sobrellevar/arreglárselas",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_41_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Get",
+        "category": "Intermediate"
+    }
+]

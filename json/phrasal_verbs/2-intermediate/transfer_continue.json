@@ -1,0 +1,30 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "carry over",
+        "phonetic": "/ˈkɛri ˈoʊvər/",
+        "spoken_phonetic_us": "/ˈkɛri ˈoʊvər/",
+        "search_term": "phrasal verb/transfer/continue",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Transferir (a un nuevo período o lugar)",
+                "usage_example": "Will my vacation days carry over to next year?",
+                "pronunciation_guide_es": "/uil_mai_veKEIshen_deis_KEri_Over_tu_nekst_YIR?/",
+                "alternative_example": "Will my vacation days transfer to next year?",
+                "usage_example_es": "¿Mis días de vacaciones se transferirán al próximo año?",
+                "char_count": "one",
+                "usage_context_en": "work/rules/finance",
+                "usage_context_es": "trabajo/reglas/finanzas",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_18_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Carry",
+        "category": "Intermediate"
+    }
+]

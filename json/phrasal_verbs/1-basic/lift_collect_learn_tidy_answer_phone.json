@@ -1,0 +1,74 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "pick up",
+        "phonetic": "/pɪk ʌp/",
+        "spoken_phonetic_us": "/pɪk ʌp/",
+        "search_term": "phrasal verb/lift/collect/learn/tidy/answer phone",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Levantar (del suelo, de una superficie)",
+                "usage_example": "Can you pick up that pencil for me?",
+                "pronunciation_guide_es": "/kæn_iu_pik_AP_dat_PENsil_for_mi/",
+                "alternative_example": "Can you lift that pencil for me?",
+                "usage_example_es": "¿Puedes levantar ese lápiz por mí?",
+                "char_count": "one",
+                "usage_context_en": "physical action/lifting",
+                "usage_context_es": "acción física/levantar",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_3_def0.avif"
+            },
+            {
+                "meaning": "Recoger (a alguien, usualmente en auto)",
+                "usage_example": "I need to pick up my kids from school.",
+                "pronunciation_guide_es": "/ai_NID_tu_pik_AP_mai_KIDS_from_SKUL/",
+                "alternative_example": "I need to collect my kids from school.",
+                "usage_example_es": "Tengo que recoger a mis hijos del colegio.",
+                "char_count": "one",
+                "usage_context_en": "daily routine/transport",
+                "usage_context_es": "rutina diaria/transporte",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_3_def1.avif"
+            },
+            {
+                "meaning": "Contestar (el teléfono)",
+                "usage_example": "The phone is ringing. Please pick it up.",
+                "pronunciation_guide_es": "/de_FOUN_is_RINGing. plis_pik_it_AP/",
+                "alternative_example": "The phone is ringing. Please answer it.",
+                "usage_example_es": "El teléfono está sonando. Por favor, contéstalo.",
+                "char_count": "one",
+                "usage_context_en": "phone call",
+                "usage_context_es": "llamada telefónica",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_3_def2.avif"
+            },
+            {
+                "meaning": "Ordenar, recoger (un desorden)",
+                "usage_example": "You need to pick up your room.",
+                "pronunciation_guide_es": "/iu_NID_tu_pik_AP_iur_RUM/",
+                "alternative_example": "You need to tidy your room.",
+                "usage_example_es": "Necesitas ordenar tu cuarto.",
+                "char_count": "one",
+                "usage_context_en": "chores/tidying up",
+                "usage_context_es": "quehaceres/ordenar",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_3_def3.avif"
+            },
+            {
+                "meaning": "Aprender (un idioma, habilidad, sin esfuerzo)",
+                "usage_example": "I picked up some Spanish in Medellín.",
+                "pronunciation_guide_es": "/ai_pikt_AP_sam_SPAnish_in_medeYIN/",
+                "alternative_example": "I learned some Spanish (casually) in Medellín.",
+                "usage_example_es": "Aprendí algo de español en Medellín.",
+                "char_count": "one",
+                "usage_context_en": "learning/skills",
+                "usage_context_es": "aprender/habilidades",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_3_def4.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Pick",
+        "category": "Basic"
+    }
+]

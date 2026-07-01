@@ -1,0 +1,28 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "in conclusion",
+        "phonetic": "/ɪn kənˈkluʒən/",
+        "spoken_phonetic_us": "/ɪn kənˈkluʒən/",
+        "search_term": "phrase/conclusion/formal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Conclusion",
+        "definitions": [
+            {
+                "meaning": "En conclusión (formal)",
+                "usage_example": "In conclusion, the results support our theory.",
+                "pronunciation_guide_es": "/in_con-CLU-shon_de_ri-SOLTS_su-PORT_aur_ZI-o-ri/",
+                "usage_example_es": "En conclusión, los resultados apoyan nuestra teoría.",
+                "char_count": "7",
+                "usage_context_en": "Used to signal the end or summary of a speech or text.",
+                "usage_context_es": "Usado para señalar el final o resumen de un discurso o texto.",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_29_def0.avif"
+            }
+        ]
+    }
+]

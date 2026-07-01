@@ -1,0 +1,29 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "give in",
+        "phonetic": "/give in/",
+        "spoken_phonetic_us": "/give in/",
+        "search_term": "phrasal verb/surrender",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Ceder / Rendirse ante presión",
+                "usage_example": "She finally gave in.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "She finally agreed after pressure.",
+                "usage_example_es": "Ella finalmente cedió.",
+                "char_count": "one",
+                "usage_context_en": "pressure/negotiation",
+                "usage_context_es": "presión/negociación"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Give",
+        "category": "Intermediate"
+    }
+]
