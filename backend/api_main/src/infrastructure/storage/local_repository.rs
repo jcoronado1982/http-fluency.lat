@@ -146,6 +146,21 @@ impl LocalStorageRepository {
         self.sync_to_oracle && !self.oracle_host.is_empty()
     }
 
+    fn uses_nested_level_decks(category: &str) -> bool {
+        matches!(
+            category.to_ascii_lowercase().as_str(),
+            "verbs"
+                | "nouns"
+                | "adjectives"
+                | "adverbs"
+                | "connectors"
+                | "determinant"
+                | "phrasal_verbs"
+                | "preposition"
+                | "pronouns"
+        )
+    }
+
     fn validate_relative_path(relative_path: &str) -> Result<()> {
         let relative = relative_path.trim_start_matches('/');
         if relative.is_empty()
@@ -300,6 +315,90 @@ impl LocalStorageRepository {
         Ok(results)
     }
 
+    async fn list_nested_remote_decks(&self, rel: &str) -> Result<Vec<String>> {
+        let mut level_dirs = if let Ok(remote) = self.list_oracle_dir_via_ssh(rel).await {
+            remote
+        } else {
+            self.list_oracle_entries(rel, true).await.unwrap_or_default()
+        };
+
+        level_dirs.sort();
+        level_dirs.dedup();
+
+        let mut decks = Vec::new();
+        for level_dir in level_dirs {
+            let nested_rel = format!("{rel}/{level_dir}");
+            let mut files = if let Ok(remote) = self.list_oracle_dir_via_ssh(&nested_rel).await {
+                remote
+                    .into_iter()
+                    .filter(|name| name.ends_with(".json") && !name.contains(".bak"))
+                    .collect()
+            } else {
+                self.list_oracle_entries(&nested_rel, false)
+                    .await
+                    .unwrap_or_default()
+            };
+
+            files.sort();
+            files.dedup();
+
+            for file in files {
+                decks.push(format!("{level_dir}/{file}"));
+            }
+        }
+
+        Ok(decks)
+    }
+
+    async fn list_nested_local_decks(&self, rel: &str) -> Result<Vec<String>> {
+        let local_path = self.get_full_path(rel);
+        if !local_path.exists() {
+            return Ok(vec![]);
+        }
+
+        let mut level_entries = fs::read_dir(&local_path).await?;
+        let mut decks = Vec::new();
+
+        while let Some(level_entry) = level_entries.next_entry().await? {
+            if !level_entry.file_type().await?.is_dir() {
+                continue;
+            }
+
+            let Some(level_name) = level_entry.file_name().to_str().map(str::to_string) else {
+                continue;
+            };
+
+            let mut files = fs::read_dir(level_entry.path()).await?;
+            while let Some(file_entry) = files.next_entry().await? {
+                if !file_entry.file_type().await?.is_file() {
+                    continue;
+                }
+
+                if let Some(file_name) = file_entry.file_name().to_str() {
+                    if file_name.ends_with(".json") && !file_name.contains(".bak") {
+                        if Self::local_json_file_has_cards(&file_entry.path()).await {
+                            decks.push(format!("{level_name}/{file_name}"));
+                        }
+                    }
+                }
+            }
+        }
+
+        decks.sort();
+        decks.dedup();
+        Ok(decks)
+    }
+
+    async fn local_json_file_has_cards(path: &Path) -> bool {
+        match fs::read(path).await {
+            Ok(bytes) => match serde_json::from_slice::<serde_json::Value>(&bytes) {
+                Ok(serde_json::Value::Array(cards)) => !cards.is_empty(),
+                _ => true,
+            },
+            Err(_) => true,
+        }
+    }
+
     /// Transfiere un archivo a Oracle.
     ///
     /// Usa `Command::arg()` directamente (sin `sh -c`) y pasa la contraseña via la
@@ -440,12 +539,40 @@ impl StorageRepository for LocalStorageRepository {
         let rel = format!("{}/{}", self.json_prefix, category);
         let mut result = Vec::new();
 
+        if Self::uses_nested_level_decks(category) {
+            let mut nested_result = Vec::new();
+
+            let mut local_nested = self.list_nested_local_decks(&rel).await?;
+            if !local_nested.is_empty() {
+                local_nested.sort();
+                local_nested.dedup();
+                result = local_nested;
+            } else {
+                if self.oracle_as_source_of_truth() || (self.sync_to_oracle && !self.oracle_host.is_empty()) {
+                    nested_result = self.list_nested_remote_decks(&rel).await.unwrap_or_default();
+                }
+
+                if !self.oracle_as_source_of_truth() {
+                    let mut fallback_local_nested = self.list_nested_local_decks(&rel).await?;
+                    nested_result.append(&mut fallback_local_nested);
+                    nested_result.sort();
+                    nested_result.dedup();
+                }
+
+                if !nested_result.is_empty() {
+                    result = nested_result;
+                }
+            }
+        }
+
         if self.oracle_as_source_of_truth() || (self.sync_to_oracle && !self.oracle_host.is_empty()) {
-            if let Ok(remote) = self.list_oracle_dir_via_ssh(&rel).await {
-                result = remote
-                    .into_iter()
-                    .filter(|n| n.ends_with(".json") && !n.contains(".bak"))
-                    .collect();
+            if result.is_empty() {
+                if let Ok(remote) = self.list_oracle_dir_via_ssh(&rel).await {
+                    result = remote
+                        .into_iter()
+                        .filter(|n| n.ends_with(".json") && !n.contains(".bak"))
+                        .collect();
+                }
             }
             if result.is_empty() {
                 result = self
@@ -494,7 +621,11 @@ impl StorageRepository for LocalStorageRepository {
         let object_name = format!("{}/{}/{}", self.json_prefix, category, full_name);
         let path = self.get_full_path(&object_name);
 
-        let data = if self.oracle_as_source_of_truth() {
+        let data = if Self::uses_nested_level_decks(category) && full_name.contains('/') && path.exists() {
+            fs::read(&path)
+                .await
+                .context(format!("Failed to read {}", object_name))?
+        } else if self.oracle_as_source_of_truth() {
             match self.fetch_from_oracle(&object_name).await {
                 Ok(bytes) => bytes,
                 Err(_) if self.oracle_host.is_empty() => {
@@ -683,10 +814,13 @@ impl StorageRepository for LocalStorageRepository {
             .to_string();
 
         if self.oracle_as_source_of_truth() || self.sync_to_oracle {
-            let entries = self
-                .list_oracle_entries(&dir_str, false)
-                .await
-                .unwrap_or_default();
+            let entries = if let Ok(remote) = self.list_oracle_dir_via_ssh(&dir_str).await {
+                remote
+            } else {
+                self.list_oracle_entries(&dir_str, false)
+                    .await
+                    .unwrap_or_default()
+            };
             for name in entries {
                 if name.starts_with(&file_prefix)
                     && !name.contains(".archive.")

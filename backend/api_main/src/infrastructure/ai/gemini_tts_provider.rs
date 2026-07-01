@@ -16,11 +16,10 @@ use crate::infrastructure::ai::pcm_ogg::pcm_s16le_mono_to_ogg;
 #[allow(dead_code)]
 pub const GEMINI_TTS_MODEL: &str = "gemini-2.5-flash-preview-tts";
 
-/// Modelo activo para síntesis. Flash/Pro comentados: cuota agotada en TESTAI.
+/// Modelo activo para síntesis.
 /// GEMINI_TTS_MODEL se mantiene para hashes de caché (nombres de archivo sin cambios).
 pub const GEMINI_TTS_MODEL_CHAIN: &[&str] = &[
-    "gemini-3.1-flash-tts-preview",
-    // "gemini-2.5-flash-preview-tts",
+    "gemini-2.5-flash-preview-tts",
     // "gemini-2.5-pro-preview-tts",
 ];
 
@@ -355,8 +354,8 @@ mod tests {
     use super::*;
 
     #[test]
-    fn model_chain_uses_3_1_flash_tts_only() {
-        assert_eq!(GEMINI_TTS_MODEL_CHAIN, &["gemini-3.1-flash-tts-preview"]);
+    fn model_chain_uses_2_5_flash_preview_tts_only() {
+        assert_eq!(GEMINI_TTS_MODEL_CHAIN, &["gemini-2.5-flash-preview-tts"]);
     }
 
     #[test]

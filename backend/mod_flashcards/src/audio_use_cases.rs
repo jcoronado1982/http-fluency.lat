@@ -13,8 +13,10 @@ use crate::{
     FlashcardsConfig,
 };
 
+/// Huella estable de caché: se conserva para no regenerar audios ya existentes
+/// al cambiar de modelo TTS.
 const GEMINI_TTS_MODEL: &str = "gemini-2.5-flash-preview-tts";
-const SPANISH_TTS_BACKEND: &str = "cloud-gemini-es-419-v1";
+const SPANISH_TTS_BACKEND: &str = "ai-studio-gemini-es-419-v1";
 const GEMINI_MALE_VOICES: &[&str] = &[
     "Algenib",
     "Algieba",

@@ -37,7 +37,8 @@ pub fn safe_storage_segment(value: &str, field: &str) -> Result<String> {
 pub fn safe_deck_prefix(deck: &str) -> Result<String> {
     let trimmed = deck.trim();
     let without_ext = trimmed.strip_suffix(".json").unwrap_or(trimmed);
-    safe_storage_segment(without_ext, "deck")
+    let media_prefix = without_ext.split('/').next().unwrap_or(without_ext);
+    safe_storage_segment(media_prefix, "deck")
 }
 
 pub fn safe_form_suffix(form: Option<&str>) -> Result<String> {
