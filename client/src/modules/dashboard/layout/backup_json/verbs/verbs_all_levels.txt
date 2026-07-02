@@ -1,0 +1,1788 @@
+ARCHIVO: /home/jcoronado/Desktop/backup_json/verbs/1-basic.json
+
+Nivel: 1-basic
+Registro 0
+  name: be
+  group_name: Being & State
+  meaning:
+    - Ser (identidad, característica)
+    - Estar (ubicación, estado)
+
+Nivel: 1-basic
+Registro 1
+  name: have
+  group_name: Social & Exchange
+  meaning:
+    - Tener (posesión)
+    - Tomar/Comer (en expresiones)
+
+Nivel: 1-basic
+Registro 2
+  name: do
+  group_name: Handling & Creating
+  meaning:
+    - Hacer (una actividad)
+    - Verbo auxiliar (para preguntas/negaciones)
+
+Nivel: 1-basic
+Registro 3
+  name: say
+  group_name: Communication
+  meaning:
+    - Decir (expresar con palabras)
+    - Afirmar (establecer algo)
+
+Nivel: 1-basic
+Registro 4
+  name: get
+  group_name: Social & Exchange
+  meaning:
+    - Obtener/Conseguir
+    - Llegar (a un lugar)
+
+Nivel: 1-basic
+Registro 5
+  name: make
+  group_name: Handling & Creating
+  meaning:
+    - Hacer/Crear
+    - Obligar/Causar
+
+Nivel: 1-basic
+Registro 6
+  name: go
+  group_name: Action & Movement
+  meaning:
+    - Ir (moverse a un lugar)
+    - Funcionar/Continuar (en expresiones)
+
+Nivel: 1-basic
+Registro 7
+  name: know
+  group_name: Mind & Senses
+  meaning:
+    - Saber (información)
+    - Conocer (a una persona/lugar)
+
+Nivel: 1-basic
+Registro 8
+  name: take
+  group_name: Social & Exchange
+  meaning:
+    - Tomar/Agarrar
+    - Llevar/Transportar
+
+Nivel: 1-basic
+Registro 9
+  name: see
+  group_name: Mind & Senses
+  meaning:
+    - Ver (con los ojos)
+    - Entender/Comprender
+
+Nivel: 1-basic
+Registro 10
+  name: think
+  group_name: Mind & Senses
+  meaning:
+    - Pensar (creer, tener una opinión)
+    - Pensar (reflexionar)
+
+Nivel: 1-basic
+Registro 11
+  name: come
+  group_name: Action & Movement
+  meaning:
+    - Venir (acercarse)
+    - Llegar/Suceder
+
+Nivel: 1-basic
+Registro 12
+  name: give
+  group_name: Social & Exchange
+  meaning:
+    - Dar (entregar algo)
+    - Ofrecer (algo no material)
+
+Nivel: 1-basic
+Registro 13
+  name: use
+  group_name: Handling & Creating
+  meaning:
+    - Usar/Utilizar
+    - Consumir/Aplicar
+
+Nivel: 1-basic
+Registro 14
+  name: find
+  group_name: Mind & Senses
+  meaning:
+    - Encontrar (localizar algo)
+    - Parecer/Opinar (encontrarle a algo una característica)
+
+Nivel: 1-basic
+Registro 15
+  name: want
+  group_name: Daily Life
+  meaning:
+    - Querer (desear algo)
+    - Pedir/Solicitar
+
+Nivel: 1-basic
+Registro 16
+  name: tell
+  group_name: Communication
+  meaning:
+    - Contar/Decir (informar a alguien)
+    - Ordenar/Distinguir
+
+Nivel: 1-basic
+Registro 17
+  name: put
+  group_name: Handling & Creating
+  meaning:
+    - Poner/Colocar
+    - Expresar/Explicar (de cierta manera)
+
+Nivel: 1-basic
+Registro 18
+  name: mean
+  group_name: Being & State
+  meaning:
+    - Significar/Querer decir
+    - Tener la intención de
+
+Nivel: 1-basic
+Registro 19
+  name: work
+  group_name: Daily Life
+  meaning:
+    - Trabajar (tener un empleo)
+    - Funcionar (una máquina, plan)
+
+Nivel: 1-basic
+Registro 20
+  name: need
+  group_name: Daily Life
+  meaning:
+    - Necesitar (algo)
+    - Requerir (hacer algo)
+
+Nivel: 1-basic
+Registro 21
+  name: feel
+  group_name: Being & State
+  meaning:
+    - Sentir (emociones, sensaciones)
+    - Palpar/Tocar
+
+Nivel: 1-basic
+Registro 22
+  name: call
+  group_name: Communication
+  meaning:
+    - Llamar (por teléfono)
+    - Llamar (nombrar)
+
+Nivel: 1-basic
+Registro 23
+  name: ask
+  group_name: Communication
+  meaning:
+    - Preguntar
+    - Pedir (una cosa)
+
+Nivel: 1-basic
+Registro 24
+  name: try
+  group_name: Daily Life
+  meaning:
+    - Intentar/Probar (esforzarse)
+    - Probar (comida, ropa)
+
+Nivel: 1-basic
+Registro 25
+  name: keep
+  group_name: Social & Exchange
+  meaning:
+    - Mantener/Guardar
+    - Continuar (haciendo algo)
+
+Nivel: 1-basic
+Registro 26
+  name: let
+  group_name: Handling & Creating
+  meaning:
+    - Permitir/Dejar
+    - Alquilar (formal, a veces)
+
+Nivel: 1-basic
+Registro 27
+  name: begin
+  group_name: Change & Result
+  meaning:
+    - Comenzar/Empezar
+    - Iniciar (una acción)
+
+Nivel: 1-basic
+Registro 28
+  name: seem
+  group_name: Being & State
+  meaning:
+    - Parecer (dar la impresión)
+    - Aparentar (ser evidente)
+
+Nivel: 1-basic
+Registro 29
+  name: help
+  group_name: Daily Life
+  meaning:
+    - Ayudar (asistir)
+    - Contribuir/Servir
+
+Nivel: 1-basic
+Registro 30
+  name: turn
+  group_name: Action & Movement
+  meaning:
+    - Girar/Voltear
+    - Encender/Apagar (con 'on' o 'off')
+
+Nivel: 1-basic
+Registro 31
+  name: start
+  group_name: Change & Result
+  meaning:
+    - Empezar/Comenzar
+    - Poner en marcha (una máquina)
+
+Nivel: 1-basic
+Registro 32
+  name: show
+  group_name: Communication
+  meaning:
+    - Mostrar/Enseñar
+    - Exhibir/Presentar
+
+Nivel: 1-basic
+Registro 33
+  name: hear
+  group_name: Communication
+  meaning:
+    - Oír/Escuchar
+    - Recibir noticias/Saber de alguien
+
+Nivel: 1-basic
+Registro 34
+  name: play
+  group_name: Daily Life
+  meaning:
+    - Jugar
+    - Tocar (un instrumento)
+
+Nivel: 1-basic
+Registro 35
+  name: run
+  group_name: Action & Movement
+  meaning:
+    - Correr
+    - Dirigir/Funcionar
+
+Nivel: 1-basic
+Registro 36
+  name: move
+  group_name: Action & Movement
+  meaning:
+    - Mover/Moverse
+    - Mudarse (de casa)
+
+Nivel: 1-basic
+Registro 37
+  name: like
+  group_name: Daily Life
+  meaning:
+    - Gustar/Agradar
+    - Querer (en algunas frases)
+
+Nivel: 1-basic
+Registro 38
+  name: live
+  group_name: Being & State
+  meaning:
+    - Vivir (residir)
+    - Estar vivo/Experimentar la vida
+
+Nivel: 1-basic
+Registro 39
+  name: talk
+  group_name: Communication
+  meaning:
+    - Hablar/Conversar
+    - Charlar/Comentar
+
+Nivel: 1-basic
+Registro 40
+  name: hold
+  group_name: Social & Exchange
+  meaning:
+    - Sostener/Agarrar
+    - Contener/Mantener
+
+Nivel: 1-basic
+Registro 41
+  name: bring
+  group_name: Social & Exchange
+  meaning:
+    - Traer (a donde está el hablante)
+    - Causar/Generar
+
+Nivel: 1-basic
+Registro 42
+  name: happen
+  group_name: Being & State
+  meaning:
+    - Suceder/Ocurrir
+    - Estar (por casualidad)
+
+Nivel: 1-basic
+Registro 43
+  name: write
+  group_name: Communication
+  meaning:
+    - Escribir (con un bolígrafo, etc.)
+    - Componer (música, libro)
+
+Nivel: 1-basic
+Registro 44
+  name: sit
+  group_name: Being & State
+  meaning:
+    - Sentarse
+    - Estar ubicado/Posicionado
+
+Nivel: 1-basic
+Registro 45
+  name: stand
+  group_name: Being & State
+  meaning:
+    - Estar de pie
+    - Soportar/Resistir (una situación, idea)
+
+Nivel: 1-basic
+Registro 46
+  name: pay
+  group_name: Social & Exchange
+  meaning:
+    - Pagar (dinero)
+    - Prestar atención (con 'attention')
+
+Nivel: 1-basic
+Registro 47
+  name: meet
+  group_name: Social & Exchange
+  meaning:
+    - Reunirse/Encontrarse con
+    - Conocer (a una persona por primera vez)
+
+Nivel: 1-basic
+Registro 48
+  name: walk
+  group_name: Action & Movement
+  meaning:
+    - Caminar/Andar
+    - Pasear/Acompañar
+
+Nivel: 1-basic
+Registro 49
+  name: wait
+  group_name: Daily Life
+  meaning:
+    - Esperar (tiempo o persona)
+    - Aguardar (un evento)
+
+Nivel: 1-basic
+Registro 50
+  name: become
+  group_name: Being & State
+  meaning:
+    - Convertirse en/Llegar a ser
+    - Suceder/Apropiado (arcaico o formal)
+
+Nivel: 1-basic
+Registro 51
+  name: leave
+  group_name: Action & Movement
+  meaning:
+    - Dejar/Abandonar (un lugar o cosa)
+    - Irse/Partir
+
+Nivel: 1-basic
+Registro 52
+  name: believe
+  group_name: Mind & Senses
+  meaning:
+    - Creer (algo)
+    - Tener fe/Confiar
+
+Nivel: 1-basic
+Registro 53
+  name: open
+  group_name: Handling & Creating
+  meaning:
+    - Abrir (una puerta, caja)
+    - Revelar/Desplegar
+
+Nivel: 1-basic
+Registro 54
+  name: read
+  group_name: Communication
+  meaning:
+    - Leer (texto)
+    - Estudiar/Interpretar (formal)
+
+Nivel: 1-basic
+Registro 55
+  name: watch
+  group_name: Mind & Senses
+  meaning:
+    - Ver/Mirar (con atención)
+    - Vigilar/Cuidar
+
+Nivel: 1-basic
+Registro 56
+  name: follow
+  group_name: Action & Movement
+  meaning:
+    - Seguir (ir detrás)
+    - Seguir (instrucciones, reglas)
+
+Nivel: 1-basic
+Registro 57
+  name: stop
+  group_name: Action & Movement
+  meaning:
+    - Parar/Detenerse
+    - Dejar de (hacer algo)
+
+Nivel: 1-basic
+Registro 58
+  name: learn
+  group_name: Mind & Senses
+  meaning:
+    - Aprender
+    - Enterarse de/Saber (información)
+
+Nivel: 1-basic
+Registro 59
+  name: change
+  group_name: Change & Result
+  meaning:
+    - Cambiar/Modificar
+    - Cambiar (dinero)
+
+Nivel: 1-basic
+Registro 60
+  name: win
+  group_name: Change & Result
+  meaning:
+    - Ganar (un juego, premio)
+    - Obtener (algo con esfuerzo)
+
+Nivel: 1-basic
+Registro 61
+  name: lose
+  group_name: Change & Result
+  meaning:
+    - Perder (un objeto)
+    - Perder (un juego, batalla)
+
+Nivel: 1-basic
+Registro 62
+  name: die
+  group_name: Change & Result
+  meaning:
+    - Morir (cesar de vivir)
+    - Extinguirse/Cesar (figurado)
+
+Nivel: 1-basic
+Registro 63
+  name: send
+  group_name: Social & Exchange
+  meaning:
+    - Enviar/Mandar
+    - Emitir/Producir (luz, calor)
+
+Nivel: 1-basic
+Registro 64
+  name: fall
+  group_name: Action & Movement
+  meaning:
+    - Caer/Caerse
+    - Descender (un valor, temperatura)
+
+Nivel: 1-basic
+Registro 65
+  name: cut
+  group_name: Handling & Creating
+  meaning:
+    - Cortar (con tijeras, cuchillo)
+    - Reducir/Acortar
+
+Nivel: 1-basic
+Registro 66
+  name: pass
+  group_name: Action & Movement
+  meaning:
+    - Pasar (por un lugar, tiempo)
+    - Aprobar (un examen, ley)
+
+Nivel: 1-basic
+Registro 67
+  name: sell
+  group_name: Social & Exchange
+  meaning:
+    - Vender
+    - Persuadir (informal)
+
+Nivel: 1-basic
+Registro 68
+  name: pull
+  group_name: Action & Movement
+  meaning:
+    - Jalar/Tirar (hacia uno)
+    - Extraer/Sacar
+
+Nivel: 1-basic
+Registro 69
+  name: push
+  group_name: Action & Movement
+  meaning:
+    - Empujar (alejando)
+    - Impulsar/Animar
+
+Nivel: 1-basic
+Registro 70
+  name: hope
+  group_name: Daily Life
+  meaning:
+    - Esperar (tener esperanza)
+    - Desear/Querer (que algo suceda)
+
+Nivel: 1-basic
+Registro 71
+  name: look
+  group_name: Perception & Attention
+  meaning:
+    - Mirar
+    - Parecer (verse de cierta manera)
+
+Nivel: 1-basic
+Registro 72
+  name: listen
+  group_name: Perception & Attention
+  meaning:
+    - Escuchar
+    - Prestar atención
+
+Nivel: 1-basic
+Registro 73
+  name: love
+  group_name: Feelings & Relationships
+  meaning:
+    - Amar
+    - Encantar
+
+Nivel: 1-basic
+Registro 74
+  name: hate
+  group_name: Feelings & Relationships
+  meaning:
+    - Odiar
+    - Detestar
+
+Nivel: 1-basic
+Registro 75
+  name: stay
+  group_name: Daily Life
+  meaning:
+    - Quedarse
+    - Hospedarse/Permanecer
+
+Nivel: 1-basic
+Registro 76
+  name: close
+  group_name: Daily Life
+  meaning:
+    - Cerrar
+    - Cerrar (terminar horario o negocio)
+
+Nivel: 1-basic
+Registro 77
+  name: pick
+  group_name: Choice & Handling
+  meaning:
+    - Escoger
+    - Recoger
+
+Nivel: 1-basic
+Registro 78
+  name: place
+  group_name: Choice & Handling
+  meaning:
+    - Colocar
+    - Ubicar/Asignar
+
+Nivel: 1-basic
+Registro 79
+  name: study
+  group_name: Learning & School
+  meaning:
+    - Estudiar
+    - Analizar/Revisar con atención
+
+Nivel: 1-basic
+Registro 80
+  name: teach
+  group_name: Learning & School
+  meaning:
+    - Enseñar
+    - Mostrar/Transmitir una lección
+
+Nivel: 1-basic
+Registro 81
+  name: visit
+  group_name: Travel & Social Life
+  meaning:
+    - Visitar
+    - Ir a ver un lugar
+
+Nivel: 1-basic
+Registro 82
+  name: enter
+  group_name: Daily Life
+  meaning:
+    - Entrar
+    - Ingresar (datos)
+
+Nivel: 1-basic
+Registro 83
+  name: finish
+  group_name: Time & Process
+  meaning:
+    - Terminar/Finalizar
+    - Acabarse
+
+Nivel: 1-basic
+Registro 84
+  name: hire
+  group_name: Work & Jobs
+  meaning:
+    - Contratar
+    - Alquilar servicios de alguien
+
+Nivel: 1-basic
+Registro 85
+  name: fire
+  group_name: Work & Jobs
+  meaning:
+    - Despedir (del trabajo)
+    - Disparar
+
+Nivel: 1-basic
+Registro 86
+  name: pause
+  group_name: Time & Process
+  meaning:
+    - Pausar
+    - Hacer una pausa
+
+Nivel: 1-basic
+Registro 87
+  name: end
+  group_name: Time & Process
+  meaning:
+    - Terminar/Acabar
+    - Acabarse/Llegar al final
+
+Nivel: 1-basic
+Registro 88
+  name: rest
+  group_name: Health & Body
+  meaning:
+    - Descansar
+    - Reposar
+
+Nivel: 1-basic
+Registro 89
+  name: laugh
+  group_name: Feelings & Relationships
+  meaning:
+    - Reír
+    - Reírse de
+
+Nivel: 1-basic
+Registro 90
+  name: cry
+  group_name: Feelings & Relationships
+  meaning:
+    - Llorar
+    - Gritar/Pedir con fuerza
+
+Nivel: 1-basic
+Registro 91
+  name: touch
+  group_name: Body & Objects
+  meaning:
+    - Tocar
+    - Conmover/Afectar
+
+Nivel: 1-basic
+Registro 92
+  name: drop
+  group_name: Body & Objects
+  meaning:
+    - Dejar caer
+    - Bajar/Disminuir
+
+ARCHIVO: /home/jcoronado/Desktop/backup_json/verbs/2-intermediate.json
+
+Nivel: 2-intermediate
+Registro 0
+  name: include
+  group_name: Managing & Control
+  meaning:
+    - Incluir
+    - Contener (como parte de un grupo)
+
+Nivel: 2-intermediate
+Registro 1
+  name: continue
+  group_name: Social & Daily Life
+  meaning:
+    - Continuar/Seguir
+    - Reanudar
+
+Nivel: 2-intermediate
+Registro 2
+  name: set
+  group_name: Managing & Control
+  meaning:
+    - Establecer/Fijar
+    - Colocar/Poner
+
+Nivel: 2-intermediate
+Registro 3
+  name: create
+  group_name: Building & Creating
+  meaning:
+    - Crear/Generar
+    - Causar (un resultado)
+
+Nivel: 2-intermediate
+Registro 4
+  name: allow
+  group_name: Managing & Control
+  meaning:
+    - Permitir/Dejar
+    - Dar (tiempo, dinero, etc.)
+
+Nivel: 2-intermediate
+Registro 5
+  name: add
+  group_name: Daily Tasks
+  meaning:
+    - Añadir/Sumar
+    - Agregar (algo más)
+
+Nivel: 2-intermediate
+Registro 6
+  name: spend
+  group_name: Social & Daily Life
+  meaning:
+    - Gastar (dinero)
+    - Pasar (tiempo)
+
+Nivel: 2-intermediate
+Registro 7
+  name: grow
+  group_name: Building & Creating
+  meaning:
+    - Crecer (plantas, personas)
+    - Cultivar/Aumentar
+
+Nivel: 2-intermediate
+Registro 8
+  name: offer
+  group_name: Social & Daily Life
+  meaning:
+    - Ofrecer (algo)
+    - Proponer/Sugerir
+
+Nivel: 2-intermediate
+Registro 9
+  name: remember
+  group_name: Thinking & Deciding
+  meaning:
+    - Recordar
+    - Tener en cuenta/Asegurarse
+
+Nivel: 2-intermediate
+Registro 10
+  name: consider
+  group_name: Thinking & Deciding
+  meaning:
+    - Considerar/Pensar en
+    - Creer/Juzgar
+
+Nivel: 2-intermediate
+Registro 11
+  name: expect
+  group_name: Thinking & Deciding
+  meaning:
+    - Esperar (que algo suceda)
+    - Exigir (formal)
+
+Nivel: 2-intermediate
+Registro 12
+  name: serve
+  group_name: Social & Daily Life
+  meaning:
+    - Servir (comida, en una tienda)
+    - Servir/Ser útil
+
+Nivel: 2-intermediate
+Registro 13
+  name: build
+  group_name: Building & Creating
+  meaning:
+    - Construir/Edificar
+    - Crear/Desarrollar (reputación, negocio)
+
+Nivel: 2-intermediate
+Registro 14
+  name: reach
+  group_name: Body & Movement
+  meaning:
+    - Alcanzar (con la mano, un objetivo)
+    - Llegar a (un lugar, acuerdo)
+
+Nivel: 2-intermediate
+Registro 15
+  name: kill
+  group_name: Daily Tasks
+  meaning:
+    - Matar/Quitar la vida
+    - Anular/Detener (una idea, plan)
+
+Nivel: 2-intermediate
+Registro 16
+  name: remain
+  group_name: Body & Movement
+  meaning:
+    - Permanecer/Quedarse
+    - Restar/Quedar (como sobra)
+
+Nivel: 2-intermediate
+Registro 17
+  name: suggest
+  group_name: Communication
+  meaning:
+    - Sugerir/Proponer
+    - Indicar/Insinuar
+
+Nivel: 2-intermediate
+Registro 18
+  name: raise
+  group_name: Managing & Control
+  meaning:
+    - Levantar/Alzar
+    - Criar/Educar
+
+Nivel: 2-intermediate
+Registro 19
+  name: require
+  group_name: Managing & Control
+  meaning:
+    - Requerir/Necesitar (formal)
+    - Exigir/Ordenar (reglas)
+
+Nivel: 2-intermediate
+Registro 20
+  name: report
+  group_name: Social & Daily Life
+  meaning:
+    - Informar/Notificar
+    - Presentarse/Acudir
+
+Nivel: 2-intermediate
+Registro 21
+  name: decide
+  group_name: Thinking & Deciding
+  meaning:
+    - Decidir/Resolver
+    - Determinar/Fallar (legal)
+
+Nivel: 2-intermediate
+Registro 22
+  name: wear
+  group_name: Daily Routine
+  meaning:
+    - Usar/Llevar puesto (ropa, joyas)
+    - Desgastar/Erosionar
+
+Nivel: 2-intermediate
+Registro 23
+  name: wish
+  group_name: Feelings & Reactions
+  meaning:
+    - Desear (algo)
+    - Anhelar/Querer
+
+Nivel: 2-intermediate
+Registro 24
+  name: develop
+  group_name: Building & Creating
+  meaning:
+    - Desarrollar/Crear
+    - Crecer/Evolucionar
+
+Nivel: 2-intermediate
+Registro 25
+  name: carry
+  group_name: Daily Tasks
+  meaning:
+    - Llevar/Cargar
+    - Conllevar/Implicar
+
+Nivel: 2-intermediate
+Registro 26
+  name: agree
+  group_name: Feelings & Reactions
+  meaning:
+    - Estar de acuerdo
+    - Concordar (gramática)
+
+Nivel: 2-intermediate
+Registro 27
+  name: form
+  group_name: Building & Creating
+  meaning:
+    - Formar/Crear
+    - Constituir/Ser parte de
+
+Nivel: 2-intermediate
+Registro 28
+  name: provide
+  group_name: Social & Daily Life
+  meaning:
+    - Proporcionar/Suministrar
+    - Estipular/Establecer (formal)
+
+Nivel: 2-intermediate
+Registro 29
+  name: represent
+  group_name: Social & Daily Life
+  meaning:
+    - Representar
+    - Mostrar/Describir
+
+Nivel: 2-intermediate
+Registro 30
+  name: understand
+  group_name: Thinking & Deciding
+  meaning:
+    - Entender/Comprender
+    - Saber/Interpretar
+
+Nivel: 2-intermediate
+Registro 31
+  name: explain
+  group_name: Communication
+  meaning:
+    - Explicar
+    - Aclarar/Justificar
+
+Nivel: 2-intermediate
+Registro 32
+  name: appear
+  group_name: Feelings & Reactions
+  meaning:
+    - Aparecer
+    - Parecer/Dar la impresión
+
+Nivel: 2-intermediate
+Registro 33
+  name: buy
+  group_name: Social & Daily Life
+  meaning:
+    - Comprar
+    - Adquirir/Creer (informal)
+
+Nivel: 2-intermediate
+Registro 34
+  name: join
+  group_name: Daily Tasks
+  meaning:
+    - Unirse a (un grupo, club)
+    - Juntar/Conectar
+
+Nivel: 2-intermediate
+Registro 35
+  name: choose
+  group_name: Thinking & Deciding
+  meaning:
+    - Elegir/Escoger
+    - Decidir/Preferir
+
+Nivel: 2-intermediate
+Registro 36
+  name: break
+  group_name: Daily Tasks
+  meaning:
+    - Romper/Quebrar
+    - Tomar un descanso/Interrumpir
+
+Nivel: 2-intermediate
+Registro 37
+  name: speak
+  group_name: Communication
+  meaning:
+    - Hablar (un idioma, formalmente)
+    - Dar un discurso/Expresar
+
+Nivel: 2-intermediate
+Registro 38
+  name: catch
+  group_name: Daily Tasks
+  meaning:
+    - Atrapar/Coger (un objeto en movimiento)
+    - Tomar (un transporte)/Descubrir
+
+Nivel: 2-intermediate
+Registro 39
+  name: throw
+  group_name: Daily Tasks
+  meaning:
+    - Lanzar/Arrojar
+    - Hacer (una fiesta)
+
+Nivel: 2-intermediate
+Registro 40
+  name: forget
+  group_name: Thinking & Deciding
+  meaning:
+    - Olvidar
+    - Dejar de pensar en
+
+Nivel: 2-intermediate
+Registro 41
+  name: drive
+  group_name: Daily Routine
+  meaning:
+    - Conducir/Manejar
+    - Impulsar/Llevar (a un estado)
+
+Nivel: 2-intermediate
+Registro 42
+  name: eat
+  group_name: Daily Routine
+  meaning:
+    - Comer
+    - Corroer/Desgastar (con 'away')
+
+Nivel: 2-intermediate
+Registro 43
+  name: drink
+  group_name: Daily Routine
+  meaning:
+    - Beber/Tomar (líquido)
+    - Beber (alcohol)
+
+Nivel: 2-intermediate
+Registro 44
+  name: sleep
+  group_name: Daily Routine
+  meaning:
+    - Dormir
+    - Alojar (un número de personas)
+
+Nivel: 2-intermediate
+Registro 45
+  name: swim
+  group_name: Daily Tasks
+  meaning:
+    - Nadar
+    - Marearse/Girar (la cabeza)
+
+Nivel: 2-intermediate
+Registro 46
+  name: fly
+  group_name: Daily Tasks
+  meaning:
+    - Volar (en el aire)
+    - Pasar rápidamente (el tiempo)
+
+Nivel: 2-intermediate
+Registro 47
+  name: cost
+  group_name: Managing & Control
+  meaning:
+    - Costar (tener un precio)
+    - Causar una pérdida
+
+Nivel: 2-intermediate
+Registro 48
+  name: support
+  group_name: Social & Daily Life
+  meaning:
+    - Apoyar/Ayudar (a alguien)
+    - Sostener/Mantener (físicamente)
+
+Nivel: 2-intermediate
+Registro 49
+  name: discuss
+  group_name: Social & Daily Life
+  meaning:
+    - Discutir/Debatir (un tema)
+    - Hablar sobre algo
+
+Nivel: 2-intermediate
+Registro 50
+  name: describe
+  group_name: Communication
+  meaning:
+    - Describir
+    - Relatar
+
+Nivel: 2-intermediate
+Registro 51
+  name: promise
+  group_name: Feelings & Reactions
+  meaning:
+    - Prometer
+    - Dar indicios de
+
+Nivel: 2-intermediate
+Registro 52
+  name: realize
+  group_name: Thinking & Deciding
+  meaning:
+    - Darse cuenta de
+    - Cumplir/Hacer realidad (un sueño)
+
+Nivel: 2-intermediate
+Registro 53
+  name: guess
+  group_name: Thinking & Deciding
+  meaning:
+    - Adivinar
+    - Suponer/Creer (informal)
+
+Nivel: 2-intermediate
+Registro 54
+  name: wonder
+  group_name: Thinking & Deciding
+  meaning:
+    - Preguntarse/Querer saber
+    - Maravillarse/Asombrarse
+
+Nivel: 2-intermediate
+Registro 55
+  name: recognize
+  group_name: Thinking & Deciding
+  meaning:
+    - Reconocer (identificar)
+    - Reconocer (aceptar, admitir)
+
+Nivel: 2-intermediate
+Registro 56
+  name: mention
+  group_name: Social & Daily Life
+  meaning:
+    - Mencionar
+    - Hacer alusión a
+
+Nivel: 2-intermediate
+Registro 57
+  name: argue
+  group_name: Feelings & Reactions
+  meaning:
+    - Discutir (en desacuerdo)
+    - Argumentar/Sostener (una idea)
+
+Nivel: 2-intermediate
+Registro 58
+  name: doubt
+  group_name: Thinking & Deciding
+  meaning:
+    - Dudar (no estar seguro)
+    - Cuestionar
+
+Nivel: 2-intermediate
+Registro 59
+  name: plan
+  group_name: Thinking & Deciding
+  meaning:
+    - Planear/Planificar
+    - Tener la intención de
+
+Nivel: 2-intermediate
+Registro 60
+  name: check
+  group_name: Managing & Control
+  meaning:
+    - Revisar/Comprobar
+    - Facturar (equipaje)/Pagar (la cuenta)
+
+Nivel: 2-intermediate
+Registro 61
+  name: fix
+  group_name: Building & Creating
+  meaning:
+    - Arreglar/Reparar
+    - Fijar/Establecer (una fecha, precio)
+
+Nivel: 2-intermediate
+Registro 62
+  name: clean
+  group_name: Daily Routine
+  meaning:
+    - Limpiar
+    - Quitar la suciedad
+
+Nivel: 2-intermediate
+Registro 63
+  name: cook
+  group_name: Daily Routine
+  meaning:
+    - Cocinar
+    - Preparar comida
+
+Nivel: 2-intermediate
+Registro 64
+  name: wash
+  group_name: Daily Routine
+  meaning:
+    - Lavar (con agua y jabón)
+    - Lavar (ropa)
+
+Nivel: 2-intermediate
+Registro 65
+  name: shop
+  group_name: Daily Routine
+  meaning:
+    - Ir de compras
+    - Comprar en (una tienda)
+
+Nivel: 2-intermediate
+Registro 66
+  name: search
+  group_name: Daily Tasks
+  meaning:
+    - Buscar (con intención)
+    - Registrar (un lugar)
+
+Nivel: 2-intermediate
+Registro 67
+  name: share
+  group_name: Social & Daily Life
+  meaning:
+    - Compartir (algo con alguien)
+    - Tener en común
+
+Nivel: 2-intermediate
+Registro 68
+  name: order
+  group_name: Communication
+  meaning:
+    - Pedir (en un restaurante, en línea)
+    - Ordenar/Mandar (dar una orden)
+
+Nivel: 2-intermediate
+Registro 69
+  name: practice
+  group_name: Communication
+  meaning:
+    - Practicar
+    - Ejercer (una profesión)
+
+Nivel: 2-intermediate
+Registro 70
+  name: manage
+  group_name: Managing & Control
+  meaning:
+    - Gestionar/Administrar
+    - Arreglárselas/Lograr (con dificultad)
+
+Nivel: 2-intermediate
+Registro 71
+  name: travel
+  group_name: Daily Tasks
+  meaning:
+    - Viajar
+    - Desplazarse
+
+Nivel: 2-intermediate
+Registro 72
+  name: arrive
+  group_name: Body & Movement
+  meaning:
+    - Llegar (a un destino)
+    - Llegar (el momento)
+
+Nivel: 2-intermediate
+Registro 73
+  name: return
+  group_name: Body & Movement
+  meaning:
+    - Regresar/Volver
+    - Devolver (un objeto)
+
+Nivel: 2-intermediate
+Registro 74
+  name: control
+  group_name: Managing & Control
+  meaning:
+    - Controlar/Dominar
+    - Manejar/Regular (una máquina)
+
+Nivel: 2-intermediate
+Registro 75
+  name: avoid
+  group_name: Body & Movement
+  meaning:
+    - Evitar
+    - Eludir/Esquivar
+
+Nivel: 2-intermediate
+Registro 76
+  name: enjoy
+  group_name: Feelings & Reactions
+  meaning:
+    - Disfrutar
+    - Gozar de/Tener
+
+Nivel: 2-intermediate
+Registro 77
+  name: prefer
+  group_name: Feelings & Reactions
+  meaning:
+    - Preferir
+    - Elegir (una opción sobre otra)
+
+Nivel: 2-intermediate
+Registro 78
+  name: worry
+  group_name: Thinking & Deciding
+  meaning:
+    - Preocuparse
+    - Molestar/Inquietar
+
+ARCHIVO: /home/jcoronado/Desktop/backup_json/verbs/3-advanced.json
+
+Nivel: 3-advanced
+Registro 0
+  name: achieve
+  group_name: Goals & Results
+  meaning:
+    - Lograr/Alcanzar (un objetivo)
+
+Nivel: 3-advanced
+Registro 1
+  name: analyze
+  group_name: Critical Thinking
+  meaning:
+    - Analizar
+
+Nivel: 3-advanced
+Registro 2
+  name: evaluate
+  group_name: Critical Thinking
+  meaning:
+    - Evaluar/Valorar
+
+Nivel: 3-advanced
+Registro 3
+  name: interpret
+  group_name: Critical Thinking
+  meaning:
+    - Interpretar (entender el significado)
+
+Nivel: 3-advanced
+Registro 4
+  name: assume
+  group_name: Critical Thinking
+  meaning:
+    - Asumir/Suponer (dar por hecho)
+
+Nivel: 3-advanced
+Registro 5
+  name: comprehend
+  group_name: Critical Thinking
+  meaning:
+    - Comprender (profundamente)
+
+Nivel: 3-advanced
+Registro 6
+  name: emphasize
+  group_name: Academic Communication
+  meaning:
+    - Enfatizar/Recalcar
+
+Nivel: 3-advanced
+Registro 7
+  name: elaborate
+  group_name: Academic Communication
+  meaning:
+    - Explicar en detalle/Elaborar
+
+Nivel: 3-advanced
+Registro 8
+  name: clarify
+  group_name: Academic Communication
+  meaning:
+    - Aclarar/Clarificar
+
+Nivel: 3-advanced
+Registro 9
+  name: assert
+  group_name: Academic Communication
+  meaning:
+    - Afirmar/Aseverar (con confianza)
+
+Nivel: 3-advanced
+Registro 10
+  name: imply
+  group_name: Academic Communication
+  meaning:
+    - Insinuar/Implicar (sugerir)
+
+Nivel: 3-advanced
+Registro 11
+  name: convey
+  group_name: Academic Communication
+  meaning:
+    - Transmitir/Comunicar (un mensaje, idea)
+
+Nivel: 3-advanced
+Registro 12
+  name: implement
+  group_name: Professional Action
+  meaning:
+    - Implementar/Ejecutar
+
+Nivel: 3-advanced
+Registro 13
+  name: facilitate
+  group_name: Professional Action
+  meaning:
+    - Facilitar
+
+Nivel: 3-advanced
+Registro 14
+  name: enhance
+  group_name: Professional Action
+  meaning:
+    - Mejorar/Realzar
+
+Nivel: 3-advanced
+Registro 15
+  name: modify
+  group_name: Influence & Change
+  meaning:
+    - Modificar/Alterar (ligeramente)
+
+Nivel: 3-advanced
+Registro 16
+  name: establish
+  group_name: Goals & Results
+  meaning:
+    - Establecer/Fundar
+
+Nivel: 3-advanced
+Registro 17
+  name: influence
+  group_name: Influence & Change
+  meaning:
+    - Influir/Influenciar
+
+Nivel: 3-advanced
+Registro 18
+  name: persuade
+  group_name: Social Dynamics
+  meaning:
+    - Persuadir/Convencer
+
+Nivel: 3-advanced
+Registro 19
+  name: adapt
+  group_name: Influence & Change
+  meaning:
+    - Adaptar/Adaptarse
+
+Nivel: 3-advanced
+Registro 20
+  name: alter
+  group_name: Influence & Change
+  meaning:
+    - Alterar/Cambiar
+
+Nivel: 3-advanced
+Registro 21
+  name: acquire
+  group_name: Social Dynamics
+  meaning:
+    - Adquirir (obtener, comprar)
+
+Nivel: 3-advanced
+Registro 22
+  name: resolve
+  group_name: Goals & Results
+  meaning:
+    - Resolver (un problema, conflicto)
+
+Nivel: 3-advanced
+Registro 23
+  name: overcome
+  group_name: Goals & Results
+  meaning:
+    - Superar (un obstáculo, dificultad)
+
+Nivel: 3-advanced
+Registro 24
+  name: encounter
+  group_name: Social Dynamics
+  meaning:
+    - Encontrar/Toparse con (inesperadamente)
+
+Nivel: 3-advanced
+Registro 25
+  name: perceive
+  group_name: Critical Thinking
+  meaning:
+    - Percibir/Darse cuenta de
+
+Nivel: 3-advanced
+Registro 26
+  name: demonstrate
+  group_name: Social Dynamics
+  meaning:
+    - Demostrar (mostrar cómo funciona)
+
+Nivel: 3-advanced
+Registro 27
+  name: anticipate
+  group_name: Critical Thinking
+  meaning:
+    - Anticipar/Prever
+
+Nivel: 3-advanced
+Registro 28
+  name: investigate
+  group_name: Critical Thinking
+  meaning:
+    - Investigar (formalmente, un crimen)
+
+Nivel: 3-advanced
+Registro 29
+  name: maintain
+  group_name: Professional Action
+  meaning:
+    - Mantener (en buen estado, un nivel)
+
+Nivel: 3-advanced
+Registro 30
+  name: justify
+  group_name: Academic Communication
+  meaning:
+    - Justificar
+
+Nivel: 3-advanced
+Registro 31
+  name: infer
+  group_name: Critical Thinking
+  meaning:
+    - Inferir/Deducir
+
+Nivel: 3-advanced
+Registro 32
+  name: regard
+  group_name: Social Dynamics
+  meaning:
+    - Considerar/Ver como
+
+Nivel: 3-advanced
+Registro 33
+  name: advocate
+  group_name: Social Dynamics
+  meaning:
+    - Abogar por/Defender (una idea)
+
+Nivel: 3-advanced
+Registro 34
+  name: negotiate
+  group_name: Social Dynamics
+  meaning:
+    - Negociar
+
+Nivel: 3-advanced
+Registro 35
+  name: consult
+  group_name: Professional Action
+  meaning:
+    - Consultar (pedir consejo)
+
+Nivel: 3-advanced
+Registro 36
+  name: propose
+  group_name: Academic Communication
+  meaning:
+    - Proponer (un plan, idea)
+
+Nivel: 3-advanced
+Registro 37
+  name: criticize
+  group_name: Academic Communication
+  meaning:
+    - Criticar (juzgar negativamente)
+
+Nivel: 3-advanced
+Registro 38
+  name: prioritize
+  group_name: Professional Action
+  meaning:
+    - Priorizar/Dar prioridad
+
+Nivel: 3-advanced
+Registro 39
+  name: delegate
+  group_name: Professional Action
+  meaning:
+    - Delegar (asignar tareas)
+
+Nivel: 3-advanced
+Registro 40
+  name: launch
+  group_name: Goals & Results
+  meaning:
+    - Lanzar (un producto, proyecto)
+
+Nivel: 3-advanced
+Registro 41
+  name: transform
+  group_name: Goals & Results
+  meaning:
+    - Transformar (cambiar completamente)
+
+Nivel: 3-advanced
+Registro 42
+  name: diminish
+  group_name: Influence & Change
+  meaning:
+    - Disminuir/Reducir
+
+Nivel: 3-advanced
+Registro 43
+  name: escalate
+  group_name: Influence & Change
+  meaning:
+    - Intensificar/Escalar (un conflicto, problema)
+
+Nivel: 3-advanced
+Registro 44
+  name: fluctuate
+  group_name: Influence & Change
+  meaning:
+    - Fluctuar/Variar
+
+Nivel: 3-advanced
+Registro 45
+  name: undermine
+  group_name: Influence & Change
+  meaning:
+    - Socavar/Debilitar (autoridad, confianza)
+
+Nivel: 3-advanced
+Registro 46
+  name: reinforce
+  group_name: Influence & Change
+  meaning:
+    - Reforzar/Fortalecer
+
+Nivel: 3-advanced
+Registro 47
+  name: comply
+  group_name: Professional Action
+  meaning:
+    - Cumplir (con una regla, ley)
+
+Nivel: 3-advanced
+Registro 48
+  name: collaborate
+  group_name: Professional & Business
+  meaning:
+    - Colaborar (trabajar en conjunto)
+
+Nivel: 3-advanced
+Registro 49
+  name: coordinate
+  group_name: Professional & Business
+  meaning:
+    - Coordinar (organizar diferentes elementos)
+
+Nivel: 3-advanced
+Registro 50
+  name: mediate
+  group_name: Professional & Business
+  meaning:
+    - Mediar (intervenir en una disputa)
+
+Nivel: 3-advanced
+Registro 51
+  name: allocate
+  group_name: Professional & Business
+  meaning:
+    - Asignar (distribuir recursos o fondos)
+
+Nivel: 3-advanced
+Registro 52
+  name: execute
+  group_name: Professional & Business
+  meaning:
+    - Ejecutar (llevar a cabo una acción o plan)
+
+Nivel: 3-advanced
+Registro 53
+  name: strategize
+  group_name: Professional & Business
+  meaning:
+    - Idear estrategias (planear a futuro)
+
+Nivel: 3-advanced
+Registro 54
+  name: benchmark
+  group_name: Professional & Business
+  meaning:
+    - Evaluar/Comparar (usando un estándar de referencia)
+
+Nivel: 3-advanced
+Registro 55
+  name: outsource
+  group_name: Professional & Business
+  meaning:
+    - Subcontratar / Tercerizar
+
+Nivel: 3-advanced
+Registro 56
+  name: streamline
+  group_name: Professional & Business
+  meaning:
+    - Optimizar/Agilizar (hacer más eficiente un proceso)
+
+Nivel: 3-advanced
+Registro 57
+  name: audit
+  group_name: Professional & Business
+  meaning:
+    - Auditar (examinar cuentas, registros o procesos)
+

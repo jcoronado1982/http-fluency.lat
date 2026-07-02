@@ -1,5 +1,16 @@
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
+
+#[derive(Debug, Serialize, Deserialize, Clone, Default)]
+pub struct CatalogPreferences {
+    #[serde(default)]
+    pub categories: Vec<String>,
+    #[serde(default)]
+    pub groups: HashMap<String, Vec<String>>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<DateTime<Utc>>,
+}
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct User {
@@ -9,6 +20,8 @@ pub struct User {
     pub picture: Option<String>,
     pub role: String,
     pub onboarding_completed: bool,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub catalog_preferences: Option<CatalogPreferences>,
     pub created_at: DateTime<Utc>,
     pub last_login: DateTime<Utc>,
 }

@@ -291,7 +291,7 @@ impl LocalStorageRepository {
         }
         let body = res.text().await?;
 
-        // Caddy browse genera links como: href="nombre/" (dirs) o href="nombre.json" (files)
+        // Caddy browse genera links como: href="nombre/" (dirs) o href="nombre.ext" (files)
         let mut results = Vec::new();
         for line in body.lines() {
             if let Some(start) = line.find("href=\"") {
@@ -306,7 +306,7 @@ impl LocalStorageRepository {
                     }
                     if dirs_only && entry.ends_with('/') {
                         results.push(entry.trim_end_matches('/').to_string());
-                    } else if !dirs_only && entry.ends_with(".json") {
+                    } else if !dirs_only && !entry.ends_with('/') {
                         results.push(entry.to_string());
                     }
                 }
@@ -328,7 +328,7 @@ impl LocalStorageRepository {
         let mut decks = Vec::new();
         for level_dir in level_dirs {
             let nested_rel = format!("{rel}/{level_dir}");
-            let mut files = if let Ok(remote) = self.list_oracle_dir_via_ssh(&nested_rel).await {
+            let mut files: Vec<String> = if let Ok(remote) = self.list_oracle_dir_via_ssh(&nested_rel).await {
                 remote
                     .into_iter()
                     .filter(|name| name.ends_with(".json") && !name.contains(".bak"))
@@ -337,6 +337,9 @@ impl LocalStorageRepository {
                 self.list_oracle_entries(&nested_rel, false)
                     .await
                     .unwrap_or_default()
+                    .into_iter()
+                    .filter(|name| name.ends_with(".json") && !name.contains(".bak"))
+                    .collect()
             };
 
             files.sort();
@@ -578,7 +581,10 @@ impl StorageRepository for LocalStorageRepository {
                 result = self
                     .list_oracle_entries(&rel, false)
                     .await
-                    .unwrap_or_default();
+                    .unwrap_or_default()
+                    .into_iter()
+                    .filter(|n| n.ends_with(".json") && !n.contains(".bak"))
+                    .collect();
             }
         }
 

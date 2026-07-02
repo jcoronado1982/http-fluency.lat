@@ -181,113 +181,35 @@
     "learned_at": null,
     "definitions": [
       {
-        "alternative_example": "Did you find a job?",
+        "alternative_example": "Look at the board, please.",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_14_def0.jpg",
-        "meaning": "Encontrar (localizar algo)",
-        "pronunciation_guide_es": "/ai_kant_FAIND_mai_KIS/",
-        "usage_context_en": "search/discovery",
-        "usage_context_es": "búsqueda/descubrimiento",
-        "usage_example": "I can't find my keys.",
-        "usage_example_es": "No puedo encontrar mis llaves."
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_71_def0.jpg",
+        "meaning": "Mirar",
+        "pronunciation_guide_es": "/LUK_at_mi/",
+        "usage_context_en": "attention/vision",
+        "usage_context_es": "atención/visión",
+        "usage_example": "Look at me.",
+        "usage_example_es": "Mírame."
       },
       {
-        "alternative_example": "She finds English easy.",
+        "alternative_example": "You look tired today.",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_14_def1.jpg",
-        "meaning": "Parecer/Opinar (encontrarle a algo una característica)",
-        "pronunciation_guide_es": "/ai_FAIND_de_MUVI_BORing/",
-        "usage_context_en": "opinion/judgment",
-        "usage_context_es": "opinión/juicio",
-        "usage_example": "I find the movie boring.",
-        "usage_example_es": "Encuentro la película aburrida."
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_71_def1.jpg",
+        "meaning": "Parecer (verse de cierta manera)",
+        "pronunciation_guide_es": "/shi_LUKS_japi/",
+        "usage_context_en": "appearance/impression",
+        "usage_context_es": "apariencia/impresión",
+        "usage_example": "She looks happy.",
+        "usage_example_es": "Ella se ve feliz."
       }
     ],
     "force_generation": false,
     "is_verb": true,
-    "name": "find",
-    "phonetic": "/faɪnd/",
-    "search_term": "verb/discover/essentials",
-    "spoken_phonetic_us": "/faɪnd/",
-    "irregular": {
-      "past": {
-        "form": "found",
-        "phonetic": "/faʊnd/",
-        "spoken_phonetic_us": "/faʊnd/",
-        "usage_example": "I found my keys under the sofa.",
-        "usage_example_es": "Encontré mis llaves debajo del sofá.",
-        "pronunciation_guide_es": "/ai_FAUND_mai_KIS_ander_de_SOUFA/",
-        "meaning": "Pasado de encontrar"
-      },
-      "participle": {
-        "form": "found",
-        "phonetic": "/faʊnd/",
-        "spoken_phonetic_us": "/faʊnd/",
-        "usage_example": "I have found the perfect gift.",
-        "usage_example_es": "He encontrado el regalo perfecto.",
-        "pronunciation_guide_es": "/ai_JAV_FAUND_de_PERfekt_GIFT/",
-        "meaning": "Participio de encontrar"
-      }
-    },
-    "group_name": "Mind & Senses"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "definitions": [
-      {
-        "alternative_example": "I didn't mean to hurt you.",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_18_def0.jpg",
-        "meaning": "Significar/Querer decir",
-        "pronunciation_guide_es": "/uat_das_dis_UORD_MIN/",
-        "usage_context_en": "definition/intention",
-        "usage_context_es": "definición/intención",
-        "usage_example": "What does this word mean?",
-        "usage_example_es": "¿Qué significa esta palabra?"
-      },
-      {
-        "alternative_example": "He means well.",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_18_def1.jpg",
-        "meaning": "Tener la intención de",
-        "pronunciation_guide_es": "/ai_MIN_tu_FINish_dis_PROJECT_sun/",
-        "usage_context_en": "intention/purpose",
-        "usage_context_es": "intención/propósito",
-        "usage_example": "I mean to finish this project soon.",
-        "usage_example_es": "Tengo la intención de terminar este proyecto pronto."
-      }
-    ],
-    "force_generation": false,
-    "is_verb": true,
-    "name": "mean",
-    "phonetic": "/miːn/",
-    "search_term": "verb/signify/essentials",
-    "spoken_phonetic_us": "/miːn/",
-    "irregular": {
-      "past": {
-        "form": "meant",
-        "phonetic": "/mɛnt/",
-        "spoken_phonetic_us": "/mɛnt/",
-        "usage_example": "I meant what I said.",
-        "usage_example_es": "Quise decir lo que dije.",
-        "pronunciation_guide_es": "/ai_MENT_uat_ai_SED/",
-        "meaning": "Pasado de significar/querer decir"
-      },
-      "participle": {
-        "form": "meant",
-        "phonetic": "/mɛnt/",
-        "spoken_phonetic_us": "/mɛnt/",
-        "usage_example": "It has meant a lot to me.",
-        "usage_example_es": "Ha significado mucho para mí.",
-        "pronunciation_guide_es": "/it_jas_MENT_a_LOT_tu_MI/",
-        "meaning": "Participio de significar/querer decir"
-      }
-    },
-    "group_name": "Being & State"
+    "name": "look",
+    "phonetic": "/lʊk/",
+    "search_term": "verb/look/essentials",
+    "spoken_phonetic_us": "/lʊk/",
+    "group_name": "Perception & Attention"
   },
   {
     "word": "",
@@ -355,6 +277,102 @@
     "learned_at": null,
     "definitions": [
       {
+        "alternative_example": "Listen to your teacher.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_72_def0.jpg",
+        "meaning": "Escuchar",
+        "pronunciation_guide_es": "/LIsen_tu_mi/",
+        "usage_context_en": "attention/sound",
+        "usage_context_es": "atención/sonido",
+        "usage_example": "Listen to me.",
+        "usage_example_es": "Escúchame."
+      },
+      {
+        "alternative_example": "I listened carefully to the news.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_72_def1.jpg",
+        "meaning": "Prestar atención",
+        "pronunciation_guide_es": "/dei_didnt_LIsen_tu_de_adVAIS/",
+        "usage_context_en": "advice/instructions",
+        "usage_context_es": "consejos/instrucciones",
+        "usage_example": "They didn't listen to the advice.",
+        "usage_example_es": "No escucharon el consejo."
+      }
+    ],
+    "force_generation": false,
+    "is_verb": true,
+    "name": "listen",
+    "phonetic": "/ˈlɪs.ən/",
+    "search_term": "verb/listen/essentials",
+    "spoken_phonetic_us": "/ˈlɪs.ən/",
+    "group_name": "Perception & Attention"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "definitions": [
+      {
+        "alternative_example": "Did you find a job?",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_14_def0.jpg",
+        "meaning": "Encontrar (localizar algo)",
+        "pronunciation_guide_es": "/ai_kant_FAIND_mai_KIS/",
+        "usage_context_en": "search/discovery",
+        "usage_context_es": "búsqueda/descubrimiento",
+        "usage_example": "I can't find my keys.",
+        "usage_example_es": "No puedo encontrar mis llaves."
+      },
+      {
+        "alternative_example": "She finds English easy.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_14_def1.jpg",
+        "meaning": "Parecer/Opinar (encontrarle a algo una característica)",
+        "pronunciation_guide_es": "/ai_FAIND_de_MUVI_BORing/",
+        "usage_context_en": "opinion/judgment",
+        "usage_context_es": "opinión/juicio",
+        "usage_example": "I find the movie boring.",
+        "usage_example_es": "Encuentro la película aburrida."
+      }
+    ],
+    "force_generation": false,
+    "is_verb": true,
+    "name": "find",
+    "phonetic": "/faɪnd/",
+    "search_term": "verb/discover/essentials",
+    "spoken_phonetic_us": "/faɪnd/",
+    "irregular": {
+      "past": {
+        "form": "found",
+        "phonetic": "/faʊnd/",
+        "spoken_phonetic_us": "/faʊnd/",
+        "usage_example": "I found my keys under the sofa.",
+        "usage_example_es": "Encontré mis llaves debajo del sofá.",
+        "pronunciation_guide_es": "/ai_FAUND_mai_KIS_ander_de_SOUFA/",
+        "meaning": "Pasado de encontrar"
+      },
+      "participle": {
+        "form": "found",
+        "phonetic": "/faʊnd/",
+        "spoken_phonetic_us": "/faʊnd/",
+        "usage_example": "I have found the perfect gift.",
+        "usage_example_es": "He encontrado el regalo perfecto.",
+        "pronunciation_guide_es": "/ai_JAV_FAUND_de_PERfekt_GIFT/",
+        "meaning": "Participio de encontrar"
+      }
+    },
+    "group_name": "Mind & Senses"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "definitions": [
+      {
         "alternative_example": "Watch out for the hole!",
         "char_count": "one",
         "meaning": "Ver/Mirar (con atención)",
@@ -391,72 +409,54 @@
     "learned_at": null,
     "definitions": [
       {
-        "alternative_example": "Look at the board, please.",
+        "alternative_example": "I didn't mean to hurt you.",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_71_def0.jpg",
-        "meaning": "Mirar",
-        "pronunciation_guide_es": "/LUK_at_mi/",
-        "usage_context_en": "attention/vision",
-        "usage_context_es": "atención/visión",
-        "usage_example": "Look at me.",
-        "usage_example_es": "Mírame."
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_18_def0.jpg",
+        "meaning": "Significar/Querer decir",
+        "pronunciation_guide_es": "/uat_das_dis_UORD_MIN/",
+        "usage_context_en": "definition/intention",
+        "usage_context_es": "definición/intención",
+        "usage_example": "What does this word mean?",
+        "usage_example_es": "¿Qué significa esta palabra?"
       },
       {
-        "alternative_example": "You look tired today.",
+        "alternative_example": "He means well.",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_71_def1.jpg",
-        "meaning": "Parecer (verse de cierta manera)",
-        "pronunciation_guide_es": "/shi_LUKS_japi/",
-        "usage_context_en": "appearance/impression",
-        "usage_context_es": "apariencia/impresión",
-        "usage_example": "She looks happy.",
-        "usage_example_es": "Ella se ve feliz."
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_18_def1.jpg",
+        "meaning": "Tener la intención de",
+        "pronunciation_guide_es": "/ai_MIN_tu_FINish_dis_PROJECT_sun/",
+        "usage_context_en": "intention/purpose",
+        "usage_context_es": "intención/propósito",
+        "usage_example": "I mean to finish this project soon.",
+        "usage_example_es": "Tengo la intención de terminar este proyecto pronto."
       }
     ],
     "force_generation": false,
     "is_verb": true,
-    "name": "look",
-    "phonetic": "/lʊk/",
-    "search_term": "verb/look/essentials",
-    "spoken_phonetic_us": "/lʊk/",
-    "group_name": "Perception & Attention"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "definitions": [
-      {
-        "alternative_example": "Listen to your teacher.",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_72_def0.jpg",
-        "meaning": "Escuchar",
-        "pronunciation_guide_es": "/LIsen_tu_mi/",
-        "usage_context_en": "attention/sound",
-        "usage_context_es": "atención/sonido",
-        "usage_example": "Listen to me.",
-        "usage_example_es": "Escúchame."
+    "name": "mean",
+    "phonetic": "/miːn/",
+    "search_term": "verb/signify/essentials",
+    "spoken_phonetic_us": "/miːn/",
+    "irregular": {
+      "past": {
+        "form": "meant",
+        "phonetic": "/mɛnt/",
+        "spoken_phonetic_us": "/mɛnt/",
+        "usage_example": "I meant what I said.",
+        "usage_example_es": "Quise decir lo que dije.",
+        "pronunciation_guide_es": "/ai_MENT_uat_ai_SED/",
+        "meaning": "Pasado de significar/querer decir"
       },
-      {
-        "alternative_example": "I listened carefully to the news.",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_72_def1.jpg",
-        "meaning": "Prestar atención",
-        "pronunciation_guide_es": "/dei_didnt_LIsen_tu_de_adVAIS/",
-        "usage_context_en": "advice/instructions",
-        "usage_context_es": "consejos/instrucciones",
-        "usage_example": "They didn't listen to the advice.",
-        "usage_example_es": "No escucharon el consejo."
+      "participle": {
+        "form": "meant",
+        "phonetic": "/mɛnt/",
+        "spoken_phonetic_us": "/mɛnt/",
+        "usage_example": "It has meant a lot to me.",
+        "usage_example_es": "Ha significado mucho para mí.",
+        "pronunciation_guide_es": "/it_jas_MENT_a_LOT_tu_MI/",
+        "meaning": "Participio de significar/querer decir"
       }
-    ],
-    "force_generation": false,
-    "is_verb": true,
-    "name": "listen",
-    "phonetic": "/ˈlɪs.ən/",
-    "search_term": "verb/listen/essentials",
-    "spoken_phonetic_us": "/ˈlɪs.ən/",
-    "group_name": "Perception & Attention"
+    },
+    "group_name": "Being & State"
   }
 ]

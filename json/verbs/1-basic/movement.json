@@ -122,72 +122,32 @@
     "learned_at": null,
     "definitions": [
       {
-        "alternative_example": "I need help with my homework.",
+        "alternative_example": "Let's go for a walk in the park.",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_29_def0.jpg",
-        "meaning": "Ayudar (asistir)",
-        "pronunciation_guide_es": "/kan_iu_HELP_mi_uith_dis_BOKS/",
-        "usage_context_en": "assistance/tasks",
-        "usage_context_es": "asistencia/tareas",
-        "usage_example": "Can you help me with this box?",
-        "usage_example_es": "¿Puedes ayudarme con esta caja?"
+        "meaning": "Caminar/Andar",
+        "pronunciation_guide_es": "/ai_UOK_tu_de_MARKet_EVri_MORning/",
+        "usage_context_en": "movement/exercise",
+        "usage_context_es": "movimiento/ejercicio",
+        "usage_example": "I walk to the market every morning.",
+        "usage_example_es": "Camino al mercado todas las mañanas."
       },
       {
-        "alternative_example": "It helps to read the instructions.",
+        "alternative_example": "Walk with me to the door.",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_29_def1.jpg",
-        "meaning": "Contribuir/Servir",
-        "pronunciation_guide_es": "/dis_MEDISIN_HELPS_mi_SLIP/",
-        "usage_context_en": "contribution/benefit",
-        "usage_context_es": "contribución/beneficio",
-        "usage_example": "This medicine helps me sleep.",
-        "usage_example_es": "Esta medicina me ayuda a dormir."
+        "meaning": "Pasear/Acompañar",
+        "pronunciation_guide_es": "/hi_is_UOKing_de_DOG/",
+        "usage_context_en": "pets/escorting",
+        "usage_context_es": "mascotas/acompañar",
+        "usage_example": "He is walking the dog.",
+        "usage_example_es": "Él está paseando al perro."
       }
     ],
     "force_generation": false,
     "is_verb": true,
-    "name": "help",
-    "phonetic": "/hɛlp/",
-    "search_term": "verb/assist/essentials",
-    "spoken_phonetic_us": "/hɛlp/",
-    "group_name": "Daily Life"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "definitions": [
-      {
-        "alternative_example": "The car turned around.",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_30_def0.jpg",
-        "meaning": "Girar/Voltear",
-        "pronunciation_guide_es": "/TORN_left_at_de_neksT_KORner/",
-        "usage_context_en": "direction/movement",
-        "usage_context_es": "dirección/movimiento",
-        "usage_example": "Turn left at the next corner.",
-        "usage_example_es": "Gira a la izquierda en la próxima esquina."
-      },
-      {
-        "alternative_example": "She turned off the music.",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_30_def1.jpg",
-        "meaning": "Encender/Apagar (con 'on' o 'off')",
-        "pronunciation_guide_es": "/TORN_on_de_LAIT_PLIS/",
-        "usage_context_en": "appliances/power",
-        "usage_context_es": "aparatos/electricidad",
-        "usage_example": "Turn on the light, please.",
-        "usage_example_es": "Enciende la luz, por favor."
-      }
-    ],
-    "force_generation": false,
-    "is_verb": true,
-    "name": "turn",
-    "phonetic": "/tɜːrn/",
-    "search_term": "verb/rotate/essentials",
-    "spoken_phonetic_us": "/tɜːrn/",
+    "name": "walk",
+    "phonetic": "/wɔːk/",
+    "search_term": "verb/move/level_up",
+    "spoken_phonetic_us": "/wɔːk/",
     "group_name": "Action & Movement"
   },
   {
@@ -246,44 +206,6 @@
         "meaning": "Participio de correr"
       }
     },
-    "group_name": "Action & Movement"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "definitions": [
-      {
-        "alternative_example": "The line is moving slowly.",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_36_def0.jpg",
-        "meaning": "Mover/Moverse",
-        "pronunciation_guide_es": "/PLIS_MUV_yor_KAR/",
-        "usage_context_en": "relocation/motion",
-        "usage_context_es": "reubicación/movimiento",
-        "usage_example": "Please move your car.",
-        "usage_example_es": "Por favor, mueve tu coche."
-      },
-      {
-        "alternative_example": "When did they move here?",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_36_def1.jpg",
-        "meaning": "Mudarse (de casa)",
-        "pronunciation_guide_es": "/ui_uil_MUV_tu_a_niu_aPARTment/",
-        "usage_context_en": "residence/change",
-        "usage_context_es": "residencia/cambio",
-        "usage_example": "We will move to a new apartment.",
-        "usage_example_es": "Nos mudaremos a un apartamento nuevo."
-      }
-    ],
-    "force_generation": false,
-    "is_verb": true,
-    "name": "move",
-    "phonetic": "/muːv/",
-    "search_term": "verb/change position/essentials",
-    "spoken_phonetic_us": "/muːv/",
     "group_name": "Action & Movement"
   },
   {
@@ -406,32 +328,146 @@
     "learned_at": null,
     "definitions": [
       {
-        "alternative_example": "Let's go for a walk in the park.",
-        "char_count": "one",
-        "meaning": "Caminar/Andar",
-        "pronunciation_guide_es": "/ai_UOK_tu_de_MARKet_EVri_MORning/",
-        "usage_context_en": "movement/exercise",
-        "usage_context_es": "movimiento/ejercicio",
-        "usage_example": "I walk to the market every morning.",
-        "usage_example_es": "Camino al mercado todas las mañanas."
+        "alternative_example": "The shop opens at nine.",
+        "char_count": "two",
+        "meaning": "Abrir (una puerta, caja)",
+        "pronunciation_guide_es": "/kan_iu_OUPen_de_UINDOU/",
+        "usage_context_en": "objects/business hours",
+        "usage_context_es": "objetos/horario comercial",
+        "usage_example": "Can you open the window?",
+        "usage_example_es": "¿Puedes abrir la ventana?"
       },
       {
-        "alternative_example": "Walk with me to the door.",
-        "char_count": "one",
-        "meaning": "Pasear/Acompañar",
-        "pronunciation_guide_es": "/hi_is_UOKing_de_DOG/",
-        "usage_context_en": "pets/escorting",
-        "usage_context_es": "mascotas/acompañar",
-        "usage_example": "He is walking the dog.",
-        "usage_example_es": "Él está paseando al perro."
+        "alternative_example": "The contract was opened for discussion.",
+        "char_count": "two",
+        "meaning": "Revelar/Desplegar",
+        "pronunciation_guide_es": "/OUPen_yor_MAIND_tu_niu_AIdias/",
+        "usage_context_en": "ideas/discussion",
+        "usage_context_es": "ideas/discusión",
+        "usage_example": "Open your mind to new ideas.",
+        "usage_example_es": "Abre tu mente a nuevas ideas."
       }
     ],
     "force_generation": false,
     "is_verb": true,
-    "name": "walk",
-    "phonetic": "/wɔːk/",
-    "search_term": "verb/move/level_up",
-    "spoken_phonetic_us": "/wɔːk/",
+    "name": "open",
+    "phonetic": "/ˈoʊpən/",
+    "search_term": "verb/unseal/level_up",
+    "spoken_phonetic_us": "/ˈoʊpən/",
+    "group_name": "Handling & Creating"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "definitions": [
+      {
+        "alternative_example": "I need help with my homework.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_29_def0.jpg",
+        "meaning": "Ayudar (asistir)",
+        "pronunciation_guide_es": "/kan_iu_HELP_mi_uith_dis_BOKS/",
+        "usage_context_en": "assistance/tasks",
+        "usage_context_es": "asistencia/tareas",
+        "usage_example": "Can you help me with this box?",
+        "usage_example_es": "¿Puedes ayudarme con esta caja?"
+      },
+      {
+        "alternative_example": "It helps to read the instructions.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_29_def1.jpg",
+        "meaning": "Contribuir/Servir",
+        "pronunciation_guide_es": "/dis_MEDISIN_HELPS_mi_SLIP/",
+        "usage_context_en": "contribution/benefit",
+        "usage_context_es": "contribución/beneficio",
+        "usage_example": "This medicine helps me sleep.",
+        "usage_example_es": "Esta medicina me ayuda a dormir."
+      }
+    ],
+    "force_generation": false,
+    "is_verb": true,
+    "name": "help",
+    "phonetic": "/hɛlp/",
+    "search_term": "verb/assist/essentials",
+    "spoken_phonetic_us": "/hɛlp/",
+    "group_name": "Daily Life"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "definitions": [
+      {
+        "alternative_example": "The car turned around.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_30_def0.jpg",
+        "meaning": "Girar/Voltear",
+        "pronunciation_guide_es": "/TORN_left_at_de_neksT_KORner/",
+        "usage_context_en": "direction/movement",
+        "usage_context_es": "dirección/movimiento",
+        "usage_example": "Turn left at the next corner.",
+        "usage_example_es": "Gira a la izquierda en la próxima esquina."
+      },
+      {
+        "alternative_example": "She turned off the music.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_30_def1.jpg",
+        "meaning": "Encender/Apagar (con 'on' o 'off')",
+        "pronunciation_guide_es": "/TORN_on_de_LAIT_PLIS/",
+        "usage_context_en": "appliances/power",
+        "usage_context_es": "aparatos/electricidad",
+        "usage_example": "Turn on the light, please.",
+        "usage_example_es": "Enciende la luz, por favor."
+      }
+    ],
+    "force_generation": false,
+    "is_verb": true,
+    "name": "turn",
+    "phonetic": "/tɜːrn/",
+    "search_term": "verb/rotate/essentials",
+    "spoken_phonetic_us": "/tɜːrn/",
+    "group_name": "Action & Movement"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "definitions": [
+      {
+        "alternative_example": "The line is moving slowly.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_36_def0.jpg",
+        "meaning": "Mover/Moverse",
+        "pronunciation_guide_es": "/PLIS_MUV_yor_KAR/",
+        "usage_context_en": "relocation/motion",
+        "usage_context_es": "reubicación/movimiento",
+        "usage_example": "Please move your car.",
+        "usage_example_es": "Por favor, mueve tu coche."
+      },
+      {
+        "alternative_example": "When did they move here?",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_36_def1.jpg",
+        "meaning": "Mudarse (de casa)",
+        "pronunciation_guide_es": "/ui_uil_MUV_tu_a_niu_aPARTment/",
+        "usage_context_en": "residence/change",
+        "usage_context_es": "residencia/cambio",
+        "usage_example": "We will move to a new apartment.",
+        "usage_example_es": "Nos mudaremos a un apartamento nuevo."
+      }
+    ],
+    "force_generation": false,
+    "is_verb": true,
+    "name": "move",
+    "phonetic": "/muːv/",
+    "search_term": "verb/change position/essentials",
+    "spoken_phonetic_us": "/muːv/",
     "group_name": "Action & Movement"
   },
   {
@@ -498,33 +534,35 @@
     "learned_at": null,
     "definitions": [
       {
-        "alternative_example": "The shop opens at nine.",
-        "char_count": "two",
-        "meaning": "Abrir (una puerta, caja)",
-        "pronunciation_guide_es": "/kan_iu_OUPen_de_UINDOU/",
-        "usage_context_en": "objects/business hours",
-        "usage_context_es": "objetos/horario comercial",
-        "usage_example": "Can you open the window?",
-        "usage_example_es": "¿Puedes abrir la ventana?"
+        "alternative_example": "Don't touch the stove.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_91_def0.jpg",
+        "meaning": "Tocar",
+        "pronunciation_guide_es": "/dont_TOCH_dat/",
+        "usage_context_en": "objects/body",
+        "usage_context_es": "objetos/cuerpo",
+        "usage_example": "Don't touch that.",
+        "usage_example_es": "No toques eso."
       },
       {
-        "alternative_example": "The contract was opened for discussion.",
-        "char_count": "two",
-        "meaning": "Revelar/Desplegar",
-        "pronunciation_guide_es": "/OUPen_yor_MAIND_tu_niu_AIdias/",
-        "usage_context_en": "ideas/discussion",
-        "usage_context_es": "ideas/discusión",
-        "usage_example": "Open your mind to new ideas.",
-        "usage_example_es": "Abre tu mente a nuevas ideas."
+        "alternative_example": "Her words touched my heart.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_91_def1.jpg",
+        "meaning": "Conmover/Afectar",
+        "pronunciation_guide_es": "/dis_story_TOCHT_mi/",
+        "usage_context_en": "feelings/impact",
+        "usage_context_es": "emociones/impacto",
+        "usage_example": "This story touched me.",
+        "usage_example_es": "Esta historia me conmovió."
       }
     ],
     "force_generation": false,
     "is_verb": true,
-    "name": "open",
-    "phonetic": "/ˈoʊpən/",
-    "search_term": "verb/unseal/level_up",
-    "spoken_phonetic_us": "/ˈoʊpən/",
-    "group_name": "Handling & Creating"
+    "name": "touch",
+    "phonetic": "/tʌtʃ/",
+    "search_term": "verb/touch/essentials",
+    "spoken_phonetic_us": "/tʌtʃ/",
+    "group_name": "Body & Objects"
   },
   {
     "word": "",
@@ -534,33 +572,35 @@
     "learned_at": null,
     "definitions": [
       {
-        "alternative_example": "The dog follows him everywhere.",
-        "char_count": "two",
-        "meaning": "Seguir (ir detrás)",
-        "pronunciation_guide_es": "/FOLOU_mi_tu_de_KICHen/",
-        "usage_context_en": "movement/direction",
-        "usage_context_es": "movimiento/dirección",
-        "usage_example": "Follow me to the kitchen.",
-        "usage_example_es": "Sígueme a la cocina."
+        "alternative_example": "Be careful not to drop the glass.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_92_def0.jpg",
+        "meaning": "Dejar caer",
+        "pronunciation_guide_es": "/dont_DROP_it/",
+        "usage_context_en": "objects/accidents",
+        "usage_context_es": "objetos/accidentes",
+        "usage_example": "Don't drop it.",
+        "usage_example_es": "No lo dejes caer."
       },
       {
-        "alternative_example": "I followed his advice.",
-        "char_count": "two",
-        "meaning": "Seguir (instrucciones, reglas)",
-        "pronunciation_guide_es": "/iu_mast_FOLOU_de_RULs/",
-        "usage_context_en": "rules/advice",
-        "usage_context_es": "reglas/consejo",
-        "usage_example": "You must follow the rules.",
-        "usage_example_es": "Debes seguir las reglas."
+        "alternative_example": "Sales dropped this month.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_92_def1.jpg",
+        "meaning": "Bajar/Disminuir",
+        "pronunciation_guide_es": "/de_temprecher_DROPt/",
+        "usage_context_en": "numbers/levels",
+        "usage_context_es": "números/niveles",
+        "usage_example": "The temperature dropped.",
+        "usage_example_es": "La temperatura bajó."
       }
     ],
     "force_generation": false,
     "is_verb": true,
-    "name": "follow",
-    "phonetic": "/ˈfɒloʊ/",
-    "search_term": "verb/pursue/level_up",
-    "spoken_phonetic_us": "/ˈfɑːloʊ/",
-    "group_name": "Action & Movement"
+    "name": "drop",
+    "phonetic": "/drɑːp/",
+    "search_term": "verb/drop/essentials",
+    "spoken_phonetic_us": "/drɑːp/",
+    "group_name": "Body & Objects"
   },
   {
     "word": "",
@@ -628,6 +668,42 @@
     "learned_at": null,
     "definitions": [
       {
+        "alternative_example": "The dog follows him everywhere.",
+        "char_count": "two",
+        "meaning": "Seguir (ir detrás)",
+        "pronunciation_guide_es": "/FOLOU_mi_tu_de_KICHen/",
+        "usage_context_en": "movement/direction",
+        "usage_context_es": "movimiento/dirección",
+        "usage_example": "Follow me to the kitchen.",
+        "usage_example_es": "Sígueme a la cocina."
+      },
+      {
+        "alternative_example": "I followed his advice.",
+        "char_count": "two",
+        "meaning": "Seguir (instrucciones, reglas)",
+        "pronunciation_guide_es": "/iu_mast_FOLOU_de_RULs/",
+        "usage_context_en": "rules/advice",
+        "usage_context_es": "reglas/consejo",
+        "usage_example": "You must follow the rules.",
+        "usage_example_es": "Debes seguir las reglas."
+      }
+    ],
+    "force_generation": false,
+    "is_verb": true,
+    "name": "follow",
+    "phonetic": "/ˈfɒloʊ/",
+    "search_term": "verb/pursue/level_up",
+    "spoken_phonetic_us": "/ˈfɑːloʊ/",
+    "group_name": "Action & Movement"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "definitions": [
+      {
         "alternative_example": "Pass me the salt, please.",
         "char_count": "one",
         "imagePath": "/card_images/verbs/1-basic/1-basic_card_66_def0.jpg",
@@ -657,44 +733,6 @@
     "search_term": "verb/go by/level_up",
     "spoken_phonetic_us": "/pæs/",
     "group_name": "Action & Movement"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "definitions": [
-      {
-        "alternative_example": "They visit their grandparents every month.",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_81_def0.jpg",
-        "meaning": "Visitar",
-        "pronunciation_guide_es": "/ui_VIZit_mai_ONT/",
-        "usage_context_en": "family/travel",
-        "usage_context_es": "familia/viajes",
-        "usage_example": "We visit my aunt.",
-        "usage_example_es": "Visitamos a mi tía."
-      },
-      {
-        "alternative_example": "Many tourists visit the city in summer.",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_81_def1.jpg",
-        "meaning": "Ir a ver un lugar",
-        "pronunciation_guide_es": "/lets_VIZit_de_miUSium/",
-        "usage_context_en": "places/tourism",
-        "usage_context_es": "lugares/turismo",
-        "usage_example": "Let's visit the museum.",
-        "usage_example_es": "Visitemos el museo."
-      }
-    ],
-    "force_generation": false,
-    "is_verb": true,
-    "name": "visit",
-    "phonetic": "/ˈvɪz.ɪt/",
-    "search_term": "verb/visit/essentials",
-    "spoken_phonetic_us": "/ˈvɪz.ɪt/",
-    "group_name": "Travel & Social Life"
   },
   {
     "word": "",
@@ -780,72 +818,34 @@
     "learned_at": null,
     "definitions": [
       {
-        "alternative_example": "Don't touch the stove.",
+        "alternative_example": "They visit their grandparents every month.",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_91_def0.jpg",
-        "meaning": "Tocar",
-        "pronunciation_guide_es": "/dont_TOCH_dat/",
-        "usage_context_en": "objects/body",
-        "usage_context_es": "objetos/cuerpo",
-        "usage_example": "Don't touch that.",
-        "usage_example_es": "No toques eso."
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_81_def0.jpg",
+        "meaning": "Visitar",
+        "pronunciation_guide_es": "/ui_VIZit_mai_ONT/",
+        "usage_context_en": "family/travel",
+        "usage_context_es": "familia/viajes",
+        "usage_example": "We visit my aunt.",
+        "usage_example_es": "Visitamos a mi tía."
       },
       {
-        "alternative_example": "Her words touched my heart.",
+        "alternative_example": "Many tourists visit the city in summer.",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_91_def1.jpg",
-        "meaning": "Conmover/Afectar",
-        "pronunciation_guide_es": "/dis_story_TOCHT_mi/",
-        "usage_context_en": "feelings/impact",
-        "usage_context_es": "emociones/impacto",
-        "usage_example": "This story touched me.",
-        "usage_example_es": "Esta historia me conmovió."
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_81_def1.jpg",
+        "meaning": "Ir a ver un lugar",
+        "pronunciation_guide_es": "/lets_VIZit_de_miUSium/",
+        "usage_context_en": "places/tourism",
+        "usage_context_es": "lugares/turismo",
+        "usage_example": "Let's visit the museum.",
+        "usage_example_es": "Visitemos el museo."
       }
     ],
     "force_generation": false,
     "is_verb": true,
-    "name": "touch",
-    "phonetic": "/tʌtʃ/",
-    "search_term": "verb/touch/essentials",
-    "spoken_phonetic_us": "/tʌtʃ/",
-    "group_name": "Body & Objects"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "definitions": [
-      {
-        "alternative_example": "Be careful not to drop the glass.",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_92_def0.jpg",
-        "meaning": "Dejar caer",
-        "pronunciation_guide_es": "/dont_DROP_it/",
-        "usage_context_en": "objects/accidents",
-        "usage_context_es": "objetos/accidentes",
-        "usage_example": "Don't drop it.",
-        "usage_example_es": "No lo dejes caer."
-      },
-      {
-        "alternative_example": "Sales dropped this month.",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_92_def1.jpg",
-        "meaning": "Bajar/Disminuir",
-        "pronunciation_guide_es": "/de_temprecher_DROPt/",
-        "usage_context_en": "numbers/levels",
-        "usage_context_es": "números/niveles",
-        "usage_example": "The temperature dropped.",
-        "usage_example_es": "La temperatura bajó."
-      }
-    ],
-    "force_generation": false,
-    "is_verb": true,
-    "name": "drop",
-    "phonetic": "/drɑːp/",
-    "search_term": "verb/drop/essentials",
-    "spoken_phonetic_us": "/drɑːp/",
-    "group_name": "Body & Objects"
+    "name": "visit",
+    "phonetic": "/ˈvɪz.ɪt/",
+    "search_term": "verb/visit/essentials",
+    "spoken_phonetic_us": "/ˈvɪz.ɪt/",
+    "group_name": "Travel & Social Life"
   }
 ]

@@ -41,6 +41,8 @@ pub struct ResetRequest {
     pub category: String,
     pub deck: String,
     #[serde(default)]
+    pub scope: Option<String>,
+    #[serde(default)]
     pub confirm: bool,
 }
 
@@ -192,8 +194,20 @@ pub async fn reset_all_statuses(
             .into_response());
     }
 
-    match state.deck_use_cases.reset_deck_status(&payload.user_id, &payload.category, &payload.deck).await {
-        Ok(_) => Ok((StatusCode::OK, Json(serde_json::json!({ "success": true, "message": format!("Todas las tarjetas en '{}' reseteadas.", payload.deck) }))).into_response()),
+    let reset_result = if payload.scope.as_deref() == Some("category") {
+        state
+            .deck_use_cases
+            .reset_category_status(&payload.user_id, &payload.category)
+            .await
+    } else {
+        state
+            .deck_use_cases
+            .reset_deck_status(&payload.user_id, &payload.category, &payload.deck)
+            .await
+    };
+
+    match reset_result {
+        Ok(_) => Ok((StatusCode::OK, Json(serde_json::json!({ "success": true, "message": format!("Progreso de '{}' reseteado.", payload.category) }))).into_response()),
         Err(e) => Err((StatusCode::INTERNAL_SERVER_ERROR, e.to_string())),
     }
 }

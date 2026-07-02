@@ -65,6 +65,44 @@
     "learned_at": null,
     "definitions": [
       {
+        "alternative_example": "Can we talk later?",
+        "char_count": "one",
+        "meaning": "Hablar/Conversar",
+        "pronunciation_guide_es": "/ui_TORK_EVri_DEI_on_de_FOUN/",
+        "usage_context_en": "communication/dialogue",
+        "usage_context_es": "comunicación/diálogo",
+        "usage_example": "We talk every day on the phone.",
+        "usage_example_es": "Hablamos todos los días por teléfono.",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_39_def0.jpg"
+      },
+      {
+        "alternative_example": "They are talking about their trip.",
+        "char_count": "one",
+        "meaning": "Charlar/Comentar",
+        "pronunciation_guide_es": "/dont_TORK_DIUring_de_MUVI/",
+        "usage_context_en": "discussion/banter",
+        "usage_context_es": "discusión/charla",
+        "usage_example": "Don't talk during the movie.",
+        "usage_example_es": "No hables durante la película.",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_39_def1.jpg"
+      }
+    ],
+    "force_generation": false,
+    "is_verb": true,
+    "name": "talk",
+    "phonetic": "/tɔːk/",
+    "search_term": "verb/speak/essentials",
+    "spoken_phonetic_us": "/tɔːk/",
+    "group_name": "Communication"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "definitions": [
+      {
         "alternative_example": "Did you tell him the news?",
         "char_count": "one",
         "imagePath": "/card_images/verbs/1-basic/1-basic_card_16_def0.jpg",
@@ -123,44 +161,6 @@
     "learned_at": null,
     "definitions": [
       {
-        "alternative_example": "I need to call my mother.",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_22_def0.jpg",
-        "meaning": "Llamar (por teléfono)",
-        "pronunciation_guide_es": "/KOL_mi_LEITer/",
-        "usage_context_en": "telephone/communication",
-        "usage_context_es": "teléfono/comunicación",
-        "usage_example": "Call me later.",
-        "usage_example_es": "Llámame más tarde."
-      },
-      {
-        "alternative_example": "What do you call this?",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_22_def1.jpg",
-        "meaning": "Llamar (nombrar)",
-        "pronunciation_guide_es": "/dei_KOL_him_de_BOS/",
-        "usage_context_en": "naming/titles",
-        "usage_context_es": "nombrar/títulos",
-        "usage_example": "They call him 'The Boss'.",
-        "usage_example_es": "Lo llaman 'El Jefe'."
-      }
-    ],
-    "force_generation": false,
-    "is_verb": true,
-    "name": "call",
-    "phonetic": "/kɔːl/",
-    "search_term": "verb/name/essentials",
-    "spoken_phonetic_us": "/kɔːl/",
-    "group_name": "Communication"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "definitions": [
-      {
         "alternative_example": "He asked a difficult question.",
         "char_count": "one",
         "imagePath": "/card_images/verbs/1-basic/1-basic_card_23_def0.jpg",
@@ -199,92 +199,34 @@
     "learned_at": null,
     "definitions": [
       {
-        "alternative_example": "The map shows the way.",
+        "alternative_example": "I need to call my mother.",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_32_def0.jpg",
-        "meaning": "Mostrar/Enseñar",
-        "pronunciation_guide_es": "/SHOU_mi_yor_niu_FOUN/",
-        "usage_context_en": "objects/demonstration",
-        "usage_context_es": "objetos/demostración",
-        "usage_example": "Show me your new phone.",
-        "usage_example_es": "Muéstrame tu teléfono nuevo."
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_22_def0.jpg",
+        "meaning": "Llamar (por teléfono)",
+        "pronunciation_guide_es": "/KOL_mi_LEITer/",
+        "usage_context_en": "telephone/communication",
+        "usage_context_es": "teléfono/comunicación",
+        "usage_example": "Call me later.",
+        "usage_example_es": "Llámame más tarde."
       },
       {
-        "alternative_example": "The results show improvement.",
+        "alternative_example": "What do you call this?",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_32_def1.jpg",
-        "meaning": "Exhibir/Presentar",
-        "pronunciation_guide_es": "/shi_SHOUD_her_TALent_at_de_EVENT/",
-        "usage_context_en": "talent/results",
-        "usage_context_es": "talento/resultados",
-        "usage_example": "She showed her talent at the event.",
-        "usage_example_es": "Ella mostró su talento en el evento."
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_22_def1.jpg",
+        "meaning": "Llamar (nombrar)",
+        "pronunciation_guide_es": "/dei_KOL_him_de_BOS/",
+        "usage_context_en": "naming/titles",
+        "usage_context_es": "nombrar/títulos",
+        "usage_example": "They call him 'The Boss'.",
+        "usage_example_es": "Lo llaman 'El Jefe'."
       }
     ],
     "force_generation": false,
     "is_verb": true,
-    "name": "show",
-    "phonetic": "/ʃoʊ/",
-    "search_term": "verb/display/essentials",
-    "spoken_phonetic_us": "/ʃoʊ/",
-    "irregular": {
-      "past": {
-        "form": "showed",
-        "phonetic": "/ʃoʊd/",
-        "spoken_phonetic_us": "/ʃoʊd/",
-        "usage_example": "She showed me her pictures.",
-        "usage_example_es": "Ella me mostró sus fotos.",
-        "pronunciation_guide_es": "/shi_SHOUD_mi_jer_PIKchers/",
-        "meaning": "Pasado de mostrar"
-      },
-      "participle": {
-        "form": "shown / showed",
-        "phonetic": "/ʃoʊn/ /ʃoʊd/",
-        "spoken_phonetic_us": "/ʃoʊn/ /ʃoʊd/",
-        "usage_example": "He has shown great progress.",
-        "usage_example_es": "Él ha mostrado un gran progreso.",
-        "pronunciation_guide_es": "/ji_jas_SHOUN_greit_PROgres/",
-        "meaning": "Participio de mostrar"
-      }
-    },
-    "group_name": "Communication"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "definitions": [
-      {
-        "alternative_example": "Can we talk later?",
-        "char_count": "one",
-        "meaning": "Hablar/Conversar",
-        "pronunciation_guide_es": "/ui_TORK_EVri_DEI_on_de_FOUN/",
-        "usage_context_en": "communication/dialogue",
-        "usage_context_es": "comunicación/diálogo",
-        "usage_example": "We talk every day on the phone.",
-        "usage_example_es": "Hablamos todos los días por teléfono.",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_39_def0.jpg"
-      },
-      {
-        "alternative_example": "They are talking about their trip.",
-        "char_count": "one",
-        "meaning": "Charlar/Comentar",
-        "pronunciation_guide_es": "/dont_TORK_DIUring_de_MUVI/",
-        "usage_context_en": "discussion/banter",
-        "usage_context_es": "discusión/charla",
-        "usage_example": "Don't talk during the movie.",
-        "usage_example_es": "No hables durante la película.",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_39_def1.jpg"
-      }
-    ],
-    "force_generation": false,
-    "is_verb": true,
-    "name": "talk",
-    "phonetic": "/tɔːk/",
-    "search_term": "verb/speak/essentials",
-    "spoken_phonetic_us": "/tɔːk/",
+    "name": "call",
+    "phonetic": "/kɔːl/",
+    "search_term": "verb/name/essentials",
+    "spoken_phonetic_us": "/kɔːl/",
     "group_name": "Communication"
   },
   {
@@ -395,6 +337,64 @@
         "usage_example_es": "He leído ese artículo.",
         "pronunciation_guide_es": "/ai_JAV_RED_dat_ARtikol/",
         "meaning": "Participio de leer"
+      }
+    },
+    "group_name": "Communication"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "definitions": [
+      {
+        "alternative_example": "The map shows the way.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_32_def0.jpg",
+        "meaning": "Mostrar/Enseñar",
+        "pronunciation_guide_es": "/SHOU_mi_yor_niu_FOUN/",
+        "usage_context_en": "objects/demonstration",
+        "usage_context_es": "objetos/demostración",
+        "usage_example": "Show me your new phone.",
+        "usage_example_es": "Muéstrame tu teléfono nuevo."
+      },
+      {
+        "alternative_example": "The results show improvement.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_32_def1.jpg",
+        "meaning": "Exhibir/Presentar",
+        "pronunciation_guide_es": "/shi_SHOUD_her_TALent_at_de_EVENT/",
+        "usage_context_en": "talent/results",
+        "usage_context_es": "talento/resultados",
+        "usage_example": "She showed her talent at the event.",
+        "usage_example_es": "Ella mostró su talento en el evento."
+      }
+    ],
+    "force_generation": false,
+    "is_verb": true,
+    "name": "show",
+    "phonetic": "/ʃoʊ/",
+    "search_term": "verb/display/essentials",
+    "spoken_phonetic_us": "/ʃoʊ/",
+    "irregular": {
+      "past": {
+        "form": "showed",
+        "phonetic": "/ʃoʊd/",
+        "spoken_phonetic_us": "/ʃoʊd/",
+        "usage_example": "She showed me her pictures.",
+        "usage_example_es": "Ella me mostró sus fotos.",
+        "pronunciation_guide_es": "/shi_SHOUD_mi_jer_PIKchers/",
+        "meaning": "Pasado de mostrar"
+      },
+      "participle": {
+        "form": "shown / showed",
+        "phonetic": "/ʃoʊn/ /ʃoʊd/",
+        "spoken_phonetic_us": "/ʃoʊn/ /ʃoʊd/",
+        "usage_example": "He has shown great progress.",
+        "usage_example_es": "Él ha mostrado un gran progreso.",
+        "pronunciation_guide_es": "/ji_jas_SHOUN_greit_PROgres/",
+        "meaning": "Participio de mostrar"
       }
     },
     "group_name": "Communication"

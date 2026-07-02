@@ -66,6 +66,62 @@ export function computeLevelProgress(masteredCount = 0, language = 'en') {
     };
 }
 
+export function computeDashboardLevelProgress(stats, language = 'en') {
+    const backendLevels = Array.isArray(stats?.levels) ? stats.levels : [];
+    if (backendLevels.length === 0) {
+        return computeLevelProgress(stats?.mastered_count ?? 0, language);
+    }
+
+    const levels = backendLevels.map((level, index) => {
+        const targetCount = Math.max(0, level.target_count ?? 0);
+        const cumulativeTarget = Math.max(0, level.cumulative_target ?? 0);
+        const min = Math.max(0, cumulativeTarget - targetCount);
+        return {
+            id: level.level,
+            min,
+            max: cumulativeTarget,
+            wordsMin: index === 0 ? 0 : min,
+            wordsMax: cumulativeTarget,
+            masteredCount: Math.max(0, level.mastered_count ?? 0),
+            targetCount,
+            cumulativeMastered: Math.max(0, level.cumulative_mastered ?? 0),
+            cumulativeTarget,
+            completed: Boolean(level.completed),
+            premium: Boolean(level.premium),
+        };
+    });
+
+    const current = levels.find((level) => level.id === stats?.current_level)
+        || levels.find((level) => !level.completed)
+        || levels[levels.length - 1];
+    const currentIndex = levels.indexOf(current);
+    const next = levels[currentIndex + 1] || null;
+    const levelPercent = Number.isFinite(stats?.level_percent)
+        ? Math.max(0, Math.min(100, Math.round(stats.level_percent)))
+        : current.targetCount > 0
+            ? Math.max(0, Math.min(100, Math.round((current.masteredCount / current.targetCount) * 100)))
+            : current.completed
+                ? 100
+                : 0;
+
+    return {
+        levels,
+        current,
+        currentLevel: current.id,
+        nextLevel: next?.id || null,
+        next,
+        levelPercent,
+        wordsInLevel: current.masteredCount,
+        wordsToNext: Math.max(0, current.targetCount - current.masteredCount),
+        wordsRequiredRange: formatWordsRange(current, language),
+        nextWordsRequiredRange: next ? formatWordsRange(next, language) : null,
+        isNextPremium: Boolean(next?.premium),
+        isMaxFreeLevel: current.id === 'B1' && current.completed,
+        isMaxLevel: Boolean(current.completed && !next),
+        targetForLevel: current.targetCount,
+    };
+}
+
 export function estimateMinutesRemaining(cardsRemaining = 0) {
     if (cardsRemaining <= 0) return 0;
     return Math.max(1, Math.ceil((cardsRemaining * SECONDS_PER_CARD) / 60));
@@ -122,8 +178,23 @@ export function getTimeGreeting(language, name) {
 
 export function getStreakMessage(stats, labels) {
     const streak = stats?.streak_days ?? 0;
-    if (stats?.studied_today && streak > 0) return labels.streakKeepLearning;
-    if (stats?.streak_at_risk && streak > 0) return labels.streakAtRisk;
+    const daysSinceLastStudy = stats?.days_since_last_study;
+
+    if (stats?.studied_today && streak > 0) {
+        if (streak === 1) return labels.streakConsecutiveDay || labels.streakStudiedToday;
+        return (labels.streakConsecutiveDays || labels.streakKeepLearning).replace('{n}', streak.toLocaleString());
+    }
+
+    if (stats?.streak_at_risk && streak > 0) {
+        if (streak === 1) return labels.streakConsecutiveDay || labels.streakAtRisk;
+        return (labels.streakConsecutiveDays || labels.streakAtRisk).replace('{n}', streak.toLocaleString());
+    }
+
+    if (Number.isFinite(daysSinceLastStudy) && daysSinceLastStudy > 0) {
+        if (daysSinceLastStudy === 1) return labels.streakMissedDay || labels.streakComeBack;
+        return (labels.streakMissedDays || labels.streakComeBack).replace('{n}', daysSinceLastStudy.toLocaleString());
+    }
+
     if (streak > 0) return labels.streakComeBack;
     return labels.streakStartShort;
 }

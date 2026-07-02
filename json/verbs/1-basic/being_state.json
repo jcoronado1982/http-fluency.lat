@@ -85,44 +85,6 @@
     "learned_at": null,
     "definitions": [
       {
-        "alternative_example": "It seems like a good idea.",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_28_def0.jpg",
-        "meaning": "Parecer (dar la impresión)",
-        "pronunciation_guide_es": "/shi_SIMS_JAPI_tuDEI/",
-        "usage_context_en": "appearance/impression",
-        "usage_context_es": "apariencia/impresión",
-        "usage_example": "She seems happy today.",
-        "usage_example_es": "Ella parece feliz hoy."
-      },
-      {
-        "alternative_example": "He seemed to be worried.",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_28_def1.jpg",
-        "meaning": "Aparentar (ser evidente)",
-        "pronunciation_guide_es": "/it_SIMS_dat_NOUboDI_is_hir/",
-        "usage_context_en": "evidence/state",
-        "usage_context_es": "evidencia/estado",
-        "usage_example": "It seems that nobody is here.",
-        "usage_example_es": "Parece que nadie está aquí."
-      }
-    ],
-    "force_generation": false,
-    "is_verb": true,
-    "name": "seem",
-    "phonetic": "/siːm/",
-    "search_term": "verb/appear/essentials",
-    "spoken_phonetic_us": "/siːm/",
-    "group_name": "Being & State"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "definitions": [
-      {
         "alternative_example": "I live in a big city.",
         "char_count": "one",
         "imagePath": "/card_images/verbs/1-basic/1-basic_card_38_def0.jpg",
@@ -161,33 +123,35 @@
     "learned_at": null,
     "definitions": [
       {
-        "alternative_example": "The accident happened quickly.",
-        "char_count": "two",
-        "meaning": "Suceder/Ocurrir",
-        "pronunciation_guide_es": "/uat_HAPenD_tu_iu/",
-        "usage_context_en": "events/accidents",
-        "usage_context_es": "eventos/accidentes",
-        "usage_example": "What happened to you?",
-        "usage_example_es": "¿Qué te pasó?"
+        "alternative_example": "Stay here until I come back.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_75_def0.jpg",
+        "meaning": "Quedarse",
+        "pronunciation_guide_es": "/STEI_jir/",
+        "usage_context_en": "location/waiting",
+        "usage_context_es": "ubicación/espera",
+        "usage_example": "Stay here.",
+        "usage_example_es": "Quédate aquí."
       },
       {
-        "alternative_example": "If you happen to see him, tell him to call me.",
-        "char_count": "two",
-        "meaning": "Estar (por casualidad)",
-        "pronunciation_guide_es": "/ai_HAPenD_tu_bi_der_uen_it_STARTid/",
-        "usage_context_en": "chance/coincidence",
-        "usage_context_es": "casualidad/coincidencia",
-        "usage_example": "I happened to be there when it started.",
-        "usage_example_es": "Casualmente estaba allí cuando comenzó."
+        "alternative_example": "We stayed at a small hotel.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_75_def1.jpg",
+        "meaning": "Hospedarse/Permanecer",
+        "pronunciation_guide_es": "/dei_STEID_kalm_al_nait/",
+        "usage_context_en": "travel/state",
+        "usage_context_es": "viajes/estado",
+        "usage_example": "They stayed calm all night.",
+        "usage_example_es": "Permanecieron tranquilos toda la noche."
       }
     ],
     "force_generation": false,
     "is_verb": true,
-    "name": "happen",
-    "phonetic": "/ˈhæpən/",
-    "search_term": "verb/occur/essentials",
-    "spoken_phonetic_us": "/ˈhæpən/",
-    "group_name": "Being & State"
+    "name": "stay",
+    "phonetic": "/steɪ/",
+    "search_term": "verb/stay/essentials",
+    "spoken_phonetic_us": "/steɪ/",
+    "group_name": "Daily Life"
   },
   {
     "word": "",
@@ -253,35 +217,71 @@
     "learned_at": null,
     "definitions": [
       {
-        "alternative_example": "Stay here until I come back.",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_75_def0.jpg",
-        "meaning": "Quedarse",
-        "pronunciation_guide_es": "/STEI_jir/",
-        "usage_context_en": "location/waiting",
-        "usage_context_es": "ubicación/espera",
-        "usage_example": "Stay here.",
-        "usage_example_es": "Quédate aquí."
+        "alternative_example": "The accident happened quickly.",
+        "char_count": "two",
+        "meaning": "Suceder/Ocurrir",
+        "pronunciation_guide_es": "/uat_HAPenD_tu_iu/",
+        "usage_context_en": "events/accidents",
+        "usage_context_es": "eventos/accidentes",
+        "usage_example": "What happened to you?",
+        "usage_example_es": "¿Qué te pasó?"
       },
       {
-        "alternative_example": "We stayed at a small hotel.",
-        "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_75_def1.jpg",
-        "meaning": "Hospedarse/Permanecer",
-        "pronunciation_guide_es": "/dei_STEID_kalm_al_nait/",
-        "usage_context_en": "travel/state",
-        "usage_context_es": "viajes/estado",
-        "usage_example": "They stayed calm all night.",
-        "usage_example_es": "Permanecieron tranquilos toda la noche."
+        "alternative_example": "If you happen to see him, tell him to call me.",
+        "char_count": "two",
+        "meaning": "Estar (por casualidad)",
+        "pronunciation_guide_es": "/ai_HAPenD_tu_bi_der_uen_it_STARTid/",
+        "usage_context_en": "chance/coincidence",
+        "usage_context_es": "casualidad/coincidencia",
+        "usage_example": "I happened to be there when it started.",
+        "usage_example_es": "Casualmente estaba allí cuando comenzó."
       }
     ],
     "force_generation": false,
     "is_verb": true,
-    "name": "stay",
-    "phonetic": "/steɪ/",
-    "search_term": "verb/stay/essentials",
-    "spoken_phonetic_us": "/steɪ/",
-    "group_name": "Daily Life"
+    "name": "happen",
+    "phonetic": "/ˈhæpən/",
+    "search_term": "verb/occur/essentials",
+    "spoken_phonetic_us": "/ˈhæpən/",
+    "group_name": "Being & State"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "definitions": [
+      {
+        "alternative_example": "It seems like a good idea.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_28_def0.jpg",
+        "meaning": "Parecer (dar la impresión)",
+        "pronunciation_guide_es": "/shi_SIMS_JAPI_tuDEI/",
+        "usage_context_en": "appearance/impression",
+        "usage_context_es": "apariencia/impresión",
+        "usage_example": "She seems happy today.",
+        "usage_example_es": "Ella parece feliz hoy."
+      },
+      {
+        "alternative_example": "He seemed to be worried.",
+        "char_count": "one",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_28_def1.jpg",
+        "meaning": "Aparentar (ser evidente)",
+        "pronunciation_guide_es": "/it_SIMS_dat_NOUboDI_is_hir/",
+        "usage_context_en": "evidence/state",
+        "usage_context_es": "evidencia/estado",
+        "usage_example": "It seems that nobody is here.",
+        "usage_example_es": "Parece que nadie está aquí."
+      }
+    ],
+    "force_generation": false,
+    "is_verb": true,
+    "name": "seem",
+    "phonetic": "/siːm/",
+    "search_term": "verb/appear/essentials",
+    "spoken_phonetic_us": "/siːm/",
+    "group_name": "Being & State"
   },
   {
     "word": "",

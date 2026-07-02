@@ -252,6 +252,142 @@
     "group_name": "Social & Exchange"
   },
   {
+    "name": "buy",
+    "phonetic": "/baɪ/",
+    "spoken_phonetic_us": "/baɪ/",
+    "search_term": "verb/purchase/level_up",
+    "is_verb": true,
+    "learned": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Comprar",
+        "usage_example": "I need to buy some milk.",
+        "pronunciation_guide_es": "/ai_NID_tu_BAI_som_MILK/",
+        "alternative_example": "Where did you buy that shirt?",
+        "usage_example_es": "Necesito comprar algo de leche.",
+        "char_count": "one",
+        "usage_context_en": "shopping/groceries",
+        "usage_context_es": "compras/víveres"
+      },
+      {
+        "meaning": "Adquirir/Creer (informal)",
+        "usage_example": "He bought her a new car.",
+        "pronunciation_guide_es": "/hi_BOT_her_a_NIU_KAR/",
+        "alternative_example": "I don't buy that excuse.",
+        "usage_example_es": "Él le compró un coche nuevo.",
+        "char_count": "one",
+        "usage_context_en": "gifts/belief",
+        "usage_context_es": "regalos/creencia"
+      }
+    ],
+    "irregular": {
+      "past": {
+        "form": "bought",
+        "phonetic": "/bɔːt/",
+        "spoken_phonetic_us": "/bɔːt/",
+        "usage_example": "",
+        "usage_example_es": "",
+        "pronunciation_guide_es": "",
+        "meaning": "Past of buy",
+        "definitions": [
+          {
+            "usage_example": "I bought a new laptop yesterday.",
+            "usage_example_es": "Compré una laptop nueva ayer.",
+            "pronunciation_guide_es": "/ai_BOT_a_niu_LAPtop_iesterdei/",
+            "meaning": "Pasado de Comprar"
+          },
+          {
+            "usage_example": "I never bought his excuse.",
+            "usage_example_es": "Nunca me creí su excusa.",
+            "pronunciation_guide_es": "/ai_NEVer_BOT_jis_eksKIUS/",
+            "meaning": "Pasado de Creerse algo"
+          }
+        ]
+      },
+      "participle": {
+        "form": "bought",
+        "phonetic": "/bɔːt/",
+        "spoken_phonetic_us": "/bɔːt/",
+        "usage_example": "",
+        "usage_example_es": "",
+        "pronunciation_guide_es": "",
+        "meaning": "Participle of buy",
+        "definitions": [
+          {
+            "usage_example": "I bought a new laptop yesterday.",
+            "usage_example_es": "Compré una laptop nueva ayer.",
+            "pronunciation_guide_es": "/ai_BOT_a_niu_LAPtop_iesterdei/",
+            "meaning": "Participio de Comprar"
+          },
+          {
+            "usage_example": "I never bought his excuse.",
+            "usage_example_es": "Nunca me creí su excusa.",
+            "pronunciation_guide_es": "/ai_NEVer_BOT_jis_eksKIUS/",
+            "meaning": "Participio de Creerse algo"
+          }
+        ]
+      }
+    },
+    "group_name": "Social & Daily Life"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "definitions": [
+      {
+        "alternative_example": "Can I pay by credit card?",
+        "char_count": "one",
+        "meaning": "Pagar (dinero)",
+        "pronunciation_guide_es": "/ai_NID_tu_PEI_de_RENT_tuDEI/",
+        "usage_context_en": "money/bills",
+        "usage_context_es": "dinero/facturas",
+        "usage_example": "I need to pay the rent today.",
+        "usage_example_es": "Necesito pagar el alquiler hoy."
+      },
+      {
+        "alternative_example": "He never pays me a compliment.",
+        "char_count": "one",
+        "meaning": "Prestar atención (con 'attention')",
+        "pronunciation_guide_es": "/PEI_aTENshan_tu_de_TICHer/",
+        "usage_context_en": "focus/courtesy",
+        "usage_context_es": "enfoque/cortesía",
+        "usage_example": "Pay attention to the teacher.",
+        "usage_example_es": "Presta atención al profesor."
+      }
+    ],
+    "force_generation": false,
+    "is_verb": true,
+    "name": "pay",
+    "phonetic": "/peɪ/",
+    "search_term": "verb/money/essentials",
+    "spoken_phonetic_us": "/peɪ/",
+    "irregular": {
+      "past": {
+        "form": "paid",
+        "phonetic": "/peɪd/",
+        "spoken_phonetic_us": "/peɪd/",
+        "usage_example": "I paid the bill online.",
+        "usage_example_es": "Pagué la cuenta en línea.",
+        "pronunciation_guide_es": "/ai_PEID_de_BIL_ONlain/",
+        "meaning": "Pasado de pagar"
+      },
+      "participle": {
+        "form": "paid",
+        "phonetic": "/peɪd/",
+        "spoken_phonetic_us": "/peɪd/",
+        "usage_example": "Everything is paid for.",
+        "usage_example_es": "Todo está pagado.",
+        "pronunciation_guide_es": "/EVriTHing_is_PEID_for/",
+        "meaning": "Participio de pagar"
+      }
+    },
+    "group_name": "Social & Exchange"
+  },
+  {
     "word": "",
     "translation": "",
     "example": null,
@@ -375,62 +511,6 @@
     "learned_at": null,
     "definitions": [
       {
-        "alternative_example": "Can I pay by credit card?",
-        "char_count": "one",
-        "meaning": "Pagar (dinero)",
-        "pronunciation_guide_es": "/ai_NID_tu_PEI_de_RENT_tuDEI/",
-        "usage_context_en": "money/bills",
-        "usage_context_es": "dinero/facturas",
-        "usage_example": "I need to pay the rent today.",
-        "usage_example_es": "Necesito pagar el alquiler hoy."
-      },
-      {
-        "alternative_example": "He never pays me a compliment.",
-        "char_count": "one",
-        "meaning": "Prestar atención (con 'attention')",
-        "pronunciation_guide_es": "/PEI_aTENshan_tu_de_TICHer/",
-        "usage_context_en": "focus/courtesy",
-        "usage_context_es": "enfoque/cortesía",
-        "usage_example": "Pay attention to the teacher.",
-        "usage_example_es": "Presta atención al profesor."
-      }
-    ],
-    "force_generation": false,
-    "is_verb": true,
-    "name": "pay",
-    "phonetic": "/peɪ/",
-    "search_term": "verb/money/essentials",
-    "spoken_phonetic_us": "/peɪ/",
-    "irregular": {
-      "past": {
-        "form": "paid",
-        "phonetic": "/peɪd/",
-        "spoken_phonetic_us": "/peɪd/",
-        "usage_example": "I paid the bill online.",
-        "usage_example_es": "Pagué la cuenta en línea.",
-        "pronunciation_guide_es": "/ai_PEID_de_BIL_ONlain/",
-        "meaning": "Pasado de pagar"
-      },
-      "participle": {
-        "form": "paid",
-        "phonetic": "/peɪd/",
-        "spoken_phonetic_us": "/peɪd/",
-        "usage_example": "Everything is paid for.",
-        "usage_example_es": "Todo está pagado.",
-        "pronunciation_guide_es": "/EVriTHing_is_PEID_for/",
-        "meaning": "Participio de pagar"
-      }
-    },
-    "group_name": "Social & Exchange"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "definitions": [
-      {
         "alternative_example": "Send the package by post.",
         "char_count": "one",
         "imagePath": "/card_images/verbs/1-basic/1-basic_card_63_def0.jpg",
@@ -538,85 +618,5 @@
       }
     },
     "group_name": "Social & Exchange"
-  },
-  {
-    "name": "buy",
-    "phonetic": "/baɪ/",
-    "spoken_phonetic_us": "/baɪ/",
-    "search_term": "verb/purchase/level_up",
-    "is_verb": true,
-    "learned": true,
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Comprar",
-        "usage_example": "I need to buy some milk.",
-        "pronunciation_guide_es": "/ai_NID_tu_BAI_som_MILK/",
-        "alternative_example": "Where did you buy that shirt?",
-        "usage_example_es": "Necesito comprar algo de leche.",
-        "char_count": "one",
-        "usage_context_en": "shopping/groceries",
-        "usage_context_es": "compras/víveres"
-      },
-      {
-        "meaning": "Adquirir/Creer (informal)",
-        "usage_example": "He bought her a new car.",
-        "pronunciation_guide_es": "/hi_BOT_her_a_NIU_KAR/",
-        "alternative_example": "I don't buy that excuse.",
-        "usage_example_es": "Él le compró un coche nuevo.",
-        "char_count": "one",
-        "usage_context_en": "gifts/belief",
-        "usage_context_es": "regalos/creencia"
-      }
-    ],
-    "irregular": {
-      "past": {
-        "form": "bought",
-        "phonetic": "/bɔːt/",
-        "spoken_phonetic_us": "/bɔːt/",
-        "usage_example": "",
-        "usage_example_es": "",
-        "pronunciation_guide_es": "",
-        "meaning": "Past of buy",
-        "definitions": [
-          {
-            "usage_example": "I bought a new laptop yesterday.",
-            "usage_example_es": "Compré una laptop nueva ayer.",
-            "pronunciation_guide_es": "/ai_BOT_a_niu_LAPtop_iesterdei/",
-            "meaning": "Pasado de Comprar"
-          },
-          {
-            "usage_example": "I never bought his excuse.",
-            "usage_example_es": "Nunca me creí su excusa.",
-            "pronunciation_guide_es": "/ai_NEVer_BOT_jis_eksKIUS/",
-            "meaning": "Pasado de Creerse algo"
-          }
-        ]
-      },
-      "participle": {
-        "form": "bought",
-        "phonetic": "/bɔːt/",
-        "spoken_phonetic_us": "/bɔːt/",
-        "usage_example": "",
-        "usage_example_es": "",
-        "pronunciation_guide_es": "",
-        "meaning": "Participle of buy",
-        "definitions": [
-          {
-            "usage_example": "I bought a new laptop yesterday.",
-            "usage_example_es": "Compré una laptop nueva ayer.",
-            "pronunciation_guide_es": "/ai_BOT_a_niu_LAPtop_iesterdei/",
-            "meaning": "Participio de Comprar"
-          },
-          {
-            "usage_example": "I never bought his excuse.",
-            "usage_example_es": "Nunca me creí su excusa.",
-            "pronunciation_guide_es": "/ai_NEVer_BOT_jis_eksKIUS/",
-            "meaning": "Participio de Creerse algo"
-          }
-        ]
-      }
-    },
-    "group_name": "Social & Daily Life"
   }
 ]

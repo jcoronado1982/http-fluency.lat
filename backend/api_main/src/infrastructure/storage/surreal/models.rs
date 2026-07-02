@@ -1,3 +1,4 @@
+use crate::domain::models::user::CatalogPreferences;
 use crate::domain::models::story::StoryScreen;
 use crate::domain::models::user::User;
 use serde::Deserialize;
@@ -11,6 +12,7 @@ pub struct SurrealUser {
     pub picture: Option<String>,
     pub role: String,
     pub onboarding_completed: Option<bool>,
+    pub catalog_preferences: Option<CatalogPreferences>,
     pub created_at: Datetime,
     pub last_login: Datetime,
 }
@@ -24,6 +26,7 @@ impl From<SurrealUser> for User {
             picture: value.picture,
             role: value.role,
             onboarding_completed: value.onboarding_completed.unwrap_or(false),
+            catalog_preferences: value.catalog_preferences,
             created_at: value.created_at.0,
             last_login: value.last_login.0,
         }

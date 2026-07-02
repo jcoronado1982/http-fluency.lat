@@ -1,6 +1,8 @@
 use anyhow::Result;
 use fluency_core::domain::models::flashcard::DeckData;
-use fluency_core::domain::models::user_activity::{LearningStats, B2_VOCABULARY_TARGET};
+use fluency_core::domain::models::user_activity::{
+    LearningLevelStats, LearningStats, B2_VOCABULARY_TARGET,
+};
 use fluency_core::ports::db_repository::{CardProgressRepository, UserActivityRepository};
 use fluency_core::ports::storage::StorageRepository;
 use std::sync::Arc;
@@ -81,6 +83,31 @@ pub struct DeckUseCases {
     activity_repo: Arc<dyn UserActivityRepository>,
 }
 
+const CATEGORY_ORDER: &[&str] = &[
+    "pronouns",
+    "verbs",
+    "nouns",
+    "adverbs",
+    "adjectives",
+    "connectors",
+    "preposition",
+    "determinant",
+    "phrasal_verbs",
+];
+
+const LEARNING_LEVEL_DECKS: &[(&str, &str, bool)] = &[
+    ("A1", "1-basic", false),
+    ("A2", "2-intermediate", false),
+    ("B1", "3-advanced", false),
+];
+
+fn category_order_index(category: &str) -> usize {
+    CATEGORY_ORDER
+        .iter()
+        .position(|ordered| *ordered == category)
+        .unwrap_or(usize::MAX)
+}
+
 impl DeckUseCases {
     pub fn new(
         storage_repo: Arc<dyn StorageRepository>,
@@ -100,7 +127,12 @@ impl DeckUseCases {
 
     /// Devuelve cada categoría con el total real de tarjetas sumando todos sus decks.
     pub async fn list_categories_with_counts(&self) -> Result<Vec<serde_json::Value>> {
-        let categories = self.storage_repo.list_categories().await?;
+        let mut categories = self.storage_repo.list_categories().await?;
+        categories.sort_by(|a, b| {
+            category_order_index(a)
+                .cmp(&category_order_index(b))
+                .then_with(|| a.cmp(b))
+        });
         let mut result = Vec::new();
         for cat in categories {
             let decks = self.storage_repo.list_decks(&cat).await.unwrap_or_default();
@@ -200,6 +232,10 @@ impl DeckUseCases {
             .await
     }
 
+    pub async fn reset_category_status(&self, user_id: &str, category: &str) -> Result<()> {
+        self.db_repo.reset_category_progress(user_id, category).await
+    }
+
     pub async fn get_phonics_data(&self) -> Result<serde_json::Value> {
         self.storage_repo.get_phonics_data().await
     }
@@ -260,11 +296,99 @@ impl DeckUseCases {
         self.activity_repo.record_study_day(user_id).await
     }
 
+    async fn count_cards_for_deck_prefix(&self, deck_prefix: &str) -> Result<i32> {
+        let categories = self.storage_repo.list_categories().await?;
+        let mut total = 0_i32;
+
+        for category in categories {
+            let decks = self.storage_repo.list_decks(&category).await.unwrap_or_default();
+            for deck in decks {
+                if !deck.starts_with(deck_prefix) {
+                    continue;
+                }
+
+                if let Ok(data) = self.storage_repo.get_deck_data(&category, &deck).await {
+                    total += data.flashcards().len() as i32;
+                }
+            }
+        }
+
+        Ok(total)
+    }
+
     pub async fn get_learning_stats(&self, user_id: &str) -> Result<LearningStats> {
         let mastered_count = self.db_repo.count_learned_cards(user_id).await?;
+        let mut free_levels = Vec::new();
+        let mut cumulative_target = 0_i32;
+        let mut cumulative_mastered = 0_i32;
+
+        for &(level, deck_prefix, premium) in LEARNING_LEVEL_DECKS {
+            let target_count = self.count_cards_for_deck_prefix(deck_prefix).await?;
+            let mastered_for_level = self
+                .db_repo
+                .count_learned_cards_by_deck_prefix(user_id, deck_prefix)
+                .await?
+                .clamp(0, target_count.max(0));
+            cumulative_target += target_count;
+            cumulative_mastered += mastered_for_level;
+            free_levels.push(LearningLevelStats {
+                level: level.to_string(),
+                mastered_count: mastered_for_level,
+                target_count,
+                cumulative_mastered,
+                cumulative_target,
+                completed: target_count <= 0 || mastered_for_level >= target_count,
+                premium,
+            });
+        }
+
+        let free_target = cumulative_target;
+        let b2_target = B2_VOCABULARY_TARGET.max(free_target);
+        let b2_mastered = mastered_count.clamp(0, b2_target);
+        let b2_span = (b2_target - free_target).max(0);
+        let b2_in_level = (b2_mastered - free_target).clamp(0, b2_span);
+        let b2_completed = b2_target <= 0 || b2_mastered >= b2_target;
+
+        let mut levels = free_levels;
+        levels.push(LearningLevelStats {
+            level: "B2".to_string(),
+            mastered_count: b2_in_level,
+            target_count: b2_span,
+            cumulative_mastered: b2_mastered,
+            cumulative_target: b2_target,
+            completed: b2_completed,
+            premium: true,
+        });
+
+        let current = levels
+            .iter()
+            .find(|level| !level.completed)
+            .or_else(|| levels.last())
+            .cloned()
+            .unwrap_or_else(|| LearningLevelStats {
+                level: "A1".to_string(),
+                mastered_count,
+                target_count: B2_VOCABULARY_TARGET,
+                cumulative_mastered: mastered_count,
+                cumulative_target: B2_VOCABULARY_TARGET,
+                completed: mastered_count >= B2_VOCABULARY_TARGET,
+                premium: false,
+            });
+        let level_percent = if current.target_count <= 0 {
+            if current.completed { 100 } else { 0 }
+        } else {
+            ((current.mastered_count as f64 / current.target_count as f64) * 100.0).round() as i32
+        };
+
         self.activity_repo
-            .get_learning_stats(user_id, mastered_count, B2_VOCABULARY_TARGET)
+            .get_learning_stats(user_id, mastered_count, b2_target)
             .await
+            .map(|mut stats| {
+                stats.current_level = current.level;
+                stats.level_percent = level_percent.clamp(0, 100);
+                stats.levels = levels;
+                stats
+            })
     }
 }
 

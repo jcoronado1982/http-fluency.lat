@@ -1,5 +1,6 @@
 import { flashcardPort } from './composition';
 import { FALLBACK_CATEGORIES, sortCategories } from './config/catalogOrder';
+import { getCategoryOrderPreference } from './config/catalogPreferences';
 import { LAST_CATEGORY_KEY, LAST_DECK_KEY_PREFIX } from './config/sessionKeys';
 import {
     normalizeDeckResponse,
@@ -41,7 +42,7 @@ export async function preloadFlashcardStart(userEmail, resumeSession = null) {
     const promise = (async () => {
         const categoriesResult = await flashcardPort.fetchCategories();
         const { names, totals } = parseCategoriesResponse(categoriesResult);
-        const categories = sortCategories(names);
+        const categories = sortCategories(names, getCategoryOrderPreference(userEmail, names));
         const resolvedCategories = categories.length > 0 ? categories : [...FALLBACK_CATEGORIES];
         const category = getPreferredCategory(resumeSession?.category, resolvedCategories);
 
@@ -52,7 +53,7 @@ export async function preloadFlashcardStart(userEmail, resumeSession = null) {
         if (category) {
             const decksResult = await flashcardPort.fetchDecksForCategory(category);
             deckNames = decksResult?.success && Array.isArray(decksResult.files)
-                ? sortDeckNames(decksResult.files)
+                ? sortDeckNames(decksResult.files, category)
                 : [];
             deck = getPreferredDeck(category, resumeSession?.deck, deckNames);
 
@@ -98,4 +99,14 @@ export function getFlashcardPreloadSnapshot(userEmail) {
         return preloadState.data;
     }
     return null;
+}
+
+export function resetFlashcardPreload(userEmail = null) {
+    if (userEmail && preloadState.email !== userEmail) {
+        return;
+    }
+
+    preloadState.email = null;
+    preloadState.promise = null;
+    preloadState.data = null;
 }

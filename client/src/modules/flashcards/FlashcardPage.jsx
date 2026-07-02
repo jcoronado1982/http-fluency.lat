@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Flashcard, Controls, StudyMediaProvider } from '../../components/flashcardStudy';
 import { STUDY_MEDIA_VARIANT_APP } from '../../contracts/studyMediaVariants';
+import { useAuth } from '../../context/AuthContext';
 import CategorySelector from './features/CategorySelector';
 import PageLoader from '../../components/common/PageLoader';
 import { usePageLoader } from '../../components/common/usePageLoader';
@@ -13,7 +14,9 @@ import { useCategoryContext } from './context/CategoryContext';
 import { useFlashcardContext } from './context/FlashcardContext';
 import { getCategoryDisplayName, getGroupDisplayName, getProgressLabel } from './features/categoryDisplay';
 import { getNextStudyStep } from './config/catalogOrder';
+import { getCategoryOrderPreference, getGroupOrderPreference } from './config/catalogPreferences';
 import { navigationIntentRef } from './navigationIntent';
+import { formatDeckCategoryName, getLevelFromDeckName, usesNestedLevelDecks } from './useCases/deckUseCases';
 import { flashcardPort, audioPort, imagePort, imageCompressionService } from './composition';
 import {
     registerUiBridgeHandler,
@@ -90,6 +93,7 @@ const FLASHCARD_LOADING_COPY = {
 
 export default function FlashcardPage() {
     const location = useLocation();
+    const { user } = useAuth();
     const isOnboardingTour = new URLSearchParams(location.search).get('onboarding_tour') === 'flashcards';
     const {
         isCatalogVisible,
@@ -103,7 +107,7 @@ export default function FlashcardPage() {
         studyLanguage = 'en',
         setIsHeaderSuppressed,
     } = useUIContext();
-    const { currentCategory, changeCategory, loadingStage: categoryLoadingStage } = useCategoryContext();
+    const { categories, currentCategory, changeCategory, loadingStage: categoryLoadingStage } = useCategoryContext();
 
     const {
         currentCard, loadingStage: flashcardLoadingStage, filteredData, masterData, currentDeckName,
@@ -193,23 +197,50 @@ export default function FlashcardPage() {
     const shouldShowCompletionCard = shouldShowCompletionCelebration || isUserViewingCompleted;
     const activeLoadingStage = categoryLoadingStage || flashcardLoadingStage;
     const shouldShowLoading = Boolean(activeLoadingStage);
+    const completedGroupNames = Array.from(
+        masterData.reduce((acc, card) => {
+            const groupName = card.group_name || 'General';
+            if (!acc.has(groupName)) {
+                acc.set(groupName, []);
+            }
+            acc.get(groupName).push(card);
+            return acc;
+        }, new Map()).entries(),
+    )
+        .filter(([, cards]) => cards.length > 0 && cards.every((card) => card.learned))
+        .map(([groupName]) => groupName);
     const loadingCopy = activeLoadingStage
         ? (FLASHCARD_LOADING_COPY[locale][activeLoadingStage] ?? FLASHCARD_LOADING_COPY[locale].fallback)
         : null;
     const recommendation = isCompletionVisible
-        ? getNextStudyStep(currentCategory, currentDeckName, selectedGroup)
+        ? getNextStudyStep(currentCategory, currentDeckName, selectedGroup, {
+            categoryOrder: getCategoryOrderPreference(
+                user?.email,
+                categories,
+                user?.catalog_preferences,
+            ),
+            groupOrder: getGroupOrderPreference(
+                user?.email,
+                currentCategory,
+                currentDeckName,
+                Array.from(new Set(masterData.map((card) => card.group_name || 'General'))),
+                user?.catalog_preferences,
+            ),
+            completedGroups: completedGroupNames,
+        })
         : null;
     const completionScope = selectedGroup ? 'group' : 'deck';
     const getDeckDisplayName = (deckName) => {
         if (!deckName) return '';
-        const lower = deckName.toLowerCase();
         const levels = FLASHCARD_LOADING_COPY[locale] && locale === 'es'
             ? { basic: 'Básico', intermediate: 'Intermedio', advanced: 'Avanzado' }
             : { basic: 'Basic', intermediate: 'Intermediate', advanced: 'Advanced' };
 
-        if (lower.includes('advanced')) return levels.advanced;
-        if (lower.includes('intermediate')) return levels.intermediate;
-        if (lower.includes('basic')) return levels.basic;
+        const level = getLevelFromDeckName(deckName);
+        if (usesNestedLevelDecks(currentCategory) && deckName.includes('/')) {
+            return `${formatDeckCategoryName(deckName)} • ${levels[level] ?? deckName}`;
+        }
+        if (level && levels[level]) return levels[level];
         return deckName;
     };
     const completedLabel = selectedGroup

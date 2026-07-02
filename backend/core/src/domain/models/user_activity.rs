@@ -25,12 +25,27 @@ pub struct UserActivityStats {
 }
 
 #[derive(Debug, Serialize, Clone)]
+pub struct LearningLevelStats {
+    pub level: String,
+    pub mastered_count: i32,
+    pub target_count: i32,
+    pub cumulative_mastered: i32,
+    pub cumulative_target: i32,
+    pub completed: bool,
+    pub premium: bool,
+}
+
+#[derive(Debug, Serialize, Clone)]
 pub struct LearningStats {
     pub mastered_count: i32,
     pub target_count: i32,
     pub target_label: String,
     pub percent: i32,
+    pub current_level: String,
+    pub level_percent: i32,
+    pub levels: Vec<LearningLevelStats>,
     pub streak_days: i32,
+    pub days_since_last_study: Option<i64>,
     pub longest_streak: i32,
     pub studied_today: bool,
     pub streak_at_risk: bool,
@@ -53,10 +68,20 @@ pub fn compute_streak_display(
     }
 }
 
+pub fn compute_days_since_last_study(last_study_date: Option<&str>, today: &str) -> Option<i64> {
+    let last_study_date = last_study_date?;
+    let last = chrono::NaiveDate::parse_from_str(last_study_date, "%Y-%m-%d").ok()?;
+    let today = chrono::NaiveDate::parse_from_str(today, "%Y-%m-%d").ok()?;
+    Some((today - last).num_days().max(0))
+}
+
 pub fn build_learning_stats(
     mastered_count: i32,
     target_count: i32,
     target_label: &str,
+    current_level: &str,
+    level_percent: i32,
+    levels: Vec<LearningLevelStats>,
     last_study_date: Option<&str>,
     stored_streak: i32,
     longest_streak: i32,
@@ -65,6 +90,7 @@ pub fn build_learning_stats(
 ) -> LearningStats {
     let (streak_days, studied_today, streak_at_risk) =
         compute_streak_display(last_study_date, stored_streak, today, yesterday);
+    let days_since_last_study = compute_days_since_last_study(last_study_date, today);
     let percent = if target_count <= 0 {
         0
     } else {
@@ -76,7 +102,11 @@ pub fn build_learning_stats(
         target_count,
         target_label: target_label.to_string(),
         percent: percent.min(100),
+        current_level: current_level.to_string(),
+        level_percent: level_percent.clamp(0, 100),
+        levels,
         streak_days,
+        days_since_last_study,
         longest_streak,
         studied_today,
         streak_at_risk,
@@ -112,6 +142,12 @@ mod tests {
         assert_eq!(days, 0);
         assert!(!today);
         assert!(!at_risk);
+    }
+
+    #[test]
+    fn computes_days_since_last_study() {
+        let days = compute_days_since_last_study(Some("2026-06-20"), "2026-06-23");
+        assert_eq!(days, Some(3));
     }
 }
 

@@ -1,7 +1,7 @@
 use anyhow::{anyhow, Result};
 use chrono::{Duration as ChronoDuration, Utc};
 use fluency_core::domain::models::subscription::Subscription;
-use fluency_core::domain::models::user::{GooglePayload, User};
+use fluency_core::domain::models::user::{CatalogPreferences, GooglePayload, User};
 use fluency_core::ports::db_repository::{SubscriptionRepository, UserRepository};
 use jsonwebtoken::{decode, encode, Algorithm, DecodingKey, EncodingKey, Header, Validation};
 use serde::{Deserialize, Serialize};
@@ -110,6 +110,7 @@ impl AuthUseCases {
                         "viewer".to_string()
                     },
                     onboarding_completed: false,
+                    catalog_preferences: None,
                     created_at: Utc::now(),
                     last_login: Utc::now(),
                 };
@@ -159,6 +160,16 @@ impl AuthUseCases {
 
         existing.onboarding_completed = completed;
         Ok(Some(self.user_repo.upsert_user(existing).await?))
+    }
+
+    pub async fn update_catalog_preferences(
+        &self,
+        email: &str,
+        preferences: Option<CatalogPreferences>,
+    ) -> Result<Option<User>> {
+        self.user_repo
+            .update_catalog_preferences(email, preferences)
+            .await
     }
 
     async fn validate_google_token(&self, id_token: &str) -> Result<GooglePayload> {
@@ -358,6 +369,7 @@ impl AuthUseCases {
             picture: None,
             role: "admin".to_string(),
             onboarding_completed: false,
+            catalog_preferences: None,
             created_at: now,
             last_login: now,
         };

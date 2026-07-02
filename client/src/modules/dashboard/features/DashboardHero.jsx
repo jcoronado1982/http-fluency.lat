@@ -14,7 +14,7 @@ import phrasalVerbsImage from '../../../assets/Phrasal Verbs.png';
 import { getModuleResumeSession, isDefaultHomeModule } from '../../index';
 import { learningStatsPort } from '../composition';
 import {
-    computeLevelProgress,
+    computeDashboardLevelProgress,
     computeXp,
     estimateMinutesRemaining,
     formatCategoryLabel,
@@ -69,22 +69,15 @@ function ProgressRing({ percent, labels, value, target, locale }) {
     );
 }
 
-function StreakIcon() {
+function LevelIcon() {
     return (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M4 19V5M20 19V5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
             <path
-                d="M12 22c4-2.5 7-6.5 7-11.5C19 6.5 16.5 4 13.5 4c-1.2 0-2.3.4-3.2 1.1C9.4 4.4 8.3 4 7 4 4 4 2 6.5 2 10.5 2 15.5 5 19.5 9 22"
+                d="M4 8h16M4 16h16M8 5v14M16 5v14"
                 stroke="currentColor"
                 strokeWidth="1.8"
                 strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-            <path
-                d="M12 22V12M12 12c-1.5-2-3-3.5-3-6 0-1.5 1-2.5 2.5-2.5.8 0 1.5.3 2 1 1-1.5 2.2-2.2 3.8-2.2 2.2 0 4 1.8 4 4 0 2.5-1.5 4-3 6"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
             />
         </svg>
     );
@@ -106,6 +99,20 @@ function WordsIcon() {
     );
 }
 
+function StreakInlineIcon() {
+    return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path
+                d="M12.5 3.5c.8 3.5 4.6 4.8 4.6 9.1a5.1 5.1 0 0 1-10.2 0c0-2.7 1.6-4.8 3.2-6.4.2 2 1.2 3.1 2.4 3.8.6-1.4.7-3.4 0-6.5Z"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+}
+
 function levelCopy(step, labels) {
     if (step.premium) return labels.premiumLevelLabel;
     return labels.levelNames?.[step.id] || step.id;
@@ -118,7 +125,7 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
 
     const mastered = stats?.mastered_count ?? 0;
     const streak = stats?.streak_days ?? 0;
-    const level = computeLevelProgress(mastered, language);
+    const level = computeDashboardLevelProgress(stats, language);
     const locale = language === 'es' ? 'es' : 'en';
     const levelXpSpan = level.current.max - level.current.min;
     const xpInLevel = computeXp(level.wordsInLevel);
@@ -274,13 +281,19 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
                     </article>
 
                     <div className="dash-mini-stats">
-                        <article className="dash-mini-stat dash-mini-stat--streak">
+                        <article className="dash-mini-stat dash-mini-stat--level">
                             <span className="dash-mini-stat-icon" aria-hidden>
-                                <StreakIcon />
+                                <LevelIcon />
                             </span>
                             <div className="dash-mini-stat-copy">
-                                <strong>{streak}</strong>
-                                <small>{labels.streakStatLabel}</small>
+                                <span className="dash-level-line">
+                                    <strong>{level.currentLevel}</strong>
+                                    <small>{labels.levelShort}</small>
+                                </span>
+                                <span className="dash-streak-line">
+                                    <StreakInlineIcon />
+                                    <small>{streakMsg}</small>
+                                </span>
                             </div>
                         </article>
                         <article className="dash-mini-stat dash-mini-stat--words">
@@ -288,8 +301,8 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
                                 <WordsIcon />
                             </span>
                             <div className="dash-mini-stat-copy">
-                                <strong>{level.targetForLevel.toLocaleString(locale)}</strong>
-                                <small>{labels.wordsStatLabel}</small>
+                                <strong>{level.wordsInLevel.toLocaleString(locale)} / {level.targetForLevel.toLocaleString(locale)}</strong>
+                                <small>{level.currentLevel} · {labels.wordsStatLabel}</small>
                             </div>
                         </article>
                     </div>
@@ -304,12 +317,24 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
                 <div className="dash-path-steps">
                     {level.levels.map((step, index) => {
                         const active = isLevelActive(mastered, step, level.currentLevel);
+                        const previous = level.levels[index - 1];
+                        const lineFill = previous?.completed
+                            ? 100
+                            : previous?.id === level.currentLevel
+                                ? level.levelPercent
+                                : 0;
                         return (
                             <div
                                 key={step.id}
-                                className={`dash-path-step ${active ? 'is-active' : ''} ${step.premium ? 'is-premium' : ''}`}
+                                className={`dash-path-step ${active ? 'is-active' : ''} ${step.completed ? 'is-complete' : ''} ${step.premium ? 'is-premium' : ''}`}
                             >
-                                {index > 0 && <span className="dash-path-line" aria-hidden />}
+                                {index > 0 && (
+                                    <span
+                                        className={`dash-path-line ${lineFill > 0 ? 'is-progressing' : ''} ${lineFill >= 100 ? 'is-filled' : ''}`}
+                                        style={{ '--dash-path-line-fill': `${lineFill}%` }}
+                                        aria-hidden
+                                    />
+                                )}
                                 <span className="dash-path-dot">{step.id}</span>
                                 <strong>{levelCopy(step, labels)}</strong>
                             </div>

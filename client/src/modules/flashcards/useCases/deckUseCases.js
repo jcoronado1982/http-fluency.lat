@@ -5,7 +5,21 @@
 
 import { LANDING_DEMO_CATEGORY } from '../../../contracts/landingDemoNamespace';
 
+export const NESTED_LEVEL_CATEGORIES = [
+    'verbs',
+    'nouns',
+    'adjectives',
+    'adverbs',
+    'connectors',
+    'determinant',
+    'phrasal_verbs',
+    'preposition',
+    'pronouns',
+];
+const LEVEL_ORDER = { basic: 1, intermediate: 2, advanced: 3 };
+
 const isAppStudyCategory = (name) => name && name !== LANDING_DEMO_CATEGORY;
+export const usesNestedLevelDecks = (category) => NESTED_LEVEL_CATEGORIES.includes(category);
 
 const normalizeDefinitions = (defs) =>
     (defs || []).map((def) => ({ ...def, imagePath: def.imagePath ?? null }));
@@ -44,17 +58,37 @@ export const normalizeDeckResponse = (data) => {
     return rawCards.map(normalizeCard);
 };
 
-export const sortDeckNames = (files) => {
+export const getLevelFromDeckName = (deckName) => {
+    if (!deckName) return 'basic';
+    const lower = deckName.toLowerCase();
+    if (lower.includes('advanced')) return 'advanced';
+    if (lower.includes('intermediate')) return 'intermediate';
+    if (lower.includes('basic')) return 'basic';
+    return 'basic';
+};
+
+export const getDeckCategoryName = (deckName) => {
+    if (!deckName) return '';
+    const [maybeLevel, maybeCategory] = deckName.split('/');
+    return maybeCategory ? maybeCategory.replace('.json', '') : maybeLevel.replace('.json', '');
+};
+
+export const formatDeckCategoryName = (deckName) =>
+    getDeckCategoryName(deckName)
+        .replace(/[_-]/g, ' ')
+        .split(' ')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+
+export const sortDeckNames = (files, category = null) => {
     const names = files.map((f) => f.replace('.json', ''));
     return names.sort((a, b) => {
-        const getOrder = (n) => {
-            const lower = n.toLowerCase();
-            if (lower.includes('advanced')) return 3;
-            if (lower.includes('intermediate')) return 2;
-            if (lower.includes('basic')) return 1;
-            return 99;
-        };
-        return getOrder(a) - getOrder(b);
+        const levelDiff = (LEVEL_ORDER[getLevelFromDeckName(a)] ?? 99) - (LEVEL_ORDER[getLevelFromDeckName(b)] ?? 99);
+        if (levelDiff !== 0) return levelDiff;
+
+        const categoryA = getDeckCategoryName(a);
+        const categoryB = getDeckCategoryName(b);
+        return categoryA.localeCompare(categoryB);
     });
 };
 

@@ -86,6 +86,17 @@ impl CardProgressRepository for SurrealCardProgressRepository {
         Ok(())
     }
 
+    async fn reset_category_progress(&self, user_id: &str, category: &str) -> Result<()> {
+        let category = category.to_lowercase();
+        self.0
+            .db
+            .query("DELETE card_progress WHERE user_id = $user_id AND category = $category")
+            .bind(("user_id", user_id.to_string()))
+            .bind(("category", category))
+            .await?;
+        Ok(())
+    }
+
     async fn upsert_cards_batch(
         &self,
         user_id: &str,
@@ -143,5 +154,34 @@ impl CardProgressRepository for SurrealCardProgressRepository {
 
         let rows: Vec<CountRow> = response.take(0)?;
         Ok(rows.first().map(|row| row.total).unwrap_or(0))
+    }
+
+    async fn count_learned_cards_by_deck_prefix(
+        &self,
+        user_id: &str,
+        deck_prefix: &str,
+    ) -> Result<i32> {
+        let normalized_prefix = deck_prefix.to_lowercase();
+        let mut response = self
+            .0
+            .db
+            .query("SELECT deck FROM card_progress WHERE user_id = $user_id AND learned = true LIMIT 100000")
+            .bind(("user_id", user_id.to_string()))
+            .await?;
+
+        #[derive(Deserialize)]
+        struct DeckRow {
+            deck: Option<String>,
+        }
+
+        let rows: Vec<DeckRow> = response.take(0)?;
+        Ok(rows
+            .into_iter()
+            .filter(|row| {
+                row.deck
+                    .as_deref()
+                    .is_some_and(|deck| deck.starts_with(&normalized_prefix))
+            })
+            .count() as i32)
     }
 }

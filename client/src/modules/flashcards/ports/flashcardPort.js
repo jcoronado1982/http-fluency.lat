@@ -9,6 +9,7 @@
  * @property {(userId: string, category: string, deck: string, index: number, learned: boolean) => Promise<unknown>} updateCardStatus
  * @property {(userId: string, category: string, deck: string, cards: Array<{index: number, learned: boolean}>) => Promise<unknown>} updateCardsBatch
  * @property {(userId: string, category: string, deck: string) => Promise<unknown>} resetDeckStatus
+ * @property {(userId: string, category: string, deck?: string) => Promise<unknown>} resetCategoryStatus
  */
 
 /** @param {FlashcardPort} adapter */
