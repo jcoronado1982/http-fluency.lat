@@ -37,7 +37,7 @@ Documento canónico: [docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md
 | **Base de datos** | SurrealDB |
 | **Proxy / SSL** | Caddy v2 (`fluency-proxy` en Oracle) |
 | **IA — Tutor** | Google Gemini (gRPC) |
-| **IA — Audio** | Routing híbrido: Gemini TTS + Google Cloud TTS; ElevenLabs solo para `landing-demo` |
+| **IA — Audio** | Gemini AI Studio para audio; ElevenLabs solo para `landing-demo` |
 | **Auth** | Google OAuth 2.0 → JWT |
 
 ---

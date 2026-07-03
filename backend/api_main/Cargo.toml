@@ -25,6 +25,7 @@ chrono.workspace = true
 anyhow.workspace = true
 async-trait.workspace = true
 tower = "0.4"
+sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "postgres", "chrono", "json"] }
 google-cloud-token = "0.1"
 jsonwebtoken = "9.1"
 base64 = "0.21"
@@ -46,7 +47,7 @@ pronoun_practice = { path = "../mod_pronoun", optional = true }
 [features]
 default = ["flashcards", "auth"]
 flashcards = ["mod_flashcards"]
-auth = []
 pronoun_practice = ["dep:pronoun_practice"]
+auth = []
 payments = []
 subscriptions = ["payments"]

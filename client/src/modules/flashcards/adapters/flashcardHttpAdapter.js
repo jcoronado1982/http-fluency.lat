@@ -31,6 +31,9 @@ export function createFlashcardHttpAdapter(httpClient) {
         resetDeckStatus: (userId, category, deck) =>
             httpClient.post('/api/reset-all', { user_id: userId, category, deck, confirm: true }),
 
+        resetCategoryStatus: (userId, category, deck = '*') =>
+            httpClient.post('/api/reset-all', { user_id: userId, category, deck, scope: 'category', confirm: true }),
+
         fetchLearningStats: () => httpClient.get('/api/learning-stats'),
 
         touchStudyDay: () => httpClient.post('/api/study/touch'),

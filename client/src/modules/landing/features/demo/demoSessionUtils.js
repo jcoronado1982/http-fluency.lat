@@ -4,17 +4,17 @@ import {
     buildLandingDemoImagePath,
 } from '../../../../contracts/landingDemoNamespace';
 
-function stripLegacyImagePaths(definitions) {
-    return (definitions || []).map((def) => {
-        const { imagePath: _removed, ...rest } = def;
-        return rest;
-    });
+function ensureDemoImagePaths(definitions, demoIndex, form = 'v1') {
+    return (definitions || []).map((def, defIndex) => ({
+        ...def,
+        imagePath: def.imagePath ?? buildLandingDemoImagePath(demoIndex, defIndex, form),
+    }));
 }
 
 export function prepareDemoCards(raw) {
     return raw.map((card, idx) => {
         const demoIndex = card.demoIndex ?? idx + 1;
-        const definitions = stripLegacyImagePaths(card.definitions);
+        const definitions = ensureDemoImagePaths(card.definitions, demoIndex, 'v1');
 
         let irregular = card.irregular;
         if (irregular?.past?.definitions) {
@@ -22,7 +22,7 @@ export function prepareDemoCards(raw) {
                 ...irregular,
                 past: {
                     ...irregular.past,
-                    definitions: stripLegacyImagePaths(irregular.past.definitions),
+                    definitions: ensureDemoImagePaths(irregular.past.definitions, demoIndex, 'v2'),
                 },
             };
         }
@@ -31,7 +31,7 @@ export function prepareDemoCards(raw) {
                 ...irregular,
                 participle: {
                     ...irregular.participle,
-                    definitions: stripLegacyImagePaths(irregular.participle.definitions),
+                    definitions: ensureDemoImagePaths(irregular.participle.definitions, demoIndex, 'v3'),
                 },
             };
         }
@@ -46,6 +46,14 @@ export function prepareDemoCards(raw) {
             learned_at: null,
         };
     });
+}
+
+/**
+ * Crea una copia fresca del deck demo para la sesión actual del visitante.
+ * No toca DB ni comparte estado aprendido entre usuarios.
+ */
+export function createDemoSessionCards() {
+    return prepareDemoCards(rawCards.slice(0, LANDING_DEMO_CARD_LIMIT));
 }
 
 export function patchDefinitionImage(cards, cardId, imagePath, defIndex, form) {
@@ -81,6 +89,6 @@ export function patchDefinitionImage(cards, cardId, imagePath, defIndex, form) {
     });
 }
 
-export const INITIAL_DEMO_CARDS = prepareDemoCards(rawCards.slice(0, LANDING_DEMO_CARD_LIMIT));
+export const INITIAL_DEMO_CARDS = createDemoSessionCards();
 
 export { buildLandingDemoImagePath };

@@ -14,8 +14,8 @@ export const flashcardTranslations = {
             categoryTitle: "CATEGORÍA",
             loadingCategories: "Cargando categorías…",
             level: "Nivel",
-            cards: "cartas en total",
-            cardsInLevel: "cartas en este nivel",
+            cards: "tarjetas en total",
+            cardsInLevel: "tarjetas en este nivel",
             learned: "aprendidas",
             complete: "✓ completo",
             newStr: "nuevo",
@@ -95,27 +95,27 @@ export const flashcardTranslations = {
                 "People": "Personas",
                 "Personality & Social": "Personalidad y Social",
                 "Personality Traits": "Rasgos de Personalidad",
-                "Phrasal Verbs: Break": "Phrasal Verbs: Break",
-                "Phrasal Verbs: Bring": "Phrasal Verbs: Bring",
-                "Phrasal Verbs: Call": "Phrasal Verbs: Call",
-                "Phrasal Verbs: Calm": "Phrasal Verbs: Calm",
-                "Phrasal Verbs: Carry": "Phrasal Verbs: Carry",
-                "Phrasal Verbs: Check": "Phrasal Verbs: Check",
-                "Phrasal Verbs: Come": "Phrasal Verbs: Come",
-                "Phrasal Verbs: Drop": "Phrasal Verbs: Drop",
-                "Phrasal Verbs: Figure": "Phrasal Verbs: Figure",
-                "Phrasal Verbs: Find": "Phrasal Verbs: Find",
-                "Phrasal Verbs: Get": "Phrasal Verbs: Get",
-                "Phrasal Verbs: Make": "Phrasal Verbs: Make",
-                "Phrasal Verbs: Pick": "Phrasal Verbs: Pick",
-                "Phrasal Verbs: Put": "Phrasal Verbs: Put",
-                "Phrasal Verbs: Run": "Phrasal Verbs: Run",
-                "Phrasal Verbs: Set": "Phrasal Verbs: Set",
-                "Phrasal Verbs: Show": "Phrasal Verbs: Show",
-                "Phrasal Verbs: Take": "Phrasal Verbs: Take",
-                "Phrasal Verbs: Turn": "Phrasal Verbs: Turn",
-                "Phrasal Verbs: Wake": "Phrasal Verbs: Wake",
-                "Phrasal Verbs: Work": "Phrasal Verbs: Work",
+                "Phrasal Verbs: Break": "Verbos frasales: Break",
+                "Phrasal Verbs: Bring": "Verbos frasales: Bring",
+                "Phrasal Verbs: Call": "Verbos frasales: Call",
+                "Phrasal Verbs: Calm": "Verbos frasales: Calm",
+                "Phrasal Verbs: Carry": "Verbos frasales: Carry",
+                "Phrasal Verbs: Check": "Verbos frasales: Check",
+                "Phrasal Verbs: Come": "Verbos frasales: Come",
+                "Phrasal Verbs: Drop": "Verbos frasales: Drop",
+                "Phrasal Verbs: Figure": "Verbos frasales: Figure",
+                "Phrasal Verbs: Find": "Verbos frasales: Find",
+                "Phrasal Verbs: Get": "Verbos frasales: Get",
+                "Phrasal Verbs: Make": "Verbos frasales: Make",
+                "Phrasal Verbs: Pick": "Verbos frasales: Pick",
+                "Phrasal Verbs: Put": "Verbos frasales: Put",
+                "Phrasal Verbs: Run": "Verbos frasales: Run",
+                "Phrasal Verbs: Set": "Verbos frasales: Set",
+                "Phrasal Verbs: Show": "Verbos frasales: Show",
+                "Phrasal Verbs: Take": "Verbos frasales: Take",
+                "Phrasal Verbs: Turn": "Verbos frasales: Turn",
+                "Phrasal Verbs: Wake": "Verbos frasales: Wake",
+                "Phrasal Verbs: Work": "Verbos frasales: Work",
                 "Physical & Sensory": "Físico y Sensorial",
                 "Physical State": "Estado Físico",
                 "Places": "Lugares",
@@ -168,6 +168,117 @@ export const flashcardTranslations = {
                 intermediate: "Intermedio",
                 advanced: "Avanzado"
             },
+            helpButtonLabel: "Ayuda de categoría",
+            helpPopoverTitle: "¿Qué es esta categoría?",
+            helpPopoverIntro: "Aquí agrupamos palabras por su función en la oración.",
+            helpPopoverUsageLabel: "Cómo usarla",
+            helpPopoverExampleLabel: "Ejemplo",
+            categoryHelp: {
+                nouns: {
+                    title: "Sustantivos",
+                    summary: "Es una palabra que nombra algo.",
+                    usage: "Puede nombrar una persona, un animal, una cosa, un lugar, una idea, un sentimiento o una actividad.",
+                    exampleTable: [
+                        { label: "Persona", items: ["teacher = profesor", "student = estudiante"] },
+                        { label: "Animal", items: ["dog = perro", "cat = gato"] },
+                        { label: "Cosa", items: ["book = libro", "phone = teléfono"] },
+                        { label: "Lugar", items: ["school = escuela", "house = casa"] },
+                        { label: "Idea o actividad", items: ["love = amor", "time = tiempo", "working = trabajar"] },
+                    ],
+                    exampleNotes: [
+                        "This is a book. Este es un libro. book es sustantivo.",
+                        "She is a teacher. Ella es profesora. teacher es sustantivo.",
+                        "Working is difficult. Trabajar es difícil. working funciona como sustantivo porque nombra una actividad.",
+                        "Regla simple: si nombra algo, es sustantivo."
+                    ],
+                    exampleHighlight: ["teacher", "student", "dog", "cat", "book", "phone", "school", "house", "love", "time", "working"]
+                },
+                verbs: {
+                    title: "Verbos",
+                    summary: "Es una palabra que expresa una acción, un estado o algo que está pasando.",
+                    usage: "Los verbos son necesarios para formar oraciones, porque indican qué hace una persona, animal o cosa.",
+                    example: "Por ejemplo:\nI run.\nYo corro.\nShe studies.\nElla estudia.\nThey work.\nEllos trabajan.",
+                    exampleHighlight: ["run", "corro", "studies", "estudia", "work", "trabajan"]
+                },
+                adjectives: {
+                    title: "Adjetivos",
+                    summary: "Es una palabra que describe un sustantivo.",
+                    usage: "Sirve para decir cómo es una persona, cosa o lugar.",
+                    exampleTable: [
+                        { label: "Ejemplos", items: ["big = grande", "small = pequeño", "new = nuevo", "old = viejo / antiguo"] },
+                    ],
+                    exampleNotes: [
+                        "This is a big house.",
+                        "I have a new phone."
+                    ],
+                    exampleHighlight: ["big", "small", "new", "old"]
+                },
+                adverbs: {
+                    title: "Adverbios",
+                    summary: "Es una palabra que modifica o da más información sobre un verbo, un adjetivo, otro adverbio o una oración completa.",
+                    usage: "El adverbio puede decir cómo, cuándo, dónde, con qué frecuencia o qué tan intensa es una acción o descripción. Un adverbio da información extra.",
+                    exampleNotes: [
+                        "She runs quickly.",
+                        "I study today.",
+                        "This is a very big house.",
+                        "He runs very quickly.",
+                        "Fortunately, we arrived on time."
+                    ],
+                    exampleHighlight: ["quickly", "today", "very", "Fortunately"]
+                },
+                preposition: {
+                    title: "Preposiciones",
+                    summary: "Una preposición conecta una palabra con otra para mostrar dónde, cuándo o hacia dónde.",
+                    usage: "Sirve para expresar relaciones de lugar, tiempo y dirección dentro de una oración.",
+                    exampleTable: [
+                        { label: "Lugar", items: ["The keys are on the table.", "The dog is under the chair."] },
+                        { label: "Tiempo", items: ["I study in the morning.", "We have class at eight."] },
+                        { label: "Dirección", items: ["She is going to the bank.", "Walk to the corner."] },
+                    ],
+                    exampleHighlight: ["on", "under", "in", "at", "to"]
+                },
+                pronouns: {
+                    title: "Pronombres",
+                    summary: "Es una palabra que se usa para reemplazar un nombre o sustantivo.",
+                    usage: "Sirve para no repetir muchas veces el mismo nombre.",
+                    example: "María es mi amiga. Ella está feliz.",
+                    exampleHighlight: "Ella"
+                },
+                connectors: {
+                    title: "Conectores",
+                    summary: "Es una palabra o frase que une ideas dentro de una oración o entre varias oraciones.",
+                    usage: "Sirve para que las ideas no queden separadas y el mensaje sea más claro. Un conector une ideas y ayuda a entender cómo se relacionan.",
+                    exampleNotes: [
+                        "I was tired, but I finished my homework.",
+                        "I stayed home because it was raining.",
+                        "First, I take a shower. Then, I make breakfast."
+                    ],
+                    exampleHighlight: ["but", "because", "First", "Then"]
+                },
+                determinant: {
+                    title: "Determinantes",
+                    summary: "Es una palabra que va antes del sustantivo y ayuda a identificarlo mejor.",
+                    usage: "Sirve para mostrar cuál es, cuántos hay, de quién es y si es uno o varios.",
+                    exampleTable: [
+                        { label: "Cuál es", items: ["This book is interesting.", "That restaurant is cheap."] },
+                        { label: "Cuántos hay", items: ["I have three apples.", "There are many people here."] },
+                        { label: "De quién es", items: ["My phone is on the bed.", "Her bag is black."] },
+                        { label: "Uno o varios", items: ["A dog is outside.", "Some cookies are on the table."] },
+                    ],
+                    exampleHighlight: ["This", "That", "three", "many", "My", "Her", "A", "Some"]
+                },
+                phrasal_verbs: {
+                    title: "Verbos frasales",
+                    summary: "Es la combinacion de un verbo y una particula como up, on, off, out, in o for.",
+                    usage: "Cuando se unen, funcionan como una sola idea y muchas veces crean un significado diferente al de cada palabra por separado. Verbo + particula = una expresion con significado propio. Los verbos frasales son muy comunes en el ingles diario y hablado; en ingles muy formal, muchas veces se prefieren verbos de una sola palabra.",
+                    exampleTable: [
+                        { label: "Usos comunes", items: ["get up = levantarse", "turn off = apagar", "look for = buscar", "give up = rendirse"] },
+                        { label: "Uso mas natural", items: ["find out the cause", "put off the meeting", "go on with the project"] },
+                        { label: "Uso mas formal", items: ["determine the cause", "postpone the meeting", "continue the project"] },
+                    ],
+                    exampleHighlight: ["get up", "turn off", "look for", "give up", "find out", "put off", "go on", "determine", "postpone", "continue"]
+                }
+            },
             categories: {
                 nouns: "Sustantivos",
                 verbs: "Verbos",
@@ -177,7 +288,7 @@ export const flashcardTranslations = {
                 pronouns: "Pronombres",
                 connectors: "Conectores",
                 determinant: "Determinantes",
-                phrasal_verbs: "Phrasal Verbs"
+                phrasal_verbs: "Verbos frasales"
             }
         },
         phonicsModal: {
@@ -207,9 +318,9 @@ export const flashcardTranslations = {
         },
         completionCard: {
             badge: "Excelente",
-            groupTitle: "Topic completado",
+            groupTitle: "Tema completado",
             levelTitle: "Nivel completado",
-            groupSubtitle: "Terminaste el topic \"{topic}\". Ya puedes seguir con el siguiente bloque recomendado.",
+            groupSubtitle: "Terminaste el tema \"{topic}\". Ya puedes seguir con el siguiente bloque recomendado.",
             levelSubtitle: "Terminaste el nivel {level}. Te sugerimos continuar con el siguiente nivel recomendado.",
             defaultTopic: "actual",
             defaultLevel: "actual",
@@ -217,9 +328,9 @@ export const flashcardTranslations = {
             statusLabel: "Estado",
             statusValue: "Completado",
             nextStepLabel: "Siguiente paso sugerido",
-            noRecommendation: "Ya recorriste toda la ruta disponible. Puedes repetir una categoria o explorar otra.",
+            noRecommendation: "Ya recorriste toda la ruta disponible. Puedes repetir una categoría o explorar otra.",
             continueButton: "Continuar ruta",
-            catalogButton: "Ver categorias"
+            catalogButton: "Ver categorías"
         }
     },
     en: {
@@ -390,6 +501,117 @@ export const flashcardTranslations = {
                 basic: "Basic",
                 intermediate: "Intermediate",
                 advanced: "Advanced"
+            },
+            helpButtonLabel: "Category help",
+            helpPopoverTitle: "What is this category?",
+            helpPopoverIntro: "Words are grouped here by their role in a sentence.",
+            helpPopoverUsageLabel: "How to use it",
+            helpPopoverExampleLabel: "Example",
+            categoryHelp: {
+                nouns: {
+                    title: "Nouns",
+                    summary: "It is a word that names something.",
+                    usage: "It can name a person, an animal, a thing, a place, an idea, a feeling, or an activity.",
+                    exampleTable: [
+                        { label: "Person", items: ["teacher = profesor", "student = estudiante"] },
+                        { label: "Animal", items: ["dog = perro", "cat = gato"] },
+                        { label: "Thing", items: ["book = libro", "phone = teléfono"] },
+                        { label: "Place", items: ["school = escuela", "house = casa"] },
+                        { label: "Idea or activity", items: ["love = amor", "time = tiempo", "working = trabajar"] },
+                    ],
+                    exampleNotes: [
+                        "This is a book. Este es un libro. book is a noun.",
+                        "She is a teacher. Ella es profesora. teacher is a noun.",
+                        "Working is difficult. Trabajar es difícil. working works as a noun because it names an activity.",
+                        "Simple rule: if it names something, it is a noun."
+                    ],
+                    exampleHighlight: ["teacher", "student", "dog", "cat", "book", "phone", "school", "house", "love", "time", "working"]
+                },
+                verbs: {
+                    title: "Verbs",
+                    summary: "Express actions, states, or processes.",
+                    usage: "They show what the subject does or what happens to it.",
+                    example: "I run.\nShe studies.\nThey work.",
+                    exampleHighlight: ["run", "studies", "work"]
+                },
+                adjectives: {
+                    title: "Adjectives",
+                    summary: "It is a word that describes a noun.",
+                    usage: "It helps describe how a person, thing, or place is.",
+                    exampleTable: [
+                        { label: "Examples", items: ["big = grande", "small = pequeño", "new = nuevo", "old = viejo / antiguo"] },
+                    ],
+                    exampleNotes: [
+                        "This is a big house.",
+                        "I have a new phone."
+                    ],
+                    exampleHighlight: ["big", "small", "new", "old"]
+                },
+                adverbs: {
+                    title: "Adverbs",
+                    summary: "It is a word that modifies or gives more information about a verb, an adjective, another adverb, or a whole sentence.",
+                    usage: "An adverb can tell how, when, where, how often, or how intense an action or description is. An adverb gives extra information.",
+                    exampleNotes: [
+                        "She runs quickly.",
+                        "I study today.",
+                        "This is a very big house.",
+                        "He runs very quickly.",
+                        "Fortunately, we arrived on time."
+                    ],
+                    exampleHighlight: ["quickly", "today", "very", "Fortunately"]
+                },
+                preposition: {
+                    title: "Prepositions",
+                    summary: "A preposition connects one word to another to show where, when, or in what direction.",
+                    usage: "Use it to express relationships of place, time, and direction in a sentence.",
+                    exampleTable: [
+                        { label: "Place", items: ["The keys are on the table.", "The dog is under the chair."] },
+                        { label: "Time", items: ["I study in the morning.", "We have class at eight."] },
+                        { label: "Direction", items: ["She is going to the bank.", "Walk to the corner."] },
+                    ],
+                    exampleHighlight: ["on", "under", "in", "at", "to"]
+                },
+                pronouns: {
+                    title: "Pronouns",
+                    summary: "A word used to replace a name or noun.",
+                    usage: "It helps you avoid repeating the same name many times.",
+                    example: "Maria is my friend. She is happy.",
+                    exampleHighlight: "She"
+                },
+                connectors: {
+                    title: "Connectors",
+                    summary: "It is a word or phrase that joins ideas within a sentence or between sentences.",
+                    usage: "It helps ideas stay connected so the message is clearer. A connector shows how ideas relate to each other.",
+                    exampleNotes: [
+                        "I was tired, but I finished my homework.",
+                        "I stayed home because it was raining.",
+                        "First, I take a shower. Then, I make breakfast."
+                    ],
+                    exampleHighlight: ["but", "because", "First", "Then"]
+                },
+                determinant: {
+                    title: "Determiners",
+                    summary: "It is a word that goes before a noun and helps identify it more clearly.",
+                    usage: "It shows which one it is, how many there are, whose it is, and whether it is one or several.",
+                    exampleTable: [
+                        { label: "Which one", items: ["This book is interesting.", "That restaurant is cheap."] },
+                        { label: "How many", items: ["I have three apples.", "There are many people here."] },
+                        { label: "Whose", items: ["My phone is on the bed.", "Her bag is black."] },
+                        { label: "One or several", items: ["A dog is outside.", "Some cookies are on the table."] },
+                    ],
+                    exampleHighlight: ["This", "That", "three", "many", "My", "Her", "A", "Some"]
+                },
+                phrasal_verbs: {
+                    title: "Phrasal verbs",
+                    summary: "It is the combination of a verb and a particle such as up, on, off, out, in, or for.",
+                    usage: "When they join, they work as one idea and often create a meaning that is different from each word on its own. Verb + particle = an expression with its own meaning. Phrasal verbs are very common in everyday spoken English; in very formal English, a one-word verb is often preferred.",
+                    exampleTable: [
+                        { label: "Common uses", items: ["get up = levantarse", "turn off = apagar", "look for = buscar", "give up = rendirse"] },
+                        { label: "More natural use", items: ["find out the cause", "put off the meeting", "go on with the project"] },
+                        { label: "More formal use", items: ["determine the cause", "postpone the meeting", "continue the project"] },
+                    ],
+                    exampleHighlight: ["get up", "turn off", "look for", "give up", "find out", "put off", "go on", "determine", "postpone", "continue"]
+                }
             },
             categories: {
                 nouns: "Nouns",

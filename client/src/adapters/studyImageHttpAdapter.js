@@ -2,6 +2,11 @@ import { API_URL } from '../config/api';
 import { httpClient } from '../services/httpClient';
 
 export function createImageHttpAdapter(http) {
+    const getDeckPrefix = (deck) => {
+        const cleanDeck = (deck || '').replace('.json', '');
+        return cleanDeck.split('/')[0] || cleanDeck;
+    };
+
     const imageAdapter = {
     // POST /api/resolve-image — capa personal (premium) o global (predeterminada), sin generar
     resolve: async ({ category, deck, index, defIndex, form }) => {
@@ -60,19 +65,18 @@ export function createImageHttpAdapter(http) {
 
     // Ruta AVIF global predeterminada (capa compartida por todos los usuarios).
     buildGlobalStoragePath: ({ category, deck, index, defIndex, form }) => {
-        const deckPrefix = deck.replace('.json', '');
+        const deckPrefix = getDeckPrefix(deck);
         const formSuffix = form && form !== 'v1' ? `_${form}` : '';
         return `/card_images/${category}/${deckPrefix}/${deckPrefix}_card_${index}_def${defIndex}${formSuffix}.avif`;
     },
 
-    // Normaliza paths legacy (.jpg/.png) al AVIF optimizado que realmente existe en storage.
+    // Normaliza solo quitando query params; preserva la extensión real del asset.
     normalizeToAvif: (path) => {
         if (!path) return path;
-        if (path.endsWith('.avif')) return path.split('?')[0];
-        return path.replace(/\.(png|jpg|jpeg|webp)$/i, '.avif').split('?')[0];
+        return path.split('?')[0];
     },
 
-    // Construye URL absoluta dado un path relativo AVIF.
+    // Construye URL absoluta dado un path relativo de imagen.
     // forceCacheBust se usa solo al generar o subir una nueva imagen para saltar la caché.
     buildUrl: (path, forceCacheBust = false) => {
         if (!path) return null;

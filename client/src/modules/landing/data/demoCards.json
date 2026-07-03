@@ -70,9 +70,9 @@
             "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_1_def0_v3.avif"
           },
           {
-            "usage_example": "She has been in New York for two years.",
-            "usage_example_es": "Ella ha estado en Nueva York por dos años.",
-            "pronunciation_guide_es": "/shi_jas_BIN_in_niu_YORK_for_tu_IERS/",
+            "usage_example": "I have been in London since May.",
+            "usage_example_es": "He estado en Londres desde mayo.",
+            "pronunciation_guide_es": "/ai_JAV_bin_in_LONdon_sins_MEI/",
             "meaning": "Participio de Estar",
             "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_1_def1_v3.avif"
           }
@@ -186,7 +186,7 @@
         "usage_example_es": "Hago mis ejercicios en la mañana."
       },
       {
-        "alternative_example": "I don't like spicy food.",
+        "alternative_example": "I do not know the answer.",
         "char_count": "one",
         "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_3_def1.avif",
         "meaning": "Verbo auxiliar (para preguntas/negaciones)",
@@ -270,15 +270,15 @@
         "usage_example_es": "Voy al gimnasio los lunes."
       },
       {
-        "alternative_example": "Time goes by so fast.",
+        "alternative_example": "Let's go for a walk.",
         "char_count": "one",
         "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_4_def1.avif",
         "meaning": "Funcionar/Continuar (en expresiones)",
-        "pronunciation_guide_es": "/jau_is_EVriTHIN_GOUin/",
+        "pronunciation_guide_es": "/is_de_LAIT_GOUin/",
         "usage_context_en": "function/activities",
         "usage_context_es": "función/actividades",
-        "usage_example": "How is everything going?",
-        "usage_example_es": "¿Cómo va todo?"
+        "usage_example": "Is the light going?",
+        "usage_example_es": "¿Está funcionando la luz?"
       }
     ],
     "force_generation": false,
@@ -339,6 +339,39 @@
         "usage_context_es": "llegada/viaje",
         "usage_example": "We get home late.",
         "usage_example_es": "Llegamos tarde a casa."
+      },
+      {
+        "alternative_example": "I am getting tired.",
+        "char_count": "one",
+        "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def2.avif",
+        "meaning": "Ponerse / Hacerse (cambio de estado)",
+        "pronunciation_guide_es": "/its_GETin_LEIT/",
+        "usage_context_en": "state change/emotions",
+        "usage_context_es": "cambio de estado/emociones",
+        "usage_example": "It is getting late.",
+        "usage_example_es": "Se está haciendo tarde."
+      },
+      {
+        "alternative_example": "Oh, I get it now.",
+        "char_count": "one",
+        "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def3.avif",
+        "meaning": "Entender / Comprender",
+        "pronunciation_guide_es": "/ai_DONT_GET_it/",
+        "usage_context_en": "comprehension/understanding",
+        "usage_context_es": "comprensión/entendimiento",
+        "usage_example": "I don't get it.",
+        "usage_example_es": "No lo entiendo."
+      },
+      {
+        "alternative_example": "I will get my jacket.",
+        "char_count": "one",
+        "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def4.avif",
+        "meaning": "Traer / Ir a buscar",
+        "pronunciation_guide_es": "/kan_iu_GET_mi_a_PEN/",
+        "usage_context_en": "bringing/fetching",
+        "usage_context_es": "traer/ir a buscar",
+        "usage_example": "Can you get me a pen?",
+        "usage_example_es": "¿Me puedes traer un bolígrafo?"
       }
     ],
     "force_generation": false,
@@ -352,19 +385,71 @@
         "form": "got",
         "phonetic": "/ɡɒt/",
         "spoken_phonetic_us": "/ɡɑːt/",
-        "usage_example": "I got a new car last week.",
-        "usage_example_es": "Conseguí un coche nuevo la semana pasada.",
-        "pronunciation_guide_es": "/ai_GOT_a_niu_KAR_last_uik/",
-        "meaning": "Pasado de conseguir/obtener"
+        "definitions": [
+          {
+            "usage_example": "I got a new car last week.",
+            "usage_example_es": "Conseguí un coche nuevo la semana pasada.",
+            "pronunciation_guide_es": "/ai_GOT_a_niu_KAR_last_uik/",
+            "meaning": "Pasado de Conseguir",
+            "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def0_v2.avif"
+          },
+          {
+            "usage_example": "We got home very late.",
+            "usage_example_es": "Llegamos a casa muy tarde.",
+            "pronunciation_guide_es": "/ui_GOT_joum_veri_LEIT/",
+            "meaning": "Pasado de Llegar",
+            "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def1_v2.avif"
+          },
+          {
+            "usage_example": "I got tired after work.",
+            "usage_example_es": "Me cansé después del trabajo.",
+            "pronunciation_guide_es": "/ai_GOT_TAIard_after_UORK/",
+            "meaning": "Pasado de Ponerse (estado)",
+            "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def2_v2.avif"
+          },
+          {
+            "usage_example": "I finally got the idea.",
+            "usage_example_es": "Finalmente entendí la idea.",
+            "pronunciation_guide_es": "/ai_FAI-nali_GOT_di_ai-DI-a/",
+            "meaning": "Pasado de Entender",
+            "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def3_v2.avif"
+          },
+          {
+            "usage_example": "He got me a book.",
+            "usage_example_es": "Él me trajo un libro.",
+            "pronunciation_guide_es": "/ji_GOT_mi_a_BUK/",
+            "meaning": "Pasado de Traer",
+            "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def4_v2.avif"
+          }
+        ]
       },
       "participle": {
         "form": "gotten / got",
         "phonetic": "/ˈɡɒtn/ /ɡɒt/",
         "spoken_phonetic_us": "/ˈɡɑːtn/ /ɡɑːt/",
-        "usage_example": "I have gotten many gifts.",
-        "usage_example_es": "He recibido muchos regalos.",
-        "pronunciation_guide_es": "/ai_JAV_GOTen_meni_GUiFTS/",
-        "meaning": "Participio de conseguir/obtener"
+        "definitions": [
+          {
+            "usage_example": "I have gotten many gifts.",
+            "usage_example_es": "He recibido muchos regalos.",
+            "pronunciation_guide_es": "/ai_JAV_GOTen_meni_GUiFTS/",
+            "meaning": "Participio de Conseguir/Recibir",
+            "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def0_v3.avif"
+          },
+          {
+            "usage_example": "It has gotten very cold.",
+            "usage_example_es": "Se ha puesto muy frío.",
+            "pronunciation_guide_es": "/it_jas_GOTen_veri_KOLD/",
+            "meaning": "Participio de Ponerse (estado)",
+            "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def2_v3.avif"
+          },
+          {
+            "usage_example": "I haven't gotten it yet.",
+            "usage_example_es": "No lo he entendido aún.",
+            "pronunciation_guide_es": "/ai_JA-vent_GOTen_it_IET/",
+            "meaning": "Participio de Entender",
+            "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def3_v3.avif"
+          }
+        ]
       }
     },
     "group_name": "Social & Exchange",
@@ -481,9 +566,9 @@
         "form": "said",
         "phonetic": "/sɛd/",
         "spoken_phonetic_us": "/sɛd/",
-        "usage_example": "She has already said goodbye.",
-        "usage_example_es": "Ella ya se ha despedido.",
-        "pronunciation_guide_es": "/shi_jas_olREDI_SED_gudBAI/",
+        "usage_example": "It is said that he is the best.",
+        "usage_example_es": "Se dice que él es el mejor.",
+        "pronunciation_guide_es": "/it_is_SED_dat_ji_is_de_BEST/",
         "meaning": "Participio de decir"
       }
     },
@@ -559,9 +644,9 @@
     "learned_at": null,
     "definitions": [
       {
-        "alternative_example": "I think we should leave early.",
+        "alternative_example": "I think, therefore I am.",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/2-common/2-common_card_13_def0.jpg",
+        "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_9_def0.avif",
         "meaning": "Pensar (razonar)",
         "pronunciation_guide_es": "/ai_THINK_aBAUT_mai_FIUchur_a_LOT/",
         "usage_context_en": "reasoning/reflection",
@@ -572,7 +657,7 @@
       {
         "alternative_example": "What do you think of it?",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/2-common/2-common_card_13_def1.jpg",
+        "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_9_def1.avif",
         "meaning": "Creer/Opinar",
         "pronunciation_guide_es": "/ai_THINK_it_uil_REIN_tuDEI/",
         "usage_context_en": "opinion/belief",

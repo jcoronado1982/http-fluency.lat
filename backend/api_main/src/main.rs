@@ -156,6 +156,19 @@ async fn async_main() -> anyhow::Result<()> {
         }
     }
 
+    // Fallback local: si no hay env configurada pero existe el archivo fuera de Git,
+    // apuntar GOOGLE_APPLICATION_CREDENTIALS al JSON local para no romper el flujo dev.
+    if std::env::var_os("GOOGLE_APPLICATION_CREDENTIALS").is_none() {
+        let local_credentials_path =
+            std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../credentials.json");
+        if local_credentials_path.is_file() {
+            std::env::set_var("GOOGLE_APPLICATION_CREDENTIALS", &local_credentials_path);
+            tracing::info!(
+                "🔑 GOOGLE_APPLICATION_CREDENTIALS seteado desde archivo local ignorado por Git"
+            );
+        }
+    }
+
     tracing_subscriber::registry()
         .with(tracing_subscriber::EnvFilter::new(
             std::env::var("RUST_LOG").unwrap_or_else(|_| "info".into()),
@@ -411,6 +424,10 @@ async fn async_main() -> anyhow::Result<()> {
             .route(
                 "/api/auth/onboarding",
                 post(api::endpoints::auth::update_onboarding),
+            )
+            .route(
+                "/api/auth/catalog-preferences",
+                post(api::endpoints::auth::update_catalog_preferences),
             )
             .route(
                 "/api/presence/heartbeat",

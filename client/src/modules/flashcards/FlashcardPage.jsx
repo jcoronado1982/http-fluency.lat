@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Flashcard, Controls, StudyMediaProvider } from '../../components/flashcardStudy';
 import { STUDY_MEDIA_VARIANT_APP } from '../../contracts/studyMediaVariants';
+import { useAuth } from '../../context/AuthContext';
 import CategorySelector from './features/CategorySelector';
 import PageLoader from '../../components/common/PageLoader';
 import { usePageLoader } from '../../components/common/usePageLoader';
@@ -13,7 +14,9 @@ import { useCategoryContext } from './context/CategoryContext';
 import { useFlashcardContext } from './context/FlashcardContext';
 import { getCategoryDisplayName, getGroupDisplayName, getProgressLabel } from './features/categoryDisplay';
 import { getNextStudyStep } from './config/catalogOrder';
-import { navigationIntentRef } from './navigationIntent';
+import { getCategoryOrderPreference, getGroupOrderPreference } from './config/catalogPreferences';
+import { navigationIntentRef, markInitialNavigation } from './navigationIntent';
+import { formatDeckCategoryName, getLevelFromDeckName, usesNestedLevelDecks } from './useCases/deckUseCases';
 import { flashcardPort, audioPort, imagePort, imageCompressionService } from './composition';
 import {
     registerUiBridgeHandler,
@@ -24,31 +27,31 @@ import {
 const FLASHCARD_LOADING_COPY = {
     es: {
         loading_categories: {
-            title: 'Cargando categorías',
+            title: 'Cargando',
             subtitle: 'Estamos preparando el contenido.',
-            status: 'Obteniendo categorías disponibles...',
+            status: 'Obteniendo información...',
             progress: 18,
         },
         loading_decks: {
-            title: 'Cargando decks',
+            title: 'Cargando',
             subtitle: 'Estamos preparando el contenido.',
             status: 'Buscando niveles y colecciones...',
             progress: 44,
         },
         loading_cards: {
-            title: 'Cargando tarjetas',
+            title: 'Cargando',
             subtitle: 'Estamos preparando el contenido.',
             status: 'Obteniendo tarjetas y progreso...',
             progress: 76,
         },
         preparing_content: {
-            title: 'Preparando contenido',
+            title: 'Cargando',
             subtitle: 'Estamos dejando todo listo para continuar.',
             status: 'Organizando la información cargada...',
             progress: 92,
         },
         fallback: {
-            title: 'Cargando contenido',
+            title: 'Cargando',
             subtitle: 'Estamos preparando el contenido.',
             status: 'Procesando información...',
             progress: 56,
@@ -56,31 +59,31 @@ const FLASHCARD_LOADING_COPY = {
     },
     en: {
         loading_categories: {
-            title: 'Loading categories',
+            title: 'Loading',
             subtitle: 'We are preparing the content.',
-            status: 'Fetching available categories...',
+            status: 'Fetching information...',
             progress: 18,
         },
         loading_decks: {
-            title: 'Loading decks',
+            title: 'Loading',
             subtitle: 'We are preparing the content.',
             status: 'Finding levels and collections...',
             progress: 44,
         },
         loading_cards: {
-            title: 'Loading cards',
+            title: 'Loading',
             subtitle: 'We are preparing the content.',
             status: 'Fetching cards and progress...',
             progress: 76,
         },
         preparing_content: {
-            title: 'Preparing content',
+            title: 'Loading',
             subtitle: 'We are getting everything ready to continue.',
             status: 'Organizing the loaded information...',
             progress: 92,
         },
         fallback: {
-            title: 'Loading content',
+            title: 'Loading',
             subtitle: 'We are preparing the content.',
             status: 'Processing information...',
             progress: 56,
@@ -90,6 +93,7 @@ const FLASHCARD_LOADING_COPY = {
 
 export default function FlashcardPage() {
     const location = useLocation();
+    const { user } = useAuth();
     const isOnboardingTour = new URLSearchParams(location.search).get('onboarding_tour') === 'flashcards';
     const {
         isCatalogVisible,
@@ -103,7 +107,7 @@ export default function FlashcardPage() {
         studyLanguage = 'en',
         setIsHeaderSuppressed,
     } = useUIContext();
-    const { currentCategory, changeCategory, loadingStage: categoryLoadingStage } = useCategoryContext();
+    const { categories, currentCategory, changeCategory, loadingStage: categoryLoadingStage } = useCategoryContext();
 
     const {
         currentCard, loadingStage: flashcardLoadingStage, filteredData, masterData, currentDeckName,
@@ -193,23 +197,50 @@ export default function FlashcardPage() {
     const shouldShowCompletionCard = shouldShowCompletionCelebration || isUserViewingCompleted;
     const activeLoadingStage = categoryLoadingStage || flashcardLoadingStage;
     const shouldShowLoading = Boolean(activeLoadingStage);
+    const completedGroupNames = Array.from(
+        masterData.reduce((acc, card) => {
+            const groupName = card.group_name || 'General';
+            if (!acc.has(groupName)) {
+                acc.set(groupName, []);
+            }
+            acc.get(groupName).push(card);
+            return acc;
+        }, new Map()).entries(),
+    )
+        .filter(([, cards]) => cards.length > 0 && cards.every((card) => card.learned))
+        .map(([groupName]) => groupName);
     const loadingCopy = activeLoadingStage
         ? (FLASHCARD_LOADING_COPY[locale][activeLoadingStage] ?? FLASHCARD_LOADING_COPY[locale].fallback)
         : null;
     const recommendation = isCompletionVisible
-        ? getNextStudyStep(currentCategory, currentDeckName, selectedGroup)
+        ? getNextStudyStep(currentCategory, currentDeckName, selectedGroup, {
+            categoryOrder: getCategoryOrderPreference(
+                user?.email,
+                categories,
+                user?.catalog_preferences,
+            ),
+            groupOrder: getGroupOrderPreference(
+                user?.email,
+                currentCategory,
+                currentDeckName,
+                Array.from(new Set(masterData.map((card) => card.group_name || 'General'))),
+                user?.catalog_preferences,
+            ),
+            completedGroups: completedGroupNames,
+        })
         : null;
     const completionScope = selectedGroup ? 'group' : 'deck';
     const getDeckDisplayName = (deckName) => {
         if (!deckName) return '';
-        const lower = deckName.toLowerCase();
         const levels = FLASHCARD_LOADING_COPY[locale] && locale === 'es'
-            ? { basic: 'Basico', intermediate: 'Intermedio', advanced: 'Avanzado' }
+            ? { basic: 'Básico', intermediate: 'Intermedio', advanced: 'Avanzado' }
             : { basic: 'Basic', intermediate: 'Intermediate', advanced: 'Advanced' };
 
-        if (lower.includes('advanced')) return levels.advanced;
-        if (lower.includes('intermediate')) return levels.intermediate;
-        if (lower.includes('basic')) return levels.basic;
+        const level = getLevelFromDeckName(deckName);
+        if (usesNestedLevelDecks(currentCategory) && deckName.includes('/')) {
+            return `${formatDeckCategoryName(deckName)} • ${levels[level] ?? deckName}`;
+        }
+        if (level && levels[level]) return levels[level];
         return deckName;
     };
     const completedLabel = selectedGroup
@@ -253,12 +284,18 @@ export default function FlashcardPage() {
     }, [recommendation, setIsCatalogVisible, setSelectedGroup, changeDeck, changeCategory]);
 
     const autoAdvancedRef = useRef(false);
+    const dashboardResumeRef = useRef(false);
+
+    useEffect(() => {
+        if (location.state?.resumeSession) {
+            dashboardResumeRef.current = true;
+        }
+    }, []);
 
     useEffect(() => {
         autoAdvancedRef.current = false;
     }, [currentCategory, currentDeckName, selectedGroup]);
 
-    // Solo auto-avanzar tras completar el mazo en esta sesión (evita bucle al abrir decks ya aprendidos).
     useEffect(() => {
         if (!justCompletedInSession) return;
         if (navigationIntentRef.current === 'user') return;
@@ -268,12 +305,26 @@ export default function FlashcardPage() {
 
         autoAdvancedRef.current = true;
         handleContinueRecommendation();
+        markInitialNavigation();
     }, [
         justCompletedInSession,
         shouldShowLoading,
         isCompletionVisible,
         handleContinueRecommendation,
     ]);
+
+    useEffect(() => {
+        if (!dashboardResumeRef.current) return;
+        if (shouldShowLoading) return;
+        if (justCompletedInSession) { dashboardResumeRef.current = false; return; }
+        if (!isCompletionVisible) { dashboardResumeRef.current = false; return; }
+        if (autoAdvancedRef.current) return;
+
+        dashboardResumeRef.current = false;
+        autoAdvancedRef.current = true;
+        handleContinueRecommendation();
+        markInitialNavigation();
+    }, [isCompletionVisible, shouldShowLoading, justCompletedInSession, handleContinueRecommendation]);
 
     return (
         <StudyMediaProvider
@@ -282,71 +333,72 @@ export default function FlashcardPage() {
             imagePort={imagePort}
             imageCompressionService={imageCompressionService}
         >
-        <div
-            className="flashcard-page-wrapper"
-            data-onboarding-tour={isOnboardingTour ? 'true' : undefined}
-            data-catalog-open={isCatalogVisible ? 'true' : undefined}
-        >
-            {masterData.length > 0 && !isOverlayOpen && !shouldShowLoading && !shouldShowCompletionCard && (
-                <div className={`${styles.cardCounter} ${isPronounsCategory ? styles.pronounsCounter : ''}`}>
-                    <div className={styles.counterItem}>
-                        <span className={styles.counterLabel}>{displayLabel}</span>
-                        <div className={styles.counterValues}>
-                            <span className={styles.learnedValue}>{displayLearned}</span>
-                            <span className={styles.totalValue}>/ {displayTotal}</span>
+            <div
+                className="flashcard-page-wrapper"
+                data-onboarding-tour={isOnboardingTour ? 'true' : undefined}
+                data-catalog-open={isCatalogVisible ? 'true' : undefined}
+            >
+                {masterData.length > 0 && !isOverlayOpen && !shouldShowLoading && !shouldShowCompletionCard && (
+                    <div className={`${styles.cardCounter} ${isPronounsCategory ? styles.pronounsCounter : ''}`}>
+                        <div className={styles.counterItem}>
+                            <span className={styles.counterLabel}>{displayLabel}</span>
+                            <div className={styles.counterValues}>
+                                <span className={styles.learnedValue}>{displayLearned}</span>
+                                <span className={styles.totalValue}>/ {displayTotal}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
 
-            {isCatalogVisible && <CategorySelector />}
+                {isCatalogVisible && <CategorySelector />}
 
-            <div className="app-container">
-                <div className="flashcard-main-area"
-                    onTouchStart={(e) => {
-                        if (shouldShowLoading || shouldShowCompletionCard) return;
-                        touchStartRef.current = e.targetTouches[0].clientX;
-                    }}
-                    onTouchEnd={(e) => {
-                        if (shouldShowLoading || isCompletionVisible || touchStartRef.current == null) return;
-                        const distance = touchStartRef.current - e.changedTouches[0].clientX;
-                        if (distance > minSwipeDistance) nextCard();
-                        else if (distance < -minSwipeDistance) prevCard();
-                        touchStartRef.current = null;
-                    }}
-                >
-                    {shouldShowLoading ? (
-                        <PageLoader
-                            title={loadingCopy.title}
-                            subtitle={loadingCopy.subtitle}
-                            status={loadingCopy.status}
-                            currentTask={currentTask}
-                            progress={progress}
-                        />
-                    ) : shouldShowCompletionCard ? (
-                        <CompletionCard
-                            language={language}
-                            completionScope={completionScope}
-                            completedLabel={completedLabel}
-                            completedCount={displayLearned}
-                            totalCount={displayTotal}
-                            recommendation={recommendation}
-                            onContinue={handleContinueRecommendation}
-                            onOpenCatalog={() => setIsCatalogVisible(true)}
-                        />
-                    ) : !currentCard ? (
-                        !currentCategory ? (
-                            <div className="all-done-message">Selecciona una categoría.</div>
+                <div className="app-container">
+                    <div
+                        className="flashcard-main-area"
+                        onTouchStart={(e) => {
+                            if (shouldShowLoading || shouldShowCompletionCard) return;
+                            touchStartRef.current = e.targetTouches[0].clientX;
+                        }}
+                        onTouchEnd={(e) => {
+                            if (shouldShowLoading || isCompletionVisible || touchStartRef.current == null) return;
+                            const distance = touchStartRef.current - e.changedTouches[0].clientX;
+                            if (distance > minSwipeDistance) nextCard();
+                            else if (distance < -minSwipeDistance) prevCard();
+                            touchStartRef.current = null;
+                        }}
+                    >
+                        {shouldShowLoading ? (
+                            <PageLoader
+                                title={loadingCopy.title}
+                                subtitle={loadingCopy.subtitle}
+                                status={loadingCopy.status}
+                                currentTask={currentTask}
+                                progress={progress}
+                            />
+                        ) : shouldShowCompletionCard ? (
+                            <CompletionCard
+                                language={language}
+                                completionScope={completionScope}
+                                completedLabel={completedLabel}
+                                completedCount={displayLearned}
+                                totalCount={displayTotal}
+                                recommendation={recommendation}
+                                onContinue={handleContinueRecommendation}
+                                onOpenCatalog={() => setIsCatalogVisible(true)}
+                            />
+                        ) : !currentCard ? (
+                            !currentCategory ? (
+                                <div className="all-done-message">Selecciona una categoría.</div>
+                            ) : (
+                                <div className="all-done-message">No hay tarjetas disponibles en este momento.</div>
+                            )
                         ) : (
-                            <div className="all-done-message">No hay tarjetas disponibles en este momento.</div>
-                        )
-                    ) : (
-                        <Flashcard key={`${currentCategory}-${currentDeckName}-${language}-${studyLanguage}`} />
-                    )}
-                    {!shouldShowLoading && !shouldShowCompletionCard && <Controls />}
+                            <Flashcard key={`${currentCategory}-${currentDeckName}-${language}-${studyLanguage}`} />
+                        )}
+                        {!shouldShowLoading && !shouldShowCompletionCard && <Controls />}
+                    </div>
                 </div>
             </div>
-        </div>
         </StudyMediaProvider>
     );
 }

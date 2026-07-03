@@ -1,9 +1,7 @@
 import catalogOrder from './catalogOrder.json';
+import { applyPreferenceOrder } from './catalogPreferences';
 
 const categoryEntries = Array.isArray(catalogOrder.categories) ? catalogOrder.categories : [];
-const categoryIndexMap = new Map(
-    categoryEntries.map((entry, index) => [entry.name, index]),
-);
 
 const categoryOrderMap = new Map(
     categoryEntries.map(({ name, order }) => [name, order]),
@@ -34,40 +32,84 @@ const sortByOrder = (items, getOrder) =>
         return 0;
     });
 
+const partitionCompletedGroups = (groups, completedGroups = []) => {
+    const completedSet = new Set((Array.isArray(completedGroups) ? completedGroups : []).filter(Boolean));
+    const incomplete = [];
+    const completed = [];
+
+    (Array.isArray(groups) ? groups : []).forEach((group) => {
+        if (completedSet.has(group)) {
+            completed.push(group);
+        } else {
+            incomplete.push(group);
+        }
+    });
+
+    return [...incomplete, ...completed];
+};
+
 export const FALLBACK_CATEGORIES = sortByOrder(
     categoryEntries.map(({ name }) => name),
     (name) => categoryOrderMap.get(name),
 );
 
-export const sortCategories = (categories) =>
-    sortByOrder(categories, (name) => categoryOrderMap.get(name));
+export const sortCategories = (categories, preferredOrder = []) =>
+    applyPreferenceOrder(
+        sortByOrder(categories, (name) => categoryOrderMap.get(name)),
+        preferredOrder,
+    );
 
-export const sortGroups = (categoryName, deckName, groups) => {
+export const sortGroups = (categoryName, deckName, groups, preferredOrder = [], completedGroups = []) => {
     const deckMap = groupOrderMap.get(categoryName);
     const orderMap = deckMap?.get(deckName);
 
-    if (!orderMap) return [...groups];
+    const baseGroups = orderMap
+        ? sortByOrder(groups, (groupName) => orderMap.get(groupName))
+        : [...groups];
 
-    return sortByOrder(groups, (groupName) => orderMap.get(groupName));
+    return partitionCompletedGroups(applyPreferenceOrder(baseGroups, preferredOrder), completedGroups);
 };
 
-export const getNextStudyStep = (categoryName, deckName, groupName) => {
-    const categoryIndex = categoryIndexMap.get(categoryName);
-    if (categoryIndex === undefined) return null;
+export const getNextStudyStep = (
+    categoryName,
+    deckName,
+    groupName,
+    { categoryOrder = [], groupOrder = [], completedGroups = [] } = {},
+) => {
+    const completedSet = new Set((Array.isArray(completedGroups) ? completedGroups : []).filter(Boolean));
+    const orderedCategories = applyPreferenceOrder(
+        FALLBACK_CATEGORIES,
+        categoryOrder,
+    );
+    const categoryIndex = orderedCategories.indexOf(categoryName);
+    if (categoryIndex === -1) return null;
 
-    const categoryEntry = categoryEntries[categoryIndex];
+    const categoryEntry = categoryEntries.find(({ name }) => name === categoryName);
+    if (!categoryEntry) return null;
     const deckNames = Object.keys(categoryEntry.decks || {});
     const deckIndex = deckNames.indexOf(deckName);
 
     if (deckIndex !== -1 && groupName) {
-        const groups = categoryEntry.decks?.[deckName] || [];
-        const groupIndex = groups.findIndex((group) => group.name === groupName);
-        if (groupIndex !== -1 && groupIndex + 1 < groups.length) {
+        const groups = (categoryEntry.decks?.[deckName] || []).map((group) => group.name);
+        const orderedGroups = sortGroups(categoryName, deckName, groups, groupOrder, completedGroups);
+        if (completedSet.has(groupName)) {
+            const nextActiveGroup = orderedGroups.find((group) => !completedSet.has(group));
+            if (nextActiveGroup) {
+                return {
+                    type: 'group',
+                    category: categoryName,
+                    deck: deckName,
+                    group: nextActiveGroup,
+                };
+            }
+        }
+        const groupIndex = orderedGroups.indexOf(groupName);
+        if (groupIndex !== -1 && groupIndex + 1 < orderedGroups.length) {
             return {
                 type: 'group',
                 category: categoryName,
                 deck: deckName,
-                group: groups[groupIndex + 1].name,
+                group: orderedGroups[groupIndex + 1],
             };
         }
     }
@@ -81,8 +123,9 @@ export const getNextStudyStep = (categoryName, deckName, groupName) => {
         };
     }
 
-    if (categoryIndex + 1 < categoryEntries.length) {
-        const nextCategory = categoryEntries[categoryIndex + 1];
+    if (categoryIndex + 1 < orderedCategories.length) {
+        const nextCategory = categoryEntries.find(({ name }) => name === orderedCategories[categoryIndex + 1]);
+        if (!nextCategory) return null;
         const nextDeck = Object.keys(nextCategory.decks || {})[0] || null;
         return {
             type: 'category',

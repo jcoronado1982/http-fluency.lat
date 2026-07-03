@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import config from '../../../config';
 import nounsImage from '../../../assets/Nouns.png';
@@ -13,10 +14,11 @@ import phrasalVerbsImage from '../../../assets/Phrasal Verbs.png';
 import { getModuleResumeSession, isDefaultHomeModule } from '../../index';
 import { learningStatsPort } from '../composition';
 import {
-    computeLevelProgress,
+    computeDashboardLevelProgress,
     computeXp,
     estimateMinutesRemaining,
     formatCategoryLabel,
+    getDashboardCarouselItems,
     getDashboardQuickAccessItems,
     getStreakMessage,
     getTimeGreeting,
@@ -67,22 +69,15 @@ function ProgressRing({ percent, labels, value, target, locale }) {
     );
 }
 
-function StreakIcon() {
+function LevelIcon() {
     return (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M4 19V5M20 19V5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
             <path
-                d="M12 22c4-2.5 7-6.5 7-11.5C19 6.5 16.5 4 13.5 4c-1.2 0-2.3.4-3.2 1.1C9.4 4.4 8.3 4 7 4 4 4 2 6.5 2 10.5 2 15.5 5 19.5 9 22"
+                d="M4 8h16M4 16h16M8 5v14M16 5v14"
                 stroke="currentColor"
                 strokeWidth="1.8"
                 strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-            <path
-                d="M12 22V12M12 12c-1.5-2-3-3.5-3-6 0-1.5 1-2.5 2.5-2.5.8 0 1.5.3 2 1 1-1.5 2.2-2.2 3.8-2.2 2.2 0 4 1.8 4 4 0 2.5-1.5 4-3 6"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
             />
         </svg>
     );
@@ -104,6 +99,20 @@ function WordsIcon() {
     );
 }
 
+function StreakInlineIcon() {
+    return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path
+                d="M12.5 3.5c.8 3.5 4.6 4.8 4.6 9.1a5.1 5.1 0 0 1-10.2 0c0-2.7 1.6-4.8 3.2-6.4.2 2 1.2 3.1 2.4 3.8.6-1.4.7-3.4 0-6.5Z"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+}
+
 function levelCopy(step, labels) {
     if (step.premium) return labels.premiumLevelLabel;
     return labels.levelNames?.[step.id] || step.id;
@@ -116,25 +125,58 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
 
     const mastered = stats?.mastered_count ?? 0;
     const streak = stats?.streak_days ?? 0;
-    const level = computeLevelProgress(mastered, language);
+    const level = computeDashboardLevelProgress(stats, language);
     const locale = language === 'es' ? 'es' : 'en';
     const levelXpSpan = level.current.max - level.current.min;
     const xpInLevel = computeXp(level.wordsInLevel);
     const xpTarget = computeXp(levelXpSpan);
     const greeting = getTimeGreeting(language, userName);
     const streakMsg = stats ? getStreakMessage(stats, labels) : labels.streakStartShort;
-    const quickAccessItems = getDashboardQuickAccessItems({
+    const quickAccessItems = useMemo(() => getDashboardQuickAccessItems({
         levelId: level.currentLevel,
         currentCategory: session?.category,
         language,
-        limit: 3,
-    });
+        limit: 4,
+    }), [language, level.currentLevel, session?.category]);
+    const carouselItems = useMemo(() => {
+        const items = getDashboardCarouselItems({
+            levelId: level.currentLevel,
+            currentCategory: session?.category,
+            currentSession: session,
+            language,
+        });
 
-    const activeCategory = session?.category || quickAccessItems[0]?.category || 'nouns';
-    const categoryLabel = formatCategoryLabel(activeCategory, language);
+        if (items.length === 0) {
+            items.push({
+                key: 'fallback-nouns',
+                category: 'nouns',
+                categoryLabel: formatCategoryLabel('nouns', language),
+                deckName: labels.defaultDeck,
+                resumeSession: null,
+                cardsRemaining: 0,
+                isCurrentGoal: true,
+            });
+        }
+
+        return items;
+    }, [language, labels.defaultDeck, level.currentLevel, session]);
+    const [activeSlide, setActiveSlide] = useState(0);
+
+    const carouselSignature = carouselItems.map((item) => item.key).join('|');
+
+    useEffect(() => {
+        setActiveSlide(0);
+    }, [carouselSignature]);
+
+    const activeCourse = carouselItems[activeSlide] || carouselItems[0];
+    const activeCategory = activeCourse?.category || 'nouns';
+    const categoryLabel = activeCourse?.categoryLabel || formatCategoryLabel(activeCategory, language);
     const courseImage = CATEGORY_IMAGES[activeCategory] || nounsImage;
-    const cardsRemaining = session?.cardsRemaining ?? 0;
+    const cardsRemaining = activeCourse?.cardsRemaining ?? 0;
     const minutesLeft = estimateMinutesRemaining(cardsRemaining);
+    const canCycleCourses = carouselItems.length > 1;
+    const previousCourseLabel = language === 'es' ? 'Categoría anterior' : 'Previous category';
+    const nextCourseLabel = language === 'es' ? 'Siguiente categoría' : 'Next category';
 
     const openSession = (resumeSession = session) => {
         learningStatsPort.touchStudyDay().catch(() => {});
@@ -143,6 +185,11 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
         } else {
             navigate(flashcardPath);
         }
+    };
+
+    const cycleCourse = (direction) => {
+        if (!canCycleCourses) return;
+        setActiveSlide((current) => (current + direction + carouselItems.length) % carouselItems.length);
     };
 
     if (statsLoading) {
@@ -162,16 +209,48 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
 
             <div className="dash-top-grid">
                 <article className="dash-course-card" style={{ '--dash-course-image': `url("${courseImage}")` }}>
-                    <span className="dash-course-badge">{labels.currentGoal}</span>
+                    <div className="dash-course-topbar">
+                        <span className="dash-course-badge">
+                            {activeCourse?.isCurrentGoal ? labels.currentGoal : categoryLabel}
+                        </span>
+                    </div>
+                    {canCycleCourses && (
+                        <>
+                            <button
+                                type="button"
+                                className="dash-course-carousel-btn dash-course-carousel-btn--prev"
+                                onClick={() => cycleCourse(-1)}
+                                aria-label={previousCourseLabel}
+                            >
+                                <FiChevronLeft aria-hidden />
+                            </button>
+                            <button
+                                type="button"
+                                className="dash-course-carousel-btn dash-course-carousel-btn--next"
+                                onClick={() => cycleCourse(1)}
+                                aria-label={nextCourseLabel}
+                            >
+                                <FiChevronRight aria-hidden />
+                            </button>
+                            <div className="dash-course-carousel-dots" aria-hidden>
+                                {carouselItems.map((item, index) => (
+                                    <span
+                                        key={item.key}
+                                        className={`dash-course-carousel-dot ${index === activeSlide ? 'is-active' : ''}`}
+                                    />
+                                ))}
+                            </div>
+                        </>
+                    )}
                     <h2>{labels.courseTitle.replace('{category}', categoryLabel)}</h2>
                     <p>
-                        {session
+                        {activeCourse?.resumeSession
                             ? labels.courseMeta
                                 .replace('{category}', categoryLabel)
-                                .replace('{deck}', session.deck || labels.defaultDeck)
+                                .replace('{deck}', activeCourse.deckLabel || activeCourse.deckName || labels.defaultDeck)
                             : labels.missionFallback}
                     </p>
-                    {session && cardsRemaining > 0 && (
+                    {cardsRemaining > 0 && (
                         <span className="dash-course-progress-copy">
                             {labels.cardsRemaining.replace('{n}', String(cardsRemaining))}
                             {' · '}
@@ -181,7 +260,11 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
                     <div className="dash-course-progress" aria-hidden="true">
                         <span style={{ width: `${level.levelPercent}%` }} />
                     </div>
-                    <button type="button" className="dash-course-cta" onClick={() => openSession()}>
+                    <button
+                        type="button"
+                        className="dash-course-cta"
+                        onClick={() => openSession(activeCourse?.resumeSession)}
+                    >
                         {labels.continueButton}
                     </button>
                 </article>
@@ -198,13 +281,19 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
                     </article>
 
                     <div className="dash-mini-stats">
-                        <article className="dash-mini-stat dash-mini-stat--streak">
+                        <article className="dash-mini-stat dash-mini-stat--level">
                             <span className="dash-mini-stat-icon" aria-hidden>
-                                <StreakIcon />
+                                <LevelIcon />
                             </span>
                             <div className="dash-mini-stat-copy">
-                                <strong>{streak}</strong>
-                                <small>{labels.streakStatLabel}</small>
+                                <span className="dash-level-line">
+                                    <strong>{level.currentLevel}</strong>
+                                    <small>{labels.levelShort}</small>
+                                </span>
+                                <span className="dash-streak-line">
+                                    <StreakInlineIcon />
+                                    <small>{streakMsg}</small>
+                                </span>
                             </div>
                         </article>
                         <article className="dash-mini-stat dash-mini-stat--words">
@@ -212,8 +301,8 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
                                 <WordsIcon />
                             </span>
                             <div className="dash-mini-stat-copy">
-                                <strong>{level.targetForLevel.toLocaleString(locale)}</strong>
-                                <small>{labels.wordsStatLabel}</small>
+                                <strong>{level.wordsInLevel.toLocaleString(locale)} / {level.targetForLevel.toLocaleString(locale)}</strong>
+                                <small>{level.currentLevel} · {labels.wordsStatLabel}</small>
                             </div>
                         </article>
                     </div>
@@ -228,12 +317,24 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
                 <div className="dash-path-steps">
                     {level.levels.map((step, index) => {
                         const active = isLevelActive(mastered, step, level.currentLevel);
+                        const previous = level.levels[index - 1];
+                        const lineFill = previous?.completed
+                            ? 100
+                            : previous?.id === level.currentLevel
+                                ? level.levelPercent
+                                : 0;
                         return (
                             <div
                                 key={step.id}
-                                className={`dash-path-step ${active ? 'is-active' : ''} ${step.premium ? 'is-premium' : ''}`}
+                                className={`dash-path-step ${active ? 'is-active' : ''} ${step.completed ? 'is-complete' : ''} ${step.premium ? 'is-premium' : ''}`}
                             >
-                                {index > 0 && <span className="dash-path-line" aria-hidden />}
+                                {index > 0 && (
+                                    <span
+                                        className={`dash-path-line ${lineFill > 0 ? 'is-progressing' : ''} ${lineFill >= 100 ? 'is-filled' : ''}`}
+                                        style={{ '--dash-path-line-fill': `${lineFill}%` }}
+                                        aria-hidden
+                                    />
+                                )}
                                 <span className="dash-path-dot">{step.id}</span>
                                 <strong>{levelCopy(step, labels)}</strong>
                             </div>
@@ -266,7 +367,7 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
                             <span className="dash-category-thumb" style={{ '--dash-category-image': `url("${itemImage}")` }}>
                                 <span>{item.levelId}</span>
                             </span>
-                            <strong>{item.deckName}</strong>
+                            <strong>{item.deckLabel || item.deckName}</strong>
                             <small>{labels.quickAccessSubtitle.replace('{level}', item.levelId)}</small>
                             <span className="dash-category-action">{labels.quickAccessButton}</span>
                         </button>

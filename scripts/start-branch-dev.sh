@@ -96,8 +96,7 @@ start_dev_databases() {
   done
   echo "✅ Bases de datos listas."
 
-  if [[ "$PROFILE" == "pronoun" || "$PROFILE" == "full" ]] \
-    && [[ -f "$ROOT/infra/proxy/seed-pronoun-practice.sh" ]]; then
+  if [[ "$PROFILE" == "pronoun" ]] && [[ -f "$ROOT/infra/proxy/seed-pronoun-practice.sh" ]]; then
     bash "$ROOT/infra/proxy/seed-pronoun-practice.sh"
   fi
 }

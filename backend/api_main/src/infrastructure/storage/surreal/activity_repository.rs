@@ -164,6 +164,13 @@ impl UserActivityRepository for SurrealUserActivityRepository {
             mastered_count,
             target_count,
             "B2",
+            "A1",
+            if target_count <= 0 {
+                0
+            } else {
+                ((mastered_count as f64 / target_count as f64) * 100.0).round() as i32
+            },
+            Vec::new(),
             stats.last_study_date.as_deref(),
             stats.current_streak,
             stats.longest_streak,

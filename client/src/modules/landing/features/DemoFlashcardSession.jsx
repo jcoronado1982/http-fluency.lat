@@ -3,6 +3,7 @@
  * UI compartida del shell (misma que la app); audio/imagen en namespace landing-demo.
  */
 import React, { useState, useCallback, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import {
     Flashcard,
     Controls,
@@ -13,18 +14,16 @@ import {
 } from '../../../components/flashcardStudy';
 import { demoAudioPort, demoImagePort } from '../composition';
 import { STUDY_MEDIA_VARIANT_LANDING_DEMO } from '../../../contracts/studyMediaVariants';
-import rawCards from '../data/demoCards.json';
 import {
     LANDING_DEMO_CATEGORY,
     LANDING_DEMO_DECK,
-    LANDING_DEMO_CARD_LIMIT,
     buildLandingDemoImagePath,
 } from '../../../contracts/landingDemoNamespace';
 import {
-    INITIAL_DEMO_CARDS,
+    createDemoSessionCards,
     patchDefinitionImage,
-    prepareDemoCards,
 } from './demo/demoSessionUtils';
+import { getLandingTranslations } from '../config/translations';
 
 const noop = () => {};
 
@@ -34,7 +33,8 @@ export default function DemoFlashcardSession({
     promptExtraRef,
     imagePromptApplySignal = 0,
 }) {
-    const [cards, setCards] = useState(() => INITIAL_DEMO_CARDS.map((c) => ({ ...c })));
+    const t = getLandingTranslations(language);
+    const [cards, setCards] = useState(() => createDemoSessionCards());
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const masterData = cards;
@@ -53,6 +53,7 @@ export default function DemoFlashcardSession({
 
     const markAsLearned = useCallback(() => {
         if (!currentCard) return;
+        // Demo landing: el progreso es solo visual/local para este visitante.
         setCards((prev) => prev.map((c) => (
             c.id === currentCard.id
                 ? { ...c, learned: true, learned_at: new Date().toISOString() }
@@ -66,7 +67,7 @@ export default function DemoFlashcardSession({
     }, [currentCard, filteredData.length]);
 
     const resetDeck = useCallback(() => {
-        setCards(prepareDemoCards(rawCards.slice(0, LANDING_DEMO_CARD_LIMIT)).map((c) => ({ ...c })));
+        setCards(createDemoSessionCards());
         setCurrentIndex(0);
     }, []);
 
@@ -121,12 +122,12 @@ export default function DemoFlashcardSession({
 
     const categoryValue = useMemo(() => ({
         categories: [LANDING_DEMO_CATEGORY],
-        categoryTotals: { [LANDING_DEMO_CATEGORY]: LANDING_DEMO_CARD_LIMIT },
+        categoryTotals: { [LANDING_DEMO_CATEGORY]: cards.length },
         currentCategory: LANDING_DEMO_CATEGORY,
         changeCategory: noop,
         isLoading: false,
         loadingStage: null,
-    }), []);
+    }), [cards.length]);
 
     return (
         <StudyMediaProvider
@@ -148,27 +149,37 @@ export default function DemoFlashcardSession({
                                             </span>
                                         ) : null}
                                         {filteredData.length === 0 ? (
-                                            <div className="all-done-message" style={{ textAlign: 'center', padding: '2rem' }}>
-                                                {language === 'es'
-                                                    ? '🎉 ¡Terminaste el demo! Crea tu cuenta para continuar.'
-                                                    : '🎉 You finished the demo! Create your account to continue.'}
-                                                <br />
-                                                <button
-                                                    type="button"
-                                                    onClick={resetDeck}
-                                                    style={{
-                                                        marginTop: '1rem',
-                                                        padding: '0.5rem 1.5rem',
-                                                        background: 'rgba(244,114,182,0.15)',
-                                                        border: '1px solid rgba(244,114,182,0.4)',
-                                                        borderRadius: '12px',
-                                                        color: '#f472b6',
-                                                        cursor: 'pointer',
-                                                        fontWeight: 600,
-                                                    }}
-                                                >
-                                                    {language === 'es' ? 'Reiniciar demo' : 'Restart demo'}
-                                                </button>
+                                            <div className="lp-demo-complete" role="status" aria-live="polite">
+                                                <div className="lp-demo-complete-card">
+                                                    <p className="lp-demo-complete-kicker">
+                                                        {language === 'es' ? 'Demo completado' : 'Demo completed'}
+                                                    </p>
+                                                    <h3 className="lp-demo-complete-title">
+                                                        {language === 'es'
+                                                            ? 'Terminaste el demo'
+                                                            : 'You finished the demo'}
+                                                    </h3>
+                                                    <p className="lp-demo-complete-copy">
+                                                        {language === 'es'
+                                                            ? 'Entra o crea tu cuenta para seguir estudiando. El progreso de esta vista es temporal.'
+                                                            : 'Log in or create your account to keep studying. Progress in this view is temporary.'}
+                                                    </p>
+                                                </div>
+                                                <div className="lp-demo-complete-actions">
+                                                    <Link
+                                                        to="/login"
+                                                        className="lp-demo-complete-button lp-demo-complete-button--primary"
+                                                    >
+                                                        {t.navLogin}
+                                                    </Link>
+                                                    <button
+                                                        className="lp-demo-complete-button lp-demo-complete-button--secondary"
+                                                        type="button"
+                                                        onClick={resetDeck}
+                                                    >
+                                                        {language === 'es' ? 'Reiniciar demo' : 'Restart demo'}
+                                                    </button>
+                                                </div>
                                             </div>
                                         ) : (
                                             <Flashcard key={`demo-flashcard-${language}`} />

@@ -1,6 +1,6 @@
 use crate::domain::models::story::{ProgressUpdate, StoryScreen, UserProgress};
 use crate::domain::models::subscription::Subscription;
-use crate::domain::models::user::User;
+use crate::domain::models::user::{CatalogPreferences, User};
 use crate::domain::models::user_activity::{
     build_learning_stats, ClientInfo, LearningStats, UserActivityStats,
 };
@@ -120,7 +120,19 @@ impl CardProgressRepository for NullDbRepository {
         Ok(())
     }
 
+    async fn reset_category_progress(&self, _user_id: &str, _category: &str) -> Result<()> {
+        Ok(())
+    }
+
     async fn count_learned_cards(&self, _user_id: &str) -> Result<i32> {
+        Ok(0)
+    }
+
+    async fn count_learned_cards_by_deck_prefix(
+        &self,
+        _user_id: &str,
+        _deck_prefix: &str,
+    ) -> Result<i32> {
         Ok(0)
     }
 
@@ -154,6 +166,16 @@ impl UserRepository for NullDbRepository {
     ) -> Result<Option<User>> {
         Err(anyhow!(
             "Autenticación no disponible: DB no configurada en este entorno"
+        ))
+    }
+
+    async fn update_catalog_preferences(
+        &self,
+        _email: &str,
+        _preferences: Option<CatalogPreferences>,
+    ) -> Result<Option<User>> {
+        Err(anyhow!(
+            "Preferencias no disponibles: DB no configurada en este entorno"
         ))
     }
 
@@ -210,6 +232,13 @@ impl UserActivityRepository for NullDbRepository {
             mastered_count,
             target_count,
             "B2",
+            "A1",
+            if target_count <= 0 {
+                0
+            } else {
+                ((mastered_count as f64 / target_count as f64) * 100.0).round() as i32
+            },
+            Vec::new(),
             None,
             0,
             0,

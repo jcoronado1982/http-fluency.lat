@@ -1,6 +1,6 @@
 use super::connection::SurrealConnection;
 use super::models::SurrealUser;
-use crate::domain::models::user::User;
+use crate::domain::models::user::{CatalogPreferences, User};
 use crate::domain::repositories::db_repository::UserRepository;
 use anyhow::{anyhow, Result};
 use async_trait::async_trait;
@@ -29,6 +29,7 @@ impl UserRepository for SurrealUserRepository {
             picture: Option<String>,
             role: String,
             onboarding_completed: bool,
+            catalog_preferences: Option<CatalogPreferences>,
             created_at: chrono::DateTime<chrono::Utc>,
             last_login: chrono::DateTime<chrono::Utc>,
         }
@@ -39,6 +40,7 @@ impl UserRepository for SurrealUserRepository {
             picture: user.picture,
             role: user.role,
             onboarding_completed: user.onboarding_completed,
+            catalog_preferences: user.catalog_preferences,
             created_at: user.created_at,
             last_login: user.last_login,
         };
@@ -73,6 +75,27 @@ impl UserRepository for SurrealUserRepository {
             )
             .bind(("email", email))
             .bind(("completed", completed))
+            .await?;
+        let updated: Option<SurrealUser> = res.take(1)?;
+        Ok(updated.map(Into::into))
+    }
+
+    async fn update_catalog_preferences(
+        &self,
+        email: &str,
+        preferences: Option<CatalogPreferences>,
+    ) -> Result<Option<User>> {
+        let mut res = self
+            .0
+            .db
+            .query(
+                "
+            UPDATE user SET catalog_preferences = $preferences WHERE email = $email;
+            SELECT * FROM user WHERE email = $email LIMIT 1;
+        ",
+            )
+            .bind(("email", email))
+            .bind(("preferences", preferences))
             .await?;
         let updated: Option<SurrealUser> = res.take(1)?;
         Ok(updated.map(Into::into))

@@ -9,9 +9,11 @@ import { getFlashcardTranslations } from '../config/translations';
 import { markUserNavigation } from '../navigationIntent';
 import {
     filterUnlearned,
+    getLevelFromDeckName,
     normalizeDeckResponse,
     resolvePersistedChoice,
     sortDeckNames,
+    usesNestedLevelDecks,
 } from '../useCases/deckUseCases';
 import {
     computeFilteredAfterLearn,
@@ -24,10 +26,90 @@ import {
     LAST_DECK_KEY_PREFIX,
     writeResumeSession,
 } from '../config/sessionKeys';
-import { consumeFlashcardPreload } from '../preload';
+import { consumeFlashcardPreload, resetFlashcardPreload } from '../preload';
 
 /** Número de tarjetas acumuladas antes de forzar un flush automático. */
-const BATCH_FLUSH_SIZE = 8;
+const BATCH_FLUSH_SIZE = 3;
+const PENDING_PROGRESS_STORAGE_KEY = 'flashcards_pending_progress_batches';
+
+function readStoredProgressBatches() {
+    try {
+        const raw = localStorage.getItem(PENDING_PROGRESS_STORAGE_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        return Array.isArray(parsed) ? parsed : [];
+    } catch {
+        return [];
+    }
+}
+
+function writeStoredProgressBatches(batches) {
+    try {
+        const next = Array.isArray(batches) ? batches.filter((batch) => batch?.cards?.length) : [];
+        if (next.length === 0) {
+            localStorage.removeItem(PENDING_PROGRESS_STORAGE_KEY);
+            return;
+        }
+        localStorage.setItem(PENDING_PROGRESS_STORAGE_KEY, JSON.stringify(next));
+    } catch {
+        // El guardado local es respaldo; si falla, el batch en memoria sigue activo.
+    }
+}
+
+function makeProgressBatchKey({ userId, category, deck }) {
+    return `${userId || ''}::${category || ''}::${deck || ''}`;
+}
+
+function persistProgressBatch(context, cards) {
+    if (!context?.userId || !context?.category || !context?.deck || !Array.isArray(cards) || cards.length === 0) {
+        return;
+    }
+
+    const batches = readStoredProgressBatches();
+    const targetKey = makeProgressBatchKey(context);
+    const existingIndex = batches.findIndex((batch) => makeProgressBatchKey(batch) === targetKey);
+    const existing = existingIndex >= 0 ? batches[existingIndex] : { ...context, cards: [] };
+    const mergedCards = new Map(existing.cards.map((card) => [card.index, card]));
+
+    cards.forEach((card) => {
+        mergedCards.set(card.index, { index: card.index, learned: Boolean(card.learned) });
+    });
+
+    const nextBatch = { ...context, cards: Array.from(mergedCards.values()) };
+    if (existingIndex >= 0) {
+        batches[existingIndex] = nextBatch;
+    } else {
+        batches.push(nextBatch);
+    }
+    writeStoredProgressBatches(batches);
+}
+
+function removeStoredProgressBatch(context) {
+    const targetKey = makeProgressBatchKey(context);
+    writeStoredProgressBatches(
+        readStoredProgressBatches().filter((batch) => makeProgressBatchKey(batch) !== targetKey),
+    );
+}
+
+function removeStoredProgressCategory(context) {
+    writeStoredProgressBatches(
+        readStoredProgressBatches().filter((batch) => (
+            batch.userId !== context.userId || batch.category !== context.category
+        )),
+    );
+}
+
+function removeStoredProgressCards(context, indexes) {
+    const targetKey = makeProgressBatchKey(context);
+    const indexSet = new Set(indexes);
+    const batches = readStoredProgressBatches().map((batch) => {
+        if (makeProgressBatchKey(batch) !== targetKey) return batch;
+        return {
+            ...batch,
+            cards: batch.cards.filter((card) => !indexSet.has(card.index)),
+        };
+    });
+    writeStoredProgressBatches(batches);
+}
 
 export function useDeckSession(resumeSession = null) {
     const { currentCategory } = useCategoryContext();
@@ -43,7 +125,9 @@ export function useDeckSession(resumeSession = null) {
     const [isDeckLoading, setIsDeckLoading] = useState(false);
     const [loadingStage, setLoadingStage] = useState(null);
     const [deckNames, setDeckNames] = useState([]);
+    const [deckNamesCategory, setDeckNamesCategory] = useState(null);
     const [currentDeckName, setCurrentDeckName] = useState(null);
+    const [deckSummaries, setDeckSummaries] = useState({});
     const [selectedGroup, setSelectedGroup] = useState(null);
     const [resetKey, setResetKey] = useState(0);
     const [justCompletedInSession, setJustCompletedInSession] = useState(false);
@@ -57,37 +141,71 @@ export function useDeckSession(resumeSession = null) {
     const pendingBatchRef = useRef(new Map());
     /** Contexto activo en el momento de acumular (para el flush correcto al cambiar). */
     const batchContextRef = useRef({ category: null, deck: null, userId: null });
+    const summarizeDeck = useCallback((cards) => ({
+        total: cards.length,
+        learned: cards.filter((card) => card.learned).length,
+    }), []);
 
     const loadFlashcards = useCallback(async (category, deck) => {
         if (!category || !deck || !user?.email) return;
         setIsDeckLoading(true);
         setLoadingStage('loading_cards');
-        setMasterData([]);
-        setFilteredData([]);
         setResetKey((k) => k + 1);
         try {
+            const applyLoadedDeck = (cards) => {
+                setMasterData(cards);
+                setFilteredData(filterUnlearned(cards));
+                setDeckSummaries((prev) => ({ ...prev, [deck]: summarizeDeck(cards) }));
+            };
+
             const preloaded = await consumeFlashcardPreload(user.email);
             if (
                 preloaded?.category === category
                 && preloaded?.deck === deck
                 && Array.isArray(preloaded.deckData)
+                && preloaded.deckData.length > 0
             ) {
-                setMasterData(preloaded.deckData);
-                setFilteredData(filterUnlearned(preloaded.deckData));
+                applyLoadedDeck(preloaded.deckData);
                 return;
             }
 
             const data = await flashcardPort.fetchDeckData(user.email, category, deck);
             const normalized = normalizeDeckResponse(data);
-            setMasterData(normalized);
-            setFilteredData(filterUnlearned(normalized));
-        } catch {
-            setAppMessage({ text: 'Error al cargar tarjetas', isError: true });
+            if (normalized.length === 0) {
+                throw new Error(`Deck vacío: ${category}/${deck}`);
+            }
+            applyLoadedDeck(normalized);
+        } catch (err) {
+            console.error('Error al cargar tarjetas:', { category, deck, error: err });
+            const message = String(err?.message || '');
+            const isRecoverableDeckError = message.includes('Deck vacío')
+                || message.includes('not found')
+                || message.includes('no encontrado');
+            const fallbackDeck = isRecoverableDeckError && usesNestedLevelDecks(category)
+                ? deckNames.find((name) => name !== deck)
+                : null;
+            if (fallbackDeck) {
+                setCurrentDeckName(fallbackDeck);
+                localStorage.setItem(`${LAST_DECK_KEY_PREFIX}${category}`, fallbackDeck);
+            } else {
+                setMasterData([]);
+                setFilteredData([]);
+                setAppMessage({ text: `Error al cargar tarjetas: ${deck}`, isError: true });
+            }
         } finally {
             setLoadingStage(null);
             setIsDeckLoading(false);
         }
-    }, [setAppMessage, user?.email]);
+    }, [deckNames, setAppMessage, summarizeDeck, user?.email]);
+
+    useEffect(() => {
+        setCurrentDeckName(null);
+        setDeckNames([]);
+        setDeckNamesCategory(null);
+        setMasterData([]);
+        setFilteredData([]);
+        setDeckSummaries({});
+    }, [currentCategory]);
 
     useEffect(() => {
         setSelectedGroup(null);
@@ -117,6 +235,7 @@ export function useDeckSession(resumeSession = null) {
                 ) {
                     const names = preloaded.deckNames;
                     setDeckNames(names);
+                    setDeckNamesCategory(currentCategory);
                     const storageKey = `${LAST_DECK_KEY_PREFIX}${currentCategory}`;
                     const preferredDeck = resumeSession?.category === currentCategory && resumeSession?.deck
                         && names.includes(resumeSession.deck)
@@ -130,13 +249,18 @@ export function useDeckSession(resumeSession = null) {
 
                 const result = await flashcardPort.fetchDecksForCategory(currentCategory);
                 if (result.success && Array.isArray(result.files)) {
-                    const names = sortDeckNames(result.files);
+                    const names = sortDeckNames(result.files, currentCategory);
                     setDeckNames(names);
+                    setDeckNamesCategory(currentCategory);
                     const storageKey = `${LAST_DECK_KEY_PREFIX}${currentCategory}`;
+                    const persistedDeck = resolvePersistedChoice(storageKey, names, names[0]);
+                    const fallbackDeck = usesNestedLevelDecks(currentCategory) && persistedDeck
+                        ? (names.find((name) => getLevelFromDeckName(name) === getLevelFromDeckName(persistedDeck)) ?? names[0])
+                        : persistedDeck;
                     const preferredDeck = resumeSession?.category === currentCategory && resumeSession?.deck
                         && names.includes(resumeSession.deck)
                         ? resumeSession.deck
-                        : resolvePersistedChoice(storageKey, names, names[0]);
+                        : fallbackDeck;
                     setCurrentDeckName(preferredDeck);
                 }
             } catch {
@@ -150,25 +274,97 @@ export function useDeckSession(resumeSession = null) {
     }, [currentCategory, setAppMessage, isAuthenticated, resumeSession, user?.email]);
 
     useEffect(() => {
-        if (currentCategory && currentDeckName && isAuthenticated) {
+        if (
+            currentCategory
+            && currentDeckName
+            && isAuthenticated
+            && deckNamesCategory === currentCategory
+            && deckNames.includes(currentDeckName)
+        ) {
             loadFlashcards(currentCategory, currentDeckName);
         }
-    }, [currentCategory, currentDeckName, loadFlashcards, isAuthenticated]);
+    }, [currentCategory, currentDeckName, deckNames, deckNamesCategory, loadFlashcards, isAuthenticated]);
+
+    useEffect(() => {
+        if (
+            !usesNestedLevelDecks(currentCategory)
+            || deckNamesCategory !== currentCategory
+            || !user?.email
+            || !isAuthenticated
+            || deckNames.length === 0
+        ) {
+            return;
+        }
+
+        const missingDecks = deckNames.filter((deckName) => !deckSummaries[deckName]);
+        if (missingDecks.length === 0) return;
+
+        let cancelled = false;
+        const loadDeckSummaries = async () => {
+            const results = await Promise.allSettled(
+                missingDecks.map(async (deckName) => {
+                    if (deckName === currentDeckName && masterData.length > 0) {
+                        return [deckName, summarizeDeck(masterData)];
+                    }
+
+                    const data = await flashcardPort.fetchDeckData(user.email, currentCategory, deckName);
+                    const normalized = normalizeDeckResponse(data);
+                    return [deckName, summarizeDeck(normalized)];
+                }),
+            );
+
+            if (cancelled) return;
+
+            setDeckSummaries((prev) => {
+                const next = { ...prev };
+                results.forEach((result) => {
+                    if (result.status === 'fulfilled') {
+                        const [deckName, summary] = result.value;
+                        next[deckName] = summary;
+                    }
+                });
+                return next;
+            });
+        };
+
+        void loadDeckSummaries();
+        return () => {
+            cancelled = true;
+        };
+    }, [
+        currentCategory,
+        currentDeckName,
+        deckNames,
+        deckNamesCategory,
+        deckSummaries,
+        isAuthenticated,
+        masterData,
+        summarizeDeck,
+        user?.email,
+    ]);
 
     useEffect(() => {
         if (resumeApplied || !resumeSession) return;
         if (resumeSession.category !== currentCategory || resumeSession.deck !== currentDeckName) return;
         if (!masterData.length) return;
 
-        if (resumeSession.selectedGroup) {
-            const group = resumeSession.selectedGroup === 'General' ? null : resumeSession.selectedGroup;
-            if (group !== selectedGroup) {
-                setSelectedGroup(group);
-                return;
-            }
+        const resumeGroup = resumeSession.selectedGroup === 'General'
+            ? null
+            : resumeSession.selectedGroup;
+        const resumeGroupRemaining = resumeGroup ? filterUnlearned(masterData, resumeGroup) : [];
+        const shouldResumeGroup = Boolean(resumeGroup && resumeGroupRemaining.length);
+
+        if (shouldResumeGroup && resumeGroup !== selectedGroup) {
+            setSelectedGroup(resumeGroup);
+            return;
         }
 
-        const remaining = filterUnlearned(masterData, selectedGroup);
+        if (!shouldResumeGroup && selectedGroup) {
+            setSelectedGroup(null);
+            return;
+        }
+
+        const remaining = filterUnlearned(masterData, shouldResumeGroup ? resumeGroup : null);
         if (!remaining.length) {
             setResumeApplied(true);
             return;
@@ -225,10 +421,15 @@ export function useDeckSession(resumeSession = null) {
 
         const cards = Array.from(batch.values()).map(({ index, learned }) => ({ index, learned }));
         pendingBatchRef.current = new Map();
+        persistProgressBatch({ category, deck, userId }, cards);
 
         try {
             await flashcardPort.updateCardsBatch(userId, category, deck, cards);
+            removeStoredProgressBatch({ category, deck, userId });
         } catch (err) {
+            cards.forEach((card) => {
+                pendingBatchRef.current.set(card.index, card);
+            });
             if (!silent) {
                 setAppMessage({ text: `Error al guardar progreso: ${err.message}`, isError: true });
             }
@@ -248,12 +449,19 @@ export function useDeckSession(resumeSession = null) {
 
         const cards = Array.from(batch.values()).map(({ index, learned }) => ({ index, learned }));
         pendingBatchRef.current = new Map();
+        persistProgressBatch({ category, deck, userId }, cards);
 
         const apiBase = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || '';
+        const token = localStorage.getItem('auth_token');
+        const headers = { 'Content-Type': 'application/json' };
+        if (token) {
+            headers.Authorization = `Bearer ${token}`;
+        }
+
         try {
             fetch(`${apiBase}/api/update-batch`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers,
                 body: JSON.stringify({ user_id: userId, category, deck, cards }),
                 keepalive: true,
                 credentials: 'include',
@@ -262,6 +470,29 @@ export function useDeckSession(resumeSession = null) {
             // No podemos hacer nada en beforeunload
         }
     }, []);
+
+    useEffect(() => {
+        if (!isAuthenticated || !user?.email) return;
+
+        let cancelled = false;
+        const retryStoredBatches = async () => {
+            const batches = readStoredProgressBatches().filter((batch) => batch.userId === user.email);
+            for (const batch of batches) {
+                if (cancelled) return;
+                try {
+                    await flashcardPort.updateCardsBatch(batch.userId, batch.category, batch.deck, batch.cards);
+                    removeStoredProgressBatch(batch);
+                } catch {
+                    return;
+                }
+            }
+        };
+
+        void retryStoredBatches();
+        return () => {
+            cancelled = true;
+        };
+    }, [isAuthenticated, user?.email]);
 
     const changeDeck = (newDeck) => {
         markUserNavigation();
@@ -279,11 +510,13 @@ export function useDeckSession(resumeSession = null) {
     const markAsLearned = async () => {
         const card = filteredData[currentIndex];
         if (!card || !user?.email) return;
+        resetFlashcardPreload(user.email);
 
         // Actualización optimista: la UI avanza de inmediato sin esperar la red.
         const { updated, remaining, completed } = computeFilteredAfterLearn(masterData, card.id, selectedGroup);
         setMasterData(updated);
         setFilteredData(remaining);
+        setDeckSummaries((prev) => ({ ...prev, [currentDeckName]: summarizeDeck(updated) }));
         if (completed) setJustCompletedInSession(true);
         setCurrentIndex((prev) => computeNextIndex(prev, remaining.length));
 
@@ -294,6 +527,7 @@ export function useDeckSession(resumeSession = null) {
             userId: user.email,
         };
         pendingBatchRef.current.set(card.id, { index: card.id, learned: true });
+        persistProgressBatch(batchContextRef.current, Array.from(pendingBatchRef.current.values()));
 
         // Flush automático cuando el lote alcanza el tamaño máximo.
         if (pendingBatchRef.current.size >= BATCH_FLUSH_SIZE) {
@@ -303,6 +537,7 @@ export function useDeckSession(resumeSession = null) {
 
     const resetDeck = async () => {
         if (!user?.email) return;
+        resetFlashcardPreload(user.email);
 
         const shouldReset = await confirm({
             title: controlsCopy.resetConfirmTitle,
@@ -312,12 +547,32 @@ export function useDeckSession(resumeSession = null) {
         });
         if (!shouldReset) return;
 
-        // Al resetear, descartamos el lote pendiente (el reset los borra de la DB de todas formas).
+        // Al resetear la categoría, descartamos cualquier lote pendiente de esa categoría.
         pendingBatchRef.current = new Map();
+        removeStoredProgressCategory({
+            category: currentCategory,
+            userId: user.email,
+        });
 
         try {
-            await flashcardPort.resetDeckStatus(user.email, currentCategory, currentDeckName);
-            loadFlashcards(currentCategory, currentDeckName);
+            await flashcardPort.resetCategoryStatus(user.email, currentCategory, currentDeckName);
+            resetFlashcardPreload(user.email);
+            const resetCards = masterData.map((card) => ({ ...card, learned: false }));
+            setMasterData(resetCards);
+            setFilteredData(filterUnlearned(resetCards, selectedGroup));
+            setDeckSummaries((prev) => {
+                const next = { ...prev };
+                deckNames.forEach((deckName) => {
+                    const total = deckName === currentDeckName
+                        ? resetCards.length
+                        : (prev[deckName]?.total ?? 0);
+                    next[deckName] = { total, learned: 0 };
+                });
+                return next;
+            });
+            setJustCompletedInSession(false);
+            setResetKey((k) => k + 1);
+            await loadFlashcards(currentCategory, currentDeckName);
         } catch {
             setAppMessage({ text: 'Error al resetear', isError: true });
         }
@@ -325,12 +580,18 @@ export function useDeckSession(resumeSession = null) {
 
     const resetGroup = async (groupName) => {
         if (!user?.email || !currentCategory || !currentDeckName) return false;
+        resetFlashcardPreload(user.email);
 
         const targetCards = getGroupLearnedCards(masterData, groupName);
         if (targetCards.length === 0) return false;
 
         // Vaciar lote antes de resetear un grupo (no tiene sentido guardar tarjetas que se van a desaprender).
-        pendingBatchRef.current = new Map();
+        const targetIndexes = targetCards.map((card) => card.id);
+        targetIndexes.forEach((index) => pendingBatchRef.current.delete(index));
+        removeStoredProgressCards(
+            { category: currentCategory, deck: currentDeckName, userId: user.email },
+            targetIndexes,
+        );
 
         setIsDeckLoading(true);
         setLoadingStage('loading_cards');
@@ -350,6 +611,7 @@ export function useDeckSession(resumeSession = null) {
 
             const updated = resetGroupInDeck(masterData, groupName);
             setMasterData(updated);
+            setDeckSummaries((prev) => ({ ...prev, [currentDeckName]: summarizeDeck(updated) }));
             setSelectedGroup(groupName === 'General' ? null : groupName);
             setResetKey((k) => k + 1);
             return true;
@@ -396,6 +658,7 @@ export function useDeckSession(resumeSession = null) {
         isDeckLoading,
         loadingStage,
         deckNames,
+        deckSummaries,
         currentDeckName,
         changeDeck,
         updateCardImagePath,

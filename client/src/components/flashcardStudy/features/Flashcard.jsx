@@ -12,10 +12,18 @@ import { registerUiBridgeHandler, unregisterUiBridgeHandler } from '../uiBridge'
 const getDefinitionsForForm = (card, form) => {
     if (!card) return [];
     if (form === 'v2') {
-        return card.irregular?.past?.definitions || [];
+        const past = card.irregular?.past;
+        if (!past) return [];
+        if (Array.isArray(past.definitions) && past.definitions.length > 0) return past.definitions;
+        if (past.usage_example) return [{ usage_example: past.usage_example, usage_example_es: past.usage_example_es, pronunciation_guide_es: past.pronunciation_guide_es }];
+        return [];
     }
     if (form === 'v3') {
-        return card.irregular?.participle?.definitions || [];
+        const part = card.irregular?.participle;
+        if (!part) return [];
+        if (Array.isArray(part.definitions) && part.definitions.length > 0) return part.definitions;
+        if (part.usage_example) return [{ usage_example: part.usage_example, usage_example_es: part.usage_example_es, pronunciation_guide_es: part.pronunciation_guide_es }];
+        return [];
     }
     return card.definitions || [];
 };
@@ -76,9 +84,6 @@ function Flashcard() {
     const buildAllBlurred = useCallback((form = activeForm) => {
         if (!cardData) return {};
         const defs = getDefinitionsForForm(cardData, form);
-        if (isLandingDemo) {
-            return defs.reduce((acc, _, i) => ({ ...acc, [i]: false }), {});
-        }
         return defs.reduce((acc, _, i) => ({ ...acc, [i]: true }), {});
     }, [cardData, activeForm, isLandingDemo]);
 
@@ -115,7 +120,7 @@ function Flashcard() {
     }, [ensureImageForDefinition, cardData, activeForm]);
 
     const prefetchCardAudio = useCallback((card) => {
-        if (!card || isAnyOverlayOpen) return;
+        if (!card || isAnyOverlayOpen || isLandingDemo) return;
 
         const defs = getDefinitionsForForm(card, 'v1');
         const title = getCardTitle({
@@ -130,7 +135,7 @@ function Flashcard() {
             const exampleText = cardLanguage === 'en' ? def.usage_example : def.usage_example_es;
             if (exampleText) void prefetchAudio(exampleText, audioLang, cardVerbName);
         });
-    }, [cardLanguage, isAnyOverlayOpen, prefetchAudio]);
+    }, [cardLanguage, isAnyOverlayOpen, isLandingDemo, prefetchAudio]);
 
     useEffect(() => {
         if (!cardData) return;

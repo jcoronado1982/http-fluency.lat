@@ -115,7 +115,7 @@
     },
     {
       "name": "preposition",
-      "order": 4,
+      "order": 7,
       "decks": {
         "1-basic": [
           { "name": "Prepositions: Place & Time", "order": 1 },
@@ -183,7 +183,7 @@
     },
     {
       "name": "adverbs",
-      "order": 6,
+      "order": 4,
       "decks": {
         "1-basic": [
           { "name": "Adverbs: Degree", "order": 1 },
@@ -215,7 +215,7 @@
     },
     {
       "name": "connectors",
-      "order": 7,
+      "order": 6,
       "decks": {
         "1-basic": [
           { "name": "Connectors: Addition", "order": 1 },

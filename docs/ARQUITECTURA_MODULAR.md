@@ -154,7 +154,7 @@ Cada módulo expone `register_routes(app) -> Router` en `api_main/src/modules/`:
 
 El shell registra siempre: `/api/health`, `/api/features`, tutor, notificaciones, auth (si feature activa), **y media estática compartida**.
 
-**Landing demo (TRY DEMO):** la UI vive en el módulo `landing`; sirve imágenes vía shell (`/card_images`); generación invitada (`/api/resolve-image`, `/api/generate-image` con `category=landing-demo`) requiere feature **`flashcards`** en backend. El perfil sparse `flashcards` incluye `landing` + `dashboard` + `flashcards`.
+**Landing demo (TRY DEMO):** la UI vive en el módulo `landing`; sirve imágenes vía shell (`/card_images`); generación invitada (`/api/resolve-image`, `/api/generate-image` con `category=landing-demo`) requiere feature **`flashcards`** en backend. El perfil sparse `flashcards` (rama `dev-flashcards`) incluye `landing` + `dashboard` + `flashcards`.
 
 `TutorUseCases` usa `Option<PronounPracticeRepository>` — sin módulo pronoun no hay acoplamiento a su DB.
 

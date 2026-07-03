@@ -188,7 +188,7 @@ echo "================================================================"
 echo "🖥️  FRONTEND (UI):     http://localhost:5173"
 echo "🛠️  BACKEND (API):    http://localhost:8081 (RUST)"
 echo "📊 DATABASE (DB):     localhost:5432 (PostgreSQL)"
-echo "🤖 AI SERVICES:       Gemini, Google TTS, ComfyUI (Flux.2)"
+echo "🤖 AI SERVICES:       Gemini AI Studio, ComfyUI (Flux.2)"
 echo "================================================================"
 echo ""
 

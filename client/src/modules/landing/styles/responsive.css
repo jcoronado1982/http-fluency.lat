@@ -18,8 +18,12 @@
 }
 
 @media (max-width: 719px) {
+    .lp-demo-widget {
+        padding: 0;
+    }
+
     [data-landing-demo] {
-        --lp-demo-mobile-max: min(100%, 380px);
+        --lp-demo-mobile-max: 100%;
     }
 
     [data-landing-demo].flashcard-page-wrapper {
@@ -42,12 +46,47 @@
         margin: 0 auto;
     }
 
+    [data-landing-demo] .controlsWrapper {
+        margin-top: 0 !important;
+    }
+
     [data-landing-demo] .lp-demo-card-frame {
         padding-top: 16px;
         width: 100%;
         max-width: none;
         margin: 0;
         overflow: visible;
+    }
+
+    [data-landing-demo] .lp-demo-complete {
+        height: clamp(440px, 132vw, 560px);
+        padding: 24px 18px;
+        gap: 18px;
+        border-radius: clamp(18px, 4vw, 24px);
+    }
+
+    [data-landing-demo] .lp-demo-complete-title {
+        max-width: 13ch;
+        font-size: clamp(1.35rem, 6.2vw, 1.72rem);
+        line-height: 1.16;
+    }
+
+    [data-landing-demo] .lp-demo-complete-copy {
+        max-width: 27ch;
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    [data-landing-demo] .lp-demo-complete-button {
+        width: 100%;
+        max-width: 15rem;
+        min-height: 46px;
+        font-size: 0.9rem;
+    }
+
+    [data-landing-demo] .lp-demo-complete-actions {
+        width: min(100%, 15rem);
+        gap: 10px;
     }
 
     .lp-demo-prompt--card {
@@ -57,7 +96,7 @@
 
     .lp-hero-demo {
         overflow: visible;
-        margin-top: 12px;
+        margin-top: 8px;
     }
 
     .lp {
@@ -85,7 +124,7 @@
         text-wrap: balance;
     }
 
-    .lp-nav-inner { padding: 12px 20px; gap: 12px; }
+    .lp-nav-inner { padding: 12px 20px; gap: 15px; }
     .lp-nav-end { gap: 12px; }
     .lp-nav-login { display: none; }
     .lp-btn--nav { min-height: 36px; padding: 0.45rem 1rem; font-size: 0.8125rem; }
@@ -137,6 +176,9 @@
     .lp-demo-feedback-input { width: 100%; }
     .lp-why-vocabulary-first { padding: 30px 0 40px; }
     .lp-why-vocabulary-first-inner { padding: 0 var(--lp-section-inline-padding, var(--shell-content-inline-padding)); }
+    .lp-vocab-first-grid {
+        padding: 0;
+    }
     .lp-why-vocabulary-first-title {
         margin-bottom: 28px;
     }
@@ -152,6 +194,9 @@
         white-space: normal;
     }
     .lp-why-subtitle { margin: 0 0 40px; }
+    .lp-why-grid-wrap {
+        padding: 0;
+    }
     .lp-why-card { padding: 20px; }
     .lp-why-cta-tail {
         margin-top: 20px;

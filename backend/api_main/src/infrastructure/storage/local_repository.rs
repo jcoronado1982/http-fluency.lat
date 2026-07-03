@@ -7,6 +7,7 @@ use moka::future::Cache;
 use std::path::{Component, Path, PathBuf};
 use std::sync::Arc;
 use std::time::Duration;
+use std::time::{SystemTime, UNIX_EPOCH};
 use tokio::fs;
 
 /// Caché de mazos: clave = "categoria/deck.json", valor = datos parseados.
@@ -24,6 +25,7 @@ pub struct LocalStorageRepository {
     base_path: PathBuf,
     json_prefix: String,
     sync_to_oracle: bool,
+    oracle_repository_only: bool,
     oracle_host: String,
     oracle_public_url: String,
     oracle_ssh_password: String,
@@ -74,6 +76,7 @@ impl LocalStorageRepository {
             base_path,
             json_prefix: settings.gcs_json_prefix.clone(),
             sync_to_oracle: settings.sync_to_oracle,
+            oracle_repository_only: settings.oracle_repository_only,
             oracle_host: settings.oracle_host.clone(),
             oracle_public_url: settings.public_base_url.trim_end_matches('/').to_string(),
             oracle_ssh_password: settings.oracle_ssh_password.clone(),
@@ -130,6 +133,33 @@ impl LocalStorageRepository {
     fn get_full_path(&self, relative_path: &str) -> PathBuf {
         let relative = relative_path.trim_start_matches('/');
         self.base_path.join(relative)
+    }
+
+    fn oracle_as_source_of_truth(&self) -> bool {
+        self.oracle_repository_only
+    }
+
+    fn can_read_from_oracle(&self) -> bool {
+        !self.oracle_base_url().is_empty()
+    }
+
+    fn can_write_to_oracle(&self) -> bool {
+        self.sync_to_oracle && !self.oracle_host.is_empty()
+    }
+
+    fn uses_nested_level_decks(category: &str) -> bool {
+        matches!(
+            category.to_ascii_lowercase().as_str(),
+            "verbs"
+                | "nouns"
+                | "adjectives"
+                | "adverbs"
+                | "connectors"
+                | "determinant"
+                | "phrasal_verbs"
+                | "preposition"
+                | "pronouns"
+        )
     }
 
     fn validate_relative_path(relative_path: &str) -> Result<()> {
@@ -243,6 +273,65 @@ impl LocalStorageRepository {
         ))
     }
 
+    async fn remote_blob_mtime(&self, blob_path: &str) -> Result<Option<String>> {
+        Self::validate_relative_path(blob_path)?;
+        if self.oracle_host.is_empty() {
+            return Ok(None);
+        }
+
+        let remote_file = format!(
+            "{}/{}",
+            self.oracle_remote_path,
+            blob_path.trim_start_matches('/')
+        );
+        let cp = self.control_path();
+
+        let output = tokio::process::Command::new("sshpass")
+            .env("SSHPASS", &self.oracle_ssh_password)
+            .args([
+                "-e",
+                "ssh",
+                "-o",
+                "StrictHostKeyChecking=no",
+                "-o",
+                "ControlMaster=auto",
+                "-o",
+                &format!("ControlPath={}", cp),
+                &format!("root@{}", self.oracle_host),
+                &format!("stat -c %Y '{}'", remote_file),
+            ])
+            .output()
+            .await?;
+
+        if !output.status.success() {
+            return Ok(None);
+        }
+
+        let version = String::from_utf8_lossy(&output.stdout).trim().to_string();
+        if version.is_empty() {
+            Ok(None)
+        } else {
+            Ok(Some(version))
+        }
+    }
+
+    async fn local_blob_mtime(&self, blob_path: &str) -> Result<Option<String>> {
+        Self::validate_relative_path(blob_path)?;
+        let path = self.get_full_path(blob_path);
+        if !path.exists() {
+            return Ok(None);
+        }
+
+        let metadata = fs::metadata(&path).await?;
+        let modified = metadata.modified().unwrap_or(SystemTime::UNIX_EPOCH);
+        let version = modified
+            .duration_since(UNIX_EPOCH)
+            .unwrap_or_default()
+            .as_secs()
+            .to_string();
+        Ok(Some(version))
+    }
+
     /// Lista entradas en Oracle via Caddy browse (reutiliza pool de conexiones).
     async fn list_oracle_entries(&self, rel_path: &str, dirs_only: bool) -> Result<Vec<String>> {
         Self::validate_relative_path(rel_path)?;
@@ -262,7 +351,7 @@ impl LocalStorageRepository {
         }
         let body = res.text().await?;
 
-        // Caddy browse genera links como: href="nombre/" (dirs) o href="nombre.json" (files)
+        // Caddy browse genera links como: href="nombre/" (dirs) o href="nombre.ext" (files)
         let mut results = Vec::new();
         for line in body.lines() {
             if let Some(start) = line.find("href=\"") {
@@ -277,13 +366,103 @@ impl LocalStorageRepository {
                     }
                     if dirs_only && entry.ends_with('/') {
                         results.push(entry.trim_end_matches('/').to_string());
-                    } else if !dirs_only && entry.ends_with(".json") {
+                    } else if !dirs_only && !entry.ends_with('/') {
                         results.push(entry.to_string());
                     }
                 }
             }
         }
         Ok(results)
+    }
+
+    async fn list_nested_remote_decks(&self, rel: &str) -> Result<Vec<String>> {
+        let mut level_dirs = if let Ok(remote) = self.list_oracle_dir_via_ssh(rel).await {
+            remote
+        } else {
+            self.list_oracle_entries(rel, true)
+                .await
+                .unwrap_or_default()
+        };
+
+        level_dirs.sort();
+        level_dirs.dedup();
+
+        let mut decks = Vec::new();
+        for level_dir in level_dirs {
+            let nested_rel = format!("{rel}/{level_dir}");
+            let mut files: Vec<String> =
+                if let Ok(remote) = self.list_oracle_dir_via_ssh(&nested_rel).await {
+                    remote
+                        .into_iter()
+                        .filter(|name| name.ends_with(".json") && !name.contains(".bak"))
+                        .collect()
+                } else {
+                    self.list_oracle_entries(&nested_rel, false)
+                        .await
+                        .unwrap_or_default()
+                        .into_iter()
+                        .filter(|name| name.ends_with(".json") && !name.contains(".bak"))
+                        .collect()
+                };
+
+            files.sort();
+            files.dedup();
+
+            for file in files {
+                decks.push(format!("{level_dir}/{file}"));
+            }
+        }
+
+        Ok(decks)
+    }
+
+    async fn list_nested_local_decks(&self, rel: &str) -> Result<Vec<String>> {
+        let local_path = self.get_full_path(rel);
+        if !local_path.exists() {
+            return Ok(vec![]);
+        }
+
+        let mut level_entries = fs::read_dir(&local_path).await?;
+        let mut decks = Vec::new();
+
+        while let Some(level_entry) = level_entries.next_entry().await? {
+            if !level_entry.file_type().await?.is_dir() {
+                continue;
+            }
+
+            let Some(level_name) = level_entry.file_name().to_str().map(str::to_string) else {
+                continue;
+            };
+
+            let mut files = fs::read_dir(level_entry.path()).await?;
+            while let Some(file_entry) = files.next_entry().await? {
+                if !file_entry.file_type().await?.is_file() {
+                    continue;
+                }
+
+                if let Some(file_name) = file_entry.file_name().to_str() {
+                    if file_name.ends_with(".json") && !file_name.contains(".bak") {
+                        if Self::local_json_file_has_cards(&file_entry.path()).await {
+                            decks.push(format!("{level_name}/{file_name}"));
+                        }
+                    }
+                }
+            }
+        }
+
+        decks.sort();
+        decks.dedup();
+        Ok(decks)
+    }
+
+    async fn local_json_file_has_cards(path: &Path) -> bool {
+        match fs::read(path).await {
+            Ok(bytes) => match serde_json::from_slice::<serde_json::Value>(&bytes) {
+                Ok(serde_json::Value::Array(cards)) => !cards.is_empty(),
+                _ => true,
+            },
+            Err(_) => true,
+        }
     }
 
     /// Transfiere un archivo a Oracle.
@@ -379,9 +558,16 @@ impl StorageRepository for LocalStorageRepository {
             return Ok((*cached).clone());
         }
 
-        // Local filesystem first; Oracle only as fallback when the path doesn't exist locally.
         let path = self.get_full_path(&self.json_prefix);
-        let result = if path.exists() {
+        let result = if self.oracle_as_source_of_truth() {
+            if !self.can_read_from_oracle() {
+                anyhow::bail!(
+                    "Oracle repository mode activo pero public_base_url no está configurado"
+                );
+            }
+            self.list_oracle_entries(&self.json_prefix.clone(), true)
+                .await?
+        } else if path.exists() {
             let mut entries = fs::read_dir(&path).await?;
             let mut categories = Vec::new();
             while let Some(entry) = entries.next_entry().await? {
@@ -422,24 +608,59 @@ impl StorageRepository for LocalStorageRepository {
         let rel = format!("{}/{}", self.json_prefix, category);
         let mut result = Vec::new();
 
-        // Con SYNC_TO_ORACLE, Oracle es la fuente de verdad (lista todos los mazos reales).
-        if self.sync_to_oracle && !self.oracle_host.is_empty() {
-            if let Ok(remote) = self.list_oracle_dir_via_ssh(&rel).await {
-                result = remote
-                    .into_iter()
-                    .filter(|n| n.ends_with(".json") && !n.contains(".bak"))
-                    .collect();
+        if Self::uses_nested_level_decks(category) {
+            let mut nested_result = Vec::new();
+
+            let mut local_nested = self.list_nested_local_decks(&rel).await?;
+            if !local_nested.is_empty() {
+                local_nested.sort();
+                local_nested.dedup();
+                result = local_nested;
+            } else {
+                if self.oracle_as_source_of_truth()
+                    || (self.sync_to_oracle && !self.oracle_host.is_empty())
+                {
+                    nested_result = self
+                        .list_nested_remote_decks(&rel)
+                        .await
+                        .unwrap_or_default();
+                }
+
+                if !self.oracle_as_source_of_truth() {
+                    let mut fallback_local_nested = self.list_nested_local_decks(&rel).await?;
+                    nested_result.append(&mut fallback_local_nested);
+                    nested_result.sort();
+                    nested_result.dedup();
+                }
+
+                if !nested_result.is_empty() {
+                    result = nested_result;
+                }
+            }
+        }
+
+        if self.oracle_as_source_of_truth() || (self.sync_to_oracle && !self.oracle_host.is_empty())
+        {
+            if result.is_empty() {
+                if let Ok(remote) = self.list_oracle_dir_via_ssh(&rel).await {
+                    result = remote
+                        .into_iter()
+                        .filter(|n| n.ends_with(".json") && !n.contains(".bak"))
+                        .collect();
+                }
             }
             if result.is_empty() {
                 result = self
                     .list_oracle_entries(&rel, false)
                     .await
-                    .unwrap_or_default();
+                    .unwrap_or_default()
+                    .into_iter()
+                    .filter(|n| n.ends_with(".json") && !n.contains(".bak"))
+                    .collect();
             }
         }
 
-        // Sin Oracle o si falló el listado remoto: disco local.
-        if result.is_empty() {
+        if result.is_empty() && !self.oracle_as_source_of_truth() {
             let local_path = self.get_full_path(&rel);
             if local_path.exists() {
                 let mut entries = fs::read_dir(&local_path).await?;
@@ -478,8 +699,27 @@ impl StorageRepository for LocalStorageRepository {
         let object_name = format!("{}/{}/{}", self.json_prefix, category, full_name);
         let path = self.get_full_path(&object_name);
 
-        // Con SYNC_TO_ORACLE: Oracle es la fuente de verdad para el JSON del mazo.
-        let data = if self.sync_to_oracle {
+        let data = if Self::uses_nested_level_decks(category)
+            && full_name.contains('/')
+            && path.exists()
+        {
+            fs::read(&path)
+                .await
+                .context(format!("Failed to read {}", object_name))?
+        } else if self.oracle_as_source_of_truth() {
+            match self.fetch_from_oracle(&object_name).await {
+                Ok(bytes) => bytes,
+                Err(_) if self.oracle_host.is_empty() => {
+                    anyhow::bail!(
+                        "Oracle repository mode activo pero ORACLE_HOST no está configurado"
+                    );
+                }
+                Err(_) => self
+                    .fetch_from_oracle_ssh(&object_name)
+                    .await
+                    .context(format!("Deck no encontrado en Oracle: {}", object_name))?,
+            }
+        } else if self.sync_to_oracle {
             match self.fetch_from_oracle(&object_name).await {
                 Ok(bytes) => bytes,
                 Err(e) if path.exists() => {
@@ -521,6 +761,12 @@ impl StorageRepository for LocalStorageRepository {
         let object_name = format!("{}/{}/{}", self.json_prefix, category, full_name);
         let path = self.get_full_path(&object_name);
 
+        if self.oracle_as_source_of_truth() && !self.can_write_to_oracle() {
+            anyhow::bail!(
+                "Oracle repository mode activo pero no hay escritura a Oracle configurada"
+            );
+        }
+
         if let Some(parent) = path.parent() {
             fs::create_dir_all(parent).await?;
         }
@@ -537,9 +783,12 @@ impl StorageRepository for LocalStorageRepository {
         if self.sync_to_oracle {
             if let Err(err) = self.scp_to_oracle(&path, &object_name).await {
                 tracing::error!("Failed to sync deck to Oracle via SCP: {:?}", err);
+                return Err(err);
             }
-            if let Err(e) = fs::remove_file(&path).await {
-                tracing::warn!("No se pudo eliminar temporal local {:?}: {}", path, e);
+            if self.oracle_as_source_of_truth() || self.sync_to_oracle {
+                if let Err(e) = fs::remove_file(&path).await {
+                    tracing::warn!("No se pudo eliminar temporal local {:?}: {}", path, e);
+                }
             }
         }
 
@@ -548,16 +797,35 @@ impl StorageRepository for LocalStorageRepository {
 
     async fn get_phonics_data(&self) -> Result<serde_json::Value> {
         let blob_path = "static/phonics_audio/phonics.json";
-        let path = self.get_full_path(blob_path);
-        let data = fs::read(&path).await?;
+        let data = if self.oracle_as_source_of_truth() {
+            self.fetch_from_oracle(blob_path).await?
+        } else {
+            let path = self.get_full_path(blob_path);
+            fs::read(&path).await?
+        };
         let val: serde_json::Value = serde_json::from_slice(&data)?;
         Ok(val)
     }
 
     async fn download_blob(&self, blob_path: &str) -> Result<Vec<u8>> {
         Self::validate_relative_path(blob_path)?;
-        // Copia local reciente (p. ej. recién generada): evita 404 por lag HTTP/CDN de Oracle.
         let path = self.get_full_path(blob_path);
+
+        if self.oracle_as_source_of_truth() {
+            if let Ok(bytes) = self.fetch_from_oracle(blob_path).await {
+                return Ok(bytes);
+            }
+            if !self.oracle_host.is_empty() {
+                if let Ok(bytes) = self.fetch_from_oracle_ssh(blob_path).await {
+                    return Ok(bytes);
+                }
+            }
+            return Err(anyhow::anyhow!(
+                "Archivo no encontrado en Oracle: {}",
+                blob_path
+            ));
+        }
+
         if path.exists() {
             return Ok(fs::read(&path).await?);
         }
@@ -581,6 +849,11 @@ impl StorageRepository for LocalStorageRepository {
         _content_type: &str,
     ) -> Result<()> {
         Self::validate_relative_path(blob_path)?;
+        if self.oracle_as_source_of_truth() && !self.can_write_to_oracle() {
+            anyhow::bail!(
+                "Oracle repository mode activo pero no hay escritura a Oracle configurada"
+            );
+        }
         let path = self.get_full_path(blob_path);
         if let Some(parent) = path.parent() {
             fs::create_dir_all(parent).await?;
@@ -589,14 +862,15 @@ impl StorageRepository for LocalStorageRepository {
         self.exists_cache.insert(blob_path.to_string(), true).await;
 
         if self.sync_to_oracle {
-            // Oracle es el único repositorio persistente. SCP es síncrono:
-            // si falla, propagamos el error al endpoint y el cliente recibe un 500
-            // claro en vez de una URL que apunta a un archivo inexistente (→ 404).
             self.scp_to_oracle(&path, blob_path).await.map_err(|e| {
                 tracing::error!("❌ SCP fallido para '{}': {}", blob_path, e);
                 e
             })?;
-            // Mantener copia local para servir de inmediato tras generar (Oracle HTTP puede ir retrasado).
+            if self.oracle_as_source_of_truth() {
+                if let Err(e) = fs::remove_file(&path).await {
+                    tracing::warn!("No se pudo eliminar temporal local {:?}: {}", path, e);
+                }
+            }
         }
 
         Ok(())
@@ -615,6 +889,25 @@ impl StorageRepository for LocalStorageRepository {
         Ok(exists)
     }
 
+    async fn blob_version(&self, blob_path: &str) -> Result<Option<String>> {
+        Self::validate_relative_path(blob_path)?;
+
+        if !self.oracle_as_source_of_truth() {
+            if let Some(version) = self.local_blob_mtime(blob_path).await? {
+                return Ok(Some(version));
+            }
+        }
+
+        if (self.oracle_as_source_of_truth() || self.sync_to_oracle) && !self.oracle_host.is_empty()
+        {
+            if let Some(version) = self.remote_blob_mtime(blob_path).await? {
+                return Ok(Some(version));
+            }
+        }
+
+        Ok(None)
+    }
+
     async fn find_blob_by_prefix(&self, prefix: &str) -> Result<Option<String>> {
         Self::validate_relative_path(prefix)?;
         let prefix_path = Path::new(prefix);
@@ -629,12 +922,14 @@ impl StorageRepository for LocalStorageRepository {
             .unwrap_or("")
             .to_string();
 
-        // Oracle primero cuando SYNC_TO_ORACLE
-        if self.sync_to_oracle {
-            let entries = self
-                .list_oracle_entries(&dir_str, false)
-                .await
-                .unwrap_or_default();
+        if self.oracle_as_source_of_truth() || self.sync_to_oracle {
+            let entries = if let Ok(remote) = self.list_oracle_dir_via_ssh(&dir_str).await {
+                remote
+            } else {
+                self.list_oracle_entries(&dir_str, false)
+                    .await
+                    .unwrap_or_default()
+            };
             for name in entries {
                 if name.starts_with(&file_prefix)
                     && !name.contains(".archive.")
@@ -651,7 +946,7 @@ impl StorageRepository for LocalStorageRepository {
         }
 
         let dir = self.get_full_path(&dir_str);
-        if dir.exists() && dir.is_dir() {
+        if !self.oracle_as_source_of_truth() && dir.exists() && dir.is_dir() {
             let mut entries = fs::read_dir(&dir).await?;
             while let Some(entry) = entries.next_entry().await? {
                 if entry.file_type().await?.is_file() {
@@ -792,7 +1087,7 @@ impl StorageRepository for LocalStorageRepository {
             }
         }
 
-        if names.is_empty() {
+        if names.is_empty() && !self.oracle_as_source_of_truth() {
             let local_dir = self.get_full_path(rel);
             if local_dir.exists() && local_dir.is_dir() {
                 let mut entries = fs::read_dir(&local_dir).await?;
@@ -814,7 +1109,8 @@ impl StorageRepository for LocalStorageRepository {
 impl LocalStorageRepository {
     async fn blob_exists_uncached(&self, blob_path: &str) -> Result<bool> {
         Self::validate_relative_path(blob_path)?;
-        if self.sync_to_oracle && !self.oracle_host.is_empty() {
+        if (self.oracle_as_source_of_truth() || self.sync_to_oracle) && !self.oracle_host.is_empty()
+        {
             let remote_file = format!(
                 "{}/{}",
                 self.oracle_remote_path,
@@ -857,6 +1153,10 @@ impl LocalStorageRepository {
                     tracing::warn!("⚠️ blob_exists SSH error para '{}': {}", blob_path, e);
                 }
             }
+            return Ok(false);
+        }
+
+        if self.oracle_as_source_of_truth() {
             return Ok(false);
         }
 

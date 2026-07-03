@@ -24,6 +24,7 @@ pub struct Settings {
     pub comfy_url: String,
     pub local_storage_path: String,
     pub sync_to_oracle: bool,
+    pub oracle_repository_only: bool,
     pub oracle_host: String,
     pub oracle_ssh_password: String,
     pub oracle_remote_path: String,
@@ -71,6 +72,10 @@ impl Settings {
                 .unwrap_or_else(|_| "false".to_string())
                 .parse::<bool>()
                 .unwrap_or(false),
+            oracle_repository_only: env::var("ORACLE_REPOSITORY_ONLY")
+                .unwrap_or_else(|_| "true".to_string())
+                .parse::<bool>()
+                .unwrap_or(true),
             oracle_host: env::var("ORACLE_HOST").unwrap_or_else(|_| "157.151.199.170".to_string()),
             oracle_ssh_password: env::var("ORACLE_SSH_PASSWORD").unwrap_or_else(|_| "".to_string()),
             oracle_remote_path: env::var("ORACLE_REMOTE_PATH")

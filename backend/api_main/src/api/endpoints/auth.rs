@@ -6,6 +6,7 @@ use axum::{
     response::IntoResponse,
     Json,
 };
+use fluency_core::domain::models::user::CatalogPreferences;
 use mod_shell::auth::AuthUseCases;
 use serde::Deserialize;
 
@@ -17,6 +18,11 @@ pub struct GoogleLoginRequest {
 #[derive(Deserialize)]
 pub struct UpdateOnboardingRequest {
     pub completed: bool,
+}
+
+#[derive(Deserialize)]
+pub struct UpdateCatalogPreferencesRequest {
+    pub catalog_preferences: Option<CatalogPreferences>,
 }
 
 /// POST /api/auth/dev-guest — solo desarrollo; emite JWT válido para pruebas locales.
@@ -94,6 +100,7 @@ pub async fn get_me(
         "jwt_role": claims.role,
         "effective_role": effective_role,
         "onboarding_completed": onboarding_completed,
+        "catalog_preferences": user.as_ref().and_then(|u| u.catalog_preferences.clone()),
         "is_admin": AuthUseCases::is_admin_role(&effective_role),
         "is_premium": AuthUseCases::is_premium_role(&effective_role),
     })))
@@ -108,6 +115,30 @@ pub async fn update_onboarding(
     let user = state
         .auth_use_cases
         .set_onboarding_completed(&claims.email, payload.completed)
+        .await
+        .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
+
+    match user {
+        Some(user) => Ok((
+            StatusCode::OK,
+            Json(serde_json::json!({
+                "success": true,
+                "user": user
+            })),
+        )),
+        None => Err((StatusCode::NOT_FOUND, "User not found".to_string())),
+    }
+}
+
+pub async fn update_catalog_preferences(
+    State(state): State<AppState>,
+    headers: HeaderMap,
+    Json(payload): Json<UpdateCatalogPreferencesRequest>,
+) -> Result<impl IntoResponse, (StatusCode, String)> {
+    let claims = extract_claims(&state, &headers)?;
+    let user = state
+        .auth_use_cases
+        .update_catalog_preferences(&claims.email, payload.catalog_preferences)
         .await
         .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
 

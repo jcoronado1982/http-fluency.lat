@@ -438,7 +438,7 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     /* Línea más sutil */
     padding-bottom: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 
 .definitionBlockBack:last-child {
@@ -451,7 +451,8 @@
     font-weight: 400;
     color: #f0f0f0;
     /* Blanco para el texto principal */
-    margin-bottom: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     line-height: 1.4;
 }
 
@@ -1619,7 +1620,7 @@
 
     :global([data-landing-demo]) .conjugationTable {
         margin: 4px auto 8px !important;
-        padding: 6px 4px !important;
+        padding: 6px 4px 6px 4px !important;
         gap: 4px !important;
         width: 100% !important;
         max-width: 100% !important;

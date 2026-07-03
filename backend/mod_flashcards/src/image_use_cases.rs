@@ -5,7 +5,10 @@ use fluency_core::ports::storage::StorageRepository;
 use fluency_core::ports::tutor::AITutor;
 use std::sync::Arc;
 
-use crate::{is_landing_demo_namespace, safe_deck_prefix, safe_form_suffix, safe_storage_segment, FlashcardsConfig};
+use crate::{
+    is_landing_demo_namespace, safe_deck_prefix, safe_form_suffix, safe_storage_segment,
+    FlashcardsConfig,
+};
 
 /// Convierte un email en un segmento de path seguro para URL/filesystem.
 /// Ejemplo: "user@example.com" → "user_example_com"
@@ -87,6 +90,15 @@ impl ImageUseCases {
         }
     }
 
+    async fn versioned_image_url(&self, file_name: &str, blob_path: &str) -> String {
+        match self.storage_repo.blob_version(blob_path).await {
+            Ok(Some(version)) if !version.is_empty() => {
+                format!("/card_images/{}?v={}", file_name, version)
+            }
+            _ => format!("/card_images/{}", file_name),
+        }
+    }
+
     /// Devuelve (url, is_nueva), generando si no existe.
     /// - Admin → capa global; usuario normal → personal primero, fallback a global, genera en personal.
     pub async fn get_or_generate_image(
@@ -141,11 +153,8 @@ impl ImageUseCases {
             let avif_path = format!("{}/{}.avif", self.config.gcs_images_prefix, base_pattern);
             if let Ok(true) = self.storage_repo.blob_exists(&avif_path).await {
                 return Ok((
-                    format!(
-                        "/card_images/{}.avif?v={}",
-                        base_pattern,
-                        uuid::Uuid::new_v4()
-                    ),
+                    self.versioned_image_url(&format!("{}.avif", base_pattern), &avif_path)
+                        .await,
                     false,
                 ));
             }
@@ -159,11 +168,8 @@ impl ImageUseCases {
                 let global_avif = format!("{}/{}.avif", self.config.gcs_images_prefix, global_base);
                 if let Ok(true) = self.storage_repo.blob_exists(&global_avif).await {
                     return Ok((
-                        format!(
-                            "/card_images/{}.avif?v={}",
-                            global_base,
-                            uuid::Uuid::new_v4()
-                        ),
+                        self.versioned_image_url(&format!("{}.avif", global_base), &global_avif)
+                            .await,
                         false,
                     ));
                 }
@@ -184,11 +190,11 @@ impl ImageUseCases {
                             v1_personal_avif
                         );
                         return Ok((
-                            format!(
-                                "/card_images/{}.avif?v={}",
-                                v1_personal,
-                                uuid::Uuid::new_v4()
-                            ),
+                            self.versioned_image_url(
+                                &format!("{}.avif", v1_personal),
+                                &v1_personal_avif,
+                            )
+                            .await,
                             false,
                         ));
                     }
@@ -205,7 +211,8 @@ impl ImageUseCases {
                         v1_global_avif
                     );
                     return Ok((
-                        format!("/card_images/{}.avif?v={}", v1_global, uuid::Uuid::new_v4()),
+                        self.versioned_image_url(&format!("{}.avif", v1_global), &v1_global_avif)
+                            .await,
                         false,
                     ));
                 }
@@ -353,10 +360,7 @@ impl ImageUseCases {
             blob_path = %blob_path,
             "img-gen:done"
         );
-        Ok((
-            format!("/card_images/{}?v={}", file_name, uuid::Uuid::new_v4()),
-            true,
-        ))
+        Ok((self.versioned_image_url(&file_name, &blob_path).await, true))
     }
 
     /// Borra imágenes. Admin borra capa global; usuario normal borra solo su capa personal.
@@ -444,7 +448,10 @@ impl ImageUseCases {
             tracing::info!("  → check personal: {}", personal_avif);
             if self.storage_repo.blob_exists(&personal_avif).await? {
                 tracing::info!("  ✔️ found personal: {}", personal_avif);
-                return Ok(Some(format!("/card_images/{}.avif", personal_base)));
+                return Ok(Some(
+                    self.versioned_image_url(&format!("{}.avif", personal_base), &personal_avif)
+                        .await,
+                ));
             }
         }
 
@@ -457,7 +464,10 @@ impl ImageUseCases {
         tracing::info!("  → check global: {}", global_avif);
         if self.storage_repo.blob_exists(&global_avif).await? {
             tracing::info!("  ✔️ found global: {}", global_avif);
-            return Ok(Some(format!("/card_images/{}.avif", global_base)));
+            return Ok(Some(
+                self.versioned_image_url(&format!("{}.avif", global_base), &global_avif)
+                    .await,
+            ));
         }
 
         // v2/v3 sin imagen propia → fallback a v1 (app interna; demo landing: cada tiempo aparte)
@@ -472,7 +482,13 @@ impl ImageUseCases {
                 tracing::info!("  → check personal v1-fallback: {}", personal_v1_path);
                 if self.storage_repo.blob_exists(&personal_v1_path).await? {
                     tracing::info!("  ✔️ found personal v1-fallback: {}", personal_v1_path);
-                    return Ok(Some(format!("/card_images/{}.avif", personal_base)));
+                    return Ok(Some(
+                        self.versioned_image_url(
+                            &format!("{}.avif", personal_base),
+                            &personal_v1_path,
+                        )
+                        .await,
+                    ));
                 }
             }
 
@@ -484,7 +500,10 @@ impl ImageUseCases {
             tracing::info!("  → check global v1-fallback: {}", global_v1_path);
             if self.storage_repo.blob_exists(&global_v1_path).await? {
                 tracing::info!("  ✔️ found global v1-fallback: {}", global_v1_path);
-                return Ok(Some(format!("/card_images/{}.avif", global_v1_base)));
+                return Ok(Some(
+                    self.versioned_image_url(&format!("{}.avif", global_v1_base), &global_v1_path)
+                        .await,
+                ));
             }
         }
 
@@ -556,11 +575,7 @@ impl ImageUseCases {
             .upload_blob(&blob_path, req.file_data, &req.content_type)
             .await?;
 
-        Ok(format!(
-            "/card_images/{}?v={}",
-            final_name,
-            uuid::Uuid::new_v4()
-        ))
+        Ok(self.versioned_image_url(&final_name, &blob_path).await)
     }
 
     #[allow(dead_code)]
@@ -579,5 +594,4 @@ impl ImageUseCases {
         let parts: Vec<_> = slug.split('_').filter(|s| !s.is_empty()).collect();
         parts.join("_")
     }
-
 }

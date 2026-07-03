@@ -18,7 +18,7 @@ export default function DashboardHome() {
     const firstName = user?.name?.split(' ')[0] || user?.email?.split('@')[0] || '';
 
     return (
-        <div className="dashboard-home">
+        <div className="dashboard-home shell-content-inner">
             {config.features.flashcards && (
                 <DashboardHero
                     stats={stats}

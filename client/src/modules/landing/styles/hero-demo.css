@@ -145,7 +145,7 @@
     min-width: 0;
     overflow: visible;
     margin-bottom: 0;
-    gap: 20px;
+    gap: 0px;
 }
 
 [data-landing-demo] .controlsWrapper {
@@ -158,12 +158,121 @@
     max-width: 100%;
     min-width: 0;
     overflow: visible;
-    padding-top: 13px;
+}
+
+[data-landing-demo] .lp-demo-complete {
+    width: 100%;
+    height: clamp(480px, 52vw, 644px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    padding: 36px 28px;
+    border: 1px solid #334155;
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at top, rgba(244, 114, 182, 0.16), transparent 38%),
+        linear-gradient(180deg, #1e293b 0%, #182435 100%);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    text-align: center;
+}
+
+[data-landing-demo] .lp-demo-complete-card {
+    width: min(100%, 26rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+[data-landing-demo] .lp-demo-complete-kicker {
+    margin: 0;
+    color: #99f6e4;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.92;
+}
+
+[data-landing-demo] .lp-demo-complete-title {
+    margin: 0;
+    color: #22c55e;
+    font-size: clamp(1.5rem, 2.25vw, 1.95rem);
+    line-height: 1.12;
+    font-weight: 700;
+    text-wrap: balance;
+    max-width: 14ch;
+}
+
+[data-landing-demo] .lp-demo-complete-copy {
+    margin: 0;
+    max-width: 30ch;
+    color: rgba(226, 232, 240, 0.78);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+[data-landing-demo] .lp-demo-complete-button {
+    min-width: min(100%, 17rem);
+    min-height: 48px;
+    padding: 0.8rem 1.3rem;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+[data-landing-demo] .lp-demo-complete-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: min(100%, 18rem);
+}
+
+[data-landing-demo] .lp-demo-complete-button--primary {
+    width: 100%;
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #ff4d8d 0%, #ff8a6b 100%);
+    color: #fff7fb;
+    box-shadow: 0 10px 24px rgba(255, 77, 141, 0.22);
+}
+
+[data-landing-demo] .lp-demo-complete-button--secondary {
+    width: 100%;
+    background: rgba(244, 114, 182, 0.1);
+    border-color: rgba(244, 114, 182, 0.35);
+    color: #f9a8d4;
+}
+
+[data-landing-demo] .lp-demo-complete-button:hover {
+    transform: translateY(-1px);
+}
+
+[data-landing-demo] .lp-demo-complete-button--primary:hover {
+    background: linear-gradient(135deg, #ff5d98 0%, #ff9774 100%);
+}
+
+[data-landing-demo] .lp-demo-complete-button--secondary:hover {
+    background: rgba(244, 114, 182, 0.16);
+    border-color: rgba(244, 114, 182, 0.52);
+}
+
+[data-landing-demo] .lp-demo-complete-button:focus-visible {
+    outline: 2px solid rgba(153, 246, 228, 0.85);
+    outline-offset: 3px;
 }
 
 [data-landing-demo] .lp-demo-badge {
     position: absolute;
-    top: 13px;
+    top: 20px;
     left: 18px;
     z-index: 40;
     display: inline-flex;
@@ -406,6 +515,7 @@
     max-width: 100%;
     overflow: hidden;
     gap: 0;
+    padding: 0px 24px;
 }
 
 /* Demo: hereda estilos de tarjeta/controles de la app; solo ajustes de layout */
@@ -435,6 +545,10 @@
 
     [data-landing-demo] .controlsWrapper {
         margin-top: 18px !important;
+    }
+
+    [data-landing-demo] .lp-demo-complete {
+        height: clamp(480px, 40vw, 520px);
     }
 }
 

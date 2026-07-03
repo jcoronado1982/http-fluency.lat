@@ -1,4 +1,4 @@
-use crate::image_use_cases::ImageGenRequest;
+use crate::{image_use_cases::ImageGenRequest, safe_deck_prefix};
 use fluency_core::domain::models::flashcard::Flashcard;
 use std::collections::HashSet;
 use std::io::{stdout, Write};
@@ -131,7 +131,7 @@ async fn run_batch(
         }
 
         for deck_name in decks {
-            let deck_prefix = deck_name.replace(".json", "");
+            let deck_prefix = safe_deck_prefix(&deck_name)?;
             println!("  📦 Mazo: {deck_name}");
             let _ = stdout().flush();
 

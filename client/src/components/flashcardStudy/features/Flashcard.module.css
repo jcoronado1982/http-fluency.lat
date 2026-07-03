@@ -198,6 +198,29 @@
     margin-bottom: 10px;
 }
 
+.scrollableExamples {
+    min-height: 0;
+}
+
+.scrollableExamples ul {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.scrollableExamples ul::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollableExamples ul::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.45);
+    border-radius: 999px;
+}
+
+.scrollableExamples ul::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.35);
+    border-radius: 999px;
+}
+
 
 .allExamplesContainer ul {
     list-style-type: none;
@@ -483,7 +506,7 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     /* Línea más sutil */
     padding-bottom: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 
 .definitionBlockBack:last-child {
@@ -496,7 +519,8 @@
     font-weight: 400;
     color: #f0f0f0;
     /* Blanco para el texto principal */
-    margin-bottom: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     line-height: 1.4;
 }
 
@@ -574,11 +598,11 @@
     font-size: 1.2em;
     font-style: normal;
     color: #cccccc;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     background: rgba(255, 255, 255, 0.05);
     /* Fondo sutil para separar */
-    padding: 8px 12px;
+    padding: 6px 12px;
     border-radius: 8px;
     display: inline-block;
 }
@@ -1183,7 +1207,7 @@
     }
 
     :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer ul {
-        gap: 2px !important;
+        gap: 0px !important;
     }
 
     :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer li,
@@ -1457,8 +1481,8 @@
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin: 10px auto;
-    padding: 10px;
+    margin: 5px auto;
+    padding: 10px 10px 5px 10px;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -1692,7 +1716,7 @@
 
 :global([data-landing-demo]) .cardFront,
 :global([data-landing-demo]) .cardBack {
-    padding: 14px 16px 14px !important;
+    padding: 20px 16px 14px  !important;
     border: 1px solid #334155 !important;
     border-radius: 24px !important;
     background: #1e293b !important;
@@ -1701,16 +1725,21 @@
 }
 
 :global([data-landing-demo]) .phonetic {
-    margin-bottom: 10px !important;
+    margin-bottom: 0px !important;
 }
 
 :global([data-landing-demo]) .allExamplesContainer {
-    margin-top: 4px !important;
-    margin-bottom: 4px !important;
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
 }
 
 :global([data-landing-demo]) .allExamplesContainer ul {
     gap: 2px !important;
+}
+
+:global([data-landing-demo]) .scrollableExamples ul {
+    max-height: 12rem;
+    padding-right: 6px;
 }
 
 :global([data-landing-demo]) .allExamplesContainer li,
@@ -1719,7 +1748,7 @@
 }
 
 :global([data-landing-demo]) .imagePlaceholder {
-    margin: 6px 0 0 !important;
+    margin: 2px 0 0 !important;
     flex: 1 1 0 !important;
     height: auto !important;
     min-height: 160px !important;
@@ -1770,7 +1799,7 @@
     perspective: none;
     width: 100%;
     max-width: 100%;
-    height: clamp(480px, 52vw, 600px);
+    height: clamp(480px, 52vw, 644px);
     min-height: 460px;
     border-radius: 24px;
 }
@@ -1814,7 +1843,7 @@
         min-height: 0 !important;
         font-size: clamp(1.75rem, 6.6vw, 2.15rem) !important;
         text-align: center !important;
-        padding: 10px 0 !important;
+        padding: 2px 0 !important;
     }
 
     :global([data-landing-demo]) .wordHeader {
@@ -1855,11 +1884,20 @@
     :global([data-landing-demo]) .soundButton {
         margin-left: 0 !important;
         margin-top: 0 !important;
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    :global([data-landing-demo]) .soundButton svg {
+        width: 20px !important;
+        height: 20px !important;
+        min-width: 20px !important;
+        min-height: 20px !important;
     }
 
     :global([data-landing-demo]) .conjugationTable {
         margin: 4px auto 8px !important;
-        padding: 6px 4px !important;
+        padding: 6px 4px 1px 4px !important;
         gap: 4px !important;
         width: 100% !important;
         max-width: 100% !important;
@@ -1867,7 +1905,7 @@
     }
 
     :global([data-landing-demo]) .conjugationItem {
-        padding: 6px 4px !important;
+        padding: 3px 0px !important;
         border-radius: 10px !important;
     }
 
@@ -1887,27 +1925,85 @@
 :global([data-landing-demo]) .imagePlaceholder {
     width: 100% !important;
     height: auto !important;
-        flex: 1 1 auto !important;
-        min-height: 190px !important;
-        max-height: 260px !important;
-        margin: 8px auto 10px !important;
-        border-radius: 18px !important;
-    }
+    flex: 1 1 auto !important;
+    min-height: 180px !important;
+    max-height: 240px !important;
+    margin: 6px 0 8px !important;
+    border-radius: 18px !important;
+}
 
-    :global([data-landing-demo]) .allExamplesContainer {
-        margin-top: 4px !important;
-        margin-bottom: 4px !important;
-    }
+:global([data-landing-demo]) .allExamplesContainer {
+    margin-top: 4px !important;
+    margin-bottom: 10px !important;
+}
 
-    :global([data-landing-demo]) .allExamplesContainer li,
-    :global([data-landing-demo]) .exampleRow {
-        padding: 4px 6px !important;
-        gap: 8px !important;
-    }
+:global([data-landing-demo]) .scrollableExamples ul {
+    max-height: 7rem;
+    padding-right: 4px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
 
-    :global([data-landing-demo]) .allExamplesContainer li div span {
-        font-size: 1.5rem !important;
-    }
+:global([data-landing-demo]) .scrollableExamples ul::-webkit-scrollbar {
+    display: none;
+}
+
+:global([data-landing-demo]) .allExamplesContainer li,
+:global([data-landing-demo]) .exampleRow {
+    padding: 0 !important;
+    gap: 8px !important;
+}
+
+:global([data-landing-demo]) .examplePlayBtn {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+:global([data-landing-demo]) .examplePlayBtn svg {
+    width: 19px !important;
+    height: 19px !important;
+    min-width: 19px !important;
+    min-height: 19px !important;
+}
+
+:global([data-landing-demo]) .allExamplesContainer li div span {
+    font-size: 1.35rem !important;
+    line-height: 1.3 !important;
+}
+
+:global([data-landing-demo]) .definitionBlockBack {
+    padding-bottom: 14px !important;
+}
+
+:global([data-landing-demo]) .meaningSentence {
+    font-size: 1.08rem !important;
+    line-height: 1.35 !important;
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+}
+
+:global([data-landing-demo]) .usageExampleEn {
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 6px !important;
+}
+
+:global([data-landing-demo]) .usageExampleEs {
+    font-size: 0.88rem !important;
+    line-height: 1.35 !important;
+}
+
+:global([data-landing-demo]) .alternativeExample {
+    font-size: 0.9rem !important;
+    line-height: 1.35 !important;
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+    padding: 5px 10px !important;
+}
+
+:global([data-landing-demo]) .conjugationAudioBtn {
+    display: none !important;
+}
 }
 
 :global([data-landing-demo]) .phoneticRow,

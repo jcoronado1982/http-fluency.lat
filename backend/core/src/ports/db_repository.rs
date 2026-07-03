@@ -1,6 +1,6 @@
 use crate::domain::models::story::{ProgressUpdate, StoryScreen, UserProgress};
 use crate::domain::models::subscription::Subscription;
-use crate::domain::models::user::User;
+use crate::domain::models::user::{CatalogPreferences, User};
 use crate::domain::models::user_activity::{ClientInfo, LearningStats, UserActivityStats};
 use anyhow::Result;
 use async_trait::async_trait;
@@ -10,6 +10,11 @@ pub trait UserRepository: Send + Sync {
     async fn get_user_by_email(&self, email: &str) -> Result<Option<User>>;
     async fn upsert_user(&self, user: User) -> Result<User>;
     async fn set_onboarding_completed(&self, email: &str, completed: bool) -> Result<Option<User>>;
+    async fn update_catalog_preferences(
+        &self,
+        email: &str,
+        preferences: Option<CatalogPreferences>,
+    ) -> Result<Option<User>>;
     async fn list_all_users(&self) -> Result<Vec<User>>;
 }
 
@@ -61,7 +66,13 @@ pub trait CardProgressRepository: Send + Sync {
         deck: &str,
     ) -> Result<Vec<i32>>;
     async fn reset_card_progress(&self, user_id: &str, category: &str, deck: &str) -> Result<()>;
+    async fn reset_category_progress(&self, user_id: &str, category: &str) -> Result<()>;
     async fn count_learned_cards(&self, user_id: &str) -> Result<i32>;
+    async fn count_learned_cards_by_deck_prefix(
+        &self,
+        user_id: &str,
+        deck_prefix: &str,
+    ) -> Result<i32>;
 
     /// Guarda el estado de múltiples tarjetas en una sola operación.
     /// Reduce N peticiones HTTP a 1 cuando el frontend hace flush del lote.

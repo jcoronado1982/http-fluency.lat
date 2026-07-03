@@ -1,10 +1,12 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
 import { getPublicEntryPathForConfig } from '../modules';
 import { authRepository } from '../repositories/AuthRepository';
 import { httpClient } from '../services/httpClient';
 import { usePresence } from '../hooks/usePresence';
+import { writeCatalogPreferencesCache } from '../modules/flashcards/config/catalogPreferences';
+import { resetFlashcardPreload } from '../modules/flashcards/preload';
 import { shouldShowOnboarding, markOnboardingDone, resolveOnboardingCompleted } from '../utils/onboardingStorage';
 
 const AuthContext = createContext();
@@ -29,7 +31,7 @@ export const AuthProvider = ({ children }) => {
             return;
         }
 
-        setUser(authData.user);
+        setUser({ ...authData.user, catalog_preferences: null });
         setLoadingStage('syncing_session');
 
         httpClient.get('/api/auth/me')
@@ -42,7 +44,10 @@ export const AuthProvider = ({ children }) => {
                     ...authData.user,
                     role: me.effective_role || authData.user.role,
                     onboarding_completed: onboardingCompleted,
+                    catalog_preferences: me.catalog_preferences ?? null,
                 };
+                writeCatalogPreferencesCache(nextUser.email, nextUser.catalog_preferences);
+                resetFlashcardPreload(nextUser.email);
                 authRepository.saveAuthData({ token: authData.token, user: nextUser });
                 setUser(nextUser);
 
@@ -75,7 +80,10 @@ export const AuthProvider = ({ children }) => {
                     data.user,
                     me.onboarding_completed === true,
                 ),
+                catalog_preferences: me.catalog_preferences ?? null,
             };
+            writeCatalogPreferencesCache(syncedUser.email, syncedUser.catalog_preferences);
+            resetFlashcardPreload(syncedUser.email);
             const next = { ...data, user: syncedUser };
             authRepository.saveAuthData(next);
             setUser(syncedUser);
@@ -94,8 +102,13 @@ export const AuthProvider = ({ children }) => {
         try {
             const data = await authRepository.loginAsDevGuest();
             if (data.success) {
-                authRepository.saveAuthData(data);
-                setUser(data.user);
+                const guestData = {
+                    ...data,
+                    user: { ...data.user, catalog_preferences: null },
+                };
+                resetFlashcardPreload(guestData.user.email);
+                authRepository.saveAuthData(guestData);
+                setUser(guestData.user);
             }
             return data;
         } catch (err) {
@@ -107,6 +120,7 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         httpClient.post('/api/presence/leave', {}).catch(() => {});
         authRepository.logout();
+        resetFlashcardPreload();
         setUser(null);
         navigate(getPublicEntryPathForConfig(config), { replace: true });
     };
@@ -139,6 +153,38 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const updateCatalogPreferences = useCallback(async (catalogPreferences) => {
+        if (!user?.email) return null;
+
+        const authData = authRepository.getAuthData();
+        const normalizedPreferences = catalogPreferences ?? null;
+        const optimisticUser = { ...user, catalog_preferences: normalizedPreferences };
+        writeCatalogPreferencesCache(user.email, normalizedPreferences);
+        if (authData?.token) {
+            authRepository.saveAuthData({ token: authData.token, user: optimisticUser });
+        }
+        setUser(optimisticUser);
+
+        try {
+            const response = await httpClient.post('/api/auth/catalog-preferences', {
+                catalog_preferences: normalizedPreferences,
+            });
+            const syncedUser = response?.user
+                ? { ...optimisticUser, ...response.user }
+                : optimisticUser;
+            writeCatalogPreferencesCache(syncedUser.email || user.email, syncedUser.catalog_preferences ?? null);
+            resetFlashcardPreload(syncedUser.email || user.email);
+            if (authData?.token) {
+                authRepository.saveAuthData({ token: authData.token, user: syncedUser });
+            }
+            setUser(syncedUser);
+            return syncedUser;
+        } catch (err) {
+            console.warn('No se pudo sincronizar catalog_preferences con el servidor:', err);
+            return optimisticUser;
+        }
+    }, [user]);
+
     const role = user?.role ?? 'viewer';
     const isPremium = role === 'premium' || role === 'admin';
     const isAdmin = role === 'admin';
@@ -157,6 +203,7 @@ export const AuthProvider = ({ children }) => {
         canCustomizeImages: isPremium,
         onboardingRequired,
         completeOnboarding,
+        updateCatalogPreferences,
         shouldShowOnboarding,
     };
 

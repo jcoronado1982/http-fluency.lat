@@ -12,13 +12,23 @@ import { useAuth } from '../../../context/AuthContext';
 function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionMedia, deleteAudio, activeAudioText, highlightedWordIndex, isDisabled, isGeneratingAudio, currentLanguage }) {
     const { user } = useAuth();
     const isAdmin = user?.role === 'admin';
+    const visibleDefinitions = (definitions || []).filter((def) => {
+        const exampleText = isLearningEnglish(currentLanguage)
+            ? def.usage_example
+            : def.usage_example_es;
+
+        return Boolean(exampleText?.trim());
+    });
+    const shouldScrollExamples = visibleDefinitions.length > 3;
     const handleRotateVoice = (e, text, lang = getAudioLang(currentLanguage)) => {
         e.stopPropagation();
         deleteAudio(text, lang);
     };
 
     return (
-        <div className={styles.allExamplesContainer}>
+        <div
+            className={`${styles.allExamplesContainer} ${shouldScrollExamples ? styles.scrollableExamples : ''}`}
+        >
             <ul>
                 {definitions?.map((def, di) => {
                     const exampleText = isLearningEnglish(currentLanguage)

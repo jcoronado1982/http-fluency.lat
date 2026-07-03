@@ -434,8 +434,9 @@ export function useImageGeneration({
         };
 
         if (!forceRegenerate) {
-            // Si la tarjeta ya trae imagePath, pintamos directo sin esperar roundtrip extra.
-            if (tryImmediateJsonPath(pipelineForm)) return;
+            // En la app normal, imagePath del JSON apunta a assets ya sembrados y evita roundtrips.
+            // En landing-demo puede ser solo la ruta esperada; hay que verificar/generar si falta.
+            if (!isLandingDemo && tryImmediateJsonPath(pipelineForm)) return;
             // Con auth: resolver v2/v3 en Oracle antes de reutilizar imagePath v1 del JSON.
             if (!isLandingDemo && isAuthenticated && pipelineForm !== 'v1') {
                 if (await tryResolveForm(pipelineForm)) return;

@@ -147,7 +147,9 @@ pub async fn generate_image(
         if scene.len() > MAX_SCENE_COMPLEMENT_LEN {
             return Err((
                 StatusCode::BAD_REQUEST,
-                format!("scene_complement supera el límite de {MAX_SCENE_COMPLEMENT_LEN} caracteres"),
+                format!(
+                    "scene_complement supera el límite de {MAX_SCENE_COMPLEMENT_LEN} caracteres"
+                ),
             ));
         }
     }

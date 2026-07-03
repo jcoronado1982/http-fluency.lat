@@ -23,7 +23,7 @@
 use super::context::BatchFilter;
 use super::context::BatchSettings;
 use crate::audio_use_cases::{AudioSynthRequest, AudioUseCases};
-use crate::DeckUseCases;
+use crate::{safe_deck_prefix, DeckUseCases};
 use fluency_core::domain::models::flashcard::Flashcard;
 use std::collections::HashSet;
 use std::io::{stdout, Write};
@@ -141,7 +141,7 @@ async fn run_batch_audio(
         }
 
         for deck_name in decks {
-            let deck_id = deck_name.replace(".json", "");
+            let deck_id = safe_deck_prefix(&deck_name)?;
             println!("  📦 Mazo: {deck_id}");
             let _ = stdout().flush();
 
@@ -220,6 +220,7 @@ async fn run_batch_audio(
 
 enum SynthOutcome {
     Generated(String),
+    Reused(String),
     Skipped(String),
 }
 
@@ -253,11 +254,17 @@ async fn process_one_item(
 ) {
     match synthesize_shared_global(batch_audio, file_index, req).await {
         Ok(SynthOutcome::Generated(voice)) => {
-            println!("... ✨ GENERADO (voz={voice})");
+            println!("... ✨ GENERADO AHORA (uso API, voz={voice})");
             stats.generated += 1;
         }
+        Ok(SynthOutcome::Reused(voice)) => {
+            println!(
+                "... ♻️  ENCONTRADO SIN API (archivo ya existente por compatibilidad, voz={voice})"
+            );
+            stats.reused += 1;
+        }
         Ok(SynthOutcome::Skipped(voice)) => {
-            println!("... ⏭️  YA EXISTÍA (voz={voice})");
+            println!("... ⏭️  YA ESTABA GENERADO (sin usar API, voz={voice})");
             stats.skipped += 1;
         }
         Err(e) => {
@@ -308,6 +315,14 @@ async fn synthesize_shared_global(
     let result = batch_audio
         .get_or_synthesize_audio(req, "batch", "admin")
         .await?;
+
+    if result.from_cache {
+        return Ok(SynthOutcome::Reused(if result.voice_name.is_empty() {
+            "cache".into()
+        } else {
+            result.voice_name
+        }));
+    }
 
     file_index.insert(basename);
     Ok(SynthOutcome::Generated(result.voice_name))
@@ -429,9 +444,22 @@ fn append_failure_log(path: &str, failure: &AudioBatchFailure) -> std::io::Resul
 fn print_summary(global_counter: usize, stats: &BatchAudioStats, failures_log: &str) {
     println!("\n========================================================");
     println!("✨ BATCH AUDIO EN COMPLETADO (entradas: {global_counter})");
-    println!("   Generados:   {}", stats.generated);
-    println!("   Ya existían: {}", stats.skipped);
-    println!("   NO creados:  {}", stats.errors);
+    println!(
+        "   Generados ahora (si uso API):                {}",
+        stats.generated
+    );
+    println!(
+        "   Encontrados sin API (compatibilidad):        {}",
+        stats.reused
+    );
+    println!(
+        "   Ya estaban generados (sin usar API):         {}",
+        stats.skipped
+    );
+    println!(
+        "   No creados:                                  {}",
+        stats.errors
+    );
 
     if stats.failures.is_empty() {
         println!("   ✅ Todos los audios solicitados existen o se generaron.");
@@ -474,6 +502,7 @@ struct AudioBatchFailure {
 #[derive(Default)]
 struct BatchAudioStats {
     generated: usize,
+    reused: usize,
     skipped: usize,
     errors: usize,
     failures: Vec<AudioBatchFailure>,
@@ -656,7 +685,8 @@ mod tests {
 
     #[test]
     fn batch_deck_id_matches_frontend_without_json_suffix() {
-        assert_eq!("1-basic.json".replace(".json", ""), "1-basic");
+        assert_eq!(safe_deck_prefix("1-basic.json").unwrap(), "1-basic");
+        assert_eq!(safe_deck_prefix("1-basic/action.json").unwrap(), "1-basic");
     }
 
     #[test]
