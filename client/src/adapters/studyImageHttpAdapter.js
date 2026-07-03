@@ -70,14 +70,13 @@ export function createImageHttpAdapter(http) {
         return `/card_images/${category}/${deckPrefix}/${deckPrefix}_card_${index}_def${defIndex}${formSuffix}.avif`;
     },
 
-    // Normaliza paths legacy (.jpg/.png) al AVIF optimizado que realmente existe en storage.
+    // Normaliza solo quitando query params; preserva la extensión real del asset.
     normalizeToAvif: (path) => {
         if (!path) return path;
-        if (path.endsWith('.avif')) return path.split('?')[0];
-        return path.replace(/\.(png|jpg|jpeg|webp)$/i, '.avif').split('?')[0];
+        return path.split('?')[0];
     },
 
-    // Construye URL absoluta dado un path relativo AVIF.
+    // Construye URL absoluta dado un path relativo de imagen.
     // forceCacheBust se usa solo al generar o subir una nueva imagen para saltar la caché.
     buildUrl: (path, forceCacheBust = false) => {
         if (!path) return null;

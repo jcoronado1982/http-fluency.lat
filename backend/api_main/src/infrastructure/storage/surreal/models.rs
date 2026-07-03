@@ -1,5 +1,5 @@
-use crate::domain::models::user::CatalogPreferences;
 use crate::domain::models::story::StoryScreen;
+use crate::domain::models::user::CatalogPreferences;
 use crate::domain::models::user::User;
 use serde::Deserialize;
 use surrealdb::sql::{Datetime, Thing};

@@ -152,6 +152,12 @@ main,
     padding: 14px var(--shell-content-inline-padding, 32px);
 }
 
+@media (max-width: 719px) {
+    .lp-nav-inner {
+        gap: 15px;
+    }
+}
+
 .lp-brand {
     display: inline-flex;
     align-items: center;

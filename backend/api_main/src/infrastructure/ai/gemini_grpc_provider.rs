@@ -394,7 +394,9 @@ Output ONLY the final scene description (60-85 words) in English."#;
         };
 
         let greeting = user_name
-            .map(|name| format!("Saluda al usuario por su nombre ({name}) solo en event=enter y paso 1."))
+            .map(|name| {
+                format!("Saluda al usuario por su nombre ({name}) solo en event=enter y paso 1.")
+            })
             .unwrap_or_default();
 
         let system = format!(
@@ -435,7 +437,11 @@ RESPONDE SOLO JSON: {{"message":"..."}}"#,
         self.call(
             &system,
             &user,
-            if event == "wrong_tap" || event == "state_timeout" { 0.35 } else { 0.5 },
+            if event == "wrong_tap" || event == "state_timeout" {
+                0.35
+            } else {
+                0.5
+            },
             "gemini-3.1-flash-lite",
             Some("application/json"),
         )

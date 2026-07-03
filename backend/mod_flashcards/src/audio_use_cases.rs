@@ -260,7 +260,8 @@ impl AudioUseCases {
 
         if demo_elevenlabs {
             let (label, id) = self.pick_random_elevenlabs_voice(req.exclude_voice.as_deref());
-            let file_name = self.deterministic_audio_filename(req, user_segment.as_deref(), true)?;
+            let file_name =
+                self.deterministic_audio_filename(req, user_segment.as_deref(), true)?;
             let blob_path = format!("{}/{}", self.config.gcs_audio_prefix, file_name);
 
             match self

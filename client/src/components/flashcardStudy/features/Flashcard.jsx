@@ -120,7 +120,7 @@ function Flashcard() {
     }, [ensureImageForDefinition, cardData, activeForm]);
 
     const prefetchCardAudio = useCallback((card) => {
-        if (!card || isAnyOverlayOpen) return;
+        if (!card || isAnyOverlayOpen || isLandingDemo) return;
 
         const defs = getDefinitionsForForm(card, 'v1');
         const title = getCardTitle({
@@ -135,7 +135,7 @@ function Flashcard() {
             const exampleText = cardLanguage === 'en' ? def.usage_example : def.usage_example_es;
             if (exampleText) void prefetchAudio(exampleText, audioLang, cardVerbName);
         });
-    }, [cardLanguage, isAnyOverlayOpen, prefetchAudio]);
+    }, [cardLanguage, isAnyOverlayOpen, isLandingDemo, prefetchAudio]);
 
     useEffect(() => {
         if (!cardData) return;

@@ -114,7 +114,11 @@ impl CardProgressRepository for SurrealCardProgressRepository {
                 "card_progress:['{}', '{}', '{}', {}]",
                 user_id, category, deck, card_index
             );
-            let learned_at = if learned { Some(chrono::Utc::now()) } else { None };
+            let learned_at = if learned {
+                Some(chrono::Utc::now())
+            } else {
+                None
+            };
             self.0
                 .db
                 .query(

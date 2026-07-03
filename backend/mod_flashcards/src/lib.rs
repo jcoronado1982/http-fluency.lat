@@ -233,7 +233,9 @@ impl DeckUseCases {
     }
 
     pub async fn reset_category_status(&self, user_id: &str, category: &str) -> Result<()> {
-        self.db_repo.reset_category_progress(user_id, category).await
+        self.db_repo
+            .reset_category_progress(user_id, category)
+            .await
     }
 
     pub async fn get_phonics_data(&self) -> Result<serde_json::Value> {
@@ -301,7 +303,11 @@ impl DeckUseCases {
         let mut total = 0_i32;
 
         for category in categories {
-            let decks = self.storage_repo.list_decks(&category).await.unwrap_or_default();
+            let decks = self
+                .storage_repo
+                .list_decks(&category)
+                .await
+                .unwrap_or_default();
             for deck in decks {
                 if !deck.starts_with(deck_prefix) {
                     continue;
@@ -375,7 +381,11 @@ impl DeckUseCases {
                 premium: false,
             });
         let level_percent = if current.target_count <= 0 {
-            if current.completed { 100 } else { 0 }
+            if current.completed {
+                100
+            } else {
+                0
+            }
         } else {
             ((current.mastered_count as f64 / current.target_count as f64) * 100.0).round() as i32
         };

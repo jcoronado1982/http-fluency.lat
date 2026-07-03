@@ -258,7 +258,9 @@ async fn process_one_item(
             stats.generated += 1;
         }
         Ok(SynthOutcome::Reused(voice)) => {
-            println!("... ♻️  ENCONTRADO SIN API (archivo ya existente por compatibilidad, voz={voice})");
+            println!(
+                "... ♻️  ENCONTRADO SIN API (archivo ya existente por compatibilidad, voz={voice})"
+            );
             stats.reused += 1;
         }
         Ok(SynthOutcome::Skipped(voice)) => {
@@ -442,10 +444,22 @@ fn append_failure_log(path: &str, failure: &AudioBatchFailure) -> std::io::Resul
 fn print_summary(global_counter: usize, stats: &BatchAudioStats, failures_log: &str) {
     println!("\n========================================================");
     println!("✨ BATCH AUDIO EN COMPLETADO (entradas: {global_counter})");
-    println!("   Generados ahora (si uso API):                {}", stats.generated);
-    println!("   Encontrados sin API (compatibilidad):        {}", stats.reused);
-    println!("   Ya estaban generados (sin usar API):         {}", stats.skipped);
-    println!("   No creados:                                  {}", stats.errors);
+    println!(
+        "   Generados ahora (si uso API):                {}",
+        stats.generated
+    );
+    println!(
+        "   Encontrados sin API (compatibilidad):        {}",
+        stats.reused
+    );
+    println!(
+        "   Ya estaban generados (sin usar API):         {}",
+        stats.skipped
+    );
+    println!(
+        "   No creados:                                  {}",
+        stats.errors
+    );
 
     if stats.failures.is_empty() {
         println!("   ✅ Todos los audios solicitados existen o se generaron.");

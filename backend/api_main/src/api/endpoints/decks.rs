@@ -83,11 +83,7 @@ pub async fn update_cards_batch(
             format!("El lote no puede superar {} tarjetas", MAX_BATCH),
         ));
     }
-    let pairs: Vec<(usize, bool)> = payload
-        .cards
-        .iter()
-        .map(|c| (c.index, c.learned))
-        .collect();
+    let pairs: Vec<(usize, bool)> = payload.cards.iter().map(|c| (c.index, c.learned)).collect();
     match state
         .deck_use_cases
         .update_cards_batch(&payload.user_id, &payload.category, &payload.deck, &pairs)

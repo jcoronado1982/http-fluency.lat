@@ -253,10 +253,8 @@ export function useAudioPlayback({
         sessionCacheRef.current.set(key, { resolvedUrl, voiceName, blobUrl: null });
 
         if (data.from_cache && !forceRegenerate) {
-            const warmed = await warmSessionCache(key, resolvedUrl, voiceName);
-            if (warmed?.blobUrl) {
-                return { playbackUrl: warmed.blobUrl, voiceName, fromCache: true };
-            }
+            // No bloqueamos la reproducción esperando el blob completo.
+            void warmSessionCache(key, resolvedUrl, voiceName);
         }
 
         return { playbackUrl: resolvedUrl, voiceName, fromCache: !!data.from_cache };

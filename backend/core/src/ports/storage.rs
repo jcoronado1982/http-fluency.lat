@@ -17,6 +17,8 @@ pub trait StorageRepository: Send + Sync {
         content_type: &str,
     ) -> Result<()>;
     async fn blob_exists(&self, blob_path: &str) -> Result<bool>;
+    /// Versión estable del blob para cache-busting/ETag (p. ej. mtime).
+    async fn blob_version(&self, blob_path: &str) -> Result<Option<String>>;
     async fn find_blob_by_prefix(&self, prefix: &str) -> Result<Option<String>>;
     async fn delete_blob(&self, blob_path: &str) -> Result<()>;
     /// Mueve/renombra un blob (p. ej. archivar audio activo sin borrarlo).
