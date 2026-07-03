@@ -1,94 +1,25 @@
-# System Files
-.DS_Store
-Thumbs.db
-*.log
-*.tmp
-
-# Backup files (all variants)
-*.bak
-*.bak.*
-*.bak[0-9]
-*.bak[0-9][0-9]
-*.old
-*.orig
-
-# Environment and Secrets
-.env
-.env.*
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-!.env.example
-credentials.json
-key.json
+backend/credentials.json
+backend/*.service-account.json
+backend/.env
+client/.env.development.local
+client/.env.production.local
 *.pem
 *.key
-*.p12
-*.pfx
-*.cert
-*.crt
-id_rsa*
-id_ed25519*
-auth.json
-secrets.json
-gcp-deploy-key.json
 SECRETS_MAP.md
-schema.sql
-data.sql
-
-# Python / Backend
-__pycache__/
-*.py[cod]
-*$py.class
-venv/
-.venv/
+**/.env
+**/__pycache__/
 backend/target/
-infra/mcp-server/target/
-backend/scratch/
-backend/.env
-backend/credentials.json
-
-# Node / Frontend / Client
-node_modules/
-client/node_modules/
-client/dist/
-client/.next/
-client/.turbo/
-client/out/
-.parcel-cache/
-.cache/
-
-# Assets (Local overrides/backups)
-backend/card_audio/
-backend/card_images/adjectives/
-backend/card_images/adverbs/
-backend/card_images/determinant/
-backend/card_images/get/
-backend/card_images/nouns/
-backend/card_images/phrasal_verbs/
-backend/card_images/preposition/
-backend/card_images/pronouns/
-backend/card_images/verbs/
-# (Keep generated_comfy and custom_generated as they might be needed for local dev, 
-# but usually large assets should be ignored if they are huge)
-backend/voices.json
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# IDEs
-.vscode/
-.idea/
-*.swp
-*.swo
-infra/backups/images/
 surreal_data/
-scratch/*.json
-scratch/*.py
-
-# Local test artifacts (no subir al repo)
-test.avif
-**/test/
+backup_json/
+batch_audio_failures.log
+data.sql
+azure-pipelines.yml.bak
+img/Determinant.png
+img/Phrasal Verbs.png
+img/adjectives.png
+img/adverb.png
+img/connectors.png
+img/nouns.png
+img/prenouns.png
+img/prepositions.png
+img/verbs.png
