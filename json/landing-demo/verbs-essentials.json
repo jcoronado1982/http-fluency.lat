@@ -339,6 +339,39 @@
         "usage_context_es": "llegada/viaje",
         "usage_example": "We get home late.",
         "usage_example_es": "Llegamos tarde a casa."
+      },
+      {
+        "alternative_example": "I am getting tired.",
+        "char_count": "one",
+        "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def2.avif",
+        "meaning": "Ponerse / Hacerse (cambio de estado)",
+        "pronunciation_guide_es": "/its_GETin_LEIT/",
+        "usage_context_en": "state change/emotions",
+        "usage_context_es": "cambio de estado/emociones",
+        "usage_example": "It is getting late.",
+        "usage_example_es": "Se está haciendo tarde."
+      },
+      {
+        "alternative_example": "Oh, I get it now.",
+        "char_count": "one",
+        "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def3.avif",
+        "meaning": "Entender / Comprender",
+        "pronunciation_guide_es": "/ai_DONT_GET_it/",
+        "usage_context_en": "comprehension/understanding",
+        "usage_context_es": "comprensión/entendimiento",
+        "usage_example": "I don't get it.",
+        "usage_example_es": "No lo entiendo."
+      },
+      {
+        "alternative_example": "I will get my jacket.",
+        "char_count": "one",
+        "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def4.avif",
+        "meaning": "Traer / Ir a buscar",
+        "pronunciation_guide_es": "/kan_iu_GET_mi_a_PEN/",
+        "usage_context_en": "bringing/fetching",
+        "usage_context_es": "traer/ir a buscar",
+        "usage_example": "Can you get me a pen?",
+        "usage_example_es": "¿Me puedes traer un bolígrafo?"
       }
     ],
     "force_generation": false,

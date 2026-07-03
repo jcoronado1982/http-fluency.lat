@@ -15,7 +15,7 @@ import { useFlashcardContext } from './context/FlashcardContext';
 import { getCategoryDisplayName, getGroupDisplayName, getProgressLabel } from './features/categoryDisplay';
 import { getNextStudyStep } from './config/catalogOrder';
 import { getCategoryOrderPreference, getGroupOrderPreference } from './config/catalogPreferences';
-import { navigationIntentRef } from './navigationIntent';
+import { navigationIntentRef, markInitialNavigation } from './navigationIntent';
 import { formatDeckCategoryName, getLevelFromDeckName, usesNestedLevelDecks } from './useCases/deckUseCases';
 import { flashcardPort, audioPort, imagePort, imageCompressionService } from './composition';
 import {
@@ -284,12 +284,18 @@ export default function FlashcardPage() {
     }, [recommendation, setIsCatalogVisible, setSelectedGroup, changeDeck, changeCategory]);
 
     const autoAdvancedRef = useRef(false);
+    const dashboardResumeRef = useRef(false);
+
+    useEffect(() => {
+        if (location.state?.resumeSession) {
+            dashboardResumeRef.current = true;
+        }
+    }, []);
 
     useEffect(() => {
         autoAdvancedRef.current = false;
     }, [currentCategory, currentDeckName, selectedGroup]);
 
-    // Solo auto-avanzar tras completar el mazo en esta sesión (evita bucle al abrir decks ya aprendidos).
     useEffect(() => {
         if (!justCompletedInSession) return;
         if (navigationIntentRef.current === 'user') return;
@@ -299,12 +305,26 @@ export default function FlashcardPage() {
 
         autoAdvancedRef.current = true;
         handleContinueRecommendation();
+        markInitialNavigation();
     }, [
         justCompletedInSession,
         shouldShowLoading,
         isCompletionVisible,
         handleContinueRecommendation,
     ]);
+
+    useEffect(() => {
+        if (!dashboardResumeRef.current) return;
+        if (shouldShowLoading) return;
+        if (justCompletedInSession) { dashboardResumeRef.current = false; return; }
+        if (!isCompletionVisible) { dashboardResumeRef.current = false; return; }
+        if (autoAdvancedRef.current) return;
+
+        dashboardResumeRef.current = false;
+        autoAdvancedRef.current = true;
+        handleContinueRecommendation();
+        markInitialNavigation();
+    }, [isCompletionVisible, shouldShowLoading, justCompletedInSession, handleContinueRecommendation]);
 
     return (
         <StudyMediaProvider

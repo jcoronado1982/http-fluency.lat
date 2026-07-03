@@ -145,7 +145,7 @@
     min-width: 0;
     overflow: visible;
     margin-bottom: 0;
-    gap: 20px;
+    gap: 0px;
 }
 
 [data-landing-demo] .controlsWrapper {
@@ -158,12 +158,11 @@
     max-width: 100%;
     min-width: 0;
     overflow: visible;
-    padding-top: 13px;
 }
 
 [data-landing-demo] .lp-demo-badge {
     position: absolute;
-    top: 13px;
+    top: 20px;
     left: 18px;
     z-index: 40;
     display: inline-flex;
@@ -406,6 +405,7 @@
     max-width: 100%;
     overflow: hidden;
     gap: 0;
+    padding: 0px 24px;
 }
 
 /* Demo: hereda estilos de tarjeta/controles de la app; solo ajustes de layout */

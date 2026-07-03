@@ -1183,7 +1183,7 @@
     }
 
     :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer ul {
-        gap: 2px !important;
+        gap: 0px !important;
     }
 
     :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer li,
@@ -1457,8 +1457,8 @@
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin: 10px auto;
-    padding: 10px;
+    margin: 5px auto;
+    padding: 10px 10px 5px 10px;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -1701,12 +1701,12 @@
 }
 
 :global([data-landing-demo]) .phonetic {
-    margin-bottom: 10px !important;
+    margin-bottom: 0px !important;
 }
 
 :global([data-landing-demo]) .allExamplesContainer {
-    margin-top: 4px !important;
-    margin-bottom: 4px !important;
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
 }
 
 :global([data-landing-demo]) .allExamplesContainer ul {
@@ -1719,7 +1719,7 @@
 }
 
 :global([data-landing-demo]) .imagePlaceholder {
-    margin: 6px 0 0 !important;
+    margin: 2px 0 0 !important;
     flex: 1 1 0 !important;
     height: auto !important;
     min-height: 160px !important;
@@ -1770,7 +1770,7 @@
     perspective: none;
     width: 100%;
     max-width: 100%;
-    height: clamp(480px, 52vw, 600px);
+    height: clamp(480px, 52vw, 644px);
     min-height: 460px;
     border-radius: 24px;
 }
