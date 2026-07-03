@@ -385,19 +385,71 @@
         "form": "got",
         "phonetic": "/ɡɒt/",
         "spoken_phonetic_us": "/ɡɑːt/",
-        "usage_example": "I got a new car last week.",
-        "usage_example_es": "Conseguí un coche nuevo la semana pasada.",
-        "pronunciation_guide_es": "/ai_GOT_a_niu_KAR_last_uik/",
-        "meaning": "Pasado de conseguir/obtener"
+        "definitions": [
+          {
+            "usage_example": "I got a new car last week.",
+            "usage_example_es": "Conseguí un coche nuevo la semana pasada.",
+            "pronunciation_guide_es": "/ai_GOT_a_niu_KAR_last_uik/",
+            "meaning": "Pasado de Conseguir",
+            "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def0_v2.avif"
+          },
+          {
+            "usage_example": "We got home very late.",
+            "usage_example_es": "Llegamos a casa muy tarde.",
+            "pronunciation_guide_es": "/ui_GOT_joum_veri_LEIT/",
+            "meaning": "Pasado de Llegar",
+            "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def1_v2.avif"
+          },
+          {
+            "usage_example": "I got tired after work.",
+            "usage_example_es": "Me cansé después del trabajo.",
+            "pronunciation_guide_es": "/ai_GOT_TAIard_after_UORK/",
+            "meaning": "Pasado de Ponerse (estado)",
+            "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def2_v2.avif"
+          },
+          {
+            "usage_example": "I finally got the idea.",
+            "usage_example_es": "Finalmente entendí la idea.",
+            "pronunciation_guide_es": "/ai_FAI-nali_GOT_di_ai-DI-a/",
+            "meaning": "Pasado de Entender",
+            "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def3_v2.avif"
+          },
+          {
+            "usage_example": "He got me a book.",
+            "usage_example_es": "Él me trajo un libro.",
+            "pronunciation_guide_es": "/ji_GOT_mi_a_BUK/",
+            "meaning": "Pasado de Traer",
+            "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def4_v2.avif"
+          }
+        ]
       },
       "participle": {
         "form": "gotten / got",
         "phonetic": "/ˈɡɒtn/ /ɡɒt/",
         "spoken_phonetic_us": "/ˈɡɑːtn/ /ɡɑːt/",
-        "usage_example": "I have gotten many gifts.",
-        "usage_example_es": "He recibido muchos regalos.",
-        "pronunciation_guide_es": "/ai_JAV_GOTen_meni_GUiFTS/",
-        "meaning": "Participio de conseguir/obtener"
+        "definitions": [
+          {
+            "usage_example": "I have gotten many gifts.",
+            "usage_example_es": "He recibido muchos regalos.",
+            "pronunciation_guide_es": "/ai_JAV_GOTen_meni_GUiFTS/",
+            "meaning": "Participio de Conseguir/Recibir",
+            "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def0_v3.avif"
+          },
+          {
+            "usage_example": "It has gotten very cold.",
+            "usage_example_es": "Se ha puesto muy frío.",
+            "pronunciation_guide_es": "/it_jas_GOTen_veri_KOLD/",
+            "meaning": "Participio de Ponerse (estado)",
+            "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def2_v3.avif"
+          },
+          {
+            "usage_example": "I haven't gotten it yet.",
+            "usage_example_es": "No lo he entendido aún.",
+            "pronunciation_guide_es": "/ai_JA-vent_GOTen_it_IET/",
+            "meaning": "Participio de Entender",
+            "imagePath": "/card_images/landing-demo/verbs-essentials/verbs-essentials_card_5_def3_v3.avif"
+          }
+        ]
       }
     },
     "group_name": "Social & Exchange",
