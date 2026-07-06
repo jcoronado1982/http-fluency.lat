@@ -1,0 +1,307 @@
+{
+  "categories": [
+    {
+      "name": "pronouns",
+      "order": 1,
+      "decks": {
+        "1-basic": [
+          { "name": "Subject", "order": 1 },
+          { "name": "Object", "order": 2 },
+          { "name": "Poss. Adjective", "order": 3 },
+          { "name": "Reflexive", "order": 4 },
+          { "name": "Demonstrative", "order": 5 },
+          { "name": "Indefinite", "order": 6 }
+        ],
+        "2-intermediate": [
+          { "name": "Indefinite", "order": 1 },
+          { "name": "Reciprocal", "order": 2 },
+          { "name": "Poss. Pronoun", "order": 3 },
+          { "name": "Interrogative/Relative", "order": 4 },
+          { "name": "Reflexive", "order": 5 }
+        ],
+        "3-advanced": [
+          { "name": "Indefinite", "order": 1 },
+          { "name": "Partitives", "order": 2 },
+          { "name": "Relative", "order": 3 }
+        ]
+      }
+    },
+    {
+      "name": "verbs",
+      "order": 2,
+      "decks": {
+        "1-basic": [
+          { "name": "Being & State", "order": 1 },
+          { "name": "Social & Exchange", "order": 2 },
+          { "name": "Handling & Creating", "order": 3 },
+          { "name": "Communication", "order": 4 },
+          { "name": "Action & Movement", "order": 5 },
+          { "name": "Mind & Senses", "order": 6 },
+          { "name": "Daily Life", "order": 7 },
+          { "name": "Change & Result", "order": 8 }
+        ],
+        "2-intermediate": [
+          { "name": "Managing & Control", "order": 1 },
+          { "name": "Social & Daily Life", "order": 2 },
+          { "name": "Building & Creating", "order": 3 },
+          { "name": "Daily Tasks", "order": 4 },
+          { "name": "Thinking & Deciding", "order": 5 },
+          { "name": "Body & Movement", "order": 6 },
+          { "name": "Communication", "order": 7 },
+          { "name": "Daily Routine", "order": 8 },
+          { "name": "Feelings & Reactions", "order": 9 }
+        ],
+        "3-advanced": [
+          { "name": "Goals & Results", "order": 1 },
+          { "name": "Critical Thinking", "order": 2 },
+          { "name": "Academic Communication", "order": 3 },
+          { "name": "Professional Action", "order": 4 },
+          { "name": "Influence & Change", "order": 5 },
+          { "name": "Social Dynamics", "order": 6 },
+          { "name": "Professional & Business", "order": 7 }
+        ]
+      }
+    },
+    {
+      "name": "nouns",
+      "order": 3,
+      "decks": {
+        "1-basic": [
+          { "name": "Time", "order": 1 },
+          { "name": "People", "order": 2 },
+          { "name": "General", "order": 3 },
+          { "name": "Family", "order": 4 },
+          { "name": "Places", "order": 5 },
+          { "name": "Body Parts", "order": 6 },
+          { "name": "General Concepts", "order": 7 },
+          { "name": "School & Work", "order": 8 },
+          { "name": "Food", "order": 9 },
+          { "name": "Animals", "order": 10 },
+          { "name": "Household", "order": 11 },
+          { "name": "Transportation", "order": 12 },
+          { "name": "Clothing", "order": 13 },
+          { "name": "Colors", "order": 14 },
+          { "name": "Nature", "order": 15 },
+          { "name": "Days of the Week", "order": 16 },
+          { "name": "Months", "order": 17 },
+          { "name": "Numbers", "order": 18 },
+          { "name": "Seasons", "order": 19 },
+          { "name": "Directions", "order": 20 },
+          { "name": "Society", "order": 21 },
+          { "name": "Feelings", "order": 22 }
+        ],
+        "2-intermediate": [
+          { "name": "General Concepts", "order": 1 },
+          { "name": "Arts & Media", "order": 2 },
+          { "name": "Places & Locations", "order": 3 },
+          { "name": "Feelings & Emotions", "order": 4 },
+          { "name": "Transportation & Travel", "order": 5 },
+          { "name": "Nature & Materials", "order": 6 },
+          { "name": "Science & Biology", "order": 7 },
+          { "name": "Government & Society", "order": 8 },
+          { "name": "Health & Medicine", "order": 9 },
+          { "name": "Technology & Internet", "order": 10 },
+          { "name": "Household", "order": 11 },
+          { "name": "Numbers", "order": 12 }
+        ],
+        "3-advanced": [
+          { "name": "General Concepts", "order": 1 },
+          { "name": "Arts & Media", "order": 2 },
+          { "name": "Feelings & Emotions", "order": 3 },
+          { "name": "Government & Society", "order": 4 },
+          { "name": "Nature & Environment", "order": 5 }
+        ]
+      }
+    },
+    {
+      "name": "preposition",
+      "order": 7,
+      "decks": {
+        "1-basic": [
+          { "name": "Prepositions: Place & Time", "order": 1 },
+          { "name": "Prepositions: Movement & Direction", "order": 2 },
+          { "name": "Prepositions: Origin", "order": 3 },
+          { "name": "Prepositions: Time & Purpose", "order": 4 },
+          { "name": "Prepositions: Agent & Instrument", "order": 5 },
+          { "name": "Prepositions: Topic", "order": 6 },
+          { "name": "Prepositions: Possession & Relation", "order": 7 },
+          { "name": "Prepositions: Place", "order": 8 },
+          { "name": "Prepositions: Time", "order": 9 },
+          { "name": "Prepositions: Comparison", "order": 10 },
+          { "name": "Prepositions: Comparison & Role", "order": 11 }
+        ],
+        "2-intermediate": [
+          { "name": "Prepositions: Time", "order": 1 },
+          { "name": "Prepositions: Movement & Direction", "order": 2 },
+          { "name": "Prepositions: Other", "order": 3 },
+          { "name": "Prepositions: Place", "order": 4 },
+          { "name": "Prepositions: Place & Time", "order": 5 },
+          { "name": "Prepositions: Agent & Instrument", "order": 6 },
+          { "name": "Prepositions: Opposition", "order": 7 }
+        ],
+        "3-advanced": [
+          { "name": "Prepositions: Reference", "order": 1 },
+          { "name": "Prepositions: Cause & Reason", "order": 2 },
+          { "name": "Prepositions: Contrast", "order": 3 },
+          { "name": "Prepositions: Substitution", "order": 4 },
+          { "name": "Prepositions: Representation", "order": 5 },
+          { "name": "Prepositions: Addition & Exception", "order": 6 },
+          { "name": "Prepositions: Time", "order": 7 },
+          { "name": "Prepositions: Topic", "order": 8 }
+        ]
+      }
+    },
+    {
+      "name": "adjectives",
+      "order": 5,
+      "decks": {
+        "1-basic": [
+          { "name": "Size & Dimension", "order": 1 },
+          { "name": "Quality & Value", "order": 2 },
+          { "name": "Feelings & Emotions", "order": 3 },
+          { "name": "Physical State", "order": 4 },
+          { "name": "Age & Novelty", "order": 5 },
+          { "name": "Difficulty & Effort", "order": 6 },
+          { "name": "Speed & Time", "order": 7 },
+          { "name": "Logic & Evaluation", "order": 8 }
+        ],
+        "2-intermediate": [
+          { "name": "Personality & Social", "order": 1 },
+          { "name": "Feelings & Emotions", "order": 2 },
+          { "name": "Health & Well-being", "order": 3 },
+          { "name": "Value & Wealth", "order": 4 },
+          { "name": "Physical & Sensory", "order": 5 },
+          { "name": "Social & Status", "order": 6 },
+          { "name": "Mind & Attitude", "order": 7 }
+        ],
+        "3-advanced": [
+          { "name": "Personality Traits", "order": 1 },
+          { "name": "Feelings & Emotions", "order": 2 },
+          { "name": "State & Fortune", "order": 3 }
+        ]
+      }
+    },
+    {
+      "name": "adverbs",
+      "order": 4,
+      "decks": {
+        "1-basic": [
+          { "name": "Adverbs: Degree", "order": 1 },
+          { "name": "Adverbs: Manner", "order": 2 },
+          { "name": "Adverbs: Frequency", "order": 3 },
+          { "name": "Adverbs: Time", "order": 4 },
+          { "name": "Adverbs: Place", "order": 5 }
+        ],
+        "2-intermediate": [
+          { "name": "Adverbs: Manner", "order": 1 },
+          { "name": "Adverbs: Degree", "order": 2 },
+          { "name": "Adverbs: Certainty", "order": 3 },
+          { "name": "Adverbs: Time", "order": 4 },
+          { "name": "Adverbs: Sentence", "order": 5 },
+          { "name": "Adverbs: Frequency", "order": 6 }
+        ],
+        "3-advanced": [
+          { "name": "Adverbs: Sentence", "order": 1 },
+          { "name": "Adverbs: Manner", "order": 2 },
+          { "name": "Adverbs: Degree", "order": 3 },
+          { "name": "Adverbs: Frequency", "order": 4 },
+          { "name": "Connectors: Addition", "order": 5 },
+          { "name": "Connectors: Condition", "order": 6 },
+          { "name": "Connectors: Contrast", "order": 7 },
+          { "name": "Connectors: Cause & Effect", "order": 8 },
+          { "name": "Adverbs: Time", "order": 9 }
+        ]
+      }
+    },
+    {
+      "name": "connectors",
+      "order": 6,
+      "decks": {
+        "1-basic": [
+          { "name": "Connectors: Addition", "order": 1 },
+          { "name": "Connectors: Contrast", "order": 2 },
+          { "name": "Connectors: Sequence", "order": 3 },
+          { "name": "Connectors: Cause & Effect", "order": 4 },
+          { "name": "Connectors: Example", "order": 5 },
+          { "name": "Connectors: Clarification", "order": 6 },
+          { "name": "Connectors: Conclusion", "order": 7 },
+          { "name": "Connectors: Condition", "order": 8 },
+          { "name": "Connectors: Time", "order": 9 },
+          { "name": "Connectors: Alternative", "order": 10 }
+        ],
+        "2-intermediate": [
+          { "name": "Connectors: Contrast", "order": 1 },
+          { "name": "Connectors: Relative", "order": 2 },
+          { "name": "Connectors: Example", "order": 3 },
+          { "name": "Connectors: Clarification", "order": 4 },
+          { "name": "Connectors: Addition", "order": 5 },
+          { "name": "Connectors: Condition", "order": 6 },
+          { "name": "Connectors: Time", "order": 7 }
+        ],
+        "3-advanced": [
+          { "name": "Connectors: Cause & Effect", "order": 1 },
+          { "name": "Connectors: Contrast", "order": 2 }
+        ]
+      }
+    },
+    {
+      "name": "determinant",
+      "order": 8,
+      "decks": {
+        "1-basic": [
+          { "name": "Determiners: Articles", "order": 1 },
+          { "name": "Determiners: Demonstratives", "order": 2 },
+          { "name": "Determiners: Possessives", "order": 3 },
+          { "name": "Determiners: Quantifiers", "order": 4 },
+          { "name": "Determiners: Distributives", "order": 5 },
+          { "name": "Determiners: Numbers", "order": 6 }
+        ],
+        "2-intermediate": [
+          { "name": "Determiners: Quantifiers", "order": 1 },
+          { "name": "Determiners: Distributives", "order": 2 },
+          { "name": "Determiners: Possessives", "order": 3 },
+          { "name": "Determiners: Other", "order": 4 },
+          { "name": "Determiners: Partitives", "order": 5 },
+          { "name": "Determiners: Numbers", "order": 6 }
+        ],
+        "3-advanced": [
+          { "name": "Determiners: Other", "order": 1 },
+          { "name": "Determiners: Possessives", "order": 2 },
+          { "name": "Determiners: Partitives", "order": 3 },
+          { "name": "Determiners: Quantifiers", "order": 4 }
+        ]
+      }
+    },
+    {
+      "name": "phrasal_verbs",
+      "order": 9,
+      "decks": {
+        "1-basic": [
+          { "name": "Phrasal Verbs: Break", "order": 1 },
+          { "name": "Phrasal Verbs: Bring", "order": 2 },
+          { "name": "Phrasal Verbs: Call", "order": 3 },
+          { "name": "Phrasal Verbs: Calm", "order": 4 },
+          { "name": "Phrasal Verbs: Carry", "order": 5 },
+          { "name": "Phrasal Verbs: Check", "order": 6 },
+          { "name": "Phrasal Verbs: Come", "order": 7 },
+          { "name": "Phrasal Verbs: Drop", "order": 8 },
+          { "name": "Phrasal Verbs: Figure", "order": 9 },
+          { "name": "Phrasal Verbs: Find", "order": 10 },
+          { "name": "Phrasal Verbs: Get", "order": 11 }
+        ],
+        "3-advanced": [
+          { "name": "Phrasal Verbs: Make", "order": 1 },
+          { "name": "Phrasal Verbs: Pick", "order": 2 },
+          { "name": "Phrasal Verbs: Put", "order": 3 },
+          { "name": "Phrasal Verbs: Run", "order": 4 },
+          { "name": "Phrasal Verbs: Set", "order": 5 },
+          { "name": "Phrasal Verbs: Show", "order": 6 },
+          { "name": "Phrasal Verbs: Take", "order": 7 },
+          { "name": "Phrasal Verbs: Turn", "order": 8 },
+          { "name": "Phrasal Verbs: Wake", "order": 9 },
+          { "name": "Phrasal Verbs: Work", "order": 10 }
+        ]
+      }
+    }
+  ]
+}

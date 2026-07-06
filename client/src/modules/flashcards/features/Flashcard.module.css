@@ -131,7 +131,7 @@
 
 .name {
     font-family: var(--font-family-body);
-    font-size: clamp(1.5rem, 5vw, 2.5em);
+    font-size: clamp(1.5rem, 5vw, 2em);
     font-weight: 800;
     color: #ffffff;
     margin: 0 0 2px 0;

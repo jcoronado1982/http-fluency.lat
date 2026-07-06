@@ -47,8 +47,8 @@
 }
 
 :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .conjugationTable {
-    margin: 4px auto 8px;
-    padding: 8px 10px;
+    margin: 5px auto 5px;
+    padding: 8px 7px 3px 7px;
     gap: 8px;
 }
 
@@ -60,7 +60,7 @@
 
 :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer li,
 :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .exampleRow {
-    padding: 4px 6px;
+    padding: 3px 6px;
 }
 
 :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .imagePlaceholder {
@@ -156,7 +156,7 @@
 
 .name {
     font-family: var(--font-family-body);
-    font-size: clamp(1.5rem, 5vw, 2.5em);
+    font-size: clamp(1.5rem, 5vw, 2em);
     font-weight: 800;
     color: #ffffff;
     margin: 0;
@@ -228,7 +228,7 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 0px;
 }
 
 .allExamplesContainer li,
@@ -978,8 +978,8 @@
 }
 
 .rotateVoiceBtn {
-    width: 52px;
-    height: 52px;
+    width: 44px;
+    height: 44px;
     padding: 0;
     margin-left: 14px;
     border-radius: 50%;
@@ -1669,13 +1669,13 @@
 }
 
 :global(.flashcard-page-wrapper:not([data-landing-demo])) .wordBlock {
-    row-gap: clamp(4px, 0.6vh, 8px);
-    column-gap: 8px;
+    row-gap: 0;
+    column-gap: 2px;
 }
 
 :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .wordHeader {
-    margin-bottom: 10px;
-    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-top: 0px;
 }
 
 

@@ -249,7 +249,7 @@
         "char_count": "two",
         "usage_context_en": "topics/meetings",
         "usage_context_es": "temas/reuniones",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_49_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_49_def0.avif"
       },
       {
         "meaning": "Hablar sobre algo",
@@ -260,7 +260,7 @@
         "char_count": "two",
         "usage_context_en": "conversation/decisions",
         "usage_context_es": "conversación/decisiones",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_49_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_49_def1.avif"
       }
     ],
     "group_name": "Social & Daily Life"
@@ -379,7 +379,7 @@
         "char_count": "two",
         "usage_context_en": "restaurant/commerce",
         "usage_context_es": "restaurante/comercio",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_68_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_68_def0.avif"
       },
       {
         "meaning": "Ordenar/Mandar (dar una orden)",
@@ -390,7 +390,7 @@
         "char_count": "two",
         "usage_context_en": "command/sequence",
         "usage_context_es": "comando/secuencia",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_68_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_68_def1.avif"
       }
     ],
     "group_name": "Communication"

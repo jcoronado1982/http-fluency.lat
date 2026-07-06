@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { learningStatsPort } from '../composition';
 
+const LEARNING_STATS_TIMEOUT_MS = 8000;
+
 export function useLearningStats(isAuthenticated) {
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -15,7 +17,14 @@ export function useLearningStats(isAuthenticated) {
         setLoading(true);
         setError(null);
         try {
-            const result = await learningStatsPort.fetchLearningStats();
+            const result = await Promise.race([
+                learningStatsPort.fetchLearningStats(),
+                new Promise((_, reject) => {
+                    window.setTimeout(() => {
+                        reject(new Error('learning_stats_timeout'));
+                    }, LEARNING_STATS_TIMEOUT_MS);
+                }),
+            ]);
             if (result?.success && result.stats) {
                 setStats(result.stats);
             } else {

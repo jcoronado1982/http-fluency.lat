@@ -99,12 +99,18 @@ pub async fn update_cards_batch(
 }
 
 pub async fn get_categories(State(state): State<AppState>) -> impl IntoResponse {
-    match state.deck_use_cases.list_categories_with_counts().await {
-        Ok(categories) => (
-            StatusCode::OK,
-            Json(serde_json::json!({ "success": true, "categories": categories })),
-        )
-            .into_response(),
+    match state.deck_use_cases.list_categories().await {
+        Ok(categories) => {
+            let categories: Vec<serde_json::Value> = categories
+                .into_iter()
+                .map(|name| serde_json::json!({ "name": name }))
+                .collect();
+            (
+                StatusCode::OK,
+                Json(serde_json::json!({ "success": true, "categories": categories })),
+            )
+                .into_response()
+        }
         Err(e) => (
             StatusCode::INTERNAL_SERVER_ERROR,
             Json(serde_json::json!({ "success": false, "detail": e.to_string() })),

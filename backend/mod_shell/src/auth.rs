@@ -162,6 +162,38 @@ impl AuthUseCases {
         Ok(Some(self.user_repo.upsert_user(existing).await?))
     }
 
+    pub async fn ensure_user_from_claims(
+        &self,
+        claims: &Claims,
+        onboarding_completed: bool,
+    ) -> Result<User> {
+        let existing = self.user_repo.get_user_by_email(&claims.email).await?;
+        let now = Utc::now();
+
+        let user = match existing {
+            Some(mut user) => {
+                user.name = claims.name.clone();
+                user.role = claims.role.clone();
+                user.last_login = now;
+                user.onboarding_completed = onboarding_completed;
+                user
+            }
+            None => User {
+                id: None,
+                email: claims.email.clone(),
+                name: claims.name.clone(),
+                picture: None,
+                role: claims.role.clone(),
+                onboarding_completed,
+                catalog_preferences: None,
+                created_at: now,
+                last_login: now,
+            },
+        };
+
+        self.user_repo.upsert_user(user).await
+    }
+
     pub async fn update_catalog_preferences(
         &self,
         email: &str,

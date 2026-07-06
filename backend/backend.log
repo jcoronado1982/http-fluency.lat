@@ -1,0 +1,8 @@
+[2m2026-07-06T18:13:59.418749Z[0m [32m INFO[0m [2mapi_main[0m[2m:[0m 📁 Utilizando almacenamiento LOCAL en: /home/jcoronado/Desktop/dev/flashcard
+[2m2026-07-06T18:13:59.424411Z[0m [32m INFO[0m [2mapi_main::infrastructure::storage::local_repository[0m[2m:[0m 🔗 SSH ControlMaster iniciado hacia 157.151.199.170
+[2m2026-07-06T18:13:59.450776Z[0m [32m INFO[0m [2mapi_main::infrastructure::storage::surreal::connection[0m[2m:[0m 🚀 Conectado a SurrealDB (RocksDB) en 127.0.0.1:8001 (NS: flashcard, DB: flashcard)
+[2m2026-07-06T18:13:59.450800Z[0m [32m INFO[0m [2mapi_main[0m[2m:[0m ✅ Conectado a SurrealDB en 127.0.0.1:8001
+[2m2026-07-06T18:13:59.462441Z[0m [32m INFO[0m [2mapi_main[0m[2m:[0m 🎙️ Landing demo TTS: ElevenLabs activo
+[2m2026-07-06T18:13:59.476941Z[0m [33m WARN[0m [2mapi_main[0m[2m:[0m CORS abierto: define CORS_ALLOWED_ORIGINS para restringirlo por entorno sin cambiar código
+[2m2026-07-06T18:13:59.477472Z[0m [32m INFO[0m [2mapi_main[0m[2m:[0m 🚀 Rust backend listening on 0.0.0.0:8081
+ControlSocket /tmp/oracle-cm-157-151-199-170 already exists, disabling multiplexing

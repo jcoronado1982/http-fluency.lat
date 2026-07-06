@@ -6,7 +6,31 @@ import {
   shouldUseFlashcardLegacyAlias,
 } from './routingPaths';
 
-const moduleLoaders = import.meta.glob('./*/index.jsx');
+const moduleLoaders = [];
+
+if (import.meta.env.VITE_ENABLE_LANDING === 'true') {
+  moduleLoaders.push(['landing', () => import('./landing/index.jsx')]);
+}
+
+if (import.meta.env.VITE_ENABLE_PAYMENTS !== 'false') {
+  moduleLoaders.push(['pricing', () => import('./pricing/index.jsx')]);
+}
+
+if (import.meta.env.VITE_ENABLE_DASHBOARD !== 'false') {
+  moduleLoaders.push(['dashboard', () => import('./dashboard/index.jsx')]);
+}
+
+if (import.meta.env.VITE_ENABLE_FLASHCARDS !== 'false') {
+  moduleLoaders.push(['flashcards', () => import('./flashcards/index.jsx')]);
+}
+
+if (
+  import.meta.env.VITE_ENABLE_PRONOUN_REFERENCE !== 'false'
+  || import.meta.env.VITE_ENABLE_PRONOUN_PRACTICE === 'true'
+  || import.meta.env.VITE_ENABLE_PRONOUN === 'true'
+) {
+  moduleLoaders.push(['pronounPractice', () => import('./pronounPractice/index.jsx')]);
+}
 
 /** @type {Array<{ id: string, enabled?: Function, routes?: Function, [key: string]: unknown }>} */
 let modules = [];
@@ -15,9 +39,7 @@ let modules = [];
 export async function initModules() {
   modules = [];
 
-  const paths = Object.keys(moduleLoaders).sort();
-  for (const path of paths) {
-    const loadModule = moduleLoaders[path];
+  for (const [path, loadModule] of moduleLoaders) {
     const { default: moduleDef } = await loadModule();
     if (!moduleDef?.id) {
       throw new Error(`Module '${path}' must export a default object with an id`);

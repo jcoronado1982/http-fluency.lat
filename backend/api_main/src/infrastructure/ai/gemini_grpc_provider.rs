@@ -9,9 +9,11 @@ use anyhow::{anyhow, Context, Result};
 ///
 /// Los tipos proto se definen con `prost::Message` inline — sin protoc ni build.rs.
 use async_trait::async_trait;
+use serde::Deserialize;
 use std::time::Duration;
 use tonic::transport::{Channel, ClientTlsConfig, Uri};
 use tonic::Request;
+use tracing::{debug, info, warn};
 
 use crate::config::Settings;
 use crate::domain::repositories::tutor::AITutor;
@@ -69,6 +71,57 @@ struct GeminiCandidate {
     content: Option<GeminiContent>,
 }
 
+#[derive(Deserialize)]
+struct OllamaChatResponse {
+    message: OllamaMessage,
+}
+
+#[derive(Deserialize)]
+struct OllamaMessage {
+    #[serde(default)]
+    content: String,
+    #[serde(default)]
+    thinking: String,
+}
+
+fn clean_ollama_prompt_output(text: &str) -> String {
+    let mut cleaned = text.trim();
+    if let Some((_, after_thinking)) = cleaned.rsplit_once("</think>") {
+        cleaned = after_thinking.trim();
+    }
+
+    let lowered = cleaned.to_ascii_lowercase();
+    if lowered.ends_with(" words)") {
+        if let Some(start) = cleaned.rfind('(') {
+            let suffix = &lowered[start..];
+            let count = suffix
+                .trim_start_matches('(')
+                .trim_end_matches(" words)")
+                .trim();
+            if !count.is_empty() && count.chars().all(|c| c.is_ascii_digit()) {
+                cleaned = cleaned[..start].trim_end();
+            }
+        }
+    }
+
+    cleaned.to_string()
+}
+
+fn preview_for_log(text: &str, max_chars: usize) -> String {
+    let compact = text.split_whitespace().collect::<Vec<_>>().join(" ");
+    let mut preview = String::new();
+    for ch in compact.chars().take(max_chars) {
+        preview.push(ch);
+    }
+    if compact.chars().count() > max_chars {
+        preview.push_str("...");
+    }
+    preview
+}
+
+const FLASHCARD_TARGET_WIDTH: u32 = 896;
+const FLASHCARD_TARGET_HEIGHT: u32 = 512;
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Provider
 // ─────────────────────────────────────────────────────────────────────────────
@@ -95,8 +148,9 @@ impl GeminiGrpcProvider {
             .http2_keep_alive_interval(Duration::from_secs(30))
             .keep_alive_timeout(Duration::from_secs(10))
             .keep_alive_while_idle(true)
-            // Timeout por RPC individual
-            .timeout(Duration::from_secs(90))
+            // Timeout por RPC individual.
+            // Mantenerlo por encima del timeout global del backend.
+            .timeout(Duration::from_secs(180))
             .connect_lazy(); // no conecta hasta la primera llamada → 0 RAM en startup
 
         Ok(Self { channel, api_key })
@@ -169,6 +223,94 @@ impl GeminiGrpcProvider {
             .and_then(|p| p.text)
             .context("Gemini: texto vacío en respuesta")?;
 
+        Ok(text)
+    }
+
+    async fn call_ollama_prompt_llm(
+        &self,
+        system: &str,
+        user: &str,
+        temperature: f32,
+    ) -> Result<String> {
+        let url = std::env::var("OLLAMA_URL").unwrap_or_else(|_| "http://127.0.0.1:11434".into());
+        let model = std::env::var("OLLAMA_PROMPT_MODEL").unwrap_or_else(|_| "qwen3.5:9b".into());
+        let endpoint = format!("{}/api/chat", url.trim_end_matches('/'));
+        let request_started_at = std::time::Instant::now();
+        info!(
+            model = %model,
+            temperature,
+            system_len = system.len(),
+            user_len = user.len(),
+            system_preview = %preview_for_log(system, 140),
+            user_preview = %preview_for_log(user, 220),
+            "prompt-llm:ollama-start"
+        );
+        let response = reqwest::Client::new()
+            .post(endpoint)
+            .timeout(Duration::from_secs(180))
+            .json(&serde_json::json!({
+                "model": model,
+                "stream": false,
+                "think": false,
+                "options": {
+                    "temperature": temperature,
+                    "num_ctx": 4096,
+                    "num_predict": 720
+                },
+                "messages": [
+                    { "role": "system", "content": system },
+                    { "role": "user", "content": user }
+                ]
+            }))
+            .send()
+            .await
+            .context("Ollama prompt LLM request failed")?;
+
+        info!(
+            model = %model,
+            elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+            "prompt-llm:ollama-http-ok"
+        );
+
+        if !response.status().is_success() {
+            let status = response.status();
+            let body = response.text().await.unwrap_or_default();
+            warn!(
+                model = %model,
+                status = %status,
+                response_preview = %preview_for_log(&body, 240),
+                elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+                "prompt-llm:ollama-http-error"
+            );
+            return Err(anyhow!("Ollama prompt LLM error {status}: {body}"));
+        }
+
+        let parsed: OllamaChatResponse = response
+            .json()
+            .await
+            .context("Ollama prompt LLM returned invalid JSON")?;
+        let mut text = clean_ollama_prompt_output(&parsed.message.content);
+        if text.is_empty() && !parsed.message.thinking.trim().is_empty() {
+            debug!("prompt-llm:ollama-fallback-thinking");
+            text = clean_ollama_prompt_output(&parsed.message.thinking);
+        }
+        if text.is_empty() {
+            warn!(
+                model = %model,
+                content_len = parsed.message.content.len(),
+                thinking_len = parsed.message.thinking.len(),
+                elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+                "prompt-llm:ollama-empty"
+            );
+            return Err(anyhow!("Ollama prompt LLM returned empty content"));
+        }
+        info!(
+            model = %model,
+            output_len = text.len(),
+            output_preview = %preview_for_log(&text, 220),
+            total_elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+            "prompt-llm:ollama-ok"
+        );
         Ok(text)
     }
 }
@@ -258,49 +400,108 @@ RESPONDE EXCLUSIVAMENTE EN ESTE FORMATO JSON:
         meaning: Option<&str>,
         usage_example: Option<&str>,
     ) -> Result<String> {
-        if self.api_key == "DISABLED" {
-            return Ok(phrase.to_string());
-        }
         let system = r#"You are a "Real-Life Context" Visual Prompt Engineer for FLUX 2.
 
 INPUT FORMAT (always provided):
 WORD/PHRASE: [word]
 POS/CATEGORY: [category]
 MEANING: [meaning]
+CONTEXT_TYPE: [usage context, if present]
+SUPPORTING_EXAMPLE: [second example, if present]
 EXAMPLE: [example sentence]
+OUTPUT MEDIUM: English-learning flashcard image
+FINAL CANVAS: 896x512 pixels, wide landscape orientation
+COMPOSITION GOAL: immediately understandable at small card size
+TEACHING GOAL: the image must explain the target meaning by itself, before the learner reads the sentence
 
 STEP 0 — SELECT VISUAL STRATEGY based on POS/CATEGORY:
-- nouns (concrete)  -> show the object in natural human use (hands, body, setting)
-- nouns (abstract)  -> show a scene that EMBODIES the concept emotionally
-- verbs             -> freeze the person MID-ACTION — not before, not after
-- adjectives        -> use contrast or an extreme example to make the quality unmistakable
+- nouns (concrete)  -> make the object the clear visual subject, in natural daily use
+- nouns (abstract)  -> show a simple everyday situation that EMBODIES the concept
+- verbs             -> make the target action, state, change, or event visually obvious. Do not show people merely sitting, posing, or talking unless the verb meaning is communication.
+- multi-word verbs, phrasal verbs, idioms, and full example sentences -> identify the core teachable meaning from MEANING and EXAMPLE first, then visualize that meaning. Do not illustrate the words literally if the phrase means something else. Supporting events or objects may appear only as evidence for the target meaning, not as the main subject unless they are the target meaning.
+- verbs of appearance/state (seem, appear, be) -> show visual evidence that leads to the impression or state; do not add random body parts or hidden people.
+- adjectives        -> make the quality unmistakable through one clear subject or contrast
 - adverbs           -> show someone doing an action in that specific WAY
-- pronouns/possessives -> The word has NO visual meaning alone. You MUST show PEOPLE and their RELATIONSHIP to the object:
-                     1st person (my, our) = owners IN frame, seen from behind or reaching for it
-                     2nd person (you, your) = subject looks directly at camera
-                     3rd person (his, her, their) = owners OBSERVED from outside, at a distance
-- prepositions      -> make the spatial/relational concept the visual star
+- pronouns/possessives -> The word has NO visual meaning alone. You MUST show PEOPLE and their RELATIONSHIP to the object or action:
+                     1st person (my, our) = owner(s) clearly IN frame, with hands, body position, gaze, or proximity showing ownership
+                     2nd person (you, your) = the addressed person is visibly central, often facing the camera or receiving attention from another person
+                     3rd person (his, her, their) = owner(s) observed from outside, with facial features, clothing, posture, and nearby object making the relationship clear
+- prepositions      -> make the spatial/relational concept the visual star; the relative positions must be readable at a glance
 - articles          -> show specificity (the) vs generality (a) through selection/pointing
 
 If the POS is not perfectly matched by the category, infer the best visual strategy.
 
-STEP 1 — BRAINSTORM: What is the most common, everyday slice-of-life scenario using the strategy above?
-STEP 2 — DESCRIBE: Write a candid, unposed photograph description.
+STEP 1 — BRAINSTORM: What is the most common, boring, everyday situation where a person would naturally use this exact phrase?
+STEP 2 — PLAN INTERNALLY using this JSON-shaped checklist. Do not output the checklist.
+{
+  "CORE_EVENT": "the concrete physical action, event, state, relation, or absence actually being taught",
+  "TRIGGER": "what starts, causes, reveals, or times the event; if CONTEXT_TYPE mentions timing, coincidence, surprise, absence, evidence, questions, or negation, the scene must visibly show that cue",
+  "SUBJECT_STATE": "the person's visible physical or emotional state as a result of CORE_EVENT and TRIGGER"
+}
+STEP 3 — DESCRIBE: Write a candid, unposed photograph description that physically shows CORE_EVENT + TRIGGER + SUBJECT_STATE.
+- Use the EXAMPLE as the main visual source when it exists; represent the phrase as it would appear in daily life, not as an abstract symbol, movie scene, disaster, or dramatic event.
+- If MEANING includes usage context or a similar everyday example, use it to disambiguate the exact sense being taught.
+- Before choosing the scene, name internally the single target idea being taught: object, action, state, relationship, quality, frequency, direction, time, cause, chance, absence, possession, or contrast. The final image must make that one idea visually dominant.
+- The learner should understand the target idea from the image alone. Avoid generic social scenes where the target verb/action is not visible.
+- Never default to two people sitting and talking seriously, a generic handshake, people looking at documents or laptops, or a static posed conversation unless the meaning is explicitly about conversation itself.
+- Do not default to a living room, couch, sofa, neutral apartment, or generic indoor home scene unless the EXAMPLE clearly happens there. Prefer the most natural setting for the exact phrase: kitchen, bathroom, doorway, office, classroom, bus stop, sidewalk, store, restaurant, gym, park, car, street, yard, workplace, or other specific location.
+- Vary the setting according to the phrase. If the same meaning can happen in multiple places, choose the place where the action becomes clearest instead of the safest indoor room.
+- If the action is better understood outdoors, in transit, at work, or in a public place, choose that setting over a home interior.
+- Include concrete people details: approximate age, face visibility, expression, gaze direction, posture, hand placement, clothing, and who owns or interacts with what.
+- Include concrete environment details: room or street type, time of day, background objects, realistic surfaces, and lived-in imperfections.
+- Compose for a WIDE horizontal frame. Keep the main subject large, central, and fully visible.
+- Keep all essential faces, torsos, arms, hands, and legs completely inside frame. Never show isolated limbs, cropped half-people, or bodies cut by furniture or image borders.
+- Keep critical story information inside the central 80% of the frame. Do not place key objects or people at the extreme left or right edges.
+- Prefer one clear scene with 1-3 important subjects. Avoid clutter, tiny distant people, and overlapping bodies.
+- If the sentence implies absence, emptiness, or uncertainty, show a believable empty scene with evidence of absence. Do not invent hidden people, body parts, or figures partially visible off-frame.
 - Focus on EXPRESSIONS, authentic DETAILS (messy rooms, real textures), and realistic lighting.
+- Facial expressions must be neutral by default. Only show obvious emotions like crying, laughter, fear, anger, or sadness if the sentence explicitly requires them.
 - Avoid studio perfection. Look like a candid documentary shot.
+- GEOMETRIC PLAUSIBILITY & LOGIC: Never place backgrounds, screens, blackboards, whiteboards, presentation slides, or other key setting elements behind the subjects if doing so violates the real-world logic or layout of the location. For example, in a movie theater, the screen is always in front of the audience, NEVER behind them. Do not describe the movie screen behind the audience's seats just to show it. Instead, show the audience facing forward in their theater seats, holding popcorn, and let the lighting, theater seats, and popcorn establish the cinema context. If the camera faces the subjects to capture their expressions, any background setting elements must either be omitted or shown from a plausible side angle, rather than physically impossible placements.
+- Before writing the final answer, silently check: is this scene too generic, too indoor-by-default, or too similar to a couch/living-room stock photo? If yes, replace it with a more specific environment that better teaches the phrase.
 - Absolutely NO TEXT, words, signs, or labels in the image.
 
-Output ONLY the final scene description (60-85 words) in English."#;
+Output exactly one line:
+FINAL: one detailed final scene description (120-170 words) in English.
+Do not include the internal checklist, word counts, explanations, markdown, or any other labels."#;
 
         let mut user = format!(
-            "WORD/PHRASE: \"{}\"\nPOS/CATEGORY: \"{}\"",
-            phrase, pos_category
+            "WORD/PHRASE: \"{}\"\nPOS/CATEGORY: \"{}\"\nOUTPUT MEDIUM: flashcard\nFINAL RESOLUTION: {}x{}\nFRAME: wide horizontal landscape\nREADABILITY: must remain clear at small card size\nTEACHING REQUIREMENT: image must communicate the target meaning without captions",
+            phrase,
+            pos_category,
+            FLASHCARD_TARGET_WIDTH,
+            FLASHCARD_TARGET_HEIGHT
         );
         if let Some(m) = meaning {
-            user.push_str(&format!("\nMEANING: \"{}\"", m));
+            if m.trim_start().starts_with("MEANING:") {
+                user.push('\n');
+                user.push_str(m);
+            } else {
+                user.push_str(&format!("\nMEANING: \"{}\"", m));
+            }
         }
         if let Some(u) = usage_example {
             user.push_str(&format!("\nEXAMPLE: \"{}\"", u));
+        }
+        user.push_str(
+            "\nSCENE RULES: choose a normal daily-life situation where someone would naturally use this sentence; make the target action/state/relation visible, not just implied by people talking.\nCOMPOSITION RULES: full bodies when people are visible; no cropped humans; no isolated limbs; main subject centered and large enough; avoid key details at image edges.",
+        );
+
+        let prompt_engine = std::env::var("FLASHCARD_PROMPT_ENGINE")
+            .unwrap_or_else(|_| "ollama".to_string())
+            .to_ascii_lowercase();
+
+        if matches!(prompt_engine.as_str(), "ollama" | "qwen3") {
+            info!(
+                prompt_engine = %prompt_engine,
+                prompt_len = user.len(),
+                "prompt-llm:engine-selected"
+            );
+            return self.call_ollama_prompt_llm(system, &user, 0.25).await;
+        }
+
+        if self.api_key == "DISABLED" {
+            return Ok(phrase.to_string());
         }
         self.call(system, &user, 0.5, "gemini-3.1-flash-lite", None)
             .await

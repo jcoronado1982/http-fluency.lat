@@ -81,7 +81,7 @@
         "char_count": "one",
         "usage_context_en": "time/rules",
         "usage_context_es": "tiempo/reglas",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_2_def0.png"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_2_def0.avif"
       },
       {
         "meaning": "Colocar/Poner",
@@ -92,7 +92,7 @@
         "char_count": "one",
         "usage_context_en": "objects/position",
         "usage_context_es": "objetos/posición",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_2_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_2_def1.avif"
       }
     ],
     "irregular": {
@@ -323,7 +323,7 @@
         "char_count": "two",
         "usage_context_en": "objects/transport",
         "usage_context_es": "objetos/transporte",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_25_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_25_def0.avif"
       },
       {
         "meaning": "Conllevar/Implicar",
@@ -334,7 +334,7 @@
         "char_count": "two",
         "usage_context_en": "responsibility/plans",
         "usage_context_es": "responsabilidad/planes",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_25_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_25_def1.avif"
       }
     ],
     "group_name": "Daily Tasks"
@@ -453,7 +453,7 @@
         "char_count": "one",
         "usage_context_en": "objects/movement",
         "usage_context_es": "objetos/movimiento",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_39_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_39_def0.avif"
       },
       {
         "meaning": "Hacer (una fiesta)",
@@ -464,7 +464,7 @@
         "char_count": "one",
         "usage_context_en": "party/idiom",
         "usage_context_es": "fiesta/modismo",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_39_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_39_def1.avif"
       }
     ],
     "group_name": "Daily Tasks"
@@ -519,7 +519,7 @@
         "char_count": "two",
         "usage_context_en": "disagreement/conflict",
         "usage_context_es": "desacuerdo/conflicto",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_57_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_57_def0.avif"
       },
       {
         "meaning": "Argumentar/Sostener (una idea)",
@@ -530,7 +530,7 @@
         "char_count": "two",
         "usage_context_en": "reasoning/debate",
         "usage_context_es": "razonamiento/debate",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_57_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_57_def1.avif"
       }
     ],
     "group_name": "Feelings & Reactions"
@@ -553,7 +553,7 @@
         "char_count": "one",
         "usage_context_en": "repair/objects",
         "usage_context_es": "reparación/objetos",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_61_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_61_def0.avif"
       },
       {
         "meaning": "Fijar/Establecer (una fecha, precio)",
@@ -564,7 +564,7 @@
         "char_count": "one",
         "usage_context_en": "schedule/solution",
         "usage_context_es": "horario/solución",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_61_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_61_def1.avif"
       }
     ],
     "group_name": "Building & Creating"
@@ -683,7 +683,7 @@
         "char_count": "one",
         "usage_context_en": "shopping/routine",
         "usage_context_es": "compras/rutina",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_65_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_65_def0.avif"
       },
       {
         "meaning": "Comprar en (una tienda)",
@@ -694,7 +694,7 @@
         "char_count": "one",
         "usage_context_en": "stores/comparison",
         "usage_context_es": "tiendas/comparación",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_65_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_65_def1.avif"
       }
     ],
     "group_name": "Daily Routine"

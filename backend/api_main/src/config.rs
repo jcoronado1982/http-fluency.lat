@@ -33,6 +33,16 @@ pub struct Settings {
     /// ElevenLabs — solo TTS del landing demo (`landing-demo`).
     pub elevenlabs_api_key: Option<String>,
     pub elevenlabs_model_id: Option<String>,
+    /// Ollama local para el agente de programación.
+    pub ollama_url: String,
+    /// Modelo por defecto para el agente local.
+    pub local_agent_model: String,
+    /// Raíz del workspace que el agente puede tocar.
+    pub local_agent_workspace_root: String,
+    /// Máximo de iteraciones del bucle de agente.
+    pub local_agent_max_steps: u32,
+    /// Lista blanca de prefijos permitidos para `run_command`.
+    pub local_agent_allowed_command_prefixes: Vec<Vec<String>>,
 }
 
 impl Settings {
@@ -40,10 +50,35 @@ impl Settings {
         dotenv().ok();
 
         let gemini_api_key = env::var("GEMINI_API_KEY").ok();
+        let flashcard_prompt_engine = env::var("FLASHCARD_PROMPT_ENGINE")
+            .unwrap_or_else(|_| "ollama".to_string())
+            .to_ascii_lowercase();
+        let uses_local_prompt_llm = matches!(flashcard_prompt_engine.as_str(), "ollama" | "qwen3");
         let image_ai_enabled = env::var("IMAGE_AI_ENABLED")
             .unwrap_or_else(|_| "true".to_string())
             .parse::<bool>()
             .unwrap_or(true);
+        let workspace_root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../..")
+            .canonicalize()
+            .unwrap_or_else(|_| std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."));
+        let allowed_command_prefixes = env::var("LOCAL_AGENT_ALLOWED_COMMANDS")
+            .unwrap_or_else(|_| {
+                [
+                    "cargo check",
+                    "cargo test",
+                    "cargo fmt",
+                    "git status",
+                    "git diff",
+                    "git log",
+                ]
+                .join(",")
+            })
+            .split(',')
+            .map(str::trim)
+            .filter(|value| !value.is_empty())
+            .map(|value| value.split_whitespace().map(|part| part.to_string()).collect())
+            .collect();
 
         let settings = Settings {
             project_id: env::var("PROJECT_ID").unwrap_or_else(|_| "xrubi-fd22e".to_string()),
@@ -58,15 +93,16 @@ impl Settings {
             }),
             gemini_api_key: gemini_api_key.clone(),
             image_ai_enabled: image_ai_enabled
-                && gemini_api_key
-                    .as_deref()
-                    .map(|k| !k.is_empty() && k != "DISABLED")
-                    .unwrap_or(false),
+                && (uses_local_prompt_llm
+                    || gemini_api_key
+                        .as_deref()
+                        .map(|k| !k.is_empty() && k != "DISABLED")
+                        .unwrap_or(false)),
             gemini_tts_api_key: env::var("GEMINI_TTS_API_KEY").ok(),
             gemini_tts_api_key_backup: env::var("GEMINI_TTS_API_KEY_BACKUP").ok(),
             gcp_api_key: env::var("GCP_API_KEY").ok(),
             comfy_url: env::var("COMFY_URL")
-                .unwrap_or_else(|_| "http://localhost:8188".to_string()),
+                .unwrap_or_else(|_| "http://127.0.0.1:8188".to_string()),
             local_storage_path: env::var("LOCAL_STORAGE_PATH").unwrap_or_else(|_| ".".to_string()),
             sync_to_oracle: env::var("SYNC_TO_ORACLE")
                 .unwrap_or_else(|_| "false".to_string())
@@ -84,6 +120,17 @@ impl Settings {
                 .unwrap_or_else(|_| "https://fluency.lat".to_string()),
             elevenlabs_api_key: env::var("ELEVENLABS_API_KEY").ok(),
             elevenlabs_model_id: env::var("ELEVENLABS_MODEL_ID").ok(),
+            ollama_url: env::var("OLLAMA_URL").unwrap_or_else(|_| "http://127.0.0.1:11434".to_string()),
+            local_agent_model: env::var("LOCAL_AGENT_MODEL")
+                .or_else(|_| env::var("OLLAMA_MODEL"))
+                .unwrap_or_else(|_| "deepseek-r1:32b".to_string()),
+            local_agent_workspace_root: env::var("LOCAL_AGENT_WORKSPACE_ROOT")
+                .unwrap_or_else(|_| workspace_root.to_string_lossy().to_string()),
+            local_agent_max_steps: env::var("LOCAL_AGENT_MAX_STEPS")
+                .unwrap_or_else(|_| "8".to_string())
+                .parse::<u32>()
+                .unwrap_or(8),
+            local_agent_allowed_command_prefixes: allowed_command_prefixes,
         };
 
         Ok(settings)

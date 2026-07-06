@@ -40,8 +40,11 @@ pub fn to_image_gen_request(body: GenerateImageBody) -> ImageGenRequest {
         prompt: body.prompt,
         meaning: body.meaning,
         usage_example: body.usage_example,
+        usage_context: body.usage_context.filter(|s| !s.trim().is_empty()),
+        alternative_example: body.alternative_example.filter(|s| !s.trim().is_empty()),
         force_generation: body.force_generation,
         form: body.form,
+        legacy_image_path: body.legacy_image_path.filter(|s| !s.trim().is_empty()),
         scene_complement: body.scene_complement.filter(|s| !s.trim().is_empty()),
     }
 }

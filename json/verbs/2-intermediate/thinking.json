@@ -45,7 +45,7 @@
       {
         "alternative_example": "She learns new things every day.",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_58_def0.jpg",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_58_def0.avif",
         "meaning": "Aprender",
         "pronunciation_guide_es": "/ai_UANT_tu_LORN_INGlish/",
         "usage_context_en": "study/skills",
@@ -56,7 +56,7 @@
       {
         "alternative_example": "He learned his lesson.",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_58_def1.jpg",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_58_def1.avif",
         "meaning": "Enterarse de/Saber (información)",
         "pronunciation_guide_es": "/ai_LORNt_aBAUT_de_NIUS_dis_MORning/",
         "usage_context_en": "information/experience",
@@ -175,7 +175,7 @@
         "char_count": "two",
         "usage_context_en": "anticipation/punctuality",
         "usage_context_es": "anticipación/puntualidad",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_11_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_11_def0.avif"
       },
       {
         "meaning": "Exigir (formal)",
@@ -186,7 +186,7 @@
         "char_count": "two",
         "usage_context_en": "demand/refund",
         "usage_context_es": "demanda/reembolso",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_11_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_11_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"
@@ -465,7 +465,7 @@
         "char_count": "one",
         "usage_context_en": "questions/answers",
         "usage_context_es": "preguntas/respuestas",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_53_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_53_def0.avif"
       },
       {
         "meaning": "Suponer/Creer (informal)",
@@ -476,7 +476,7 @@
         "char_count": "one",
         "usage_context_en": "opinion/supposition",
         "usage_context_es": "opinión/suposición",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_53_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_53_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"
@@ -499,7 +499,7 @@
         "char_count": "two",
         "usage_context_en": "curiosity/doubt",
         "usage_context_es": "curiosidad/duda",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_54_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_54_def0.avif"
       },
       {
         "meaning": "Maravillarse/Asombrarse",
@@ -510,7 +510,7 @@
         "char_count": "two",
         "usage_context_en": "admiration/awe",
         "usage_context_es": "admiración/asombro",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_54_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_54_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"
@@ -597,7 +597,7 @@
         "char_count": "one",
         "usage_context_en": "future/travel",
         "usage_context_es": "futuro/viaje",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_59_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_59_def0.avif"
       },
       {
         "meaning": "Tener la intención de",
@@ -608,7 +608,7 @@
         "char_count": "one",
         "usage_context_en": "intention/strategy",
         "usage_context_es": "intención/estrategia",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_59_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_59_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"
@@ -631,7 +631,7 @@
         "char_count": "two",
         "usage_context_en": "anxiety/reassurance",
         "usage_context_es": "ansiedad/tranquilizar",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_78_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_78_def0.avif"
       },
       {
         "meaning": "Molestar/Inquietar",
@@ -642,7 +642,7 @@
         "char_count": "two",
         "usage_context_en": "bother/concern",
         "usage_context_es": "molestia/preocupación",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_78_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_78_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"

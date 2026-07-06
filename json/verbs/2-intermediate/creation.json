@@ -209,7 +209,7 @@
         "char_count": "one",
         "usage_context_en": "gesture/increase",
         "usage_context_es": "gesto/aumento",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_18_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_18_def0.avif"
       },
       {
         "meaning": "Criar/Educar",
@@ -220,7 +220,7 @@
         "char_count": "one",
         "usage_context_en": "family/agriculture",
         "usage_context_es": "familia/agricultura",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_18_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_18_def1.avif"
       }
     ],
     "group_name": "Managing & Control"

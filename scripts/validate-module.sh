@@ -11,7 +11,11 @@ usage() {
 Uso:
   ./scripts/validate-module.sh <modulo> [modulo...]
 
-Ejecuta cargo check con las features del modulo y valida que el registry existe.
+Valida una combinacion modular completa:
+  - cargo check con todas las features activas
+  - patrones sparse del registry
+  - test de rutas del shell frontend
+  - build frontend con solo los modulos seleccionados
 EOF
 }
 
@@ -28,11 +32,10 @@ for module in "${modules[@]}"; do
   fi
 done
 
-primary="${modules[0]}"
 echo "==> Validando modulos: ${modules[*]}"
 
-echo "==> cargo check ($(module_cargo_build_args "$primary"))"
-cargo check --manifest-path "$REPO_ROOT/backend/Cargo.toml" -p api_main $(module_cargo_build_args "$primary")
+echo "==> cargo check ($(module_cargo_build_args_multi "${modules[@]}"))"
+cargo check --manifest-path "$REPO_ROOT/backend/Cargo.toml" -p api_main $(module_cargo_build_args_multi "${modules[@]}")
 
 echo "==> Patrones sparse"
 module_all_patterns "${modules[@]}" | while IFS= read -r pattern; do
@@ -43,5 +46,25 @@ module_all_patterns "${modules[@]}" | while IFS= read -r pattern; do
     echo "WARN: patron sin ruta local (puede ser normal si sparse esta activo): $pattern" >&2
   fi
 done
+
+if [[ -d "$REPO_ROOT/client/node_modules" ]]; then
+  echo "==> npm run test:routing"
+  (
+    cd "$REPO_ROOT/client"
+    npm run test:routing
+  )
+
+  echo "==> npm run build (perfil sintetico)"
+  (
+    cd "$REPO_ROOT/client"
+    while IFS= read -r line; do
+      [[ -z "$line" ]] && continue
+      export "$line"
+    done < <(module_frontend_env_lines "${modules[@]}")
+    npm run build
+  )
+else
+  echo "WARN: client/node_modules no existe; se omite validacion frontend." >&2
+fi
 
 echo "OK: validacion completada para ${modules[*]}"

@@ -6,7 +6,7 @@ import { useFlashcardUiContext, useFlashcardContext } from '../context/flashcard
 
 function Controls() {
     const { language = 'en' } = useUIContext();
-    const { isAudioLoading } = useFlashcardUiContext();
+    const { isAudioLoading, isImageLoading } = useFlashcardUiContext();
     const {
         prevCard, nextCard, markAsLearned, resetDeck,
         currentIndex, filteredData, currentDeckName, isLandingDemo,
@@ -15,8 +15,8 @@ function Controls() {
     const t = getStudyCardControlLabels(language);
     const totalCards = filteredData.length;
     // Demo: no bloquear flechas mientras carga/sintetiza audio (permite navegar fluido).
-    const isBusy = totalCards === 0 || (!isLandingDemo && isAudioLoading);
-    const isResetDisabled = (!isLandingDemo && isAudioLoading) || !currentDeckName;
+    const isBusy = totalCards === 0 || (!isLandingDemo && (isAudioLoading || isImageLoading));
+    const isResetDisabled = (!isLandingDemo && (isAudioLoading || isImageLoading)) || !currentDeckName;
 
     useEffect(() => {
         const handleKeyDown = (e) => {

@@ -256,12 +256,16 @@ function Flashcard() {
         <div className={styles.flashcardContainer} data-tour="flashcard-contenedor">
             <div
                 className={`${styles.card} ${isFlipped ? styles.flipped : ''}`}
-                onClick={() => setIsFlipped(p => !p)}
+                onClick={() => {
+                    if (isImageLoading) return;
+                    setIsFlipped(p => !p);
+                }}
                 data-tour="boton-voltear-tarjeta"
                 data-flipped={isFlipped ? 'true' : 'false'}
                 role="button"
                 aria-pressed={isFlipped}
                 aria-label={language === 'es' ? 'Voltear tarjeta' : 'Flip card'}
+                style={{ cursor: isImageLoading ? 'wait' : 'pointer' }}
             >
 
 

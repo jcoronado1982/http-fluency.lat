@@ -2691,6 +2691,7 @@ dependencies = [
  "async-trait",
  "chrono",
  "fluency_core",
+ "futures",
  "rand 0.8.6",
  "serde",
  "serde_json",

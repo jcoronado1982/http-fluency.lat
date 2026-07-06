@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useStudyMediaContext } from '../StudyMediaContext';
 import { AI_ENABLED } from '../../../config/api';
 import { useAuth } from '../../../context/AuthContext';
-import { useFlashcardContext } from '../context/flashcardStudyContext';
+import { useFlashcardUiContext, useFlashcardContext } from '../context/flashcardStudyContext';
 import {
     isLandingDemoCategory,
 } from '../../../contracts/landingDemoNamespace';
@@ -30,6 +30,8 @@ function defsFromFormBlock(block) {
         return [{
             usage_example: block.usage_example,
             usage_example_es: block.usage_example_es,
+            usage_context_en: block.usage_context_en,
+            alternative_example: block.alternative_example,
             pronunciation_guide_es: block.pronunciation_guide_es,
             meaning: block.meaning,
             imagePath: block.imagePath ?? null,
@@ -53,6 +55,17 @@ function demoSceneComplement(extra) {
     return trimmed || undefined;
 }
 
+function pathMatchesDeck(path, category, deck) {
+    if (!path || !category || !deck) return false;
+    const cleanPath = path.split('?')[0];
+    const cleanDeck = String(deck).replace(/\.json$/, '');
+    const segments = cleanDeck.split('/').filter(Boolean);
+    const mediaDir = segments.join('/');
+    const filePrefix = segments.join('_');
+    if (!mediaDir || !filePrefix) return false;
+    return cleanPath.includes(`/card_images/${category}/${mediaDir}/${filePrefix}_card_`);
+}
+
 export function useImageGeneration({
     cardData,
     currentCategory: categoryFromContext,
@@ -72,7 +85,9 @@ export function useImageGeneration({
         demoImagePromptExtraRef,
         imagePromptApplySignal = 0,
     } = useFlashcardContext() ?? {};
-    const [isImageLoading, setIsImageLoading] = useState(true);
+    const uiContext = useFlashcardUiContext();
+    const isImageLoading = uiContext?.isImageLoading ?? false;
+    const setIsImageLoading = uiContext?.setIsImageLoading ?? (() => {});
     const [isGeneratingImage, setIsGeneratingImage] = useState(false);
     const [imageUrl, setImageUrl] = useState(null);
     const [currentDefIndex, setCurrentDefIndex] = useState(0);
@@ -137,6 +152,7 @@ export function useImageGeneration({
     const buildGlobalFallbackPath = useCallback((defIndex, formOverride) => {
         const form = formOverride ?? activeForm;
         if (!cardData) return null;
+        const isGroupedDeck = typeof currentDeckName === 'string' && currentDeckName.includes('/');
 
         const getter = FORM_DEF_MAP[form] || FORM_DEF_MAP.v1;
         const defs = getter(cardData);
@@ -144,6 +160,15 @@ export function useImageGeneration({
 
         if (definition?.imagePath) {
             const jsonPath = imagePort.normalizeToAvif(definition.imagePath);
+            if (isGroupedDeck && !isLandingDemo && !pathMatchesDeck(jsonPath, currentCategory, currentDeckName)) {
+                return imagePort.buildGlobalStoragePath({
+                    category: currentCategory,
+                    deck: currentDeckName,
+                    index: cardData.id,
+                    defIndex,
+                    form,
+                });
+            }
             if (isLandingDemo && !pathMatchesVerbForm(jsonPath, form)) {
                 return imagePort.buildGlobalStoragePath({
                     category: currentCategory,
@@ -154,6 +179,9 @@ export function useImageGeneration({
                 });
             }
             return jsonPath;
+        }
+        if (isGroupedDeck && !isLandingDemo) {
+            return null;
         }
         if (currentCategory && currentDeckName) {
             return imagePort.buildGlobalStoragePath({
@@ -188,7 +216,7 @@ export function useImageGeneration({
         return true;
     }, [applyLoadedImage, imagePort]);
 
-    const fetchViaGenerate = useCallback(async (defIndex, forceRegenerate, seq, pipelineForm) => {
+    const fetchViaGenerate = useCallback(async (defIndex, forceRegenerate, seq, pipelineForm, legacyImagePath = null) => {
         const requestForm = pipelineForm ?? activeFormRef.current;
         const formDefs = (FORM_DEF_MAP[requestForm] || FORM_DEF_MAP.v1)(cardData);
         if (!cardData || !formDefs?.[defIndex] || !currentCategory) return false;
@@ -258,8 +286,11 @@ export function useImageGeneration({
                 prompt: usageExample,
                 meaning: def.meaning,
                 usageExample,
+                usageContext: def.usage_context_en,
+                alternativeExample: def.alternative_example,
                 sceneComplement,
                 forceGeneration: forceRegenerate,
+                legacyImagePath,
             });
 
             if (isRequestStale()) {
@@ -302,7 +333,7 @@ export function useImageGeneration({
             } else if (!isRequestStale()) {
                 setTimeout(() => {
                     if (!isRequestStale()) {
-                        fetchViaGenerate(defIndex, forceRegenerate, seq, requestForm);
+                        fetchViaGenerate(defIndex, forceRegenerate, seq, requestForm, legacyImagePath);
                     }
                 }, IMAGE_RETRY_DELAY);
                 return 'retrying';
@@ -371,16 +402,21 @@ export function useImageGeneration({
 
         const getFormDefs = (form) => (FORM_DEF_MAP[form] || FORM_DEF_MAP.v1)(cardData);
 
-        const tryImmediateJsonPath = (form) => {
+        const tryVerifiedJsonPath = async (form) => {
             const formDefs = getFormDefs(form);
             if (!formDefs?.[defIndex]?.imagePath) return false;
 
             const jsonPath = imagePort.normalizeToAvif(formDefs[defIndex].imagePath);
             if (isLandingDemo && !pathMatchesVerbForm(jsonPath, form)) return false;
-
-            setImageFromPath(jsonPath, defIndex, cardData.force_generation, form);
-            setAppMessage({ text: `Imagen (Def ${defIndex + 1}) lista`, isError: false });
-            return true;
+            if (
+                typeof currentDeckName === 'string'
+                && currentDeckName.includes('/')
+                && !isLandingDemo
+                && !pathMatchesDeck(jsonPath, currentCategory, currentDeckName)
+            ) {
+                return false;
+            }
+            return tryVerifyPath(jsonPath, form);
         };
 
         const tryResolveForm = async (form) => {
@@ -434,36 +470,16 @@ export function useImageGeneration({
         };
 
         if (!forceRegenerate) {
-            // En la app normal, imagePath del JSON apunta a assets ya sembrados y evita roundtrips.
-            // En landing-demo puede ser solo la ruta esperada; hay que verificar/generar si falta.
-            if (!isLandingDemo && tryImmediateJsonPath(pipelineForm)) return;
-            // Con auth: resolver v2/v3 en Oracle antes de reutilizar imagePath v1 del JSON.
-            if (!isLandingDemo && isAuthenticated && pipelineForm !== 'v1') {
-                if (await tryResolveForm(pipelineForm)) return;
-            }
-            // App interna: v2/v3 pueden reutilizar imagen v1. Demo landing: cada tiempo es independiente.
-            if (!isLandingDemo && pipelineForm !== 'v1' && tryImmediateJsonPath('v1')) return;
-
+            // Resolver la variante exacta en servidor evita usar rutas viejas del JSON
+            // cuando el archivo real ya no existe o fue reemplazado.
             if (!isLandingDemo && (await tryResolveForm(pipelineForm))) return;
 
+            // Si el servidor no devolvió nada, verificar el path exacto antes de aceptarlo.
+            if (!isLandingDemo && (await tryVerifiedJsonPath(pipelineForm))) return;
+
             if (!isLandingDemo) {
-                // Sin auth o resolve falló: probar v1 por JSON o ruta canónica
-                if (pipelineForm !== 'v1') {
-                    const v1Defs = getFormDefs('v1');
-                    const v1Path = v1Defs?.[defIndex]?.imagePath
-                        ? imagePort.normalizeToAvif(v1Defs[defIndex].imagePath)
-                        : imagePort.buildGlobalStoragePath({
-                            category: currentCategory,
-                            deck: currentDeckName,
-                            index: cardData.id,
-                            defIndex,
-                            form: 'v1',
-                        });
-                    if (await tryVerifyPath(v1Path, 'v1')) return;
-                } else {
-                    const v1Path = buildGlobalFallbackPath(defIndex, 'v1');
-                    if (await tryVerifyPath(v1Path, 'v1')) return;
-                }
+                const exactPath = buildGlobalFallbackPath(defIndex, pipelineForm);
+                if (await tryVerifyPath(exactPath, pipelineForm)) return;
             } else {
                 // Demo landing: resolve en servidor (Oracle/local) antes del preload en navegador
                 if (await tryResolveForm(pipelineForm)) return;
@@ -480,7 +496,21 @@ export function useImageGeneration({
 
         // Paso 3: get-or-generate (solo si no existe ninguna variante)
         if (canGenerateImages && AI_ENABLED) {
-            const generated = await fetchViaGenerate(defIndex, forceRegenerate, seq, pipelineForm);
+            // forceGeneration queda reservado para acciones explícitas del usuario.
+            // Si solo falta la ruta nueva, backend primero intenta migrar una imagen legacy.
+            const shouldForceGenerate = forceRegenerate;
+            const rawLegacyPath = pipelineDefs?.[defIndex]?.imagePath
+                ? imagePort.normalizeToAvif(pipelineDefs[defIndex].imagePath)
+                : null;
+            const legacyImagePath = !forceRegenerate
+                && rawLegacyPath
+                && !isLandingDemo
+                && typeof currentDeckName === 'string'
+                && currentDeckName.includes('/')
+                && !pathMatchesDeck(rawLegacyPath, currentCategory, currentDeckName)
+                ? rawLegacyPath
+                : null;
+            const generated = await fetchViaGenerate(defIndex, shouldForceGenerate, seq, pipelineForm, legacyImagePath);
             if (generated === false && !isStale()) {
                 releasePipelineLoading(seq);
             }
@@ -531,7 +561,7 @@ export function useImageGeneration({
 
         confirmedPathRef.current = null;
         imageUrlRef.current = null;
-        ensureImageForDefinition(defIndex, { forceRegenerate: false });
+        ensureImageForDefinition(defIndex, { forceRegenerate: true });
     }, [setImageFromPath, ensureImageForDefinition, setAppMessage]);
 
     const prevCardIdRef = useRef(null);

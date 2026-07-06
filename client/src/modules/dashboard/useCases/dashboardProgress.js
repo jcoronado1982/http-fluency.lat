@@ -1,5 +1,4 @@
-import catalogOrder from '../../flashcards/config/catalogOrder.json';
-import { getFlashcardTranslations } from '../../flashcards/config/translations';
+import catalogOrder from '../../../contracts/catalogOrder.json';
 
 export const LEVELS = [
     { id: 'A1', min: 0, max: 700, wordsMin: 500, wordsMax: 700, premium: false },
@@ -22,6 +21,76 @@ const LEVEL_TO_DECK_KEY = {
     B2: '3-advanced',
 };
 const QUICK_ACCESS_ACCENTS = ['#f472b6', '#fb923c', '#be185d'];
+const DECK_LABEL_TRANSLATIONS_ES = {
+    General: 'General',
+    'Being & State': 'Ser y Estado',
+    'Action & Movement': 'Accion y Movimiento',
+    'Daily Life': 'Vida Diaria',
+    Communication: 'Comunicacion',
+    'Change & Result': 'Cambio y Resultado',
+    'Mind & Senses': 'Mente y Sentidos',
+    'Social & Exchange': 'Social e Intercambio',
+    'Handling & Creating': 'Manejo y Creacion',
+    'Daily Routine': 'Rutina Diaria',
+    'Building & Creating': 'Construccion y Creacion',
+    'Managing & Control': 'Gestion y Control',
+    'Thinking & Deciding': 'Pensamiento y Decision',
+    'Daily Tasks': 'Tareas Diarias',
+    'Feelings & Reactions': 'Sentimientos y Reacciones',
+    'Body & Movement': 'Cuerpo y Movimiento',
+    'Social & Daily Life': 'Vida Social y Diaria',
+    'Academic Communication': 'Comunicacion Academica',
+    'Age & Novelty': 'Edad y Novedad',
+    Animals: 'Animales',
+    'Arts & Media': 'Arte y Medios',
+    'Body Parts': 'Partes del Cuerpo',
+    Clothing: 'Ropa',
+    Colors: 'Colores',
+    'Critical Thinking': 'Pensamiento Critico',
+    Directions: 'Direcciones',
+    Family: 'Familia',
+    Feelings: 'Sentimientos',
+    'Feelings & Emotions': 'Sentimientos y Emociones',
+    Food: 'Comida',
+    'General Concepts': 'Conceptos Generales',
+    'Goals & Results': 'Metas y Resultados',
+    'Government & Society': 'Gobierno y Sociedad',
+    'Health & Medicine': 'Salud y Medicina',
+    'Health & Well-being': 'Salud y Bienestar',
+    Household: 'Hogar',
+    'Interrogative/Relative': 'Interrogativos / Relativos',
+    'Mind & Attitude': 'Mente y Actitud',
+    Months: 'Meses',
+    Nature: 'Naturaleza',
+    'Nature & Environment': 'Naturaleza y Medio Ambiente',
+    Numbers: 'Numeros',
+    Object: 'Objetos',
+    People: 'Personas',
+    'Personality & Social': 'Personalidad y Social',
+    'Personality Traits': 'Rasgos de Personalidad',
+    'Physical & Sensory': 'Fisico y Sensorial',
+    'Physical State': 'Estado Fisico',
+    Places: 'Lugares',
+    'Places & Locations': 'Lugares y Ubicaciones',
+    'Professional Action': 'Accion Profesional',
+    'Professional & Business': 'Profesional y Negocios',
+    'Quality & Value': 'Calidad y Valor',
+    'School & Work': 'Escuela y Trabajo',
+    'Science & Biology': 'Ciencia y Biologia',
+    Seasons: 'Estaciones',
+    'Size & Dimension': 'Tamano y Dimension',
+    'Social Dynamics': 'Dinamicas Sociales',
+    'Social & Status': 'Social y Estatus',
+    Society: 'Sociedad',
+    'Speed & Time': 'Velocidad y Tiempo',
+    'State & Fortune': 'Estado y Fortuna',
+    Subject: 'Sujeto',
+    'Technology & Internet': 'Tecnologia e Internet',
+    Time: 'Tiempo',
+    Transportation: 'Transporte',
+    'Transportation & Travel': 'Transporte y Viajes',
+    'Value & Wealth': 'Valor y Riqueza',
+};
 
 export function formatWordsRange(level, language = 'en') {
     const locale = language === 'es' ? 'es' : 'en';
@@ -146,14 +215,13 @@ export function formatCategoryLabel(category, language = 'en') {
 }
 
 export function formatDeckLabel(deckName, language = 'en') {
-    if (!deckName) return '';
-    if (language !== 'es') return deckName;
-    const phrasalPrefix = 'Phrasal Verbs: ';
-    if (deckName.startsWith(phrasalPrefix)) {
+  if (!deckName) return '';
+  if (language !== 'es') return deckName;
+  const phrasalPrefix = 'Phrasal Verbs: ';
+  if (deckName.startsWith(phrasalPrefix)) {
         return `Verbos frasales: ${deckName.slice(phrasalPrefix.length)}`;
-    }
-    const translated = getFlashcardTranslations('es')?.categorySelector?.groups?.[deckName];
-    return translated || deckName;
+  }
+    return DECK_LABEL_TRANSLATIONS_ES[deckName] || deckName;
 }
 
 export function getTimeGreeting(language, name) {

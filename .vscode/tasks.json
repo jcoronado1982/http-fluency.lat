@@ -1,0 +1,62 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Ollama: serve GPU 0",
+      "type": "shell",
+      "command": "CUDA_VISIBLE_DEVICES=0 ollama serve",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "/bin/bash",
+          "args": ["-lc"]
+        }
+      },
+      "isBackground": true,
+      "presentation": {
+        "panel": "dedicated",
+        "clear": true,
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Backend: run api_main",
+      "type": "shell",
+      "command": "PORT=8080 cargo run -p api_main",
+      "options": {
+        "cwd": "${workspaceFolder}/backend",
+        "shell": {
+          "executable": "/bin/bash",
+          "args": ["-lc"]
+        }
+      },
+      "isBackground": true,
+      "presentation": {
+        "panel": "dedicated",
+        "clear": true,
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Agent: ask for help",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/local-agent.sh",
+      "args": ["${input:agentPrompt}"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "clear": true,
+        "reveal": "always"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "agentPrompt",
+      "type": "promptString",
+      "description": "Describe lo que quieres que haga el agente local"
+    }
+  ]
+}

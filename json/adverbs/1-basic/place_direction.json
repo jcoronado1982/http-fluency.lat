@@ -38,7 +38,7 @@
         "char_count": 5,
         "usage_context_en": "In, at, or to that place (not here).",
         "usage_context_es": "En, o a ese lugar (no aquí).",
-        "imagePath": "/card_images/adverbs/1-basic/1-basic_card_17_def0.jpg"
+        "imagePath": "/card_images/adverbs/1-basic/1-basic_card_17_def0.avif"
       }
     ]
   },
@@ -60,7 +60,7 @@
         "char_count": 5,
         "usage_context_en": "Used as an adverb to mean 'on or in the interior'.",
         "usage_context_es": "Usado como adverbio para significar 'en o en el interior'.",
-        "imagePath": "/card_images/adverbs/1-basic/1-basic_card_18_def0.jpg"
+        "imagePath": "/card_images/adverbs/1-basic/1-basic_card_18_def0.avif"
       }
     ]
   },
@@ -103,7 +103,7 @@
         "char_count": 5,
         "usage_context_en": "Used to say something is at a distance.",
         "usage_context_es": "Se usa para decir que algo está a una distancia.",
-        "imagePath": "/card_images/adverbs/1-basic/1-basic_card_29_def0.jpg"
+        "imagePath": "/card_images/adverbs/1-basic/1-basic_card_29_def0.avif"
       },
       {
         "meaning": "No aquí / Ausente",
@@ -113,7 +113,7 @@
         "char_count": 4,
         "usage_context_en": "Used when someone is not present in a place.",
         "usage_context_es": "Se usa cuando alguien no está presente en un lugar.",
-        "imagePath": "/card_images/adverbs/1-basic/1-basic_card_29_def1.jpg"
+        "imagePath": "/card_images/adverbs/1-basic/1-basic_card_29_def1.avif"
       },
       {
         "meaning": "A una distancia en tiempo o espacio",
@@ -123,7 +123,7 @@
         "char_count": 5,
         "usage_context_en": "Indicates distance in time or space.",
         "usage_context_es": "Indica distancia en tiempo o espacio.",
-        "imagePath": "/card_images/adverbs/1-basic/1-basic_card_29_def2.jpg"
+        "imagePath": "/card_images/adverbs/1-basic/1-basic_card_29_def2.avif"
       }
     ]
   },

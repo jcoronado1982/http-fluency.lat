@@ -1,4 +1,4 @@
-import catalogOrder from './catalogOrder.json';
+import catalogOrder from '../../../contracts/catalogOrder.json';
 import { applyPreferenceOrder } from './catalogPreferences';
 
 const categoryEntries = Array.isArray(catalogOrder.categories) ? catalogOrder.categories : [];

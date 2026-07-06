@@ -88,13 +88,34 @@ module_frontend_flag() {
     pricing) echo "VITE_ENABLE_PAYMENTS=true" ;;
     dashboard) echo "VITE_ENABLE_DASHBOARD=true" ;;
     flashcards) echo "VITE_ENABLE_FLASHCARDS=true" ;;
-    pronoun) echo "VITE_ENABLE_PRONOUN_REFERENCE=true VITE_ENABLE_PRONOUN_PRACTICE=true" ;;
-    admin) echo "VITE_ENABLE_ADMIN=true VITE_ENABLE_FLASHCARDS=false VITE_ENABLE_PRONOUN_REFERENCE=false VITE_ENABLE_PRONOUN_PRACTICE=false" ;;
+    pronoun)
+      printf '%s\n' \
+        "VITE_ENABLE_PRONOUN_REFERENCE=true" \
+        "VITE_ENABLE_PRONOUN_PRACTICE=true"
+      ;;
+    admin) echo "VITE_ENABLE_ADMIN=true" ;;
     *) return 1 ;;
   esac
 }
 
 module_default_home() {
+  echo "flashcards"
+}
+
+module_default_home_multi() {
+  local module
+  for module in "$@"; do
+    case "$module" in
+      flashcards)
+        echo "flashcards"
+        return 0
+        ;;
+      pronoun)
+        echo "pronoun"
+        return 0
+        ;;
+    esac
+  done
   echo "flashcards"
 }
 
@@ -104,10 +125,30 @@ module_frontend_disable_flag() {
     pricing) echo "VITE_ENABLE_PAYMENTS=false" ;;
     dashboard) echo "VITE_ENABLE_DASHBOARD=false" ;;
     flashcards) echo "VITE_ENABLE_FLASHCARDS=false" ;;
-    pronoun) echo "VITE_ENABLE_PRONOUN_REFERENCE=false VITE_ENABLE_PRONOUN_PRACTICE=false" ;;
+    pronoun)
+      printf '%s\n' \
+        "VITE_ENABLE_PRONOUN_REFERENCE=false" \
+        "VITE_ENABLE_PRONOUN_PRACTICE=false"
+      ;;
     admin) echo "VITE_ENABLE_ADMIN=false" ;;
     *) return 1 ;;
   esac
+}
+
+module_frontend_env_lines() {
+  local selected=("$@")
+  local module
+
+  echo "VITE_API_URL="
+  echo "VITE_DEFAULT_MODULE=$(module_default_home_multi "${selected[@]}")"
+
+  for module in "${MODULE_NAMES[@]}"; do
+    if module_selected_contains "$module" "${selected[@]}"; then
+      module_frontend_flag "$module"
+    else
+      module_frontend_disable_flag "$module"
+    fi
+  done
 }
 
 shared_sparse_patterns() {
@@ -146,6 +187,7 @@ client/src/hooks
 client/src/index.css
 client/src/main.jsx
 client/src/modules/index.js
+client/src/modules/routingPaths.js
 client/src/pages
 client/src/styles
 client/src/utils

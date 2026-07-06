@@ -32,9 +32,15 @@ pub struct GenerateImageBody {
     pub meaning: Option<String>,
     pub usage_example: Option<String>,
     #[serde(default)]
+    pub usage_context: Option<String>,
+    #[serde(default)]
+    pub alternative_example: Option<String>,
+    #[serde(default)]
     pub force_generation: bool,
     #[serde(default)]
     pub form: Option<String>,
+    #[serde(default)]
+    pub legacy_image_path: Option<String>,
     /// Demo landing: complemento visual opcional (no sustituye usage_example).
     #[serde(default)]
     pub scene_complement: Option<String>,

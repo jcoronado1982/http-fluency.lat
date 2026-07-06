@@ -139,6 +139,10 @@ impl LocalStorageRepository {
         self.oracle_repository_only
     }
 
+    fn must_read_from_oracle(&self) -> bool {
+        (self.oracle_repository_only || self.sync_to_oracle) && !self.oracle_host.is_empty()
+    }
+
     fn can_read_from_oracle(&self) -> bool {
         !self.oracle_base_url().is_empty()
     }
@@ -378,6 +382,14 @@ impl LocalStorageRepository {
     async fn list_nested_remote_decks(&self, rel: &str) -> Result<Vec<String>> {
         let mut level_dirs = if let Ok(remote) = self.list_oracle_dir_via_ssh(rel).await {
             remote
+                .into_iter()
+                .filter(|name| {
+                    !name.is_empty()
+                        && !name.ends_with(".json")
+                        && !name.contains(".bak")
+                        && !name.contains('/')
+                })
+                .collect()
         } else {
             self.list_oracle_entries(rel, true)
                 .await
@@ -559,7 +571,7 @@ impl StorageRepository for LocalStorageRepository {
         }
 
         let path = self.get_full_path(&self.json_prefix);
-        let result = if self.oracle_as_source_of_truth() {
+        let result = if self.must_read_from_oracle() {
             if !self.can_read_from_oracle() {
                 anyhow::bail!(
                     "Oracle repository mode activo pero public_base_url no está configurado"
@@ -611,12 +623,16 @@ impl StorageRepository for LocalStorageRepository {
         if Self::uses_nested_level_decks(category) {
             let mut nested_result = Vec::new();
 
-            let mut local_nested = self.list_nested_local_decks(&rel).await?;
-            if !local_nested.is_empty() {
-                local_nested.sort();
-                local_nested.dedup();
-                result = local_nested;
-            } else {
+            if !self.must_read_from_oracle() {
+                let mut local_nested = self.list_nested_local_decks(&rel).await?;
+                if !local_nested.is_empty() {
+                    local_nested.sort();
+                    local_nested.dedup();
+                    result = local_nested;
+                }
+            }
+
+            if result.is_empty() {
                 if self.oracle_as_source_of_truth()
                     || (self.sync_to_oracle && !self.oracle_host.is_empty())
                 {
@@ -699,7 +715,18 @@ impl StorageRepository for LocalStorageRepository {
         let object_name = format!("{}/{}/{}", self.json_prefix, category, full_name);
         let path = self.get_full_path(&object_name);
 
-        let data = if Self::uses_nested_level_decks(category)
+        let data = if self.must_read_from_oracle() {
+            match self.fetch_from_oracle(&object_name).await {
+                Ok(bytes) => bytes,
+                Err(_) if self.oracle_host.is_empty() => {
+                    anyhow::bail!("Lectura Oracle requerida pero ORACLE_HOST no está configurado");
+                }
+                Err(_) => self
+                    .fetch_from_oracle_ssh(&object_name)
+                    .await
+                    .context(format!("Deck no encontrado en Oracle: {}", object_name))?,
+            }
+        } else if Self::uses_nested_level_decks(category)
             && full_name.contains('/')
             && path.exists()
         {
@@ -761,9 +788,10 @@ impl StorageRepository for LocalStorageRepository {
         let object_name = format!("{}/{}/{}", self.json_prefix, category, full_name);
         let path = self.get_full_path(&object_name);
 
-        if self.oracle_as_source_of_truth() && !self.can_write_to_oracle() {
+        if (self.oracle_as_source_of_truth() || self.sync_to_oracle) && !self.can_write_to_oracle()
+        {
             anyhow::bail!(
-                "Oracle repository mode activo pero no hay escritura a Oracle configurada"
+                "Lectura/escritura Oracle requerida pero no hay escritura a Oracle configurada"
             );
         }
 
@@ -811,12 +839,12 @@ impl StorageRepository for LocalStorageRepository {
         Self::validate_relative_path(blob_path)?;
         let path = self.get_full_path(blob_path);
 
-        if self.oracle_as_source_of_truth() {
-            if let Ok(bytes) = self.fetch_from_oracle(blob_path).await {
+        if self.must_read_from_oracle() {
+            if let Ok(bytes) = self.fetch_from_oracle_ssh(blob_path).await {
                 return Ok(bytes);
             }
-            if !self.oracle_host.is_empty() {
-                if let Ok(bytes) = self.fetch_from_oracle_ssh(blob_path).await {
+            if self.can_read_from_oracle() {
+                if let Ok(bytes) = self.fetch_from_oracle(blob_path).await {
                     return Ok(bytes);
                 }
             }
@@ -849,9 +877,10 @@ impl StorageRepository for LocalStorageRepository {
         _content_type: &str,
     ) -> Result<()> {
         Self::validate_relative_path(blob_path)?;
-        if self.oracle_as_source_of_truth() && !self.can_write_to_oracle() {
+        if (self.oracle_as_source_of_truth() || self.sync_to_oracle) && !self.can_write_to_oracle()
+        {
             anyhow::bail!(
-                "Oracle repository mode activo pero no hay escritura a Oracle configurada"
+                "Lectura/escritura Oracle requerida pero no hay escritura a Oracle configurada"
             );
         }
         let path = self.get_full_path(blob_path);
@@ -866,7 +895,7 @@ impl StorageRepository for LocalStorageRepository {
                 tracing::error!("❌ SCP fallido para '{}': {}", blob_path, e);
                 e
             })?;
-            if self.oracle_as_source_of_truth() {
+            if self.oracle_as_source_of_truth() || self.sync_to_oracle {
                 if let Err(e) = fs::remove_file(&path).await {
                     tracing::warn!("No se pudo eliminar temporal local {:?}: {}", path, e);
                 }
@@ -892,7 +921,7 @@ impl StorageRepository for LocalStorageRepository {
     async fn blob_version(&self, blob_path: &str) -> Result<Option<String>> {
         Self::validate_relative_path(blob_path)?;
 
-        if !self.oracle_as_source_of_truth() {
+        if !self.must_read_from_oracle() {
             if let Some(version) = self.local_blob_mtime(blob_path).await? {
                 return Ok(Some(version));
             }
@@ -1087,7 +1116,7 @@ impl StorageRepository for LocalStorageRepository {
             }
         }
 
-        if names.is_empty() && !self.oracle_as_source_of_truth() {
+        if names.is_empty() && !self.must_read_from_oracle() {
             let local_dir = self.get_full_path(rel);
             if local_dir.exists() && local_dir.is_dir() {
                 let mut entries = fs::read_dir(&local_dir).await?;
@@ -1156,7 +1185,7 @@ impl LocalStorageRepository {
             return Ok(false);
         }
 
-        if self.oracle_as_source_of_truth() {
+        if self.must_read_from_oracle() {
             return Ok(false);
         }
 

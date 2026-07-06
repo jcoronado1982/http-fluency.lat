@@ -1,4 +1,5 @@
 pub mod assets;
+pub mod agent;
 #[cfg(feature = "flashcards")]
 pub mod decks;
 pub mod features;

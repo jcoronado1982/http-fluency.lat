@@ -5,6 +5,7 @@ use fluency_core::domain::models::user_activity::{
 };
 use fluency_core::ports::db_repository::{CardProgressRepository, UserActivityRepository};
 use fluency_core::ports::storage::StorageRepository;
+use futures::stream::{self, StreamExt};
 use std::sync::Arc;
 
 pub mod audio_use_cases;
@@ -41,6 +42,21 @@ pub fn safe_deck_prefix(deck: &str) -> Result<String> {
     let without_ext = trimmed.strip_suffix(".json").unwrap_or(trimmed);
     let media_prefix = without_ext.split('/').next().unwrap_or(without_ext);
     safe_storage_segment(media_prefix, "deck")
+}
+
+pub fn safe_deck_media_path(deck: &str) -> Result<(String, String)> {
+    let trimmed = deck.trim();
+    let without_ext = trimmed.strip_suffix(".json").unwrap_or(trimmed);
+    let segments: Vec<String> = without_ext
+        .split('/')
+        .map(|segment| safe_storage_segment(segment, "deck"))
+        .collect::<Result<Vec<_>>>()?;
+
+    if segments.is_empty() {
+        anyhow::bail!("deck inválido");
+    }
+
+    Ok((segments.join("/"), segments.join("_")))
 }
 
 pub fn safe_form_suffix(form: Option<&str>) -> Result<String> {
@@ -308,15 +324,29 @@ impl DeckUseCases {
                 .list_decks(&category)
                 .await
                 .unwrap_or_default();
-            for deck in decks {
-                if !deck.starts_with(deck_prefix) {
-                    continue;
-                }
+            let matching_decks: Vec<String> = decks
+                .into_iter()
+                .filter(|deck| deck.starts_with(deck_prefix))
+                .collect();
 
-                if let Ok(data) = self.storage_repo.get_deck_data(&category, &deck).await {
-                    total += data.flashcards().len() as i32;
+            let storage_repo = Arc::clone(&self.storage_repo);
+            let category_name = category.clone();
+            let counts: Vec<i32> = stream::iter(matching_decks.into_iter().map(move |deck| {
+                let storage_repo = Arc::clone(&storage_repo);
+                let category_name = category_name.clone();
+                async move {
+                    storage_repo
+                        .get_deck_data(&category_name, &deck)
+                        .await
+                        .map(|data| data.flashcards().len() as i32)
+                        .unwrap_or(0)
                 }
-            }
+            }))
+            .buffer_unordered(16)
+            .collect()
+            .await;
+
+            total += counts.into_iter().sum::<i32>();
         }
 
         Ok(total)

@@ -4,9 +4,10 @@ use fluency_core::ports::image_compressor::ImageCompressor;
 use fluency_core::ports::storage::StorageRepository;
 use fluency_core::ports::tutor::AITutor;
 use std::sync::Arc;
+use std::time::Instant;
 
 use crate::{
-    is_landing_demo_namespace, safe_deck_prefix, safe_form_suffix, safe_storage_segment,
+    is_landing_demo_namespace, safe_deck_media_path, safe_form_suffix, safe_storage_segment,
     FlashcardsConfig,
 };
 
@@ -29,6 +30,55 @@ fn normalize_role(role: &str) -> String {
     role.trim().to_ascii_lowercase()
 }
 
+fn preview_for_log(text: &str, max_chars: usize) -> String {
+    let compact = text.split_whitespace().collect::<Vec<_>>().join(" ");
+    let mut preview = String::new();
+    for ch in compact.chars().take(max_chars) {
+        preview.push(ch);
+    }
+    if compact.chars().count() > max_chars {
+        preview.push_str("...");
+    }
+    preview
+}
+
+fn build_prompt_meaning_context(req: &ImageGenRequest) -> Option<String> {
+    let mut parts = Vec::new();
+    if let Some(value) = req.meaning.as_deref().map(str::trim).filter(|s| !s.is_empty()) {
+        parts.push(format!("MEANING: \"{value}\""));
+    }
+    if let Some(value) = req
+        .usage_context
+        .as_deref()
+        .map(str::trim)
+        .filter(|s| !s.is_empty())
+    {
+        parts.push(format!("CONTEXT_TYPE: \"{value}\""));
+    }
+    if let Some(value) = req
+        .alternative_example
+        .as_deref()
+        .map(str::trim)
+        .filter(|s| !s.is_empty())
+    {
+        parts.push(format!("SUPPORTING_EXAMPLE: \"{value}\""));
+    }
+    if parts.is_empty() {
+        None
+    } else {
+        Some(parts.join("\n"))
+    }
+}
+
+fn extract_final_visual_description(response: &str) -> String {
+    response
+        .rsplit_once("FINAL:")
+        .map(|(_, final_text)| final_text)
+        .unwrap_or(response)
+        .trim()
+        .to_string()
+}
+
 // ---------------------------------------------------------------------------
 // Application-layer DTOs (no serde, no HTTP concerns)
 // ---------------------------------------------------------------------------
@@ -41,8 +91,11 @@ pub struct ImageGenRequest {
     pub prompt: String,
     pub meaning: Option<String>,
     pub usage_example: Option<String>,
+    pub usage_context: Option<String>,
+    pub alternative_example: Option<String>,
     pub force_generation: bool,
     pub form: Option<String>,
+    pub legacy_image_path: Option<String>,
     /// Demo landing: texto extra del usuario (complemento visual, no reemplaza el ejemplo).
     pub scene_complement: Option<String>,
 }
@@ -99,6 +152,149 @@ impl ImageUseCases {
         }
     }
 
+    fn legacy_public_path_to_blob_path(&self, legacy_path: &str) -> Option<String> {
+        let prefix = self.config.gcs_images_prefix.trim_matches('/');
+        let clean = legacy_path.split('?').next()?.trim();
+        if clean.is_empty() {
+            return None;
+        }
+
+        let with_prefix = format!("/{}/", prefix);
+        let path = if let Some(pos) = clean.find(&with_prefix) {
+            &clean[pos + 1..]
+        } else {
+            clean.trim_start_matches('/')
+        };
+
+        if !path.starts_with(&format!("{}/", prefix)) {
+            return None;
+        }
+        if path.split('/').any(|segment| segment == "..") || path.contains('\\') {
+            return None;
+        }
+
+        let ext = path.rsplit('.').next()?.to_ascii_lowercase();
+        match ext.as_str() {
+            "avif" | "jpg" | "jpeg" | "png" | "webp" => Some(path.to_string()),
+            _ => None,
+        }
+    }
+
+    fn legacy_blob_candidates(&self, source_blob_path: &str) -> Vec<String> {
+        let Some((base, ext)) = source_blob_path.rsplit_once('.') else {
+            return vec![source_blob_path.to_string()];
+        };
+        let mut candidates = vec![format!("{base}.avif"), source_blob_path.to_string()];
+        for candidate_ext in ["jpg", "jpeg", "png", "webp"] {
+            if !ext.eq_ignore_ascii_case(candidate_ext) {
+                candidates.push(format!("{base}.{candidate_ext}"));
+            }
+        }
+        candidates.dedup();
+        candidates
+    }
+
+    fn bytes_are_avif(bytes: &[u8]) -> bool {
+        bytes
+            .windows(8)
+            .take(32)
+            .any(|window| window == b"ftypavif")
+            || bytes
+                .windows(8)
+                .take(32)
+                .any(|window| window == b"ftypavis")
+    }
+
+    async fn migrate_legacy_image_to_target(
+        &self,
+        legacy_path: Option<&str>,
+        target_blob_path: &str,
+        trace_short: &str,
+        avif_quality: u8,
+    ) -> Result<bool> {
+        let Some(legacy_path) = legacy_path else {
+            return Ok(false);
+        };
+        let Some(source_blob_path) = self.legacy_public_path_to_blob_path(legacy_path) else {
+            tracing::warn!(
+                trace_id = %trace_short,
+                legacy_path = %legacy_path,
+                "img-gen:legacy-migration-invalid-path"
+            );
+            return Ok(false);
+        };
+        if source_blob_path == target_blob_path {
+            return Ok(false);
+        }
+
+        let mut loaded_source: Option<(String, Vec<u8>)> = None;
+        let mut last_error: Option<String> = None;
+        for candidate in self.legacy_blob_candidates(&source_blob_path) {
+            match self.storage_repo.download_blob(&candidate).await {
+                Ok(bytes) => {
+                    loaded_source = Some((candidate, bytes));
+                    break;
+                }
+                Err(e) => {
+                    last_error = Some(e.to_string());
+                }
+            }
+        }
+
+        let Some((source_blob_path, source_bytes)) = loaded_source else {
+            tracing::warn!(
+                trace_id = %trace_short,
+                legacy_blob_path = %source_blob_path,
+                error = ?last_error,
+                "img-gen:legacy-migration-source-missing"
+            );
+            return Ok(false);
+        };
+
+        let source_ext = source_blob_path
+            .rsplit('.')
+            .next()
+            .unwrap_or("")
+            .to_ascii_lowercase();
+        let target_bytes = if source_ext == "avif" || Self::bytes_are_avif(&source_bytes) {
+            source_bytes
+        } else {
+            self.image_compressor
+                .compress_to_avif(&source_bytes, avif_quality)
+                .map_err(|e| {
+                    tracing::error!(
+                        trace_id = %trace_short,
+                        legacy_blob_path = %source_blob_path,
+                        error = %e,
+                        "img-gen:legacy-migration-compression-failed"
+                    );
+                    anyhow::anyhow!("[trace={trace_short}] legacy image compression: {e}")
+                })?
+        };
+
+        self.storage_repo
+            .upload_blob(target_blob_path, target_bytes, "image/avif")
+            .await
+            .map_err(|e| {
+                tracing::error!(
+                    trace_id = %trace_short,
+                    legacy_blob_path = %source_blob_path,
+                    target_blob_path = %target_blob_path,
+                    error = %e,
+                    "img-gen:legacy-migration-upload-failed"
+                );
+                anyhow::anyhow!("[trace={trace_short}] legacy image upload: {e}")
+            })?;
+
+        tracing::info!(
+            trace_id = %trace_short,
+            legacy_blob_path = %source_blob_path,
+            target_blob_path = %target_blob_path,
+            "img-gen:legacy-migration-done"
+        );
+        Ok(true)
+    }
+
     /// Devuelve (url, is_nueva), generando si no existe.
     /// - Admin → capa global; usuario normal → personal primero, fallback a global, genera en personal.
     pub async fn get_or_generate_image(
@@ -130,7 +326,7 @@ impl ImageUseCases {
         }
 
         let category = safe_storage_segment(&req.category, "category")?;
-        let deck_prefix = safe_deck_prefix(&req.deck)?;
+        let (deck_media_dir, deck_file_prefix) = safe_deck_media_path(&req.deck)?;
         let form_suffix = safe_form_suffix(req.form.as_deref())?;
         let user_segment = if is_admin || is_demo {
             None
@@ -141,11 +337,17 @@ impl ImageUseCases {
         let base_pattern = match &user_segment {
             Some(seg) => format!(
                 "users/{}/{}/{}/{}_card_{}_def{}{}",
-                seg, category, deck_prefix, deck_prefix, req.index, req.def_index, form_suffix
+                seg,
+                category,
+                deck_media_dir,
+                deck_file_prefix,
+                req.index,
+                req.def_index,
+                form_suffix
             ),
             None => format!(
                 "{}/{}/{}_card_{}_def{}{}",
-                category, deck_prefix, deck_prefix, req.index, req.def_index, form_suffix
+                category, deck_media_dir, deck_file_prefix, req.index, req.def_index, form_suffix
             ),
         };
 
@@ -163,7 +365,12 @@ impl ImageUseCases {
             if !is_admin {
                 let global_base = format!(
                     "{}/{}/{}_card_{}_def{}{}",
-                    category, deck_prefix, deck_prefix, req.index, req.def_index, form_suffix
+                    category,
+                    deck_media_dir,
+                    deck_file_prefix,
+                    req.index,
+                    req.def_index,
+                    form_suffix
                 );
                 let global_avif = format!("{}/{}.avif", self.config.gcs_images_prefix, global_base);
                 if let Ok(true) = self.storage_repo.blob_exists(&global_avif).await {
@@ -174,61 +381,18 @@ impl ImageUseCases {
                     ));
                 }
             }
-
-            // v2/v3 sin imagen propia → usar v1 antes de generar (app interna; demo landing: cada tiempo aparte)
-            if !form_suffix.is_empty() && !is_demo {
-                if let Some(seg) = &user_segment {
-                    let v1_personal = format!(
-                        "users/{}/{}/{}/{}_card_{}_def{}",
-                        seg, category, deck_prefix, deck_prefix, req.index, req.def_index
-                    );
-                    let v1_personal_avif =
-                        format!("{}/{}.avif", self.config.gcs_images_prefix, v1_personal);
-                    if let Ok(true) = self.storage_repo.blob_exists(&v1_personal_avif).await {
-                        tracing::info!(
-                            "↩️ v2/v3 sin imagen propia, reutilizando v1 personal: {}",
-                            v1_personal_avif
-                        );
-                        return Ok((
-                            self.versioned_image_url(
-                                &format!("{}.avif", v1_personal),
-                                &v1_personal_avif,
-                            )
-                            .await,
-                            false,
-                        ));
-                    }
-                }
-                let v1_global = format!(
-                    "{}/{}/{}_card_{}_def{}",
-                    category, deck_prefix, deck_prefix, req.index, req.def_index
-                );
-                let v1_global_avif =
-                    format!("{}/{}.avif", self.config.gcs_images_prefix, v1_global);
-                if let Ok(true) = self.storage_repo.blob_exists(&v1_global_avif).await {
-                    tracing::info!(
-                        "↩️ v2/v3 sin imagen propia, reutilizando v1 global: {}",
-                        v1_global_avif
-                    );
-                    return Ok((
-                        self.versioned_image_url(&format!("{}.avif", v1_global), &v1_global_avif)
-                            .await,
-                        false,
-                    ));
-                }
-            }
-        }
-
-        if !self.config.gemini_api_enabled {
-            return Err(anyhow::anyhow!(
-                "La generación de imagen por IA está deshabilitada."
-            ));
         }
 
         let file_name = format!("{}.avif", base_pattern);
         let blob_path = format!("{}/{}", self.config.gcs_images_prefix, file_name);
         let trace_id = uuid::Uuid::new_v4().to_string();
         let trace_short = &trace_id[..8];
+        let request_started_at = Instant::now();
+        let avif_quality = if is_demo {
+            crate::landing_demo_image_prompt::CARD_IMAGE_AVIF_QUALITY
+        } else {
+            80
+        };
 
         tracing::info!(
             trace_id = %trace_short,
@@ -240,15 +404,62 @@ impl ImageUseCases {
             gemini_input_phrase = %req.prompt,
             gemini_input_meaning = ?req.meaning,
             gemini_input_example = ?req.usage_example,
+            gemini_input_usage_context = ?req.usage_context,
+            gemini_input_alternative_example = ?req.alternative_example,
             blob_path = %blob_path,
+            elapsed_ms = request_started_at.elapsed().as_millis() as u64,
             "img-gen:start"
+        );
+
+        if !req.force_generation
+            && self
+                .migrate_legacy_image_to_target(
+                    req.legacy_image_path.as_deref(),
+                    &blob_path,
+                    trace_short,
+                    avif_quality,
+                )
+                .await?
+        {
+            return Ok((self.versioned_image_url(&file_name, &blob_path).await, true));
+        }
+
+        if !self.config.gemini_api_enabled {
+            return Err(anyhow::anyhow!(
+                "La generación de imagen por IA está deshabilitada."
+            ));
+        }
+
+        let prompt_context_started_at = Instant::now();
+        let prompt_meaning_context = build_prompt_meaning_context(req);
+        tracing::info!(
+            trace_id = %trace_short,
+            prompt_meaning_context = ?prompt_meaning_context,
+            prompt_usage_example = ?req.usage_example,
+            prompt_scene_complement = ?req.scene_complement,
+            prompt_context_elapsed_ms = prompt_context_started_at.elapsed().as_millis() as u64,
+            elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+            "img-gen:prompt-context"
+        );
+
+        let prompt_llm_started_at = Instant::now();
+        tracing::info!(
+            trace_id = %trace_short,
+            prompt_engine = if is_demo { "ollama-demo" } else { "ollama" },
+            prompt_phrase_len = req.prompt.len(),
+            prompt_meaning_len = prompt_meaning_context.as_ref().map(|s| s.len()).unwrap_or(0),
+            prompt_example_len = req.usage_example.as_ref().map(|s| s.len()).unwrap_or(0),
+            prompt_alt_example_len = req.alternative_example.as_ref().map(|s| s.len()).unwrap_or(0),
+            prompt_preview = %preview_for_log(&req.prompt, 120),
+            elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+            "img-gen:prompt-llm-start"
         );
 
         let visual_description = match if is_demo {
             self.ai_tutor.improve_prompt_for_landing_demo_image(
                 &req.prompt,
                 &category,
-                req.meaning.as_deref(),
+                prompt_meaning_context.as_deref().or(req.meaning.as_deref()),
                 req.usage_example.as_deref(),
                 req.scene_complement.as_deref(),
             )
@@ -256,28 +467,33 @@ impl ImageUseCases {
             self.ai_tutor.improve_prompt_for_image(
                 &req.prompt,
                 &category,
-                req.meaning.as_deref(),
+                prompt_meaning_context.as_deref().or(req.meaning.as_deref()),
                 req.usage_example.as_deref(),
             )
         }
         .await
         {
             Ok(desc) => {
+                let visual_description = extract_final_visual_description(&desc);
                 tracing::info!(
                     trace_id = %trace_short,
                     gemini_output = %desc,
+                    visual_description = %visual_description,
                     landing_demo = is_demo,
+                    prompt_llm_elapsed_ms = prompt_llm_started_at.elapsed().as_millis() as u64,
+                    elapsed_ms = request_started_at.elapsed().as_millis() as u64,
                     "img-gen:gemini-ok"
                 );
-                desc
+                visual_description
             }
             Err(e) => {
-                tracing::warn!(
+                tracing::error!(
                     trace_id = %trace_short,
                     error = %e,
-                    fallback_phrase = %req.prompt,
                     landing_demo = is_demo,
-                    "img-gen:gemini-fallback"
+                    prompt_llm_elapsed_ms = prompt_llm_started_at.elapsed().as_millis() as u64,
+                    elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+                    "img-gen:prompt-llm-failed"
                 );
                 if is_demo {
                     let example = req.usage_example.as_deref().unwrap_or(&req.prompt);
@@ -286,7 +502,10 @@ impl ImageUseCases {
                         req.scene_complement.as_deref(),
                     )
                 } else {
-                    req.prompt.clone()
+                    return Err(anyhow::anyhow!(
+                        "Error en el pipeline de prompts: El generador local (Ollama/Qwen) falló o no está iniciado. Detalle: {}",
+                        e
+                    ));
                 }
             }
         };
@@ -298,17 +517,53 @@ impl ImageUseCases {
             )
         } else {
             format!(
-                "Candid photorealistic DSLR photograph, 512x512, natural indoor lighting, authentic textures: {}. \
-                A realistic, unposed, everyday life scene. No text, no words, no letters, no captions, no signage, no watermarks.",
+                "Candid photorealistic DSLR photograph, 896x512, realistic natural lighting appropriate to the location, authentic textures: {}. \
+                A realistic, unposed, everyday life scene in the most context-appropriate setting. No text, no words, no letters, no captions, no signage, no watermarks.",
                 visual_description
             )
         };
+
+        // Log image generation prompts locally to image_generation.log
+        if let Ok(log_line) = serde_json::to_string(&serde_json::json!({
+            "timestamp": chrono::Utc::now().to_rfc3339(),
+            "trace_id": trace_short,
+            "word": req.prompt,
+            "meaning": req.meaning,
+            "example": req.usage_example,
+            "category": req.category,
+            "deck": req.deck,
+            "card_index": req.index,
+            "definition_index": req.def_index,
+            "visual_description": visual_description,
+            "final_prompt": final_prompt,
+        })) {
+            if let Ok(mut file) = std::fs::OpenOptions::new()
+                .create(true)
+                .append(true)
+                .open("../image_generation.log")
+            {
+                use std::io::Write;
+                let _ = writeln!(file, "{}", log_line);
+            }
+        }
+
+        tracing::info!(
+            trace_id = %trace_short,
+            visual_description_len = visual_description.len(),
+            visual_description_preview = %preview_for_log(&visual_description, 180),
+            final_prompt_len = final_prompt.len(),
+            final_prompt_preview = %preview_for_log(&final_prompt, 220),
+            landing_demo = is_demo,
+            elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+            "img-gen:final-prompt"
+        );
 
         tracing::info!(
             trace_id = %trace_short,
             comfy_prompt = %final_prompt,
             landing_demo = is_demo,
             image_model = if is_demo { crate::landing_demo_image_prompt::GEMINI_IMAGE_MODEL } else { "comfyui/flux" },
+            elapsed_ms = request_started_at.elapsed().as_millis() as u64,
             "img-gen:model-request"
         );
 
@@ -319,7 +574,12 @@ impl ImageUseCases {
         };
 
         let raw_bytes = image_generator.generate(&final_prompt).await.map_err(|e| {
-            tracing::error!(trace_id = %trace_short, error = %e, "img-gen:model-failed");
+            tracing::error!(
+                trace_id = %trace_short,
+                error = %e,
+                elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+                "img-gen:model-failed"
+            );
             anyhow::anyhow!("[trace={trace_short}] image model: {e}")
         })?;
 
@@ -327,39 +587,65 @@ impl ImageUseCases {
             trace_id = %trace_short,
             raw_bytes = raw_bytes.len(),
             landing_demo = is_demo,
+            image_stage_elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+            elapsed_ms = request_started_at.elapsed().as_millis() as u64,
             "img-gen:model-ok"
         );
 
-        // Compresión a AVIF 512×512 (misma calidad que Flux)
-        let avif_quality = if is_demo {
-            crate::landing_demo_image_prompt::CARD_IMAGE_AVIF_QUALITY
-        } else {
-            80
-        };
+        // Compresión a AVIF 896x512 (formato canónico de tarjetas).
         let compressed_bytes = self
             .image_compressor
             .compress_to_avif(&raw_bytes, avif_quality)
             .map_err(|e| {
-                tracing::error!(trace_id = %trace_short, error = %e, "img-gen:compression-failed");
+                tracing::error!(
+                    trace_id = %trace_short,
+                    error = %e,
+                    elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+                    "img-gen:compression-failed"
+                );
                 anyhow::anyhow!("[trace={trace_short}] compression: {e}")
             })?;
 
         tracing::info!(
             trace_id = %trace_short,
             compressed_bytes = compressed_bytes.len(),
+            avif_quality = avif_quality,
+            elapsed_ms = request_started_at.elapsed().as_millis() as u64,
             "img-gen:compression-ok"
         );
 
-        self.storage_repo.upload_blob(&blob_path, compressed_bytes, "image/avif").await.map_err(|e| {
-            tracing::error!(trace_id = %trace_short, error = %e, blob_path = %blob_path, "img-gen:upload-failed");
-            anyhow::anyhow!("[trace={trace_short}] upload: {e}")
-        })?;
+        let upload_started_at = Instant::now();
+        tracing::info!(
+            trace_id = %trace_short,
+            blob_path = %blob_path,
+            upload_bytes = compressed_bytes.len(),
+            upload_started_ms = request_started_at.elapsed().as_millis() as u64,
+            "img-gen:upload-start"
+        );
+
+        self.storage_repo
+            .upload_blob(&blob_path, compressed_bytes, "image/avif")
+            .await
+            .map_err(|e| {
+                tracing::error!(
+                    trace_id = %trace_short,
+                    error = %e,
+                    blob_path = %blob_path,
+                    upload_elapsed_ms = upload_started_at.elapsed().as_millis() as u64,
+                    elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+                    "img-gen:upload-failed"
+                );
+                anyhow::anyhow!("[trace={trace_short}] upload: {e}")
+            })?;
 
         tracing::info!(
             trace_id = %trace_short,
             blob_path = %blob_path,
-            "img-gen:done"
+            upload_elapsed_ms = upload_started_at.elapsed().as_millis() as u64,
+            total_elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+            "img-gen:upload-ok"
         );
+
         Ok((self.versioned_image_url(&file_name, &blob_path).await, true))
     }
 
@@ -375,19 +661,19 @@ impl ImageUseCases {
         is_admin: bool,
     ) -> Result<bool> {
         let category = safe_storage_segment(category, "category")?;
-        let deck_prefix = safe_deck_prefix(deck)?;
+        let (deck_media_dir, deck_file_prefix) = safe_deck_media_path(deck)?;
         let form_suffix = safe_form_suffix(form)?;
 
         let base_pattern = if is_admin {
             format!(
                 "{}/{}/{}_card_{}_def{}{}",
-                category, deck_prefix, deck_prefix, index, def_index, form_suffix
+                category, deck_media_dir, deck_file_prefix, index, def_index, form_suffix
             )
         } else {
             let seg = user_path_segment(user_email);
             format!(
                 "users/{}/{}/{}/{}_card_{}_def{}{}",
-                seg, category, deck_prefix, deck_prefix, index, def_index, form_suffix
+                seg, category, deck_media_dir, deck_file_prefix, index, def_index, form_suffix
             )
         };
 
@@ -420,13 +706,11 @@ impl ImageUseCases {
         role: &str,
     ) -> Result<Option<String>> {
         let category = safe_storage_segment(category, "category")?;
-        let deck_prefix = safe_deck_prefix(deck)?;
+        let (deck_media_dir, deck_file_prefix) = safe_deck_media_path(deck)?;
         let form_suffix = safe_form_suffix(form)?;
         let images_prefix = &self.config.gcs_images_prefix;
 
         let role = normalize_role(role);
-        let is_demo = is_landing_demo_namespace(&category);
-
         tracing::info!(
             "🔍 resolve_image: category={} deck={} index={} def={} form={:?} role={}",
             category,
@@ -442,7 +726,7 @@ impl ImageUseCases {
             let seg = user_path_segment(user_email);
             let personal_base = format!(
                 "users/{}/{}/{}/{}_card_{}_def{}{}",
-                seg, category, deck_prefix, deck_prefix, index, def_index, form_suffix
+                seg, category, deck_media_dir, deck_file_prefix, index, def_index, form_suffix
             );
             let personal_avif = format!("{}/{}.avif", images_prefix, personal_base);
             tracing::info!("  → check personal: {}", personal_avif);
@@ -458,7 +742,7 @@ impl ImageUseCases {
         // Capa global predeterminada (todos los roles)
         let global_base = format!(
             "{}/{}/{}_card_{}_def{}{}",
-            category, deck_prefix, deck_prefix, index, def_index, form_suffix
+            category, deck_media_dir, deck_file_prefix, index, def_index, form_suffix
         );
         let global_avif = format!("{}/{}.avif", images_prefix, global_base);
         tracing::info!("  → check global: {}", global_avif);
@@ -470,47 +754,10 @@ impl ImageUseCases {
             ));
         }
 
-        // v2/v3 sin imagen propia → fallback a v1 (app interna; demo landing: cada tiempo aparte)
-        if !form_suffix.is_empty() && !is_demo {
-            if role == "premium" {
-                let seg = user_path_segment(user_email);
-                let personal_base = format!(
-                    "users/{}/{}/{}/{}_card_{}_def{}",
-                    seg, category, deck_prefix, deck_prefix, index, def_index
-                );
-                let personal_v1_path = format!("{}/{}.avif", images_prefix, personal_base);
-                tracing::info!("  → check personal v1-fallback: {}", personal_v1_path);
-                if self.storage_repo.blob_exists(&personal_v1_path).await? {
-                    tracing::info!("  ✔️ found personal v1-fallback: {}", personal_v1_path);
-                    return Ok(Some(
-                        self.versioned_image_url(
-                            &format!("{}.avif", personal_base),
-                            &personal_v1_path,
-                        )
-                        .await,
-                    ));
-                }
-            }
-
-            let global_v1_base = format!(
-                "{}/{}/{}_card_{}_def{}",
-                category, deck_prefix, deck_prefix, index, def_index
-            );
-            let global_v1_path = format!("{}/{}.avif", images_prefix, global_v1_base);
-            tracing::info!("  → check global v1-fallback: {}", global_v1_path);
-            if self.storage_repo.blob_exists(&global_v1_path).await? {
-                tracing::info!("  ✔️ found global v1-fallback: {}", global_v1_path);
-                return Ok(Some(
-                    self.versioned_image_url(&format!("{}.avif", global_v1_base), &global_v1_path)
-                        .await,
-                ));
-            }
-        }
-
         tracing::info!(
             "  ❌ no image found for {}/{}_card_{}_def{}{}",
             category,
-            deck_prefix,
+            deck_file_prefix,
             index,
             def_index,
             form_suffix
@@ -531,7 +778,7 @@ impl ImageUseCases {
         is_admin: bool,
     ) -> Result<String> {
         let category = safe_storage_segment(&req.category, "category")?;
-        let deck_prefix = safe_deck_prefix(&req.deck)?;
+        let (deck_media_dir, deck_file_prefix) = safe_deck_media_path(&req.deck)?;
         let form_suffix = safe_form_suffix(req.form.as_deref())?;
 
         let extension = std::path::Path::new(&req.file_name)
@@ -547,8 +794,8 @@ impl ImageUseCases {
             format!(
                 "{}/{}/{}_card_{}_def{}{}.{}",
                 category,
-                deck_prefix,
-                deck_prefix,
+                deck_media_dir,
+                deck_file_prefix,
                 req.card_index,
                 req.def_index,
                 form_suffix,
@@ -560,8 +807,8 @@ impl ImageUseCases {
                 "users/{}/{}/{}/{}_card_{}_def{}{}.{}",
                 seg,
                 category,
-                deck_prefix,
-                deck_prefix,
+                deck_media_dir,
+                deck_file_prefix,
                 req.card_index,
                 req.def_index,
                 form_suffix,

@@ -389,6 +389,10 @@ async fn async_main() -> anyhow::Result<()> {
     let mut app = Router::new()
         .route("/api/health", get(api::endpoints::health::health_check))
         .route("/api/features", get(api::endpoints::features::get_features))
+        .route(
+            "/api/local-agent/turn",
+            post(api::endpoints::agent::local_agent_turn),
+        )
         // Tutor (shell — usado por módulos conversacionales)
         .route(
             "/api/analyze-error",
@@ -474,7 +478,7 @@ async fn async_main() -> anyhow::Result<()> {
                 .layer(CompressionLayer::new())
                 // Timeout global: las peticiones lentas no acumulan threads.
                 // SSE usa su propia ruta sin este layer (está antes en el stack).
-                .layer(TimeoutLayer::new(Duration::from_secs(120)))
+                .layer(TimeoutLayer::new(Duration::from_secs(180)))
                 .layer(cors),
         )
         .with_state(state);

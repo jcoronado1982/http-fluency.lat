@@ -15,6 +15,16 @@ import { consumeFlashcardPreload } from '../preload';
 import { LAST_CATEGORY_KEY } from '../config/sessionKeys';
 
 export const CategoryContext = StudyCategoryContext;
+const PRELOAD_TIMEOUT_MS = 1500;
+
+function raceWithTimeout(promise, timeoutMs) {
+    return Promise.race([
+        promise,
+        new Promise((resolve) => {
+            window.setTimeout(() => resolve(null), timeoutMs);
+        }),
+    ]);
+}
 
 export const CategoryProvider = ({ children, resumeSession = null }) => {
     const [categories, setCategories] = useState([]);
@@ -57,7 +67,10 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
             setIsLoading(true);
             setLoadingStage('loading_categories');
             try {
-                const preloaded = await consumeFlashcardPreload(user?.email, resumeSession);
+                const preloaded = await raceWithTimeout(
+                    consumeFlashcardPreload(user?.email, resumeSession),
+                    PRELOAD_TIMEOUT_MS,
+                );
                 if (preloaded?.categories?.length) {
                     const preferences = getValidCatalogPreferences(preloaded.categories);
                     const ordered = sortCategories(

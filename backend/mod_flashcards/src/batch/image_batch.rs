@@ -1,4 +1,4 @@
-use crate::{image_use_cases::ImageGenRequest, safe_deck_prefix};
+use crate::{image_use_cases::ImageGenRequest, safe_deck_media_path};
 use fluency_core::domain::models::flashcard::Flashcard;
 use std::collections::HashSet;
 use std::io::{stdout, Write};
@@ -131,14 +131,14 @@ async fn run_batch(
         }
 
         for deck_name in decks {
-            let deck_prefix = safe_deck_prefix(&deck_name)?;
+            let (deck_media_dir, deck_file_prefix) = safe_deck_media_path(&deck_name)?;
             println!("  📦 Mazo: {deck_name}");
             let _ = stdout().flush();
 
             let mut deck_data = ctx.deck.get_deck_json(&cat_name, &deck_name).await?;
             let card_count = deck_data.flashcards().len();
 
-            let img_dir = format!("{images_prefix}/{cat_name}/{deck_prefix}");
+            let img_dir = format!("{images_prefix}/{cat_name}/{deck_media_dir}");
             let deck_files = ctx.deck.list_files_in_dir(&img_dir).await?;
             let file_index: HashSet<String> = deck_files.into_iter().collect();
             println!(
@@ -160,16 +160,22 @@ async fn run_batch(
                 for slot in slots {
                     global_counter += 1;
 
-                    let (meaning, usage_example, prompt_val) =
+                    let (
+                        meaning,
+                        usage_example,
+                        usage_context,
+                        alternative_example,
+                        prompt_val,
+                    ) =
                         extract_definition_fields(card, slot.def_index, slot.form);
 
                     let form_suffix = slot.form.suffix();
                     let base_pattern = format!(
                         "{}/{}/{}_card_{}_def{}{}",
-                        cat_name, deck_prefix, deck_prefix, i, slot.def_index, form_suffix
+                        cat_name, deck_media_dir, deck_file_prefix, i, slot.def_index, form_suffix
                     );
                     let filename = format!(
-                        "{deck_prefix}_card_{i}_def{}{form_suffix}.avif",
+                        "{deck_file_prefix}_card_{i}_def{}{form_suffix}.avif",
                         slot.def_index
                     );
 
@@ -203,11 +209,11 @@ async fn run_batch(
                                 Some(path)
                             }
                             None => {
-                                let orphan =
-                                    get_definition_image_path(card, slot.def_index, slot.form)
-                                        .is_some();
-                                if orphan {
-                                    println!("... 🔧 JSON huérfano (sin archivo), regenerando...");
+                                let legacy_image_path =
+                                    get_definition_image_path(card, slot.def_index, slot.form);
+                                let had_legacy_image_path = legacy_image_path.is_some();
+                                if had_legacy_image_path {
+                                    println!("... 🔧 JSON legacy; reubicando o generando...");
                                 } else {
                                     print!("... 🤖 Generando con IA... ");
                                     let _ = stdout().flush();
@@ -220,8 +226,11 @@ async fn run_batch(
                                     prompt: prompt_val,
                                     meaning,
                                     usage_example,
-                                    force_generation: orphan,
+                                    usage_context,
+                                    alternative_example,
+                                    force_generation: false,
                                     form: slot.form.form_arg().map(str::to_string),
+                                    legacy_image_path,
                                     scene_complement: None,
                                 };
 
@@ -243,7 +252,7 @@ async fn run_batch(
                                     Err(e) => {
                                         println!("... ❌ ERROR: {e} (grep trace_id en log con RUST_LOG=info)");
                                         stats.errors += 1;
-                                        if orphan {
+                                        if had_legacy_image_path {
                                             clear_paths.push((i, slot));
                                         }
                                         None
@@ -478,9 +487,17 @@ fn extract_definition_fields(
     card: &Flashcard,
     def_index: usize,
     form: FormVariant,
-) -> (Option<String>, Option<String>, String) {
+) -> (
+    Option<String>,
+    Option<String>,
+    Option<String>,
+    Option<String>,
+    String,
+) {
     let mut meaning = None;
     let mut usage_example = None;
+    let mut usage_context = None;
+    let mut alternative_example = None;
 
     if let Some(def_obj) = get_definition_object(&card.extra, def_index, form) {
         meaning = def_obj
@@ -489,6 +506,14 @@ fn extract_definition_fields(
             .map(|s| s.to_string());
         usage_example = def_obj
             .get("usage_example")
+            .and_then(|v| v.as_str())
+            .map(|s| s.to_string());
+        usage_context = def_obj
+            .get("usage_context_en")
+            .and_then(|v| v.as_str())
+            .map(|s| s.to_string());
+        alternative_example = def_obj
+            .get("alternative_example")
             .and_then(|v| v.as_str())
             .map(|s| s.to_string());
     }
@@ -503,7 +528,13 @@ fn extract_definition_fields(
     let fallback = card_display_name(card);
     let prompt_val = usage_example.clone().unwrap_or(fallback);
 
-    (meaning, usage_example, prompt_val)
+    (
+        meaning,
+        usage_example,
+        usage_context,
+        alternative_example,
+        prompt_val,
+    )
 }
 
 fn normalize_to_canonical_path(url: &str) -> String {

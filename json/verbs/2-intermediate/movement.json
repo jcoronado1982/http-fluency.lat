@@ -241,7 +241,7 @@
         "char_count": "two",
         "usage_context_en": "prevention/habits",
         "usage_context_es": "prevención/hábitos",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_75_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_75_def0.avif"
       },
       {
         "meaning": "Eludir/Esquivar",
@@ -252,7 +252,7 @@
         "char_count": "two",
         "usage_context_en": "people/danger",
         "usage_context_es": "personas/peligro",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_75_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_75_def1.avif"
       }
     ],
     "group_name": "Body & Movement"

@@ -1,18 +1,19 @@
 use image::{codecs::avif::AvifEncoder, imageops::FilterType, ImageEncoder};
 use std::io::Cursor;
 
-/// Tamaño canónico de tarjetas (Flux 512×512); el demo Gemini se reescala aquí antes del AVIF.
-pub const CARD_IMAGE_SIZE: u32 = 512;
+/// Tamaño canónico de imágenes generadas localmente.
+pub const CARD_IMAGE_WIDTH: u32 = 896;
+pub const CARD_IMAGE_HEIGHT: u32 = 512;
 
-/// Decodifica, normaliza a 512×512 si hace falta, y codifica AVIF (misma pipeline que Flux).
+/// Decodifica, normaliza a 896×512 si hace falta, y codifica AVIF.
 pub fn compress_bytes_to_avif(image_bytes: &[u8], quality: u8) -> Result<Vec<u8>, String> {
     let img = image::load_from_memory(image_bytes)
         .map_err(|e| format!("Fallo al decodificar imagen de la IA: {}", e))?;
 
-    let img = if img.width() == CARD_IMAGE_SIZE && img.height() == CARD_IMAGE_SIZE {
+    let img = if img.width() == CARD_IMAGE_WIDTH && img.height() == CARD_IMAGE_HEIGHT {
         img
     } else {
-        img.resize_exact(CARD_IMAGE_SIZE, CARD_IMAGE_SIZE, FilterType::Lanczos3)
+        img.resize_exact(CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT, FilterType::Lanczos3)
     };
 
     let mut buf = Cursor::new(Vec::new());
@@ -36,7 +37,7 @@ mod tests {
     #[test]
     fn compress_logo_png_to_avif_works() {
         use image::{ImageBuffer, ImageFormat, Rgb};
-        let img: ImageBuffer<Rgb<u8>, Vec<u8>> = ImageBuffer::from_fn(512, 512, |x, y| {
+        let img: ImageBuffer<Rgb<u8>, Vec<u8>> = ImageBuffer::from_fn(896, 512, |x, y| {
             Rgb([(x % 256) as u8, (y % 256) as u8, 128])
         });
         let mut original = Vec::new();
@@ -65,7 +66,7 @@ mod tests {
     }
 
     #[test]
-    fn downscales_non_512_to_card_size_before_avif() {
+    fn downscales_non_native_size_to_card_size_before_avif() {
         use image::{ImageBuffer, ImageFormat, Rgb};
         let img: ImageBuffer<Rgb<u8>, Vec<u8>> = ImageBuffer::from_fn(1024, 1024, |x, y| {
             Rgb([(x % 256) as u8, (y % 256) as u8, 64])

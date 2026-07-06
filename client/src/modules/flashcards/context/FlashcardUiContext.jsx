@@ -8,6 +8,7 @@ export const FlashcardUiProvider = ({ children }) => {
     const [isIpaModalOpen, setIsIpaModalOpen] = useState(false);
     const [isPhonicsModalOpen, setIsPhonicsModalOpen] = useState(false);
     const [isAudioLoading, setIsAudioLoading] = useState(false);
+    const [isImageLoading, setIsImageLoading] = useState(true);
 
     const openCatalog = useCallback(() => setIsCatalogVisible(true), []);
     const openIpa = useCallback(() => setIsIpaModalOpen(true), []);
@@ -19,6 +20,7 @@ export const FlashcardUiProvider = ({ children }) => {
             isIpaModalOpen, setIsIpaModalOpen,
             isPhonicsModalOpen, setIsPhonicsModalOpen,
             isAudioLoading, setIsAudioLoading,
+            isImageLoading, setIsImageLoading,
             openCatalog, openIpa, openPhonics,
         }}>
             {children}

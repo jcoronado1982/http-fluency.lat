@@ -9,7 +9,7 @@
       {
         "alternative_example": "The store will hire new workers next month.",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_84_def0.jpg",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_84_def0.avif",
         "meaning": "Contratar",
         "pronunciation_guide_es": "/dei_JAIERD_mai_broder/",
         "usage_context_en": "jobs/work",
@@ -20,7 +20,7 @@
       {
         "alternative_example": "We need to hire a driver for the trip.",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_84_def1.jpg",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_84_def1.avif",
         "meaning": "Alquilar servicios de alguien",
         "pronunciation_guide_es": "/ui_can_JAIER_a_GAID/",
         "usage_context_en": "services/help",
@@ -47,7 +47,7 @@
       {
         "alternative_example": "The company fired two people yesterday.",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_85_def0.jpg",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_85_def0.avif",
         "meaning": "Despedir (del trabajo)",
         "pronunciation_guide_es": "/dei_FAIERD_jim/",
         "usage_context_en": "jobs/work",
@@ -58,7 +58,7 @@
       {
         "alternative_example": "The officer fired into the air.",
         "char_count": "one",
-        "imagePath": "/card_images/verbs/1-basic/1-basic_card_85_def1.jpg",
+        "imagePath": "/card_images/verbs/1-basic/1-basic_card_85_def1.avif",
         "meaning": "Disparar",
         "pronunciation_guide_es": "/ji_FAIERD_de_gan/",
         "usage_context_en": "weapons/action",

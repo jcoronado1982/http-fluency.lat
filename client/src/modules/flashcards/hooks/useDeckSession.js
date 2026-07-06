@@ -31,6 +31,16 @@ import { consumeFlashcardPreload, resetFlashcardPreload } from '../preload';
 /** Número de tarjetas acumuladas antes de forzar un flush automático. */
 const BATCH_FLUSH_SIZE = 3;
 const PENDING_PROGRESS_STORAGE_KEY = 'flashcards_pending_progress_batches';
+const PRELOAD_TIMEOUT_MS = 1500;
+
+function raceWithTimeout(promise, timeoutMs) {
+    return Promise.race([
+        promise,
+        new Promise((resolve) => {
+            window.setTimeout(() => resolve(null), timeoutMs);
+        }),
+    ]);
+}
 
 function readStoredProgressBatches() {
     try {
@@ -158,7 +168,10 @@ export function useDeckSession(resumeSession = null) {
                 setDeckSummaries((prev) => ({ ...prev, [deck]: summarizeDeck(cards) }));
             };
 
-            const preloaded = await consumeFlashcardPreload(user.email);
+            const preloaded = await raceWithTimeout(
+                consumeFlashcardPreload(user.email),
+                PRELOAD_TIMEOUT_MS,
+            );
             if (
                 preloaded?.category === category
                 && preloaded?.deck === deck
@@ -227,7 +240,10 @@ export function useDeckSession(resumeSession = null) {
             setIsDeckLoading(true);
             setLoadingStage('loading_decks');
             try {
-                const preloaded = await consumeFlashcardPreload(user?.email, resumeSession);
+                const preloaded = await raceWithTimeout(
+                    consumeFlashcardPreload(user?.email, resumeSession),
+                    PRELOAD_TIMEOUT_MS,
+                );
                 if (
                     preloaded?.category === currentCategory
                     && Array.isArray(preloaded.deckNames)

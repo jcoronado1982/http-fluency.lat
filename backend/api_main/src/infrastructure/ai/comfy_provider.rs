@@ -4,13 +4,33 @@ use anyhow::{anyhow, Context, Result};
 use async_trait::async_trait;
 use reqwest::Client;
 use serde_json::json;
+use std::time::Instant;
 use tokio::time::{sleep, Duration};
-use tracing::info;
+use tracing::{debug, info, warn};
+
+fn preview_for_log(text: &str, max_chars: usize) -> String {
+    let compact = text.split_whitespace().collect::<Vec<_>>().join(" ");
+    let mut preview = String::new();
+    for ch in compact.chars().take(max_chars) {
+        preview.push(ch);
+    }
+    if compact.chars().count() > max_chars {
+        preview.push_str("...");
+    }
+    preview
+}
 
 pub struct ComfyUIProvider {
     client: Client,
     url: String,
 }
+
+const FLUX_IMAGE_WIDTH: u32 = 768;
+const FLUX_IMAGE_HEIGHT: u32 = 512;
+const FLUX_GUIDANCE: f32 = 3.6;
+const FLUX_STEPS: u32 = 20;
+const COMFY_HISTORY_POLL_MAX_ATTEMPTS: u32 = 180;
+const COMFY_AVAILABLE_MAX_ATTEMPTS: u32 = 180;
 
 impl ComfyUIProvider {
     pub fn new(settings: &Settings) -> Self {
@@ -19,7 +39,7 @@ impl ComfyUIProvider {
         let client = Client::builder()
             .pool_max_idle_per_host(4)
             .tcp_nodelay(true)
-            .timeout(std::time::Duration::from_secs(300))
+            .timeout(std::time::Duration::from_secs(180))
             .build()
             .expect("Error building ComfyUI HTTP client");
         Self {
@@ -42,19 +62,28 @@ impl ComfyUIProvider {
 #[async_trait]
 impl ImageGenerator for ComfyUIProvider {
     async fn generate(&self, prompt: &str) -> Result<Vec<u8>> {
+        let request_started_at = Instant::now();
+        info!(
+            prompt_len = prompt.len(),
+            prompt_preview = %preview_for_log(prompt, 180),
+            comfy_url = %self.url,
+            "comfy:start"
+        );
         // Robustness: Wait for ComfyUI to be available if it's still booting
         let mut attempts = 0;
         while !self.is_available().await {
-            if attempts >= 30 {
+            if attempts >= COMFY_AVAILABLE_MAX_ATTEMPTS {
                 return Err(anyhow!(
-                    "ComfyUI not available at {} after 30 seconds",
-                    self.url
+                    "ComfyUI not available at {} after {} seconds",
+                    self.url,
+                    COMFY_AVAILABLE_MAX_ATTEMPTS
                 ));
             }
             info!(
-                "⏳ Waiting for ComfyUI to be ready at {} (attempt {}/30)...",
+                "⏳ Waiting for ComfyUI to be ready at {} (attempt {}/{})...",
                 self.url,
-                attempts + 1
+                attempts + 1,
+                COMFY_AVAILABLE_MAX_ATTEMPTS
             );
             sleep(Duration::from_secs(1)).await;
             attempts += 1;
@@ -67,7 +96,8 @@ impl ImageGenerator for ComfyUIProvider {
                 "3": {
                     "class_type": "KSampler",
                     "inputs": {
-                        "cfg": 1,
+                        // Flux/Klein converges more reliably with native guidance in the 3.5-3.8 range.
+                        "cfg": FLUX_GUIDANCE,
                         "denoise": 1,
                         "latent_image": ["5", 0],
                         "model": ["10", 0],
@@ -76,15 +106,15 @@ impl ImageGenerator for ComfyUIProvider {
                         "sampler_name": "euler",
                         "scheduler": "simple",
                         "seed": rand::random::<u32>(),
-                        "steps": 8
+                        "steps": FLUX_STEPS
                     }
                 },
                 "5": {
                     "class_type": "EmptyLatentImage",
                     "inputs": {
                         "batch_size": 1,
-                        "height": 512,
-                        "width": 512
+                        "height": FLUX_IMAGE_HEIGHT,
+                        "width": FLUX_IMAGE_WIDTH
                     }
                 },
                 "8": {
@@ -136,6 +166,15 @@ impl ImageGenerator for ComfyUIProvider {
                 }
             }
         });
+
+        info!(
+            prompt_len = prompt.len(),
+            workflow_model = "flux-2-klein-9b-Q8_0.gguf",
+            workflow_clip = "Qwen_Qwen3-8B-Q8_0.gguf",
+            workflow_vae = "flux2-vae.safetensors",
+            elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+            "comfy:workflow-built"
+        );
 
         /*
         let workflow = json!({
@@ -248,14 +287,38 @@ impl ImageGenerator for ComfyUIProvider {
             .as_str()
             .context("No prompt_id in response")?;
 
+        info!(
+            prompt_id = %prompt_id,
+            elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+            "comfy:prompt-submitted"
+        );
+
         // Polling for completion using /history/{prompt_id}
         let history_url = format!("{}/history/{}", self.url, prompt_id);
         let mut attempts = 0;
-        while attempts < 60 {
-            let h_resp = self.client.get(&history_url).send().await?;
+        while attempts < COMFY_HISTORY_POLL_MAX_ATTEMPTS {
+            let h_resp = match self.client.get(&history_url).send().await {
+                Ok(resp) => resp,
+                Err(err) => {
+                    warn!(
+                        prompt_id = %prompt_id,
+                        attempt = attempts + 1,
+                        error = %err,
+                        "ComfyUI history poll failed, retrying"
+                    );
+                    sleep(Duration::from_secs(1)).await;
+                    attempts += 1;
+                    continue;
+                }
+            };
             if h_resp.status().is_success() {
                 let h_json: serde_json::Value = h_resp.json().await?;
                 if !h_json[prompt_id].is_null() {
+                    info!(
+                        prompt_id = %prompt_id,
+                        elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+                        "comfy:history-complete"
+                    );
                     // Completed!
                     let outputs = &h_json[prompt_id]["outputs"];
                     // Node 9 is SaveImage
@@ -273,13 +336,36 @@ impl ImageGenerator for ComfyUIProvider {
                     );
                     let img_resp = self.client.get(&view_url).send().await?;
                     let bytes = img_resp.bytes().await?;
+                    info!(
+                        prompt_id = %prompt_id,
+                        bytes = bytes.len(),
+                        total_elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+                        "comfy:image-downloaded"
+                    );
                     return Ok(bytes.to_vec());
                 }
+            }
+            if attempts % 15 == 0 {
+                debug!(
+                    prompt_id = %prompt_id,
+                    attempt = attempts + 1,
+                    elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+                    "comfy:history-polling"
+                );
             }
             sleep(Duration::from_secs(1)).await;
             attempts += 1;
         }
 
-        Err(anyhow!("ComfyUI timeout for prompt {}", prompt_id))
+        warn!(
+            prompt_id = %prompt_id,
+            total_elapsed_ms = request_started_at.elapsed().as_millis() as u64,
+            "comfy:timeout"
+        );
+        Err(anyhow!(
+            "ComfyUI timeout for prompt {} after {} seconds",
+            prompt_id,
+            COMFY_HISTORY_POLL_MAX_ATTEMPTS
+        ))
     }
 }

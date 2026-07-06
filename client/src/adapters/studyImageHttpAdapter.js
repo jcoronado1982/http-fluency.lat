@@ -2,9 +2,12 @@ import { API_URL } from '../config/api';
 import { httpClient } from '../services/httpClient';
 
 export function createImageHttpAdapter(http) {
-    const getDeckPrefix = (deck) => {
+    const getDeckMediaParts = (deck) => {
         const cleanDeck = (deck || '').replace('.json', '');
-        return cleanDeck.split('/')[0] || cleanDeck;
+        const segments = cleanDeck.split('/').filter(Boolean);
+        const mediaDir = segments.join('/') || cleanDeck;
+        const filePrefix = segments.join('_') || cleanDeck;
+        return { mediaDir, filePrefix };
     };
 
     const imageAdapter = {
@@ -22,7 +25,7 @@ export function createImageHttpAdapter(http) {
     },
 
     // POST /api/generate-image — recupera imagen de GCS o genera una nueva con IA
-    generate: async ({ category, deck, index, defIndex, form, prompt, meaning, usageExample, forceGeneration, sceneComplement }) => {
+    generate: async ({ category, deck, index, defIndex, form, prompt, meaning, usageExample, usageContext, alternativeExample, forceGeneration, legacyImagePath, sceneComplement }) => {
         const data = await http.post('/api/generate-image', {
             category,
             deck,
@@ -32,7 +35,10 @@ export function createImageHttpAdapter(http) {
             prompt,
             meaning,
             usage_example: usageExample,
+            usage_context: usageContext || undefined,
+            alternative_example: alternativeExample || undefined,
             force_generation: forceGeneration,
+            legacy_image_path: legacyImagePath || undefined,
             scene_complement: sceneComplement || undefined,
         });
         if (!data?.path) throw new Error('Sin ruta de imagen en la respuesta');
@@ -65,15 +71,17 @@ export function createImageHttpAdapter(http) {
 
     // Ruta AVIF global predeterminada (capa compartida por todos los usuarios).
     buildGlobalStoragePath: ({ category, deck, index, defIndex, form }) => {
-        const deckPrefix = getDeckPrefix(deck);
+        const { mediaDir, filePrefix } = getDeckMediaParts(deck);
         const formSuffix = form && form !== 'v1' ? `_${form}` : '';
-        return `/card_images/${category}/${deckPrefix}/${deckPrefix}_card_${index}_def${defIndex}${formSuffix}.avif`;
+        return `/card_images/${category}/${mediaDir}/${filePrefix}_card_${index}_def${defIndex}${formSuffix}.avif`;
     },
 
-    // Normaliza solo quitando query params; preserva la extensión real del asset.
+    // Normaliza paths legacy: los JSON antiguos apuntaban a .jpg, pero los assets reales son AVIF.
     normalizeToAvif: (path) => {
         if (!path) return path;
-        return path.split('?')[0];
+        const cleanPath = path.split('?')[0];
+        if (!cleanPath.includes('/card_images/')) return cleanPath;
+        return cleanPath.replace(/\.(jpe?g|png|webp)$/i, '.avif');
     },
 
     // Construye URL absoluta dado un path relativo de imagen.

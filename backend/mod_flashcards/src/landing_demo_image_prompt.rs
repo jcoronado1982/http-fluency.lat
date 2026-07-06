@@ -4,11 +4,23 @@
 /// Modelo Nano Banana Pro (Interactions API) — solo demo landing.
 pub const GEMINI_IMAGE_MODEL: &str = "gemini-3-pro-image";
 pub const GEMINI_IMAGE_ASPECT_RATIO: &str = "1:1";
-/// Mínimo soportado por Pro (1K); el backend reescala a 512×512 AVIF como Flux.
+/// Mínimo soportado por Pro (1K); el backend normaliza a 896x512 AVIF como Flux.
 pub const GEMINI_IMAGE_SIZE: &str = "1K";
 /// Mismo target que Flux / tarjetas internas.
-pub const CARD_IMAGE_PX: u32 = 512;
+pub const CARD_IMAGE_WIDTH: u32 = 896;
+pub const CARD_IMAGE_HEIGHT: u32 = 512;
 pub const CARD_IMAGE_AVIF_QUALITY: u8 = 80;
+
+fn image_generation_config() -> String {
+    format!(
+        "Image generation config: response_format aspect_ratio {}, image_size {}; backend delivery target {}x{} AVIF quality {}.",
+        GEMINI_IMAGE_ASPECT_RATIO,
+        GEMINI_IMAGE_SIZE,
+        CARD_IMAGE_WIDTH,
+        CARD_IMAGE_HEIGHT,
+        CARD_IMAGE_AVIF_QUALITY
+    )
+}
 
 /// System prompt Gemini → descripción visual (copia de producción).
 pub const GEMINI_SYSTEM: &str = r#"You are a "Real-Life Context" Visual Prompt Engineer for FLUX 2.
@@ -25,10 +37,10 @@ STEP 0 — SELECT VISUAL STRATEGY based on POS/CATEGORY:
 - verbs             -> freeze the person MID-ACTION — not before, not after
 - adjectives        -> use contrast or an extreme example to make the quality unmistakable
 - adverbs           -> show someone doing an action in that specific WAY
-- pronouns/possessives -> The word has NO visual meaning alone. You MUST show PEOPLE and their RELATIONSHIP to the object:
-                     1st person (my, our) = owners IN frame, seen from behind or reaching for it
-                     2nd person (you, your) = subject looks directly at camera
-                     3rd person (his, her, their) = owners OBSERVED from outside, at a distance
+- pronouns/possessives -> The word has NO visual meaning alone. You MUST show PEOPLE and their RELATIONSHIP to the object or action:
+                     1st person (my, our) = owner(s) clearly IN frame, with hands, body position, gaze, or proximity showing ownership
+                     2nd person (you, your) = the addressed person is visibly central, often facing the camera or receiving attention from another person
+                     3rd person (his, her, their) = owner(s) observed from outside, with facial features, clothing, posture, and nearby object making the relationship clear
 - prepositions      -> make the spatial/relational concept the visual star
 - articles          -> show specificity (the) vs generality (a) through selection/pointing
 
@@ -36,11 +48,16 @@ If the POS is not perfectly matched by the category, infer the best visual strat
 
 STEP 1 — BRAINSTORM: What is the most common, everyday slice-of-life scenario using the strategy above?
 STEP 2 — DESCRIBE: Write a candid, unposed photograph description.
+- Use the EXAMPLE as the main visual source when it exists; represent the phrase as it would appear in daily life, not as an abstract symbol.
+- Include concrete people details: approximate age, face visibility, expression, gaze direction, posture, hand placement, clothing, and who owns or interacts with what.
+- Include concrete environment details: room or street type, time of day, background objects, realistic surfaces, and lived-in imperfections.
 - Focus on EXPRESSIONS, authentic DETAILS (messy rooms, real textures), and realistic lighting.
+- Facial expressions must be neutral by default. Only show obvious emotions like crying, laughter, fear, anger, or sadness if the sentence explicitly requires them.
 - Avoid studio perfection. Look like a candid documentary shot.
+- GEOMETRIC PLAUSIBILITY & LOGIC: Never place backgrounds, screens, blackboards, whiteboards, presentation slides, or other key setting elements behind the subjects if doing so violates the real-world logic or layout of the location. For example, in a movie theater, the screen is always in front of the audience, NEVER behind them. Do not describe the movie screen behind the audience's seats just to show it. Instead, show the audience facing forward in their theater seats, holding popcorn, and let the lighting, theater seats, and popcorn establish the cinema context. If the camera faces the subjects to capture their expressions, any background setting elements must either be omitted or shown from a plausible side angle, rather than physically impossible placements.
 - Absolutely NO TEXT, words, signs, or labels in the image.
 
-Output ONLY the final scene description (60-85 words) in English."#;
+Output ONLY one detailed final scene description (120-170 words) in English."#;
 
 /// Demo con complemento del usuario: EXAMPLE manda, COMPLEMENT se suma (puede venir en español).
 pub const GEMINI_SYSTEM_COMPLEMENT_MODE: &str = r#"You write photorealistic image scene descriptions for an English flashcard demo.
@@ -55,7 +72,8 @@ Rules (strict):
 3. If complement says outside/fuera/afuera/exterior/jardín — scene is OUTDOORS, not an empty indoor room.
 4. If complement mentions niño/nino/boy, padres/parents, familia/family — show them visibly in frame.
 5. Do not replace the example with an unrelated metaphor (e.g. a toy instead of real people when complement asks for people).
-6. Output ONE paragraph, 75-110 words, English only. No text/signs in the image."#;
+6. Facial expressions must be neutral by default. Only show obvious emotions like crying, laughter, fear, anger, or sadness if EXAMPLE explicitly requires them.
+7. Output ONE paragraph, 75-110 words, English only. No text/signs in the image."#;
 
 /// Mensaje user para Gemini (misma forma que producción).
 pub fn build_gemini_user_message(
@@ -171,9 +189,11 @@ pub fn build_demo_image_prompt(visual_description: &str, scene_complement: Optio
         .unwrap_or("natural lighting suited to the scene");
 
     let mut prompt = format!(
-        "Candid photorealistic DSLR photograph, 512x512, {}, authentic textures: {}. \
-        A realistic, unposed, everyday life scene. No text, no words, no letters, no captions, no signage, no watermarks.",
-        lighting, visual_description
+        "Candid photorealistic DSLR photograph, {}, authentic textures: {}. {} \
+        A realistic, unposed, everyday life scene. Faces should look neutral unless the sentence explicitly requires a specific emotion. No text, no words, no letters, no captions, no signage, no watermarks.",
+        lighting,
+        visual_description,
+        image_generation_config()
     );
 
     if let Some(c) = scene_complement.map(str::trim).filter(|s| !s.is_empty()) {
@@ -238,6 +258,8 @@ mod tests {
         let p = build_comfy_prompt("A person at a door.");
         assert!(p.starts_with("Candid photorealistic DSLR photograph"));
         assert!(p.contains("A person at a door."));
+        assert!(p.contains("aspect_ratio 1:1"));
+        assert!(p.contains("image_size 1K"));
         assert!(p.contains("no watermarks"));
     }
 }

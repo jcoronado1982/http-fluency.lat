@@ -17,7 +17,7 @@
         "char_count": "two",
         "usage_context_en": "position/state",
         "usage_context_es": "posición/estado",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_16_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_16_def0.avif"
       },
       {
         "meaning": "Restar/Quedar (como sobra)",
@@ -28,7 +28,7 @@
         "char_count": "two",
         "usage_context_en": "time/quantity",
         "usage_context_es": "tiempo/cantidad",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_16_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_16_def1.avif"
       }
     ],
     "group_name": "Body & Movement"
@@ -51,7 +51,7 @@
         "char_count": "two",
         "usage_context_en": "visibility/arrival",
         "usage_context_es": "visibilidad/llegada",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_32_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_32_def0.avif"
       },
       {
         "meaning": "Parecer/Dar la impresión",
@@ -62,7 +62,7 @@
         "char_count": "two",
         "usage_context_en": "impression/judgment",
         "usage_context_es": "impresión/juicio",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_32_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_32_def1.avif"
       }
     ],
     "group_name": "Feelings & Reactions"

@@ -136,20 +136,34 @@ export const AuthProvider = ({ children }) => {
         }
         setUser(optimisticUser);
 
-        try {
-            const response = await httpClient.post('/api/auth/onboarding', { completed: true });
-            const syncedUser = response?.user
-                ? { ...response.user, onboarding_completed: true }
-                : optimisticUser;
-            markOnboardingDone(syncedUser.email || user.email);
-            if (authData?.token) {
-                authRepository.saveAuthData({ token: authData.token, user: syncedUser });
+        for (let attempt = 1; attempt <= 3; attempt += 1) {
+            try {
+                await httpClient.post('/api/auth/onboarding', { completed: true });
+                const me = await httpClient.get('/api/auth/me');
+                const syncedUser = {
+                    ...optimisticUser,
+                    role: me.effective_role || optimisticUser.role,
+                    onboarding_completed: me.onboarding_completed === true,
+                    catalog_preferences: me.catalog_preferences ?? optimisticUser.catalog_preferences ?? null,
+                };
+
+                if (syncedUser.onboarding_completed === true) {
+                    markOnboardingDone(syncedUser.email || user.email);
+                    if (authData?.token) {
+                        authRepository.saveAuthData({ token: authData.token, user: syncedUser });
+                    }
+                    setUser(syncedUser);
+                    return syncedUser;
+                }
+
+                throw new Error('El servidor no confirmó onboarding_completed=true');
+            } catch (err) {
+                if (attempt === 3) {
+                    console.warn('No se pudo sincronizar onboarding con el servidor:', err);
+                    return optimisticUser;
+                }
+                await new Promise((resolve) => setTimeout(resolve, 400 * attempt));
             }
-            setUser(syncedUser);
-            return syncedUser;
-        } catch (err) {
-            console.warn('No se pudo sincronizar onboarding con el servidor:', err);
-            return optimisticUser;
         }
     };
 

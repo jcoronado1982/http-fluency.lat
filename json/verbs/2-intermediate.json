@@ -81,7 +81,7 @@
         "char_count": "one",
         "usage_context_en": "time/rules",
         "usage_context_es": "tiempo/reglas",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_2_def0.png"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_2_def0.avif"
       },
       {
         "meaning": "Colocar/Poner",
@@ -92,7 +92,7 @@
         "char_count": "one",
         "usage_context_en": "objects/position",
         "usage_context_es": "objetos/posición",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_2_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_2_def1.avif"
       }
     ],
     "irregular": {
@@ -515,7 +515,7 @@
         "char_count": "two",
         "usage_context_en": "anticipation/punctuality",
         "usage_context_es": "anticipación/puntualidad",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_11_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_11_def0.avif"
       },
       {
         "meaning": "Exigir (formal)",
@@ -526,7 +526,7 @@
         "char_count": "two",
         "usage_context_en": "demand/refund",
         "usage_context_es": "demanda/reembolso",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_11_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_11_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"
@@ -725,7 +725,7 @@
         "char_count": "two",
         "usage_context_en": "position/state",
         "usage_context_es": "posición/estado",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_16_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_16_def0.avif"
       },
       {
         "meaning": "Restar/Quedar (como sobra)",
@@ -736,7 +736,7 @@
         "char_count": "two",
         "usage_context_en": "time/quantity",
         "usage_context_es": "tiempo/cantidad",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_16_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_16_def1.avif"
       }
     ],
     "group_name": "Body & Movement"
@@ -791,7 +791,7 @@
         "char_count": "one",
         "usage_context_en": "gesture/increase",
         "usage_context_es": "gesto/aumento",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_18_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_18_def0.avif"
       },
       {
         "meaning": "Criar/Educar",
@@ -802,7 +802,7 @@
         "char_count": "one",
         "usage_context_en": "family/agriculture",
         "usage_context_es": "familia/agricultura",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_18_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_18_def1.avif"
       }
     ],
     "group_name": "Managing & Control"
@@ -1017,7 +1017,7 @@
         "char_count": "two",
         "usage_context_en": "objects/transport",
         "usage_context_es": "objetos/transporte",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_25_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_25_def0.avif"
       },
       {
         "meaning": "Conllevar/Implicar",
@@ -1028,7 +1028,7 @@
         "char_count": "two",
         "usage_context_en": "responsibility/plans",
         "usage_context_es": "responsabilidad/planes",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_25_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_25_def1.avif"
       }
     ],
     "group_name": "Daily Tasks"
@@ -1051,7 +1051,7 @@
         "char_count": "two",
         "usage_context_en": "opinion/plans",
         "usage_context_es": "opinión/planes",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_26_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_26_def0.avif"
       },
       {
         "meaning": "Concordar (gramática)",
@@ -1062,7 +1062,7 @@
         "char_count": "two",
         "usage_context_en": "grammar/negotiation",
         "usage_context_es": "gramática/negociación",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_26_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_26_def1.avif"
       }
     ],
     "group_name": "Feelings & Reactions"
@@ -1293,7 +1293,7 @@
         "char_count": "two",
         "usage_context_en": "visibility/arrival",
         "usage_context_es": "visibilidad/llegada",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_32_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_32_def0.avif"
       },
       {
         "meaning": "Parecer/Dar la impresión",
@@ -1304,7 +1304,7 @@
         "char_count": "two",
         "usage_context_en": "impression/judgment",
         "usage_context_es": "impresión/juicio",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_32_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_32_def1.avif"
       }
     ],
     "group_name": "Feelings & Reactions"
@@ -1663,7 +1663,7 @@
         "char_count": "one",
         "usage_context_en": "objects/movement",
         "usage_context_es": "objetos/movimiento",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_39_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_39_def0.avif"
       },
       {
         "meaning": "Hacer (una fiesta)",
@@ -1674,7 +1674,7 @@
         "char_count": "one",
         "usage_context_en": "party/idiom",
         "usage_context_es": "fiesta/modismo",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_39_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_39_def1.avif"
       }
     ],
     "group_name": "Daily Tasks"
@@ -2129,7 +2129,7 @@
         "char_count": "two",
         "usage_context_en": "topics/meetings",
         "usage_context_es": "temas/reuniones",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_49_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_49_def0.avif"
       },
       {
         "meaning": "Hablar sobre algo",
@@ -2140,7 +2140,7 @@
         "char_count": "two",
         "usage_context_en": "conversation/decisions",
         "usage_context_es": "conversación/decisiones",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_49_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_49_def1.avif"
       }
     ],
     "group_name": "Social & Daily Life"
@@ -2259,7 +2259,7 @@
         "char_count": "one",
         "usage_context_en": "questions/answers",
         "usage_context_es": "preguntas/respuestas",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_53_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_53_def0.avif"
       },
       {
         "meaning": "Suponer/Creer (informal)",
@@ -2270,7 +2270,7 @@
         "char_count": "one",
         "usage_context_en": "opinion/supposition",
         "usage_context_es": "opinión/suposición",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_53_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_53_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"
@@ -2293,7 +2293,7 @@
         "char_count": "two",
         "usage_context_en": "curiosity/doubt",
         "usage_context_es": "curiosidad/duda",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_54_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_54_def0.avif"
       },
       {
         "meaning": "Maravillarse/Asombrarse",
@@ -2304,7 +2304,7 @@
         "char_count": "two",
         "usage_context_en": "admiration/awe",
         "usage_context_es": "admiración/asombro",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_54_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_54_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"
@@ -2391,7 +2391,7 @@
         "char_count": "two",
         "usage_context_en": "disagreement/conflict",
         "usage_context_es": "desacuerdo/conflicto",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_57_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_57_def0.avif"
       },
       {
         "meaning": "Argumentar/Sostener (una idea)",
@@ -2402,7 +2402,7 @@
         "char_count": "two",
         "usage_context_en": "reasoning/debate",
         "usage_context_es": "razonamiento/debate",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_57_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_57_def1.avif"
       }
     ],
     "group_name": "Feelings & Reactions"
@@ -2457,7 +2457,7 @@
         "char_count": "one",
         "usage_context_en": "future/travel",
         "usage_context_es": "futuro/viaje",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_59_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_59_def0.avif"
       },
       {
         "meaning": "Tener la intención de",
@@ -2468,7 +2468,7 @@
         "char_count": "one",
         "usage_context_en": "intention/strategy",
         "usage_context_es": "intención/estrategia",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_59_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_59_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"
@@ -2523,7 +2523,7 @@
         "char_count": "one",
         "usage_context_en": "repair/objects",
         "usage_context_es": "reparación/objetos",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_61_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_61_def0.avif"
       },
       {
         "meaning": "Fijar/Establecer (una fecha, precio)",
@@ -2534,7 +2534,7 @@
         "char_count": "one",
         "usage_context_en": "schedule/solution",
         "usage_context_es": "horario/solución",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_61_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_61_def1.avif"
       }
     ],
     "group_name": "Building & Creating"
@@ -2653,7 +2653,7 @@
         "char_count": "one",
         "usage_context_en": "shopping/routine",
         "usage_context_es": "compras/rutina",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_65_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_65_def0.avif"
       },
       {
         "meaning": "Comprar en (una tienda)",
@@ -2664,7 +2664,7 @@
         "char_count": "one",
         "usage_context_en": "stores/comparison",
         "usage_context_es": "tiendas/comparación",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_65_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_65_def1.avif"
       }
     ],
     "group_name": "Daily Routine"
@@ -2751,7 +2751,7 @@
         "char_count": "two",
         "usage_context_en": "restaurant/commerce",
         "usage_context_es": "restaurante/comercio",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_68_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_68_def0.avif"
       },
       {
         "meaning": "Ordenar/Mandar (dar una orden)",
@@ -2762,7 +2762,7 @@
         "char_count": "two",
         "usage_context_en": "command/sequence",
         "usage_context_es": "comando/secuencia",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_68_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_68_def1.avif"
       }
     ],
     "group_name": "Communication"
@@ -2977,7 +2977,7 @@
         "char_count": "two",
         "usage_context_en": "prevention/habits",
         "usage_context_es": "prevención/hábitos",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_75_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_75_def0.avif"
       },
       {
         "meaning": "Eludir/Esquivar",
@@ -2988,7 +2988,7 @@
         "char_count": "two",
         "usage_context_en": "people/danger",
         "usage_context_es": "personas/peligro",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_75_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_75_def1.avif"
       }
     ],
     "group_name": "Body & Movement"
@@ -3075,7 +3075,7 @@
         "char_count": "two",
         "usage_context_en": "anxiety/reassurance",
         "usage_context_es": "ansiedad/tranquilizar",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_78_def0.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_78_def0.avif"
       },
       {
         "meaning": "Molestar/Inquietar",
@@ -3086,7 +3086,7 @@
         "char_count": "two",
         "usage_context_en": "bother/concern",
         "usage_context_es": "molestia/preocupación",
-        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_78_def1.jpg"
+        "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_78_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"

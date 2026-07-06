@@ -311,6 +311,7 @@ export default function FlashcardOnboardingTour() {
 
     const isFinalStep = isOnboardingTour && stepIndex >= copy.steps.length;
     const activeStep = isOnboardingTour && !isFinalStep ? copy.steps[stepIndex] : null;
+    const finalSyncStartedRef = useRef(false);
     const isZoneStep = activeStep?.highlightMode === 'zone';
     const stepCounterText = isFinalStep
         ? `${copy.steps.length} / ${copy.steps.length}`
@@ -917,6 +918,12 @@ export default function FlashcardOnboardingTour() {
         await completeOnboarding();
         navigate(location.pathname, { replace: true });
     };
+
+    useEffect(() => {
+        if (!isOnboardingTour || !isFinalStep || finalSyncStartedRef.current) return;
+        finalSyncStartedRef.current = true;
+        void completeOnboarding();
+    }, [completeOnboarding, isFinalStep, isOnboardingTour]);
 
     const handleBack = useCallback((event) => {
         event?.stopPropagation();

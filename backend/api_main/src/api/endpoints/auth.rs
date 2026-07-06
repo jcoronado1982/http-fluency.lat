@@ -126,7 +126,20 @@ pub async fn update_onboarding(
                 "user": user
             })),
         )),
-        None => Err((StatusCode::NOT_FOUND, "User not found".to_string())),
+        None => {
+            let user = state
+                .auth_use_cases
+                .ensure_user_from_claims(&claims, payload.completed)
+                .await
+                .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
+            Ok((
+                StatusCode::OK,
+                Json(serde_json::json!({
+                    "success": true,
+                    "user": user
+                })),
+            ))
+        }
     }
 }
 

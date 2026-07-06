@@ -103,6 +103,7 @@ export default function DemoFlashcardSession({
     ]);
 
     const [isAudioLoading, setIsAudioLoading] = useState(false);
+    const [isImageLoading, setIsImageLoading] = useState(false);
     const [isIpaModalOpen, setIsIpaModalOpen] = useState(false);
     const [isPhonicsModalOpen, setIsPhonicsModalOpen] = useState(false);
 
@@ -115,10 +116,12 @@ export default function DemoFlashcardSession({
         setIsPhonicsModalOpen,
         isAudioLoading,
         setIsAudioLoading,
+        isImageLoading,
+        setIsImageLoading,
         openCatalog: noop,
         openIpa: () => setIsIpaModalOpen(true),
         openPhonics: () => setIsPhonicsModalOpen(true),
-    }), [isAudioLoading, isIpaModalOpen, isPhonicsModalOpen]);
+    }), [isAudioLoading, isIpaModalOpen, isPhonicsModalOpen, isImageLoading]);
 
     const categoryValue = useMemo(() => ({
         categories: [LANDING_DEMO_CATEGORY],
