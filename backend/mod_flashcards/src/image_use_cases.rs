@@ -517,8 +517,7 @@ impl ImageUseCases {
             )
         } else {
             format!(
-                "Candid photorealistic DSLR photograph, 896x512, realistic natural lighting appropriate to the location, authentic textures: {}. \
-                A realistic, unposed, everyday life scene in the most context-appropriate setting. No text, no words, no letters, no captions, no signage, no watermarks.",
+                "Candid photorealistic DSLR photograph shot on a 35-50mm lens, ISO 400-800, 896x512, natural mixed lighting exactly as it would occur in this exact location (e.g. warm indoor bulb mixing with cool window daylight, single overhead fixture casting uneven shadows, harsh midday sun outdoors, dim evening light) — NOT even three-point studio lighting, NOT glossy magazine retouching. Slight underexposure or overexposure is acceptable and preferred over a perfectly balanced exposure. Visible sensor grain, imperfect white balance, and realistic skin texture (pores, slight shine, asymmetry) are required. Avoid CGI-clean surfaces, avoid airbrushed skin, avoid symmetric catch-lights in the eyes: {}. A realistic, unposed, everyday life scene in the most context-appropriate setting. No text, no words, no letters, no captions, no signage, no watermarks.",
                 visual_description
             )
         };
