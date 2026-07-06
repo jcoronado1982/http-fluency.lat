@@ -55,6 +55,7 @@ function CardFront({
     imageUrl,
     imageRef,
     deleteImage,
+    onRegenerate,
     uploadImage,
     handleImageError,
     canCustomizeImages,
