@@ -286,6 +286,7 @@ function Flashcard() {
                     imageKey={`${activeForm}-${currentDefIndex}`}
                     playDefinitionMedia={playDefinitionMedia}
                     deleteImage={deleteImage}
+                    onRegenerate={() => ensureImageForDefinition(currentDefIndex, { forceRegenerate: true })}
                     uploadImage={uploadImage}
                     handleImageError={handleImageError}
                     canCustomizeImages={canCustomizeImages}

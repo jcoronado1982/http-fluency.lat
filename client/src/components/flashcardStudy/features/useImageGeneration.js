@@ -706,15 +706,16 @@ export function useImageGeneration({
             setImageUrl(null);
             imageUrlRef.current = null;
             updateCardImagePath(cardData.id, null, defIndex, activeForm);
-            setAppMessage({ text: 'Imagen eliminada. Generando nueva versión...', isError: false });
-            await ensureImageForDefinition(defIndex, { forceRegenerate: true });
+            setIsImageLoading(false);
+            setAppMessage({ text: 'Imagen eliminada de forma permanente.', isError: false });
 
         } catch (err) {
             if (err.message.includes('404') || err.message.includes('No se encontró')) {
                 setImageUrl(null);
                 imageUrlRef.current = null;
                 updateCardImagePath(cardData.id, null, defIndex, activeForm);
-                await ensureImageForDefinition(defIndex, { forceRegenerate: true });
+                setIsImageLoading(false);
+                setAppMessage({ text: 'Imagen no encontrada en el servidor; limpiada localmente.', isError: false });
             } else {
                 console.error('Error al eliminar imagen:', err);
                 setAppMessage({ text: `Error: ${err.message}`, isError: true });
@@ -723,7 +724,7 @@ export function useImageGeneration({
         }
     }, [
         cardData, currentCategory, currentDeckName,
-        setAppMessage, updateCardImagePath, ensureImageForDefinition, getActiveDefinitions, activeForm,
+        setAppMessage, updateCardImagePath, getActiveDefinitions, activeForm,
         clearGeneratingUiTimer, imagePort,
     ]);
 

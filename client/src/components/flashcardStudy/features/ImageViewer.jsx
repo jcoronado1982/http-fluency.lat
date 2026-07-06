@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './Flashcard.module.css';
-import { FaTimes, FaUpload } from 'react-icons/fa';
+import { FaTimes, FaUpload, FaSyncAlt } from 'react-icons/fa';
 import { FiCpu } from 'react-icons/fi';
 
 /**
  * ImageViewer — responsable ÚNICAMENTE de la visualización y controles de imagen.
  * SRP: no conoce lógica de formas verbales ni audio.
  */
-function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl, imageRef, altText, onDelete, onUploadClick, onImageError, canCustomizeImages, canDeleteImages = canCustomizeImages, isDisabled, imageKey, isLandingDemo = false }) {
+function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl, imageRef, altText, onDelete, onRegenerate, onUploadClick, onImageError, canCustomizeImages, canDeleteImages = canCustomizeImages, isDisabled, imageKey, isLandingDemo = false }) {
     const isProcessActive = isImageLoading || isUploading;
     const [isDecoding, setIsDecoding] = useState(true);
     const activeUrlRef = useRef(imageUrl);
@@ -67,25 +67,53 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
             {/* Controles: eliminar o subir */}
             {(canDeleteImages || canCustomizeImages) && (
                 <div className={styles.imageControls}>
-                    {showImageControls && canDeleteImages ? (
-                        <button
-                            className={`${styles.imageControlBtn} ${styles.deleteImageBtn}`}
-                            onClick={(e) => { e.stopPropagation(); onDelete(); }}
-                            title="Eliminar imagen actual"
-                            disabled={isDisabled}
-                        >
-                            <FaTimes size={20} />
-                        </button>
-                    ) : !showImageControls && canCustomizeImages ? (
-                        <button
-                            className={`${styles.imageControlBtn} ${styles.uploadImageBtn}`}
-                            onClick={onUploadClick}
-                            title="Subir imagen desde el equipo"
-                            disabled={isDisabled}
-                        >
-                            <FaUpload size={18} />
-                        </button>
-                    ) : null}
+                    {showImageControls ? (
+                        <>
+                            {canCustomizeImages && (
+                                <button
+                                    className={`${styles.imageControlBtn} ${styles.regenerateImageBtn}`}
+                                    onClick={(e) => { e.stopPropagation(); onRegenerate?.(); }}
+                                    title="Regenerar imagen con IA"
+                                    disabled={isDisabled}
+                                >
+                                    <FaSyncAlt size={16} />
+                                </button>
+                            )}
+                            {canDeleteImages && (
+                                <button
+                                    className={`${styles.imageControlBtn} ${styles.deleteImageBtn}`}
+                                    onClick={(e) => { e.stopPropagation(); onDelete(); }}
+                                    title="Eliminar imagen actual"
+                                    disabled={isDisabled}
+                                >
+                                    <FaTimes size={20} />
+                                </button>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            {canCustomizeImages && (
+                                <button
+                                    className={`${styles.imageControlBtn} ${styles.regenerateImageBtn}`}
+                                    onClick={(e) => { e.stopPropagation(); onRegenerate?.(); }}
+                                    title="Generar imagen con IA"
+                                    disabled={isDisabled}
+                                >
+                                    <FaSyncAlt size={16} />
+                                </button>
+                            )}
+                            {canCustomizeImages && (
+                                <button
+                                    className={`${styles.imageControlBtn} ${styles.uploadImageBtn}`}
+                                    onClick={onUploadClick}
+                                    title="Subir imagen desde el equipo"
+                                    disabled={isDisabled}
+                                >
+                                    <FaUpload size={18} />
+                                </button>
+                            )}
+                        </>
+                    )}
                 </div>
             )}
 

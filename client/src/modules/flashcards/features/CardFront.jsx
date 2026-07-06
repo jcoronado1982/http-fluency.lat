@@ -192,6 +192,7 @@ function CardFront({
                 imageRef={imageRef}
                 altText={title}
                 onDelete={deleteImage}
+                onRegenerate={onRegenerate}
                 onUploadClick={triggerUpload}
                 onImageError={handleImageError}
                 canCustomizeImages={canCustomizeImages}
