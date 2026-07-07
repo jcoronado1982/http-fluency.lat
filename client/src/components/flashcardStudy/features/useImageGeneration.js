@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useStudyMediaContext } from '../StudyMediaContext';
 import { AI_ENABLED } from '../../../config/api';
 import { useAuth } from '../../../context/AuthContext';
+import { useDialog } from '../../../context/DialogContext';
+import { useUIContext } from '../../../context/UIContext';
 import { useFlashcardUiContext, useFlashcardContext } from '../context/flashcardStudyContext';
 import {
     isLandingDemoCategory,
@@ -81,6 +83,8 @@ export function useImageGeneration({
         deckFromContext,
     );
     const { user, isAuthenticated, loading: authLoading } = useAuth();
+    const { confirm } = useDialog();
+    const { language = 'en' } = useUIContext();
     const {
         demoImagePromptExtraRef,
         imagePromptApplySignal = 0,
@@ -686,6 +690,18 @@ export function useImageGeneration({
             return;
         }
 
+        const isEs = language === 'es';
+        const confirmed = await confirm({
+            title: isEs ? '¿Eliminar imagen?' : 'Delete image?',
+            message: isEs 
+                ? 'Esta acción eliminará de forma permanente la imagen asociada a esta tarjeta.' 
+                : 'This will permanently delete the image associated with this card.',
+            confirmLabel: isEs ? 'Eliminar' : 'Delete',
+            tone: 'danger',
+        });
+
+        if (!confirmed) return;
+
         const genKey = `${cardData.id}_${activeForm}_${defIndex}`;
         imageAttempts.current[genKey] = 0;
         setAppMessage({ text: 'Eliminando imagen...', isError: false });
@@ -725,7 +741,7 @@ export function useImageGeneration({
     }, [
         cardData, currentCategory, currentDeckName,
         setAppMessage, updateCardImagePath, getActiveDefinitions, activeForm,
-        clearGeneratingUiTimer, imagePort,
+        clearGeneratingUiTimer, imagePort, confirm, language,
     ]);
 
     const uploadImage = useCallback(async (file) => {

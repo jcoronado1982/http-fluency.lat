@@ -5,6 +5,7 @@ import { useImageGeneration } from './useImageGeneration.js';
 import CardFront from './CardFront.jsx';
 import CardBack from './CardBack.jsx';
 import { useUIContext } from '../../../context/UIContext';
+import { useDialog } from '../../../context/DialogContext';
 import { useFlashcardUiContext, useFlashcardContext, useCategoryContext } from '../context/flashcardStudyContext';
 import { getCardTitle, getAudioLang, getAudioLangForConjugation, isLearningEnglish } from './cardLanguageUtils';
 import { registerUiBridgeHandler, unregisterUiBridgeHandler } from '../uiBridge';
@@ -36,6 +37,7 @@ function Flashcard() {
         language = 'en',
         studyLanguage = 'en',
     } = useUIContext();
+    const { confirm } = useDialog();
     const {
         setIsAudioLoading,
         setIsIpaModalOpen,
@@ -80,6 +82,21 @@ function Flashcard() {
     } = useImageGeneration({
         cardData, currentCategory, currentDeckName, setAppMessage, updateCardImagePath, activeForm
     });
+
+    const handleRegenerateImage = useCallback(async () => {
+        const isEs = language === 'es';
+        const confirmed = await confirm({
+            title: isEs ? '¿Actualizar imagen?' : 'Update image?',
+            message: isEs 
+                ? 'Se generará una nueva imagen utilizando IA para esta tarjeta. La imagen actual se reemplazará.' 
+                : 'A new image will be generated using AI for this card. The current image will be replaced.',
+            confirmLabel: isEs ? 'Actualizar' : 'Update',
+            tone: 'default',
+        });
+        if (confirmed) {
+            ensureImageForDefinition(currentDefIndex, { forceRegenerate: true });
+        }
+    }, [confirm, ensureImageForDefinition, currentDefIndex, language]);
 
     const buildAllBlurred = useCallback((form = activeForm) => {
         if (!cardData) return {};
@@ -286,7 +303,7 @@ function Flashcard() {
                     imageKey={`${activeForm}-${currentDefIndex}`}
                     playDefinitionMedia={playDefinitionMedia}
                     deleteImage={deleteImage}
-                    onRegenerate={() => ensureImageForDefinition(currentDefIndex, { forceRegenerate: true })}
+                    onRegenerate={handleRegenerateImage}
                     uploadImage={uploadImage}
                     handleImageError={handleImageError}
                     canCustomizeImages={canCustomizeImages}
