@@ -20,12 +20,13 @@ loadWasm().catch(console.error);
 export const imageCompressionService = {
     /**
      * Comprime y optimiza un archivo de imagen en el cliente.
-     * Convierte HEIC -> JPEG si es necesario, escala a un máx de 1200px de dimensión,
-     * y comprime a formato AVIF usando APIs nativas o motor WASM como fallback.
+     * Convierte HEIC -> JPEG si es necesario, escala a un tamaño exacto de 896x512px
+     * usando un reescalado tipo "cover" (centrado y recortando sobrantes para mantener la proporción),
+     * y comprime a formato AVIF usando el motor WebAssembly (WASM).
      * 
      * @param {File} file Archivo original a comprimir
      * @param {number} [quality=0.80] Calidad de compresión (0.0 a 1.0)
-     * @returns {Promise<Blob>} Blob comprimido en formato AVIF (o JPEG en caso de fallo crítico de fallback)
+     * @returns {Promise<Blob>} Blob comprimido en formato AVIF
      */
     compress: async (file, quality = 0.80) => {
         let currentFile = file;
@@ -46,10 +47,10 @@ export const imageCompressionService = {
             }
         }
 
-        // Aseguramos que el WASM esté cargado por si se requiere como fallback
+        // Aseguramos que el WASM esté cargado
         await loadWasm();
 
-        // 2. Cargar imagen en un Canvas para reescalar
+        // 2. Cargar imagen en un Canvas para reescalar a 896x512
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = (event) => {
@@ -58,45 +59,38 @@ export const imageCompressionService = {
                     try {
                         const canvas = document.createElement('canvas');
                         
-                        // Reescalado inteligente: Dimensión máxima de 1200px para flashcards
-                        const maxDimension = 1200;
-                        const maxOriginalDim = Math.max(img.width, img.height);
-                        const scale = Math.min(maxDimension / maxOriginalDim, 1.0);
-
-                        canvas.width = Math.round(img.width * scale);
-                        canvas.height = Math.round(img.height * scale);
+                        // Tamaño canónico y estándar de las flashcards: 896x512
+                        const targetWidth = 896;
+                        const targetHeight = 512;
+                        canvas.width = targetWidth;
+                        canvas.height = targetHeight;
 
                         const ctx = canvas.getContext('2d');
                         if (!ctx) throw new Error('No se pudo obtener contexto 2D del Canvas.');
                         
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-                        // 3. Intentar codificación AVIF nativa del navegador
-                        let compressedBlob = await new Promise((r) => canvas.toBlob(r, 'image/avif', quality));
+                        // Lógica de escalado "cover" para mantener la proporción sin deformar
+                        const scale = Math.max(targetWidth / img.width, targetHeight / img.height);
+                        const x = (targetWidth - img.width * scale) / 2;
+                        const y = (targetHeight - img.height * scale) / 2;
                         
-                        if (compressedBlob && compressedBlob.type === 'image/avif') {
-                            resolve(compressedBlob);
-                            return;
-                        }
+                        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
 
-                        // 4. Fallback a codificación por software con WebAssembly (Rust Engine)
-                        console.warn('[Compresor] Codificación nativa AVIF no soportada. Iniciando motor WASM...');
+                        // 3. Codificación estándar por software con WebAssembly (Rust Engine)
                         if (!wasmLoaded) {
-                            throw new Error('Motor de compresión WebAssembly no está listo.');
+                            throw new Error('El motor de compresión WebAssembly (AVIF/WASM) no cargó correctamente.');
                         }
 
-                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        const imageData = ctx.getImageData(0, 0, targetWidth, targetHeight);
                         const rgbaData = new Uint8Array(imageData.data.buffer);
                         const qualityPercentage = Math.round(quality * 100);
 
-                        const avifBytes = encode_avif(rgbaData, canvas.width, canvas.height, qualityPercentage);
+                        const avifBytes = encode_avif(rgbaData, targetWidth, targetHeight, qualityPercentage);
                         const avifBlob = new Blob([avifBytes], { type: 'image/avif' });
                         resolve(avifBlob);
 
                     } catch (err) {
                         console.error('[Compresor] Error crítico durante la compresión:', err);
-                        // Fallback absoluto: Si todo falla, resolver con el archivo original
-                        resolve(currentFile);
+                        reject(new Error(`Error al comprimir a AVIF: ${err.message}`));
                     }
                 };
                 img.onerror = () => reject(new Error('Fallo al cargar imagen para procesamiento.'));
