@@ -197,4 +197,31 @@ impl CardProgressRepository for SurrealCardProgressRepository {
         let rows: Vec<CountRow> = response.take(0)?;
         Ok(rows.first().map(|row| row.total).unwrap_or(0))
     }
+
+    async fn get_all_learned_cards(
+        &self,
+        user_id: &str,
+    ) -> Result<Vec<(String, String, i32, Option<chrono::DateTime<chrono::Utc>>)>> {
+        let mut response = self
+            .0
+            .db()
+            .query("SELECT category, deck, card_index, learned_at FROM card_progress WHERE user_id = $user_id AND learned = true")
+            .bind(("user_id", user_id.to_string()))
+            .await?;
+
+        #[derive(Deserialize)]
+        struct Row {
+            category: String,
+            deck: String,
+            card_index: i32,
+            learned_at: Option<chrono::DateTime<chrono::Utc>>,
+        }
+
+        let rows: Vec<Row> = response.take(0)?;
+        Ok(rows
+            .into_iter()
+            .map(|r| (r.category, r.deck, r.card_index, r.learned_at))
+            .collect())
+    }
 }
+

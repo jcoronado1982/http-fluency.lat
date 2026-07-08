@@ -1,132 +1,132 @@
 [
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": true,
-    "learned_at": null,
-    "name": "celebration",
-    "phonetic": "/ˌsɛləˈbreɪʃən/",
-    "spoken_phonetic_us": "/ˌsɛləˈbreɪʃən/",
-    "search_term": "noun/concept/essentials",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "General Concepts",
-    "definitions": [
-      {
-        "meaning": "Celebración",
-        "usage_example": "We had a small celebration.",
-        "pronunciation_guide_es": "/ui_had_a_smol_se-le-BREI-shon/",
-        "usage_example_es": "Tuvimos una pequeña celebración.",
-        "char_count": "5",
-        "usage_context_en": "The action of marking a special day, event, or victory.",
-        "usage_context_es": "La acción de conmemorar un día especial, evento o victoria.",
-        "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_241_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "definitions": [
-      {
-        "char_count": "two",
-        "meaning": "Moda",
-        "pronunciation_guide_es": "/she_olueis_fólous_de_léitest_fæshən/",
-        "usage_context_en": "The style of clothes that is popular right now",
-        "usage_context_es": "El estilo de ropa que es popular en este momento",
-        "usage_example": "She always follows the latest fashion.",
-        "usage_example_es": "Ella siempre sigue la última moda.",
-        "imagePath": ""
-      }
-    ],
-    "force_generation": false,
-    "group_name": "General Concepts",
-    "is_verb": false,
-    "name": "fashion",
-    "phonetic": "/ˈfæʃən/",
-    "search_term": "noun/concept/essentials",
-    "spoken_phonetic_us": "/ˈfæʃən/"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "custom",
-    "phonetic": "/ˈkʌstəm/",
-    "spoken_phonetic_us": "/ˈkʌstəm/",
-    "search_term": "noun/social_customs/added",
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Costumbre",
-        "usage_example": "It is a local custom to greet everyone.",
-        "pronunciation_guide_es": "",
-        "usage_example_es": "Es una costumbre local saludar a todos.",
-        "char_count": "8",
-        "usage_context_en": "A traditional way of behaving.",
-        "usage_context_es": "A traditional way of behaving.",
-        "imagePath": ""
-      }
-    ],
-    "is_verb": false,
-    "group_name": "General Concepts"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "etiquette",
-    "phonetic": "/ˈɛtɪkət/",
-    "spoken_phonetic_us": "/ˈɛtɪkət/",
-    "search_term": "noun/social_customs/added",
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Etiqueta",
-        "usage_example": "Business etiquette matters in meetings.",
-        "pronunciation_guide_es": "",
-        "usage_example_es": "La etiqueta profesional importa en las reuniones.",
-        "char_count": "5",
-        "usage_context_en": "The accepted rules of polite behavior.",
-        "usage_context_es": "The accepted rules of polite behavior.",
-        "imagePath": ""
-      }
-    ],
-    "is_verb": false,
-    "group_name": "General Concepts"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "ritual",
-    "phonetic": "/ˈrɪtʃuəl/",
-    "spoken_phonetic_us": "/ˈrɪtʃuəl/",
-    "search_term": "noun/social_customs/added",
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Ritual",
-        "usage_example": "The ceremony followed an old ritual.",
-        "pronunciation_guide_es": "",
-        "usage_example_es": "La ceremonia siguió un ritual antiguo.",
-        "char_count": "6",
-        "usage_context_en": "A fixed series of actions, often traditional.",
-        "usage_context_es": "A fixed series of actions, often traditional.",
-        "imagePath": ""
-      }
-    ],
-    "is_verb": false,
-    "group_name": "General Concepts"
-  }
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": true,
+        "learned_at": null,
+        "name": "celebration",
+        "phonetic": "/ˌsɛləˈbreɪʃən/",
+        "spoken_phonetic_us": "/ˌsɛləˈbreɪʃən/",
+        "search_term": "noun/concept/essentials",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "General Concepts",
+        "definitions": [
+            {
+                "meaning": "Celebración",
+                "usage_example": "We had a small celebration.",
+                "pronunciation_guide_es": "/ui_had_a_smol_se-le-BREI-shon/",
+                "usage_example_es": "Tuvimos una pequeña celebración.",
+                "char_count": "5",
+                "usage_context_en": "The action of marking a special day, event, or victory.",
+                "usage_context_es": "La acción de conmemorar un día especial, evento o victoria.",
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_241_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "definitions": [
+            {
+                "char_count": "two",
+                "meaning": "Moda",
+                "pronunciation_guide_es": "/she_olueis_fólous_de_léitest_fæshən/",
+                "usage_context_en": "The style of clothes that is popular right now",
+                "usage_context_es": "El estilo de ropa que es popular en este momento",
+                "usage_example": "She always follows the latest fashion.",
+                "usage_example_es": "Ella siempre sigue la última moda.",
+                "imagePath": ""
+            }
+        ],
+        "force_generation": false,
+        "group_name": "General Concepts",
+        "is_verb": false,
+        "name": "fashion",
+        "phonetic": "/ˈfæʃən/",
+        "search_term": "noun/concept/essentials",
+        "spoken_phonetic_us": "/ˈfæʃən/"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "custom",
+        "phonetic": "/ˈkʌstəm/",
+        "spoken_phonetic_us": "/ˈkʌstəm/",
+        "search_term": "noun/social_customs/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Costumbre",
+                "usage_example": "It is a local custom to greet everyone.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "Es una costumbre local saludar a todos.",
+                "char_count": "8",
+                "usage_context_en": "A traditional way of behaving.",
+                "usage_context_es": "A traditional way of behaving.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": false,
+        "group_name": "General Concepts"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "etiquette",
+        "phonetic": "/ˈɛtɪkət/",
+        "spoken_phonetic_us": "/ˈɛtɪkət/",
+        "search_term": "noun/social_customs/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Etiqueta",
+                "usage_example": "Business etiquette matters in meetings.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "La etiqueta profesional importa en las reuniones.",
+                "char_count": "5",
+                "usage_context_en": "The accepted rules of polite behavior.",
+                "usage_context_es": "The accepted rules of polite behavior.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": false,
+        "group_name": "General Concepts"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "ritual",
+        "phonetic": "/ˈrɪtʃuəl/",
+        "spoken_phonetic_us": "/ˈrɪtʃuəl/",
+        "search_term": "noun/social_customs/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Ritual",
+                "usage_example": "The ceremony followed an old ritual.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "La ceremonia siguió un ritual antiguo.",
+                "char_count": "6",
+                "usage_context_en": "A fixed series of actions, often traditional.",
+                "usage_context_es": "A fixed series of actions, often traditional.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": false,
+        "group_name": "General Concepts"
+    }
 ]

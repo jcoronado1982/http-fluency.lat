@@ -204,6 +204,10 @@ impl AuthUseCases {
             .await
     }
 
+    pub async fn reset_all_catalog_preferences(&self) -> Result<u64> {
+        self.user_repo.reset_all_catalog_preferences().await
+    }
+
     async fn validate_google_token(&self, id_token: &str) -> Result<GooglePayload> {
         let header = jsonwebtoken::decode_header(id_token)?;
         let kid = header

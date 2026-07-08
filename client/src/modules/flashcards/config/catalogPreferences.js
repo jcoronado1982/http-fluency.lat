@@ -1,4 +1,5 @@
-const CATALOG_ORDER_STORAGE_PREFIX = 'flashcards_catalog_order_v1_';
+const CATALOG_ORDER_STORAGE_PREFIX = 'flashcards_catalog_order_v2_';
+const CATALOG_ORDER_SCHEMA_VERSION = 2;
 
 const buildStorageKey = (userEmail) => `${CATALOG_ORDER_STORAGE_PREFIX}${userEmail || 'guest'}`;
 const buildGroupKey = (categoryName, deckName) => `${categoryName || ''}::${deckName || ''}`;
@@ -30,8 +31,12 @@ const normalizeOrderedItems = (items, preferredOrder = []) => {
 export const normalizeCatalogPreferences = (preferences) => ({
     categories: Array.isArray(preferences?.categories) ? preferences.categories.filter(Boolean) : [],
     groups: isObject(preferences?.groups) ? preferences.groups : {},
+    version: Number.isInteger(preferences?.version) ? preferences.version : null,
     updated_at: preferences?.updated_at ?? null,
 });
+
+export const isCatalogPreferencesCurrent = (preferences) =>
+    normalizeCatalogPreferences(preferences).version === CATALOG_ORDER_SCHEMA_VERSION;
 
 export const isCatalogPreferencesEmpty = (preferences) => {
     const normalized = normalizeCatalogPreferences(preferences);
@@ -54,11 +59,14 @@ export const writeCatalogPreferencesCache = (userEmail, preferences) => {
         localStorage.removeItem(buildStorageKey(userEmail));
         return;
     }
-    localStorage.setItem(buildStorageKey(userEmail), JSON.stringify(normalized));
+    localStorage.setItem(buildStorageKey(userEmail), JSON.stringify({
+        ...normalized,
+        version: CATALOG_ORDER_SCHEMA_VERSION,
+    }));
 };
 
 export const getEffectiveCatalogPreferences = (userEmail, serverPreferences = null) =>
-    serverPreferences
+    isCatalogPreferencesCurrent(serverPreferences)
         ? normalizeCatalogPreferences(serverPreferences)
         : normalizeCatalogPreferences(null);
 
@@ -99,6 +107,7 @@ export const saveCategoryOrderPreference = (userEmail, categories, serverPrefere
     const nextPreferences = {
         ...preferences,
         categories: normalizeOrderedItems(categories, categories),
+        version: CATALOG_ORDER_SCHEMA_VERSION,
     };
     writeCatalogPreferencesCache(userEmail, nextPreferences);
     return nextPreferences;
@@ -132,6 +141,7 @@ export const saveGroupOrderPreference = (
             ...preferences.groups,
             [groupKey]: normalizeOrderedItems(groups, groups),
         },
+        version: CATALOG_ORDER_SCHEMA_VERSION,
     };
     writeCatalogPreferencesCache(userEmail, nextPreferences);
     return nextPreferences;

@@ -118,36 +118,17 @@
       "order": 7,
       "decks": {
         "1-basic": [
-          { "name": "Prepositions: Place & Time", "order": 1 },
-          { "name": "Prepositions: Movement & Direction", "order": 2 },
-          { "name": "Prepositions: Origin", "order": 3 },
-          { "name": "Prepositions: Time & Purpose", "order": 4 },
-          { "name": "Prepositions: Agent & Instrument", "order": 5 },
-          { "name": "Prepositions: Topic", "order": 6 },
-          { "name": "Prepositions: Possession & Relation", "order": 7 },
-          { "name": "Prepositions: Place", "order": 8 },
-          { "name": "Prepositions: Time", "order": 9 },
-          { "name": "Prepositions: Comparison", "order": 10 },
-          { "name": "Prepositions: Comparison & Role", "order": 11 }
+          { "name": "Place & Time", "order": 1 },
+          { "name": "Direction & Movement", "order": 2 },
+          { "name": "Relation, Purpose & Reference", "order": 3 }
         ],
         "2-intermediate": [
-          { "name": "Prepositions: Time", "order": 1 },
-          { "name": "Prepositions: Movement & Direction", "order": 2 },
-          { "name": "Prepositions: Other", "order": 3 },
-          { "name": "Prepositions: Place", "order": 4 },
-          { "name": "Prepositions: Place & Time", "order": 5 },
-          { "name": "Prepositions: Agent & Instrument", "order": 6 },
-          { "name": "Prepositions: Opposition", "order": 7 }
+          { "name": "Space & Extent", "order": 1 },
+          { "name": "Logic, Reference & Method", "order": 2 }
         ],
         "3-advanced": [
-          { "name": "Prepositions: Reference", "order": 1 },
-          { "name": "Prepositions: Cause & Reason", "order": 2 },
-          { "name": "Prepositions: Contrast", "order": 3 },
-          { "name": "Prepositions: Substitution", "order": 4 },
-          { "name": "Prepositions: Representation", "order": 5 },
-          { "name": "Prepositions: Addition & Exception", "order": 6 },
-          { "name": "Prepositions: Time", "order": 7 },
-          { "name": "Prepositions: Topic", "order": 8 }
+          { "name": "Contrast & Reference", "order": 1 },
+          { "name": "Formal, Topic & Extension", "order": 2 }
         ]
       }
     },
@@ -249,26 +230,19 @@
       "order": 8,
       "decks": {
         "1-basic": [
-          { "name": "Determiners: Articles", "order": 1 },
-          { "name": "Determiners: Demonstratives", "order": 2 },
-          { "name": "Determiners: Possessives", "order": 3 },
-          { "name": "Determiners: Quantifiers", "order": 4 },
-          { "name": "Determiners: Distributives", "order": 5 },
-          { "name": "Determiners: Numbers", "order": 6 }
+          { "name": "Reference & Selection", "order": 1 },
+          { "name": "Possessive", "order": 2 },
+          { "name": "Quantifier", "order": 3 },
+          { "name": "Numbers & Order", "order": 4 }
         ],
         "2-intermediate": [
-          { "name": "Determiners: Quantifiers", "order": 1 },
-          { "name": "Determiners: Distributives", "order": 2 },
-          { "name": "Determiners: Possessives", "order": 3 },
-          { "name": "Determiners: Other", "order": 4 },
-          { "name": "Determiners: Partitives", "order": 5 },
-          { "name": "Determiners: Numbers", "order": 6 }
+          { "name": "Partitives & Emphasis", "order": 1 },
+          { "name": "Quantity & Measure", "order": 2 },
+          { "name": "Selection & Possession", "order": 3 }
         ],
         "3-advanced": [
-          { "name": "Determiners: Other", "order": 1 },
-          { "name": "Determiners: Possessives", "order": 2 },
-          { "name": "Determiners: Partitives", "order": 3 },
-          { "name": "Determiners: Quantifiers", "order": 4 }
+          { "name": "Compound & Partitive", "order": 1 },
+          { "name": "Reference & Relation", "order": 2 }
         ]
       }
     },
@@ -277,29 +251,31 @@
       "order": 9,
       "decks": {
         "1-basic": [
-          { "name": "Phrasal Verbs: Break", "order": 1 },
-          { "name": "Phrasal Verbs: Bring", "order": 2 },
-          { "name": "Phrasal Verbs: Call", "order": 3 },
-          { "name": "Phrasal Verbs: Calm", "order": 4 },
-          { "name": "Phrasal Verbs: Carry", "order": 5 },
-          { "name": "Phrasal Verbs: Check", "order": 6 },
-          { "name": "Phrasal Verbs: Come", "order": 7 },
-          { "name": "Phrasal Verbs: Drop", "order": 8 },
-          { "name": "Phrasal Verbs: Figure", "order": 9 },
-          { "name": "Phrasal Verbs: Find", "order": 10 },
-          { "name": "Phrasal Verbs: Get", "order": 11 }
+          { "name": "Daily Life & Home", "order": 1 },
+          { "name": "Movement & Travel", "order": 2 },
+          { "name": "Communication & Social", "order": 3 },
+          { "name": "Search & Understanding", "order": 4 },
+          { "name": "Progress & Reactions", "order": 5 },
+          { "name": "Difficult Situations", "order": 6 },
+          { "name": "Safety & Emergencies", "order": 7 }
+        ],
+        "2-intermediate": [
+          { "name": "Change Results", "order": 1 },
+          { "name": "Communication Exchange", "order": 2 },
+          { "name": "Complex Actions", "order": 3 },
+          { "name": "Daily Decisions", "order": 4 },
+          { "name": "Learning, Problem Solving", "order": 5 },
+          { "name": "Movement & Transport", "order": 6 },
+          { "name": "Relationships & Care", "order": 7 },
+          { "name": "Social Visits", "order": 8 },
+          { "name": "Work & Progress", "order": 9 }
         ],
         "3-advanced": [
-          { "name": "Phrasal Verbs: Make", "order": 1 },
-          { "name": "Phrasal Verbs: Pick", "order": 2 },
-          { "name": "Phrasal Verbs: Put", "order": 3 },
-          { "name": "Phrasal Verbs: Run", "order": 4 },
-          { "name": "Phrasal Verbs: Set", "order": 5 },
-          { "name": "Phrasal Verbs: Show", "order": 6 },
-          { "name": "Phrasal Verbs: Take", "order": 7 },
-          { "name": "Phrasal Verbs: Turn", "order": 8 },
-          { "name": "Phrasal Verbs: Wake", "order": 9 },
-          { "name": "Phrasal Verbs: Work", "order": 10 }
+          { "name": "Change Action", "order": 1 },
+          { "name": "Conflict & Resistance", "order": 2 },
+          { "name": "Goals & Progress", "order": 3 },
+          { "name": "Reasoning & Meaning", "order": 4 },
+          { "name": "Social Outcomes", "order": 5 }
         ]
       }
     }

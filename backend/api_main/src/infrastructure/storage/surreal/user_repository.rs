@@ -101,6 +101,16 @@ impl UserRepository for SurrealUserRepository {
         Ok(updated.map(Into::into))
     }
 
+    async fn reset_all_catalog_preferences(&self) -> Result<u64> {
+        let affected = self.list_all_users().await?.len() as u64;
+        self
+            .0
+            .db()
+            .query("UPDATE user SET catalog_preferences = NONE;")
+            .await?;
+        Ok(affected)
+    }
+
     async fn list_all_users(&self) -> Result<Vec<User>> {
         let mut res = self
             .0

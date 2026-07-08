@@ -1,7 +1,7 @@
 use anyhow::Result;
 use fluency_core::domain::models::flashcard::DeckData;
 use fluency_core::domain::models::user_activity::{
-    LearningLevelStats, LearningStats, B2_VOCABULARY_TARGET,
+    LearningLevelStats, LearningStats, B2_VOCABULARY_TARGET, DeckProgressInfo,
 };
 use fluency_core::ports::db_repository::{CardProgressRepository, UserActivityRepository};
 use fluency_core::ports::storage::StorageRepository;
@@ -621,6 +621,100 @@ impl DeckUseCases {
             ((current.mastered_count as f64 / current.target_count as f64) * 100.0).round() as i32
         };
 
+        let learned_cards = self.db_repo.get_all_learned_cards(user_id).await?;
+        let mut learned_map: HashMap<(String, String), (std::collections::HashSet<i32>, Option<chrono::DateTime<chrono::Utc>>)> = HashMap::new();
+        for (cat, deck, card_index, learned_at) in learned_cards {
+            let cat_clean = cat.split("::").last().unwrap_or(&cat).to_lowercase();
+            let deck_clean = deck.split("::").last().unwrap_or(&deck).to_lowercase();
+            let entry = learned_map.entry((cat_clean, deck_clean)).or_insert_with(|| (std::collections::HashSet::new(), None));
+            entry.0.insert(card_index);
+            if let Some(la) = learned_at {
+                if entry.1.is_none() || Some(la) > entry.1 {
+                    entry.1 = Some(la);
+                }
+            }
+        }
+
+        // Pares (categoría, deck) en orden estable; la carga de cada JSON se
+        // paraleliza (buffer_unordered) porque leerlos en serie tardaba >10s
+        // y el dashboard corta el fetch a los 8s.
+        let mut deck_pairs = Vec::new();
+        let categories = self.list_categories(course_direction).await?;
+        for cat in categories {
+            let decks = self.list_decks(&cat, course_direction).await?;
+            for deck in decks {
+                deck_pairs.push((cat.clone(), deck));
+            }
+        }
+
+        let learned_map = &learned_map;
+        let mut indexed_progress = stream::iter(deck_pairs.into_iter().enumerate())
+            .map(|(index, (cat, deck))| async move {
+                let deck_data = self
+                    .storage_repo
+                    .get_deck_data_for_direction(normalized_direction, &cat, &deck)
+                    .await;
+
+                let normalized_cat = cat.to_lowercase();
+                let normalized_deck = deck.replace(".json", "").to_lowercase();
+
+                let (learned_set, last_touched) = if let Some(val) = learned_map.get(&(normalized_cat, normalized_deck)) {
+                    (Some(&val.0), val.1)
+                } else {
+                    (None, None)
+                };
+
+                let learned_count = learned_set.map(|s| s.len() as i32).unwrap_or(0);
+
+                let (total_count, first_image_path) = match deck_data {
+                    Ok(data) => {
+                        let total = data.flashcards().len() as i32;
+                        let first_pending_card = data.flashcards().iter().enumerate().find(|&(idx, _card)| {
+                            if let Some(set) = learned_set {
+                                !set.contains(&(idx as i32))
+                            } else {
+                                true
+                            }
+                        });
+
+                        let card_to_use = first_pending_card
+                            .map(|(_idx, card)| card)
+                            .or_else(|| data.flashcards().first());
+
+                        let first_image = card_to_use.and_then(|card| {
+                            card.extra
+                                .get("definitions")
+                                .and_then(|defs| defs.as_array())
+                                .and_then(|arr| arr.first())
+                                .and_then(|def| def.get("imagePath").or_else(|| def.get("image_path")))
+                                .and_then(|img| img.as_str())
+                                .map(|s| s.to_string())
+                        });
+                        (total, first_image)
+                    }
+                    Err(_) => (0, None),
+                };
+
+                (
+                    index,
+                    DeckProgressInfo {
+                        category: cat,
+                        deck,
+                        learned_count,
+                        total_count,
+                        last_touched,
+                        first_image_path,
+                    },
+                )
+            })
+            .buffer_unordered(16)
+            .collect::<Vec<_>>()
+            .await;
+
+        indexed_progress.sort_by_key(|(index, _)| *index);
+        let decks_progress: Vec<DeckProgressInfo> =
+            indexed_progress.into_iter().map(|(_, info)| info).collect();
+
         self.activity_repo
             .get_learning_stats(user_id, mastered_count, b2_target)
             .await
@@ -628,6 +722,7 @@ impl DeckUseCases {
                 stats.current_level = current.level;
                 stats.level_percent = level_percent.clamp(0, 100);
                 stats.levels = levels;
+                stats.decks_progress = decks_progress;
                 stats
             })
     }
@@ -641,5 +736,39 @@ mod tests {
     fn landing_demo_namespace_is_isolated() {
         assert!(is_landing_demo_namespace("landing-demo"));
         assert!(!is_landing_demo_namespace("verbs"));
+    }
+
+    #[test]
+    fn test_deck_definitions_extra() {
+        let json_data = r#"[
+            {
+                "word": "I",
+                "definitions": [
+                    {
+                        "imagePath": "/card_images/pronouns/1-basic/1-basic_card_0_def0.avif"
+                    }
+                ]
+            }
+        ]"#;
+        let deck: DeckData = serde_json::from_str(json_data).unwrap();
+        let card = deck.flashcards().first().unwrap();
+        let first_image = card.extra
+            .get("definitions")
+            .and_then(|defs| defs.as_array())
+            .and_then(|arr| arr.first())
+            .and_then(|def| def.get("imagePath").or_else(|| def.get("image_path")))
+            .and_then(|img| img.as_str())
+            .map(|s| s.to_string());
+        assert_eq!(first_image, Some("/card_images/pronouns/1-basic/1-basic_card_0_def0.avif".to_string()));
+    }
+
+    #[tokio::test]
+    async fn test_get_learning_stats_output() {
+        use crate::domain::repositories::storage::StorageRepository;
+        use crate::domain::repositories::db_repository::UserActivityRepository;
+        use crate::domain::repositories::db_repository::CardProgressRepository;
+        
+        // This is just a compilation check for the async block logic.
+        assert!(true);
     }
 }

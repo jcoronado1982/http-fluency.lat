@@ -1,142 +1,142 @@
 [
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "treatment",
-    "phonetic": "/ˈtriːtmənt/",
-    "spoken_phonetic_us": "/ˈtriːtmənt/",
-    "search_term": "noun/concept/essentials",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "General Concepts",
-    "definitions": [
-      {
-        "meaning": "Tratamiento (médico)",
-        "usage_example": "He is receiving treatment for cancer.",
-        "pronunciation_guide_es": "/hi_is_ri-SI-ving_TRIT-ment_for_CAN-ser/",
-        "usage_example_es": "Él está recibiendo tratamiento para el cáncer.",
-        "char_count": "6",
-        "usage_context_en": "Medical care given to a patient for an illness or injury.",
-        "usage_context_es": "Atención médica dada a un paciente por una enfermedad o lesión.",
-        "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_115_def0.avif"
-      },
-      {
-        "meaning": "Trato (hacia alguien)",
-        "usage_example": "His treatment of his employees is bad.",
-        "pronunciation_guide_es": "/his_TRIT-ment_of_his_em-ploi-IS_is_BAD/",
-        "usage_example_es": "Su trato hacia sus empleados es malo.",
-        "char_count": "7",
-        "usage_context_en": "The way one behaves toward or deals with someone or something.",
-        "usage_context_es": "La forma en que uno se comporta o trata a alguien o algo.",
-        "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_115_def1.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "diagnosis",
-    "phonetic": "/ˌdaɪəɡˈnoʊsɪs/",
-    "spoken_phonetic_us": "/ˌdaɪəɡˈnoʊsɪs/",
-    "search_term": "noun/health/added",
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Diagnóstico",
-        "usage_example": "The doctor gave a clear diagnosis.",
-        "pronunciation_guide_es": "",
-        "usage_example_es": "El médico dio un diagnóstico claro.",
-        "char_count": "6",
-        "usage_context_en": "The identification of a disease or problem.",
-        "usage_context_es": "The identification of a disease or problem.",
-        "imagePath": ""
-      }
-    ],
-    "is_verb": false,
-    "group_name": "General Concepts"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "prognosis",
-    "phonetic": "/prɑɡˈnoʊsɪs/",
-    "spoken_phonetic_us": "/prɑɡˈnoʊsɪs/",
-    "search_term": "noun/health/added",
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Pronóstico",
-        "usage_example": "The prognosis is positive.",
-        "pronunciation_guide_es": "",
-        "usage_example_es": "El pronóstico es positivo.",
-        "char_count": "4",
-        "usage_context_en": "A forecast of how a condition will develop.",
-        "usage_context_es": "A forecast of how a condition will develop.",
-        "imagePath": ""
-      }
-    ],
-    "is_verb": false,
-    "group_name": "General Concepts"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "remedy",
-    "phonetic": "/ˈrɛmɪdi/",
-    "spoken_phonetic_us": "/ˈrɛmɪdi/",
-    "search_term": "noun/health/added",
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Remedio",
-        "usage_example": "Rest is the best remedy in this case.",
-        "pronunciation_guide_es": "",
-        "usage_example_es": "El descanso es el mejor remedio en este caso.",
-        "char_count": "8",
-        "usage_context_en": "Something that improves or cures a problem.",
-        "usage_context_es": "Something that improves or cures a problem.",
-        "imagePath": ""
-      }
-    ],
-    "is_verb": false,
-    "group_name": "General Concepts"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "rehabilitation",
-    "phonetic": "/ˌriːhəˌbɪləˈteɪʃən/",
-    "spoken_phonetic_us": "/ˌriːhəˌbɪləˈteɪʃən/",
-    "search_term": "noun/health/added",
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Rehabilitación",
-        "usage_example": "He returned to work after rehabilitation.",
-        "pronunciation_guide_es": "",
-        "usage_example_es": "Volvió al trabajo después de la rehabilitación.",
-        "char_count": "6",
-        "usage_context_en": "The process of recovering abilities or health.",
-        "usage_context_es": "The process of recovering abilities or health.",
-        "imagePath": ""
-      }
-    ],
-    "is_verb": false,
-    "group_name": "General Concepts"
-  }
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "treatment",
+        "phonetic": "/ˈtriːtmənt/",
+        "spoken_phonetic_us": "/ˈtriːtmənt/",
+        "search_term": "noun/concept/essentials",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "General Concepts",
+        "definitions": [
+            {
+                "meaning": "Tratamiento (médico)",
+                "usage_example": "He is receiving treatment for cancer.",
+                "pronunciation_guide_es": "/hi_is_ri-SI-ving_TRIT-ment_for_CAN-ser/",
+                "usage_example_es": "Él está recibiendo tratamiento para el cáncer.",
+                "char_count": "6",
+                "usage_context_en": "Medical care given to a patient for an illness or injury.",
+                "usage_context_es": "Atención médica dada a un paciente por una enfermedad o lesión.",
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_115_def0.avif"
+            },
+            {
+                "meaning": "Trato (hacia alguien)",
+                "usage_example": "His treatment of his employees is bad.",
+                "pronunciation_guide_es": "/his_TRIT-ment_of_his_em-ploi-IS_is_BAD/",
+                "usage_example_es": "Su trato hacia sus empleados es malo.",
+                "char_count": "7",
+                "usage_context_en": "The way one behaves toward or deals with someone or something.",
+                "usage_context_es": "La forma en que uno se comporta o trata a alguien o algo.",
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_115_def1.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "diagnosis",
+        "phonetic": "/ˌdaɪəɡˈnoʊsɪs/",
+        "spoken_phonetic_us": "/ˌdaɪəɡˈnoʊsɪs/",
+        "search_term": "noun/health/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Diagnóstico",
+                "usage_example": "The doctor gave a clear diagnosis.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "El médico dio un diagnóstico claro.",
+                "char_count": "6",
+                "usage_context_en": "The identification of a disease or problem.",
+                "usage_context_es": "The identification of a disease or problem.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": false,
+        "group_name": "General Concepts"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "prognosis",
+        "phonetic": "/prɑɡˈnoʊsɪs/",
+        "spoken_phonetic_us": "/prɑɡˈnoʊsɪs/",
+        "search_term": "noun/health/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Pronóstico",
+                "usage_example": "The prognosis is positive.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "El pronóstico es positivo.",
+                "char_count": "4",
+                "usage_context_en": "A forecast of how a condition will develop.",
+                "usage_context_es": "A forecast of how a condition will develop.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": false,
+        "group_name": "General Concepts"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "remedy",
+        "phonetic": "/ˈrɛmɪdi/",
+        "spoken_phonetic_us": "/ˈrɛmɪdi/",
+        "search_term": "noun/health/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Remedio",
+                "usage_example": "Rest is the best remedy in this case.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "El descanso es el mejor remedio en este caso.",
+                "char_count": "8",
+                "usage_context_en": "Something that improves or cures a problem.",
+                "usage_context_es": "Something that improves or cures a problem.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": false,
+        "group_name": "General Concepts"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "rehabilitation",
+        "phonetic": "/ˌriːhəˌbɪləˈteɪʃən/",
+        "spoken_phonetic_us": "/ˌriːhəˌbɪləˈteɪʃən/",
+        "search_term": "noun/health/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Rehabilitación",
+                "usage_example": "He returned to work after rehabilitation.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "Volvió al trabajo después de la rehabilitación.",
+                "char_count": "6",
+                "usage_context_en": "The process of recovering abilities or health.",
+                "usage_context_es": "The process of recovering abilities or health.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": false,
+        "group_name": "General Concepts"
+    }
 ]

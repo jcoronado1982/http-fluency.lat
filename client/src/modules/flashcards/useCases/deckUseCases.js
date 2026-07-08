@@ -1,6 +1,29 @@
 /**
  * Casos de uso de flashcards (capa de aplicación, lógica pura).
  * Equivalente frontend de `backend/mod_flashcards`.
+ * 
+ * ============================================================================
+ * 📝 GUÍA PARA CAMBIAR O AGREGAR EL ORDENAMIENTO DE CATEGORÍAS Y TEMAS (DECKS)
+ * ============================================================================
+ * 
+ * Para que un tema/módulo mantenga un orden personalizado en la interfaz, debes:
+ * 
+ * 1️⃣ ACTUALIZAR EL ORDEN EN EL FRONTEND (Este archivo):
+ *    - Define una constante de ordenamiento al estilo de `XXX_DECK_ORDER` abajo
+ *      usando los nombres de archivo en minúsculas (ej: 'place_and_time').
+ *    - En la función `sortDeckNames()` (al final de este archivo), agrega un bloque
+ *      `if (_category === 'tu_categoria')` que mapee el orden con tu constante.
+ * 
+ * 2️⃣ ACTUALIZAR EL ORDEN EN LOS ARCHIVOS DE CONFIGURACIÓN JSON DEL CLIENTE:
+ *    - Modifica los nombres reales formateados con sus `"order"` numéricos en:
+ *      - `client/src/contracts/catalogOrder.json`
+ *      - `client/src/modules/flashcards/config/catalogOrder.json`
+ * 
+ * 3️⃣ ACTUALIZAR EL ORDEN EN LA BASE DE DATOS Y EN EL PROCESO ETL:
+ *    - Agrega los correspondientes bloques `WHEN` en las consultas `ORDER BY` con `CASE` en:
+ *      - `exportar_fase3.py` (ETL)
+ *      - `etl_ui.py` (Panel de administración Flask)
+ * ============================================================================
  */
 
 import { LANDING_DEMO_CATEGORY } from '../../../contracts/landingDemoNamespace';
@@ -18,6 +41,165 @@ export const NESTED_LEVEL_CATEGORIES = [
     'pronouns',
 ];
 const LEVEL_ORDER = { basic: 1, intermediate: 2, advanced: 3 };
+const PRONOUN_DECK_ORDER = {
+    basic: {
+        subject_pronouns: 1,
+        object_pronouns: 2,
+        possessive_adjectives: 3,
+        indefinite_pronouns: 4,
+        quantifier_pronouns: 5,
+        interrogative_pronouns: 6,
+    },
+};
+const VERB_DECK_ORDER = {
+    basic: {
+        being_state: 1,
+        action: 2,
+        communication: 3,
+        movement: 4,
+        feelings: 5,
+        possession_exchange: 6,
+        thinking: 7,
+        modal_auxiliaries: 8,
+    },
+};
+const NOUN_DECK_ORDER = {
+    basic: {
+        body: 1,
+        clothes: 2,
+        personal_items: 3,
+        feelings: 4,
+        states_conditions: 5,
+        health: 6,
+        family: 7,
+        people: 8,
+        communication: 9,
+        cognition_language: 10,
+        social_customs: 11,
+        clock_time: 12,
+        day_parts: 13,
+        week_cycle: 14,
+        calendar: 15,
+        seasons: 16,
+        home_rooms: 17,
+        household_items: 18,
+        food_drink: 19,
+        materials_substances: 20,
+        location: 21,
+        places: 22,
+        transport: 23,
+        work: 24,
+        jobs: 25,
+        school: 26,
+        economy: 27,
+        society: 28,
+        nature: 29,
+        animals: 30,
+        colors: 31,
+        continents: 32,
+        countries: 33,
+        oceans_seas: 34,
+        numbers: 35,
+        measurement_quantity: 36,
+        classification: 37,
+        logic_reasoning: 38,
+        process_change: 39,
+        structure_components: 40,
+        technology: 41,
+        media: 42,
+        sports: 43,
+    },
+};
+const ADVERB_DECK_ORDER = {
+    basic: {
+        core_survival: 1,
+        frequency_routine: 2,
+        place_direction: 3,
+        time_sequence: 4,
+        manner_degree_quantity: 5,
+        interrogative_adverbs: 6,
+    },
+};
+const ADJECTIVE_DECK_ORDER = {
+    basic: {
+        physical_state_and_condition: 1,
+        emotions_and_personality: 2,
+        space_size_and_crowds: 3,
+        time_change_and_age: 4,
+        access_readiness_and_effort: 5,
+        value_cost_and_evaluation: 6,
+        health_safety_and_emergency: 7,
+    },
+};
+const CONNECTOR_DECK_ORDER = {
+    basic: {
+        everyday_addition_examples: 1,
+        time_and_sequence: 2,
+        cause_effect_basics: 3,
+        contrast_condition_basics: 4,
+    },
+};
+const PREPOSITION_DECK_ORDER = {
+    basic: {
+        place_and_time: 1,
+        direction_and_movement: 2,
+        relation_purpose_and_reference: 3,
+    },
+    intermediate: {
+        space_and_extent: 1,
+        logic_reference_and_method: 2,
+    },
+    advanced: {
+        contrast_and_reference: 1,
+        formal_topic_and_extension: 2,
+    },
+};
+const DETERMINANT_DECK_ORDER = {
+    basic: {
+        reference_and_selection: 1,
+        possessive: 2,
+        quantifier: 3,
+        numbers_and_order: 4,
+    },
+    intermediate: {
+        partitives_and_emphasis: 1,
+        quantity_and_measure: 2,
+        selection_and_possession: 3,
+    },
+    advanced: {
+        compound_and_partitive: 1,
+        reference_and_relation: 2,
+    },
+};
+const PHRASAL_VERBS_DECK_ORDER = {
+    basic: {
+        daily_life_home: 1,
+        movement_travel: 2,
+        communication_social: 3,
+        search_understanding: 4,
+        progress_reactions: 5,
+        difficult_situations: 6,
+        safety_emergencies: 7,
+    },
+    intermediate: {
+        change_results: 1,
+        communication_exchange: 2,
+        complex_actions: 3,
+        daily_decisions: 4,
+        learning_problem_solving: 5,
+        movement_transport: 6,
+        relationships_care: 7,
+        social_visits: 8,
+        work_progress: 9,
+    },
+    advanced: {
+        change_action: 1,
+        conflict_resistance: 2,
+        goals_progress: 3,
+        reasoning_meaning: 4,
+        social_outcomes: 5,
+    },
+};
 
 const isAppStudyCategory = (name) => name && name !== LANDING_DEMO_CATEGORY;
 export const usesNestedLevelDecks = (category) => NESTED_LEVEL_CATEGORIES.includes(category);
@@ -235,6 +417,163 @@ export const sortDeckNames = (files, _category = null) => {
         const levelDiff = (LEVEL_ORDER[getLevelFromDeckName(a)] ?? 99) - (LEVEL_ORDER[getLevelFromDeckName(b)] ?? 99);
         if (levelDiff !== 0) return levelDiff;
 
+        if (_category === 'pronouns') {
+            const level = getLevelFromDeckName(a);
+            const pronounOrder = PRONOUN_DECK_ORDER[level];
+            if (pronounOrder) {
+                const categoryA = getDeckCategoryName(a);
+                const categoryB = getDeckCategoryName(b);
+                const orderA = pronounOrder[categoryA];
+                const orderB = pronounOrder[categoryB];
+                const aKnown = Number.isFinite(orderA);
+                const bKnown = Number.isFinite(orderB);
+
+                if (aKnown && bKnown) return orderA - orderB;
+                if (aKnown) return -1;
+                if (bKnown) return 1;
+            }
+        }
+
+        if (_category === 'verbs') {
+            const level = getLevelFromDeckName(a);
+            const verbOrder = VERB_DECK_ORDER[level];
+            if (verbOrder) {
+                const categoryA = getDeckCategoryName(a);
+                const categoryB = getDeckCategoryName(b);
+                const orderA = verbOrder[categoryA];
+                const orderB = verbOrder[categoryB];
+                const aKnown = Number.isFinite(orderA);
+                const bKnown = Number.isFinite(orderB);
+
+                if (aKnown && bKnown) return orderA - orderB;
+                if (aKnown) return -1;
+                if (bKnown) return 1;
+            }
+        }
+
+        if (_category === 'nouns') {
+            const level = getLevelFromDeckName(a);
+            const nounOrder = NOUN_DECK_ORDER[level];
+            if (nounOrder) {
+                const categoryA = getDeckCategoryName(a);
+                const categoryB = getDeckCategoryName(b);
+                const orderA = nounOrder[categoryA];
+                const orderB = nounOrder[categoryB];
+                const aKnown = Number.isFinite(orderA);
+                const bKnown = Number.isFinite(orderB);
+
+                if (aKnown && bKnown) return orderA - orderB;
+                if (aKnown) return -1;
+                if (bKnown) return 1;
+            }
+        }
+
+        if (_category === 'adverbs') {
+            const level = getLevelFromDeckName(a);
+            const adverbOrder = ADVERB_DECK_ORDER[level];
+            if (adverbOrder) {
+                const categoryA = getDeckCategoryName(a);
+                const categoryB = getDeckCategoryName(b);
+                const orderA = adverbOrder[categoryA];
+                const orderB = adverbOrder[categoryB];
+                const aKnown = Number.isFinite(orderA);
+                const bKnown = Number.isFinite(orderB);
+
+                if (aKnown && bKnown) return orderA - orderB;
+                if (aKnown) return -1;
+                if (bKnown) return 1;
+            }
+        }
+
+        if (_category === 'adjectives') {
+            const level = getLevelFromDeckName(a);
+            const adjectiveOrder = ADJECTIVE_DECK_ORDER[level];
+            if (adjectiveOrder) {
+                const categoryA = getDeckCategoryName(a);
+                const categoryB = getDeckCategoryName(b);
+                const orderA = adjectiveOrder[categoryA];
+                const orderB = adjectiveOrder[categoryB];
+                const aKnown = Number.isFinite(orderA);
+                const bKnown = Number.isFinite(orderB);
+
+                if (aKnown && bKnown) return orderA - orderB;
+                if (aKnown) return -1;
+                if (bKnown) return 1;
+            }
+        }
+
+        if (_category === 'connectors') {
+            const level = getLevelFromDeckName(a);
+            const connectorOrder = CONNECTOR_DECK_ORDER[level];
+            if (connectorOrder) {
+                const categoryA = getDeckCategoryName(a);
+                const categoryB = getDeckCategoryName(b);
+                const orderA = connectorOrder[categoryA];
+                const orderB = connectorOrder[categoryB];
+                const aKnown = Number.isFinite(orderA);
+                const bKnown = Number.isFinite(orderB);
+
+                if (aKnown && bKnown) return orderA - orderB;
+                if (aKnown) return -1;
+                if (bKnown) return 1;
+            }
+        }
+
+        if (_category === 'preposition') {
+            const level = getLevelFromDeckName(a);
+            const prepositionOrder = PREPOSITION_DECK_ORDER[level];
+            if (prepositionOrder) {
+                const categoryA = getDeckCategoryName(a);
+                const categoryB = getDeckCategoryName(b);
+                const orderA = prepositionOrder[categoryA];
+                const orderB = prepositionOrder[categoryB];
+                const aKnown = Number.isFinite(orderA);
+                const bKnown = Number.isFinite(orderB);
+
+                if (aKnown && bKnown) return orderA - orderB;
+                if (aKnown) return -1;
+                if (bKnown) return 1;
+            }
+        }
+
+        if (_category === 'determinant') {
+            const level = getLevelFromDeckName(a);
+            const determinantOrder = DETERMINANT_DECK_ORDER[level];
+            if (determinantOrder) {
+                const categoryA = getDeckCategoryName(a);
+                const categoryB = getDeckCategoryName(b);
+                const orderA = determinantOrder[categoryA];
+                const orderB = determinantOrder[categoryB];
+                const aKnown = Number.isFinite(orderA);
+                const bKnown = Number.isFinite(orderB);
+
+                if (aKnown && bKnown) return orderA - orderB;
+                if (aKnown) return -1;
+                if (bKnown) return 1;
+            }
+        }
+
+        if (_category === 'phrasal_verbs') {
+            const level = getLevelFromDeckName(a);
+            const phrasalVerbsOrder = PHRASAL_VERBS_DECK_ORDER[level];
+            if (phrasalVerbsOrder) {
+                const categoryA = getDeckCategoryName(a);
+                const categoryB = getDeckCategoryName(b);
+                const orderA = phrasalVerbsOrder[categoryA];
+                const orderB = phrasalVerbsOrder[categoryB];
+                const aKnown = Number.isFinite(orderA);
+                const bKnown = Number.isFinite(orderB);
+
+                if (aKnown && bKnown) return orderA - orderB;
+                if (aKnown) return -1;
+                if (bKnown) return 1;
+            }
+        }
+
+        // 💡 NOTA: Si agregas una nueva categoría (ej: 'connectors'), agrega aquí su bloque 'if'
+        // apuntando a su respectivo objeto XXX_DECK_ORDER para evitar el ordenamiento alfabético por defecto.
+
+        // Fallback: Si no hay ordenamiento definido en los mapas, ordena alfabéticamente
         const categoryA = getDeckCategoryName(a);
         const categoryB = getDeckCategoryName(b);
         return categoryA.localeCompare(categoryB);

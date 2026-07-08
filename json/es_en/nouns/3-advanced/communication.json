@@ -1,132 +1,132 @@
 [
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "misunderstanding",
-    "phonetic": "/ˌmɪsəndərˈstændɪŋ/",
-    "spoken_phonetic_us": "/ˌmɪsəndərˈstændɪŋ/",
-    "search_term": "noun/concept/essentials",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "General Concepts",
-    "definitions": [
-      {
-        "meaning": "Malentendido",
-        "usage_example": "It was all a misunderstanding.",
-        "pronunciation_guide_es": "/it_uas_OL_a_mis-on-der-STAN-ding/",
-        "usage_example_es": "Todo fue un malentendido.",
-        "char_count": "5",
-        "usage_context_en": "A failure to understand something correctly.",
-        "usage_context_es": "Un fallo en entender algo correctamente.",
-        "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_78_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "ambiguity",
-    "phonetic": "/ˌæmbɪˈɡjuːəti/",
-    "spoken_phonetic_us": "/ˌæmbɪˈɡjuːəti/",
-    "search_term": "noun/communication/added",
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Ambigüedad",
-        "usage_example": "The sentence creates ambiguity.",
-        "pronunciation_guide_es": "",
-        "usage_example_es": "La oración crea ambigüedad.",
-        "char_count": "4",
-        "usage_context_en": "A situation where something has more than one possible meaning.",
-        "usage_context_es": "A situation where something has more than one possible meaning.",
-        "imagePath": ""
-      }
-    ],
-    "is_verb": false,
-    "group_name": "General Concepts"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "dialogue",
-    "phonetic": "/ˈdaɪəˌlɔɡ/",
-    "spoken_phonetic_us": "/ˈdaɪəˌlɔɡ/",
-    "search_term": "noun/communication/added",
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Diálogo",
-        "usage_example": "Open dialogue can solve many problems.",
-        "pronunciation_guide_es": "",
-        "usage_example_es": "Un diálogo abierto puede resolver muchos problemas.",
-        "char_count": "6",
-        "usage_context_en": "A conversation between two or more people.",
-        "usage_context_es": "A conversation between two or more people.",
-        "imagePath": ""
-      }
-    ],
-    "is_verb": false,
-    "group_name": "General Concepts"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "rhetoric",
-    "phonetic": "/ˈrɛtərɪk/",
-    "spoken_phonetic_us": "/ˈrɛtərɪk/",
-    "search_term": "noun/communication/added",
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Retórica",
-        "usage_example": "His speech relied more on rhetoric than facts.",
-        "pronunciation_guide_es": "",
-        "usage_example_es": "Su discurso se apoyó más en la retórica que en los hechos.",
-        "char_count": "8",
-        "usage_context_en": "Language used to persuade or impress.",
-        "usage_context_es": "Language used to persuade or impress.",
-        "imagePath": ""
-      }
-    ],
-    "is_verb": false,
-    "group_name": "General Concepts"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "connotation",
-    "phonetic": "/ˌkɑnəˈteɪʃən/",
-    "spoken_phonetic_us": "/ˌkɑnəˈteɪʃən/",
-    "search_term": "noun/communication/added",
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Connotación",
-        "usage_example": "That word has a negative connotation.",
-        "pronunciation_guide_es": "",
-        "usage_example_es": "Esa palabra tiene una connotación negativa.",
-        "char_count": "6",
-        "usage_context_en": "An implied or associated meaning of a word.",
-        "usage_context_es": "An implied or associated meaning of a word.",
-        "imagePath": ""
-      }
-    ],
-    "is_verb": false,
-    "group_name": "General Concepts"
-  }
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "misunderstanding",
+        "phonetic": "/ˌmɪsəndərˈstændɪŋ/",
+        "spoken_phonetic_us": "/ˌmɪsəndərˈstændɪŋ/",
+        "search_term": "noun/concept/essentials",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "General Concepts",
+        "definitions": [
+            {
+                "meaning": "Malentendido",
+                "usage_example": "It was all a misunderstanding.",
+                "pronunciation_guide_es": "/it_uas_OL_a_mis-on-der-STAN-ding/",
+                "usage_example_es": "Todo fue un malentendido.",
+                "char_count": "5",
+                "usage_context_en": "A failure to understand something correctly.",
+                "usage_context_es": "Un fallo en entender algo correctamente.",
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_78_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "ambiguity",
+        "phonetic": "/ˌæmbɪˈɡjuːəti/",
+        "spoken_phonetic_us": "/ˌæmbɪˈɡjuːəti/",
+        "search_term": "noun/communication/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Ambigüedad",
+                "usage_example": "The sentence creates ambiguity.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "La oración crea ambigüedad.",
+                "char_count": "4",
+                "usage_context_en": "A situation where something has more than one possible meaning.",
+                "usage_context_es": "A situation where something has more than one possible meaning.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": false,
+        "group_name": "General Concepts"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "dialogue",
+        "phonetic": "/ˈdaɪəˌlɔɡ/",
+        "spoken_phonetic_us": "/ˈdaɪəˌlɔɡ/",
+        "search_term": "noun/communication/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Diálogo",
+                "usage_example": "Open dialogue can solve many problems.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "Un diálogo abierto puede resolver muchos problemas.",
+                "char_count": "6",
+                "usage_context_en": "A conversation between two or more people.",
+                "usage_context_es": "A conversation between two or more people.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": false,
+        "group_name": "General Concepts"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "rhetoric",
+        "phonetic": "/ˈrɛtərɪk/",
+        "spoken_phonetic_us": "/ˈrɛtərɪk/",
+        "search_term": "noun/communication/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Retórica",
+                "usage_example": "His speech relied more on rhetoric than facts.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "Su discurso se apoyó más en la retórica que en los hechos.",
+                "char_count": "8",
+                "usage_context_en": "Language used to persuade or impress.",
+                "usage_context_es": "Language used to persuade or impress.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": false,
+        "group_name": "General Concepts"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "connotation",
+        "phonetic": "/ˌkɑnəˈteɪʃən/",
+        "spoken_phonetic_us": "/ˌkɑnəˈteɪʃən/",
+        "search_term": "noun/communication/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Connotación",
+                "usage_example": "That word has a negative connotation.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "Esa palabra tiene una connotación negativa.",
+                "char_count": "6",
+                "usage_context_en": "An implied or associated meaning of a word.",
+                "usage_context_es": "An implied or associated meaning of a word.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": false,
+        "group_name": "General Concepts"
+    }
 ]

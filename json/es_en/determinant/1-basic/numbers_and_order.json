@@ -1,450 +1,450 @@
 [
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "one",
-    "phonetic": "/wʌn/",
-    "spoken_phonetic_us": "/wʌn/",
-    "search_term": "determiner/number",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "definitions": [
-      {
-        "meaning": "Un / Uno / Una",
-        "usage_example": "I have one brother.",
-        "pronunciation_guide_es": "/ai_HAV_UAN_BRO-der/",
-        "usage_example_es": "Tengo un hermano.",
-        "char_count": "4",
-        "usage_context_en": "The number 1.",
-        "usage_context_es": "El número 1.",
-        "imagePath": "/card_images/determinant/1-basic/1-basic_card_25_def0.avif"
-      }
-    ],
-    "category": "Basic"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "two",
-    "phonetic": "/tuː/",
-    "spoken_phonetic_us": "/tuː/",
-    "search_term": "determiner/number",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "definitions": [
-      {
-        "meaning": "Dos",
-        "usage_example": "She has two cats.",
-        "pronunciation_guide_es": "/shi_HAS_TU_CATS/",
-        "usage_example_es": "Ella tiene dos gatos.",
-        "char_count": "4",
-        "usage_context_en": "The number 2.",
-        "usage_context_es": "El número 2.",
-        "imagePath": "/card_images/determinant/1-basic/1-basic_card_26_def0.avif"
-      }
-    ],
-    "category": "Basic"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "three",
-    "phonetic": "/θriː/",
-    "spoken_phonetic_us": "/θriː/",
-    "search_term": "determiner/number",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "definitions": [
-      {
-        "meaning": "Tres",
-        "usage_example": "I need three eggs.",
-        "pronunciation_guide_es": "/ai_NID_ZRI_EGS/",
-        "usage_example_es": "Necesito tres huevos.",
-        "char_count": "4",
-        "usage_context_en": "The number 3.",
-        "usage_context_es": "El número 3.",
-        "imagePath": "/card_images/determinant/1-basic/1-basic_card_27_def0.avif"
-      }
-    ],
-    "category": "Basic"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "four",
-    "phonetic": "/fɔːr/",
-    "spoken_phonetic_us": "/fɔr/",
-    "search_term": "determiner/number",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "category": "Basic",
-    "definitions": [
-      {
-        "meaning": "Cuatro",
-        "usage_example": "I need four tickets.",
-        "pronunciation_guide_es": "/ai_NID_FOR_TI-kets/",
-        "usage_example_es": "Necesito cuatro boletos.",
-        "char_count": "4",
-        "usage_context_en": "Used before a plural noun to show the number 4.",
-        "usage_context_es": "Usado antes de un sustantivo plural para indicar el número 4."
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "five",
-    "phonetic": "/faɪv/",
-    "spoken_phonetic_us": "/faɪv/",
-    "search_term": "determiner/number",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "category": "Basic",
-    "definitions": [
-      {
-        "meaning": "Cinco",
-        "usage_example": "We need five minutes.",
-        "pronunciation_guide_es": "/ui_NID_FAIV_MI-nits/",
-        "usage_example_es": "Necesitamos cinco minutos.",
-        "char_count": "4",
-        "usage_context_en": "Used before a plural noun to show the number 5.",
-        "usage_context_es": "Usado antes de un sustantivo plural para indicar el número 5."
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "first",
-    "phonetic": "/fɜːrst/",
-    "spoken_phonetic_us": "/fɜrst/",
-    "search_term": "determiner/ordinal",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "definitions": [
-      {
-        "meaning": "Primer / Primero / Primera",
-        "usage_example": "It is the first day of the month.",
-        "pronunciation_guide_es": "/it_is_de_FIRST_DEI_of_de_MONZ/",
-        "usage_example_es": "Es el primer día del mes.",
-        "char_count": "7",
-        "usage_context_en": "The ordinal number 1st; coming before all others.",
-        "usage_context_es": "El número ordinal 1°; que viene antes que todos los demás.",
-        "imagePath": "/card_images/determinant/1-basic/1-basic_card_28_def0.avif"
-      }
-    ],
-    "category": "Basic"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "next",
-    "phonetic": "/nɛkst/",
-    "spoken_phonetic_us": "/nɛkst/",
-    "search_term": "determiner/ordinal",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "definitions": [
-      {
-        "meaning": "Siguiente / Próximo/a",
-        "usage_example": "See you next week.",
-        "pronunciation_guide_es": "/SI_iu_NEKST_UIK/",
-        "usage_example_es": "Nos vemos la próxima semana.",
-        "char_count": "4",
-        "usage_context_en": "Coming immediately after the present one.",
-        "usage_context_es": "Que viene inmediatamente después del presente.",
-        "imagePath": "/card_images/determinant/1-basic/1-basic_card_29_def0.avif"
-      }
-    ],
-    "category": "Basic"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "last",
-    "phonetic": "/læst/",
-    "spoken_phonetic_us": "/læst/",
-    "search_term": "determiner/ordinal",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "definitions": [
-      {
-        "meaning": "Último/a / Pasado/a",
-        "usage_example": "It was the last day. / I saw him last week.",
-        "pronunciation_guide_es": "/it_uas_de_LAST_DEI_ai_SO_him_LAST_UIK/",
-        "usage_example_es": "Fue el último día. / Lo vi la semana pasada.",
-        "char_count": 4,
-        "usage_context_en": "Coming after all others; the most recent one.",
-        "usage_context_es": "Que viene después de todos los demás; el más reciente.",
-        "imagePath": "/card_images/determinant/1-basic/1-basic_card_30_def0.avif"
-      }
-    ],
-    "category": "Basic"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "second",
-    "phonetic": "/ˈsɛkənd/",
-    "spoken_phonetic_us": "/ˈsɛkənd/",
-    "search_term": "determiner/ordinal",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "definitions": [
-      {
-        "meaning": "Segundo / Segunda",
-        "usage_example": "She lives on the second floor.",
-        "pronunciation_guide_es": "/shi_LIVS_on_de_SEcond_FLOR/",
-        "usage_example_es": "Ella vive en el segundo piso.",
-        "char_count": "6",
-        "usage_context_en": "The ordinal number 2nd.",
-        "usage_context_es": "El número ordinal 2°."
-      }
-    ],
-    "category": "Basic"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "third",
-    "phonetic": "/θɜːrd/",
-    "spoken_phonetic_us": "/θɜrd/",
-    "search_term": "determiner/ordinal",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "definitions": [
-      {
-        "meaning": "Tercero / Tercera",
-        "usage_example": "This is the third time.",
-        "pronunciation_guide_es": "/dis_is_de_ZERD_TAIM/",
-        "usage_example_es": "Esta es la tercera vez.",
-        "char_count": "5",
-        "usage_context_en": "The ordinal number 3rd.",
-        "usage_context_es": "El número ordinal 3°."
-      }
-    ],
-    "category": "Basic"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "fourth",
-    "phonetic": "/fɔːrθ/",
-    "spoken_phonetic_us": "/fɔrθ/",
-    "search_term": "determiner/ordinal",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "definitions": [
-      {
-        "meaning": "Cuarto / Cuarta",
-        "usage_example": "Her birthday is on the fourth of May.",
-        "pronunciation_guide_es": "/jer_BERZdei_is_on_de_FORT_of_MEI/",
-        "usage_example_es": "Su cumpleaños es el cuatro de mayo.",
-        "char_count": "6",
-        "usage_context_en": "The ordinal number 4th.",
-        "usage_context_es": "El número ordinal 4°."
-      }
-    ],
-    "category": "Basic"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "fifth",
-    "phonetic": "/fɪfθ/",
-    "spoken_phonetic_us": "/fɪfθ/",
-    "search_term": "determiner/ordinal",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "definitions": [
-      {
-        "meaning": "Quinto / Quinta",
-        "usage_example": "He finished in fifth place.",
-        "pronunciation_guide_es": "/ji_FINisht_in_FIFZ_PLEIS/",
-        "usage_example_es": "Terminó en quinto lugar.",
-        "char_count": "5",
-        "usage_context_en": "The ordinal number 5th.",
-        "usage_context_es": "El número ordinal 5°."
-      }
-    ],
-    "category": "Basic"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "sixth",
-    "phonetic": "/sɪksθ/",
-    "spoken_phonetic_us": "/sɪksθ/",
-    "search_term": "determiner/ordinal",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "definitions": [
-      {
-        "meaning": "Sexto / Sexta",
-        "usage_example": "Today is the sixth lesson.",
-        "pronunciation_guide_es": "/tuDEI_is_de_SIKST_LESon/",
-        "usage_example_es": "Hoy es la sexta lección.",
-        "char_count": "5",
-        "usage_context_en": "The ordinal number 6th.",
-        "usage_context_es": "El número ordinal 6°."
-      }
-    ],
-    "category": "Basic"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "seventh",
-    "phonetic": "/ˈsɛvənθ/",
-    "spoken_phonetic_us": "/ˈsɛvənθ/",
-    "search_term": "determiner/ordinal",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "definitions": [
-      {
-        "meaning": "Séptimo / Séptima",
-        "usage_example": "The seventh bus goes downtown.",
-        "pronunciation_guide_es": "/de_SEVenth_BAS_gous_daunTAUN/",
-        "usage_example_es": "El séptimo bus va al centro.",
-        "char_count": "7",
-        "usage_context_en": "The ordinal number 7th.",
-        "usage_context_es": "El número ordinal 7°."
-      }
-    ],
-    "category": "Basic"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "eighth",
-    "phonetic": "/eɪtθ/",
-    "spoken_phonetic_us": "/eɪtθ/",
-    "search_term": "determiner/ordinal",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "definitions": [
-      {
-        "meaning": "Octavo / Octava",
-        "usage_example": "She was born on the eighth.",
-        "pronunciation_guide_es": "/shi_uas_BORN_on_de_EITZ/",
-        "usage_example_es": "Ella nació el ocho.",
-        "char_count": "6",
-        "usage_context_en": "The ordinal number 8th.",
-        "usage_context_es": "El número ordinal 8°."
-      }
-    ],
-    "category": "Basic"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "ninth",
-    "phonetic": "/naɪnθ/",
-    "spoken_phonetic_us": "/naɪnθ/",
-    "search_term": "determiner/ordinal",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "definitions": [
-      {
-        "meaning": "Noveno / Novena",
-        "usage_example": "He is in ninth grade.",
-        "pronunciation_guide_es": "/ji_is_in_NAINZ_GREID/",
-        "usage_example_es": "Él está en noveno grado.",
-        "char_count": "5",
-        "usage_context_en": "The ordinal number 9th.",
-        "usage_context_es": "El número ordinal 9°."
-      }
-    ],
-    "category": "Basic"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "tenth",
-    "phonetic": "/tɛnθ/",
-    "spoken_phonetic_us": "/tɛnθ/",
-    "search_term": "determiner/ordinal",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Determiners: Numbers",
-    "definitions": [
-      {
-        "meaning": "Décimo / Décima",
-        "usage_example": "Today is the tenth of June.",
-        "pronunciation_guide_es": "/tuDEI_is_de_TENZ_of_YUN/",
-        "usage_example_es": "Hoy es el diez de junio.",
-        "char_count": "5",
-        "usage_context_en": "The ordinal number 10th.",
-        "usage_context_es": "El número ordinal 10°."
-      }
-    ],
-    "category": "Basic"
-  }
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "one",
+        "phonetic": "/wʌn/",
+        "spoken_phonetic_us": "/wʌn/",
+        "search_term": "determiner/number",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Un / Uno / Una",
+                "usage_example": "I have one brother.",
+                "pronunciation_guide_es": "/ai_HAV_UAN_BRO-der/",
+                "usage_example_es": "Tengo un hermano.",
+                "char_count": "4",
+                "usage_context_en": "The number 1.",
+                "usage_context_es": "El número 1.",
+                "imagePath": "/card_images/determinant/1-basic/1-basic_card_25_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "two",
+        "phonetic": "/tuː/",
+        "spoken_phonetic_us": "/tuː/",
+        "search_term": "determiner/number",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Dos",
+                "usage_example": "She has two cats.",
+                "pronunciation_guide_es": "/shi_HAS_TU_CATS/",
+                "usage_example_es": "Ella tiene dos gatos.",
+                "char_count": "4",
+                "usage_context_en": "The number 2.",
+                "usage_context_es": "El número 2.",
+                "imagePath": "/card_images/determinant/1-basic/1-basic_card_26_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "three",
+        "phonetic": "/θriː/",
+        "spoken_phonetic_us": "/θriː/",
+        "search_term": "determiner/number",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Tres",
+                "usage_example": "I need three eggs.",
+                "pronunciation_guide_es": "/ai_NID_ZRI_EGS/",
+                "usage_example_es": "Necesito tres huevos.",
+                "char_count": "4",
+                "usage_context_en": "The number 3.",
+                "usage_context_es": "El número 3.",
+                "imagePath": "/card_images/determinant/1-basic/1-basic_card_27_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "four",
+        "phonetic": "/fɔːr/",
+        "spoken_phonetic_us": "/fɔr/",
+        "search_term": "determiner/number",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "category": "Basic",
+        "definitions": [
+            {
+                "meaning": "Cuatro",
+                "usage_example": "I need four tickets.",
+                "pronunciation_guide_es": "/ai_NID_FOR_TI-kets/",
+                "usage_example_es": "Necesito cuatro boletos.",
+                "char_count": "4",
+                "usage_context_en": "Used before a plural noun to show the number 4.",
+                "usage_context_es": "Usado antes de un sustantivo plural para indicar el número 4."
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "five",
+        "phonetic": "/faɪv/",
+        "spoken_phonetic_us": "/faɪv/",
+        "search_term": "determiner/number",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "category": "Basic",
+        "definitions": [
+            {
+                "meaning": "Cinco",
+                "usage_example": "We need five minutes.",
+                "pronunciation_guide_es": "/ui_NID_FAIV_MI-nits/",
+                "usage_example_es": "Necesitamos cinco minutos.",
+                "char_count": "4",
+                "usage_context_en": "Used before a plural noun to show the number 5.",
+                "usage_context_es": "Usado antes de un sustantivo plural para indicar el número 5."
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "first",
+        "phonetic": "/fɜːrst/",
+        "spoken_phonetic_us": "/fɜrst/",
+        "search_term": "determiner/ordinal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Primer / Primero / Primera",
+                "usage_example": "It is the first day of the month.",
+                "pronunciation_guide_es": "/it_is_de_FIRST_DEI_of_de_MONZ/",
+                "usage_example_es": "Es el primer día del mes.",
+                "char_count": "7",
+                "usage_context_en": "The ordinal number 1st; coming before all others.",
+                "usage_context_es": "El número ordinal 1°; que viene antes que todos los demás.",
+                "imagePath": "/card_images/determinant/1-basic/1-basic_card_28_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "next",
+        "phonetic": "/nɛkst/",
+        "spoken_phonetic_us": "/nɛkst/",
+        "search_term": "determiner/ordinal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Siguiente / Próximo/a",
+                "usage_example": "See you next week.",
+                "pronunciation_guide_es": "/SI_iu_NEKST_UIK/",
+                "usage_example_es": "Nos vemos la próxima semana.",
+                "char_count": "4",
+                "usage_context_en": "Coming immediately after the present one.",
+                "usage_context_es": "Que viene inmediatamente después del presente.",
+                "imagePath": "/card_images/determinant/1-basic/1-basic_card_29_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "last",
+        "phonetic": "/læst/",
+        "spoken_phonetic_us": "/læst/",
+        "search_term": "determiner/ordinal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Último/a / Pasado/a",
+                "usage_example": "It was the last day. / I saw him last week.",
+                "pronunciation_guide_es": "/it_uas_de_LAST_DEI_ai_SO_him_LAST_UIK/",
+                "usage_example_es": "Fue el último día. / Lo vi la semana pasada.",
+                "char_count": 4,
+                "usage_context_en": "Coming after all others; the most recent one.",
+                "usage_context_es": "Que viene después de todos los demás; el más reciente.",
+                "imagePath": "/card_images/determinant/1-basic/1-basic_card_30_def0.avif"
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "second",
+        "phonetic": "/ˈsɛkənd/",
+        "spoken_phonetic_us": "/ˈsɛkənd/",
+        "search_term": "determiner/ordinal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Segundo / Segunda",
+                "usage_example": "She lives on the second floor.",
+                "pronunciation_guide_es": "/shi_LIVS_on_de_SEcond_FLOR/",
+                "usage_example_es": "Ella vive en el segundo piso.",
+                "char_count": "6",
+                "usage_context_en": "The ordinal number 2nd.",
+                "usage_context_es": "El número ordinal 2°."
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "third",
+        "phonetic": "/θɜːrd/",
+        "spoken_phonetic_us": "/θɜrd/",
+        "search_term": "determiner/ordinal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Tercero / Tercera",
+                "usage_example": "This is the third time.",
+                "pronunciation_guide_es": "/dis_is_de_ZERD_TAIM/",
+                "usage_example_es": "Esta es la tercera vez.",
+                "char_count": "5",
+                "usage_context_en": "The ordinal number 3rd.",
+                "usage_context_es": "El número ordinal 3°."
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "fourth",
+        "phonetic": "/fɔːrθ/",
+        "spoken_phonetic_us": "/fɔrθ/",
+        "search_term": "determiner/ordinal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Cuarto / Cuarta",
+                "usage_example": "Her birthday is on the fourth of May.",
+                "pronunciation_guide_es": "/jer_BERZdei_is_on_de_FORT_of_MEI/",
+                "usage_example_es": "Su cumpleaños es el cuatro de mayo.",
+                "char_count": "6",
+                "usage_context_en": "The ordinal number 4th.",
+                "usage_context_es": "El número ordinal 4°."
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "fifth",
+        "phonetic": "/fɪfθ/",
+        "spoken_phonetic_us": "/fɪfθ/",
+        "search_term": "determiner/ordinal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Quinto / Quinta",
+                "usage_example": "He finished in fifth place.",
+                "pronunciation_guide_es": "/ji_FINisht_in_FIFZ_PLEIS/",
+                "usage_example_es": "Terminó en quinto lugar.",
+                "char_count": "5",
+                "usage_context_en": "The ordinal number 5th.",
+                "usage_context_es": "El número ordinal 5°."
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "sixth",
+        "phonetic": "/sɪksθ/",
+        "spoken_phonetic_us": "/sɪksθ/",
+        "search_term": "determiner/ordinal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Sexto / Sexta",
+                "usage_example": "Today is the sixth lesson.",
+                "pronunciation_guide_es": "/tuDEI_is_de_SIKST_LESon/",
+                "usage_example_es": "Hoy es la sexta lección.",
+                "char_count": "5",
+                "usage_context_en": "The ordinal number 6th.",
+                "usage_context_es": "El número ordinal 6°."
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "seventh",
+        "phonetic": "/ˈsɛvənθ/",
+        "spoken_phonetic_us": "/ˈsɛvənθ/",
+        "search_term": "determiner/ordinal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Séptimo / Séptima",
+                "usage_example": "The seventh bus goes downtown.",
+                "pronunciation_guide_es": "/de_SEVenth_BAS_gous_daunTAUN/",
+                "usage_example_es": "El séptimo bus va al centro.",
+                "char_count": "7",
+                "usage_context_en": "The ordinal number 7th.",
+                "usage_context_es": "El número ordinal 7°."
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "eighth",
+        "phonetic": "/eɪtθ/",
+        "spoken_phonetic_us": "/eɪtθ/",
+        "search_term": "determiner/ordinal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Octavo / Octava",
+                "usage_example": "She was born on the eighth.",
+                "pronunciation_guide_es": "/shi_uas_BORN_on_de_EITZ/",
+                "usage_example_es": "Ella nació el ocho.",
+                "char_count": "6",
+                "usage_context_en": "The ordinal number 8th.",
+                "usage_context_es": "El número ordinal 8°."
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "ninth",
+        "phonetic": "/naɪnθ/",
+        "spoken_phonetic_us": "/naɪnθ/",
+        "search_term": "determiner/ordinal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Noveno / Novena",
+                "usage_example": "He is in ninth grade.",
+                "pronunciation_guide_es": "/ji_is_in_NAINZ_GREID/",
+                "usage_example_es": "Él está en noveno grado.",
+                "char_count": "5",
+                "usage_context_en": "The ordinal number 9th.",
+                "usage_context_es": "El número ordinal 9°."
+            }
+        ],
+        "category": "Basic"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "tenth",
+        "phonetic": "/tɛnθ/",
+        "spoken_phonetic_us": "/tɛnθ/",
+        "search_term": "determiner/ordinal",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Determiners: Numbers",
+        "definitions": [
+            {
+                "meaning": "Décimo / Décima",
+                "usage_example": "Today is the tenth of June.",
+                "pronunciation_guide_es": "/tuDEI_is_de_TENZ_of_YUN/",
+                "usage_example_es": "Hoy es el diez de junio.",
+                "char_count": "5",
+                "usage_context_en": "The ordinal number 10th.",
+                "usage_context_es": "El número ordinal 10°."
+            }
+        ],
+        "category": "Basic"
+    }
 ]

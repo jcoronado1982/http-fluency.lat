@@ -476,7 +476,7 @@ export const flashcardTranslations = {
             loadingCategories: "Loading categories…",
             level: "Level",
             cards: "total cards",
-            cardsInLevel: "cards in this level",
+            cardsInLevel: "cards of this level",
             learned: "learned",
             complete: "✓ complete",
             newStr: "new",

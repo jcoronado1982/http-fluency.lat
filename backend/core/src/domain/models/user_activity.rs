@@ -35,6 +35,16 @@ pub struct LearningLevelStats {
     pub premium: bool,
 }
 
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct DeckProgressInfo {
+    pub category: String,
+    pub deck: String,
+    pub learned_count: i32,
+    pub total_count: i32,
+    pub last_touched: Option<chrono::DateTime<chrono::Utc>>,
+    pub first_image_path: Option<String>,
+}
+
 #[derive(Debug, Serialize, Clone)]
 pub struct LearningStats {
     pub mastered_count: i32,
@@ -49,6 +59,8 @@ pub struct LearningStats {
     pub longest_streak: i32,
     pub studied_today: bool,
     pub streak_at_risk: bool,
+    #[serde(default)]
+    pub decks_progress: Vec<DeckProgressInfo>,
 }
 
 /// B2 receptive vocabulary benchmark used for the dashboard progress ring.
@@ -110,6 +122,7 @@ pub fn build_learning_stats(
         longest_streak,
         studied_today,
         streak_at_risk,
+        decks_progress: Vec::new(),
     }
 }
 

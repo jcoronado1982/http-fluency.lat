@@ -219,8 +219,23 @@ function CategorySelector() {
         deckNames, deckSummaries, currentDeckName, changeDeck, masterData, setSelectedGroup, resetGroup
     } = useFlashcardContext();
 
-    const totalCards = masterData.length;
-    const learnedCards = masterData.filter(c => c.learned).length;
+    const isNestedCatalog = usesNestedLevelDecks(currentCategory);
+    const activeLevel = getLevelFromDeckName(currentDeckName);
+    const nestedDeckNames = isNestedCatalog
+        ? deckNames.filter((name) => getLevelFromDeckName(name) === activeLevel)
+        : [];
+    const levelTotals = nestedDeckNames.reduce((acc, deckName) => {
+        const summary = deckSummaries[deckName];
+        acc.total += summary?.total ?? 0;
+        acc.learned += summary?.learned ?? 0;
+        return acc;
+    }, { total: 0, learned: 0 });
+    const totalCards = isNestedCatalog && nestedDeckNames.length > 0
+        ? levelTotals.total
+        : masterData.length;
+    const learnedCards = isNestedCatalog && nestedDeckNames.length > 0
+        ? levelTotals.learned
+        : masterData.filter(c => c.learned).length;
     const studyLocale = studyLanguage === 'es' ? 'es' : 'en';
     const interfaceHelpContent = getCategoryHelpContent(
         currentCategory,
@@ -284,12 +299,7 @@ function CategorySelector() {
             return { name, total, learned };
         });
     const visibleGroups = groupsList;
-    const isNestedCatalog = usesNestedLevelDecks(currentCategory);
-    const activeLevel = getLevelFromDeckName(currentDeckName);
     const levelPreferenceKey = `__level__${activeLevel || 'basic'}`;
-    const nestedDeckNames = isNestedCatalog
-        ? deckNames.filter((name) => getLevelFromDeckName(name) === activeLevel)
-        : [];
     const completedNestedDeckNames = nestedDeckNames.filter((deckName) => {
         const summary = deckSummaries[deckName];
         return summary?.total > 0 && summary.learned === summary.total;

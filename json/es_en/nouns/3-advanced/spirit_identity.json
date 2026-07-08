@@ -1,132 +1,132 @@
 [
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "heritage",
-    "phonetic": "/ˈhɛrɪtɪdʒ/",
-    "spoken_phonetic_us": "/ˈhɛrɪtɪdʒ/",
-    "search_term": "noun/concept/essentials",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "General Concepts",
-    "definitions": [
-      {
-        "meaning": "Herencia / Patrimonio",
-        "usage_example": "We must protect our cultural heritage.",
-        "pronunciation_guide_es": "/ui_most_pro-TEKT_aur_COL-chu-ral_HE-ri-tich/",
-        "usage_example_es": "Debemos proteger nuestro patrimonio cultural.",
-        "char_count": "6",
-        "usage_context_en": "Features belonging to the culture of a particular society, such as traditions or buildings.",
-        "usage_context_es": "Rasgos pertenecientes a la cultura de una sociedad, como tradiciones o edificios.",
-        "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_50_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "independence",
-    "phonetic": "/ˌɪndɪˈpɛndəns/",
-    "spoken_phonetic_us": "/ˌɪndɪˈpɛndəns/",
-    "search_term": "noun/concept/essentials",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "General Concepts",
-    "definitions": [
-      {
-        "meaning": "Independencia",
-        "usage_example": "The country gained its independence.",
-        "pronunciation_guide_es": "/de_CON-tri_GUEIND_its_in-di-PEN-dens/",
-        "usage_example_es": "El país obtuvo su independencia.",
-        "char_count": "5",
-        "usage_context_en": "The state of being free from the control, influence, support, or aid of others.",
-        "usage_context_es": "El estado de estar libre del control, influencia, apoyo o ayuda de otros.",
-        "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_58_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "maturity",
-    "phonetic": "/məˈtʃʊərəti/",
-    "spoken_phonetic_us": "/məˈtʃʊrəti/",
-    "search_term": "noun/concept/essentials",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "General Concepts",
-    "definitions": [
-      {
-        "meaning": "Madurez",
-        "usage_example": "He showed great maturity.",
-        "pronunciation_guide_es": "/hi_SHOUD_greit_ma-CHU-ri-ti/",
-        "usage_example_es": "Él mostró gran madurez.",
-        "char_count": "4",
-        "usage_context_en": "The state, fact, or period of being fully developed or adult.",
-        "usage_context_es": "El estado, hecho o período de estar completamente desarrollado o ser adulto.",
-        "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_74_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": true,
-    "learned_at": null,
-    "name": "mentality",
-    "phonetic": "/mɛnˈtæləti/",
-    "spoken_phonetic_us": "/mɛnˈtæləti/",
-    "search_term": "noun/concept/essentials",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "General Concepts",
-    "definitions": [
-      {
-        "meaning": "Mentalidad",
-        "usage_example": "He has a positive mentality.",
-        "pronunciation_guide_es": "/hi_HAS_a_PO-si-tiv_men-TA-li-ti/",
-        "usage_example_es": "Él tiene una mentalidad positiva.",
-        "char_count": "5",
-        "usage_context_en": "The characteristic attitude of mind or way of thinking of a person or group.",
-        "usage_context_es": "La actitud mental característica o forma de pensar de una persona o grupo.",
-        "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_76_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "privilege",
-    "phonetic": "/ˈprɪvəlɪdʒ/",
-    "spoken_phonetic_us": "/ˈprɪvəlɪdʒ/",
-    "search_term": "noun/concept/essentials",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "General Concepts",
-    "definitions": [
-      {
-        "meaning": "Privilegio",
-        "usage_example": "Education is a privilege, not a right.",
-        "pronunciation_guide_es": "/e-diu-KEI-shon_is_a_PRI-vi-lech_not_a_RAIT/",
-        "usage_example_es": "La educación es un privilegio, no un derecho.",
-        "char_count": "7",
-        "usage_context_en": "A special right, advantage, or immunity granted or available only to a particular person or group.",
-        "usage_context_es": "Un derecho, ventaja o inmunidad especial concedido o disponible solo para una persona o grupo en particular.",
-        "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_95_def0.avif"
-      }
-    ]
-  }
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "heritage",
+        "phonetic": "/ˈhɛrɪtɪdʒ/",
+        "spoken_phonetic_us": "/ˈhɛrɪtɪdʒ/",
+        "search_term": "noun/concept/essentials",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "General Concepts",
+        "definitions": [
+            {
+                "meaning": "Herencia / Patrimonio",
+                "usage_example": "We must protect our cultural heritage.",
+                "pronunciation_guide_es": "/ui_most_pro-TEKT_aur_COL-chu-ral_HE-ri-tich/",
+                "usage_example_es": "Debemos proteger nuestro patrimonio cultural.",
+                "char_count": "6",
+                "usage_context_en": "Features belonging to the culture of a particular society, such as traditions or buildings.",
+                "usage_context_es": "Rasgos pertenecientes a la cultura de una sociedad, como tradiciones o edificios.",
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_50_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "independence",
+        "phonetic": "/ˌɪndɪˈpɛndəns/",
+        "spoken_phonetic_us": "/ˌɪndɪˈpɛndəns/",
+        "search_term": "noun/concept/essentials",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "General Concepts",
+        "definitions": [
+            {
+                "meaning": "Independencia",
+                "usage_example": "The country gained its independence.",
+                "pronunciation_guide_es": "/de_CON-tri_GUEIND_its_in-di-PEN-dens/",
+                "usage_example_es": "El país obtuvo su independencia.",
+                "char_count": "5",
+                "usage_context_en": "The state of being free from the control, influence, support, or aid of others.",
+                "usage_context_es": "El estado de estar libre del control, influencia, apoyo o ayuda de otros.",
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_58_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "maturity",
+        "phonetic": "/məˈtʃʊərəti/",
+        "spoken_phonetic_us": "/məˈtʃʊrəti/",
+        "search_term": "noun/concept/essentials",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "General Concepts",
+        "definitions": [
+            {
+                "meaning": "Madurez",
+                "usage_example": "He showed great maturity.",
+                "pronunciation_guide_es": "/hi_SHOUD_greit_ma-CHU-ri-ti/",
+                "usage_example_es": "Él mostró gran madurez.",
+                "char_count": "4",
+                "usage_context_en": "The state, fact, or period of being fully developed or adult.",
+                "usage_context_es": "El estado, hecho o período de estar completamente desarrollado o ser adulto.",
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_74_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": true,
+        "learned_at": null,
+        "name": "mentality",
+        "phonetic": "/mɛnˈtæləti/",
+        "spoken_phonetic_us": "/mɛnˈtæləti/",
+        "search_term": "noun/concept/essentials",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "General Concepts",
+        "definitions": [
+            {
+                "meaning": "Mentalidad",
+                "usage_example": "He has a positive mentality.",
+                "pronunciation_guide_es": "/hi_HAS_a_PO-si-tiv_men-TA-li-ti/",
+                "usage_example_es": "Él tiene una mentalidad positiva.",
+                "char_count": "5",
+                "usage_context_en": "The characteristic attitude of mind or way of thinking of a person or group.",
+                "usage_context_es": "La actitud mental característica o forma de pensar de una persona o grupo.",
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_76_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "privilege",
+        "phonetic": "/ˈprɪvəlɪdʒ/",
+        "spoken_phonetic_us": "/ˈprɪvəlɪdʒ/",
+        "search_term": "noun/concept/essentials",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "General Concepts",
+        "definitions": [
+            {
+                "meaning": "Privilegio",
+                "usage_example": "Education is a privilege, not a right.",
+                "pronunciation_guide_es": "/e-diu-KEI-shon_is_a_PRI-vi-lech_not_a_RAIT/",
+                "usage_example_es": "La educación es un privilegio, no un derecho.",
+                "char_count": "7",
+                "usage_context_en": "A special right, advantage, or immunity granted or available only to a particular person or group.",
+                "usage_context_es": "Un derecho, ventaja o inmunidad especial concedido o disponible solo para una persona o grupo en particular.",
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_95_def0.avif"
+            }
+        ]
+    }
 ]

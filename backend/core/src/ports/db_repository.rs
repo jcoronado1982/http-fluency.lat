@@ -15,6 +15,7 @@ pub trait UserRepository: Send + Sync {
         email: &str,
         preferences: Option<CatalogPreferences>,
     ) -> Result<Option<User>>;
+    async fn reset_all_catalog_preferences(&self) -> Result<u64>;
     async fn list_all_users(&self) -> Result<Vec<User>>;
 }
 
@@ -73,6 +74,11 @@ pub trait CardProgressRepository: Send + Sync {
         user_id: &str,
         deck_prefix: &str,
     ) -> Result<i32>;
+    async fn get_all_learned_cards(
+        &self,
+        user_id: &str,
+    ) -> Result<Vec<(String, String, i32, Option<chrono::DateTime<chrono::Utc>>)>>;
+
 
     /// Guarda el estado de múltiples tarjetas en una sola operación.
     /// Reduce N peticiones HTTP a 1 cuando el frontend hace flush del lote.

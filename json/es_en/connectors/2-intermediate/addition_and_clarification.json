@@ -1,132 +1,132 @@
 [
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "as well",
-    "phonetic": "/æz wɛl/",
-    "spoken_phonetic_us": "/æz wɛl/",
-    "search_term": "phrase/addition",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Connectors: Addition",
-    "definitions": [
-      {
-        "meaning": "También",
-        "usage_example": "He bought the book and the pen as well.",
-        "pronunciation_guide_es": "/hi_BOT_de_BUK_and_de_PEN_as_UEL/",
-        "usage_example_es": "Él compró el libro y el bolígrafo también.",
-        "char_count": "8",
-        "usage_context_en": "In addition; too. (Used at the end of a clause).",
-        "usage_context_es": "Además; también. (Usado al final de una cláusula).",
-        "imagePath": "/card_images/connectors/1-basic/1-basic_card_3_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "besides",
-    "phonetic": "/bɪˈsaɪdz/",
-    "spoken_phonetic_us": "/bɪˈsaɪdz/",
-    "search_term": "adverb/addition",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Connectors: Addition",
-    "definitions": [
-      {
-        "meaning": "Además",
-        "usage_example": "I don't want to go. Besides, I am tired.",
-        "pronunciation_guide_es": "/ai_DONT_UANT_tu_GOU_bi-SAIDS_ai_am_TAI-erd/",
-        "usage_example_es": "No quiero ir. Además, estoy cansado.",
-        "char_count": "7",
-        "usage_context_en": "In addition; moreover (used to add another reason).",
-        "usage_context_es": "Además; es más (usado para añadir otra razón).",
-        "imagePath": "/card_images/connectors/1-basic/1-basic_card_5_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "in addition",
-    "phonetic": "/ɪn əˈdɪʃən/",
-    "spoken_phonetic_us": "/ɪn əˈdɪʃən/",
-    "search_term": "connector/addition",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Connectors: Addition",
-    "definitions": [
-      {
-        "meaning": "Además / Adicionalmente",
-        "usage_example": "In addition to his salary, he gets a bonus.",
-        "pronunciation_guide_es": "/in_a-di-shon_tu_jis_sa-la-ri_ji_guets_a_bo-nus/",
-        "usage_example_es": "Además de su salario, recibe un bono.",
-        "char_count": "11",
-        "usage_context_en": "As an extra person, thing, or circumstance.",
-        "usage_context_es": "Como persona, cosa o circunstancia adicional.",
-        "imagePath": "/card_images/connectors/2-intermediate/2-intermediate_card_5_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "in other words",
-    "phonetic": "/ɪn ˈʌðər wɜrdz/",
-    "spoken_phonetic_us": "/ɪn ˈʌðər wɜrdz/",
-    "search_term": "phrase/clarification",
-    "is_verb": false,
-    "force_generation": false,
-    "group_name": "Connectors: Clarification",
-    "definitions": [
-      {
-        "meaning": "En otras palabras",
-        "usage_example": "He is my father's brother. In other words, he is my uncle.",
-        "pronunciation_guide_es": "/hi_is_mai_FA-ders_BRO-der_in_O-der_UORDS_hi_is_mai_ON-col/",
-        "usage_example_es": "Es el hermano de mi padre. En otras palabras, es mi tío.",
-        "char_count": "10",
-        "usage_context_en": "Used to explain something in a simpler or different way.",
-        "usage_context_es": "Usado para explicar algo de una forma más simple o diferente.",
-        "imagePath": "/card_images/connectors/2-intermediate/2-intermediate_card_3_def0.avif"
-      }
-    ]
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "name": "plus",
-    "phonetic": "/plʌs/",
-    "spoken_phonetic_us": "/plʌs/",
-    "search_term": "connector/addition_and_clarification/added",
-    "force_generation": false,
-    "definitions": [
-      {
-        "meaning": "Además / Más",
-        "usage_example": "The hotel is cheap, plus it is close to the beach.",
-        "pronunciation_guide_es": "",
-        "usage_example_es": "El hotel es barato y además está cerca de la playa.",
-        "char_count": "11",
-        "usage_context_en": "Used to add extra information.",
-        "usage_context_es": "Used to add extra information.",
-        "imagePath": ""
-      }
-    ],
-    "is_verb": false,
-    "group_name": "Connectors: Addition"
-  }
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "as well",
+        "phonetic": "/æz wɛl/",
+        "spoken_phonetic_us": "/æz wɛl/",
+        "search_term": "phrase/addition",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Addition",
+        "definitions": [
+            {
+                "meaning": "También",
+                "usage_example": "He bought the book and the pen as well.",
+                "pronunciation_guide_es": "/hi_BOT_de_BUK_and_de_PEN_as_UEL/",
+                "usage_example_es": "Él compró el libro y el bolígrafo también.",
+                "char_count": "8",
+                "usage_context_en": "In addition; too. (Used at the end of a clause).",
+                "usage_context_es": "Además; también. (Usado al final de una cláusula).",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_3_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "besides",
+        "phonetic": "/bɪˈsaɪdz/",
+        "spoken_phonetic_us": "/bɪˈsaɪdz/",
+        "search_term": "adverb/addition",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Addition",
+        "definitions": [
+            {
+                "meaning": "Además",
+                "usage_example": "I don't want to go. Besides, I am tired.",
+                "pronunciation_guide_es": "/ai_DONT_UANT_tu_GOU_bi-SAIDS_ai_am_TAI-erd/",
+                "usage_example_es": "No quiero ir. Además, estoy cansado.",
+                "char_count": "7",
+                "usage_context_en": "In addition; moreover (used to add another reason).",
+                "usage_context_es": "Además; es más (usado para añadir otra razón).",
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_5_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "in addition",
+        "phonetic": "/ɪn əˈdɪʃən/",
+        "spoken_phonetic_us": "/ɪn əˈdɪʃən/",
+        "search_term": "connector/addition",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Addition",
+        "definitions": [
+            {
+                "meaning": "Además / Adicionalmente",
+                "usage_example": "In addition to his salary, he gets a bonus.",
+                "pronunciation_guide_es": "/in_a-di-shon_tu_jis_sa-la-ri_ji_guets_a_bo-nus/",
+                "usage_example_es": "Además de su salario, recibe un bono.",
+                "char_count": "11",
+                "usage_context_en": "As an extra person, thing, or circumstance.",
+                "usage_context_es": "Como persona, cosa o circunstancia adicional.",
+                "imagePath": "/card_images/connectors/2-intermediate/2-intermediate_card_5_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "in other words",
+        "phonetic": "/ɪn ˈʌðər wɜrdz/",
+        "spoken_phonetic_us": "/ɪn ˈʌðər wɜrdz/",
+        "search_term": "phrase/clarification",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "Connectors: Clarification",
+        "definitions": [
+            {
+                "meaning": "En otras palabras",
+                "usage_example": "He is my father's brother. In other words, he is my uncle.",
+                "pronunciation_guide_es": "/hi_is_mai_FA-ders_BRO-der_in_O-der_UORDS_hi_is_mai_ON-col/",
+                "usage_example_es": "Es el hermano de mi padre. En otras palabras, es mi tío.",
+                "char_count": "10",
+                "usage_context_en": "Used to explain something in a simpler or different way.",
+                "usage_context_es": "Usado para explicar algo de una forma más simple o diferente.",
+                "imagePath": "/card_images/connectors/2-intermediate/2-intermediate_card_3_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "plus",
+        "phonetic": "/plʌs/",
+        "spoken_phonetic_us": "/plʌs/",
+        "search_term": "connector/addition_and_clarification/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Además / Más",
+                "usage_example": "The hotel is cheap, plus it is close to the beach.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "El hotel es barato y además está cerca de la playa.",
+                "char_count": "11",
+                "usage_context_en": "Used to add extra information.",
+                "usage_context_es": "Used to add extra information.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": false,
+        "group_name": "Connectors: Addition"
+    }
 ]

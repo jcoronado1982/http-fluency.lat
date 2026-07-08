@@ -13,6 +13,7 @@ import determinantImage from '../../../assets/Determinant.png';
 import phrasalVerbsImage from '../../../assets/Phrasal Verbs.png';
 import { getModuleResumeSession, isDefaultHomeModule } from '../../index';
 import { learningStatsPort } from '../composition';
+import { useDeckFirstImages } from '../hooks/useDeckFirstImages';
 import {
     computeDashboardLevelProgress,
     computeXp,
@@ -118,7 +119,7 @@ function levelCopy(step, labels) {
     return labels.levelNames?.[step.id] || step.id;
 }
 
-export default function DashboardHero({ stats, statsLoading, labels, language, userName }) {
+export default function DashboardHero({ stats, statsLoading, labels, language, userName, userEmail, courseDirection }) {
     const navigate = useNavigate();
     const session = getModuleResumeSession(config);
     const flashcardPath = isDefaultHomeModule('flashcards', config) ? '/' : '/flashcard';
@@ -136,13 +137,16 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
         currentCategory: session?.category,
         language,
         limit: 4,
-    }), [language, level.currentLevel, session?.category]);
+        stats,
+    }), [language, level.currentLevel, session?.category, stats]);
+
     const carouselItems = useMemo(() => {
         const items = getDashboardCarouselItems({
             levelId: level.currentLevel,
             currentCategory: session?.category,
             currentSession: session,
             language,
+            stats,
         });
 
         if (items.length === 0) {
@@ -158,7 +162,7 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
         }
 
         return items;
-    }, [language, labels.defaultDeck, level.currentLevel, session]);
+    }, [language, labels.defaultDeck, level.currentLevel, session, stats]);
     const [activeSlide, setActiveSlide] = useState(0);
 
     const carouselSignature = carouselItems.map((item) => item.key).join('|');
@@ -170,7 +174,29 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
     const activeCourse = carouselItems[activeSlide] || carouselItems[0];
     const activeCategory = activeCourse?.category || 'nouns';
     const categoryLabel = activeCourse?.categoryLabel || formatCategoryLabel(activeCategory, language);
-    const courseImage = CATEGORY_IMAGES[activeCategory] || nounsImage;
+
+    /**
+     * Imagen de cada recomendación (fix Jul 2026) — orden de resolución:
+     *   1. `useDeckFirstImages` — lee el JSON del propio deck y devuelve la
+     *      imagen de la primera tarjeta pendiente del usuario (fuente de
+     *      verdad; igual que la página de estudio).
+     *   2. `firstImagePath` de `stats.decks_progress` (backend learning-stats).
+     *   3. PNG estático de la categoría (`CATEGORY_IMAGES`) como último recurso.
+     * Si las imágenes vuelven a salir "predeterminadas", el detalle completo
+     * del bug y sus trampas está documentado en `hooks/useDeckFirstImages.js`
+     * y `hooks/useLearningStats.js` — leer eso antes de tocar nada.
+     */
+    const deckImages = useDeckFirstImages(
+        activeCourse ? [...quickAccessItems, activeCourse] : quickAccessItems,
+        userEmail,
+        courseDirection,
+    );
+    const deckImageFor = (item) => (item ? deckImages[`${item.category}|${item.deckName}`] : null);
+
+    const courseImage = deckImageFor(activeCourse)
+        || activeCourse?.firstImagePath
+        || CATEGORY_IMAGES[activeCategory]
+        || nounsImage;
     const cardsRemaining = activeCourse?.cardsRemaining ?? 0;
     const minutesLeft = estimateMinutesRemaining(cardsRemaining);
     const canCycleCourses = carouselItems.length > 1;
@@ -351,7 +377,11 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
 
             <div className="dash-bottom-grid">
                 {quickAccessItems.map((item) => {
-                    const itemImage = CATEGORY_IMAGES[item.category] || nounsImage;
+                    const itemImage = deckImageFor(item)
+                        || item.firstImagePath
+                        || item.first_image_path
+                        || CATEGORY_IMAGES[item.category]
+                        || nounsImage;
                     return (
                         <button
                             key={`${item.category}-${item.deckName}`}

@@ -444,6 +444,10 @@ async fn async_main() -> anyhow::Result<()> {
                 get(api::endpoints::admin_users::list_users_activity),
             )
             .route(
+                "/api/admin/catalog-preferences/reset",
+                post(api::endpoints::admin_catalog_preferences::reset_all_catalog_preferences),
+            )
+            .route(
                 "/api/demo-feedback",
                 post(api::endpoints::feedback::submit_demo_feedback),
             );

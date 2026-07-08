@@ -1,4 +1,5 @@
 import catalogOrder from '../../../contracts/catalogOrder.json';
+import { formatDeckCategoryName, sortDeckNames } from '../../flashcards/useCases/deckUseCases';
 
 export const LEVELS = [
     { id: 'A1', min: 0, max: 700, wordsMin: 500, wordsMax: 700, premium: false },
@@ -279,33 +280,167 @@ function getFirstDeckName(categoryEntry, deckKey) {
     return fallbackDeckEntries?.[0]?.name || fallbackDeckKey || null;
 }
 
+/**
+ * Convierte `stats.decks_progress` (backend) al formato interno de deck
+ * usado por las reglas de selección del dashboard.
+ */
+function mapDecksProgress(decksProgress) {
+    return decksProgress.map((dp) => {
+        const progressPercent = dp.total_count > 0
+            ? (dp.learned_count / dp.total_count) * 100
+            : 0;
+
+        let deckLevelId = 'A1';
+        if (dp.deck.startsWith('2-intermediate')) {
+            deckLevelId = 'A2';
+        } else if (dp.deck.startsWith('3-advanced')) {
+            deckLevelId = 'B1';
+        }
+
+        return {
+            category: dp.category,
+            deckName: dp.deck,
+            learnedCount: dp.learned_count,
+            totalCount: dp.total_count,
+            progressPercent,
+            lastTouched: dp.last_touched ? new Date(dp.last_touched).getTime() : 0,
+            firstImagePath: dp.first_image_path || null,
+            levelId: deckLevelId,
+            normalizedName: dp.deck.replace('.json', '').toLowerCase(),
+            normalizedCategory: dp.category.toLowerCase(),
+        };
+    });
+}
+
+/**
+ * Devuelve el primer mazo (mazo #1) de una categoría a partir de los decks
+ * reales del usuario, usando el orden curado de `sortDeckNames` (nivel +
+ * orden por categoría). Con `levelPrefix` (ej. '1-basic') restringe al nivel
+ * del usuario si esa categoría tiene decks en ese nivel.
+ *
+ * ─── TRAMPA CONOCIDA (fix Jul 2026) ────────────────────────────────────────
+ * NO matchear decks contra `catalogOrder.json`: ese catálogo guarda nombres
+ * display ("Subject", "Being & State", "Poss. Adjective") que NUNCA coinciden
+ * con los nombres de archivo del backend ("subject_pronouns", "being_state").
+ * La versión anterior hacía ese match y las recomendaciones quedaban vacías o
+ * sin imagen. El mazo #1 se deriva SIEMPRE de los decks reales
+ * (`stats.decks_progress`, nombres de archivo) ordenados con `sortDeckNames`.
+ * Las imágenes de las tarjetas las resuelve `useDeckFirstImages` leyendo el
+ * JSON del propio deck (ver ese hook para el detalle completo).
+ * ───────────────────────────────────────────────────────────────────────────
+ */
+function getFirstDeckOfCategory(userDecks, categoryName, levelPrefix = null) {
+    const normalizedCat = categoryName.toLowerCase();
+    let decks = userDecks.filter((d) => d.normalizedCategory === normalizedCat);
+    if (decks.length === 0) return null;
+
+    if (levelPrefix) {
+        const withLevel = decks.filter((d) => d.normalizedName.startsWith(levelPrefix));
+        if (withLevel.length > 0) decks = withLevel;
+    }
+
+    const sorted = sortDeckNames(decks.map((d) => d.deckName), normalizedCat);
+    const firstName = (sorted[0] || '').toLowerCase();
+    return decks.find((d) => d.normalizedName === firstName) || decks[0];
+}
+
 export function getDashboardQuickAccessItems({
-    levelId,
-    currentCategory = null,
+    _levelId,
+    _currentCategory = null,
     language = 'en',
     limit = 3,
+    stats = null,
 } = {}) {
-    const deckKey = getDeckKeyForLevel(levelId);
-    const currentIndex = currentCategory ? CATALOG_CATEGORIES.findIndex((entry) => entry.name === currentCategory) : -1;
-    const rotated = currentIndex >= 0
-        ? [
-            ...CATALOG_CATEGORIES.slice(currentIndex + 1),
-            ...CATALOG_CATEGORIES.slice(0, currentIndex),
-        ]
-        : CATALOG_CATEGORIES;
-    const candidates = rotated.filter((entry) => entry.name !== currentCategory);
-    const matched = candidates.filter((entry) => Array.isArray(entry.decks?.[deckKey]) && entry.decks[deckKey].length > 0);
+    // 1. Gather all candidate decks for the user
+    let userDecks = [];
+    if (stats && Array.isArray(stats.decks_progress) && stats.decks_progress.length > 0) {
+        userDecks = mapDecksProgress(stats.decks_progress);
+    } else {
+        // Fallback/new user: construct mock deck progress for all decks in the catalog
+        for (const catEntry of CATALOG_CATEGORIES) {
+            const levelsList = ['1-basic', '2-intermediate', '3-advanced'];
+            for (const lvl of levelsList) {
+                const levelDecks = catEntry.decks?.[lvl] || [];
+                for (const dk of levelDecks) {
+                    userDecks.push({
+                        category: catEntry.name,
+                        deckName: `${lvl}/${dk.name}.json`,
+                        learnedCount: 0,
+                        totalCount: 10,
+                        progressPercent: 0,
+                        lastTouched: 0,
+                        firstImagePath: null,
+                        levelId: lvl === '1-basic' ? 'A1' : lvl === '2-intermediate' ? 'A2' : 'B1',
+                        normalizedName: `${lvl}/${dk.name}`.toLowerCase(),
+                        normalizedCategory: catEntry.name.toLowerCase()
+                    });
+                }
+            }
+        }
+    }
 
-    return (matched.length > 0 ? matched : candidates)
-        .slice(0, limit)
-        .map((entry, index) => ({
-            category: entry.name,
-            categoryLabel: formatCategoryLabel(entry.name, language),
-            deckName: getFirstDeckName(entry, deckKey),
-            deckLabel: formatDeckLabel(getFirstDeckName(entry, deckKey), language),
-            levelId: levelId || 'A1',
-            accent: QUICK_ACCESS_ACCENTS[index % QUICK_ACCESS_ACCENTS.length],
-        }));
+    // 2. Identify the absolute first deck (mazo #1) of each category.
+    // Se resuelve contra los decks reales del usuario (nombres de archivo del
+    // backend), no contra los nombres display del catálogo, para que el match
+    // traiga `firstImagePath` y un deck abrible.
+    const rule2Candidates = [];
+    for (const catEntry of CATALOG_CATEGORIES) {
+        const match = getFirstDeckOfCategory(userDecks, catEntry.name);
+        if (match) {
+            rule2Candidates.push(match);
+        }
+    }
+
+    const selected = [];
+
+    // Rule 1: Select decks in progress (progress > 0% and < 100%), sorted by last_touched descending (most recent first)
+    const inProgress = userDecks.filter(d => d.progressPercent > 0 && d.progressPercent < 100);
+    inProgress.sort((a, b) => b.lastTouched - a.lastTouched);
+
+    for (const deck of inProgress) {
+        if (selected.length >= 4) break;
+        selected.push(deck);
+    }
+
+    // Rule 2: Complete the remaining slots using Rule 2 Candidates that are NOT completed (progress < 100%)
+    if (selected.length < 4) {
+        for (const deck of rule2Candidates) {
+            if (selected.length >= 4) break;
+            if (selected.some(s => s.category === deck.category && s.deckName === deck.deckName)) {
+                continue;
+            }
+            if (deck.progressPercent === 100) {
+                continue;
+            }
+            selected.push(deck);
+        }
+    }
+
+    // Rule 3: Complete remaining slots using completed Rule 2 Candidates (progress === 100%), in category order
+    if (selected.length < 4) {
+        for (const deck of rule2Candidates) {
+            if (selected.length >= 4) break;
+            if (selected.some(s => s.category === deck.category && s.deckName === deck.deckName)) {
+                continue;
+            }
+            selected.push(deck);
+        }
+    }
+
+    // 3. Format final response
+    return selected.slice(0, limit).map((item, index) => ({
+        category: item.category,
+        categoryLabel: formatCategoryLabel(item.category, language),
+        deckName: item.deckName,
+        // Use the full DECK_LABELS + i18n pipeline so the label shows the
+        // clean translated name (e.g. "Sujeto" / "Subject") instead of the
+        // raw file path like "1-basic/Subject.json".
+        deckLabel: formatDeckCategoryName(item.deckName, language),
+        levelId: item.levelId,
+        firstImagePath: item.firstImagePath,
+        first_image_path: item.firstImagePath,
+        accent: QUICK_ACCESS_ACCENTS[index % QUICK_ACCESS_ACCENTS.length],
+    }));
 }
 
 export function getDashboardCarouselItems({
@@ -313,6 +448,7 @@ export function getDashboardCarouselItems({
     currentCategory = null,
     currentSession = null,
     language = 'en',
+    stats = null,
 } = {}) {
     const deckKey = getDeckKeyForLevel(levelId);
     const entries = Array.isArray(CATALOG_CATEGORIES) ? [...CATALOG_CATEGORIES] : [];
@@ -324,29 +460,51 @@ export function getDashboardCarouselItems({
         ]
         : entries;
 
+    const statsDecks = Array.isArray(stats?.decks_progress) && stats.decks_progress.length > 0
+        ? mapDecksProgress(stats.decks_progress)
+        : null;
+
     const categoryItems = rotated
         .filter((entry) => entry.name !== currentSession?.category)
-        .map((entry) => ({
-            key: `category-${entry.name}`,
-            category: entry.name,
-            categoryLabel: formatCategoryLabel(entry.name, language),
-            deckName: getFirstDeckName(entry, deckKey) || '',
-            deckLabel: formatDeckLabel(getFirstDeckName(entry, deckKey), language),
-            resumeSession: {
+        .map((entry) => {
+            // Con stats reales resolvemos el mazo #1 del nivel del usuario para
+            // obtener su nombre de archivo abrible y la primera imagen pendiente.
+            const realDeck = statsDecks
+                ? getFirstDeckOfCategory(statsDecks, entry.name, deckKey)
+                : null;
+            const deckName = realDeck?.deckName || getFirstDeckName(entry, deckKey) || '';
+            const deckLabel = realDeck
+                ? formatDeckCategoryName(realDeck.deckName, language)
+                : formatDeckLabel(getFirstDeckName(entry, deckKey), language);
+
+            return {
+                key: `category-${entry.name}`,
                 category: entry.name,
-                deck: getFirstDeckName(entry, deckKey),
-            },
-            cardsRemaining: 0,
-            isCurrentGoal: false,
-        }));
+                categoryLabel: formatCategoryLabel(entry.name, language),
+                deckName,
+                deckLabel,
+                firstImagePath: realDeck?.firstImagePath || null,
+                resumeSession: {
+                    category: entry.name,
+                    deck: deckName,
+                },
+                cardsRemaining: 0,
+                isCurrentGoal: false,
+            };
+        });
 
     if (currentSession?.category && currentSession?.deck) {
+        const sessionDeck = statsDecks
+            ? statsDecks.find((d) => d.normalizedCategory === currentSession.category.toLowerCase()
+                && d.normalizedName === String(currentSession.deck).replace('.json', '').toLowerCase())
+            : null;
         categoryItems.unshift({
             key: `session-${currentSession.category}-${currentSession.deck}`,
             category: currentSession.category,
             categoryLabel: formatCategoryLabel(currentSession.category, language),
             deckName: currentSession.deck,
             deckLabel: formatDeckLabel(currentSession.deck, language),
+            firstImagePath: sessionDeck?.firstImagePath || null,
             resumeSession: currentSession,
             cardsRemaining: currentSession.cardsRemaining ?? 0,
             isCurrentGoal: true,

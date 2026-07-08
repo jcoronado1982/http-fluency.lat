@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useCallback } from 'react';
+import React, { useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { CategoryContext as StudyCategoryContext } from '../../../components/flashcardStudy/context/flashcardStudyContext';
 import { flashcardPort } from '../composition';
 import { useAuth } from '../../../context/AuthContext';
@@ -9,6 +9,7 @@ import {
     hasLegacyAlphabeticalCategoryOrder,
     moveOrderedItem,
     saveCategoryOrderPreference,
+    isCatalogPreferencesCurrent,
 } from '../config/catalogPreferences';
 import { markUserNavigation } from '../navigationIntent';
 import {
@@ -37,6 +38,7 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
     const [currentCategory, setCurrentCategory] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [loadingStage, setLoadingStage] = useState('loading_categories');
+    const clearedInvalidPreferencesRef = useRef(false);
     const { isAuthenticated, user, updateCatalogPreferences } = useAuth();
     const { studyLanguage = 'en' } = useUIContext();
     const courseDirection = getCourseDirectionFromStudyLanguage(studyLanguage);
@@ -62,11 +64,18 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
         };
 
         const getValidCatalogPreferences = (availableCategories) => {
-            if (!hasLegacyAlphabeticalCategoryOrder(user?.catalog_preferences, availableCategories)) {
+            const preferences = user?.catalog_preferences;
+            const isCurrent = isCatalogPreferencesCurrent(preferences);
+            const isLegacyAlphabetical = hasLegacyAlphabeticalCategoryOrder(preferences, availableCategories);
+
+            if (isCurrent && !isLegacyAlphabetical) {
                 return user?.catalog_preferences;
             }
 
-            void updateCatalogPreferences(null);
+            if (preferences && !clearedInvalidPreferencesRef.current) {
+                clearedInvalidPreferencesRef.current = true;
+                void updateCatalogPreferences(null);
+            }
             return null;
         };
 
@@ -120,6 +129,10 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
 
         load();
     }, [courseDirection, isAuthenticated, resumeSession, updateCatalogPreferences, user?.catalog_preferences, user?.email]);
+
+    useEffect(() => {
+        clearedInvalidPreferencesRef.current = false;
+    }, [user?.email]);
 
     const changeCategory = useCallback((cat) => {
         markUserNavigation();

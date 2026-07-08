@@ -933,8 +933,9 @@ export default function FlashcardOnboardingTour() {
         commitStepIndex(stepIndexRef.current - 1, { navigationLock: true });
     }, [commitStepIndex, isAdvancing]);
 
-    const handleClose = () => {
-        navigate('/onboarding', { replace: true });
+    const handleClose = async () => {
+        await completeOnboarding();
+        navigate(location.pathname, { replace: true });
     };
 
     if (!isOnboardingTour || isAssistantPaused) return null;

@@ -136,6 +136,13 @@ impl CardProgressRepository for NullDbRepository {
         Ok(0)
     }
 
+    async fn get_all_learned_cards(
+        &self,
+        _user_id: &str,
+    ) -> Result<Vec<(String, String, i32, Option<chrono::DateTime<chrono::Utc>>)>> {
+        Ok(Vec::new())
+    }
+
     async fn upsert_cards_batch(
         &self,
         _user_id: &str,
@@ -177,6 +184,10 @@ impl UserRepository for NullDbRepository {
         Err(anyhow!(
             "Preferencias no disponibles: DB no configurada en este entorno"
         ))
+    }
+
+    async fn reset_all_catalog_preferences(&self) -> Result<u64> {
+        Ok(0)
     }
 
     async fn list_all_users(&self) -> Result<Vec<User>> {

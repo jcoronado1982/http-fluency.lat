@@ -22,6 +22,9 @@ pub mod presence;
 pub mod admin_users;
 
 #[cfg(feature = "auth")]
+pub mod admin_catalog_preferences;
+
+#[cfg(feature = "auth")]
 pub mod feedback;
 
 #[cfg(feature = "subscriptions")]

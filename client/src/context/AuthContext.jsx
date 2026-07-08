@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
         setUser({
             ...authData.user,
-            onboarding_completed: false,
+            onboarding_completed: authData.user.onboarding_completed === true,
             catalog_preferences: null,
         });
         setLoadingStage('syncing_session');

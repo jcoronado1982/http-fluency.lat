@@ -1,3 +1,5 @@
-2026/07/06-18:53:33.140 152fb Reusing MANIFEST /home/jcoronado/Desktop/dev/flashcard/.tmp/chrome-test/Default/shared_proto_db/MANIFEST-000001
-2026/07/06-18:53:33.140 152fb Recovering log #3
-2026/07/06-18:53:33.140 152fb Reusing old log /home/jcoronado/Desktop/dev/flashcard/.tmp/chrome-test/Default/shared_proto_db/000003.log 
+2026/07/08-12:20:02.953 60c3 Reusing MANIFEST /home/jcoronado/Desktop/dev/flashcard/.tmp/chrome-test/Default/shared_proto_db/MANIFEST-000001
+2026/07/08-12:20:02.953 60c3 Recovering log #3
+2026/07/08-12:20:02.953 60c3 Level-0 table #3: started
+2026/07/08-12:20:02.957 60c3 Level-0 table #3: 119979 bytes OK
+2026/07/08-12:20:02.960 60c3 Delete type=0 #3
