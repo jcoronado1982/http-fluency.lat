@@ -90,7 +90,7 @@ const flashcardsModule = {
         },
         onLogout: () => resetFlashcardPreload(),
     },
-    onboarding: ({ language = 'en', config, user }) => {
+    onboarding: ({ language = 'en', studyLanguage = 'en', config, user }) => {
         if (!config.features.flashcards) return [];
         const isEs = language === 'es';
         return [{
@@ -98,7 +98,7 @@ const flashcardsModule = {
             moduleId: 'flashcards',
             session: 'OnBoardingFlashcard',
             component: OnBoardingFlashcard,
-            preload: user?.email ? () => preloadFlashcardStart(user.email) : null,
+            preload: user?.email ? () => preloadFlashcardStart(user.email, null, studyLanguage) : null,
             name: 'Flashcards',
             description: isEs
                 ? 'Configura tu experiencia inicial de vocabulario, mazos y estudio.'

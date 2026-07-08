@@ -104,8 +104,8 @@ const OnBoardingFlashcard = ({
     }, []);
 
     useEffect(() => {
-        void preloadFlashcardStart(user?.email);
-    }, [user?.email]);
+        void preloadFlashcardStart(user?.email, null, selectedStudyLanguage);
+    }, [selectedStudyLanguage, user?.email]);
 
     const primaryButtonLabel = useMemo(() => {
         if (currentStep === 1) {

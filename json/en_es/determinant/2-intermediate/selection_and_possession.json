@@ -1,0 +1,181 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Cualquiera (de los dos)",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "determiner/distributive",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "either",
+                "usage_example": "Puedes tomar cualquiera de los dos caminos.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "You can take either road.",
+                "char_count": "5",
+                "usage_context_en": "Used to mean 'one or the other' of two options.",
+                "usage_context_es": "Usado para significar 'uno u otro' de dos opciones.",
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_2_def0.avif"
+            }
+        ],
+        "group_name": "Determiners: Distributives",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Ninguno (de los dos)",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "determiner/distributive",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "neither",
+                "usage_example": "Ninguna (de las dos) respuesta es correcta.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Neither answer is correct.",
+                "char_count": "4",
+                "usage_context_en": "Used to mean 'not one and not the other' of two options.",
+                "usage_context_es": "Usado para significar 'ni uno ni el otro' de dos opciones.",
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_3_def0.avif"
+            }
+        ],
+        "group_name": "Determiners: Distributives",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Propio/a",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "determiner/possessive",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "own",
+                "usage_example": "Este es mi propio carro.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "This is my own car.",
+                "char_count": "5",
+                "usage_context_en": "Used with a possessive determiner (my, your, his) to emphasize ownership.",
+                "usage_context_es": "Usado con un determinante posesivo (mi, tu, su) para enfatizar posesión.",
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_13_def0.avif"
+            }
+        ],
+        "group_name": "Determiners: Possessives",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "De alguien",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "determiner/possessive",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "somebody’s",
+                "usage_example": "Encontré la billetera de alguien.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "I found somebody's wallet.",
+                "char_count": "4",
+                "usage_context_en": "Belonging to some person (unspecified).",
+                "usage_context_es": "Perteneciente a alguna persona (no especificada).",
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_25_def0.avif"
+            }
+        ],
+        "group_name": "Determiners: Possessives",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "De todos/as",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "determiner/possessive",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "everyone’s",
+                "usage_example": "¿Cuál es la opinión de todos?",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "What is everyone's opinion?",
+                "char_count": "4",
+                "usage_context_en": "Belonging to every person in a group.",
+                "usage_context_es": "Perteneciente a cada persona en un grupo.",
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_26_def0.avif"
+            }
+        ],
+        "group_name": "Determiners: Possessives",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "¿De quién?",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "determiner/possessive/interrogative",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "whose",
+                "usage_example": "¿De quién son estas llaves?",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Whose keys are these?",
+                "char_count": "4",
+                "usage_context_en": "Used to ask about possession.",
+                "usage_context_es": "Usado para preguntar sobre posesión.",
+                "imagePath": ""
+            },
+            {
+                "meaning": "whose (def 2)",
+                "usage_example": "El hombre cuyo carro fue robado.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "The man whose car was stolen.",
+                "char_count": "6",
+                "usage_context_en": "Used as a relative pronoun to show possession.",
+                "usage_context_es": "Usado como pronombre relativo para mostrar posesión.",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Determiners: Possessives",
+        "category": "Intermediate"
+    }
+]

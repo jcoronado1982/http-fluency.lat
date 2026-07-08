@@ -3,6 +3,7 @@ import { FALLBACK_CATEGORIES, sortCategories } from './config/catalogOrder';
 import { getCategoryOrderPreference } from './config/catalogPreferences';
 import { LAST_CATEGORY_KEY, LAST_DECK_KEY_PREFIX } from './config/sessionKeys';
 import {
+    getCourseDirectionFromStudyLanguage,
     normalizeDeckResponse,
     parseCategoriesResponse,
     resolvePersistedChoice,
@@ -11,6 +12,7 @@ import {
 
 const preloadState = {
     email: null,
+    courseDirection: null,
     promise: null,
     data: null,
 };
@@ -33,14 +35,19 @@ const getPreferredDeck = (category, resumeSessionDeck, deckNames) => {
  * Precarga silenciosa del arranque de Flashcards.
  * Se ejecuta desde onboarding para que categorías, decks y el primer deck lleguen cacheados.
  */
-export async function preloadFlashcardStart(userEmail, resumeSession = null) {
+export async function preloadFlashcardStart(userEmail, resumeSession = null, studyLanguage = 'en') {
     if (!userEmail) return null;
-    if (preloadState.email === userEmail && preloadState.promise) {
+    const courseDirection = getCourseDirectionFromStudyLanguage(studyLanguage);
+    if (
+        preloadState.email === userEmail
+        && preloadState.courseDirection === courseDirection
+        && preloadState.promise
+    ) {
         return preloadState.promise;
     }
 
     const promise = (async () => {
-        const categoriesResult = await flashcardPort.fetchCategories();
+        const categoriesResult = await flashcardPort.fetchCategories(courseDirection);
         const { names, totals } = parseCategoriesResponse(categoriesResult);
         const categories = sortCategories(names, getCategoryOrderPreference(userEmail, names));
         const resolvedCategories = categories.length > 0 ? categories : [...FALLBACK_CATEGORIES];
@@ -51,14 +58,14 @@ export async function preloadFlashcardStart(userEmail, resumeSession = null) {
         let deckData = null;
 
         if (category) {
-            const decksResult = await flashcardPort.fetchDecksForCategory(category);
+            const decksResult = await flashcardPort.fetchDecksForCategory(category, courseDirection);
             deckNames = decksResult?.success && Array.isArray(decksResult.files)
                 ? sortDeckNames(decksResult.files, category)
                 : [];
             deck = getPreferredDeck(category, resumeSession?.deck, deckNames);
 
             if (deck) {
-                const rawDeck = await flashcardPort.fetchDeckData(userEmail, category, deck);
+                const rawDeck = await flashcardPort.fetchDeckData(userEmail, category, deck, courseDirection);
                 deckData = normalizeDeckResponse(rawDeck);
             }
         }
@@ -67,6 +74,7 @@ export async function preloadFlashcardStart(userEmail, resumeSession = null) {
             categories: resolvedCategories,
             categoryTotals: totals,
             category,
+            courseDirection,
             deck,
             deckNames,
             deckData,
@@ -81,17 +89,23 @@ export async function preloadFlashcardStart(userEmail, resumeSession = null) {
     });
 
     preloadState.email = userEmail;
+    preloadState.courseDirection = courseDirection;
     preloadState.promise = promise;
     return promise;
 }
 
 /** Reutiliza la precarga en curso o la inicia si aún no existe. */
-export function consumeFlashcardPreload(userEmail, resumeSession = null) {
+export function consumeFlashcardPreload(userEmail, resumeSession = null, studyLanguage = 'en') {
     if (!userEmail) return Promise.resolve(null);
-    if (preloadState.email === userEmail && preloadState.promise) {
+    const courseDirection = getCourseDirectionFromStudyLanguage(studyLanguage);
+    if (
+        preloadState.email === userEmail
+        && preloadState.courseDirection === courseDirection
+        && preloadState.promise
+    ) {
         return preloadState.promise;
     }
-    return preloadFlashcardStart(userEmail, resumeSession);
+    return preloadFlashcardStart(userEmail, resumeSession, studyLanguage);
 }
 
 export function getFlashcardPreloadSnapshot(userEmail) {
@@ -107,6 +121,7 @@ export function resetFlashcardPreload(userEmail = null) {
     }
 
     preloadState.email = null;
+    preloadState.courseDirection = null;
     preloadState.promise = null;
     preloadState.data = null;
 }

@@ -1,0 +1,287 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Asumir el control, tomar el relevo",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "phrasal verb/control/assume responsibility",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "take over",
+                "usage_example": "Ella asumirá el control de la empresa el próximo año.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "She will take over the company next year.",
+                "char_count": "one",
+                "usage_context_en": "work/control/business",
+                "usage_context_es": "trabajo/control/negocios",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_30_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Take",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Seguir haciendo algo",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "phrasal verb/continue",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "keep on",
+                "usage_example": "Sigue intentándolo.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Keep on trying.",
+                "char_count": "one",
+                "usage_context_en": "continuing effort",
+                "usage_context_es": "continuar esfuerzo",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Phrasal Verbs: Keep",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Seguir adelante / Avanzar",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "phrasal verb/continue",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "move on",
+                "usage_example": "Sigamos adelante.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Let’s move on.",
+                "char_count": "one",
+                "usage_context_en": "continuing/transition",
+                "usage_context_es": "continuar/transición",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Phrasal Verbs: Move",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Continuar (haciendo algo)",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "phrasal verb/continue/action",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "carry on",
+                "usage_example": "Por favor, continúa con tu trabajo.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Please carry on with your work.",
+                "char_count": "one",
+                "usage_context_en": "work/instructions",
+                "usage_context_es": "trabajo/instrucciones",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_16_def0.avif"
+            },
+            {
+                "meaning": "carry on (def 2)",
+                "usage_example": "Estaba haciendo un escándalo por el ruido.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "He was carrying on about the noise.",
+                "char_count": "one",
+                "usage_context_en": "complaining/behavior",
+                "usage_context_es": "quejarse/comportamiento",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_16_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Carry",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Llevar a cabo, realizar (una tarea, un plan)",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "phrasal verb/execute/complete task",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "carry out",
+                "usage_example": "El equipo llevará a cabo el plan.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "The team will carry out the plan.",
+                "char_count": "one",
+                "usage_context_en": "work/project",
+                "usage_context_es": "trabajo/proyecto",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_17_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Carry",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Trabajar en (un proyecto, una tarea)",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "phrasal verb/develop/improve/project",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "work on",
+                "usage_example": "¿En qué estás trabajando ahora mismo?",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "What are you working on right now?",
+                "char_count": "one",
+                "usage_context_en": "projects/tasks",
+                "usage_context_es": "proyectos/tareas",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_43_def0.avif"
+            },
+            {
+                "meaning": "work on (def 2)",
+                "usage_example": "Necesito trabajar en (mejorar) mi pronunciación.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "I need to work on my pronunciation.",
+                "char_count": "one",
+                "usage_context_en": "self-improvement/skills",
+                "usage_context_es": "mejora personal/habilidades",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_43_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Work",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Montar, instalar, organizar (equipo, un negocio)",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "phrasal verb/organize/establish/install/frame",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "set up",
+                "usage_example": "Necesitamos montar (colocar) las sillas para la reunión.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "We need to set up the chairs for the meeting.",
+                "char_count": "one",
+                "usage_context_en": "organizing/installing",
+                "usage_context_es": "organizar/instalar",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_19_def0.avif"
+            },
+            {
+                "meaning": "set up (def 2)",
+                "usage_example": "Dijo que era inocente y que la policía le tendió una trampa.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "He said he was innocent and the police set him up.",
+                "char_count": "one",
+                "usage_context_en": "deception/crime",
+                "usage_context_es": "engaño/crimen",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_19_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Set",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Mantener el ritmo",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "phrasal verb/maintain pace",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "keep up",
+                "usage_example": "No puedo seguirte el ritmo.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "I can’t keep up with you.",
+                "char_count": "one",
+                "usage_context_en": "pace/progress",
+                "usage_context_es": "ritmo/progreso",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Phrasal Verbs: Keep",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Transferir (a un nuevo período o lugar)",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "phrasal verb/transfer/continue",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "carry over",
+                "usage_example": "¿Mis días de vacaciones se transferirán al próximo año?",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Will my vacation days carry over to next year?",
+                "char_count": "one",
+                "usage_context_en": "work/rules/finance",
+                "usage_context_es": "trabajo/reglas/finanzas",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_18_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Carry",
+        "category": "Intermediate"
+    }
+]

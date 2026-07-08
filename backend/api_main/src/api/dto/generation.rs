@@ -10,6 +10,8 @@ pub struct SynthesizeSpeechBody {
     pub tone: Option<String>,
     pub lang: Option<String>,
     #[serde(default)]
+    pub course_direction: Option<String>,
+    #[serde(default)]
     pub exclude_voice: Option<String>,
     #[serde(default)]
     pub force_regenerate: Option<bool>,
@@ -70,6 +72,8 @@ pub struct DeleteAudioBody {
     pub verb_name: Option<String>,
     pub tone: Option<String>,
     pub lang: Option<String>,
+    #[serde(default)]
+    pub course_direction: Option<String>,
     #[serde(default)]
     pub exclude_voice: Option<String>,
 }

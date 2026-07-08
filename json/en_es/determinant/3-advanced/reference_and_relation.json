@@ -1,0 +1,153 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Cualquiera (que)",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "determiner/relative",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "whichever",
+                "usage_example": "Elige cualquiera que te guste.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Choose whichever one you like.",
+                "char_count": "5",
+                "usage_context_en": "Used to refer to any one from a limited set.",
+                "usage_context_es": "Usado para referirse a cualquiera de un conjunto limitado.",
+                "imagePath": "/card_images/determinant/3-advanced/3-advanced_card_0_def0.avif"
+            }
+        ],
+        "group_name": "Determiners: Other",
+        "category": "Advanced"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Cualquier/a (cosa que)",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "determiner/relative",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "whatever",
+                "usage_example": "Toma cualquier cosa que necesites.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Take whatever you need.",
+                "char_count": "4",
+                "usage_context_en": "Used to refer to any thing or amount, no matter what.",
+                "usage_context_es": "Usado para referirse a cualquier cosa o cantidad, sin importar cuál.",
+                "imagePath": "/card_images/determinant/3-advanced/3-advanced_card_1_def0.avif"
+            },
+            {
+                "meaning": "whatever (def 2)",
+                "usage_example": "No tengo dinero en absoluto.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "I have no money whatever.",
+                "char_count": "5",
+                "usage_context_en": "Used after 'no' or 'none' for emphasis (meaning 'at all').",
+                "usage_context_es": "Usado después de 'no' o 'none' para dar énfasis (significa 'en absoluto').",
+                "imagePath": "/card_images/determinant/3-advanced/3-advanced_card_1_def1.avif"
+            }
+        ],
+        "group_name": "Determiners: Other",
+        "category": "Advanced"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Quienquiera que (formal)",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "pronoun/relative/formal",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "whosoever",
+                "usage_example": "Quienquiera que encuentre esto es afortunado.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Whosoever finds this is lucky.",
+                "char_count": "5",
+                "usage_context_en": "A formal or archaic word for 'whoever'.",
+                "usage_context_es": "Una palabra formal o arcaica para 'quien sea'.",
+                "imagePath": "/card_images/determinant/3-advanced/3-advanced_card_3_def0.avif"
+            }
+        ],
+        "group_name": "Determiners: Other",
+        "category": "Advanced"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "El/La/Los/Las siguiente(s)",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "determiner/demonstrative",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "the following",
+                "usage_example": "Por favor lee el siguiente texto.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Please read the following text.",
+                "char_count": "5",
+                "usage_context_en": "Used to introduce a list, example, or statement.",
+                "usage_context_es": "Usado para introducir una lista, ejemplo o declaración.",
+                "imagePath": "/card_images/determinant/3-advanced/3-advanced_card_24_def0.avif"
+            }
+        ],
+        "group_name": "Determiners: Other",
+        "category": "Advanced"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Respectivo/a",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "adjective/describing",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "respective",
+                "usage_example": "Se fueron a sus respectivos hogares.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "They went to their respective homes.",
+                "char_count": "6",
+                "usage_context_en": "Belonging or relating separately to each of two or more people or things.",
+                "usage_context_es": "Perteneciente o relativo por separado a cada una de dos o más personas o cosas.",
+                "imagePath": "/card_images/determinant/3-advanced/3-advanced_card_26_def0.avif"
+            }
+        ],
+        "group_name": "Determiners: Other",
+        "category": "Advanced"
+    }
+]

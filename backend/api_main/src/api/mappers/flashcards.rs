@@ -12,6 +12,7 @@ pub fn to_audio_synth_request(body: SynthesizeSpeechBody) -> AudioSynthRequest {
         verb_name: body.verb_name.filter(|s| !s.is_empty()),
         tone: body.tone.filter(|s| !s.is_empty()),
         lang: body.lang.filter(|s| !s.is_empty()),
+        course_direction: body.course_direction.filter(|s| !s.is_empty()),
         exclude_voice: body.exclude_voice.filter(|s| !s.is_empty()),
         force_regenerate: body.force_regenerate.unwrap_or(false),
     }
@@ -26,6 +27,7 @@ pub fn to_delete_audio_request(body: DeleteAudioBody) -> AudioSynthRequest {
         verb_name: body.verb_name.filter(|s| !s.is_empty()),
         tone: body.tone.filter(|s| !s.is_empty()),
         lang: body.lang.filter(|s| !s.is_empty()),
+        course_direction: body.course_direction.filter(|s| !s.is_empty()),
         exclude_voice: body.exclude_voice.filter(|s| !s.is_empty()),
         force_regenerate: false,
     }

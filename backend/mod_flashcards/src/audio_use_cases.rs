@@ -9,8 +9,8 @@ use std::hash::{Hash, Hasher};
 use std::sync::Arc;
 
 use crate::{
-    is_landing_demo_namespace, safe_deck_prefix, safe_language_suffix, safe_storage_segment,
-    FlashcardsConfig,
+    is_landing_demo_namespace, normalize_course_direction, safe_deck_prefix,
+    safe_language_suffix, safe_storage_segment, FlashcardsConfig,
 };
 
 /// Huella estable de caché: se conserva para no regenerar audios ya existentes
@@ -121,6 +121,7 @@ pub struct AudioSynthRequest {
     pub verb_name: Option<String>,
     pub tone: Option<String>,
     pub lang: Option<String>,
+    pub course_direction: Option<String>,
     /// Voz a excluir al generar (p. ej. tras rotar).
     pub exclude_voice: Option<String>,
     /// Tras rotar voz: ignorar caché y regenerar TTS.
@@ -738,11 +739,26 @@ impl AudioUseCases {
         } else {
             "ogg"
         };
+        let course_direction = normalize_course_direction(req.course_direction.as_deref());
 
-        let rel = format!(
-            "{}/{}/{}_{}_{}{}_{:x}.{ext}",
-            category, deck_prefix, deck_prefix, verb_norm, base_slug, lang_suffix, hash
-        );
+        let rel = if is_landing_demo_namespace(&req.category) {
+            format!(
+                "{}/{}/{}_{}_{}{}_{:x}.{ext}",
+                category, deck_prefix, deck_prefix, verb_norm, base_slug, lang_suffix, hash
+            )
+        } else {
+            format!(
+                "{}/{}/{}/{}_{}_{}{}_{:x}.{ext}",
+                course_direction,
+                category,
+                deck_prefix,
+                deck_prefix,
+                verb_norm,
+                base_slug,
+                lang_suffix,
+                hash
+            )
+        };
         Ok(match user_segment {
             Some(seg) => format!("users/{}/{}", seg, rel),
             None => rel,

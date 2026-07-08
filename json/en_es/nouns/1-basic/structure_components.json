@@ -1,0 +1,69 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Parte",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "noun/piece/essentials",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "part",
+                "usage_example": "Esta es la mejor parte de la película.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "This is the best part of the movie.",
+                "char_count": "one",
+                "usage_context_en": "A piece of a whole",
+                "usage_context_es": "Un pedazo de un todo",
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_17_def0.avif"
+            },
+            {
+                "meaning": "part (def 2)",
+                "usage_example": "Él interpretó un papel en la película.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "He played a part in the movie.",
+                "char_count": "4",
+                "usage_context_en": "A role in a play, movie, or situation.",
+                "usage_context_es": "Un papel en una obra, película o situación.",
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_17_def1.avif"
+            }
+        ],
+        "group_name": null,
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Equipo",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "noun/group/work/essentials",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "team",
+                "usage_example": "Somos un buen equipo.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "We are a good team.",
+                "char_count": "one",
+                "usage_context_en": "A group of people working or playing together",
+                "usage_context_es": "Un grupo de personas que trabajan o juegan juntas",
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_222_def0.avif"
+            }
+        ],
+        "group_name": "People",
+        "category": ""
+    }
+]

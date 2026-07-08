@@ -1,0 +1,58 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Fin / Final",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "noun/finish/essentials",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "end",
+                "usage_example": "Este es el final de la película.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "This is the end of the movie.",
+                "char_count": "one",
+                "usage_context_en": "The final part of something",
+                "usage_context_es": "La parte final de algo",
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_100_def0.avif"
+            }
+        ],
+        "group_name": null,
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Inicio / Comienzo",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "noun/beginning/essentials",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "start",
+                "usage_example": "Fue un buen comienzo.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "It was a good start.",
+                "char_count": "one",
+                "usage_context_en": "The beginning of something",
+                "usage_context_es": "El comienzo de algo",
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_101_def0.avif"
+            }
+        ],
+        "group_name": null,
+        "category": ""
+    }
+]

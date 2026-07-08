@@ -5,7 +5,7 @@ import { getPublicEntryPathForConfig, notifyAuthUserSynced, notifyAuthLogout } f
 import { authRepository } from '../repositories/AuthRepository';
 import { httpClient } from '../services/httpClient';
 import { usePresence } from '../hooks/usePresence';
-import { shouldShowOnboarding, markOnboardingDone, resolveOnboardingCompleted } from '../utils/onboardingStorage';
+import { shouldShowOnboarding, resolveOnboardingCompleted } from '../utils/onboardingStorage';
 
 const AuthContext = createContext();
 
@@ -29,7 +29,11 @@ export const AuthProvider = ({ children }) => {
             return;
         }
 
-        setUser({ ...authData.user, catalog_preferences: null });
+        setUser({
+            ...authData.user,
+            onboarding_completed: false,
+            catalog_preferences: null,
+        });
         setLoadingStage('syncing_session');
 
         httpClient.get('/api/auth/me')
@@ -48,11 +52,6 @@ export const AuthProvider = ({ children }) => {
                 authRepository.saveAuthData({ token: authData.token, user: nextUser });
                 setUser(nextUser);
 
-                if (onboardingCompleted && me.onboarding_completed !== true) {
-                    httpClient.post('/api/auth/onboarding', { completed: true }).catch((err) => {
-                        console.warn('No se pudo re-sincronizar onboarding con el servidor:', err);
-                    });
-                }
             })
             .catch((err) => console.warn('No se pudo sincronizar rol desde /api/auth/me:', err))
             .finally(() => {
@@ -125,26 +124,19 @@ export const AuthProvider = ({ children }) => {
         if (!user?.email) return null;
 
         const authData = authRepository.getAuthData();
-        const optimisticUser = { ...user, onboarding_completed: true };
-        markOnboardingDone(user.email);
-        if (authData?.token) {
-            authRepository.saveAuthData({ token: authData.token, user: optimisticUser });
-        }
-        setUser(optimisticUser);
 
         for (let attempt = 1; attempt <= 3; attempt += 1) {
             try {
                 await httpClient.post('/api/auth/onboarding', { completed: true });
                 const me = await httpClient.get('/api/auth/me');
                 const syncedUser = {
-                    ...optimisticUser,
-                    role: me.effective_role || optimisticUser.role,
+                    ...user,
+                    role: me.effective_role || user.role,
                     onboarding_completed: me.onboarding_completed === true,
-                    catalog_preferences: me.catalog_preferences ?? optimisticUser.catalog_preferences ?? null,
+                    catalog_preferences: me.catalog_preferences ?? user.catalog_preferences ?? null,
                 };
 
                 if (syncedUser.onboarding_completed === true) {
-                    markOnboardingDone(syncedUser.email || user.email);
                     if (authData?.token) {
                         authRepository.saveAuthData({ token: authData.token, user: syncedUser });
                     }
@@ -156,7 +148,7 @@ export const AuthProvider = ({ children }) => {
             } catch (err) {
                 if (attempt === 3) {
                     console.warn('No se pudo sincronizar onboarding con el servidor:', err);
-                    return optimisticUser;
+                    return null;
                 }
                 await new Promise((resolve) => setTimeout(resolve, 400 * attempt));
             }

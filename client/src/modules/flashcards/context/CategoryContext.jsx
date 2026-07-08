@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useCallback } from 'react';
 import { CategoryContext as StudyCategoryContext } from '../../../components/flashcardStudy/context/flashcardStudyContext';
 import { flashcardPort } from '../composition';
 import { useAuth } from '../../../context/AuthContext';
+import { useUIContext } from '../../../context/UIContext';
 import { FALLBACK_CATEGORIES, sortCategories } from '../config/catalogOrder';
 import {
     getCategoryOrderPreference,
@@ -10,7 +11,11 @@ import {
     saveCategoryOrderPreference,
 } from '../config/catalogPreferences';
 import { markUserNavigation } from '../navigationIntent';
-import { parseCategoriesResponse, resolvePersistedChoice } from '../useCases/deckUseCases';
+import {
+    getCourseDirectionFromStudyLanguage,
+    parseCategoriesResponse,
+    resolvePersistedChoice,
+} from '../useCases/deckUseCases';
 import { consumeFlashcardPreload } from '../preload';
 import { LAST_CATEGORY_KEY } from '../config/sessionKeys';
 
@@ -33,6 +38,8 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [loadingStage, setLoadingStage] = useState('loading_categories');
     const { isAuthenticated, user, updateCatalogPreferences } = useAuth();
+    const { studyLanguage = 'en' } = useUIContext();
+    const courseDirection = getCourseDirectionFromStudyLanguage(studyLanguage);
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -68,10 +75,13 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
             setLoadingStage('loading_categories');
             try {
                 const preloaded = await raceWithTimeout(
-                    consumeFlashcardPreload(user?.email, resumeSession),
+                    consumeFlashcardPreload(user?.email, resumeSession, studyLanguage),
                     PRELOAD_TIMEOUT_MS,
                 );
-                if (preloaded?.categories?.length) {
+                if (
+                    preloaded?.courseDirection === courseDirection
+                    && preloaded?.categories?.length
+                ) {
                     const preferences = getValidCatalogPreferences(preloaded.categories);
                     const ordered = sortCategories(
                         preloaded.categories,
@@ -85,7 +95,7 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
                     return;
                 }
 
-                const result = await flashcardPort.fetchCategories();
+                const result = await flashcardPort.fetchCategories(courseDirection);
                 const { names, totals } = parseCategoriesResponse(result);
                 const preferences = getValidCatalogPreferences(names);
                 const sorted = sortCategories(
@@ -109,7 +119,7 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
         };
 
         load();
-    }, [isAuthenticated, resumeSession, updateCatalogPreferences, user?.catalog_preferences, user?.email]);
+    }, [courseDirection, isAuthenticated, resumeSession, updateCatalogPreferences, user?.catalog_preferences, user?.email]);
 
     const changeCategory = useCallback((cat) => {
         markUserNavigation();

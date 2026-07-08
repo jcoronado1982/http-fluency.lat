@@ -1,4 +1,4 @@
-use crate::{image_use_cases::ImageGenRequest, safe_deck_media_path};
+use crate::{image_use_cases::ImageGenRequest, safe_deck_media_path, DEFAULT_COURSE_DIRECTION};
 use fluency_core::domain::models::flashcard::Flashcard;
 use std::collections::HashSet;
 use std::io::{stdout, Write};
@@ -93,7 +93,10 @@ async fn run_batch(
     println!("========================================================\n");
     let _ = stdout().flush();
 
-    let mut categories = ctx.deck.list_categories().await?;
+    let mut categories = ctx
+        .deck
+        .list_categories(DEFAULT_COURSE_DIRECTION)
+        .await?;
     if let Some(ref cat) = filter.category {
         categories.retain(|c| c == cat);
         if categories.is_empty() {
@@ -116,7 +119,10 @@ async fn run_batch(
         println!("\n📂 CATEGORÍA: {cat_name}");
         let _ = stdout().flush();
 
-        let mut decks = ctx.deck.list_decks(&cat_name).await?;
+        let mut decks = ctx
+            .deck
+            .list_decks(&cat_name, DEFAULT_COURSE_DIRECTION)
+            .await?;
         if let Some(ref deck) = filter.deck {
             let deck_file = if deck.ends_with(".json") {
                 deck.clone()
@@ -135,7 +141,10 @@ async fn run_batch(
             println!("  📦 Mazo: {deck_name}");
             let _ = stdout().flush();
 
-            let mut deck_data = ctx.deck.get_deck_json(&cat_name, &deck_name).await?;
+            let mut deck_data = ctx
+                .deck
+                .get_deck_json(&cat_name, &deck_name, DEFAULT_COURSE_DIRECTION)
+                .await?;
             let card_count = deck_data.flashcards().len();
 
             let img_dir = format!("{images_prefix}/{cat_name}/{deck_media_dir}");
@@ -294,7 +303,12 @@ async fn run_batch(
             if deck_dirty {
                 match ctx
                     .deck
-                    .save_deck_json(&cat_name, &deck_name, &deck_data)
+                    .save_deck_json(
+                        &cat_name,
+                        &deck_name,
+                        &deck_data,
+                        DEFAULT_COURSE_DIRECTION,
+                    )
                     .await
                 {
                     Ok(()) => {

@@ -18,6 +18,7 @@ pub mod landing_demo_image_prompt;
 
 /// Categoría de storage para el demo del landing (aislada del sistema interno).
 pub const LANDING_DEMO_CATEGORY: &str = "landing-demo";
+pub const DEFAULT_COURSE_DIRECTION: &str = "es_en";
 const MAX_STORAGE_SEGMENT_LEN: usize = 96;
 
 pub fn is_landing_demo_namespace(category: &str) -> bool {
@@ -89,6 +90,33 @@ pub fn safe_language_suffix(lang: Option<&str>) -> Result<String> {
     }
 }
 
+pub fn normalize_course_direction(value: Option<&str>) -> &'static str {
+    match value.map(str::trim).map(str::to_ascii_lowercase).as_deref() {
+        Some("en_es") => "en_es",
+        _ => DEFAULT_COURSE_DIRECTION,
+    }
+}
+
+fn progress_category_key(course_direction: &str, category: &str) -> String {
+    format!("{}::{}", normalize_course_direction(Some(course_direction)), category)
+}
+
+fn progress_deck_key(course_direction: &str, deck_name: &str) -> String {
+    format!(
+        "{}::{}",
+        normalize_course_direction(Some(course_direction)),
+        deck_name.replace(".json", "")
+    )
+}
+
+fn progress_deck_prefix_key(course_direction: &str, deck_prefix: &str) -> String {
+    format!(
+        "{}::{}",
+        normalize_course_direction(Some(course_direction)),
+        deck_prefix
+    )
+}
+
 #[derive(Clone)]
 pub struct FlashcardsConfig {
     pub gcs_audio_prefix: String,
@@ -156,27 +184,48 @@ impl DeckUseCases {
         }
     }
 
-    pub async fn list_categories(&self) -> Result<Vec<String>> {
-        self.storage_repo.list_categories().await
+    pub async fn list_categories(&self, course_direction: &str) -> Result<Vec<String>> {
+        self.storage_repo
+            .list_categories_for_direction(normalize_course_direction(Some(course_direction)))
+            .await
     }
 
     /// Devuelve cada categoría con el total real de tarjetas sumando todos sus decks.
     /// Cacheado con TTL + single-flight: el cómputo re-lee todos los decks.
-    pub async fn list_categories_with_counts(&self) -> Result<Vec<serde_json::Value>> {
+    pub async fn list_categories_with_counts(
+        &self,
+        course_direction: &str,
+    ) -> Result<Vec<serde_json::Value>> {
         let mut cache = self.counts_cache.lock().await;
+        let normalized_direction = normalize_course_direction(Some(course_direction));
         if let Some((at, cached)) = &cache.categories {
             if at.elapsed() < STATIC_COUNTS_TTL {
-                return Ok(cached.clone());
+                if cached
+                    .first()
+                    .and_then(|item| item.get("course_direction"))
+                    .and_then(|value| value.as_str())
+                    == Some(normalized_direction)
+                {
+                    return Ok(cached.clone());
+                }
             }
         }
 
-        let result = self.compute_categories_with_counts().await?;
+        let result = self
+            .compute_categories_with_counts(normalized_direction)
+            .await?;
         cache.categories = Some((Instant::now(), result.clone()));
         Ok(result)
     }
 
-    async fn compute_categories_with_counts(&self) -> Result<Vec<serde_json::Value>> {
-        let mut categories = self.storage_repo.list_categories().await?;
+    async fn compute_categories_with_counts(
+        &self,
+        course_direction: &str,
+    ) -> Result<Vec<serde_json::Value>> {
+        let mut categories = self
+            .storage_repo
+            .list_categories_for_direction(course_direction)
+            .await?;
         categories.sort_by(|a, b| {
             category_order_index(a)
                 .cmp(&category_order_index(b))
@@ -184,14 +233,18 @@ impl DeckUseCases {
         });
         let mut indexed = stream::iter(categories.into_iter().enumerate())
             .map(|(index, cat)| async move {
-                let decks = self.storage_repo.list_decks(&cat).await.unwrap_or_default();
+                let decks = self
+                    .storage_repo
+                    .list_decks_for_direction(course_direction, &cat)
+                    .await
+                    .unwrap_or_default();
                 let category_name = cat.clone();
                 let total = stream::iter(decks.into_iter())
                     .map(|deck| {
                         let category_name = category_name.clone();
                         async move {
                             self.storage_repo
-                                .get_deck_data(&category_name, &deck)
+                                .get_deck_data_for_direction(course_direction, &category_name, &deck)
                                 .await
                                 .map(|data| data.flashcards().len())
                                 .unwrap_or(0)
@@ -201,7 +254,14 @@ impl DeckUseCases {
                     .fold(0usize, |acc, count| async move { acc + count })
                     .await;
 
-                (index, serde_json::json!({ "name": cat, "total": total }))
+                (
+                    index,
+                    serde_json::json!({
+                        "name": cat,
+                        "total": total,
+                        "course_direction": course_direction,
+                    }),
+                )
             })
             .buffer_unordered(4)
             .collect::<Vec<_>>()
@@ -211,8 +271,10 @@ impl DeckUseCases {
         Ok(indexed.into_iter().map(|(_, value)| value).collect())
     }
 
-    pub async fn list_decks(&self, category: &str) -> Result<Vec<String>> {
-        self.storage_repo.list_decks(category).await
+    pub async fn list_decks(&self, category: &str, course_direction: &str) -> Result<Vec<String>> {
+        self.storage_repo
+            .list_decks_for_direction(normalize_course_direction(Some(course_direction)), category)
+            .await
     }
 
     /// Carga el deck desde almacenamiento y sobreescribe `learned`
@@ -222,9 +284,15 @@ impl DeckUseCases {
         user_id: &str,
         category: &str,
         deck_name: &str,
+        course_direction: &str,
     ) -> Result<DeckData> {
-        let deck_key = deck_name.replace(".json", "");
-        let mut data = self.storage_repo.get_deck_data(category, deck_name).await?;
+        let normalized_direction = normalize_course_direction(Some(course_direction));
+        let deck_key = progress_deck_key(normalized_direction, deck_name);
+        let progress_category = progress_category_key(normalized_direction, category);
+        let mut data = self
+            .storage_repo
+            .get_deck_data_for_direction(normalized_direction, category, deck_name)
+            .await?;
 
         for card in data.flashcards_mut() {
             card.learned = false;
@@ -232,7 +300,7 @@ impl DeckUseCases {
 
         match self
             .db_repo
-            .get_learned_cards(user_id, category, &deck_key)
+            .get_learned_cards(user_id, &progress_category, &deck_key)
             .await
         {
             Ok(learned_indices) => {
@@ -264,10 +332,14 @@ impl DeckUseCases {
         deck_name: &str,
         index: usize,
         learned: bool,
+        course_direction: &str,
     ) -> Result<()> {
-        let deck_key = deck_name.replace(".json", "");
+        let normalized_direction = normalize_course_direction(Some(course_direction));
+        let deck_key = progress_deck_key(normalized_direction, deck_name);
+        let progress_category = progress_category_key(normalized_direction, category);
         tracing::info!(
-            "Guardando progreso: {}/{} user={} index={} learned={}",
+            "Guardando progreso: {}/{}/{} user={} index={} learned={}",
+            normalized_direction,
             category,
             deck_key,
             user_id,
@@ -275,7 +347,13 @@ impl DeckUseCases {
             learned
         );
         self.db_repo
-            .upsert_card_progress(user_id, category, &deck_key, index as i32, learned)
+            .upsert_card_progress(
+                user_id,
+                &progress_category,
+                &deck_key,
+                index as i32,
+                learned,
+            )
             .await?;
         if learned {
             self.activity_repo.record_study_day(user_id).await?;
@@ -289,16 +367,26 @@ impl DeckUseCases {
         user_id: &str,
         category: &str,
         deck_name: &str,
+        course_direction: &str,
     ) -> Result<()> {
-        let deck_key = deck_name.replace(".json", "");
+        let normalized_direction = normalize_course_direction(Some(course_direction));
+        let deck_key = progress_deck_key(normalized_direction, deck_name);
+        let progress_category = progress_category_key(normalized_direction, category);
         self.db_repo
-            .reset_card_progress(user_id, category, &deck_key)
+            .reset_card_progress(user_id, &progress_category, &deck_key)
             .await
     }
 
-    pub async fn reset_category_status(&self, user_id: &str, category: &str) -> Result<()> {
+    pub async fn reset_category_status(
+        &self,
+        user_id: &str,
+        category: &str,
+        course_direction: &str,
+    ) -> Result<()> {
+        let progress_category =
+            progress_category_key(normalize_course_direction(Some(course_direction)), category);
         self.db_repo
-            .reset_category_progress(user_id, category)
+            .reset_category_progress(user_id, &progress_category)
             .await
     }
 
@@ -306,8 +394,19 @@ impl DeckUseCases {
         self.storage_repo.get_phonics_data().await
     }
 
-    pub async fn get_deck_json(&self, category: &str, deck_name: &str) -> Result<DeckData> {
-        self.storage_repo.get_deck_data(category, deck_name).await
+    pub async fn get_deck_json(
+        &self,
+        category: &str,
+        deck_name: &str,
+        course_direction: &str,
+    ) -> Result<DeckData> {
+        self.storage_repo
+            .get_deck_data_for_direction(
+                normalize_course_direction(Some(course_direction)),
+                category,
+                deck_name,
+            )
+            .await
     }
 
     pub async fn save_deck_json(
@@ -315,9 +414,15 @@ impl DeckUseCases {
         category: &str,
         deck_name: &str,
         data: &DeckData,
+        course_direction: &str,
     ) -> Result<()> {
         self.storage_repo
-            .save_deck_data(category, deck_name, data)
+            .save_deck_data_for_direction(
+                normalize_course_direction(Some(course_direction)),
+                category,
+                deck_name,
+                data,
+            )
             .await
     }
 
@@ -337,18 +442,21 @@ impl DeckUseCases {
         category: &str,
         deck_name: &str,
         cards: &[(usize, bool)],
+        course_direction: &str,
     ) -> Result<()> {
         if cards.is_empty() {
             return Ok(());
         }
-        let deck_key = deck_name.replace(".json", "");
+        let normalized_direction = normalize_course_direction(Some(course_direction));
+        let deck_key = progress_deck_key(normalized_direction, deck_name);
+        let progress_category = progress_category_key(normalized_direction, category);
         let normalized: Vec<(i32, bool)> = cards
             .iter()
             .map(|&(idx, learned)| (idx as i32, learned))
             .collect();
 
         self.db_repo
-            .upsert_cards_batch(user_id, category, &deck_key, &normalized)
+            .upsert_cards_batch(user_id, &progress_category, &deck_key, &normalized)
             .await?;
 
         let any_learned = cards.iter().any(|&(_, learned)| learned);
@@ -364,29 +472,48 @@ impl DeckUseCases {
 
     /// Total de tarjetas cuyo deck empieza por `deck_prefix`. El cómputo lee
     /// todos los decks del catálogo, así que se memoiza con TTL + single-flight.
-    async fn count_cards_for_deck_prefix(&self, deck_prefix: &str) -> Result<i32> {
+    async fn count_cards_for_deck_prefix(
+        &self,
+        deck_prefix: &str,
+        course_direction: &str,
+    ) -> Result<i32> {
         let mut cache = self.counts_cache.lock().await;
-        if let Some((at, total)) = cache.deck_prefix_totals.get(deck_prefix) {
+        let cache_key = format!(
+            "{}::{}",
+            normalize_course_direction(Some(course_direction)),
+            deck_prefix
+        );
+        if let Some((at, total)) = cache.deck_prefix_totals.get(&cache_key) {
             if at.elapsed() < STATIC_COUNTS_TTL {
                 return Ok(*total);
             }
         }
 
-        let total = self.compute_cards_for_deck_prefix(deck_prefix).await?;
+        let total = self
+            .compute_cards_for_deck_prefix(deck_prefix, course_direction)
+            .await?;
         cache
             .deck_prefix_totals
-            .insert(deck_prefix.to_string(), (Instant::now(), total));
+            .insert(cache_key, (Instant::now(), total));
         Ok(total)
     }
 
-    async fn compute_cards_for_deck_prefix(&self, deck_prefix: &str) -> Result<i32> {
-        let categories = self.storage_repo.list_categories().await?;
+    async fn compute_cards_for_deck_prefix(
+        &self,
+        deck_prefix: &str,
+        course_direction: &str,
+    ) -> Result<i32> {
+        let normalized_direction = normalize_course_direction(Some(course_direction));
+        let categories = self
+            .storage_repo
+            .list_categories_for_direction(normalized_direction)
+            .await?;
         let mut total = 0_i32;
 
         for category in categories {
             let decks = self
                 .storage_repo
-                .list_decks(&category)
+                .list_decks_for_direction(normalized_direction, &category)
                 .await
                 .unwrap_or_default();
             let matching_decks: Vec<String> = decks
@@ -401,7 +528,7 @@ impl DeckUseCases {
                 let category_name = category_name.clone();
                 async move {
                     storage_repo
-                        .get_deck_data(&category_name, &deck)
+                        .get_deck_data_for_direction(normalized_direction, &category_name, &deck)
                         .await
                         .map(|data| data.flashcards().len() as i32)
                         .unwrap_or(0)
@@ -417,21 +544,30 @@ impl DeckUseCases {
         Ok(total)
     }
 
-    pub async fn get_learning_stats(&self, user_id: &str) -> Result<LearningStats> {
-        let mastered_count = self.db_repo.count_learned_cards(user_id).await?;
+    pub async fn get_learning_stats(
+        &self,
+        user_id: &str,
+        course_direction: &str,
+    ) -> Result<LearningStats> {
+        let normalized_direction = normalize_course_direction(Some(course_direction));
         let mut free_levels = Vec::new();
         let mut cumulative_target = 0_i32;
         let mut cumulative_mastered = 0_i32;
+        let mut mastered_count = 0_i32;
 
         for &(level, deck_prefix, premium) in LEARNING_LEVEL_DECKS {
-            let target_count = self.count_cards_for_deck_prefix(deck_prefix).await?;
+            let namespaced_prefix = progress_deck_prefix_key(normalized_direction, deck_prefix);
+            let target_count = self
+                .count_cards_for_deck_prefix(deck_prefix, normalized_direction)
+                .await?;
             let mastered_for_level = self
                 .db_repo
-                .count_learned_cards_by_deck_prefix(user_id, deck_prefix)
+                .count_learned_cards_by_deck_prefix(user_id, &namespaced_prefix)
                 .await?
                 .clamp(0, target_count.max(0));
             cumulative_target += target_count;
             cumulative_mastered += mastered_for_level;
+            mastered_count += mastered_for_level;
             free_levels.push(LearningLevelStats {
                 level: level.to_string(),
                 mastered_count: mastered_for_level,

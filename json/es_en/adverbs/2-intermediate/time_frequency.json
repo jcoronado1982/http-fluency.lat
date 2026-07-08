@@ -1,0 +1,200 @@
+[
+  {
+    "name": "recently",
+    "phonetic": "/ˈriːsəntli/",
+    "spoken_phonetic_us": "/ˈriːsəntli/",
+    "search_term": "adverb/time",
+    "is_verb": false,
+    "learned": false,
+    "force_generation": false,
+    "group_name": "Adverbs: Time",
+    "definitions": [
+      {
+        "meaning": "Recientemente / Hace poco",
+        "usage_example": "I saw him recently.",
+        "pronunciation_guide_es": "/ai_SO_him_RI-sent-li/",
+        "usage_example_es": "Lo vi recientemente.",
+        "char_count": "4",
+        "usage_context_en": "At a recent time; not long ago.",
+        "usage_context_es": "En un tiempo reciente; no hace mucho."
+      }
+    ]
+  },
+  {
+    "name": "eventually",
+    "phonetic": "/ɪˈvɛntʃuəli/",
+    "spoken_phonetic_us": "/ɪˈvɛntʃuəli/",
+    "search_term": "adverb/time",
+    "is_verb": false,
+    "learned": false,
+    "force_generation": false,
+    "group_name": "Adverbs: Time",
+    "definitions": [
+      {
+        "meaning": "Finalmente / Al final",
+        "usage_example": "He eventually found his keys.",
+        "pronunciation_guide_es": "/hi_e-VEN-chu-a-li_FAUND_his_KIS/",
+        "usage_example_es": "Él finalmente encontró sus llaves.",
+        "char_count": "5",
+        "usage_context_en": "In the end, especially after a long time or much effort.",
+        "usage_context_es": "Al final, especialmente después de mucho tiempo o mucho esfuerzo."
+      }
+    ]
+  },
+  {
+    "name": "forever",
+    "phonetic": "/fərˈɛvər/",
+    "spoken_phonetic_us": "/fərˈɛvər/",
+    "search_term": "adverb/time",
+    "is_verb": false,
+    "learned": false,
+    "force_generation": false,
+    "group_name": "Adverbs: Time",
+    "definitions": [
+      {
+        "meaning": "Para siempre",
+        "usage_example": "I will love you forever.",
+        "pronunciation_guide_es": "/ai_uil_LOV_iu_for-E-ver/",
+        "usage_example_es": "Te amaré para siempre.",
+        "char_count": "5",
+        "usage_context_en": "For all future time; for eternity.",
+        "usage_context_es": "Por todo el tiempo futuro; por la eternidad."
+      }
+    ]
+  },
+  {
+    "name": "finally",
+    "phonetic": "/ˈfaɪnəli/",
+    "spoken_phonetic_us": "/ˈfaɪnəli/",
+    "search_term": "adverb/time/sequence",
+    "is_verb": false,
+    "learned": false,
+    "force_generation": false,
+    "group_name": "Adverbs: Time",
+    "definitions": [
+      {
+        "meaning": "Por último / Finalmente (secuencia)",
+        "usage_example": "First, mix the flour. Finally, bake the cake.",
+        "pronunciation_guide_es": "/FIRST_miks_de_FLAUR_FAI-na-li_BEIK_de_KEIK/",
+        "usage_example_es": "Primero, mezcla la harina. Por último, hornea el pastel.",
+        "char_count": "7",
+        "usage_context_en": "Used to introduce the last item in a sequence.",
+        "usage_context_es": "Usado para introducir el último ítem en una secuencia."
+      },
+      {
+        "meaning": "Por fin / Finalmente (resultado)",
+        "usage_example": "After three hours, he finally arrived.",
+        "pronunciation_guide_es": "/AF-ter_ZRI_AU-ers_hi_FAI-na-li_a-RAIVD/",
+        "usage_example_es": "Después de tres horas, por fin llegó.",
+        "char_count": "6",
+        "usage_context_en": "After a long time, typically after difficulty or delay.",
+        "usage_context_es": "Después de mucho tiempo, típicamente después de dificultad o retraso."
+      }
+    ]
+  },
+  {
+    "name": "rarely",
+    "phonetic": "/ˈrɛərli/",
+    "spoken_phonetic_us": "/ˈrɛrli/",
+    "search_term": "adverb/frequency",
+    "is_verb": false,
+    "learned": false,
+    "force_generation": false,
+    "group_name": "Adverbs: Frequency",
+    "definitions": [
+      {
+        "meaning": "Rara vez / Casi nunca",
+        "usage_example": "He rarely goes to the cinema.",
+        "pronunciation_guide_es": "/hi_RER-li_GOUS_tu_de_SI-ne-ma/",
+        "usage_example_es": "Él rara vez va al cine.",
+        "char_count": "6",
+        "usage_context_en": "Not often; seldom (approx. 5-10% of the time).",
+        "usage_context_es": "No a menudo; pocas veces (aprox. 5-10% del tiempo)."
+      }
+    ]
+  },
+  {
+    "name": "generally",
+    "phonetic": "/ˈdʒɛnərəli/",
+    "spoken_phonetic_us": "/ˈdʒɛnərəli/",
+    "search_term": "adverb/frequency",
+    "is_verb": false,
+    "learned": false,
+    "force_generation": false,
+    "group_name": "Adverbs: Frequency",
+    "definitions": [
+      {
+        "meaning": "Generalmente / Por lo general",
+        "usage_example": "I generally wake up early.",
+        "pronunciation_guide_es": "/ai_YE-ne-ra-li_UEIK_OP_ER-li/",
+        "usage_example_es": "Generalmente me despierto temprano.",
+        "char_count": 5,
+        "usage_context_en": "Usually; in most cases.",
+        "usage_context_es": "Usualmente; en la mayoría de los casos."
+      }
+    ]
+  },
+  {
+    "name": "normally",
+    "phonetic": "/ˈnɔːməli/",
+    "spoken_phonetic_us": "/ˈnɔrməli/",
+    "search_term": "adverb/frequency",
+    "is_verb": false,
+    "learned": false,
+    "force_generation": false,
+    "group_name": "Adverbs: Frequency",
+    "definitions": [
+      {
+        "meaning": "Normalmente",
+        "usage_example": "I normally take the bus.",
+        "pronunciation_guide_es": "/ai_NOR-ma-li_TEIK_de_BOS/",
+        "usage_example_es": "Normalmente tomo el autobús.",
+        "char_count": 5,
+        "usage_context_en": "Under normal or usual conditions; typically.",
+        "usage_context_es": "Bajo condiciones normales o usuales; típicamente."
+      }
+    ]
+  },
+  {
+    "name": "frequently",
+    "phonetic": "/ˈfriːkwəntli/",
+    "spoken_phonetic_us": "/ˈfriːkwəntli/",
+    "search_term": "adverb/frequency",
+    "is_verb": false,
+    "learned": false,
+    "force_generation": false,
+    "group_name": "Adverbs: Frequency",
+    "definitions": [
+      {
+        "meaning": "Frecuentemente / A menudo",
+        "usage_example": "We frequently visit this park.",
+        "pronunciation_guide_es": "/ui_FRI-cuent-li_VI-sit_dis_PARK/",
+        "usage_example_es": "Visitamos este parque frecuentemente.",
+        "char_count": 5,
+        "usage_context_en": "Regularly or habitually; often.",
+        "usage_context_es": "Regularmente o habitualmente; a menudo."
+      }
+    ]
+  },
+  {
+    "name": "commonly",
+    "phonetic": "/ˈkɒmənli/",
+    "spoken_phonetic_us": "/ˈkɑmənli/",
+    "search_term": "adverb/frequency",
+    "is_verb": false,
+    "learned": false,
+    "force_generation": false,
+    "group_name": "Adverbs: Frequency",
+    "definitions": [
+      {
+        "meaning": "Comúnmente / Habitualmente",
+        "usage_example": "This is a commonly used phrase.",
+        "pronunciation_guide_es": "/dis_is_a_CO-mon-li_IUSD_FREIS/",
+        "usage_example_es": "Esta es una frase comúnmente usada.",
+        "char_count": 6,
+        "usage_context_en": "Very often; by most people.",
+        "usage_context_es": "Muy a menudo; por la mayoría de la gente."
+      }
+    ]
+  }
+]

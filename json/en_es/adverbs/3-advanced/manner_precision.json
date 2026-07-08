@@ -1,0 +1,181 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Deliberadamente / A propósito",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "adverb/manner",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "deliberately",
+                "usage_example": "Él rompió el vaso a propósito.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "He deliberately broke the glass.",
+                "char_count": 5,
+                "usage_context_en": "Consciously and intentionally; on purpose.",
+                "usage_context_es": "Consciente e intencionalmente; a propósito.",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Adverbs: Manner",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Precisamente / Exactamente",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "adverb/manner/degree",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "precisely",
+                "usage_example": "La reunión empieza a las 9 AM precisamente.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "The meeting starts at 9 AM precisely.",
+                "char_count": 7,
+                "usage_context_en": "In an exact way; exactly.",
+                "usage_context_es": "De manera exacta; exactamente.",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Adverbs: Manner",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Literalmente (al pie de la letra)",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "adverb/manner/emphasis",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "literally",
+                "usage_example": "Traduje literalmente el texto palabra por palabra.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "I literally translated the text word for word.",
+                "char_count": 7,
+                "usage_context_en": "In the exact, literal sense of the words.",
+                "usage_context_es": "En el sentido exacto y literal de las palabras.",
+                "imagePath": ""
+            },
+            {
+                "meaning": "literally (def 2)",
+                "usage_example": "Estaba tan asustado que literalmente me congelé.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "I was so scared, I literally froze.",
+                "char_count": 6,
+                "usage_context_en": "Used informally to add strong emphasis (even if not 100% true).",
+                "usage_context_es": "Usado informalmente para añadir un fuerte énfasis (incluso si no es 100% real).",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Adverbs: Manner",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Específicamente / En concreto",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "adverb/manner/focus",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "specifically",
+                "usage_example": "Pedí específicamente uno verde.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "I specifically asked for a green one.",
+                "char_count": 7,
+                "usage_context_en": "In a way that is exact and detailed.",
+                "usage_context_es": "De una manera que es exacta y detallada.",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Adverbs: Manner",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Técnicamente / En teoría",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "adverb/sentence/manner",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "technically",
+                "usage_example": "Técnicamente, un tomate es una fruta.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Technically, a tomato is a fruit.",
+                "char_count": 6,
+                "usage_context_en": "According to the exact facts or a strict interpretation.",
+                "usage_context_es": "Según los hechos exactos o una interpretación estricta.",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Adverbs: Manner",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Francamente / Sinceramente",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "adverb/sentence/manner",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "frankly",
+                "usage_example": "Francamente, no me importa.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Frankly, I don't care.",
+                "char_count": 4,
+                "usage_context_en": "In an open, honest, and direct manner.",
+                "usage_context_es": "De una manera abierta, honesta y directa.",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Adverbs: Manner",
+        "category": ""
+    }
+]

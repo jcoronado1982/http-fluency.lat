@@ -23,7 +23,7 @@
 use super::context::BatchFilter;
 use super::context::BatchSettings;
 use crate::audio_use_cases::{AudioSynthRequest, AudioUseCases};
-use crate::{safe_deck_prefix, DeckUseCases};
+use crate::{safe_deck_prefix, DeckUseCases, DEFAULT_COURSE_DIRECTION};
 use fluency_core::domain::models::flashcard::Flashcard;
 use std::collections::HashSet;
 use std::io::{stdout, Write};
@@ -99,7 +99,7 @@ async fn run_batch_audio(
             process_phonics(&deck, &settings, &batch_audio, &mut stats, &failures_log).await?;
     }
 
-    let mut categories = deck.list_categories().await?;
+    let mut categories = deck.list_categories(DEFAULT_COURSE_DIRECTION).await?;
     if let Some(ref cat) = filter.category {
         if cat == PHONICS_CATEGORY {
             categories.clear();
@@ -126,7 +126,9 @@ async fn run_batch_audio(
         println!("\n📂 CATEGORÍA: {cat_name}");
         let _ = stdout().flush();
 
-        let mut decks = deck.list_decks(&cat_name).await?;
+        let mut decks = deck
+            .list_decks(&cat_name, DEFAULT_COURSE_DIRECTION)
+            .await?;
         if let Some(ref deck) = filter.deck {
             let deck_file = if deck.ends_with(".json") {
                 deck.clone()
@@ -145,7 +147,10 @@ async fn run_batch_audio(
             println!("  📦 Mazo: {deck_id}");
             let _ = stdout().flush();
 
-            let audio_dir = format!("{}/{}/{}", settings.gcs_audio_prefix, cat_name, deck_id);
+            let audio_dir = format!(
+                "{}/{}/{}/{}",
+                settings.gcs_audio_prefix, DEFAULT_COURSE_DIRECTION, cat_name, deck_id
+            );
             let mut file_index: HashSet<String> = deck
                 .list_files_in_dir(&audio_dir)
                 .await?
@@ -157,7 +162,9 @@ async fn run_batch_audio(
             );
             let _ = stdout().flush();
 
-            let deck_data = deck.get_deck_json(&cat_name, &deck_name).await?;
+            let deck_data = deck
+                .get_deck_json(&cat_name, &deck_name, DEFAULT_COURSE_DIRECTION)
+                .await?;
             let card_count = deck_data.flashcards().len();
             println!("  🏷️  Procesando {card_count} tarjetas (solo frases EN)...");
             let _ = stdout().flush();
@@ -239,6 +246,7 @@ fn build_en_audio_request(
         verb_name,
         tone: None,
         lang: Some(EN_LANG.to_string()),
+        course_direction: Some(DEFAULT_COURSE_DIRECTION.to_string()),
         exclude_voice: None,
         force_regenerate: false,
     }
@@ -353,8 +361,8 @@ async fn process_phonics(
     }
 
     let audio_dir = format!(
-        "{}/{}/{}",
-        settings.gcs_audio_prefix, PHONICS_CATEGORY, PHONICS_DECK
+        "{}/{}/{}/{}",
+        settings.gcs_audio_prefix, DEFAULT_COURSE_DIRECTION, PHONICS_CATEGORY, PHONICS_DECK
     );
     let mut file_index: HashSet<String> = deck
         .list_files_in_dir(&audio_dir)

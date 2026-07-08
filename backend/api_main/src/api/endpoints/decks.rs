@@ -8,6 +8,10 @@ use axum::{
 };
 use serde::Deserialize;
 
+fn default_course_direction() -> String {
+    "es_en".to_string()
+}
+
 /// Un ítem dentro del lote de actualización de progreso.
 #[derive(Debug, Deserialize)]
 pub struct CardUpdateItem {
@@ -21,6 +25,8 @@ pub struct UpdateBatchRequest {
     pub user_id: String,
     pub category: String,
     pub deck: String,
+    #[serde(default = "default_course_direction")]
+    pub course_direction: String,
     pub cards: Vec<CardUpdateItem>,
 }
 
@@ -32,6 +38,8 @@ pub struct UpdateStatusRequest {
     pub deck: String,
     pub index: usize,
     pub learned: bool,
+    #[serde(default = "default_course_direction")]
+    pub course_direction: String,
 }
 
 /// HTTP request DTO — lives in the API layer, not in domain.
@@ -40,6 +48,8 @@ pub struct ResetRequest {
     pub user_id: String,
     pub category: String,
     pub deck: String,
+    #[serde(default = "default_course_direction")]
+    pub course_direction: String,
     #[serde(default)]
     pub scope: Option<String>,
     #[serde(default)]
@@ -48,6 +58,8 @@ pub struct ResetRequest {
 
 #[derive(Deserialize)]
 pub struct CategoryQuery {
+    #[serde(default = "default_course_direction")]
+    pub course_direction: String,
     pub category: String,
 }
 
@@ -56,6 +68,14 @@ pub struct DeckQuery {
     pub user_id: String,
     pub category: String,
     pub deck: String,
+    #[serde(default = "default_course_direction")]
+    pub course_direction: String,
+}
+
+#[derive(Default, Deserialize)]
+pub struct CourseDirectionQuery {
+    #[serde(default = "default_course_direction")]
+    pub course_direction: String,
 }
 
 /// POST /api/update-batch — persiste hasta BATCH_SIZE tarjetas en una sola petición.
@@ -86,7 +106,13 @@ pub async fn update_cards_batch(
     let pairs: Vec<(usize, bool)> = payload.cards.iter().map(|c| (c.index, c.learned)).collect();
     match state
         .deck_use_cases
-        .update_cards_batch(&payload.user_id, &payload.category, &payload.deck, &pairs)
+        .update_cards_batch(
+            &payload.user_id,
+            &payload.category,
+            &payload.deck,
+            &pairs,
+            &payload.course_direction,
+        )
         .await
     {
         Ok(_) => Ok((
@@ -98,8 +124,15 @@ pub async fn update_cards_batch(
     }
 }
 
-pub async fn get_categories(State(state): State<AppState>) -> impl IntoResponse {
-    match state.deck_use_cases.list_categories_with_counts().await {
+pub async fn get_categories(
+    State(state): State<AppState>,
+    Query(query): Query<CourseDirectionQuery>,
+) -> impl IntoResponse {
+    match state
+        .deck_use_cases
+        .list_categories_with_counts(&query.course_direction)
+        .await
+    {
         Ok(categories) => {
             (
                 StatusCode::OK,
@@ -119,7 +152,11 @@ pub async fn get_available_decks(
     State(state): State<AppState>,
     Query(query): Query<CategoryQuery>,
 ) -> impl IntoResponse {
-    match state.deck_use_cases.list_decks(&query.category).await {
+    match state
+        .deck_use_cases
+        .list_decks(&query.category, &query.course_direction)
+        .await
+    {
         Ok(decks) => {
             let active_file = decks.first().cloned().unwrap_or_default();
             (StatusCode::OK, Json(serde_json::json!({ "success": true, "files": decks, "active_file": active_file }))).into_response()
@@ -146,7 +183,12 @@ pub async fn get_deck_data(
     }
     match state
         .deck_use_cases
-        .get_deck_data(&query.user_id, &query.category, &query.deck)
+        .get_deck_data(
+            &query.user_id,
+            &query.category,
+            &query.deck,
+            &query.course_direction,
+        )
         .await
     {
         Ok(data) => Ok((StatusCode::OK, Json(data)).into_response()),
@@ -166,7 +208,14 @@ pub async fn update_card_status(
             "No autorizado para modificar el progreso de otro usuario".to_string(),
         ));
     }
-    match state.deck_use_cases.update_card_status(&payload.user_id, &payload.category, &payload.deck, payload.index, payload.learned).await {
+    match state.deck_use_cases.update_card_status(
+        &payload.user_id,
+        &payload.category,
+        &payload.deck,
+        payload.index,
+        payload.learned,
+        &payload.course_direction,
+    ).await {
         Ok(_) => Ok((StatusCode::OK, Json(serde_json::json!({ "success": true, "message": format!("Tarjeta {} actualizada.", payload.index) }))).into_response()),
         Err(e) => Err((StatusCode::INTERNAL_SERVER_ERROR, e.to_string())),
     }
@@ -195,12 +244,17 @@ pub async fn reset_all_statuses(
     let reset_result = if payload.scope.as_deref() == Some("category") {
         state
             .deck_use_cases
-            .reset_category_status(&payload.user_id, &payload.category)
+            .reset_category_status(&payload.user_id, &payload.category, &payload.course_direction)
             .await
     } else {
         state
             .deck_use_cases
-            .reset_deck_status(&payload.user_id, &payload.category, &payload.deck)
+            .reset_deck_status(
+                &payload.user_id,
+                &payload.category,
+                &payload.deck,
+                &payload.course_direction,
+            )
             .await
     };
 
@@ -224,9 +278,14 @@ pub async fn get_phonics_data(State(state): State<AppState>) -> impl IntoRespons
 pub async fn get_learning_stats(
     State(state): State<AppState>,
     headers: axum::http::HeaderMap,
+    Query(query): Query<CourseDirectionQuery>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
     let claims = extract_claims(&state, &headers)?;
-    match state.deck_use_cases.get_learning_stats(&claims.email).await {
+    match state
+        .deck_use_cases
+        .get_learning_stats(&claims.email, &query.course_direction)
+        .await
+    {
         Ok(stats) => Ok((
             StatusCode::OK,
             Json(serde_json::json!({ "success": true, "stats": stats })),

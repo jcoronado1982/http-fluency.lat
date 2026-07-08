@@ -2,8 +2,12 @@ import { API_URL } from '../config/api';
 import { httpClient } from '../services/httpClient';
 
 export function createAudioHttpAdapter(http) {
+    const normalizeCourseDirection = (courseDirection) => (
+        courseDirection === 'en_es' ? 'en_es' : 'es_en'
+    );
+
     return {
-    resolve: async ({ category, deck, text, verbName, lang }) => {
+    resolve: async ({ category, deck, text, verbName, lang, courseDirection }) => {
         const data = await http.post('/api/resolve-audio', {
             category,
             deck,
@@ -12,12 +16,13 @@ export function createAudioHttpAdapter(http) {
             tone: '',
             verb_name: verbName,
             lang: lang || 'en',
+            course_direction: normalizeCourseDirection(courseDirection),
         });
         if (!data.audio_url) throw new Error('No audio_url in response');
         return data;
     },
 
-    synthesize: async ({ category, deck, text, verbName, lang, excludeVoice, forceRegenerate }) => {
+    synthesize: async ({ category, deck, text, verbName, lang, excludeVoice, forceRegenerate, courseDirection }) => {
         const data = await http.post('/api/synthesize-speech', {
             category,
             deck,
@@ -26,6 +31,7 @@ export function createAudioHttpAdapter(http) {
             tone: '',
             verb_name: verbName,
             lang: lang || 'en',
+            course_direction: normalizeCourseDirection(courseDirection),
             exclude_voice: excludeVoice || '',
             force_regenerate: !!forceRegenerate,
         });
@@ -33,7 +39,7 @@ export function createAudioHttpAdapter(http) {
         return data;
     },
 
-    rotate: async ({ category, deck, text, verbName, lang }) => {
+    rotate: async ({ category, deck, text, verbName, lang, courseDirection }) => {
         return http.post('/api/delete-audio', {
             category,
             deck,
@@ -42,6 +48,7 @@ export function createAudioHttpAdapter(http) {
             tone: '',
             verb_name: verbName,
             lang: lang || 'en',
+            course_direction: normalizeCourseDirection(courseDirection),
         });
     },
 

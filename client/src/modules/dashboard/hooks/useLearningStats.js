@@ -3,7 +3,7 @@ import { learningStatsPort } from '../composition';
 
 const LEARNING_STATS_TIMEOUT_MS = 8000;
 
-export function useLearningStats(isAuthenticated) {
+export function useLearningStats(isAuthenticated, courseDirection = 'es_en') {
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -18,7 +18,7 @@ export function useLearningStats(isAuthenticated) {
         setError(null);
         try {
             const result = await Promise.race([
-                learningStatsPort.fetchLearningStats(),
+                learningStatsPort.fetchLearningStats(courseDirection),
                 new Promise((_, reject) => {
                     window.setTimeout(() => {
                         reject(new Error('learning_stats_timeout'));
@@ -36,7 +36,7 @@ export function useLearningStats(isAuthenticated) {
         } finally {
             setLoading(false);
         }
-    }, [isAuthenticated]);
+    }, [courseDirection, isAuthenticated]);
 
     useEffect(() => {
         refresh();

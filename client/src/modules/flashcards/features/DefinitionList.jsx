@@ -1,4 +1,4 @@
-import { getAudioLang, isLearningEnglish } from './cardLanguageUtils';
+import { getAudioLang, getStudyExampleText, isLearningEnglish } from './cardLanguageUtils';
 import styles from './Flashcard.module.css';
 import HighlightedText from './HighlightedText';
 import { FaSpinner } from 'react-icons/fa';
@@ -21,9 +21,7 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
         <div className={styles.allExamplesContainer}>
             <ul>
                 {definitions?.map((def, di) => {
-                    const exampleText = isLearningEnglish(currentLanguage)
-                        ? def.usage_example
-                        : def.usage_example_es;
+                    const exampleText = getStudyExampleText(def, currentLanguage);
                     return (
                     <li key={di} className={styles.exampleRow}>
                         <button

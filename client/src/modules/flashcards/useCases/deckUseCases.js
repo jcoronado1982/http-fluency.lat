@@ -21,6 +21,9 @@ const LEVEL_ORDER = { basic: 1, intermediate: 2, advanced: 3 };
 
 const isAppStudyCategory = (name) => name && name !== LANDING_DEMO_CATEGORY;
 export const usesNestedLevelDecks = (category) => NESTED_LEVEL_CATEGORIES.includes(category);
+export const getCourseDirectionFromStudyLanguage = (studyLanguage) => (
+    studyLanguage === 'es' ? 'en_es' : 'es_en'
+);
 
 const normalizeDefinitions = (defs) =>
     (defs || []).map((def) => ({ ...def, imagePath: def.imagePath ?? null }));

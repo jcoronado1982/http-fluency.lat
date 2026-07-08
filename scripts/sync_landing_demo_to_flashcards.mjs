@@ -24,13 +24,13 @@ const demoImageNamespace = '/card_images/verbs/1-basic/demo-sync';
 const appDemoImageDir = path.join(appImageDir, 'demo-sync');
 
 const targetJsonFiles = [
-  path.join(repoRoot, 'json/verbs/1-basic.json'),
-  path.join(repoRoot, 'json/verbs/1-basic/action.json'),
-  path.join(repoRoot, 'json/verbs/1-basic/being_state.json'),
-  path.join(repoRoot, 'json/verbs/1-basic/communication.json'),
-  path.join(repoRoot, 'json/verbs/1-basic/movement.json'),
-  path.join(repoRoot, 'json/verbs/1-basic/possession_exchange.json'),
-  path.join(repoRoot, 'json/verbs/1-basic/thinking.json'),
+  path.join(repoRoot, 'json/en_es/verbs/1-basic.json'),
+  path.join(repoRoot, 'json/en_es/verbs/1-basic/action.json'),
+  path.join(repoRoot, 'json/en_es/verbs/1-basic/being_state.json'),
+  path.join(repoRoot, 'json/en_es/verbs/1-basic/communication.json'),
+  path.join(repoRoot, 'json/en_es/verbs/1-basic/movement.json'),
+  path.join(repoRoot, 'json/en_es/verbs/1-basic/possession_exchange.json'),
+  path.join(repoRoot, 'json/en_es/verbs/1-basic/thinking.json'),
 ];
 const baselineDir = path.join(repoRoot, '.tmp/baseline-verbs-1-basic');
 

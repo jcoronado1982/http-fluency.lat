@@ -228,6 +228,7 @@ export default function FlashcardOnboardingTour() {
     const location = useLocation();
     const { setIsCatalogVisible } = useFlashcardUiContext();
     const isOnboardingTour = new URLSearchParams(location.search).get('onboarding_tour') === 'flashcards';
+    const { studyLanguage = 'en' } = useUIContext();
     const locale = language === 'es' ? 'es' : 'en';
     const copy = ONBOARDING_NAV_PLAN[locale];
 
@@ -300,9 +301,9 @@ export default function FlashcardOnboardingTour() {
 
     useEffect(() => {
         if (!isOnboardingTour || !user?.email) return undefined;
-        void preloadFlashcardStart(user.email);
+        void preloadFlashcardStart(user.email, null, studyLanguage);
         return undefined;
-    }, [isOnboardingTour, user?.email]);
+    }, [isOnboardingTour, studyLanguage, user?.email]);
 
     const [viewport, setViewport] = useState({
         width: typeof window === 'undefined' ? 1280 : window.innerWidth,

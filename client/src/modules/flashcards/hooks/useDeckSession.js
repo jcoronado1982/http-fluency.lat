@@ -9,6 +9,7 @@ import { getFlashcardTranslations } from '../config/translations';
 import { markUserNavigation } from '../navigationIntent';
 import {
     filterUnlearned,
+    getCourseDirectionFromStudyLanguage,
     getLevelFromDeckName,
     normalizeDeckResponse,
     resolvePersistedChoice,
@@ -124,10 +125,11 @@ function removeStoredProgressCards(context, indexes) {
 export function useDeckSession(resumeSession = null) {
     const { currentCategory } = useCategoryContext();
     const { setIsCatalogVisible } = useFlashcardUiContext();
-    const { setAppMessage, language = 'en' } = useUIContext();
+    const { setAppMessage, language = 'en', studyLanguage = 'en' } = useUIContext();
     const { confirm } = useDialog();
     const controlsCopy = getFlashcardTranslations(language).controls;
     const { isAuthenticated, user } = useAuth();
+    const courseDirection = getCourseDirectionFromStudyLanguage(studyLanguage);
 
     const [masterData, setMasterData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
@@ -169,11 +171,12 @@ export function useDeckSession(resumeSession = null) {
             };
 
             const preloaded = await raceWithTimeout(
-                consumeFlashcardPreload(user.email),
+                consumeFlashcardPreload(user.email, null, studyLanguage),
                 PRELOAD_TIMEOUT_MS,
             );
             if (
-                preloaded?.category === category
+                preloaded?.courseDirection === courseDirection
+                && preloaded?.category === category
                 && preloaded?.deck === deck
                 && Array.isArray(preloaded.deckData)
                 && preloaded.deckData.length > 0
@@ -182,14 +185,14 @@ export function useDeckSession(resumeSession = null) {
                 return;
             }
 
-            const data = await flashcardPort.fetchDeckData(user.email, category, deck);
+            const data = await flashcardPort.fetchDeckData(user.email, category, deck, courseDirection);
             const normalized = normalizeDeckResponse(data);
             if (normalized.length === 0) {
                 throw new Error(`Deck vacío: ${category}/${deck}`);
             }
             applyLoadedDeck(normalized);
         } catch (err) {
-            console.error('Error al cargar tarjetas:', { category, deck, error: err });
+            console.error('Error al cargar tarjetas:', { category, deck, courseDirection, error: err });
             const message = String(err?.message || '');
             const isRecoverableDeckError = message.includes('Deck vacío')
                 || message.includes('not found')
@@ -209,7 +212,7 @@ export function useDeckSession(resumeSession = null) {
             setLoadingStage(null);
             setIsDeckLoading(false);
         }
-    }, [deckNames, setAppMessage, summarizeDeck, user?.email]);
+    }, [courseDirection, deckNames, setAppMessage, summarizeDeck, user?.email]);
 
     useEffect(() => {
         setCurrentDeckName(null);
@@ -241,11 +244,12 @@ export function useDeckSession(resumeSession = null) {
             setLoadingStage('loading_decks');
             try {
                 const preloaded = await raceWithTimeout(
-                    consumeFlashcardPreload(user?.email, resumeSession),
+                    consumeFlashcardPreload(user?.email, resumeSession, studyLanguage),
                     PRELOAD_TIMEOUT_MS,
                 );
                 if (
-                    preloaded?.category === currentCategory
+                    preloaded?.courseDirection === courseDirection
+                    && preloaded?.category === currentCategory
                     && Array.isArray(preloaded.deckNames)
                     && preloaded.deckNames.length > 0
                 ) {
@@ -263,7 +267,7 @@ export function useDeckSession(resumeSession = null) {
                     return;
                 }
 
-                const result = await flashcardPort.fetchDecksForCategory(currentCategory);
+                const result = await flashcardPort.fetchDecksForCategory(currentCategory, courseDirection);
                 if (result.success && Array.isArray(result.files)) {
                     const names = sortDeckNames(result.files, currentCategory);
                     setDeckNames(names);
@@ -287,7 +291,7 @@ export function useDeckSession(resumeSession = null) {
             }
         };
         loadDecks();
-    }, [currentCategory, setAppMessage, isAuthenticated, resumeSession, user?.email]);
+    }, [courseDirection, currentCategory, setAppMessage, isAuthenticated, resumeSession, user?.email]);
 
     useEffect(() => {
         if (
@@ -323,7 +327,12 @@ export function useDeckSession(resumeSession = null) {
                         return [deckName, summarizeDeck(masterData)];
                     }
 
-                    const data = await flashcardPort.fetchDeckData(user.email, currentCategory, deckName);
+                    const data = await flashcardPort.fetchDeckData(
+                        user.email,
+                        currentCategory,
+                        deckName,
+                        courseDirection,
+                    );
                     const normalized = normalizeDeckResponse(data);
                     return [deckName, summarizeDeck(normalized)];
                 }),
@@ -355,6 +364,7 @@ export function useDeckSession(resumeSession = null) {
         deckSummaries,
         isAuthenticated,
         masterData,
+        courseDirection,
         summarizeDeck,
         user?.email,
     ]);
@@ -440,7 +450,7 @@ export function useDeckSession(resumeSession = null) {
         persistProgressBatch({ category, deck, userId }, cards);
 
         try {
-            await flashcardPort.updateCardsBatch(userId, category, deck, cards);
+            await flashcardPort.updateCardsBatch(userId, category, deck, cards, courseDirection);
             removeStoredProgressBatch({ category, deck, userId });
         } catch (err) {
             cards.forEach((card) => {
@@ -450,7 +460,7 @@ export function useDeckSession(resumeSession = null) {
                 setAppMessage({ text: `Error al guardar progreso: ${err.message}`, isError: true });
             }
         }
-    }, [setAppMessage]);
+    }, [courseDirection, setAppMessage]);
 
     /**
      * Versión fire-and-forget para beforeunload (no puede usar async/await).
@@ -478,14 +488,20 @@ export function useDeckSession(resumeSession = null) {
             fetch(`${apiBase}/api/update-batch`, {
                 method: 'POST',
                 headers,
-                body: JSON.stringify({ user_id: userId, category, deck, cards }),
+                body: JSON.stringify({
+                    user_id: userId,
+                    category,
+                    deck,
+                    cards,
+                    course_direction: courseDirection,
+                }),
                 keepalive: true,
                 credentials: 'include',
             });
         } catch (_) {
             // No podemos hacer nada en beforeunload
         }
-    }, []);
+    }, [courseDirection]);
 
     useEffect(() => {
         if (!isAuthenticated || !user?.email) return;
@@ -496,7 +512,13 @@ export function useDeckSession(resumeSession = null) {
             for (const batch of batches) {
                 if (cancelled) return;
                 try {
-                    await flashcardPort.updateCardsBatch(batch.userId, batch.category, batch.deck, batch.cards);
+                    await flashcardPort.updateCardsBatch(
+                        batch.userId,
+                        batch.category,
+                        batch.deck,
+                        batch.cards,
+                        courseDirection,
+                    );
                     removeStoredProgressBatch(batch);
                 } catch {
                     return;
@@ -508,7 +530,7 @@ export function useDeckSession(resumeSession = null) {
         return () => {
             cancelled = true;
         };
-    }, [isAuthenticated, user?.email]);
+    }, [courseDirection, isAuthenticated, user?.email]);
 
     const changeDeck = (newDeck) => {
         markUserNavigation();
@@ -571,7 +593,12 @@ export function useDeckSession(resumeSession = null) {
         });
 
         try {
-            await flashcardPort.resetCategoryStatus(user.email, currentCategory, currentDeckName);
+            await flashcardPort.resetCategoryStatus(
+                user.email,
+                currentCategory,
+                currentDeckName,
+                courseDirection,
+            );
             resetFlashcardPreload(user.email);
             const resetCards = masterData.map((card) => ({ ...card, learned: false }));
             setMasterData(resetCards);
@@ -621,6 +648,7 @@ export function useDeckSession(resumeSession = null) {
                         currentDeckName,
                         card.id,
                         false,
+                        courseDirection,
                     ),
                 ),
             );

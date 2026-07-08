@@ -4,10 +4,39 @@ use async_trait::async_trait;
 
 #[async_trait]
 pub trait StorageRepository: Send + Sync {
-    async fn list_categories(&self) -> Result<Vec<String>>;
-    async fn list_decks(&self, category: &str) -> Result<Vec<String>>;
-    async fn get_deck_data(&self, category: &str, deck_name: &str) -> Result<DeckData>;
-    async fn save_deck_data(&self, category: &str, deck_name: &str, data: &DeckData) -> Result<()>;
+    async fn list_categories_for_direction(&self, course_direction: &str) -> Result<Vec<String>>;
+    async fn list_decks_for_direction(
+        &self,
+        course_direction: &str,
+        category: &str,
+    ) -> Result<Vec<String>>;
+    async fn get_deck_data_for_direction(
+        &self,
+        course_direction: &str,
+        category: &str,
+        deck_name: &str,
+    ) -> Result<DeckData>;
+    async fn save_deck_data_for_direction(
+        &self,
+        course_direction: &str,
+        category: &str,
+        deck_name: &str,
+        data: &DeckData,
+    ) -> Result<()>;
+    async fn list_categories(&self) -> Result<Vec<String>> {
+        self.list_categories_for_direction("es_en").await
+    }
+    async fn list_decks(&self, category: &str) -> Result<Vec<String>> {
+        self.list_decks_for_direction("es_en", category).await
+    }
+    async fn get_deck_data(&self, category: &str, deck_name: &str) -> Result<DeckData> {
+        self.get_deck_data_for_direction("es_en", category, deck_name)
+            .await
+    }
+    async fn save_deck_data(&self, category: &str, deck_name: &str, data: &DeckData) -> Result<()> {
+        self.save_deck_data_for_direction("es_en", category, deck_name, data)
+            .await
+    }
     async fn get_phonics_data(&self) -> Result<serde_json::Value>;
     async fn download_blob(&self, blob_path: &str) -> Result<Vec<u8>>;
     async fn upload_blob(

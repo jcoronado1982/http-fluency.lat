@@ -1,6 +1,8 @@
 import { useState, useCallback, useRef } from 'react';
 import { useStudyMediaContext } from '../StudyMediaContext';
 import { resolveStudyMediaNamespace } from '../../../contracts/studyMediaVariants';
+import { useUIContext } from '../../../context/UIContext';
+import { getCourseDirectionFromStudyLanguage } from '../../../modules/flashcards/useCases/deckUseCases';
 
 const MAX_ATTEMPTS = 3;
 const RETRY_DELAY  = 5000;
@@ -99,11 +101,13 @@ export function useAudioPlayback({
     verbName,
 }) {
     const { audioPort, mediaVariant, isLandingDemoMedia } = useStudyMediaContext();
+    const { studyLanguage = 'en' } = useUIContext();
     const { category: currentCategory, deck: currentDeckName } = resolveStudyMediaNamespace(
         mediaVariant,
         categoryFromContext,
         deckFromContext,
     );
+    const courseDirection = getCourseDirectionFromStudyLanguage(studyLanguage);
     const [isAudioPlaying, setIsAudioPlaying] = useState(false);
     const [activeAudioText, setActiveAudioText] = useState(null);
     const [activeVoiceName, setActiveVoiceName] = useState(null);
@@ -198,6 +202,7 @@ export function useAudioPlayback({
                     text: originalText,
                     verbName: finalVerbName,
                     lang,
+                    courseDirection,
                     excludeVoice,
                     forceRegenerate: true,
                 });
@@ -210,6 +215,7 @@ export function useAudioPlayback({
                     text: originalText,
                     verbName: finalVerbName,
                     lang,
+                    courseDirection,
                 });
             } catch (err) {
                 const is404 = String(err?.message || '').includes('404');
@@ -220,6 +226,7 @@ export function useAudioPlayback({
                     text: originalText,
                     verbName: finalVerbName,
                     lang,
+                    courseDirection,
                     excludeVoice,
                     forceRegenerate: false,
                 });
@@ -479,6 +486,7 @@ export function useAudioPlayback({
                     text: textToDelete,
                     verbName: finalVerbName,
                     lang,
+                    courseDirection,
                 });
                 previousVoice = rotateResult?.previous_voice || null;
             } catch (rotateErr) {
@@ -494,7 +502,7 @@ export function useAudioPlayback({
             console.error('Error rotating audio:', err);
             setAppMessage({ text: `Error al actualizar voz: ${err.message}`, isError: true });
         }
-    }, [audioPort, currentCategory, currentDeckName, verbName, setAppMessage, playAudio, invalidateCacheEntry]);
+    }, [audioPort, courseDirection, currentCategory, currentDeckName, verbName, setAppMessage, playAudio, invalidateCacheEntry]);
 
     return {
         playAudio,

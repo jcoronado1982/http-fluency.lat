@@ -1,0 +1,133 @@
+[
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": true,
+    "learned_at": null,
+    "name": "influence",
+    "phonetic": "/ˈɪnfluəns/",
+    "spoken_phonetic_us": "/ˈɪnfluəns/",
+    "search_term": "verb/affect/advanced",
+    "is_verb": true,
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Influir/Influenciar",
+        "usage_example": "His opinion influenced my decision.",
+        "pronunciation_guide_es": "/jis_oPINion_INfluenst_mai_deSIshon/",
+        "alternative_example": "Don't let others influence you too much.",
+        "usage_example_es": "Su opinión influyó en mi decisión.",
+        "char_count": "three",
+        "usage_context_en": "effect/decision",
+        "usage_context_es": "efecto/decisión",
+        "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_17_def0.avif"
+      }
+    ],
+    "group_name": "Influence & Change"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "migrate",
+    "phonetic": "/ˈmaɪɡreɪt/",
+    "spoken_phonetic_us": "/ˈmaɪɡreɪt/",
+    "search_term": "verb/movement/added",
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Migrar",
+        "usage_example": "Many birds migrate in winter.",
+        "pronunciation_guide_es": "",
+        "usage_example_es": "Muchas aves migran en invierno.",
+        "char_count": "5",
+        "usage_context_en": "To move from one region to another, often seasonally or permanently.",
+        "usage_context_es": "To move from one region to another, often seasonally or permanently.",
+        "imagePath": ""
+      }
+    ],
+    "is_verb": true,
+    "group_name": "Influence & Change"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "relocate",
+    "phonetic": "/ˌriːˈloʊkeɪt/",
+    "spoken_phonetic_us": "/ˌriːˈloʊkeɪt/",
+    "search_term": "verb/movement/added",
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Reubicarse / Trasladarse",
+        "usage_example": "The company will relocate next year.",
+        "pronunciation_guide_es": "",
+        "usage_example_es": "La empresa se trasladará el próximo año.",
+        "char_count": "6",
+        "usage_context_en": "To move to a new place.",
+        "usage_context_es": "To move to a new place.",
+        "imagePath": ""
+      }
+    ],
+    "is_verb": true,
+    "group_name": "Influence & Change"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "navigate",
+    "phonetic": "/ˈnævəˌɡeɪt/",
+    "spoken_phonetic_us": "/ˈnævəˌɡeɪt/",
+    "search_term": "verb/movement/added",
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Navegar / Orientarse",
+        "usage_example": "She learned to navigate the river safely.",
+        "pronunciation_guide_es": "",
+        "usage_example_es": "Ella aprendió a navegar el río con seguridad.",
+        "char_count": "7",
+        "usage_context_en": "To find or direct a route.",
+        "usage_context_es": "To find or direct a route.",
+        "imagePath": ""
+      }
+    ],
+    "is_verb": true,
+    "group_name": "Influence & Change"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "traverse",
+    "phonetic": "/trəˈvɝs/",
+    "spoken_phonetic_us": "/trəˈvɝs/",
+    "search_term": "verb/movement/added",
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Atravesar / Recorrer",
+        "usage_example": "They traversed the desert on foot.",
+        "pronunciation_guide_es": "",
+        "usage_example_es": "Atravesaron el desierto a pie.",
+        "char_count": "6",
+        "usage_context_en": "To travel across something.",
+        "usage_context_es": "To travel across something.",
+        "imagePath": ""
+      }
+    ],
+    "is_verb": true,
+    "group_name": "Influence & Change"
+  }
+]

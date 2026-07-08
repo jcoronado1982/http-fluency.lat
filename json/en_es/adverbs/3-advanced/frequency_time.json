@@ -1,0 +1,142 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Normalmente",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "adverb/frequency",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "normally",
+                "usage_example": "Normalmente tomo el autobús.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "I normally take the bus.",
+                "char_count": 5,
+                "usage_context_en": "Under normal or usual conditions; typically.",
+                "usage_context_es": "Bajo condiciones normales o usuales; típicamente.",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Adverbs: Frequency",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Frecuentemente / A menudo",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "adverb/frequency",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "frequently",
+                "usage_example": "Visitamos este parque frecuentemente.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "We frequently visit this park.",
+                "char_count": 5,
+                "usage_context_en": "Regularly or habitually; often.",
+                "usage_context_es": "Regularmente o habitualmente; a menudo.",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Adverbs: Frequency",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Comúnmente / Habitualmente",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "adverb/frequency",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "commonly",
+                "usage_example": "Esta es una frase comúnmente usada.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "This is a commonly used phrase.",
+                "char_count": 6,
+                "usage_context_en": "Very often; by most people.",
+                "usage_context_es": "Muy a menudo; por la mayoría de la gente.",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Adverbs: Frequency",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Constantemente",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "adverb/frequency/manner",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "constantly",
+                "usage_example": "Él está constantemente revisando su teléfono.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "He is constantly checking his phone.",
+                "char_count": 6,
+                "usage_context_en": "Continuously over a period of time; always.",
+                "usage_context_es": "Continuamente durante un período de tiempo; siempre.",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Adverbs: Frequency",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Mientras tanto",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "adverb/time",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "meanwhile",
+                "usage_example": "Tú prepara la cena. Mientras tanto, yo pondré la mesa.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "You cook dinner. Meanwhile, I will set the table.",
+                "char_count": 8,
+                "usage_context_en": "In the intervening period of time; at the same time.",
+                "usage_context_es": "En el período de tiempo intermedio; al mismo tiempo.",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Adverbs: Time",
+        "category": ""
+    }
+]

@@ -7,11 +7,11 @@ import { getAuthenticatedHomePath, getOnboardingModules } from '../modules';
 
 const OnboardingPage = () => {
     const navigate = useNavigate();
-    const { language = 'en' } = useUIContext();
+    const { language = 'en', studyLanguage = 'en' } = useUIContext();
     const { loading, isAuthenticated, onboardingRequired, completeOnboarding, user } = useAuth();
     const activeModules = useMemo(
-        () => getOnboardingModules(config, { language, user }),
-        [language, user],
+        () => getOnboardingModules(config, { language, studyLanguage, user }),
+        [language, studyLanguage, user],
     );
 
     useEffect(() => {
@@ -28,7 +28,8 @@ const OnboardingPage = () => {
     }
 
     const handleStartModule = async (path) => {
-        await completeOnboarding();
+        const completedUser = await completeOnboarding();
+        if (!completedUser?.onboarding_completed) return;
         navigate(path, { replace: true });
     };
 
@@ -39,7 +40,8 @@ const OnboardingPage = () => {
     };
 
     const handleSkipToHome = async () => {
-        await completeOnboarding();
+        const completedUser = await completeOnboarding();
+        if (!completedUser?.onboarding_completed) return;
         navigate(getAuthenticatedHomePath(config, []), { replace: true });
     };
 

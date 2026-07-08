@@ -1,0 +1,132 @@
+[
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "pollution",
+    "phonetic": "/pəˈluʃən/",
+    "spoken_phonetic_us": "/pəˈluʃən/",
+    "search_term": "noun/concept/essentials",
+    "is_verb": false,
+    "force_generation": false,
+    "group_name": "Nature & Environment",
+    "definitions": [
+      {
+        "meaning": "Contaminación",
+        "usage_example": "We need to reduce air pollution.",
+        "pronunciation_guide_es": "/ui_NID_tu_ri-DUS_ER_po-LU-shon/",
+        "usage_example_es": "Necesitamos reducir la contaminación del aire.",
+        "char_count": "6",
+        "usage_context_en": "The presence of harmful substances or contaminants in the environment.",
+        "usage_context_es": "La presencia de sustancias dañinas o contaminantes en el medio ambiente.",
+        "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_93_def0.avif"
+      }
+    ]
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "ecosystem",
+    "phonetic": "/ˈiːkoʊˌsɪstəm/",
+    "spoken_phonetic_us": "/ˈiːkoʊˌsɪstəm/",
+    "search_term": "noun/nature/added",
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Ecosistema",
+        "usage_example": "A forest is a complex ecosystem.",
+        "pronunciation_guide_es": "",
+        "usage_example_es": "Un bosque es un ecosistema complejo.",
+        "char_count": "6",
+        "usage_context_en": "A community of living things and their environment.",
+        "usage_context_es": "A community of living things and their environment.",
+        "imagePath": ""
+      }
+    ],
+    "is_verb": false,
+    "group_name": "Nature & Environment"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "biodiversity",
+    "phonetic": "/ˌbaɪoʊdaɪˈvɝsəti/",
+    "spoken_phonetic_us": "/ˌbaɪoʊdaɪˈvɝsəti/",
+    "search_term": "noun/nature/added",
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Biodiversidad",
+        "usage_example": "The park protects local biodiversity.",
+        "pronunciation_guide_es": "",
+        "usage_example_es": "El parque protege la biodiversidad local.",
+        "char_count": "5",
+        "usage_context_en": "The variety of plant and animal life in a place.",
+        "usage_context_es": "The variety of plant and animal life in a place.",
+        "imagePath": ""
+      }
+    ],
+    "is_verb": false,
+    "group_name": "Nature & Environment"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "sustainability",
+    "phonetic": "/səˌsteɪnəˈbɪləti/",
+    "spoken_phonetic_us": "/səˌsteɪnəˈbɪləti/",
+    "search_term": "noun/nature/added",
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Sostenibilidad",
+        "usage_example": "Sustainability is central to the policy.",
+        "pronunciation_guide_es": "",
+        "usage_example_es": "La sostenibilidad es central en la política.",
+        "char_count": "6",
+        "usage_context_en": "The ability to continue without harming resources.",
+        "usage_context_es": "The ability to continue without harming resources.",
+        "imagePath": ""
+      }
+    ],
+    "is_verb": false,
+    "group_name": "Nature & Environment"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "emission",
+    "phonetic": "/ɪˈmɪʃən/",
+    "spoken_phonetic_us": "/ɪˈmɪʃən/",
+    "search_term": "noun/nature/added",
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Emisión",
+        "usage_example": "The new law limits carbon emission.",
+        "pronunciation_guide_es": "",
+        "usage_example_es": "La nueva ley limita la emisión de carbono.",
+        "char_count": "6",
+        "usage_context_en": "Something released, especially gas or light.",
+        "usage_context_es": "Something released, especially gas or light.",
+        "imagePath": ""
+      }
+    ],
+    "is_verb": false,
+    "group_name": "Nature & Environment"
+  }
+]

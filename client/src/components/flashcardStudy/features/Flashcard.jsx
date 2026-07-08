@@ -7,7 +7,7 @@ import CardBack from './CardBack.jsx';
 import { useUIContext } from '../../../context/UIContext';
 import { useDialog } from '../../../context/DialogContext';
 import { useFlashcardUiContext, useFlashcardContext, useCategoryContext } from '../context/flashcardStudyContext';
-import { getCardTitle, getAudioLang, getAudioLangForConjugation, isLearningEnglish } from './cardLanguageUtils';
+import { getCardTitle, getAudioLang, getAudioLangForConjugation, getStudyExampleText, isLearningEnglish } from './cardLanguageUtils';
 import { registerUiBridgeHandler, unregisterUiBridgeHandler } from '../uiBridge';
 
 const getDefinitionsForForm = (card, form) => {
@@ -149,7 +149,7 @@ function Flashcard() {
 
         if (title) void prefetchAudio(title, audioLang, cardVerbName);
         defs.forEach((def) => {
-            const exampleText = cardLanguage === 'en' ? def.usage_example : def.usage_example_es;
+            const exampleText = getStudyExampleText(def, cardLanguage);
             if (exampleText) void prefetchAudio(exampleText, audioLang, cardVerbName);
         });
     }, [cardLanguage, isAnyOverlayOpen, isLandingDemo, prefetchAudio]);
@@ -217,9 +217,7 @@ function Flashcard() {
 
             revealDefinition(0);
             void ensureImageForDefinition(0);
-            const exampleText = isLearningEnglish(cardLanguage)
-                ? def.usage_example
-                : def.usage_example_es;
+            const exampleText = getStudyExampleText(def, cardLanguage);
             if (exampleText?.trim()) {
                 void playAudio(exampleText.trim(), getAudioLang(cardLanguage));
             }
@@ -232,9 +230,7 @@ function Flashcard() {
 
             revealDefinition(0);
             void ensureImageForDefinition(0);
-            const exampleText = isLearningEnglish(cardLanguage)
-                ? def.usage_example
-                : def.usage_example_es;
+            const exampleText = getStudyExampleText(def, cardLanguage);
             if (exampleText?.trim()) {
                 void playAudio(exampleText.trim(), getAudioLang(cardLanguage));
             }

@@ -41,6 +41,21 @@ pub struct LocalStorageRepository {
 }
 
 impl LocalStorageRepository {
+    fn normalize_course_direction(course_direction: &str) -> &str {
+        match course_direction.trim().to_ascii_lowercase().as_str() {
+            "en_es" => "en_es",
+            _ => "es_en",
+        }
+    }
+
+    fn json_direction_prefix(&self, course_direction: &str) -> String {
+        format!(
+            "{}/{}",
+            self.json_prefix,
+            Self::normalize_course_direction(course_direction)
+        )
+    }
+
     fn is_valid_category_dir(name: &str) -> bool {
         let trimmed = name.trim();
         !trimmed.is_empty()
@@ -572,20 +587,21 @@ impl LocalStorageRepository {
 
 #[async_trait]
 impl StorageRepository for LocalStorageRepository {
-    async fn list_categories(&self) -> Result<Vec<String>> {
-        let cache_key = format!("cats:{}", self.json_prefix);
+    async fn list_categories_for_direction(&self, course_direction: &str) -> Result<Vec<String>> {
+        let prefix = self.json_direction_prefix(course_direction);
+        let cache_key = format!("cats:{}", prefix);
         if let Some(cached) = self.list_cache.get(&cache_key).await {
             return Ok((*cached).clone());
         }
 
-        let path = self.get_full_path(&self.json_prefix);
+        let path = self.get_full_path(&prefix);
         let result = if self.must_read_from_oracle() {
             if !self.can_read_from_oracle() {
                 anyhow::bail!(
                     "Oracle repository mode activo pero public_base_url no está configurado"
                 );
             }
-            self.list_oracle_entries(&self.json_prefix.clone(), true)
+            self.list_oracle_entries(&prefix, true)
                 .await?
         } else if path.exists() {
             let mut entries = fs::read_dir(&path).await?;
@@ -599,8 +615,7 @@ impl StorageRepository for LocalStorageRepository {
             }
             categories
         } else if self.sync_to_oracle {
-            self.list_oracle_entries(&self.json_prefix.clone(), true)
-                .await?
+            self.list_oracle_entries(&prefix, true).await?
         } else {
             vec![]
         };
@@ -618,14 +633,19 @@ impl StorageRepository for LocalStorageRepository {
         Ok(result)
     }
 
-    async fn list_decks(&self, category: &str) -> Result<Vec<String>> {
+    async fn list_decks_for_direction(
+        &self,
+        course_direction: &str,
+        category: &str,
+    ) -> Result<Vec<String>> {
         Self::validate_relative_path(category)?;
-        let cache_key = format!("decks:{}/{}", self.json_prefix, category);
+        let prefix = self.json_direction_prefix(course_direction);
+        let cache_key = format!("decks:{}/{}", prefix, category);
         if let Some(cached) = self.list_cache.get(&cache_key).await {
             return Ok((*cached).clone());
         }
 
-        let rel = format!("{}/{}", self.json_prefix, category);
+        let rel = format!("{}/{}", prefix, category);
         let mut result = Vec::new();
 
         if Self::uses_nested_level_decks(category) {
@@ -706,21 +726,32 @@ impl StorageRepository for LocalStorageRepository {
         Ok(result)
     }
 
-    async fn get_deck_data(&self, category: &str, deck_name: &str) -> Result<DeckData> {
+    async fn get_deck_data_for_direction(
+        &self,
+        course_direction: &str,
+        category: &str,
+        deck_name: &str,
+    ) -> Result<DeckData> {
         Self::validate_relative_path(category)?;
         Self::validate_relative_path(deck_name)?;
         let mut full_name = deck_name.to_string();
         if !full_name.ends_with(".json") {
             full_name.push_str(".json");
         }
-        let cache_key = format!("{}/{}", category, full_name);
+        let normalized_direction = Self::normalize_course_direction(course_direction);
+        let cache_key = format!("{}/{}/{}", normalized_direction, category, full_name);
 
         // Cache hit → 0 ms, sin I/O ni red
         if let Some(cached) = self.deck_cache.get(&cache_key).await {
             return Ok((*cached).clone());
         }
 
-        let object_name = format!("{}/{}/{}", self.json_prefix, category, full_name);
+        let object_name = format!(
+            "{}/{}/{}",
+            self.json_direction_prefix(course_direction),
+            category,
+            full_name
+        );
         let path = self.get_full_path(&object_name);
 
         let data = if self.must_read_from_oracle() {
@@ -786,14 +817,21 @@ impl StorageRepository for LocalStorageRepository {
         Ok(deck)
     }
 
-    async fn save_deck_data(&self, category: &str, deck_name: &str, data: &DeckData) -> Result<()> {
+    async fn save_deck_data_for_direction(
+        &self,
+        course_direction: &str,
+        category: &str,
+        deck_name: &str,
+        data: &DeckData,
+    ) -> Result<()> {
         Self::validate_relative_path(category)?;
         Self::validate_relative_path(deck_name)?;
         let mut full_name = deck_name.to_string();
         if !full_name.ends_with(".json") {
             full_name.push_str(".json");
         }
-        let object_name = format!("{}/{}/{}", self.json_prefix, category, full_name);
+        let prefix = self.json_direction_prefix(course_direction);
+        let object_name = format!("{}/{}/{}", prefix, category, full_name);
         let path = self.get_full_path(&object_name);
 
         if (self.oracle_as_source_of_truth() || self.sync_to_oracle) && !self.can_write_to_oracle()
@@ -810,10 +848,15 @@ impl StorageRepository for LocalStorageRepository {
         fs::write(&path, &content).await?;
 
         // Invalidar cache del deck modificado
-        let cache_key = format!("{}/{}", category, full_name);
+        let cache_key = format!(
+            "{}/{}/{}",
+            Self::normalize_course_direction(course_direction),
+            category,
+            full_name
+        );
         self.deck_cache.invalidate(&cache_key).await;
         self.list_cache
-            .invalidate(&format!("decks:{}/{}", self.json_prefix, category))
+            .invalidate(&format!("decks:{}/{}", prefix, category))
             .await;
 
         if self.sync_to_oracle {

@@ -147,7 +147,7 @@ const VOCAB_FIRST_CARD_ICONS = [FiLayers, FiBookOpen, FiTarget];
 const VOCAB_FIRST_CARD_ICON_TONES = ['rose', 'violet', 'rose'];
 
 export default function LandingPage() {
-    const { isAuthenticated, loading, loadingStage } = useAuth();
+    const { isAuthenticated, loading, loadingStage, onboardingRequired } = useAuth();
     const { language = 'en', setLanguage } = useAppContext();
     const location = useLocation();
     const t = getLandingTranslations(language);
@@ -188,6 +188,10 @@ export default function LandingPage() {
     }
 
     const landingSectionHash = isLandingSectionHash(location.hash);
+
+    if (isAuthenticated && onboardingRequired) {
+        return <Navigate to="/onboarding" replace />;
+    }
 
     if (isAuthenticated && !returningForFeedback && !landingSectionHash) {
         return <Navigate to={getAuthenticatedHomePath(config, [])} replace />;

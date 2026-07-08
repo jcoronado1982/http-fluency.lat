@@ -1,0 +1,175 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Convertirse en, transformarse en",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "phrasal verb/become/transform",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "turn into",
+                "usage_example": "La oruga se convirtió en mariposa.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "The caterpillar turned into a butterfly.",
+                "char_count": "one",
+                "usage_context_en": "transformation/change",
+                "usage_context_es": "transformación/cambio",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_38_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Turn",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Subir (el volumen, la calefacción)",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "phrasal verb/increase volume/appear/arrive",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "turn up",
+                "usage_example": "¿Puedes subir la música? Me encanta esta canción.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Can you turn up the music? I love this song.",
+                "char_count": "one",
+                "usage_context_en": "volume/level",
+                "usage_context_es": "volumen/nivel",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_36_def0.avif"
+            },
+            {
+                "meaning": "turn up (def 2)",
+                "usage_example": "Él finalmente apareció en la fiesta a medianoche.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "He finally turned up at the party at midnight.",
+                "char_count": "one",
+                "usage_context_en": "arriving/social",
+                "usage_context_es": "llegar/social",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_36_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Turn",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Bajar (el volumen, la calefacción)",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "phrasal verb/decrease volume/reject",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "turn down",
+                "usage_example": "¿Podrías bajar la TV? Está muy alta.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Could you turn down the TV? It's too loud.",
+                "char_count": "one",
+                "usage_context_en": "volume/level",
+                "usage_context_es": "volumen/nivel",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_37_def0.avif"
+            },
+            {
+                "meaning": "turn down (def 2)",
+                "usage_example": "Ella rechazó la oferta de trabajo.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "She turned down the job offer.",
+                "char_count": "one",
+                "usage_context_en": "decisions/work/social",
+                "usage_context_es": "decisiones/trabajo/social",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_37_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Turn",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Resultar (ser), acabar (siendo)",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "phrasal verb/result/end up/attend",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "turn out",
+                "usage_example": "La película resultó ser muy buena.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "The movie turned out to be really good.",
+                "char_count": "one",
+                "usage_context_en": "results/outcome",
+                "usage_context_es": "resultados/desenlace",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_39_def0.avif"
+            },
+            {
+                "meaning": "turn out (def 2)",
+                "usage_example": "Mucha gente acudió al concierto.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "A lot of people turned out for the concert.",
+                "char_count": "one",
+                "usage_context_en": "events/attendance",
+                "usage_context_es": "eventos/asistencia",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_39_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Turn",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Darse la vuelta, girar",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "phrasal verb/rotate/change direction/improve",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "turn around",
+                "usage_example": "Date la vuelta y déjame ver tu espalda.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Turn around and let me see your back.",
+                "char_count": "one",
+                "usage_context_en": "physical movement/direction",
+                "usage_context_es": "movimiento físico/dirección",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_40_def0.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Turn",
+        "category": "Intermediate"
+    }
+]
