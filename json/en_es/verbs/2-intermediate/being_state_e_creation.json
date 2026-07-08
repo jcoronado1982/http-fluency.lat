@@ -1,0 +1,314 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Permanecer/Quedarse",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "verb/stay/level_up",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "remain",
+                "usage_example": "Por favor, permanezca sentado hasta el final.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Please remain seated until the end.",
+                "char_count": "two",
+                "usage_context_en": "position/state",
+                "usage_context_es": "posición/estado",
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_16_def0.avif"
+            },
+            {
+                "meaning": "remain (def 2)",
+                "usage_example": "Solo quedan unos pocos minutos.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Only a few minutes remain.",
+                "char_count": "two",
+                "usage_context_en": "time/quantity",
+                "usage_context_es": "tiempo/cantidad",
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_16_def1.avif"
+            }
+        ],
+        "group_name": "Body & Movement",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Crear/Generar",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "verb/make/level_up",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "create",
+                "usage_example": "Queremos crear un nuevo proyecto.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "We want to create a new project.",
+                "char_count": "two",
+                "usage_context_en": "projects/art",
+                "usage_context_es": "proyectos/arte",
+                "imagePath": ""
+            },
+            {
+                "meaning": "create (def 2)",
+                "usage_example": "El ruido causó una molestia.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "The noise created a disturbance.",
+                "char_count": "two",
+                "usage_context_en": "effect/innovation",
+                "usage_context_es": "efecto/innovación",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Building & Creating",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Aparecer",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "verb/seem/level_up",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "appear",
+                "usage_example": "El sol apareció detrás de las nubes.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "The sun appeared from behind the clouds.",
+                "char_count": "two",
+                "usage_context_en": "visibility/arrival",
+                "usage_context_es": "visibilidad/llegada",
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_32_def0.avif"
+            },
+            {
+                "meaning": "appear (def 2)",
+                "usage_example": "Ella parece ser muy inteligente.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "She appears to be very smart.",
+                "char_count": "two",
+                "usage_context_en": "impression/judgment",
+                "usage_context_es": "impresión/juicio",
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_32_def1.avif"
+            }
+        ],
+        "group_name": "Feelings & Reactions",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Crecer (plantas, personas)",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "verb/increase/level_up",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "grow",
+                "usage_example": "La planta crece muy rápido.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "The plant grows very fast.",
+                "char_count": "one",
+                "usage_context_en": "biology/development",
+                "usage_context_es": "biología/desarrollo",
+                "imagePath": ""
+            },
+            {
+                "meaning": "grow (def 2)",
+                "usage_example": "Cultivan verduras en su jardín.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "They grow vegetables in their garden.",
+                "char_count": "one",
+                "usage_context_en": "agriculture/business",
+                "usage_context_es": "agricultura/negocios",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Building & Creating",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Construir/Edificar",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "verb/construct/level_up",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "build",
+                "usage_example": "Planean construir un nuevo puente.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "They plan to build a new bridge.",
+                "char_count": "one",
+                "usage_context_en": "construction/projects",
+                "usage_context_es": "construcción/proyectos",
+                "imagePath": ""
+            },
+            {
+                "meaning": "build (def 2)",
+                "usage_example": "Él construyó su reputación con honestidad.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "He built his reputation on honesty.",
+                "char_count": "one",
+                "usage_context_en": "reputation/trust",
+                "usage_context_es": "reputación/confianza",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Building & Creating",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Levantar/Alzar",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "verb/lift/level_up",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "raise",
+                "usage_example": "Levanta la mano si sabes la respuesta.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Raise your hand if you know the answer.",
+                "char_count": "one",
+                "usage_context_en": "gesture/increase",
+                "usage_context_es": "gesto/aumento",
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_18_def0.avif"
+            },
+            {
+                "meaning": "raise (def 2)",
+                "usage_example": "Crían a sus hijos para que sean amables.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "They raise their children to be kind.",
+                "char_count": "one",
+                "usage_context_en": "family/agriculture",
+                "usage_context_es": "familia/agricultura",
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_18_def1.avif"
+            }
+        ],
+        "group_name": "Managing & Control",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Desarrollar/Crear",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "verb/grow/level_up",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "develop",
+                "usage_example": "Necesitamos desarrollar nuevas habilidades.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "We need to develop new skills.",
+                "char_count": "three",
+                "usage_context_en": "skills/technology",
+                "usage_context_es": "habilidades/tecnología",
+                "imagePath": ""
+            },
+            {
+                "meaning": "develop (def 2)",
+                "usage_example": "El proyecto se está desarrollando bien.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "The project is developing well.",
+                "char_count": "three",
+                "usage_context_en": "projects/growth",
+                "usage_context_es": "proyectos/crecimiento",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Building & Creating",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Formar/Crear",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "verb/create/level_up",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "form",
+                "usage_example": "Los estudiantes formaron un grupo de estudio.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "The students formed a study group.",
+                "char_count": "one",
+                "usage_context_en": "groups/nature",
+                "usage_context_es": "grupos/naturaleza",
+                "imagePath": ""
+            },
+            {
+                "meaning": "form (def 2)",
+                "usage_example": "Estos elementos constituyen toda la estructura.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "These elements form the whole structure.",
+                "char_count": "one",
+                "usage_context_en": "structure/basis",
+                "usage_context_es": "estructura/base",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "Building & Creating",
+        "category": ""
+    }
+]

@@ -1,0 +1,86 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Acero",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "noun/concept/essentials",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "steel",
+                "usage_example": "El puente está hecho de acero.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "The bridge is made of steel.",
+                "char_count": "6",
+                "usage_context_en": "A hard, strong, gray or bluish-gray alloy of iron with carbon.",
+                "usage_context_es": "Una aleación dura, fuerte, gris o gris azulada de hierro con carbono.",
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_161_def0.avif"
+            }
+        ],
+        "group_name": "Nature & Materials",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Cliente",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "noun/concept/essentials",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "client",
+                "usage_example": "El cliente está feliz.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "The client is happy.",
+                "char_count": "four",
+                "usage_context_en": "A person using the services of a professional person or organization.",
+                "usage_context_es": "Una persona que utiliza los servicios de un profesional u organización.",
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_84_def0.avif"
+            }
+        ],
+        "group_name": "General Concepts",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Colega / Compañero de trabajo",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "noun/concept/essentials",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "colleague",
+                "usage_example": "Le preguntaré a mi colega.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "I will ask my colleague.",
+                "char_count": "five",
+                "usage_context_en": "A person with whom one works in a profession or business.",
+                "usage_context_es": "Una persona con la que se trabaja en una profesión o negocio.",
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_85_def0.avif"
+            }
+        ],
+        "group_name": "General Concepts",
+        "category": ""
+    }
+]

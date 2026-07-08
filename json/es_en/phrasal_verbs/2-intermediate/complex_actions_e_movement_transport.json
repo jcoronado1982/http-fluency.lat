@@ -1,0 +1,487 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "come up",
+        "phonetic": "/come up/",
+        "spoken_phonetic_us": "/come up/",
+        "search_term": "phrasal verb/appear/arise",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Surgir / Aparecer",
+                "usage_example": "Something came up at work.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "Something unexpected happened at work.",
+                "usage_example_es": "Surgió algo en el trabajo.",
+                "char_count": "one",
+                "usage_context_en": "unexpected situation",
+                "usage_context_es": "situación inesperada"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Come",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "drop off",
+        "phonetic": "/drɑp ɔf/",
+        "spoken_phonetic_us": "/drɑp ɔf/",
+        "search_term": "phrasal verb/deliver/leave/decrease/sleep",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Dejar (a alguien o algo) en un lugar",
+                "usage_example": "Can you drop me off at the next corner?",
+                "pronunciation_guide_es": "/kæn_iu_DROP_mi_OF_at_de_NEKST_KORner/",
+                "alternative_example": "Can you leave me at the next corner?",
+                "usage_example_es": "¿Puedes dejarme en la próxima esquina?",
+                "char_count": "one",
+                "usage_context_en": "transport/giving a ride",
+                "usage_context_es": "transporte/llevar a alguien",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_31_def0.avif"
+            },
+            {
+                "meaning": "Disminuir, caer (ventas, asistencia)",
+                "usage_example": "Sales always drop off after Christmas.",
+                "pronunciation_guide_es": "/seils_OLueis_drop_OF_AFter_KRISmas/",
+                "alternative_example": "Sales always decrease after Christmas.",
+                "usage_example_es": "Las ventas siempre caen después de Navidad.",
+                "char_count": "one",
+                "usage_context_en": "business/statistics",
+                "usage_context_es": "negocios/estadísticas",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_31_def1.avif"
+            },
+            {
+                "meaning": "Quedarse dormido (informal)",
+                "usage_example": "I dropped off during the boring movie.",
+                "pronunciation_guide_es": "/ai_DROPT_of_DUring_de_BORing_MUvi/",
+                "alternative_example": "I fell asleep during the boring movie.",
+                "usage_example_es": "Me quedé dormido durante la película aburrida.",
+                "char_count": "one",
+                "usage_context_en": "sleep (informal)",
+                "usage_context_es": "dormir (informal)",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_31_def2.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Drop",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "bring on",
+        "phonetic": "/brɪŋ ɑn/",
+        "spoken_phonetic_us": "/brɪŋ ɑn/",
+        "search_term": "phrasal verb/cause/challenge",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Causar, provocar (generalmente algo negativo)",
+                "usage_example": "The stress brought on a headache.",
+                "pronunciation_guide_es": "/de_STRES_brot_ON_a_HEdeik/",
+                "alternative_example": "The stress caused a headache.",
+                "usage_example_es": "El estrés me provocó un dolor de cabeza.",
+                "char_count": "one",
+                "usage_context_en": "cause illness/problem",
+                "usage_context_es": "causar enfermedad/problema",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_7_def0.avif"
+            },
+            {
+                "meaning": "¡Vamos! / ¡Adelante! (aceptar un reto)",
+                "usage_example": "You want a challenge? Bring it on!",
+                "pronunciation_guide_es": "/iu_UANT_a_CHAleny?_BRINg_it_ON/",
+                "alternative_example": "You want a challenge? I accept!",
+                "usage_example_es": "¿Quieres un reto? ¡Adelante! (¡Venga!)",
+                "char_count": "one",
+                "usage_context_en": "accepting challenge",
+                "usage_context_es": "aceptar un reto",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_7_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Bring",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "set off",
+        "phonetic": "/sɛt ɔf/",
+        "spoken_phonetic_us": "/sɛɾ ɔf/",
+        "search_term": "phrasal verb/start journey/activate/explode",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Irse de viaje, ponerse en camino",
+                "usage_example": "We set off early in the morning.",
+                "pronunciation_guide_es": "/ui_set_OF_ERli_in_de_MORning/",
+                "alternative_example": "We started our journey early in the morning.",
+                "usage_example_es": "Salimos (de viaje) temprano en la mañana.",
+                "char_count": "one",
+                "usage_context_en": "travel/starting a journey",
+                "usage_context_es": "viajes/empezar un viaje",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_20_def0.avif"
+            },
+            {
+                "meaning": "Activar (una alarma, una bomba)",
+                "usage_example": "The smoke set off the fire alarm.",
+                "pronunciation_guide_es": "/de_SMOUK_set_OF_de_FAIr_aLARM/",
+                "alternative_example": "The smoke activated the fire alarm.",
+                "usage_example_es": "El humo activó la alarma de incendios.",
+                "char_count": "one",
+                "usage_context_en": "activate/trigger",
+                "usage_context_es": "activar/provocar",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_20_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Set",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "give out",
+        "phonetic": "/give out/",
+        "spoken_phonetic_us": "/give out/",
+        "search_term": "phrasal verb/distribute/fail",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Repartir / Distribuir",
+                "usage_example": "They gave out water after the race.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "They distributed water after the race.",
+                "usage_example_es": "Repartieron agua después de la carrera.",
+                "char_count": "one",
+                "usage_context_en": "distribution/help",
+                "usage_context_es": "distribución/ayuda"
+            },
+            {
+                "meaning": "Dejar de funcionar / Agotarse",
+                "usage_example": "My legs gave out.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "My legs stopped working properly.",
+                "usage_example_es": "Mis piernas fallaron.",
+                "char_count": "one",
+                "usage_context_en": "body/failure",
+                "usage_context_es": "cuerpo/fallo"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Give",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "get over",
+        "phonetic": "/ɡɛt ˈoʊvər/",
+        "spoken_phonetic_us": "/ɡɛɾ ˈoʊvər/",
+        "search_term": "phrasal verb overcome/recovery/physical movement",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "superar (una enfermedad o situación difícil)",
+                "usage_example": "It took him months to get over his breakup.",
+                "pronunciation_guide_es": "/it_tuk_jim_monts_tu_guer_O-ver_jis_BREIK-ap/",
+                "alternative_example": "It took him months to recover from his breakup.",
+                "usage_example_es": "Le tomó meses superar su ruptura.",
+                "char_count": "one",
+                "usage_context_en": "overcome",
+                "usage_context_es": "superar",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_42_def0.avif"
+            },
+            {
+                "meaning": "cruzar o pasar por encima de algo (físico)",
+                "usage_example": "I need to get over this high wall.",
+                "pronunciation_guide_es": "/ai_nid_tu_guer_O-ver_dis_jai_uol/",
+                "alternative_example": "I need to climb over this high wall.",
+                "usage_example_es": "Necesito pasar por encima de este muro alto.",
+                "char_count": "one",
+                "usage_context_en": "physical movement",
+                "usage_context_es": "movimiento físico",
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_42_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Get",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "put down",
+        "phonetic": "/pʊt daʊn/",
+        "spoken_phonetic_us": "/pʊt daʊn/",
+        "search_term": "phrasal verb/place/insult/euthanize",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Poner (algo) en el suelo, soltar",
+                "usage_example": "You can put down your bag here.",
+                "pronunciation_guide_es": "/iu_kan_put_DAUN_iur_BAG_HIR/",
+                "alternative_example": "You can place your bag here.",
+                "usage_example_es": "Puedes dejar tu bolso aquí.",
+                "char_count": "one",
+                "usage_context_en": "physical action/placing",
+                "usage_context_es": "acción física/colocar",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_12_def0.avif"
+            },
+            {
+                "meaning": "Menospreciar, humillar (a alguien)",
+                "usage_example": "He always puts down his coworkers.",
+                "pronunciation_guide_es": "/hi_OLueis_puts_DAUN_his_KOuorkers/",
+                "alternative_example": "He always insults his coworkers.",
+                "usage_example_es": "Él siempre menosprecia a sus compañeros de trabajo.",
+                "char_count": "one",
+                "usage_context_en": "insult/criticism",
+                "usage_context_es": "insulto/crítica",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_12_def1.avif"
+            },
+            {
+                "meaning": "Sacrificar (un animal), dormirlo",
+                "usage_example": "We had to put our old cat down.",
+                "pronunciation_guide_es": "/ui_HAD_tu_put_aur_OLD_KAT_daun/",
+                "alternative_example": "We had to euthanize our old cat.",
+                "usage_example_es": "Tuvimos que sacrificar a nuestro viejo gato.",
+                "char_count": "one",
+                "usage_context_en": "pets/euthanasia",
+                "usage_context_es": "mascotas/eutanasia",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_12_def2.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Put",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "run into",
+        "phonetic": "/rʌn ˈɪntu/",
+        "spoken_phonetic_us": "/rʌn ˈɪndu/",
+        "search_term": "phrasal verb/meet unexpectedly/collide",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Encontrarse con (alguien) por casualidad",
+                "usage_example": "I ran into my old teacher at the store.",
+                "pronunciation_guide_es": "/ai_ran_INdu_mai_OLD_TIcher_at_de_STOR/",
+                "alternative_example": "I met my old teacher unexpectedly at the store.",
+                "usage_example_es": "Me encontré con mi antiguo profesor en la tienda.",
+                "char_count": "one",
+                "usage_context_en": "unexpected meeting",
+                "usage_context_es": "encuentro inesperado",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_14_def0.avif"
+            },
+            {
+                "meaning": "Chocar con (algo)",
+                "usage_example": "He ran into a tree with his bike.",
+                "pronunciation_guide_es": "/hi_ran_INdu_a_TRI_uith_his_BAIK/",
+                "alternative_example": "He collided with a tree with his bike.",
+                "usage_example_es": "Chocó contra un árbol con su bicicleta.",
+                "char_count": "one",
+                "usage_context_en": "collision/accident",
+                "usage_context_es": "colisión/accidente",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_14_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Run",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "work out",
+        "phonetic": "/wɜrk aʊt/",
+        "spoken_phonetic_us": "/wɜr 'kaʊt/",
+        "search_term": "phrasal verb/exercise/solve/calculate/result",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Hacer ejercicio (en un gimnasio)",
+                "usage_example": "I try to work out three times a week.",
+                "pronunciation_guide_es": "/ai_TRAI_tu_uor_KAUT_thri_TAIMS_a_UIK/",
+                "alternative_example": "I try to exercise three times a week.",
+                "usage_example_es": "Intento hacer ejercicio tres veces por semana.",
+                "char_count": "one",
+                "usage_context_en": "exercise/health",
+                "usage_context_es": "ejercicio/salud",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_42_def0.avif"
+            },
+            {
+                "meaning": "Resolver (un problema), calcular",
+                "usage_example": "We need to work out a solution.",
+                "pronunciation_guide_es": "/ui_NID_tu_uor_KAUT_a_soLUshen/",
+                "alternative_example": "We need to find a solution.",
+                "usage_example_es": "Necesitamos encontrar (resolver) una solución.",
+                "char_count": "one",
+                "usage_context_en": "problem solving",
+                "usage_context_es": "resolver problemas",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_42_def1.avif"
+            },
+            {
+                "meaning": "Salir bien, funcionar (un plan)",
+                "usage_example": "I hope everything works out for you.",
+                "pronunciation_guide_es": "/ai_HOUP_Everithing_uorks_AUT_for_IU/",
+                "alternative_example": "I hope everything goes well for you.",
+                "usage_example_es": "Espero que todo te salga bien.",
+                "char_count": "one",
+                "usage_context_en": "results/outcome",
+                "usage_context_es": "resultados/desenlace",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_42_def2.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Work",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "run over",
+        "phonetic": "/rʌn ˈoʊvər/",
+        "spoken_phonetic_us": "/rʌn ˈoʊvər/",
+        "search_term": "phrasal verb/hit with vehicle/exceed time",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Atropellar (con un vehículo)",
+                "usage_example": "A bus ran over his bicycle.",
+                "pronunciation_guide_es": "/a_BAS_ran_Over_his_BAIsikol/",
+                "alternative_example": "A bus hit his bicycle.",
+                "usage_example_es": "Un autobús atropelló su bicicleta.",
+                "char_count": "one",
+                "usage_context_en": "driving/accident",
+                "usage_context_es": "conducir/accidente",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_15_def0.avif"
+            },
+            {
+                "meaning": "Excederse (del tiempo), pasarse",
+                "usage_example": "The meeting ran over by 10 minutes.",
+                "pronunciation_guide_es": "/de_MIring_ran_Over_bai_TEN_MInits/",
+                "alternative_example": "The meeting exceeded the time by 10 minutes.",
+                "usage_example_es": "La reunión se pasó 10 minutos.",
+                "char_count": "one",
+                "usage_context_en": "time/schedule",
+                "usage_context_es": "tiempo/horario",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_15_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Run",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "take down",
+        "phonetic": "/teɪk daʊn/",
+        "spoken_phonetic_us": "/teɪk daʊn/",
+        "search_term": "phrasal verb/write/record/disassemble",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Anotar, tomar nota",
+                "usage_example": "Can you take down my phone number?",
+                "pronunciation_guide_es": "/kæn_iu_teik_DAUN_mai_FOUN_namber/",
+                "alternative_example": "Can you write down my phone number?",
+                "usage_example_es": "¿Puedes anotar mi número de teléfono?",
+                "char_count": "one",
+                "usage_context_en": "writing/information",
+                "usage_context_es": "escribir/información",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_33_def0.avif"
+            },
+            {
+                "meaning": "Desmontar, quitar (algo colgado)",
+                "usage_example": "It's time to take down the Christmas lights.",
+                "pronunciation_guide_es": "/its_TAIM_tu_teik_DAUN_de_KRISmas_LAITS/",
+                "alternative_example": "It's time to remove the Christmas lights.",
+                "usage_example_es": "Es hora de quitar las luces de Navidad.",
+                "char_count": "one",
+                "usage_context_en": "disassemble/remove",
+                "usage_context_es": "desmontar/quitar",
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_33_def1.avif"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Take",
+        "category": "Intermediate"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "get through",
+        "phonetic": "/get through/",
+        "spoken_phonetic_us": "/get through/",
+        "search_term": "phrasal verb/overcome/contact",
+        "is_phrasal_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Superar / Pasar por algo difícil",
+                "usage_example": "We will get through this.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "We will survive this situation.",
+                "usage_example_es": "Vamos a superar esto.",
+                "char_count": "one",
+                "usage_context_en": "difficulty/support",
+                "usage_context_es": "dificultad/apoyo"
+            },
+            {
+                "meaning": "Comunicar por teléfono",
+                "usage_example": "I couldn’t get through to the office.",
+                "pronunciation_guide_es": "",
+                "alternative_example": "I couldn’t reach the office.",
+                "usage_example_es": "No pude comunicarme con la oficina.",
+                "char_count": "one",
+                "usage_context_en": "phone/contact",
+                "usage_context_es": "teléfono/contacto"
+            }
+        ],
+        "group_name": "Phrasal Verbs: Get",
+        "category": "Intermediate"
+    }
+]

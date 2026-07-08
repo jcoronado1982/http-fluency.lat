@@ -1,0 +1,288 @@
+[
+    {
+        "name": "wish",
+        "phonetic": "/wɪʃ/",
+        "spoken_phonetic_us": "/wɪʃ/",
+        "search_term": "verb/desire/level_up",
+        "is_verb": true,
+        "learned": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Desear (algo)",
+                "usage_example": "I wish you a happy birthday.",
+                "pronunciation_guide_es": "/ai_UISH_iu_a_JAPI_BIRTHdei/",
+                "alternative_example": "I wish I were rich.",
+                "usage_example_es": "Te deseo un feliz cumpleaños.",
+                "char_count": "one",
+                "usage_context_en": "celebrations/hypotheticals",
+                "usage_context_es": "celebraciones/hipotéticos"
+            },
+            {
+                "meaning": "Anhelar/Querer",
+                "usage_example": "She wished for peace.",
+                "pronunciation_guide_es": "/shi_UISHT_for_PIS/",
+                "alternative_example": "I wish to speak to the manager.",
+                "usage_example_es": "Ella anhelaba la paz.",
+                "char_count": "one",
+                "usage_context_en": "longing/formal request",
+                "usage_context_es": "anhelo/petición formal"
+            }
+        ],
+        "group_name": "Feelings & Reactions"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "definitions": [
+            {
+                "char_count": "one",
+                "meaning": "Podría / Quizás",
+                "pronunciation_guide_es": "/ui_MAIT_GO_aLONE/",
+                "usage_context_en": "uncertain possibility",
+                "usage_context_es": "posibilidad incierta",
+                "usage_example": "We might go alone.",
+                "usage_example_es": "Puede que vayamos solos.",
+                "imagePath": ""
+            }
+        ],
+        "force_generation": false,
+        "group_name": "Modal Verbs",
+        "is_verb": true,
+        "name": "might",
+        "phonetic": "/maɪt/",
+        "search_term": "modal/possibility/intermediate",
+        "spoken_phonetic_us": "/maɪt/"
+    },
+    {
+        "name": "agree",
+        "phonetic": "/əˈɡriː/",
+        "spoken_phonetic_us": "/əˈɡriː/",
+        "search_term": "verb/consent/level_up",
+        "is_verb": true,
+        "learned": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Estar de acuerdo",
+                "usage_example": "I agree with your opinion.",
+                "pronunciation_guide_es": "/ai_aGRI_uith_yor_oPINion/",
+                "alternative_example": "We agreed to meet at 8.",
+                "usage_example_es": "Estoy de acuerdo con tu opinión.",
+                "char_count": "two",
+                "usage_context_en": "opinion/plans",
+                "usage_context_es": "opinión/planes",
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_26_def0.avif"
+            },
+            {
+                "meaning": "Concordar (gramática)",
+                "usage_example": "The verb must agree with the subject.",
+                "pronunciation_guide_es": "/de_VERB_mast_aGRI_uith_de_SABYekt/",
+                "alternative_example": "They finally agreed on a price.",
+                "usage_example_es": "El verbo debe concordar con el sujeto.",
+                "char_count": "two",
+                "usage_context_en": "grammar/negotiation",
+                "usage_context_es": "gramática/negociación",
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_26_def1.avif"
+            }
+        ],
+        "group_name": "Feelings & Reactions"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "definitions": [
+            {
+                "char_count": "one",
+                "meaning": "Deberíamos / Vamos a",
+                "pronunciation_guide_es": "/SHAL_ui_BIgin/",
+                "usage_context_en": "formal suggestion/future",
+                "usage_context_es": "sugerencia formal/futuro",
+                "usage_example": "Shall we begin?",
+                "usage_example_es": "¿Comenzamos?",
+                "imagePath": ""
+            }
+        ],
+        "force_generation": false,
+        "group_name": "Modal Verbs",
+        "is_verb": true,
+        "name": "shall",
+        "phonetic": "/ʃæl/",
+        "search_term": "modal/formal-intermediate",
+        "spoken_phonetic_us": "/ʃæl/"
+    },
+    {
+        "name": "enjoy",
+        "phonetic": "/ɪnˈʤɔɪ/",
+        "spoken_phonetic_us": "/ɪnˈʤɔɪ/",
+        "search_term": "verb/like/intermediate",
+        "is_verb": true,
+        "learned": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Disfrutar",
+                "usage_example": "I enjoy playing soccer.",
+                "pronunciation_guide_es": "/ai_inYOY_PLEIing_SOKer/",
+                "alternative_example": "Enjoy your meal!",
+                "usage_example_es": "Disfruto jugando al fútbol.",
+                "char_count": "two",
+                "usage_context_en": "hobby/pleasure",
+                "usage_context_es": "pasatiempo/placer"
+            },
+            {
+                "meaning": "Gozar de/Tener",
+                "usage_example": "The city enjoys a good reputation.",
+                "pronunciation_guide_es": "/de_SITi_inYOIS_a_GUD_repiuTEIshon/",
+                "alternative_example": "I hope you enjoy the party.",
+                "usage_example_es": "La ciudad goza de una buena reputación.",
+                "char_count": "two",
+                "usage_context_en": "advantage/possession",
+                "usage_context_es": "ventaja/posesión"
+            }
+        ],
+        "group_name": "Feelings & Reactions"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "definitions": [
+            {
+                "char_count": "two",
+                "meaning": "Necesitar",
+                "pronunciation_guide_es": "/iu_NID_tu_REST/",
+                "usage_context_en": "necessity",
+                "usage_context_es": "necesidad",
+                "usage_example": "You need to rest.",
+                "usage_example_es": "Necesitas descansar.",
+                "imagePath": ""
+            }
+        ],
+        "force_generation": false,
+        "group_name": "Modal Verbs",
+        "is_verb": true,
+        "name": "need to",
+        "phonetic": "/niːd tuː/",
+        "search_term": "modal/necessity/intermediate",
+        "spoken_phonetic_us": "/niːd tuː/"
+    },
+    {
+        "name": "prefer",
+        "phonetic": "/prɪˈfɜːr/",
+        "spoken_phonetic_us": "/prɪˈfɜːr/",
+        "search_term": "verb/like more/intermediate",
+        "is_verb": true,
+        "learned": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Preferir",
+                "usage_example": "Do you prefer tea or coffee?",
+                "pronunciation_guide_es": "/du_iu_priFOR_TI_or_KOFI/",
+                "alternative_example": "I prefer reading books to watching TV.",
+                "usage_example_es": "¿Prefieres té o café?",
+                "char_count": "two",
+                "usage_context_en": "choice/comparison",
+                "usage_context_es": "elección/comparación"
+            },
+            {
+                "meaning": "Elegir (una opción sobre otra)",
+                "usage_example": "She preferred to stay silent.",
+                "pronunciation_guide_es": "/shi_priFORD_tu_STEI_SAIlent/",
+                "alternative_example": "I would prefer to leave early.",
+                "usage_example_es": "Ella prefirió guardar silencio.",
+                "char_count": "two",
+                "usage_context_en": "decision/action",
+                "usage_context_es": "decisión/acción"
+            }
+        ],
+        "group_name": "Feelings & Reactions"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "definitions": [
+            {
+                "char_count": "two",
+                "meaning": "Debería",
+                "pronunciation_guide_es": "/ui_OT_tu_RESPEKT_dem/",
+                "usage_context_en": "moral advice",
+                "usage_context_es": "consejo moral",
+                "usage_example": "We ought to respect them.",
+                "usage_example_es": "Deberíamos respetarlos.",
+                "imagePath": ""
+            }
+        ],
+        "force_generation": false,
+        "group_name": "Modal Verbs",
+        "is_verb": true,
+        "name": "ought to",
+        "phonetic": "/ɔːt tuː/",
+        "search_term": "modal/advice-intermediate",
+        "spoken_phonetic_us": "/ɔːt tuː/"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "disagree",
+        "phonetic": "/ˌdɪsəˈɡriː/",
+        "spoken_phonetic_us": "/ˌdɪsəˈɡriː/",
+        "search_term": "verb/feelings/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "No estar de acuerdo / Discrepar",
+                "usage_example": "I disagree with that decision.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "No estoy de acuerdo con esa decisión.",
+                "char_count": "5",
+                "usage_context_en": "To have a different opinion.",
+                "usage_context_es": "To have a different opinion.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": true,
+        "group_name": "Feelings & Reactions"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "definitions": [
+            {
+                "char_count": "two",
+                "meaning": "Solía",
+                "pronunciation_guide_es": "/ai_IUST_tu_LIV_der/",
+                "usage_context_en": "past habit/state",
+                "usage_context_es": "hábito/estado pasado",
+                "usage_example": "I used to live there.",
+                "usage_example_es": "Yo solía vivir allí.",
+                "imagePath": ""
+            }
+        ],
+        "force_generation": false,
+        "group_name": "Modal Verbs",
+        "is_verb": true,
+        "name": "used to",
+        "phonetic": "/ˈjuːst tuː/",
+        "search_term": "modal/past-habit/intermediate",
+        "spoken_phonetic_us": "/ˈjuːst tuː/"
+    }
+]

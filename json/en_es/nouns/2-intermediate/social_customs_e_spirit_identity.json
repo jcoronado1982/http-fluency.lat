@@ -1,0 +1,142 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Celebración",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "noun/concept/essentials",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "celebration",
+                "usage_example": "Tuvimos una pequeña celebración.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "We had a small celebration.",
+                "char_count": "5",
+                "usage_context_en": "The action of marking a special day, event, or victory.",
+                "usage_context_es": "La acción de conmemorar un día especial, evento o victoria.",
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_241_def0.avif"
+            }
+        ],
+        "group_name": "General Concepts",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Alma",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "noun/concept/essentials",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "soul",
+                "usage_example": "La música es buena para el alma.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "Music is good for the soul.",
+                "char_count": "6",
+                "usage_context_en": "The spiritual or non-physical part of a person.",
+                "usage_context_es": "La parte espiritual o no física de una persona.",
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_198_def0.avif"
+            }
+        ],
+        "group_name": "General Concepts",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Moda",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "noun/concept/essentials",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "fashion",
+                "usage_example": "Ella siempre sigue la última moda.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "She always follows the latest fashion.",
+                "char_count": "two",
+                "usage_context_en": "The style of clothes that is popular right now",
+                "usage_context_es": "El estilo de ropa que es popular en este momento",
+                "imagePath": ""
+            }
+        ],
+        "group_name": "General Concepts",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Espíritu",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "noun/concept/essentials",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "spirit",
+                "usage_example": "Ella tiene un espíritu libre.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "She has a free spirit.",
+                "char_count": "5",
+                "usage_context_en": "The non-physical part of a person, seen as their true self; a person's mood or attitude.",
+                "usage_context_es": "La parte no física de una persona, vista como su verdadero ser; el estado de ánimo o la actitud de una persona.",
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_199_def0.avif"
+            }
+        ],
+        "group_name": "General Concepts",
+        "category": ""
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "Identidad",
+        "phonetic": "",
+        "spoken_phonetic_us": "",
+        "search_term": "noun/concept/essentials",
+        "is_phrasal_verb": false,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "identity",
+                "usage_example": "Él intentó ocultar su identidad.",
+                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "alternative_example": "",
+                "usage_example_es": "He tried to hide his identity.",
+                "char_count": "6",
+                "usage_context_en": "The facts or characteristics that define who or what a person or thing is.",
+                "usage_context_es": "Los hechos o características que definen quién o qué es una persona o cosa.",
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_292_def0.avif"
+            }
+        ],
+        "group_name": "General Concepts",
+        "category": ""
+    }
+]

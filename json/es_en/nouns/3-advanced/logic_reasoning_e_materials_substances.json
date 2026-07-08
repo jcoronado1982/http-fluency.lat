@@ -1,0 +1,282 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "allegation",
+        "phonetic": "/ˌæləˈɡeɪʃən/",
+        "spoken_phonetic_us": "/ˌæləˈɡeɪʃən/",
+        "search_term": "noun/concept/essentials",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "General Concepts",
+        "definitions": [
+            {
+                "meaning": "Acusación / Alegato",
+                "usage_example": "He denied the serious allegation.",
+                "pronunciation_guide_es": "/hi_de-NAID_de_SI-ri-us_a-le-GUEI-shon/",
+                "usage_example_es": "Él negó la grave acusación.",
+                "char_count": "5",
+                "usage_context_en": "A claim or assertion that someone has done something illegal or wrong, typically made without proof.",
+                "usage_context_es": "Una afirmación o aserción de que alguien ha hecho algo ilegal o incorrecto, típicamente hecha sin pruebas.",
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_8_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "atmosphere",
+        "phonetic": "/ˈætməsfɪr/",
+        "spoken_phonetic_us": "/ˈætməsfɪr/",
+        "search_term": "noun/concept/essentials",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "General Concepts",
+        "definitions": [
+            {
+                "meaning": "Atmósfera (aire)",
+                "usage_example": "The atmosphere is thin at high altitudes.",
+                "pronunciation_guide_es": "/di_AT-mos-fir_is_ZIN_at_HAI_AL-ti-tuds/",
+                "usage_example_es": "La atmósfera es delgada a grandes altitudes.",
+                "char_count": "7",
+                "usage_context_en": "The gases surrounding the earth or another planet.",
+                "usage_context_es": "Los gases que rodean la tierra u otro planeta.",
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_15_def0.avif"
+            },
+            {
+                "meaning": "Ambiente (de un lugar)",
+                "usage_example": "The restaurant has a good atmosphere.",
+                "pronunciation_guide_es": "/de_RES-to-rant_has_a_gud_AT-mos-fir/",
+                "usage_example_es": "El restaurante tiene un buen ambiente.",
+                "char_count": "6",
+                "usage_context_en": "The pervading tone or mood of a place or situation.",
+                "usage_context_es": "El tono o estado de ánimo dominante de un lugar o situación.",
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_15_def1.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "bias",
+        "phonetic": "/ˈbaɪəs/",
+        "spoken_phonetic_us": "/ˈbaɪəs/",
+        "search_term": "noun/concept/essentials",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "General Concepts",
+        "definitions": [
+            {
+                "meaning": "Sesgo / Prejuicio",
+                "usage_example": "The article has a political bias.",
+                "pronunciation_guide_es": "/di_AR-ti-col_has_a_po-LI-ti-cal_BAI-as/",
+                "usage_example_es": "El artículo tiene un sesgo político.",
+                "char_count": "6",
+                "usage_context_en": "Prejudice in favor of or against one thing, person, or group compared with another.",
+                "usage_context_es": "Prejuicio a favor o en contra de una cosa, persona o grupo en comparación con otro.",
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_19_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "commodity",
+        "phonetic": "/kəˈmɒdəti/",
+        "spoken_phonetic_us": "/kəˈmɑdəti/",
+        "search_term": "noun/concept/essentials",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "General Concepts",
+        "definitions": [
+            {
+                "meaning": "Producto / Mercancía",
+                "usage_example": "Oil is a valuable commodity.",
+                "pronunciation_guide_es": "/OIL_is_a_VA-liu-bol_co-MO-di-ti/",
+                "usage_example_es": "El petróleo es un producto valioso.",
+                "char_count": "5",
+                "usage_context_en": "A raw material or primary agricultural product that can be bought and sold.",
+                "usage_context_es": "Una materia prima o producto agrícola primario que se puede comprar y vender.",
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_28_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "paradox",
+        "phonetic": "/ˈpærədɒks/",
+        "spoken_phonetic_us": "/ˈpærədɑks/",
+        "search_term": "noun/concept/essentials",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "General Concepts",
+        "definitions": [
+            {
+                "meaning": "Paradoja",
+                "usage_example": "It's a curious paradox.",
+                "pronunciation_guide_es": "/its_a_KIU-ri-os_PA-ra-dox/",
+                "usage_example_es": "Es una paradoja curiosa.",
+                "char_count": "4",
+                "usage_context_en": "A seemingly absurd or self-contradictory statement that may be true.",
+                "usage_context_es": "Una declaración aparentemente absurda o autocontradictoria que puede ser cierta.",
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_85_def0.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "substance",
+        "phonetic": "/ˈsʌbstəns/",
+        "spoken_phonetic_us": "/ˈsʌbstəns/",
+        "search_term": "noun/concept/essentials",
+        "is_verb": false,
+        "force_generation": false,
+        "group_name": "General Concepts",
+        "definitions": [
+            {
+                "meaning": "Sustancia / Material",
+                "usage_example": "It's a dangerous substance.",
+                "pronunciation_guide_es": "/its_a_DEIN-yer-os_SOBS-tans/",
+                "usage_example_es": "Es una sustancia peligrosa.",
+                "char_count": "4",
+                "usage_context_en": "A particular kind of matter with uniform properties.",
+                "usage_context_es": "Un tipo particular de materia con propiedades uniformes.",
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_106_def0.avif"
+            },
+            {
+                "meaning": "Sustancia (contenido / esencia)",
+                "usage_example": "The article lacks substance.",
+                "pronunciation_guide_es": "/di_AR-ti-col_LAKS_SOBS-tans/",
+                "usage_example_es": "El artículo carece de sustancia.",
+                "char_count": "4",
+                "usage_context_en": "The real or essential meaning; significance.",
+                "usage_context_es": "El significado real o esencial; significancia.",
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_106_def1.avif"
+            }
+        ]
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "fallacy",
+        "phonetic": "/ˈfæləsi/",
+        "spoken_phonetic_us": "/ˈfæləsi/",
+        "search_term": "noun/logic_reasoning/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Falacia",
+                "usage_example": "That argument contains a fallacy.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "Ese argumento contiene una falacia.",
+                "char_count": "5",
+                "usage_context_en": "A mistaken belief or error in reasoning.",
+                "usage_context_es": "A mistaken belief or error in reasoning.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": false,
+        "group_name": "General Concepts"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "compound",
+        "phonetic": "/ˈkɑmˌpaʊnd/",
+        "spoken_phonetic_us": "/ˈkɑmˌpaʊnd/",
+        "search_term": "noun/materials_substances/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Compuesto",
+                "usage_example": "Water is a chemical compound.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "El agua es un compuesto químico.",
+                "char_count": "5",
+                "usage_context_en": "A substance made of two or more elements.",
+                "usage_context_es": "A substance made of two or more elements.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": false,
+        "group_name": "General Concepts"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "inference",
+        "phonetic": "/ˈɪnfərəns/",
+        "spoken_phonetic_us": "/ˈɪnfərəns/",
+        "search_term": "noun/logic_reasoning/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Inferencia",
+                "usage_example": "The conclusion is based on inference.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "La conclusión se basa en una inferencia.",
+                "char_count": "6",
+                "usage_context_en": "A conclusion reached from evidence or reasoning.",
+                "usage_context_es": "A conclusion reached from evidence or reasoning.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": false,
+        "group_name": "General Concepts"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "residue",
+        "phonetic": "/ˈrɛzɪˌduː/",
+        "spoken_phonetic_us": "/ˈrɛzɪˌduː/",
+        "search_term": "noun/materials_substances/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Residuo",
+                "usage_example": "The lab found residue on the surface.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "El laboratorio encontró residuo en la superficie.",
+                "char_count": "7",
+                "usage_context_en": "A small amount left behind after a process.",
+                "usage_context_es": "A small amount left behind after a process.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": false,
+        "group_name": "General Concepts"
+    }
+]

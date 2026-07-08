@@ -1,0 +1,264 @@
+[
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": true,
+        "learned_at": null,
+        "name": "influence",
+        "phonetic": "/ˈɪnfluəns/",
+        "spoken_phonetic_us": "/ˈɪnfluəns/",
+        "search_term": "verb/affect/advanced",
+        "is_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Influir/Influenciar",
+                "usage_example": "His opinion influenced my decision.",
+                "pronunciation_guide_es": "/jis_oPINion_INfluenst_mai_deSIshon/",
+                "alternative_example": "Don't let others influence you too much.",
+                "usage_example_es": "Su opinión influyó en mi decisión.",
+                "char_count": "three",
+                "usage_context_en": "effect/decision",
+                "usage_context_es": "efecto/decisión",
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_17_def0.avif"
+            }
+        ],
+        "group_name": "Influence & Change"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "acquire",
+        "phonetic": "/əˈkwaɪər/",
+        "spoken_phonetic_us": "/əˈkwaɪər/",
+        "search_term": "verb/get/advanced",
+        "is_verb": true,
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Adquirir (obtener, comprar)",
+                "usage_example": "The company acquired a new building.",
+                "pronunciation_guide_es": "/de_KOMpani_aKUAIERD_a_NIU_BILding/",
+                "alternative_example": "He acquired a taste for wine.",
+                "usage_example_es": "La compañía adquirió un nuevo edificio.",
+                "char_count": "two",
+                "usage_context_en": "purchase/gain",
+                "usage_context_es": "compra/obtención",
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_21_def0.avif"
+            }
+        ],
+        "group_name": "Social Dynamics"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "migrate",
+        "phonetic": "/ˈmaɪɡreɪt/",
+        "spoken_phonetic_us": "/ˈmaɪɡreɪt/",
+        "search_term": "verb/movement/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Migrar",
+                "usage_example": "Many birds migrate in winter.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "Muchas aves migran en invierno.",
+                "char_count": "5",
+                "usage_context_en": "To move from one region to another, often seasonally or permanently.",
+                "usage_context_es": "To move from one region to another, often seasonally or permanently.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": true,
+        "group_name": "Influence & Change"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "inherit",
+        "phonetic": "/ɪnˈhɛrɪt/",
+        "spoken_phonetic_us": "/ɪnˈhɛrɪt/",
+        "search_term": "verb/possession_exchange/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Heredar",
+                "usage_example": "She inherited the house from her aunt.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "Ella heredó la casa de su tía.",
+                "char_count": "7",
+                "usage_context_en": "To receive money or property from someone after death.",
+                "usage_context_es": "To receive money or property from someone after death.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": true,
+        "group_name": "Social Dynamics"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "relocate",
+        "phonetic": "/ˌriːˈloʊkeɪt/",
+        "spoken_phonetic_us": "/ˌriːˈloʊkeɪt/",
+        "search_term": "verb/movement/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Reubicarse / Trasladarse",
+                "usage_example": "The company will relocate next year.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "La empresa se trasladará el próximo año.",
+                "char_count": "6",
+                "usage_context_en": "To move to a new place.",
+                "usage_context_es": "To move to a new place.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": true,
+        "group_name": "Influence & Change"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "possess",
+        "phonetic": "/pəˈzɛs/",
+        "spoken_phonetic_us": "/pəˈzɛs/",
+        "search_term": "verb/possession_exchange/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Poseer",
+                "usage_example": "He possesses great patience.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "Él posee gran paciencia.",
+                "char_count": "4",
+                "usage_context_en": "To own or have something.",
+                "usage_context_es": "To own or have something.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": true,
+        "group_name": "Social Dynamics"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "navigate",
+        "phonetic": "/ˈnævəˌɡeɪt/",
+        "spoken_phonetic_us": "/ˈnævəˌɡeɪt/",
+        "search_term": "verb/movement/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Navegar / Orientarse",
+                "usage_example": "She learned to navigate the river safely.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "Ella aprendió a navegar el río con seguridad.",
+                "char_count": "7",
+                "usage_context_en": "To find or direct a route.",
+                "usage_context_es": "To find or direct a route.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": true,
+        "group_name": "Influence & Change"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "retain",
+        "phonetic": "/rɪˈteɪn/",
+        "spoken_phonetic_us": "/rɪˈteɪn/",
+        "search_term": "verb/possession_exchange/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Conservar / Retener",
+                "usage_example": "The material retains heat well.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "El material conserva bien el calor.",
+                "char_count": "5",
+                "usage_context_en": "To keep or continue to have something.",
+                "usage_context_es": "To keep or continue to have something.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": true,
+        "group_name": "Social Dynamics"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "traverse",
+        "phonetic": "/trəˈvɝs/",
+        "spoken_phonetic_us": "/trəˈvɝs/",
+        "search_term": "verb/movement/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Atravesar / Recorrer",
+                "usage_example": "They traversed the desert on foot.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "Atravesaron el desierto a pie.",
+                "char_count": "6",
+                "usage_context_en": "To travel across something.",
+                "usage_context_es": "To travel across something.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": true,
+        "group_name": "Influence & Change"
+    },
+    {
+        "word": "",
+        "translation": "",
+        "example": null,
+        "learned": false,
+        "learned_at": null,
+        "name": "obtain",
+        "phonetic": "/əbˈteɪn/",
+        "spoken_phonetic_us": "/əbˈteɪn/",
+        "search_term": "verb/possession_exchange/added",
+        "force_generation": false,
+        "definitions": [
+            {
+                "meaning": "Obtener / Conseguir",
+                "usage_example": "You need a permit to obtain access.",
+                "pronunciation_guide_es": "",
+                "usage_example_es": "Necesitas un permiso para obtener acceso.",
+                "char_count": "7",
+                "usage_context_en": "To get something.",
+                "usage_context_es": "To get something.",
+                "imagePath": ""
+            }
+        ],
+        "is_verb": true,
+        "group_name": "Social Dynamics"
+    }
+]
