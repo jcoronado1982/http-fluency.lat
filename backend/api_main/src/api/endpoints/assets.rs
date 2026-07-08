@@ -1,13 +1,23 @@
 use crate::AppState;
 use axum::{
-    extract::{Path, State},
+    extract::{OriginalUri, Path, State},
     http::{header, HeaderMap, HeaderValue, StatusCode},
     response::{IntoResponse, Response},
 };
 
+fn image_cache_control(uri: &http::Uri) -> &'static str {
+    let query = uri.query().unwrap_or_default();
+    if query.contains("v=") || query.contains("t=") {
+        "public, max-age=31536000, immutable"
+    } else {
+        "public, no-cache"
+    }
+}
+
 pub async fn redirect_images(
     Path(file_path): Path<String>,
     headers: HeaderMap,
+    OriginalUri(uri): OriginalUri,
     State(state): State<AppState>,
 ) -> impl IntoResponse {
     if file_path.contains("..") || file_path.starts_with('/') {
@@ -50,7 +60,7 @@ pub async fn redirect_images(
         response_headers.insert(header::CONTENT_TYPE, HeaderValue::from_static(content_type));
         response_headers.insert(
             header::CACHE_CONTROL,
-            HeaderValue::from_static("public, no-cache"),
+            HeaderValue::from_static(image_cache_control(&uri)),
         );
         if let Some(server_tag) = etag {
             if let Ok(value) = HeaderValue::from_str(&server_tag) {

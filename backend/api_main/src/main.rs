@@ -197,6 +197,7 @@ async fn async_main() -> anyhow::Result<()> {
         Ok(conn) => {
             tracing::info!("✅ Conectado a SurrealDB en {}", surreal_url);
             let conn = Arc::new(conn);
+            conn.spawn_watchdog();
             (
                 Arc::new(SurrealUserRepository(conn.clone())) as Arc<dyn UserRepository>,
                 Arc::new(SurrealSubscriptionRepository(conn.clone()))
@@ -205,7 +206,7 @@ async fn async_main() -> anyhow::Result<()> {
                     as Arc<dyn CardProgressRepository>,
                 Arc::new(SurrealPronounRepository(conn.clone()))
                     as Arc<dyn PronounPracticeRepository>,
-                Arc::new(SurrealUserActivityRepository(conn.clone()))
+                Arc::new(SurrealUserActivityRepository::new(conn.clone()))
                     as Arc<dyn UserActivityRepository>,
             )
         }

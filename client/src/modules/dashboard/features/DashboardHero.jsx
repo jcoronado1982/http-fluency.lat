@@ -124,7 +124,6 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
     const flashcardPath = isDefaultHomeModule('flashcards', config) ? '/' : '/flashcard';
 
     const mastered = stats?.mastered_count ?? 0;
-    const streak = stats?.streak_days ?? 0;
     const level = computeDashboardLevelProgress(stats, language);
     const locale = language === 'es' ? 'es' : 'en';
     const levelXpSpan = level.current.max - level.current.min;

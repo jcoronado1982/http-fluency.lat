@@ -7,6 +7,7 @@ function PageLoader({
     status = '',
     currentTask = '',
     progress = 0,
+    stats = [],
     className = '',
     theme = null,
     children = null,
@@ -32,6 +33,17 @@ function PageLoader({
                         <span className={styles.progressPercent}>{resolvedProgress}%</span>
                     </div>
                 </div>
+
+                {stats.length > 0 ? (
+                    <dl className={styles.statsGrid}>
+                        {stats.map((item) => (
+                            <div className={styles.statItem} key={item.label}>
+                                <dt>{item.label}</dt>
+                                <dd>{item.value}</dd>
+                            </div>
+                        ))}
+                    </dl>
+                ) : null}
 
                 {children}
             </section>

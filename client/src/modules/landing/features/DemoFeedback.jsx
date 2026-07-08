@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiCheck } from 'react-icons/fi';
 import { useAuth } from '../../../context/AuthContext';
-import { httpClient } from '../../../services/httpClient';
+import { demoFeedbackPort } from '../composition';
 import {
     clearDemoFeedbackReturn,
     consumeDemoFeedbackDraft,
@@ -288,7 +288,7 @@ export default function DemoFeedback({ language }) {
 
     const loadReviews = useCallback(async () => {
         try {
-            const data = await httpClient.get('/api/demo-feedback?limit=20');
+            const data = await demoFeedbackPort.fetchRecent(20);
             const sorted = [...(data.reviews || [])].sort(
                 (a, b) => new Date(b.created_at) - new Date(a.created_at),
             );
@@ -328,12 +328,7 @@ export default function DemoFeedback({ language }) {
         setAuthError(false);
         setStatus('sending');
         try {
-            await httpClient.post('/api/demo-feedback', {
-                comment: text,
-                rating,
-                language,
-                source: 'landing-demo',
-            });
+            await demoFeedbackPort.submit({ comment: text, rating, language });
             setStatus('sent');
             setComment('');
             setRating(0);

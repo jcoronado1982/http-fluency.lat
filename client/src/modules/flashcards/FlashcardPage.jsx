@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Flashcard, Controls, StudyMediaProvider } from '../../components/flashcardStudy';
 import { STUDY_MEDIA_VARIANT_APP } from '../../contracts/studyMediaVariants';
@@ -30,31 +30,46 @@ const FLASHCARD_LOADING_COPY = {
             title: 'Cargando',
             subtitle: 'Estamos preparando el contenido.',
             status: 'Obteniendo información...',
+            operation: 'Categorías y totales',
             progress: 18,
+            holdProgress: 38,
+            expectedMs: 7000,
         },
         loading_decks: {
             title: 'Cargando',
             subtitle: 'Estamos preparando el contenido.',
             status: 'Buscando niveles y colecciones...',
+            operation: 'Niveles y colecciones',
             progress: 44,
+            holdProgress: 66,
+            expectedMs: 5000,
         },
         loading_cards: {
             title: 'Cargando',
             subtitle: 'Estamos preparando el contenido.',
             status: 'Obteniendo tarjetas y progreso...',
+            operation: 'Tarjetas y progreso',
             progress: 76,
+            holdProgress: 88,
+            expectedMs: 6500,
         },
         preparing_content: {
             title: 'Cargando',
             subtitle: 'Estamos dejando todo listo para continuar.',
             status: 'Organizando la información cargada...',
+            operation: 'Organización local',
             progress: 92,
+            holdProgress: 96,
+            expectedMs: 2500,
         },
         fallback: {
             title: 'Cargando',
             subtitle: 'Estamos preparando el contenido.',
             status: 'Procesando información...',
+            operation: 'Procesamiento',
             progress: 56,
+            holdProgress: 82,
+            expectedMs: 6000,
         },
     },
     en: {
@@ -62,33 +77,88 @@ const FLASHCARD_LOADING_COPY = {
             title: 'Loading',
             subtitle: 'We are preparing the content.',
             status: 'Fetching information...',
+            operation: 'Categories and totals',
             progress: 18,
+            holdProgress: 38,
+            expectedMs: 7000,
         },
         loading_decks: {
             title: 'Loading',
             subtitle: 'We are preparing the content.',
             status: 'Finding levels and collections...',
+            operation: 'Levels and collections',
             progress: 44,
+            holdProgress: 66,
+            expectedMs: 5000,
         },
         loading_cards: {
             title: 'Loading',
             subtitle: 'We are preparing the content.',
             status: 'Fetching cards and progress...',
+            operation: 'Cards and progress',
             progress: 76,
+            holdProgress: 88,
+            expectedMs: 6500,
         },
         preparing_content: {
             title: 'Loading',
             subtitle: 'We are getting everything ready to continue.',
             status: 'Organizing the loaded information...',
+            operation: 'Local organization',
             progress: 92,
+            holdProgress: 96,
+            expectedMs: 2500,
         },
         fallback: {
             title: 'Loading',
             subtitle: 'We are preparing the content.',
             status: 'Processing information...',
+            operation: 'Processing',
             progress: 56,
+            holdProgress: 82,
+            expectedMs: 6000,
         },
     },
+};
+
+const LOADING_HISTORY_KEY = 'flashcards_loading_stage_history_v1';
+
+const readLoadingHistory = () => {
+    try {
+        return JSON.parse(window.localStorage.getItem(LOADING_HISTORY_KEY) || '{}');
+    } catch {
+        return {};
+    }
+};
+
+const writeLoadingHistory = (history) => {
+    try {
+        window.localStorage.setItem(LOADING_HISTORY_KEY, JSON.stringify(history));
+    } catch {
+        // Best effort only; loading estimates should not affect the study flow.
+    }
+};
+
+const getStageEstimateMs = (stage, copy) => {
+    const history = readLoadingHistory();
+    return history?.[stage]?.averageMs || copy?.expectedMs || 6000;
+};
+
+const rememberStageDuration = (stage, durationMs) => {
+    if (!stage || !Number.isFinite(durationMs) || durationMs < 150) return;
+    const history = readLoadingHistory();
+    const previous = history[stage];
+    const count = Math.min((previous?.count || 0) + 1, 8);
+    const previousAverage = previous?.averageMs || durationMs;
+    const averageMs = Math.round((previousAverage * (count - 1) + durationMs) / count);
+    history[stage] = { averageMs, count };
+    writeLoadingHistory(history);
+};
+
+const formatLoaderTime = (ms, language) => {
+    const seconds = Math.max(0, Math.ceil(ms / 1000));
+    if (seconds <= 1) return language === 'es' ? '1 s' : '1s';
+    return language === 'es' ? `${seconds} s` : `${seconds}s`;
 };
 
 export default function FlashcardPage() {
@@ -115,7 +185,12 @@ export default function FlashcardPage() {
         selectedGroup, changeDeck, setSelectedGroup, justCompletedInSession,
     } = useFlashcardContext();
     const isPronounsCategory = currentCategory === 'pronouns';
-    const { progress, currentTask, reset, setProgress, setCurrentTask } = usePageLoader();
+    const { progress, currentTask, reset, setProgress, setCurrentTask, animateTo } = usePageLoader();
+    const [loadingTelemetry, setLoadingTelemetry] = useState({
+        stage: null,
+        elapsedMs: 0,
+        estimateMs: 0,
+    });
 
     useEffect(() => {
         const state = location.state;
@@ -195,7 +270,7 @@ export default function FlashcardPage() {
         && navigationIntentRef.current === 'user';
     const shouldShowCompletionCelebration = isCompletionVisible && justCompletedInSession;
     const shouldShowCompletionCard = shouldShowCompletionCelebration || isUserViewingCompleted;
-    const activeLoadingStage = categoryLoadingStage || flashcardLoadingStage;
+    const activeLoadingStage = flashcardLoadingStage || categoryLoadingStage;
     const shouldShowLoading = Boolean(activeLoadingStage);
     const completedGroupNames = Array.from(
         masterData.reduce((acc, card) => {
@@ -212,6 +287,22 @@ export default function FlashcardPage() {
     const loadingCopy = activeLoadingStage
         ? (FLASHCARD_LOADING_COPY[locale][activeLoadingStage] ?? FLASHCARD_LOADING_COPY[locale].fallback)
         : null;
+    const loaderStats = loadingCopy ? [
+        {
+            label: locale === 'es' ? 'Operación' : 'Operation',
+            value: loadingCopy.operation || loadingCopy.status,
+        },
+        {
+            label: locale === 'es' ? 'Tiempo' : 'Elapsed',
+            value: formatLoaderTime(loadingTelemetry.elapsedMs, locale),
+        },
+        {
+            label: locale === 'es' ? 'Estimado' : 'Estimate',
+            value: loadingTelemetry.estimateMs > loadingTelemetry.elapsedMs
+                ? formatLoaderTime(loadingTelemetry.estimateMs - loadingTelemetry.elapsedMs, locale)
+                : (locale === 'es' ? 'Terminando' : 'Finishing'),
+        },
+    ] : [];
     const recommendation = isCompletionVisible
         ? getNextStudyStep(currentCategory, currentDeckName, selectedGroup, {
             categoryOrder: getCategoryOrderPreference(
@@ -238,7 +329,7 @@ export default function FlashcardPage() {
 
         const level = getLevelFromDeckName(deckName);
         if (usesNestedLevelDecks(currentCategory) && deckName.includes('/')) {
-            return `${formatDeckCategoryName(deckName)} • ${levels[level] ?? deckName}`;
+            return `${formatDeckCategoryName(deckName, language)} • ${levels[level] ?? deckName}`;
         }
         if (level && levels[level]) return levels[level];
         return deckName;
@@ -250,12 +341,41 @@ export default function FlashcardPage() {
     useEffect(() => {
         if (!activeLoadingStage || !loadingCopy) {
             reset();
+            setLoadingTelemetry({ stage: null, elapsedMs: 0, estimateMs: 0 });
             return;
         }
 
+        const startedAt = performance.now();
+        const estimateMs = getStageEstimateMs(activeLoadingStage, loadingCopy);
+        const holdProgress = loadingCopy.holdProgress ?? loadingCopy.progress;
+        const progressRange = Math.max(0, holdProgress - loadingCopy.progress);
+
+        const updateLoader = () => {
+            const elapsedMs = performance.now() - startedAt;
+            const timeRatio = estimateMs > 0 ? Math.min(1, elapsedMs / estimateMs) : 0;
+            const nextProgress = Math.min(
+                holdProgress,
+                Math.round((loadingCopy.progress + progressRange * timeRatio) * 10) / 10,
+            );
+            setProgress((prev) => Math.max(prev, nextProgress));
+            setLoadingTelemetry({
+                stage: activeLoadingStage,
+                elapsedMs,
+                estimateMs,
+            });
+        };
+
         setProgress((prev) => Math.max(prev, loadingCopy.progress));
         setCurrentTask(loadingCopy.status);
-    }, [activeLoadingStage, loadingCopy, reset, setCurrentTask, setProgress]);
+        animateTo(Math.min(holdProgress, loadingCopy.progress + Math.max(4, progressRange * 0.25)));
+        updateLoader();
+        const timer = window.setInterval(updateLoader, 350);
+
+        return () => {
+            rememberStageDuration(activeLoadingStage, performance.now() - startedAt);
+            window.clearInterval(timer);
+        };
+    }, [activeLoadingStage, animateTo, loadingCopy, reset, setCurrentTask, setProgress]);
 
     useEffect(() => {
         setIsHeaderSuppressed(shouldShowLoading && !isOnboardingTour);
@@ -374,6 +494,7 @@ export default function FlashcardPage() {
                                 status={loadingCopy.status}
                                 currentTask={currentTask}
                                 progress={progress}
+                                stats={loaderStats}
                             />
                         ) : shouldShowCompletionCard ? (
                             <CompletionCard

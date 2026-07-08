@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './PhonicsModal.module.css';
 import { useAudioPlayback } from '../../../components/flashcardStudy/features/useAudioPlayback.jsx';
-import { httpClient } from '../../../services/httpClient';
+import { flashcardPort } from '../composition';
 import { useUIContext } from '../../../context/UIContext';
 import { useFlashcardUiContext } from '../context/FlashcardUiContext';
 import { getFlashcardTranslations } from '../config/translations';
@@ -24,7 +24,7 @@ function PhonicsModal() {
         const fetchPhonicsData = async () => {
             setIsLoading(true);
             try {
-                const data = await httpClient.get('/api/phonics-data');
+                const data = await flashcardPort.fetchPhonicsData();
                 if (Array.isArray(data)) setPhonicsData(data);
             } catch (err) {
                 setError(err.message);

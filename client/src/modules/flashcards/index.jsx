@@ -11,7 +11,8 @@ import { FlashcardProvider } from './context/FlashcardContext';
 import { FlashcardUiProvider } from './context/FlashcardUiContext';
 import { getFlashcardFloatingMenuLabels, getFlashcardSidebarLabels } from './config/translations';
 import { readResumeSession } from './config/sessionKeys';
-import { preloadFlashcardStart } from './preload';
+import { writeCatalogPreferencesCache } from './config/catalogPreferences';
+import { preloadFlashcardStart, resetFlashcardPreload } from './preload';
 import { invokeUiBridge } from './uiBridge';
 import { StudyMediaProvider } from '../../components/flashcardStudy';
 import { STUDY_MEDIA_VARIANT_APP } from '../../contracts/studyMediaVariants';
@@ -82,6 +83,13 @@ const flashcardsModule = {
         </StudyMediaProvider>
     ),
     shellProviders: (config) => (config.features.flashcards ? [FlashcardUiProvider] : []),
+    authListeners: {
+        onUserSynced: (user) => {
+            writeCatalogPreferencesCache(user?.email, user?.catalog_preferences ?? null);
+            resetFlashcardPreload(user?.email);
+        },
+        onLogout: () => resetFlashcardPreload(),
+    },
     onboarding: ({ language = 'en', config, user }) => {
         if (!config.features.flashcards) return [];
         const isEs = language === 'es';

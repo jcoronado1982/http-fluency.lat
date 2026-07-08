@@ -30,7 +30,7 @@ impl PronounPracticeRepository for SurrealPronounRepository {
         );
 
         self.0
-            .db
+            .db()
             .query(
                 "UPDATE type::thing($id) MERGE {
             user_id: $user_id,
@@ -60,7 +60,7 @@ impl PronounPracticeRepository for SurrealPronounRepository {
         let id = format!("user_progress:['{}', {}]", user_id, story_id);
         let mut res = self
             .0
-            .db
+            .db()
             .query("SELECT * FROM type::thing($id)")
             .bind(("id", id))
             .await?;
@@ -89,7 +89,7 @@ impl PronounPracticeRepository for SurrealPronounRepository {
         let id = format!("user_progress:['{}', {}]", user_id, story_id);
         let mut res = self
             .0
-            .db
+            .db()
             .query("UPDATE type::thing($id) CONTENT $data RETURN AFTER")
             .bind(("id", id))
             .bind(("data", progress))
@@ -105,7 +105,7 @@ impl PronounPracticeRepository for SurrealPronounRepository {
 
         let mut res = self
             .0
-            .db
+            .db()
             .query(
                 "
             UPDATE type::thing($id) 
@@ -132,7 +132,7 @@ impl PronounPracticeRepository for SurrealPronounRepository {
     async fn reset_progress(&self, user_id: &str, story_id: i32) -> Result<()> {
         let id = format!("user_progress:['{}', {}]", user_id, story_id);
         self.0
-            .db
+            .db()
             .query("DELETE type::thing($id)")
             .bind(("id", id))
             .await?;
@@ -142,7 +142,7 @@ impl PronounPracticeRepository for SurrealPronounRepository {
     async fn get_story_title(&self, story_id: i32) -> Result<String> {
         let mut res = self
             .0
-            .db
+            .db()
             .query("SELECT title FROM stories WHERE story_id = $id")
             .bind(("id", story_id))
             .await?;
@@ -153,7 +153,7 @@ impl PronounPracticeRepository for SurrealPronounRepository {
     async fn get_episode_title(&self, episode_id: i32) -> Result<String> {
         let mut res = self
             .0
-            .db
+            .db()
             .query("SELECT title FROM episodes WHERE episode_id = $id")
             .bind(("id", episode_id))
             .await?;
@@ -164,7 +164,7 @@ impl PronounPracticeRepository for SurrealPronounRepository {
     async fn get_first_episode_id(&self, story_id: i32) -> Result<i32> {
         let mut res = self
             .0
-            .db
+            .db()
             .query("SELECT episode_id, episode_order FROM episodes WHERE story_id = $id ORDER BY episode_order ASC LIMIT 1")
             .bind(("id", story_id))
             .await?;
@@ -175,7 +175,7 @@ impl PronounPracticeRepository for SurrealPronounRepository {
     async fn get_next_episode_id(&self, current_episode_id: i32) -> Result<Option<i32>> {
         let mut res = self
             .0
-            .db
+            .db()
             .query(
                 "
             let $curr = (SELECT story_id, episode_order FROM episodes WHERE episode_id = $id)[0];
@@ -193,7 +193,7 @@ impl PronounPracticeRepository for SurrealPronounRepository {
     async fn get_episode_screens(&self, episode_id: i32) -> Result<Vec<StoryScreen>> {
         let mut response = self
             .0
-            .db
+            .db()
             .query("SELECT * FROM story_screens WHERE episode_id = $episode_id ORDER BY step_order ASC LIMIT 100")
             .bind(("episode_id", episode_id))
             .await?;
@@ -208,7 +208,7 @@ impl PronounPracticeRepository for SurrealPronounRepository {
     ) -> Result<()> {
         let id = format!("story_screens:{}", screen_id);
         self.0
-            .db
+            .db()
             .query("UPDATE type::thing($id) MERGE { content: $content }")
             .bind(("id", id))
             .bind(("content", content))
@@ -219,7 +219,7 @@ impl PronounPracticeRepository for SurrealPronounRepository {
     async fn get_story_full_history(&self, story_id: i32) -> Result<serde_json::Value> {
         let mut ep_res = self
             .0
-            .db
+            .db()
             .query("SELECT episode_id, title, episode_order, episode_order as episode_number FROM episodes WHERE story_id = $id ORDER BY episode_order ASC")
             .bind(("id", story_id))
             .await?;
@@ -227,7 +227,7 @@ impl PronounPracticeRepository for SurrealPronounRepository {
 
         let mut scr_res = self
             .0
-            .db
+            .db()
             .query(
                 "SELECT * FROM story_screens WHERE story_id = $id ORDER BY episode_id, step_order",
             )
@@ -258,7 +258,7 @@ impl PronounPracticeRepository for SurrealPronounRepository {
     async fn get_episodes_by_story(&self, story_id: i32) -> Result<Vec<(i32, String)>> {
         let mut res = self
             .0
-            .db
+            .db()
             .query("SELECT episode_id, title, episode_order FROM episodes WHERE story_id = $id ORDER BY episode_order ASC")
             .bind(("id", story_id))
             .await?;

@@ -41,6 +41,14 @@ pub struct LocalStorageRepository {
 }
 
 impl LocalStorageRepository {
+    fn is_valid_category_dir(name: &str) -> bool {
+        let trimmed = name.trim();
+        !trimmed.is_empty()
+            && !trimmed.starts_with('.')
+            && trimmed != "__pycache__"
+            && trimmed != "pycache"
+    }
+
     pub async fn new(settings: &Settings) -> Result<Self> {
         let base_path = PathBuf::from(&settings.local_storage_path);
         if !base_path.exists() {
@@ -601,7 +609,7 @@ impl StorageRepository for LocalStorageRepository {
         let result: Vec<String> = result
             .into_iter()
             .map(|s| s.trim_start_matches("./").to_string())
-            .filter(|s| !s.is_empty())
+            .filter(|s| Self::is_valid_category_dir(s))
             .collect();
 
         self.list_cache

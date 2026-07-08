@@ -159,6 +159,33 @@ export function getModuleFloatingMenuItems(config, context) {
   });
 }
 
+/**
+ * Ciclo de vida de auth: el shell notifica y cada módulo reacciona vía su
+ * manifest (`authListeners`), sin que el shell importe internals de módulos.
+ * Un listener que falle no debe romper el flujo de autenticación.
+ */
+function notifyAuthListeners(config, event, payload) {
+  for (const module of getEnabledModules(config)) {
+    const listener = module.authListeners?.[event];
+    if (typeof listener !== 'function') continue;
+    try {
+      listener(payload);
+    } catch (err) {
+      console.warn(`[auth] listener '${event}' del módulo '${module.id}' falló:`, err);
+    }
+  }
+}
+
+/** El perfil del usuario cambió (login, restore de sesión, preferencias sincronizadas). */
+export function notifyAuthUserSynced(config, user) {
+  notifyAuthListeners(config, 'onUserSynced', user);
+}
+
+/** El usuario cerró sesión. */
+export function notifyAuthLogout(config) {
+  notifyAuthListeners(config, 'onLogout');
+}
+
 /** Providers de shell que un módulo necesita montar fuera de sus rutas (ej. UI bridge). */
 export function getModuleShellProviders(config) {
   return getEnabledModules(config).flatMap((module) => {

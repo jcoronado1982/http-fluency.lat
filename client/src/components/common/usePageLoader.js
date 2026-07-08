@@ -64,5 +64,5 @@ export function usePageLoader() {
         if (frameRef.current) cancelAnimationFrame(frameRef.current);
     }, []);
 
-    return { progress, currentTask, done, run, reset, setProgress, setCurrentTask, finish };
+    return { progress, currentTask, done, run, reset, setProgress, setCurrentTask, animateTo, finish };
 }

@@ -1,12 +1,10 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
-import { getPublicEntryPathForConfig } from '../modules';
+import { getPublicEntryPathForConfig, notifyAuthUserSynced, notifyAuthLogout } from '../modules';
 import { authRepository } from '../repositories/AuthRepository';
 import { httpClient } from '../services/httpClient';
 import { usePresence } from '../hooks/usePresence';
-import { writeCatalogPreferencesCache } from '../modules/flashcards/config/catalogPreferences';
-import { resetFlashcardPreload } from '../modules/flashcards/preload';
 import { shouldShowOnboarding, markOnboardingDone, resolveOnboardingCompleted } from '../utils/onboardingStorage';
 
 const AuthContext = createContext();
@@ -46,8 +44,7 @@ export const AuthProvider = ({ children }) => {
                     onboarding_completed: onboardingCompleted,
                     catalog_preferences: me.catalog_preferences ?? null,
                 };
-                writeCatalogPreferencesCache(nextUser.email, nextUser.catalog_preferences);
-                resetFlashcardPreload(nextUser.email);
+                notifyAuthUserSynced(config, nextUser);
                 authRepository.saveAuthData({ token: authData.token, user: nextUser });
                 setUser(nextUser);
 
@@ -82,8 +79,7 @@ export const AuthProvider = ({ children }) => {
                 ),
                 catalog_preferences: me.catalog_preferences ?? null,
             };
-            writeCatalogPreferencesCache(syncedUser.email, syncedUser.catalog_preferences);
-            resetFlashcardPreload(syncedUser.email);
+            notifyAuthUserSynced(config, syncedUser);
             const next = { ...data, user: syncedUser };
             authRepository.saveAuthData(next);
             setUser(syncedUser);
@@ -106,7 +102,7 @@ export const AuthProvider = ({ children }) => {
                     ...data,
                     user: { ...data.user, catalog_preferences: null },
                 };
-                resetFlashcardPreload(guestData.user.email);
+                notifyAuthUserSynced(config, guestData.user);
                 authRepository.saveAuthData(guestData);
                 setUser(guestData.user);
             }
@@ -120,7 +116,7 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         httpClient.post('/api/presence/leave', {}).catch(() => {});
         authRepository.logout();
-        resetFlashcardPreload();
+        notifyAuthLogout(config);
         setUser(null);
         navigate(getPublicEntryPathForConfig(config), { replace: true });
     };
@@ -173,7 +169,7 @@ export const AuthProvider = ({ children }) => {
         const authData = authRepository.getAuthData();
         const normalizedPreferences = catalogPreferences ?? null;
         const optimisticUser = { ...user, catalog_preferences: normalizedPreferences };
-        writeCatalogPreferencesCache(user.email, normalizedPreferences);
+        notifyAuthUserSynced(config, optimisticUser);
         if (authData?.token) {
             authRepository.saveAuthData({ token: authData.token, user: optimisticUser });
         }
@@ -186,8 +182,7 @@ export const AuthProvider = ({ children }) => {
             const syncedUser = response?.user
                 ? { ...optimisticUser, ...response.user }
                 : optimisticUser;
-            writeCatalogPreferencesCache(syncedUser.email || user.email, syncedUser.catalog_preferences ?? null);
-            resetFlashcardPreload(syncedUser.email || user.email);
+            notifyAuthUserSynced(config, { ...syncedUser, email: syncedUser.email || user.email });
             if (authData?.token) {
                 authRepository.saveAuthData({ token: authData.token, user: syncedUser });
             }

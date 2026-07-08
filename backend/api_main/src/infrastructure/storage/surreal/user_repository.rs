@@ -13,7 +13,7 @@ impl UserRepository for SurrealUserRepository {
     async fn get_user_by_email(&self, email: &str) -> Result<Option<User>> {
         let mut res = self
             .0
-            .db
+            .db()
             .query("SELECT * FROM user WHERE email = $email")
             .bind(("email", email))
             .await?;
@@ -47,7 +47,7 @@ impl UserRepository for SurrealUserRepository {
 
         let mut res = self
             .0
-            .db
+            .db()
             .query(
                 "
             UPDATE type::thing('user', $email) CONTENT $data;
@@ -66,7 +66,7 @@ impl UserRepository for SurrealUserRepository {
     async fn set_onboarding_completed(&self, email: &str, completed: bool) -> Result<Option<User>> {
         let mut res = self
             .0
-            .db
+            .db()
             .query(
                 "
             UPDATE user SET onboarding_completed = $completed WHERE email = $email;
@@ -87,7 +87,7 @@ impl UserRepository for SurrealUserRepository {
     ) -> Result<Option<User>> {
         let mut res = self
             .0
-            .db
+            .db()
             .query(
                 "
             UPDATE user SET catalog_preferences = $preferences WHERE email = $email;
@@ -104,7 +104,7 @@ impl UserRepository for SurrealUserRepository {
     async fn list_all_users(&self) -> Result<Vec<User>> {
         let mut res = self
             .0
-            .db
+            .db()
             .query("SELECT * FROM user ORDER BY last_login DESC")
             .await?;
         let users: Vec<SurrealUser> = res.take(0)?;

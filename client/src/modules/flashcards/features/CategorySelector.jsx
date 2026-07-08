@@ -651,7 +651,7 @@ function CategorySelector() {
                                     }}
                                 >
                                     <div className={styles.groupHeader}>
-                                        <h4 className={styles.groupName}>{formatDeckCategoryName(deckName)}</h4>
+                                        <h4 className={styles.groupName}>{formatDeckCategoryName(deckName, language)}</h4>
                                         <div className={styles.groupActions}>
                                             <span className={styles.groupCountBadge}>{summary ? total : '…'}</span>
                                         </div>

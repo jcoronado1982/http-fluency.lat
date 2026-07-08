@@ -5,8 +5,11 @@ use fluency_core::domain::models::user_activity::{
 };
 use fluency_core::ports::db_repository::{CardProgressRepository, UserActivityRepository};
 use fluency_core::ports::storage::StorageRepository;
+use futures::lock::Mutex;
 use futures::stream::{self, StreamExt};
+use std::collections::HashMap;
 use std::sync::Arc;
+use std::time::{Duration, Instant};
 
 pub mod audio_use_cases;
 pub mod batch;
@@ -93,10 +96,25 @@ pub struct FlashcardsConfig {
     pub gemini_api_enabled: bool,
 }
 
+/// TTL de los conteos estáticos (totales de tarjetas por categoría/prefijo).
+/// El contenido de los decks cambia rarísimo; alineado con el cache de storage.
+const STATIC_COUNTS_TTL: Duration = Duration::from_secs(300);
+
+/// Memoización de conteos derivados de los JSONs de decks. Sin esto, cada
+/// llamada a /api/categories o /api/learning-stats re-lee y re-parsea todos
+/// los decks del catálogo. El Mutex async además actúa como single-flight:
+/// en un arranque frío con muchos usuarios solo un request computa.
+#[derive(Default)]
+struct StaticCountsCache {
+    categories: Option<(Instant, Vec<serde_json::Value>)>,
+    deck_prefix_totals: HashMap<String, (Instant, i32)>,
+}
+
 pub struct DeckUseCases {
     storage_repo: Arc<dyn StorageRepository>,
     db_repo: Arc<dyn CardProgressRepository>,
     activity_repo: Arc<dyn UserActivityRepository>,
+    counts_cache: Mutex<StaticCountsCache>,
 }
 
 const CATEGORY_ORDER: &[&str] = &[
@@ -134,6 +152,7 @@ impl DeckUseCases {
             storage_repo,
             db_repo,
             activity_repo,
+            counts_cache: Mutex::new(StaticCountsCache::default()),
         }
     }
 
@@ -142,25 +161,54 @@ impl DeckUseCases {
     }
 
     /// Devuelve cada categoría con el total real de tarjetas sumando todos sus decks.
+    /// Cacheado con TTL + single-flight: el cómputo re-lee todos los decks.
     pub async fn list_categories_with_counts(&self) -> Result<Vec<serde_json::Value>> {
+        let mut cache = self.counts_cache.lock().await;
+        if let Some((at, cached)) = &cache.categories {
+            if at.elapsed() < STATIC_COUNTS_TTL {
+                return Ok(cached.clone());
+            }
+        }
+
+        let result = self.compute_categories_with_counts().await?;
+        cache.categories = Some((Instant::now(), result.clone()));
+        Ok(result)
+    }
+
+    async fn compute_categories_with_counts(&self) -> Result<Vec<serde_json::Value>> {
         let mut categories = self.storage_repo.list_categories().await?;
         categories.sort_by(|a, b| {
             category_order_index(a)
                 .cmp(&category_order_index(b))
                 .then_with(|| a.cmp(b))
         });
-        let mut result = Vec::new();
-        for cat in categories {
-            let decks = self.storage_repo.list_decks(&cat).await.unwrap_or_default();
-            let mut total: usize = 0;
-            for deck in &decks {
-                if let Ok(data) = self.storage_repo.get_deck_data(&cat, deck).await {
-                    total += data.flashcards().len();
-                }
-            }
-            result.push(serde_json::json!({ "name": cat, "total": total }));
-        }
-        Ok(result)
+        let mut indexed = stream::iter(categories.into_iter().enumerate())
+            .map(|(index, cat)| async move {
+                let decks = self.storage_repo.list_decks(&cat).await.unwrap_or_default();
+                let category_name = cat.clone();
+                let total = stream::iter(decks.into_iter())
+                    .map(|deck| {
+                        let category_name = category_name.clone();
+                        async move {
+                            self.storage_repo
+                                .get_deck_data(&category_name, &deck)
+                                .await
+                                .map(|data| data.flashcards().len())
+                                .unwrap_or(0)
+                        }
+                    })
+                    .buffer_unordered(8)
+                    .fold(0usize, |acc, count| async move { acc + count })
+                    .await;
+
+                (index, serde_json::json!({ "name": cat, "total": total }))
+            })
+            .buffer_unordered(4)
+            .collect::<Vec<_>>()
+            .await;
+
+        indexed.sort_by_key(|(index, _)| *index);
+        Ok(indexed.into_iter().map(|(_, value)| value).collect())
     }
 
     pub async fn list_decks(&self, category: &str) -> Result<Vec<String>> {
@@ -314,7 +362,24 @@ impl DeckUseCases {
         self.activity_repo.record_study_day(user_id).await
     }
 
+    /// Total de tarjetas cuyo deck empieza por `deck_prefix`. El cómputo lee
+    /// todos los decks del catálogo, así que se memoiza con TTL + single-flight.
     async fn count_cards_for_deck_prefix(&self, deck_prefix: &str) -> Result<i32> {
+        let mut cache = self.counts_cache.lock().await;
+        if let Some((at, total)) = cache.deck_prefix_totals.get(deck_prefix) {
+            if at.elapsed() < STATIC_COUNTS_TTL {
+                return Ok(*total);
+            }
+        }
+
+        let total = self.compute_cards_for_deck_prefix(deck_prefix).await?;
+        cache
+            .deck_prefix_totals
+            .insert(deck_prefix.to_string(), (Instant::now(), total));
+        Ok(total)
+    }
+
+    async fn compute_cards_for_deck_prefix(&self, deck_prefix: &str) -> Result<i32> {
         let categories = self.storage_repo.list_categories().await?;
         let mut total = 0_i32;
 

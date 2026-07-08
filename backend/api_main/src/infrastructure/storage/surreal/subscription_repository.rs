@@ -12,7 +12,7 @@ impl SubscriptionRepository for SurrealSubscriptionRepository {
     async fn get_subscription(&self, email: &str) -> Result<Option<Subscription>> {
         let mut res = self
             .0
-            .db
+            .db()
             .query("SELECT * FROM type::thing('subscription', $email)")
             .bind(("email", email))
             .await?;
@@ -50,7 +50,7 @@ impl SubscriptionRepository for SurrealSubscriptionRepository {
 
         let mut res = self
             .0
-            .db
+            .db()
             .query(
                 "
             UPDATE type::thing('subscription', $email) CONTENT $data;
@@ -67,7 +67,7 @@ impl SubscriptionRepository for SurrealSubscriptionRepository {
     async fn list_subscriptions(&self, limit: usize, offset: usize) -> Result<Vec<Subscription>> {
         let mut res = self
             .0
-            .db
+            .db()
             .query("SELECT * FROM subscription ORDER BY created_at DESC LIMIT $limit START $offset")
             .bind(("limit", limit))
             .bind(("offset", offset))
@@ -78,7 +78,7 @@ impl SubscriptionRepository for SurrealSubscriptionRepository {
 
     async fn cancel_subscription(&self, email: &str) -> Result<()> {
         self.0
-            .db
+            .db()
             .query(
                 "UPDATE type::thing('subscription', $email) SET status = 'cancelled', updated_at = time::now();",
             )
@@ -90,7 +90,7 @@ impl SubscriptionRepository for SurrealSubscriptionRepository {
     async fn bulk_expire_subscriptions(&self) -> Result<usize> {
         let mut res = self
             .0
-            .db
+            .db()
             .query(
                 "UPDATE subscription SET status = 'expired', updated_at = time::now()
              WHERE status = 'active' AND expires_at < time::now();",

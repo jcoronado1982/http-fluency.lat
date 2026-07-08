@@ -381,12 +381,18 @@ mod tests {
             comfy_url: String::new(),
             local_storage_path: String::new(),
             sync_to_oracle: false,
+            oracle_repository_only: false,
             oracle_host: String::new(),
             oracle_ssh_password: String::new(),
             oracle_remote_path: String::new(),
             public_base_url: String::new(),
             elevenlabs_api_key: None,
             elevenlabs_model_id: None,
+            ollama_url: String::new(),
+            local_agent_model: String::new(),
+            local_agent_workspace_root: String::new(),
+            local_agent_max_steps: 0,
+            local_agent_allowed_command_prefixes: Vec::new(),
         }
     }
 }

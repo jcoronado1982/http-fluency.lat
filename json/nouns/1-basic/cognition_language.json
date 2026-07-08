@@ -50,31 +50,5 @@
     "phonetic": "/aɪˈdiːə/",
     "search_term": "noun/thought/essentials",
     "spoken_phonetic_us": "/aɪˈdiːə/"
-  },
-  {
-    "word": "",
-    "translation": "",
-    "example": null,
-    "learned": false,
-    "learned_at": null,
-    "definitions": [
-      {
-        "char_count": "1",
-        "meaning": "Cosas / Material (incontable)",
-        "pronunciation_guide_es": "/uat_is_OL_dis_STAF/",
-        "usage_context_en": "General term for objects, things, or materials",
-        "usage_context_es": "Término general para objetos, cosas o materiales",
-        "usage_example": "What is all this stuff?",
-        "usage_example_es": "¿Qué son todas estas cosas?",
-        "imagePath": "/card_images/nouns/1-basic/1-basic_card_482_def0.avif"
-      }
-    ],
-    "force_generation": false,
-    "group_name": "General Concepts",
-    "is_verb": false,
-    "name": "stuff",
-    "phonetic": "/stʌf/",
-    "search_term": "noun/objects/essentials",
-    "spoken_phonetic_us": "/stʌf/"
   }
 ]

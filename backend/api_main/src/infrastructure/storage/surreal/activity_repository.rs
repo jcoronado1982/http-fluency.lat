@@ -6,14 +6,31 @@ use crate::domain::models::user_activity::{
 use crate::domain::repositories::db_repository::UserActivityRepository;
 use anyhow::Result;
 use async_trait::async_trait;
+use moka::future::Cache;
 use std::sync::Arc;
+use std::time::Duration;
 
-pub struct SurrealUserActivityRepository(pub Arc<SurrealConnection>);
+pub struct SurrealUserActivityRepository {
+    conn: Arc<SurrealConnection>,
+    /// email → última fecha (YYYY-MM-DD) ya registrada en la DB.
+    /// Sin este cache, cada batch de tarjetas dispara un read-modify-write
+    /// contra Surreal aunque el día de estudio ya esté registrado.
+    study_day_cache: Cache<String, String>,
+}
 
 impl SurrealUserActivityRepository {
+    pub fn new(conn: Arc<SurrealConnection>) -> Self {
+        Self {
+            conn,
+            study_day_cache: Cache::builder()
+                .max_capacity(10_000)
+                .time_to_live(Duration::from_secs(25 * 60 * 60))
+                .build(),
+        }
+    }
     async fn write_activity_stats(&self, stats: &UserActivityStats) -> Result<()> {
-        self.0
-            .db
+        self.conn
+            .db()
             .query(
                 "UPDATE type::thing('user_activity_stats', $email) CONTENT {
                     email: $email,
@@ -111,8 +128,8 @@ impl UserActivityRepository for SurrealUserActivityRepository {
 
     async fn get_stats(&self, email: &str) -> Result<UserActivityStats> {
         let mut res = self
-            .0
-            .db
+            .conn
+            .db()
             .query("SELECT * FROM type::thing('user_activity_stats', $email)")
             .bind(("email", email))
             .await?;
@@ -126,17 +143,27 @@ impl UserActivityRepository for SurrealUserActivityRepository {
     }
 
     async fn get_all_stats(&self) -> Result<Vec<UserActivityStats>> {
-        let mut res = self.0.db.query("SELECT * FROM user_activity_stats").await?;
+        let mut res = self.conn.db().query("SELECT * FROM user_activity_stats").await?;
         let rows: Vec<SurrealUserActivityStats> = res.take(0)?;
         Ok(rows.into_iter().map(Self::map_activity_stats).collect())
     }
 
     async fn record_study_day(&self, email: &str) -> Result<()> {
         let today = Self::today_utc();
+
+        // Camino caliente: se llama en cada batch de tarjetas, pero solo la
+        // primera del día necesita tocar la DB.
+        if self.study_day_cache.get(email).await.as_deref() == Some(today.as_str()) {
+            return Ok(());
+        }
+
         let yesterday = Self::yesterday_utc();
         let mut existing = self.get_stats(email).await?;
 
         if existing.last_study_date.as_deref() == Some(today.as_str()) {
+            self.study_day_cache
+                .insert(email.to_string(), today)
+                .await;
             return Ok(());
         }
 
@@ -149,8 +176,12 @@ impl UserActivityRepository for SurrealUserActivityRepository {
         if existing.current_streak > existing.longest_streak {
             existing.longest_streak = existing.current_streak;
         }
-        existing.last_study_date = Some(today);
-        self.write_activity_stats(&existing).await
+        existing.last_study_date = Some(today.clone());
+        self.write_activity_stats(&existing).await?;
+        self.study_day_cache
+            .insert(email.to_string(), today)
+            .await;
+        Ok(())
     }
 
     async fn get_learning_stats(

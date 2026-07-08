@@ -220,6 +220,23 @@ export function useImageGeneration({
         return true;
     }, [applyLoadedImage, imagePort]);
 
+    const setOptimisticImageFromPath = useCallback((path, defIndex, cacheBust = false, form) => {
+        if (!path) return false;
+        const normalizedPath = imagePort.normalizeToAvif(path);
+        const url = imagePort.buildUrl(normalizedPath, cacheBust);
+        confirmedPathRef.current = normalizedPath;
+        imageUrlRef.current = url;
+        displayedFormRef.current = form;
+        setCurrentDefIndex(defIndex);
+        currentDefIndexRef.current = defIndex;
+        setImageUrl(url);
+        setIsImageLoading(false);
+        setIsGeneratingImage(false);
+        isTransitioningRef.current = false;
+        clearGeneratingUiTimer();
+        return true;
+    }, [clearGeneratingUiTimer, imagePort]);
+
     const fetchViaGenerate = useCallback(async (defIndex, forceRegenerate, seq, pipelineForm, legacyImagePath = null) => {
         const requestForm = pipelineForm ?? activeFormRef.current;
         const formDefs = (FORM_DEF_MAP[requestForm] || FORM_DEF_MAP.v1)(cardData);
@@ -441,7 +458,7 @@ export function useImageGeneration({
                 if (data?.path) {
                     const resolvedPath = imagePort.normalizeToAvif(data.path);
                     if (isLandingDemo && !pathMatchesVerbForm(resolvedPath, form)) return false;
-                    setImageFromPath(resolvedPath, defIndex, cardData.force_generation, form);
+                    setOptimisticImageFromPath(resolvedPath, defIndex, cardData.force_generation, form);
                     setAppMessage({ text: `Imagen (Def ${defIndex + 1}) lista`, isError: false });
                     return true;
                 }
@@ -460,17 +477,13 @@ export function useImageGeneration({
 
         const tryVerifyPath = async (path, form = pipelineForm) => {
             if (!path) return false;
-            const accessible = await imagePort.verifyAccessible(path, cardData.force_generation);
             if (isStale()) {
                 isTransitioningRef.current = false;
                 return false;
             }
-            if (accessible) {
-                setImageFromPath(path, defIndex, cardData.force_generation, form);
-                setAppMessage({ text: `Imagen (Def ${defIndex + 1}) lista`, isError: false });
-                return true;
-            }
-            return false;
+            setOptimisticImageFromPath(path, defIndex, cardData.force_generation, form);
+            setAppMessage({ text: `Imagen (Def ${defIndex + 1}) lista`, isError: false });
+            return true;
         };
 
         if (!forceRegenerate) {
@@ -531,7 +544,7 @@ export function useImageGeneration({
         cardData, currentCategory, currentDeckName, isAuthenticated,
         buildGlobalFallbackPath, isLandingDemo,
         canGenerateImages, setImageFromPath, fetchViaGenerate, setAppMessage,
-        clearGeneratingUiTimer, imagePort, releasePipelineLoading,
+        clearGeneratingUiTimer, imagePort, releasePipelineLoading, setOptimisticImageFromPath,
     ]);
 
     const ensureImageForDefinition = useCallback(async (defIndex, options = {}) => {

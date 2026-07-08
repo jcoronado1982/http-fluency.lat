@@ -44,7 +44,7 @@ backend/
 
 ### Base de Datos Activa: SurrealDB
 
-El sistema utiliza **SurrealDB** como base de datos en AWS para gestionar la persistencia avanzada:
+El sistema utiliza **SurrealDB 1.5.5** (RocksDB) alojado en **server-oci-1** (Oracle Cloud, VCN privada `10.0.1.138:8080`) para gestionar la persistencia avanzada:
 *   **Usuarios (`users`):** Guarda perfil de Google y permisos.
 *   **Suscripciones (`subscription`):** Controla el estado Premium (`active`/`cancelled`/`expired`) y fechas de vencimiento.
 *   **Progreso de Tarjetas (`card_progress`):** Registro de qué tarjetas ha completado cada usuario.
