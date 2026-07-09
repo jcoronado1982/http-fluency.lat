@@ -21,6 +21,17 @@ type ListCache = Cache<String, Arc<Vec<String>>>;
 /// Caché ligera de existencia de blobs (evita SSH/stat repetidos).
 type ExistsCache = Cache<String, bool>;
 
+/// NO agregar una caché en memoria de bytes de imágenes/audio (`download_blob`) para
+/// "optimizar" la carga cuando se lee de Oracle vía SSH — los servidores de prod
+/// corren con 1 GB de RAM y cachear blobs binarios es la forma más rápida de tumbar
+/// el proceso por OOM bajo tráfico concurrente.
+///
+/// El cuello de botella real (verificado jul 2026) era spawnear un proceso SSH por
+/// archivo (`download_blob` + `blob_exists_uncached` + `remote_blob_mtime` podían
+/// sumar 3 SSH secuenciales por tarjeta nueva, ~2s). El fix fue preferir HTTP vía
+/// Caddy (reutiliza `http_client`, ya pooleado, sin bytes extra en RAM) y dejar SSH
+/// solo como respaldo — ver esos tres métodos más abajo. Si vuelve a sentirse lento,
+/// revisar que ese orden HTTP-antes-que-SSH siga así, no reintroducir una caché.
 pub struct LocalStorageRepository {
     base_path: PathBuf,
     json_prefix: String,
@@ -304,6 +315,28 @@ impl LocalStorageRepository {
         Self::validate_relative_path(blob_path)?;
         if self.oracle_host.is_empty() {
             return Ok(None);
+        }
+
+        // HEAD vía Caddy (pool ya abierto) primero: evita otro spawn SSH además del
+        // que ya hace download_blob para el mismo archivo. SSH stat queda de respaldo.
+        if self.can_read_from_oracle() {
+            let url = format!(
+                "{}/{}",
+                self.oracle_base_url(),
+                blob_path.trim_start_matches('/')
+            );
+            if let Ok(res) = self.http_client.head(&url).send().await {
+                if res.status().is_success() {
+                    if let Some(epoch) = res
+                        .headers()
+                        .get(reqwest::header::LAST_MODIFIED)
+                        .and_then(|v| v.to_str().ok())
+                        .and_then(|s| chrono::DateTime::parse_from_rfc2822(s).ok())
+                    {
+                        return Ok(Some(epoch.timestamp().to_string()));
+                    }
+                }
+            }
         }
 
         let remote_file = format!(
@@ -891,13 +924,16 @@ impl StorageRepository for LocalStorageRepository {
         let path = self.get_full_path(blob_path);
 
         if self.must_read_from_oracle() {
-            if let Ok(bytes) = self.fetch_from_oracle_ssh(blob_path).await {
-                return Ok(bytes);
-            }
+            // HTTP (Caddy, pool de conexiones ya abierto) primero: un spawn de proceso
+            // SSH por archivo es el cuello de botella real en dev local contra Oracle.
+            // SSH queda como respaldo si Caddy no sirve la ruta.
             if self.can_read_from_oracle() {
                 if let Ok(bytes) = self.fetch_from_oracle(blob_path).await {
                     return Ok(bytes);
                 }
+            }
+            if let Ok(bytes) = self.fetch_from_oracle_ssh(blob_path).await {
+                return Ok(bytes);
             }
             return Err(anyhow::anyhow!(
                 "Archivo no encontrado en Oracle: {}",
@@ -1152,6 +1188,11 @@ impl StorageRepository for LocalStorageRepository {
             }
         }
 
+        // Sin esto, blob_exists() seguía devolviendo `true` (caché de hasta 5 min)
+        // después de borrar, y get_or_generate_image/resolve_image_path creían que
+        // la imagen seguía existiendo — bloqueando la regeneración inmediata.
+        self.exists_cache.invalidate(blob_path).await;
+
         Ok(())
     }
 
@@ -1191,6 +1232,22 @@ impl LocalStorageRepository {
         Self::validate_relative_path(blob_path)?;
         if (self.oracle_as_source_of_truth() || self.sync_to_oracle) && !self.oracle_host.is_empty()
         {
+            // HEAD vía Caddy (pool de conexiones ya abierto) primero: evita spawnear
+            // un proceso SSH por chequeo de existencia — el costo real en dev local
+            // contra Oracle. SSH queda como respaldo si Caddy no responde.
+            if self.can_read_from_oracle() {
+                let url = format!(
+                    "{}/{}",
+                    self.oracle_base_url(),
+                    blob_path.trim_start_matches('/')
+                );
+                if let Ok(res) = self.http_client.head(&url).send().await {
+                    let exists = res.status().is_success();
+                    tracing::debug!("🔍 Oracle blob_exists (HTTP HEAD): {} → {}", url, exists);
+                    return Ok(exists);
+                }
+            }
+
             let remote_file = format!(
                 "{}/{}",
                 self.oracle_remote_path,

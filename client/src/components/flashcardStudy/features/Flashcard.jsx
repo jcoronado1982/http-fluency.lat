@@ -9,6 +9,7 @@ import { useDialog } from '../../../context/DialogContext';
 import { useFlashcardUiContext, useFlashcardContext, useCategoryContext } from '../context/flashcardStudyContext';
 import { getCardTitle, getAudioLang, getAudioLangForConjugation, getStudyExampleText, isLearningEnglish } from './cardLanguageUtils';
 import { registerUiBridgeHandler, unregisterUiBridgeHandler } from '../uiBridge';
+import { useAuth } from '../../../context/AuthContext';
 
 const getDefinitionsForForm = (card, form) => {
     if (!card) return [];
@@ -38,6 +39,8 @@ function Flashcard() {
         studyLanguage = 'en',
     } = useUIContext();
     const { confirm } = useDialog();
+    const { user } = useAuth();
+    const isAdmin = user?.role === 'admin';
     const {
         setIsAudioLoading,
         setIsIpaModalOpen,
@@ -85,6 +88,21 @@ function Flashcard() {
 
     const handleRegenerateImage = useCallback(async () => {
         const isEs = language === 'es';
+        
+        let promptEngine = 'local';
+        if (isAdmin) {
+            const useGemini = await confirm({
+                title: isEs ? '¿Quién generará el prompt?' : 'Who generates the prompt?',
+                message: isEs 
+                    ? '¿Deseas usar Gemini (API) o el modelo local (Ollama) para crear el prompt?' 
+                    : 'Do you want to use Gemini (API) or the local model (Ollama) to create the prompt?',
+                confirmLabel: 'Gemini',
+                cancelLabel: 'Local',
+                tone: 'default',
+            });
+            promptEngine = useGemini ? 'gemini' : 'local';
+        }
+
         const confirmed = await confirm({
             title: isEs ? '¿Actualizar imagen?' : 'Update image?',
             message: isEs 
@@ -93,10 +111,11 @@ function Flashcard() {
             confirmLabel: isEs ? 'Actualizar' : 'Update',
             tone: 'default',
         });
+        
         if (confirmed) {
-            ensureImageForDefinition(currentDefIndex, { forceRegenerate: true });
+            ensureImageForDefinition(currentDefIndex, { forceRegenerate: true, promptEngine });
         }
-    }, [confirm, ensureImageForDefinition, currentDefIndex, language]);
+    }, [confirm, ensureImageForDefinition, currentDefIndex, language, isAdmin]);
 
     const buildAllBlurred = useCallback((form = activeForm) => {
         if (!cardData) return {};

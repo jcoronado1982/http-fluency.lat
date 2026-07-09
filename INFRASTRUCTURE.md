@@ -25,7 +25,7 @@ Es el nodo más importante en tiempo de ejecución. Sirve como punto de entrada 
 ### Nodos Espejo y de Respaldo (Mirrors & Overflow)
 Estos servidores mantienen el servicio disponible como respaldo, pero **no procesan la ruta pública principal** en tiempo de operación normal. Todos los mirrors reciben copias idénticas en el pipeline tirando la imagen desde Google Container Registry (GCR).
 *   **AWS (34.229.229.255)**: EC2 t3.micro (Alpine Linux, 1 GB RAM). Corre Backend Rust. Usa `SYNC_TO_ORACLE=true` (sincroniza activos de vuelta hacia Oracle vía SCP).
-*   **OCI-1 (129.158.214.227)**: Servidor ARM que corre otra réplica del Backend Rust puro (para carga/failover del backend, no de la DB).
+*   **OCI-1 (129.158.214.227)**: **No corre Backend Rust.** Dedicado exclusivamente a SurrealDB (ver sección anterior); el pipeline solo le despliega `deploy-surrealdb-oci1.sh` / `oci1-db-tuning.sh` (`azure-pipelines.yml`, job `Mirror_OCI1`). Detalle completo en `docs/infrastructure/ARQUITECTURA_ORACLE_DB.md` y `docs/infrastructure/server_inventory.md`.
 *   **GCP Cloud Run**: Backend de overflow alojado en us-east1 (proyecto `launch-490115`). Escala a cero y se mantiene como fallback sin estado (usa llamadas remotas para guardar archivos).
 
 ### Servidor de Compilación (LocalBuild / PC Dev)
@@ -71,7 +71,8 @@ El ciclo de despliegue se divide en 6 *stages* bien definidos dentro del archivo
 ### Stage 5: Deploy Mirrors (🔁 Replicate Mirrors: Oracle / OCI-1 / AWS)
 Esta etapa ocurre en cascada.
 1.  **Oracle Proxy Mirror:** Levanta el backend Rust de producción nativamente y se enlaza con Caddy. Usa variables de entorno embebidas por SSH sin tocar archivos locales vulnerables.
-2.  **OCI-1 Mirror & AWS Mirror:** Se envían *scripts* remotos (a través de `sshpass` a sus respectivas IPs) para que autentiquen con GCR, apaguen el backend viejo, hagan un `docker pull` nativo (sin recompilar gracias al arm64/amd64 bundle) y hagan un `docker run` con los comandos de sincronización (`SYNC_TO_ORACLE=true`) hacia el servidor central.
+2.  **OCI-1 Mirror (job `Mirror_OCI1`):** No despliega backend. Solo copia y ejecuta `deploy-surrealdb-oci1.sh` / `oci1-db-tuning.sh` para mantener la instancia dedicada de SurrealDB (800m, `--network host`).
+3.  **AWS Mirror (job `Mirror_AWS`):** Autentica con GCR, hace `docker pull` de la imagen backend (sin recompilar, gracias al bundle arm64/amd64) y `docker run` con `SYNC_TO_ORACLE=true` para sincronizar activos de vuelta hacia el servidor central Oracle.
 
 ### Stage 6: Cleanup (🧹 Cleanup artifacts + logs)
 1.  **Operación:** Asegura la limpieza en ambos agentes (LocalBuild y Default). Borra workspaces (`site/`, `dist/`), archivos bash temporales, e invoca al API de Azure DevOps para **eliminar el artefacto de pipeline** generado, lo que previene saturación en el disco del servidor CI/CD.

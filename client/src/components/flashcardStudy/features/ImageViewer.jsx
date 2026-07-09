@@ -8,11 +8,15 @@ import { FiCpu } from 'react-icons/fi';
  * SRP: no conoce lógica de formas verbales ni audio.
  */
 function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl, imageRef, altText, onDelete, onRegenerate, onUploadClick, onImageError, canCustomizeImages, canDeleteImages = canCustomizeImages, isDisabled, imageKey, isLandingDemo = false }) {
+    console.log('[ImageViewer] props:', { isImageLoading, isGeneratingImage, isUploading, imageUrl });
     const isProcessActive = isImageLoading || isUploading;
     const [isDecoding, setIsDecoding] = useState(true);
     const activeUrlRef = useRef(imageUrl);
 
-    const handleImageLoad = () => setIsDecoding(false);
+    const handleImageLoad = () => {
+        console.log('[ImageViewer] handleImageLoad');
+        setIsDecoding(false);
+    };
 
     const handleImageError = () => {
         setIsDecoding(false);
@@ -154,7 +158,7 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
                 />
             ) : !isProcessActive && !isLandingDemo && (
                 <img
-                    src="https://placehold.co/600x400/e9ecef/6c757d?text=No+Image"
+                    src="/noimages.png"
                     alt="Image not available"
                     className={styles.noImagePlaceholderImg}
                 />

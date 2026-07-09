@@ -25,7 +25,7 @@ export function createImageHttpAdapter(http) {
     },
 
     // POST /api/generate-image — recupera imagen de GCS o genera una nueva con IA
-    generate: async ({ category, deck, index, defIndex, form, prompt, meaning, usageExample, usageContext, alternativeExample, forceGeneration, legacyImagePath, sceneComplement }) => {
+    generate: async ({ category, deck, index, defIndex, form, prompt, meaning, usageExample, usageContext, alternativeExample, forceGeneration, legacyImagePath, sceneComplement, promptEngine }) => {
         const data = await http.post('/api/generate-image', {
             category,
             deck,
@@ -40,6 +40,7 @@ export function createImageHttpAdapter(http) {
             force_generation: forceGeneration,
             legacy_image_path: legacyImagePath || undefined,
             scene_complement: sceneComplement || undefined,
+            prompt_engine: promptEngine || undefined,
         });
         if (!data?.path) throw new Error('Sin ruta de imagen en la respuesta');
         return data;

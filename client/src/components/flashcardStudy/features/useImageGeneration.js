@@ -237,7 +237,7 @@ export function useImageGeneration({
         return true;
     }, [clearGeneratingUiTimer, imagePort]);
 
-    const fetchViaGenerate = useCallback(async (defIndex, forceRegenerate, seq, pipelineForm, legacyImagePath = null) => {
+    const fetchViaGenerate = useCallback(async (defIndex, forceRegenerate, seq, pipelineForm, legacyImagePath = null, promptEngine = null) => {
         const requestForm = pipelineForm ?? activeFormRef.current;
         const formDefs = (FORM_DEF_MAP[requestForm] || FORM_DEF_MAP.v1)(cardData);
         if (!cardData || !formDefs?.[defIndex] || !currentCategory) return false;
@@ -312,6 +312,7 @@ export function useImageGeneration({
                 sceneComplement,
                 forceGeneration: forceRegenerate,
                 legacyImagePath,
+                promptEngine,
             });
 
             if (isRequestStale()) {
@@ -373,7 +374,7 @@ export function useImageGeneration({
         releasePipelineLoading,
     ]);
 
-    const runEnsurePipeline = useCallback(async (defIndex, { forceRegenerate = false, formOverride } = {}) => {
+    const runEnsurePipeline = useCallback(async (defIndex, { forceRegenerate = false, formOverride, promptEngine = null } = {}) => {
         const pipelineForm = formOverride ?? activeFormRef.current;
         // Sincronizar ref antes de async: setActiveForm y ensureImageForForm van en la misma tick.
         if (formOverride) {
@@ -512,7 +513,7 @@ export function useImageGeneration({
         }
 
         // Paso 3: get-or-generate (solo si no existe ninguna variante)
-        if (canGenerateImages && AI_ENABLED) {
+        if (canGenerateImages && AI_ENABLED && (forceRegenerate || isLandingDemo)) {
             // forceGeneration queda reservado para acciones explícitas del usuario.
             // Si solo falta la ruta nueva, backend primero intenta migrar una imagen legacy.
             const shouldForceGenerate = forceRegenerate;
@@ -527,7 +528,7 @@ export function useImageGeneration({
                 && !pathMatchesDeck(rawLegacyPath, currentCategory, currentDeckName)
                 ? rawLegacyPath
                 : null;
-            const generated = await fetchViaGenerate(defIndex, shouldForceGenerate, seq, pipelineForm, legacyImagePath);
+            const generated = await fetchViaGenerate(defIndex, shouldForceGenerate, seq, pipelineForm, legacyImagePath, promptEngine);
             if (generated === false && !isStale()) {
                 releasePipelineLoading(seq);
             }

@@ -96,6 +96,7 @@ pub struct ImageGenRequest {
     pub force_generation: bool,
     pub form: Option<String>,
     pub legacy_image_path: Option<String>,
+    pub prompt_engine: Option<String>,
     /// Demo landing: texto extra del usuario (complemento visual, no reemplaza el ejemplo).
     pub scene_complement: Option<String>,
 }
@@ -394,6 +395,7 @@ impl ImageUseCases {
             80
         };
 
+        /*
         tracing::info!(
             trace_id = %trace_short,
             category = %req.category,
@@ -410,6 +412,7 @@ impl ImageUseCases {
             elapsed_ms = request_started_at.elapsed().as_millis() as u64,
             "img-gen:start"
         );
+        */
 
         if !req.force_generation
             && self
@@ -432,6 +435,7 @@ impl ImageUseCases {
 
         let prompt_context_started_at = Instant::now();
         let prompt_meaning_context = build_prompt_meaning_context(req);
+        /*
         tracing::info!(
             trace_id = %trace_short,
             prompt_meaning_context = ?prompt_meaning_context,
@@ -441,8 +445,10 @@ impl ImageUseCases {
             elapsed_ms = request_started_at.elapsed().as_millis() as u64,
             "img-gen:prompt-context"
         );
+        */
 
         let prompt_llm_started_at = Instant::now();
+        /*
         tracing::info!(
             trace_id = %trace_short,
             prompt_engine = if is_demo { "ollama-demo" } else { "ollama" },
@@ -454,6 +460,12 @@ impl ImageUseCases {
             elapsed_ms = request_started_at.elapsed().as_millis() as u64,
             "img-gen:prompt-llm-start"
         );
+        */
+
+        let mut pos_with_engine = category.clone();
+        if let Some(engine) = &req.prompt_engine {
+            pos_with_engine = format!("{}|ENGINE={}", category, engine);
+        }
 
         let visual_description = match if is_demo {
             self.ai_tutor.improve_prompt_for_landing_demo_image(
@@ -466,7 +478,7 @@ impl ImageUseCases {
         } else {
             self.ai_tutor.improve_prompt_for_image(
                 &req.prompt,
-                &category,
+                &pos_with_engine,
                 prompt_meaning_context.as_deref().or(req.meaning.as_deref()),
                 req.usage_example.as_deref(),
             )
@@ -475,6 +487,7 @@ impl ImageUseCases {
         {
             Ok(desc) => {
                 let visual_description = extract_final_visual_description(&desc);
+                /*
                 tracing::info!(
                     trace_id = %trace_short,
                     gemini_output = %desc,
@@ -484,6 +497,7 @@ impl ImageUseCases {
                     elapsed_ms = request_started_at.elapsed().as_millis() as u64,
                     "img-gen:gemini-ok"
                 );
+                */
                 visual_description
             }
             Err(e) => {
@@ -517,7 +531,7 @@ impl ImageUseCases {
             )
         } else {
             format!(
-                "Candid photorealistic DSLR photograph shot on a 35-50mm lens, ISO 400-800, 896x512, natural mixed lighting exactly as it would occur in this exact location (e.g. warm indoor bulb mixing with cool window daylight, single overhead fixture casting uneven shadows, harsh midday sun outdoors, dim evening light) — NOT even three-point studio lighting, NOT glossy magazine retouching. Slight underexposure is acceptable and preferred; strictly avoid overexposure, blown-out highlights, or harsh bright spots. Visible sensor grain, imperfect white balance, and realistic skin texture (pores, slight shine, asymmetry) are required. Avoid CGI-clean surfaces, avoid airbrushed skin, avoid symmetric catch-lights in the eyes: {}. A realistic, unposed, everyday life scene in the most context-appropriate setting. No text, no words, no letters, no captions, no signage, no watermarks.",
+                "A natural, unedited candid snapshot, shot on 35mm lens, f/2.8 aperture, natural light. Realistic dynamic range, balanced exposure with no blown-out highlights and no clipped whites, healthy natural skin tones with no overly red, flushed, or over-saturated faces, slightly muted natural colors, low-contrast profile, soft diffused natural ambient lighting — NOT a high-contrast glossy stock photo, NOT oversaturated, NOT highly sharpened, NOT digitally retouched. Genuine skin textures, visible pores, minor imperfections, subtle realistic skin shine, and natural soft shadows. Avoid CGI-clean surfaces, avoid plastic airbrushed skin, and avoid crushed dark shadows: {}. An unposed, everyday life scene in a realistic setting. No text, no words, no captions, no signage, no watermarks.",
                 visual_description
             )
         };
@@ -546,25 +560,26 @@ impl ImageUseCases {
             }
         }
 
+        /*
         tracing::info!(
             trace_id = %trace_short,
             visual_description_len = visual_description.len(),
-            visual_description_preview = %preview_for_log(&visual_description, 180),
             final_prompt_len = final_prompt.len(),
-            final_prompt_preview = %preview_for_log(&final_prompt, 220),
             landing_demo = is_demo,
             elapsed_ms = request_started_at.elapsed().as_millis() as u64,
             "img-gen:final-prompt"
         );
+        */
 
+        /*
         tracing::info!(
             trace_id = %trace_short,
-            comfy_prompt = %final_prompt,
             landing_demo = is_demo,
             image_model = if is_demo { crate::landing_demo_image_prompt::GEMINI_IMAGE_MODEL } else { "comfyui/flux" },
             elapsed_ms = request_started_at.elapsed().as_millis() as u64,
             "img-gen:model-request"
         );
+        */
 
         let image_generator = if is_demo {
             &self.landing_demo_image_gen
@@ -582,6 +597,7 @@ impl ImageUseCases {
             anyhow::anyhow!("[trace={trace_short}] image model: {e}")
         })?;
 
+        /*
         tracing::info!(
             trace_id = %trace_short,
             raw_bytes = raw_bytes.len(),
@@ -590,6 +606,7 @@ impl ImageUseCases {
             elapsed_ms = request_started_at.elapsed().as_millis() as u64,
             "img-gen:model-ok"
         );
+        */
 
         // Compresión a AVIF 896x512 (formato canónico de tarjetas).
         let compressed_bytes = self
@@ -605,6 +622,7 @@ impl ImageUseCases {
                 anyhow::anyhow!("[trace={trace_short}] compression: {e}")
             })?;
 
+        /*
         tracing::info!(
             trace_id = %trace_short,
             compressed_bytes = compressed_bytes.len(),
@@ -612,8 +630,10 @@ impl ImageUseCases {
             elapsed_ms = request_started_at.elapsed().as_millis() as u64,
             "img-gen:compression-ok"
         );
+        */
 
         let upload_started_at = Instant::now();
+        /*
         tracing::info!(
             trace_id = %trace_short,
             blob_path = %blob_path,
@@ -621,6 +641,7 @@ impl ImageUseCases {
             upload_started_ms = request_started_at.elapsed().as_millis() as u64,
             "img-gen:upload-start"
         );
+        */
 
         self.storage_repo
             .upload_blob(&blob_path, compressed_bytes, "image/avif")
@@ -637,6 +658,7 @@ impl ImageUseCases {
                 anyhow::anyhow!("[trace={trace_short}] upload: {e}")
             })?;
 
+        /*
         tracing::info!(
             trace_id = %trace_short,
             blob_path = %blob_path,
@@ -644,6 +666,7 @@ impl ImageUseCases {
             total_elapsed_ms = request_started_at.elapsed().as_millis() as u64,
             "img-gen:upload-ok"
         );
+        */
 
         Ok((self.versioned_image_url(&file_name, &blob_path).await, true))
     }

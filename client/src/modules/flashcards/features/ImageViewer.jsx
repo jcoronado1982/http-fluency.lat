@@ -154,7 +154,7 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
                 />
             ) : !isProcessActive && (
                 <img
-                    src="https://placehold.co/600x400/e9ecef/6c757d?text=No+Image"
+                    src="/noimages.png"
                     alt="Image not available"
                     className={styles.noImagePlaceholderImg}
                 />

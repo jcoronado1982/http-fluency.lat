@@ -258,6 +258,19 @@ async fn async_main() -> anyhow::Result<()> {
         card_repo.clone(),
         activity_repo.clone(),
     ));
+
+    // Pre-calienta las cachés estáticas de decks en background: leer los
+    // ~256 JSONs tarda >10s en frío y no debe pagarlo ningún usuario del
+    // dashboard (servidor de 1 GB, tráfico simultáneo).
+    #[cfg(feature = "flashcards")]
+    {
+        let warm_deck_use_cases = deck_use_cases.clone();
+        tokio::spawn(async move {
+            warm_deck_use_cases
+                .warm_static_caches(&["es_en", "en_es"])
+                .await;
+        });
+    }
     #[cfg(feature = "flashcards")]
     let flashcards_config = Arc::new(FlashcardsConfig {
         gcs_audio_prefix: settings.gcs_audio_prefix.clone(),

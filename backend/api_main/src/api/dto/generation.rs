@@ -43,6 +43,8 @@ pub struct GenerateImageBody {
     pub form: Option<String>,
     #[serde(default)]
     pub legacy_image_path: Option<String>,
+    #[serde(default)]
+    pub prompt_engine: Option<String>,
     /// Demo landing: complemento visual opcional (no sustituye usage_example).
     #[serde(default)]
     pub scene_complement: Option<String>,

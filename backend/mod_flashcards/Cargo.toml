@@ -14,3 +14,5 @@ fluency_core = { path = "../core" }
 rand = "0.8"
 tracing.workspace = true
 uuid.workspace = true
+tokio = { workspace = true, features = ["time"] }
+

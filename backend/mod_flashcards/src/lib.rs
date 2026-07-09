@@ -128,6 +128,11 @@ pub struct FlashcardsConfig {
 /// El contenido de los decks cambia rarísimo; alineado con el cache de storage.
 const STATIC_COUNTS_TTL: Duration = Duration::from_secs(300);
 
+/// TTL del catálogo estático de learning-stats. Más largo que el de conteos:
+/// recomputarlo re-lee ~256 JSONs (>10s en frío) y su contenido solo cambia
+/// cuando se editan decks (los deploys reinician el proceso y re-calientan).
+const DECK_STATIC_TTL: Duration = Duration::from_secs(1800);
+
 /// Memoización de conteos derivados de los JSONs de decks. Sin esto, cada
 /// llamada a /api/categories o /api/learning-stats re-lee y re-parsea todos
 /// los decks del catálogo. El Mutex async además actúa como single-flight:
@@ -136,6 +141,21 @@ const STATIC_COUNTS_TTL: Duration = Duration::from_secs(300);
 struct StaticCountsCache {
     categories: Option<(Instant, Vec<serde_json::Value>)>,
     deck_prefix_totals: HashMap<String, (Instant, i32)>,
+    /// Catálogo estático por dirección de curso para /api/learning-stats:
+    /// (categoría, deck, total y la imagen `definitions[0]` de CADA carta).
+    /// Con esto el costo por request pasa de ~256 lecturas/parseos de JSON a
+    /// un lookup + cruce en memoria con el progreso del usuario — clave en
+    /// el servidor de 1 GB cuando entran muchos usuarios al dashboard a la vez.
+    deck_progress_static: HashMap<String, (Instant, Arc<Vec<DeckStaticInfo>>)>,
+}
+
+/// Parte estática (independiente del usuario) de un deck para learning-stats.
+struct DeckStaticInfo {
+    category: String,
+    deck: String,
+    total_count: i32,
+    /// `definitions[0].imagePath` por índice de carta (None si la carta no tiene).
+    card_images: Vec<Option<String>>,
 }
 
 pub struct DeckUseCases {
@@ -271,10 +291,110 @@ impl DeckUseCases {
         Ok(indexed.into_iter().map(|(_, value)| value).collect())
     }
 
+    /// Catálogo estático por dirección para /api/learning-stats (cacheado).
+    ///
+    /// El Mutex del cache actúa como single-flight: si 100 usuarios entran al
+    /// dashboard a la vez en frío, solo un request lee los JSONs; el resto
+    /// espera y reutiliza el `Arc` (sin duplicar memoria por request).
+    async fn deck_progress_static(
+        &self,
+        course_direction: &str,
+    ) -> Result<Arc<Vec<DeckStaticInfo>>> {
+        let mut cache = self.counts_cache.lock().await;
+        if let Some((at, cached)) = cache.deck_progress_static.get(course_direction) {
+            if at.elapsed() < DECK_STATIC_TTL {
+                return Ok(Arc::clone(cached));
+            }
+        }
+
+        let mut deck_pairs = Vec::new();
+        let categories = self
+            .storage_repo
+            .list_categories_for_direction(course_direction)
+            .await?;
+        for cat in categories {
+            let decks = self
+                .storage_repo
+                .list_decks_for_direction(course_direction, &cat)
+                .await
+                .unwrap_or_default();
+            for deck in decks {
+                deck_pairs.push((cat.clone(), deck));
+            }
+        }
+
+        // Carga en paralelo: en serie tardaba >10s y el dashboard corta a 20s.
+        let mut indexed = stream::iter(deck_pairs.into_iter().enumerate())
+            .map(|(index, (cat, deck))| async move {
+                let deck_data = self
+                    .storage_repo
+                    .get_deck_data_for_direction(course_direction, &cat, &deck)
+                    .await;
+
+                let (total_count, card_images) = match deck_data {
+                    Ok(data) => {
+                        let cards = data.flashcards();
+                        let images = cards
+                            .iter()
+                            .map(|card| {
+                                card.extra
+                                    .get("definitions")
+                                    .and_then(|defs| defs.as_array())
+                                    .and_then(|arr| arr.first())
+                                    .and_then(|def| {
+                                        def.get("imagePath").or_else(|| def.get("image_path"))
+                                    })
+                                    .and_then(|img| img.as_str())
+                                    .map(|s| s.to_string())
+                            })
+                            .collect::<Vec<_>>();
+                        (cards.len() as i32, images)
+                    }
+                    Err(_) => (0, Vec::new()),
+                };
+
+                (
+                    index,
+                    DeckStaticInfo {
+                        category: cat,
+                        deck,
+                        total_count,
+                        card_images,
+                    },
+                )
+            })
+            .buffer_unordered(16)
+            .collect::<Vec<_>>()
+            .await;
+
+        indexed.sort_by_key(|(index, _)| *index);
+        let result: Arc<Vec<DeckStaticInfo>> =
+            Arc::new(indexed.into_iter().map(|(_, info)| info).collect());
+        cache
+            .deck_progress_static
+            .insert(course_direction.to_string(), (Instant::now(), Arc::clone(&result)));
+        Ok(result)
+    }
+
     pub async fn list_decks(&self, category: &str, course_direction: &str) -> Result<Vec<String>> {
         self.storage_repo
             .list_decks_for_direction(normalize_course_direction(Some(course_direction)), category)
             .await
+    }
+
+    /// Pre-calienta las cachés estáticas al arrancar (composition root lo
+    /// lanza en background). Así ni el primer usuario del dashboard paga el
+    /// cómputo en frío — clave en el servidor de 1 GB con tráfico simultáneo.
+    pub async fn warm_static_caches(&self, course_directions: &[&str]) {
+        for direction in course_directions {
+            let normalized = normalize_course_direction(Some(direction));
+            if let Err(err) = self.deck_progress_static(normalized).await {
+                tracing::warn!("warm_static_caches({normalized}): {err}");
+            }
+            if let Err(err) = self.list_categories_with_counts(normalized).await {
+                tracing::warn!("warm_static_caches categorías ({normalized}): {err}");
+            }
+        }
     }
 
     /// Carga el deck desde almacenamiento y sobreescribe `learned`
@@ -635,85 +755,54 @@ impl DeckUseCases {
             }
         }
 
-        // Pares (categoría, deck) en orden estable; la carga de cada JSON se
-        // paraleliza (buffer_unordered) porque leerlos en serie tardaba >10s
-        // y el dashboard corta el fetch a los 8s.
-        let mut deck_pairs = Vec::new();
-        let categories = self.list_categories(course_direction).await?;
-        for cat in categories {
-            let decks = self.list_decks(&cat, course_direction).await?;
-            for deck in decks {
-                deck_pairs.push((cat.clone(), deck));
-            }
-        }
+        // Catálogo estático cacheado (TTL + single-flight): la parte cara
+        // (leer/parsear ~256 JSONs) se computa una vez por dirección y se
+        // reutiliza entre usuarios. Por request solo queda el cruce en
+        // memoria con el progreso del usuario (barato en CPU y RAM).
+        let static_infos = self.deck_progress_static(normalized_direction).await?;
 
-        let learned_map = &learned_map;
-        let mut indexed_progress = stream::iter(deck_pairs.into_iter().enumerate())
-            .map(|(index, (cat, deck))| async move {
-                let deck_data = self
-                    .storage_repo
-                    .get_deck_data_for_direction(normalized_direction, &cat, &deck)
-                    .await;
+        let decks_progress: Vec<DeckProgressInfo> = static_infos
+            .iter()
+            .map(|info| {
+                let normalized_cat = info.category.to_lowercase();
+                let normalized_deck = info.deck.replace(".json", "").to_lowercase();
 
-                let normalized_cat = cat.to_lowercase();
-                let normalized_deck = deck.replace(".json", "").to_lowercase();
-
-                let (learned_set, last_touched) = if let Some(val) = learned_map.get(&(normalized_cat, normalized_deck)) {
-                    (Some(&val.0), val.1)
-                } else {
-                    (None, None)
-                };
+                let (learned_set, last_touched) =
+                    if let Some(val) = learned_map.get(&(normalized_cat, normalized_deck)) {
+                        (Some(&val.0), val.1)
+                    } else {
+                        (None, None)
+                    };
 
                 let learned_count = learned_set.map(|s| s.len() as i32).unwrap_or(0);
 
-                let (total_count, first_image_path) = match deck_data {
-                    Ok(data) => {
-                        let total = data.flashcards().len() as i32;
-                        let first_pending_card = data.flashcards().iter().enumerate().find(|&(idx, _card)| {
-                            if let Some(set) = learned_set {
-                                !set.contains(&(idx as i32))
-                            } else {
-                                true
-                            }
-                        });
+                // Primera carta pendiente del usuario; si todas están
+                // aprendidas (o el deck está vacío) cae a la primera carta.
+                let first_pending_index = (0..info.card_images.len()).find(|idx| {
+                    learned_set
+                        .map(|set| !set.contains(&(*idx as i32)))
+                        .unwrap_or(true)
+                });
+                let card_index = first_pending_index.or(if info.card_images.is_empty() {
+                    None
+                } else {
+                    Some(0)
+                });
+                let first_image_path = card_index
+                    .and_then(|idx| info.card_images.get(idx))
+                    .cloned()
+                    .flatten();
 
-                        let card_to_use = first_pending_card
-                            .map(|(_idx, card)| card)
-                            .or_else(|| data.flashcards().first());
-
-                        let first_image = card_to_use.and_then(|card| {
-                            card.extra
-                                .get("definitions")
-                                .and_then(|defs| defs.as_array())
-                                .and_then(|arr| arr.first())
-                                .and_then(|def| def.get("imagePath").or_else(|| def.get("image_path")))
-                                .and_then(|img| img.as_str())
-                                .map(|s| s.to_string())
-                        });
-                        (total, first_image)
-                    }
-                    Err(_) => (0, None),
-                };
-
-                (
-                    index,
-                    DeckProgressInfo {
-                        category: cat,
-                        deck,
-                        learned_count,
-                        total_count,
-                        last_touched,
-                        first_image_path,
-                    },
-                )
+                DeckProgressInfo {
+                    category: info.category.clone(),
+                    deck: info.deck.clone(),
+                    learned_count,
+                    total_count: info.total_count,
+                    last_touched,
+                    first_image_path,
+                }
             })
-            .buffer_unordered(16)
-            .collect::<Vec<_>>()
-            .await;
-
-        indexed_progress.sort_by_key(|(index, _)| *index);
-        let decks_progress: Vec<DeckProgressInfo> =
-            indexed_progress.into_iter().map(|(_, info)| info).collect();
+            .collect();
 
         self.activity_repo
             .get_learning_stats(user_id, mastered_count, b2_target)

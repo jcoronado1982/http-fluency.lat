@@ -136,6 +136,14 @@ export function computeLevelProgress(masteredCount = 0, language = 'en') {
     };
 }
 
+/**
+ * Calcula el progreso del nivel actual. Usa dos fuentes de verdad:
+ * - `stats.levels[]`: progreso acumulado de palabras/XP (backend).
+ * - `stats.decks_progress`: tarjetas reales totales por nivel (suma por prefix).
+ *
+ * En el dashboard el mini-stat muestra: "tarjetas aprendidas / tarjetas totales
+ * del nivel" (ej. "450 / 2300"), NO "palabras hasta el siguiente nivel".
+ */
 export function computeDashboardLevelProgress(stats, language = 'en') {
     const backendLevels = Array.isArray(stats?.levels) ? stats.levels : [];
     if (backendLevels.length === 0) {
@@ -174,6 +182,28 @@ export function computeDashboardLevelProgress(stats, language = 'en') {
                 ? 100
                 : 0;
 
+    // Total de tarjetas REALES en el nivel actual (suma de decks_progress
+    // que pertenecen a este nivel). Ej. A1 = suma de "1-basic/*".
+    const levelPrefix = getLevelDeckPrefix(current.id);
+    const decksList = Array.isArray(stats?.decks_progress) ? stats.decks_progress : [];
+    const matchedDecks = decksList.filter((dp) => {
+        // Matchear tanto "1-basic/..." como "1-basic.json"
+        const normalized = (dp.deck || '').toLowerCase();
+        return normalized.startsWith(levelPrefix.toLowerCase());
+    });
+    const totalCardsInLevel = matchedDecks.length > 0
+        ? matchedDecks.reduce((sum, dp) => sum + (dp.total_count ?? 0), 0)
+        : current.targetCount; // Fallback si no hay decks_progress o no matcheó
+
+    // DEBUG: si el número es sospechosamente bajo (el fallback 1237), loguear.
+    if (totalCardsInLevel === current.targetCount && matchedDecks.length === 0) {
+        // eslint-disable-next-line no-console
+        console.warn(
+            `[dashboardProgress] level ${current.id}: decks_progress vacío o no matcheó prefix "${levelPrefix}".`,
+            'matchedDecks:', matchedDecks.length, 'fallback:', current.targetCount,
+        );
+    }
+
     return {
         levels,
         current,
@@ -188,8 +218,23 @@ export function computeDashboardLevelProgress(stats, language = 'en') {
         isNextPremium: Boolean(next?.premium),
         isMaxFreeLevel: current.id === 'B1' && current.completed,
         isMaxLevel: Boolean(current.completed && !next),
-        targetForLevel: current.targetCount,
+        // Número TOTAL de tarjetas en el nivel, no target de palabras.
+        targetForLevel: totalCardsInLevel,
     };
+}
+
+function getLevelDeckPrefix(levelId) {
+    switch (levelId) {
+        case 'A1':
+            return '1-basic';
+        case 'A2':
+            return '2-intermediate';
+        case 'B1':
+        case 'B2':
+            return '3-advanced';
+        default:
+            return '1-basic';
+    }
 }
 
 export function estimateMinutesRemaining(cardsRemaining = 0) {

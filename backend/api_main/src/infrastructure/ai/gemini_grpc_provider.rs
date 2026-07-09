@@ -226,7 +226,7 @@ impl GeminiGrpcProvider {
         Ok(text)
     }
 
-    async fn call_ollama_prompt_llm(
+    async fn query_ollama(
         &self,
         system: &str,
         user: &str,
@@ -236,6 +236,7 @@ impl GeminiGrpcProvider {
         let model = std::env::var("OLLAMA_PROMPT_MODEL").unwrap_or_else(|_| "qwen3.5:9b".into());
         let endpoint = format!("{}/api/chat", url.trim_end_matches('/'));
         let request_started_at = std::time::Instant::now();
+        /*
         info!(
             model = %model,
             temperature,
@@ -245,6 +246,7 @@ impl GeminiGrpcProvider {
             user_preview = %preview_for_log(user, 220),
             "prompt-llm:ollama-start"
         );
+        */
         let response = reqwest::Client::new()
             .post(endpoint)
             .timeout(Duration::from_secs(180))
@@ -252,10 +254,12 @@ impl GeminiGrpcProvider {
                 "model": model,
                 "stream": false,
                 "think": false,
+                "keep_alive": "10s",
                 "options": {
                     "temperature": temperature,
                     "num_ctx": 4096,
-                    "num_predict": 720
+                    "num_predict": 720,
+                    "repeat_penalty": 1.2
                 },
                 "messages": [
                     { "role": "system", "content": system },
@@ -266,11 +270,13 @@ impl GeminiGrpcProvider {
             .await
             .context("Ollama prompt LLM request failed")?;
 
+        /*
         info!(
             model = %model,
             elapsed_ms = request_started_at.elapsed().as_millis() as u64,
             "prompt-llm:ollama-http-ok"
         );
+        */
 
         if !response.status().is_success() {
             let status = response.status();
@@ -304,6 +310,7 @@ impl GeminiGrpcProvider {
             );
             return Err(anyhow!("Ollama prompt LLM returned empty content"));
         }
+        /*
         info!(
             model = %model,
             output_len = text.len(),
@@ -311,7 +318,133 @@ impl GeminiGrpcProvider {
             total_elapsed_ms = request_started_at.elapsed().as_millis() as u64,
             "prompt-llm:ollama-ok"
         );
+        */
         Ok(text)
+    }
+
+    async fn call_ollama_prompt_llm(
+        &self,
+        system: &str,
+        user: &str,
+        temperature: f32,
+    ) -> Result<String> {
+        // Step 1: Generate the raw visual description
+        let initial_prompt = self.query_ollama(system, user, temperature).await?;
+
+        // Step 2: Expert Judge — audits the generated prompt for ALL classes of errors before sending to FLUX
+        let auditor_system = r#"You are an Expert Visual Prompt Judge for FLUX 2 image generation.
+You receive: (A) the original vocabulary teaching context (word, meaning, example) and (B) a generated visual scene description.
+Your task is to perform a RIGOROUS, MULTI-DIMENSIONAL audit of the description and produce the best possible version of it for a photorealistic image generator.
+Act as if you are the final checkpoint before a professional photographer shoots the scene. If something is wrong, rewrite it. If it is already perfect, return it unchanged.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AUDIT DIMENSION 1 — PHYSICAL & ANATOMICAL LOGIC
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Check every body part and action combination. The human body has physical limits.
+- A person with arms tightly CROSSED cannot simultaneously hold, lift, or offer an object with both hands. They have two arms, not three.
+- A person sitting and also standing at the same time is impossible.
+- A hand extended to give something cannot also be holding that same object from a different angle.
+- Two people cannot be in the same physical location at the same time.
+- A body part described in two conflicting states (e.g. "fist clenched" AND "palm open") must be unified into one coherent state.
+→ FIX: Resolve the contradiction. Choose the most physically plausible pose that still conveys the scene's intent.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AUDIT DIMENSION 2 — OBJECT LOGIC & QUANTITY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Check that all described objects follow their real-world physical rules.
+- A car has exactly 4 wheels. A chair has 4 legs. A bicycle has 2 wheels. A table has 4 legs.
+- If the prompt says "she is sitting on a stool while fixing a wooden chair", FLUX will see two sitting objects and fuse them into a deformed hybrid. Simplify: she should be kneeling on the floor, not sitting on a stool.
+- Objects cannot float in mid-air unless they are being thrown or clearly held.
+- A closed bag cannot show its contents unless it is open. A shut door cannot show what is inside.
+- If two similar objects appear in the same scene (two chairs, two mugs, two tables), FLUX may fuse them into a monster object. Simplify: use only the most essential object.
+→ FIX: Reduce to the minimum number of objects needed to teach the concept. Remove any duplicate or conflicting objects.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AUDIT DIMENSION 3 — EMOTIONAL COHERENCE WITH THE WORD BEING TAUGHT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+The MEANING field tells you the emotional valence of the word. The facial expression and body language MUST match.
+- POSITIVE words (luckily, fortunately, naturally, gladly, happily): characters must show clear RELIEF, JOY, or SATISFACTION. Closed eyes + hunched body in a dark setting reads as sadness or pain, NOT relief. Use open eyes, a slight smile, or a visible exhale with relaxed shoulders.
+- NEGATIVE words (unfortunately, sadly, regrettably): characters should show disappointment, concern, or resignation.
+- NEUTRAL words (actually, seriously, basically): expressions should match the specific sub-tone (surprised realization, focused intensity, matter-of-fact calm).
+→ FIX: If the generated expression contradicts the emotional valence of the word, rewrite the expression and posture to match the correct emotion clearly.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AUDIT DIMENSION 4 — SPATIAL & BACKGROUND LOGIC
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Check that the described setting is physically coherent.
+- In a movie theater, the screen is always IN FRONT of the audience, never behind them.
+- A window cannot illuminate a room from both the left AND the right at the same time without explanation.
+- Furniture and objects must fit logically in the described space. A workshop bench, a stool, a toolbox, AND a chair all in a small hallway is too cluttered for FLUX to render coherently.
+- If the subject is indoors, the background should be consistent with that interior. Do not add outdoor elements unless there is a visible window or door.
+→ FIX: Remove or simplify conflicting spatial elements. Keep the setting as clean and unambiguous as possible.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AUDIT DIMENSION 5 — LIGHTING COHERENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- If the scene describes a "dim hallway" or "flickering overhead light", the mood will read as oppressive or threatening, even if the word is positive. For positive words, prefer soft daylight or warm indoor light.
+- A "large window with bright light streaming in" will cause FLUX to blow out the image (white overexposed blobs). Replace with "soft diffused daylight from a side window" to prevent highlight clipping.
+- Avoid describing both "overhead fluorescent light" AND "natural daylight from a window" in the same scene. Pick one coherent light source.
+→ FIX: Align the lighting with the emotional tone of the word. Use soft, controlled descriptors for the light source.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AUDIT DIMENSION 6 — GAZE & INTERACTION COHERENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+When two or more people are interacting (helping, talking, giving, receiving, teaching), their eye gaze and body orientation MUST reflect the interaction.
+- If person A is handing something to person B, at least one of them should be looking at the other or at the shared object. Random gazes toward the floor, the wall, or out of frame break the visual story.
+- If two people are collaborating on a task, they should both be oriented toward the task or toward each other, not facing opposite directions.
+- A person described as "looking at" someone must have their face and eyes visibly directed toward that person, not turned away.
+→ FIX: Ensure eye contact, gaze direction, and body orientation are consistent with the described interaction. If someone is helping another person, they should look at each other or at the shared activity.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AUDIT DIMENSION 7 — NARRATIVE CLARITY (WHO IS THE SUBJECT?)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+The EXAMPLE sentence from the teaching context tells you WHO is performing the action or experiencing the state. The image must make this unmistakably clear to a viewer who has never read the sentence.
+- "I don't know the answer" → The MAIN subject must look genuinely confused, uncertain, or puzzled. They should NOT look confident, authoritative, or like they are teaching/explaining. Their posture should communicate lack of knowledge (shrug, palms up, furrowed brow, uncertain gaze).
+- "I was happy to help" → The HELPER must be the visually dominant subject, and their expression must show willingness and warmth. The person being helped should be clearly receiving assistance, not doing the helping.
+- "She broke the vase" → The woman must be near the broken vase with evidence connecting her to the action (hands near it, shocked expression, fragments at her feet).
+- In general: the viewer must be able to point at the image and say "THAT person is doing THAT thing" within one second. If the visual subject could be confused for the wrong role (e.g., the teacher looks confused instead of the student, or the helper looks helpless), the narrative fails.
+→ FIX: Ensure the main subject's expression, posture, and position in the frame clearly communicate their role in the sentence. Adjust expressions and body language so the WHO and WHAT are immediately obvious.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AUDIT DIMENSION 8 — EVENT & STATE COHERENCE (DOES THE SCENE MATCH WHAT LITERALLY HAPPENED?)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Read the EXAMPLE sentence carefully. It describes a specific EVENT or STATE that occurred. The visual scene MUST literally depict that event. Do not contradict it.
+- "The lights went out" → The scene MUST be dark. There should be NO electric lights visibly turned on (no desk lamps glowing, no ceiling lights, no overhead fluorescents). The only acceptable light sources are emergency/improvised ones: a phone screen illuminating a face, a candle, a flashlight beam, or faint moonlight from a window. If the generated prompt describes a lamp that is ON or a well-lit room, that directly contradicts the sentence.
+- "It started raining" → Rain MUST be visible in the scene (on windows, on the ground, falling from the sky). A dry, sunny scene contradicts the sentence.
+- "She fell down the stairs" → The person MUST be on or near stairs, in a falling or post-fall position. A person calmly standing upright contradicts the sentence.
+- "The car broke down" → The car must appear stopped, possibly with the hood open, smoke, or the driver outside looking frustrated. A car driving normally contradicts the sentence.
+- In general: extract the KEY VERB and KEY EVENT from the example sentence. Ask: "If I showed this image to someone, would they understand that THIS EVENT happened?" If the answer is no because the scene shows the OPPOSITE state (lights on when they should be off, dry when it should be raining, standing when they should have fallen), the prompt must be rewritten.
+→ FIX: Rewrite the scene to literally depict the event. Ensure the visual environment reflects the consequence of the event described in the sentence.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OUTPUT RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Output ONLY the final corrected description in English.
+- Do NOT include any explanations, reasoning, bullet points, headings, labels, markdown, or meta-commentary.
+- Do NOT add new scenes or change the teaching goal. Preserve the original setting and characters.
+- If no issues were found, output the original description unchanged."#;
+
+        let auditor_user = format!(
+            "ORIGINAL TEACHING CONTEXT (use this to verify emotional coherence, interaction logic, narrative clarity, and event/state coherence):\n{}\n\n---\n\nGENERATED VISUAL PROMPT TO AUDIT AND PERFECT:\n\"{}\"\n\n---\n\nApply all eight audit dimensions. Output only the final corrected description.",
+            user,
+            initial_prompt
+        );
+
+        match self.query_ollama(auditor_system, &auditor_user, 0.3).await {
+            Ok(refined) => {
+                let cleaned = refined.trim();
+                if cleaned.is_empty() {
+                    Ok(initial_prompt)
+                } else {
+                    Ok(cleaned.to_string())
+                }
+            }
+            Err(e) => {
+                warn!("Ollama prompt refinement failed, falling back to initial prompt. Error: {e}");
+                Ok(initial_prompt)
+            }
+        }
     }
 }
 
@@ -455,17 +588,25 @@ STEP 3 — DESCRIBE: Write a candid, unposed photograph description that physica
 - Keep critical story information inside the central 80% of the frame. Do not place key objects or people at the extreme left or right edges.
 - Prefer one clear scene with 1-3 important subjects. Avoid clutter, tiny distant people, and overlapping bodies.
 - If the sentence implies absence, emptiness, or uncertainty, show a believable empty scene with evidence of absence. Do not invent hidden people, body parts, or figures partially visible off-frame.
-- Focus on EXPRESSIONS, authentic DETAILS (messy rooms, real textures), and realistic lighting.
-- Facial expressions must be neutral by default. Only show obvious emotions like crying, laughter, fear, anger, or sadness if the sentence explicitly requires them.
-- Avoid studio perfection. Look like a candid documentary shot.
+- Focus on EXPRESSIONS, authentic DETAILS, and realistic lighting. Describe mundane, realistic background clutter (like dust, tools, cables, unorganized papers, everyday objects) to make the space feel inhabited and real, not like a sterile studio or showroom.
+- Describe natural, realistic clothing with creases, textures, and normal wear, avoiding perfect, flawless outfits.
+- Facial expressions must be natural and candid. Subjects must NEVER look at the camera, NEVER pose, and NEVER smile directly at the lens. They should be engrossed in their activity.
+- Avoid glowing, magical, or highly stylized symbolic elements (e.g. glowing trophies, floating graphics, neon highlights) unless the target meaning is explicitly fantasy. Keep objects realistic, mundane, and physically plausible.
+- Avoid studio perfection. Look like a candid documentary shot. Never use words like 'perfect', 'ideal', 'glowing', 'shining', 'pristine' in the description.
 - GEOMETRIC PLAUSIBILITY & LOGIC: Never place backgrounds, screens, blackboards, whiteboards, presentation slides, or other key setting elements behind the subjects if doing so violates the real-world logic or layout of the location. For example, in a movie theater, the screen is always in front of the audience, NEVER behind them. Do not describe the movie screen behind the audience's seats just to show it. Instead, show the audience facing forward in their theater seats, holding popcorn, and let the lighting, theater seats, and popcorn establish the cinema context. If the camera faces the subjects to capture their expressions, any background setting elements must either be omitted or shown from a plausible side angle, rather than physically impossible placements.
 - Before finalizing, imagine a learner glancing at this image for one second, without reading the example sentence. Would they immediately and confidently guess the target phrase's meaning? If the scene requires extra thought, symbolism, or subtlety to connect to the phrase, discard it and choose the single most stereotypical, most universally recognizable everyday scenario for that exact meaning instead — obvious and "boring" is better than clever or ambiguous.
-- Before writing the final answer, silently check: is this scene too generic, too indoor-by-default, or too similar to a couch/living-room stock photo? If yes, replace it with a more specific environment that better teaches the phrase.
+- Before writing the final answer, silently check: is this scene too generic, too indoor-by-default, or too similar to a couch/living-room stock photo? Is it posed or are they looking at the camera? If yes, replace it with a more specific, candid environment that better teaches the phrase.
 - Absolutely NO TEXT, words, signs, or labels in the image.
 
 Output exactly one line:
 FINAL: one detailed final scene description (120-170 words) in English.
 Do not include the internal checklist, word counts, explanations, markdown, or any other labels."#;
+
+        let (pos_category, engine_override) = if let Some(idx) = pos_category.find("|ENGINE=") {
+            (&pos_category[..idx], Some(&pos_category[idx + 8..]))
+        } else {
+            (pos_category, None)
+        };
 
         let mut user = format!(
             "WORD/PHRASE: \"{}\"\nPOS/CATEGORY: \"{}\"\nOUTPUT MEDIUM: flashcard\nFINAL RESOLUTION: {}x{}\nFRAME: wide horizontal landscape\nREADABILITY: must remain clear at small card size\nTEACHING REQUIREMENT: image must communicate the target meaning without captions",
@@ -489,9 +630,11 @@ Do not include the internal checklist, word counts, explanations, markdown, or a
             "\nSCENE RULES: choose a normal daily-life situation where someone would naturally use this sentence; make the target action/state/relation visible, not just implied by people talking.\nCOMPOSITION RULES: full bodies when people are visible; no cropped humans; no isolated limbs; main subject centered and large enough; avoid key details at image edges.",
         );
 
-        let prompt_engine = std::env::var("FLASHCARD_PROMPT_ENGINE")
-            .unwrap_or_else(|_| "ollama".to_string())
-            .to_ascii_lowercase();
+        let prompt_engine = engine_override
+            .map(|s| s.to_string())
+            .unwrap_or_else(|| std::env::var("FLASHCARD_PROMPT_ENGINE")
+                .unwrap_or_else(|_| "ollama".to_string())
+                .to_ascii_lowercase());
 
         if matches!(prompt_engine.as_str(), "ollama" | "qwen3") {
             info!(
@@ -499,7 +642,7 @@ Do not include the internal checklist, word counts, explanations, markdown, or a
                 prompt_len = user.len(),
                 "prompt-llm:engine-selected"
             );
-            return self.call_ollama_prompt_llm(system, &user, 0.25).await;
+            return self.call_ollama_prompt_llm(system, &user, 0.7).await;
         }
 
         if self.api_key == "DISABLED" {

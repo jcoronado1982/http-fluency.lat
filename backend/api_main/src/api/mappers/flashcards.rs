@@ -47,6 +47,7 @@ pub fn to_image_gen_request(body: GenerateImageBody) -> ImageGenRequest {
         force_generation: body.force_generation,
         form: body.form,
         legacy_image_path: body.legacy_image_path.filter(|s| !s.trim().is_empty()),
+        prompt_engine: body.prompt_engine.filter(|s| !s.trim().is_empty()),
         scene_complement: body.scene_complement.filter(|s| !s.trim().is_empty()),
     }
 }

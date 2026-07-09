@@ -103,7 +103,7 @@ echo "🤖 Iniciando AI Local (ComfyUI)..."
 COMFY_DIR="/home/jcoronado/Desktop/dev/ComfyUI"
 if [ -d "$COMFY_DIR" ]; then
     cd "$COMFY_DIR" || exit
-    nohup python3 main.py --listen 127.0.0.1 --port 8188 > comfyui_startup.log 2>&1 &
+    nohup python3 main.py --listen 127.0.0.1 --port 8188 --cache-none > comfyui_startup.log 2>&1 &
     cd - > /dev/null
     echo "   - ComfyUI lanzado en puerto 8188."
 else

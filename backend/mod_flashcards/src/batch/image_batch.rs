@@ -240,6 +240,7 @@ async fn run_batch(
                                     force_generation: false,
                                     form: slot.form.form_arg().map(str::to_string),
                                     legacy_image_path,
+                                    prompt_engine: None,
                                     scene_complement: None,
                                 };
 
@@ -252,6 +253,7 @@ async fn run_batch(
                                         if is_new {
                                             println!("... ✨ GENERADA!");
                                             stats.generated += 1;
+                                            tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
                                         } else {
                                             println!("... ⏭️  YA EXISTÍA");
                                             stats.skipped += 1;
