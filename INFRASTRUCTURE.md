@@ -89,6 +89,17 @@ Para soportar 500 usuarios concurrentes en servidores de 1 GB:
 *   **Cache in-process:** racha diaria (`record_study_day`) y conteos estáticos (`list_categories_with_counts`) se memorizan con TTL 5 min.
 *   **Watchdog de reconexión:** el backend auto-reconecta al WS de Surreal si muere (health-check cada 30s).
 
+## 3.1 Optimizaciones Fase B (Jul 2026)
+
+*   **Centinela sin forks por request:** `db_protection` en Caddy ya no usa `forward_auth` → socat → shell (6-8 procesos por CADA request, incluidos assets). Caddy evalúa directamente los archivos de estado (`/tmp/PROXY_CLOSED`, `/tmp/GATE_FILE`) con matchers `file` nativos. `sentinel-handler` y `traffic-manager` mantienen el invariante `PROXY_CLOSED existe ⟺ estado ≠ normal`; el puerto 8888 sigue sirviendo los endpoints de control (`/rojo`, `/amarillo`, `/normal`, `/status`, `/check`).
+*   **Límite de RAM del backend en el proxy:** `deploy-oracle-backend.sh` ahora usa `--memory 512m` (`FLASHCARD_BACKEND_MEMORY_LIMIT`). Antes, un pico del backend (encode AVIF) podía provocar OOM global y tumbar Caddy; ahora Docker reinicia solo el backend.
+*   **Cache-Control de imágenes en Caddy:** `/card_images/*` replica la política del backend (`assets.rs`): URL con `?v=`/`?t=` → `immutable` 1 año; sin versión → `no-cache` (revalidación 304 barata). Antes no había cabecera y el navegador podía mostrar imágenes viejas tras `force_generation` (mismo filename).
+*   **Compresión en `/json/*`:** los decks JSON se sirven con zstd/gzip (−70 % egress). `browse` se mantiene: el backend lista directorios parseando ese HTML.
+*   **Dependencias muertas eliminadas:** `sqlx` (Postgres aún no desarrollado), `google-cloud-storage` y `google-cloud-token` fuera de `api_main/Cargo.toml` — menos binario y menos tiempo de compilación. `openssl` vendored se conserva (lo requiere `native-tls` vía SurrealDB).
+*   **Válvula de overflow conectada:** `oracle-ram-monitor.sh` siempre gestionó `/tmp/ORACLE_HEALTHY`, pero ningún matcher lo leía. Ahora `/api/*` de `fluency.lat` usa el snippet `api_with_overflow`: RAM libre > 250 MB → backend local; si no → GCP Cloud Run (scale-to-zero). Verificado funcionalmente con Caddy local (4 estados).
+*   **Techos de RAM por contenedor** (la caja tiene 968 MB + 4 GB swap; medido en reposo: backend 43 MB, QA 14 MB, Caddy 80 MB): prod backend 512m, QA backend 128m + `cpu-shares 128` (`azure-pipelines.yml` — QA se usa poco y de noche; bajo contención cede la CPU a prod, con prod ocioso corre a velocidad completa), caddy-smart 384m. Los techos no reservan RAM; hacen determinista qué contenedor se reinicia ante un pico, en vez de dejar que el OOM killer del kernel tumbe la caja.
+*   **Rotación de logs Docker:** `--log-opt max-size=10m --log-opt max-file=2` en backend y Caddy — con `RUST_LOG=info` y 500 usuarios los json-logs de Docker crecían sin límite.
+
 ## 4. Entorno de Desarrollo Local
 
 Para trabajar de manera local en el código, existe un entorno provisto en la raíz:

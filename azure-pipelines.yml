@@ -378,6 +378,11 @@ stages:
             export SURREAL_NS=qa_flashcard
             export SURREAL_DB=qa_flashcard
             export FLASHCARD_BACKEND_CONTAINER=qa-flashcard-backend-node
+            # QA se usa poco y de noche: mínimos recursos, prioridad a producción.
+            # 128m de RAM (uso real ~14m) y cpu-shares 128 (≈11% de la CPU SOLO
+            # si compite con prod; con prod ocioso corre a velocidad completa).
+            export FLASHCARD_BACKEND_MEMORY_LIMIT=128m
+            export FLASHCARD_BACKEND_CPU_SHARES=128
             export FLASHCARD_REPO_PATH=/root/smart-proxy/repository/qa_flashcard
             export BACKEND_PORT=8081
             export HEALTH_URL="http://127.0.0.1:8081/api/health"

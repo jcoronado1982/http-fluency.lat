@@ -9,9 +9,16 @@ cd "$PROXY_DIR"
 docker build -t fluency-proxy . 2>&1
 
 docker rm -f caddy-smart 2>/dev/null || true
+# 384m: techo generoso (uso real ~80m). Hace determinista quién reinicia
+# ante presión de RAM en la caja de 968m, en vez de dejarlo al OOM killer.
+CADDY_MEMORY_LIMIT="${CADDY_MEMORY_LIMIT:-384m}"
 docker run -d \
   --name caddy-smart \
   --network host \
+  --memory "$CADDY_MEMORY_LIMIT" \
+  --memory-swap "$CADDY_MEMORY_LIMIT" \
+  --log-opt max-size=10m \
+  --log-opt max-file=2 \
   -v "$REPO_ROOT/portfolio:/usr/share/caddy/portfolio" \
   -v "$REPO_ROOT/flashcard:/usr/share/caddy/flashcard" \
   -v "$REPO_ROOT/repository/flashcard:/usr/share/caddy/repository" \

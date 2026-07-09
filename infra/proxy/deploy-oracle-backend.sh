@@ -5,6 +5,14 @@ IMAGE="${FLASHCARD_BACKEND_IMAGE:-gcr.io/launch-490115/flashcard-backend:latest}
 CONTAINER="${FLASHCARD_BACKEND_CONTAINER:-flashcard-backend-node}"
 REPO_PATH="${FLASHCARD_REPO_PATH:-/root/smart-proxy/repository/flashcard}"
 ENV_FILE="${FLASHCARD_BACKEND_ENV:-}"
+# 512m: el proxy (968m) comparte RAM con Caddy + centinela + Docker.
+# Sin límite, un pico del backend (encode AVIF) puede provocar OOM global
+# y tumbar Caddy; con límite, Docker reinicia solo el backend (restart always).
+MEMORY_LIMIT="${FLASHCARD_BACKEND_MEMORY_LIMIT:-512m}"
+# cpu-shares es peso relativo SOLO bajo contención (default Docker: 1024).
+# QA usa un valor bajo → producción se lleva la CPU cuando ambos compiten;
+# con prod ocioso, QA corre a velocidad completa igualmente.
+CPU_SHARES="${FLASHCARD_BACKEND_CPU_SHARES:-1024}"
 
 load_deploy_env() {
   if [[ -n "${DATABASE_URL:-}" ]]; then
@@ -56,6 +64,11 @@ docker run -d \
   --name "$CONTAINER" \
   --network host \
   --restart always \
+  --memory "$MEMORY_LIMIT" \
+  --memory-swap "$MEMORY_LIMIT" \
+  --cpu-shares "$CPU_SHARES" \
+  --log-opt max-size=10m \
+  --log-opt max-file=2 \
   -v "$REPO_PATH:/data" \
   -e LOCAL_STORAGE_PATH="/data" \
   -e SYNC_TO_ORACLE="false" \

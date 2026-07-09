@@ -1,33 +1,42 @@
+# Protección DB sin subprocesos: antes forward_auth → socat → sh (6-8 forks
+# POR CADA request, incluidos assets). Ahora Caddy evalúa los mismos archivos
+# de estado directamente (como ya se hace con AWS_HEALTHY). Semántica idéntica:
+# bloquear ⟺ estado ≠ normal (PROXY_CLOSED existe) y sin permiso del DB (GATE_FILE ausente).
+# sentinel-handler/traffic-manager mantienen PROXY_CLOSED ⟺ STATE ≠ normal.
 (db_protection) {
-    forward_auth localhost:8888 {
-        uri /check
+    @db_blocked {
+        file {
+            root /tmp
+            try_files PROXY_CLOSED
+        }
+        not file {
+            root /tmp
+            try_files GATE_FILE
+        }
+    }
+    handle @db_blocked {
+        respond "Service Unavailable" 503
     }
 }
 
 # ============================================================
-# SNIPPET DE OVERFLOW: AWS Primario → GCP Cloud Run como respaldo
-# El archivo /tmp/AWS_HEALTHY lo gestiona aws-health-monitor.sh
-# Si existe → AWS responde OK → sirve desde AWS (free 24/7)
-# Si no existe → AWS caído → overflow a GCP Cloud Run (pay-per-use)
+# VÁLVULA DE OVERFLOW: Oracle local → GCP Cloud Run
+# /tmp/ORACLE_HEALTHY lo gestiona oracle-ram-monitor.sh (cada 30s):
+# existe ⟺ RAM libre del proxy > 250 MB. Bajo picos de usuarios la caja
+# de 1 GB desvía el API a Cloud Run (scale-to-zero) en vez de colapsar.
+# Cloud Run guarda archivos vía SCP y usa Surreal por WSS (fluency.lat/db).
 # ============================================================
 (api_with_overflow) {
-    @aws_healthy {
+    @oracle_healthy {
         file {
             root /tmp
-            try_files AWS_HEALTHY
+            try_files ORACLE_HEALTHY
         }
     }
 
-    handle @aws_healthy {
-        header +X-Backend "AWS-Primary"
-        reverse_proxy http://34.229.229.255:8080 {
-            # h2c: HTTP/2 cleartext hacia Axum.
-            # Hyper (usado por Axum) negocia automáticamente h2c cuando recibe
-            # la trama PRI * HTTP/2.0 de Caddy, sin necesidad de TLS.
-            transport http {
-                versions h2c 1.1
-            }
-        }
+    handle @oracle_healthy {
+        header +X-Backend "Oracle-Local"
+        reverse_proxy localhost:8080
     }
 
     handle {
@@ -100,6 +109,14 @@ fluency.lat, www.fluency.lat {
                 }
                 rewrite @try_avif {re.avif.1}.avif
 
+                # Misma política que el backend (assets.rs): URL versionada (?v=/?t=)
+                # → inmutable 1 año; sin versión → revalidar (304 barato vía ETag).
+                # Evita servir imagen vieja tras force_generation (mismo filename).
+                @versioned query v=* t=*
+                header @versioned Cache-Control "public, max-age=31536000, immutable"
+                @unversioned not query v=* t=*
+                header @unversioned Cache-Control "public, no-cache"
+
                 header +X-Content-Type-Options "nosniff"
                 file_server
             }
@@ -112,18 +129,20 @@ fluency.lat, www.fluency.lat {
 
             handle /json/* {
                 root * /usr/share/caddy/repository
+                # browse es requerido: el backend lista directorios parseando este HTML
+                import compression
                 file_server browse
             }
 
             # ------------------------------------------------------------------
-            # API → backend Oracle local (sin SSH, sin red, directo a disco)
+            # API → backend Oracle local si hay RAM; si no, overflow a GCP
             # ------------------------------------------------------------------
             @backend_routes {
                 path /api/*
             }
             handle @backend_routes {
                 import compression
-                reverse_proxy localhost:8080
+                import api_with_overflow
             }
 
             # ------------------------------------------------------------------
@@ -186,6 +205,10 @@ qa.fluency.lat {
                     path_regexp avif ^(.+)\.(jpg|jpeg|png)$
                 }
                 rewrite @try_avif {re.avif.1}.avif
+                @versioned query v=* t=*
+                header @versioned Cache-Control "public, max-age=31536000, immutable"
+                @unversioned not query v=* t=*
+                header @unversioned Cache-Control "public, no-cache"
                 header +X-Content-Type-Options "nosniff"
                 file_server
             }
@@ -198,6 +221,7 @@ qa.fluency.lat {
 
             handle /json/* {
                 root * /usr/share/caddy/qa_repository
+                import compression
                 file_server browse
             }
 

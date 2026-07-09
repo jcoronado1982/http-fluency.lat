@@ -12,7 +12,6 @@ futures = "0.3"
 serde.workspace = true
 serde_json.workspace = true
 tower-http = { version = "0.5", features = ["cors", "fs", "trace", "timeout", "compression-gzip", "compression-br"] }
-google-cloud-storage = "0.15"
 dotenvy = "0.15"
 tracing.workspace = true
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
@@ -25,8 +24,6 @@ chrono.workspace = true
 anyhow.workspace = true
 async-trait.workspace = true
 tower = "0.4"
-sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "postgres", "chrono", "json"] }
-google-cloud-token = "0.1"
 jsonwebtoken = "9.1"
 base64 = "0.21"
 uuid.workspace = true
