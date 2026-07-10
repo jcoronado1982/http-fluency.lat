@@ -35,6 +35,38 @@ La app NO monta rutas estáticas: se ensambla en runtime a partir de **manifiest
 
 **Feature flags** (`.env.development`, perfiles en `client/env-profiles/*.profile`): `VITE_ENABLE_LANDING`, `VITE_ENABLE_DASHBOARD`, `VITE_ENABLE_FLASHCARDS`, `VITE_ENABLE_PAYMENTS`, `VITE_ENABLE_ADMIN`, `VITE_DEFAULT_MODULE`, `VITE_API_URL` (vacío = rutas relativas vía proxy de Vite). Config resuelta en `src/config/index.js` → `config.features.*`. El sparse-checkout puede eliminar módulos del disco: el registry solo carga los presentes.
 
+### Receta: AGREGAR un módulo
+
+El único punto de contacto central es UNA línea en el registry. No se toca `App.jsx`, ni el shell, ni otros módulos.
+
+1. **Crear `src/modules/<nuevo>/index.jsx`** con el manifiesto como default export (mínimo viable):
+   ```js
+   const nuevoModule = {
+     id: 'nuevo',
+     enabled: (config) => config.features.nuevo,
+     routes: (config) => [{ path: '/nuevo', element: <ProtectedRoute><NuevoPage /></ProtectedRoute> }],
+     navSections: ({ language, config }) => [/* entrada de sidebar, opcional */],
+   };
+   export default nuevoModule;
+   ```
+   Estructura interna recomendada (copiar de `pricing/`, el módulo más pequeño): `ports/` + `adapters/` + `useCases/` + `composition.js` + páginas/features. Datos del backend SIEMPRE vía puerto (§2).
+2. **Registrar el loader** en `src/modules/index.js` (array `moduleLoaders`), condicionado a su flag:
+   ```js
+   if (import.meta.env.VITE_ENABLE_NUEVO === 'true') {
+     moduleLoaders.push(['nuevo', () => import('./nuevo/index.jsx')]);
+   }
+   ```
+3. **Declarar el feature** en `src/config/index.js` (`sharedFeatures.nuevo = import.meta.env.VITE_ENABLE_NUEVO === 'true'`) y añadir `VITE_ENABLE_NUEVO` a `.env.development` y a los perfiles de `env-profiles/` que apliquen.
+4. **Verificar**: `node scripts/test-routing-paths.mjs` (rutas), `npm run build`, y arrancar con el flag en `true` y en `false` (la app debe funcionar igual sin el módulo).
+
+### Receta: QUITAR un módulo
+
+- **Temporal (reversible, lo normal)**: poner su `VITE_ENABLE_*=false` en el perfil. Nada más — rutas, sidebar, overlays y menú flotante se recalculan solos; si era el home, `getAuthenticatedHomePath`/`pickHomeRoute` eligen otro; si era el `appShell` (dashboard), cae a `MinimalAppShell`.
+- **Físico (sparse-checkout)**: quitar el directorio del disco con el perfil sparse (ver `docs/GIT_SPARSE_WORKFLOW.md`). El registry solo carga lo presente; el flag debe estar en `false` para que el `import()` no se intente.
+- **Permanente (borrado real)**: eliminar `src/modules/<x>/`, su línea en `moduleLoaders`, su feature en `config/index.js` y sus flags en `.env*`/`env-profiles/`. Antes de borrar, comprobar que nada externo lo importa: `grep -rn "modules/<x>" src/ --include="*.js*"` debe devolver solo el propio módulo y el registry. Lo compartido NO se borra con el módulo: `contracts/`, `components/flashcardStudy`, `src/adapters` pertenecen al shell.
+
+**Garantía verificada (jul 2026)**: no existen imports horizontales entre módulos (landing↛flashcards, dashboard↮flashcards); cada módulo tiene su propio `composition.js`; el perfil `admin.profile` corre la app sin módulos de estudio. Única excepción conocida: `flashcards/index.jsx` importa `isDefaultHomeModule` del registry (deuda #5, §9).
+
 ---
 
 ## 2. Arquitectura hexagonal (puertos y adaptadores)
