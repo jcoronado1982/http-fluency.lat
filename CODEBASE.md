@@ -57,11 +57,11 @@ Si SurrealDB está desconectado, el sistema inyecta `backend/api_main/src/infras
 
 ## Frontend — `client/`
 
-### Tecnologías: React 19 + Vite + Tailwind CSS
+### Tecnologías: React 19 + Vite + CSS propio modular
 
 *   **React:** SPA (Single Page Application) servida estáticamente, con renderizado visual rápido.
 *   **Vite:** Herramienta de compilación ultrarrápida que optimiza el empaquetado de producción.
-*   **Tailwind CSS:** Diseño responsivo modular por clases de utilidad.
+*   **CSS propio modular:** Base global + CSS por página/módulo + CSS Modules en componentes aislados.
 
 ### Estructura de Código
 

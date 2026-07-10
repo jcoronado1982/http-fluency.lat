@@ -176,6 +176,7 @@ const LoginPage = () => {
             });
         };
 
+        let retries = 0;
         const initGoogle = () => {
             if (window.google?.accounts?.id && googleBtnRef.current) {
                 if (!window.google_initialized) {
@@ -193,8 +194,11 @@ const LoginPage = () => {
                     resizeObserver = new ResizeObserver(renderGoogleButton);
                     resizeObserver.observe(googleBtnRef.current);
                 }
-            } else if (isMounted) {
+            } else if (isMounted && retries < 25) {
+                retries++;
                 setTimeout(initGoogle, 200);
+            } else if (!window.google?.accounts?.id) {
+                console.warn('Google Identity Services SDK could not be loaded (offline?).');
             }
         };
 
