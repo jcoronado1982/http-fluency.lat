@@ -1,0 +1,19 @@
+name: Trigger Azure DevOps Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - qa
+
+jobs:
+  trigger-azure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Pipeline via REST API
+        run: |
+          curl -f -X POST \
+            -u ":${{ secrets.AZURE_DEVOPS_PAT }}" \
+            -H "Content-Type: application/json" \
+            -d '{"definition": {"id": 2}, "sourceBranch": "${{ github.ref }}"}' \
+            "https://dev.azure.com/safejcoronado1982/theruby/_apis/build/builds?api-version=6.0"
