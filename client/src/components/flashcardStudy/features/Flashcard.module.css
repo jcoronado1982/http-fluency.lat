@@ -19,6 +19,11 @@
     --fc-face-row-gap: 0px;
     --fc-media-radius: 24px;
     --fc-word-side-slot: 52px;
+    /* Piel de las caras (frente y dorso consumen estas tres variables) */
+    --fc-face-border: 1px solid #334155;
+    --fc-face-bg: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+    --fc-face-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --fc-card-shadow: var(--fc-face-shadow);
     width: 100%;
     max-width: var(--fc-card-max-width, 620px);
     height: var(--fc-card-base-height, 720px);
@@ -33,6 +38,9 @@
     --fc-face-padding-inline: 16px;
     --fc-face-padding-block-end: 14px;
     --fc-media-radius: 18px;
+    --fc-face-bg: #1e293b;
+    --fc-face-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    --fc-card-shadow: none;
     max-width: 100%;
     width: 100%;
     min-width: 0;
@@ -112,7 +120,7 @@
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    box-shadow: var(--fc-card-shadow);
     border-radius: var(--fc-face-radius);
 }
 
@@ -136,7 +144,7 @@
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+    background: var(--fc-face-bg);
     border-radius: var(--fc-face-radius);
     padding: var(--fc-face-padding-block-start) var(--fc-face-padding-inline) var(--fc-face-padding-block-end);
     box-sizing: border-box;
@@ -154,8 +162,8 @@
     /* Alineado arriba para dar espacio a la imagen */
     text-align: center;
     overflow: hidden;
-    border: 1px solid #334155;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    border: var(--fc-face-border);
+    box-shadow: var(--fc-face-shadow);
     color: #ffffff;
     font-family: var(--font-family-app, var(--font-family-body));
     container: flashcard-face / inline-size;
@@ -366,6 +374,8 @@
         --fc-face-radius: clamp(18px, 4vw, 24px);
         --fc-face-padding-block-start: clamp(8px, 2vw, 14px);
         --fc-face-padding-inline: clamp(8px, 2vw, 12px);
+        --fc-face-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        --fc-card-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
         flex: 0 0 auto;
         width: 100%;
         max-width: 100%;
@@ -380,14 +390,7 @@
         min-height: 0;
     }
 
-    .cardFront[data-variant='app'] {
-        border: 1px solid #334155;
-        background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-    }
-
     .flashcardContainer[data-variant='app'] .card {
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
         border-radius: var(--fc-face-radius);
     }
 
@@ -535,14 +538,7 @@
 
 .flashcardContainer[data-variant='demo'] .card {
     border-radius: var(--fc-face-radius);
-    box-shadow: none;
     background: transparent;
-}
-
-.cardFront[data-variant='demo'] {
-    border: 1px solid #334155;
-    background: #1e293b;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
 }
 
 .cardFront[data-variant='demo'] .phonetic {
@@ -594,9 +590,6 @@
     }
 
     .cardFront[data-variant='demo'] {
-        border: 1px solid #334155;
-        background: #1e293b;
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
         overflow: hidden;
         min-width: 0;
         max-width: 100%;

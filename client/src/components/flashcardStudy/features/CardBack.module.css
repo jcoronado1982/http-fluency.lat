@@ -12,7 +12,7 @@
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+    background: var(--fc-face-bg, linear-gradient(145deg, #1e293b 0%, #0f172a 100%));
     border-radius: var(--fc-face-radius, 32px);
     padding: var(--fc-face-padding-block-start, 20px) var(--fc-face-padding-inline, 20px) var(--fc-face-padding-block-end, 0px);
     box-sizing: border-box;
@@ -23,8 +23,8 @@
     /* Alineado arriba para dar espacio a la imagen */
     text-align: center;
     overflow: hidden;
-    border: 1px solid #334155;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    border: var(--fc-face-border, 1px solid #334155);
+    box-shadow: var(--fc-face-shadow, 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05));
     color: #ffffff;
     font-family: var(--font-family-app, var(--font-family-body));
     transform: rotateY(180deg);
@@ -113,28 +113,13 @@
     /* Texto del ejemplo alternativo en blanco */
     font-style: italic;
 }
-@media (max-width: 768px) {
-
-    [data-variant='app'] .cardBack {
-        border: 1px solid #334155;
-        background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-    }
-
-}
 [data-variant='demo'] .cardBack {
     font-family: var(--font-family-app, var(--font-family-body));
-    border: 1px solid #334155;
-    background: #1e293b;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
     transform: none;
 }
 @media (max-width: 768px) {
 
     [data-variant='demo'] .cardBack {
-        border: 1px solid #334155;
-        background: #1e293b;
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
         overflow: hidden;
         min-width: 0;
         max-width: 100%;
