@@ -1,0 +1,132 @@
+[
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "definitions": [
+      {
+        "char_count": "two",
+        "meaning": "Razón / Motivo",
+        "pronunciation_guide_es": "/uat_is_de_RISON/",
+        "usage_context_en": "The cause or explanation for something",
+        "usage_context_es": "La causa o explicación de algo",
+        "usage_example": "What is the reason?",
+        "usage_example_es": "¿Cuál es la razón?",
+        "imagePath": "/card_images/nouns/1-basic/logic_reasoning/1-basic_logic_reasoning_card_0_def0.avif"
+      }
+    ],
+    "force_generation": false,
+    "group_name": "General Concepts",
+    "is_verb": false,
+    "name": "reason",
+    "phonetic": "/ˈriːzən/",
+    "search_term": "noun/concept/cause/essentials",
+    "spoken_phonetic_us": "/ˈriːzən/"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "definitions": [
+      {
+        "char_count": "one",
+        "imagePath": "/card_images/nouns/1-basic/logic_reasoning/1-basic_logic_reasoning_card_1_def0.avif",
+        "meaning": "Hecho",
+        "pronunciation_guide_es": "/it_is_a_NOUN_FAKT/",
+        "usage_context_en": "Something that is true",
+        "usage_context_es": "Algo que es verdad",
+        "usage_example": "It is a known fact.",
+        "usage_example_es": "Es un hecho conocido."
+      }
+    ],
+    "force_generation": false,
+    "group_name": "General Concepts",
+    "is_verb": false,
+    "name": "fact",
+    "phonetic": "/fækt/",
+    "search_term": "noun/concept/essentials",
+    "spoken_phonetic_us": "/fækt/"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "definitions": [
+      {
+        "char_count": "one",
+        "meaning": "Verdad",
+        "pronunciation_guide_es": "/TEL_mi_de_TRUTH/",
+        "usage_context_en": "What is true; opposite of a lie",
+        "usage_context_es": "Lo que es cierto; opuesto a una mentira",
+        "usage_example": "Tell me the truth.",
+        "usage_example_es": "Dime la verdad.",
+        "imagePath": "/card_images/nouns/1-basic/logic_reasoning/1-basic_logic_reasoning_card_2_def0.avif"
+      }
+    ],
+    "force_generation": false,
+    "group_name": "General Concepts",
+    "is_verb": false,
+    "name": "truth",
+    "phonetic": "/truːθ/",
+    "search_term": "noun/concept/essentials",
+    "spoken_phonetic_us": "/truːθ/"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "definitions": [
+      {
+        "char_count": "one",
+        "meaning": "Mentira",
+        "pronunciation_guide_es": "/dat_is_a_LAI/",
+        "usage_context_en": "Something you say that is not true",
+        "usage_context_es": "Algo que dices que no es verdad",
+        "usage_example": "That is a lie.",
+        "usage_example_es": "Eso es una mentira.",
+        "imagePath": "/card_images/nouns/1-basic/logic_reasoning/1-basic_logic_reasoning_card_3_def0.avif"
+      }
+    ],
+    "force_generation": false,
+    "group_name": "General Concepts",
+    "is_verb": false,
+    "name": "lie",
+    "phonetic": "/laɪ/",
+    "search_term": "noun/concept/essentials",
+    "spoken_phonetic_us": "/laɪ/"
+  },
+  {
+    "word": "",
+    "translation": "",
+    "example": null,
+    "learned": false,
+    "learned_at": null,
+    "name": "cause",
+    "phonetic": "/kɔz/",
+    "spoken_phonetic_us": "/kɔz/",
+    "search_term": "noun/logic_reasoning/added",
+    "force_generation": false,
+    "definitions": [
+      {
+        "meaning": "Causa",
+        "usage_example": "We need to find the cause of the problem.",
+        "pronunciation_guide_es": "",
+        "usage_example_es": "Necesitamos encontrar la causa del problema.",
+        "char_count": "9",
+        "usage_context_en": "The reason why something happens.",
+        "usage_context_es": "The reason why something happens.",
+        "imagePath": "/card_images/nouns/1-basic/logic_reasoning/1-basic_logic_reasoning_card_4_def0.avif"
+      }
+    ],
+    "is_verb": false,
+    "group_name": "General Concepts"
+  }
+]
