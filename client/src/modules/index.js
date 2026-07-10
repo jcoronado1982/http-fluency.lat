@@ -24,13 +24,7 @@ if (import.meta.env.VITE_ENABLE_FLASHCARDS !== 'false') {
   moduleLoaders.push(['flashcards', () => import('./flashcards/index.jsx')]);
 }
 
-if (
-  import.meta.env.VITE_ENABLE_PRONOUN_REFERENCE !== 'false'
-  || import.meta.env.VITE_ENABLE_PRONOUN_PRACTICE === 'true'
-  || import.meta.env.VITE_ENABLE_PRONOUN === 'true'
-) {
-  moduleLoaders.push(['pronounPractice', () => import('./pronounPractice/index.jsx')]);
-}
+
 
 /** @type {Array<{ id: string, enabled?: Function, routes?: Function, [key: string]: unknown }>} */
 let modules = [];
