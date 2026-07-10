@@ -29,7 +29,8 @@ function ConjugationTable({ cardData, activeForm, onConjugationSelect, activeAud
             {forms.map(({ key, form, phonetic }) => (
                 <div
                     key={key}
-                    className={`${styles.conjugationItem} ${activeForm === key ? styles.activeConjugation : ''}`}
+                    className={styles.conjugationItem}
+                    data-state={activeForm === key ? 'active' : 'idle'}
                     role="button"
                     tabIndex={0}
                     onClick={(e) => {

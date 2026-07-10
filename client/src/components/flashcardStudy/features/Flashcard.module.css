@@ -1,14 +1,38 @@
 /* src/features/flashcards/Flashcard.module.css */
 
+/* Container Queries — decisión documentada (medido con Playwright, jul 2026):
+   los contenedores `flashcard` y `flashcard-face` quedan declarados para reglas
+   futuras, pero los breakpoints existentes NO se convierten a @container porque
+   la relación viewport→ancho-de-tarjeta no es monótona: en app la tarjeta mide
+   620px fijos con viewport ≥769px y SALTA a ~748px justo al cruzar a ≤768px
+   (el layout de página colapsa y libera espacio); en el demo del hero pasa de
+   282px (dos columnas, viewport 740px) a 660px (una columna, viewport 700px).
+   Ningún umbral de inline-size puede replicar el corte de 768px sin cambiar la
+   apariencia validada. La compresión interna está acoplada al colapso del
+   layout de página (sidebar/hero) — condición de ventana, no de contenedor. */
+
 .flashcardContainer {
+    --fc-face-radius: 32px;
+    --fc-face-padding-block-start: 20px;
+    --fc-face-padding-inline: 20px;
+    --fc-face-padding-block-end: 0px;
+    --fc-face-row-gap: 0px;
+    --fc-media-radius: 24px;
+    --fc-word-side-slot: 52px;
     width: 100%;
-    max-width: 620px;
-    height: 720px;
+    max-width: var(--fc-card-max-width, 620px);
+    height: var(--fc-card-base-height, 720px);
     perspective: 1200px;
     margin: 0 auto;
+    container: flashcard / inline-size;
 }
 
-:global([data-landing-demo]) .flashcardContainer {
+.flashcardContainer[data-variant='demo'] {
+    --fc-face-radius: 24px;
+    --fc-face-padding-block-start: 20px;
+    --fc-face-padding-inline: 16px;
+    --fc-face-padding-block-end: 14px;
+    --fc-media-radius: 18px;
     max-width: 100%;
     width: 100%;
     min-width: 0;
@@ -17,7 +41,10 @@
 
 /* App interna: tarjeta proporcional al viewport disponible */
 
-:global(.flashcard-page-wrapper:not([data-landing-demo])) .flashcardContainer {
+.flashcardContainer[data-variant='app'] {
+    --fc-face-radius: clamp(20px, 3vw, 32px);
+    --fc-face-padding-block-start: clamp(12px, 2vw, 20px);
+    --fc-face-padding-inline: clamp(12px, 2vw, 20px);
     width: 100%;
     max-width: var(--fc-card-max-width, 620px);
     height: var(--fc-card-height, clamp(420px, calc(var(--fc-real-vh, 100dvh) * 0.72), 720px));
@@ -25,14 +52,8 @@
     flex-shrink: 0;
 }
 
-:global(.flashcard-page-wrapper:not([data-landing-demo])) .card {
-    border-radius: clamp(20px, 3vw, 32px);
-}
-
-:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront {
+.cardFront[data-variant='app'] {
     min-height: 0;
-    border-radius: clamp(20px, 3vw, 32px);
-    padding: clamp(12px, 2vw, 20px) clamp(12px, 2vw, 20px) 0;
 }
 
 /* ------------------------------------------------------------------- */
@@ -51,15 +72,16 @@
    bajo escalado del SO no deben caer en el hueco entre breakpoints). */
 
 @media (min-width: 768.02px) and (max-height: 900px) {
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront {
-        padding: clamp(10px, 1.6vh, 16px) clamp(12px, 1.6vw, 18px) 0;
+    .flashcardContainer[data-variant='app'] {
+        --fc-face-padding-block-start: clamp(10px, 1.6vh, 16px);
+        --fc-face-padding-inline: clamp(12px, 1.6vw, 18px);
     }
 
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .name {
+    .cardFront[data-variant='app'] .name {
         font-size: clamp(1.3rem, 3.4vh, 1.75rem);
     }
 
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .phonetic {
+    .cardFront[data-variant='app'] .phonetic {
         margin-bottom: 8px;
         font-size: 1.1em;
     }
@@ -67,12 +89,12 @@
     /* La lista de ejemplos ya no queda "pinneada": puede encogerse y, si
        aun así no cabe, hace scroll interno en vez de desbordar la tarjeta. */
 
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) [data-fc='examples'] [data-fc-btn='voice'] {
+    .cardFront[data-variant='app'] [data-fc='examples'] [data-fc-btn='voice'] {
         width: 42px;
         height: 42px;
     }
 
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) [data-fc='examples'] [data-fc-btn='voice'] svg {
+    .cardFront[data-variant='app'] [data-fc='examples'] [data-fc-btn='voice'] svg {
         width: 20px;
         height: 20px;
         min-width: 20px;
@@ -91,18 +113,11 @@
     transform-style: preserve-3d;
     transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-    border-radius: 32px;
+    border-radius: var(--fc-face-radius);
 }
 
 .flipped {
     transform: rotateY(180deg);
-}
-
-.cardFront {
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.4s ease-in-out, visibility 0.4s;
-    z-index: 2;
 }
 
 .flipped .cardFront {
@@ -113,16 +128,27 @@
 }
 
 .cardFront {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease-in-out, visibility 0.4s;
+    z-index: 2;
     position: absolute;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
     background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
-    border-radius: 32px;
-    padding: 20px 20px 0px 20px;
+    border-radius: var(--fc-face-radius);
+    padding: var(--fc-face-padding-block-start) var(--fc-face-padding-inline) var(--fc-face-padding-block-end);
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-areas:
+        'header'
+        'conjugation'
+        'examples'
+        'image';
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto minmax(0, 1fr);
+    gap: var(--fc-face-row-gap);
     align-items: center;
     justify-content: flex-start;
     /* Alineado arriba para dar espacio a la imagen */
@@ -132,6 +158,7 @@
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
     color: #ffffff;
     font-family: var(--font-family-app, var(--font-family-body));
+    container: flashcard-face / inline-size;
 }
 
 /* --- Estilos Generales del Frente --- */
@@ -225,7 +252,7 @@
     width: 40px;
     height: 40px;
     min-width: 40px;
-    padding: 0 !important;
+    padding: 0;
     margin: 0;
     font-size: 1em;
     cursor: pointer;
@@ -266,10 +293,8 @@
     transition: opacity 0.3s ease;
 }
 
-/* !important: hover debe ganar a la opacidad base de carga. */
-
-.loadingAudioBtn:hover {
-    opacity: 1 !important;
+.loadingAudioBtn:hover:not(:disabled) {
+    opacity: 1;
     /* Opacidad total al pasar el mouse */
 }
 
@@ -325,11 +350,9 @@
     box-shadow: 0 0 15px rgba(244, 114, 182, 0.35);
 }
 
-/* !important: disabled debe ganar al hover. */
-
 .rotateVoiceBtn:disabled {
     cursor: not-allowed;
-    opacity: 0.4 !important;
+    opacity: 0.4;
     transform: none;
     box-shadow: none;
 }
@@ -339,7 +362,10 @@
    FlashcardPage, no el componente Flashcard). */
 
 @media (max-width: 768px) {
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .flashcardContainer {
+    .flashcardContainer[data-variant='app'] {
+        --fc-face-radius: clamp(18px, 4vw, 24px);
+        --fc-face-padding-block-start: clamp(8px, 2vw, 14px);
+        --fc-face-padding-inline: clamp(8px, 2vw, 12px);
         flex: 0 0 auto;
         width: 100%;
         max-width: 100%;
@@ -349,25 +375,23 @@
         overflow: hidden;
     }
 
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .flashcardContainer .card {
+    .flashcardContainer[data-variant='app'] .card {
         height: 100%;
         min-height: 0;
     }
 
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront {
-        padding: clamp(8px, 2vw, 14px) clamp(8px, 2vw, 12px) 0;
-        border-radius: clamp(18px, 4vw, 24px);
+    .cardFront[data-variant='app'] {
         border: 1px solid #334155;
         background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
         box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
     }
 
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .card {
+    .flashcardContainer[data-variant='app'] .card {
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-        border-radius: clamp(18px, 4vw, 24px);
+        border-radius: var(--fc-face-radius);
     }
 
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) [data-fc-face='front']:has([data-fc='conjugation']) [data-fc='examples'] [data-fc-btn='voice'] {
+    .cardFront[data-variant='app'][data-layout='conjugation'] [data-fc='examples'] [data-fc-btn='voice'] {
         width: 46px;
         height: 46px;
     }
@@ -377,37 +401,37 @@
        La variante demo re-ajusta lo suyo en su bloque (más abajo en el
        archivo, gana por orden a igual especificidad). --------------------- */
 
-    :global(.flashcard-page-wrapper) .wordHeader {
+    .wordHeader {
         --fc-word-side-slot: 56px;
     }
 
-    :global(.flashcard-page-wrapper) .wordBlock {
+    .wordBlock {
         row-gap: 0;
     }
 
-    :global(.flashcard-page-wrapper) .phonetic {
+    .phonetic {
         font-size: 1.05rem;
     }
 
-    :global(.flashcard-page-wrapper) .ipaChartBtn {
+    .ipaChartBtn {
         width: 44px;
         height: 44px;
         min-width: 44px;
     }
 
-    :global(.flashcard-page-wrapper) .wordBlock .ipaChartBtn {
+    .wordBlock .ipaChartBtn {
         width: 26px;
         height: 26px;
         min-width: 26px;
     }
 
-    :global(.flashcard-page-wrapper) .ipaChartBtn svg,
-:global(.flashcard-page-wrapper) .wordBlock .ipaChartBtn svg {
+    .ipaChartBtn svg,
+    .wordBlock .ipaChartBtn svg {
         width: 24px;
         height: 24px;
     }
 
-    :global(.flashcard-page-wrapper) .soundButton {
+    .soundButton {
         width: 56px;
         height: 56px;
         margin-left: 0;
@@ -418,7 +442,7 @@
 
     /* --- Móvil, solo app (la variante demo define los suyos) ------------- */
 
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .name {
+    .cardFront[data-variant='app'] .name {
         font-size: 2rem;
         min-height: 0;
     }
@@ -426,7 +450,7 @@
 }
 
 .wordHeader {
-    --fc-word-side-slot: 52px;
+    grid-area: header;
     position: relative;
     width: 100%;
     flex-shrink: 0;
@@ -490,67 +514,67 @@
     margin: 0;
 }
 
-:global(.flashcard-page-wrapper:not([data-landing-demo])) .wordBlock {
+.cardFront[data-variant='app'] .wordBlock {
     row-gap: 0;
     column-gap: 2px;
 }
 
-:global(.flashcard-page-wrapper:not([data-landing-demo])) [data-fc-face='front']:has([data-fc='conjugation']) .wordHeader {
+.cardFront[data-variant='app'][data-layout='conjugation'] .wordHeader {
     margin-bottom: 5px;
     margin-top: 0px;
 }
 
 /* Demo landing — layout y flip; colores/tipografía heredan la app */
 
-:global([data-landing-demo]) .flashcardContainer,
-:global([data-landing-demo]) .cardFront,
-:global([data-landing-demo]) .controlsWrapper {
+.flashcardContainer[data-variant='demo'],
+.cardFront[data-variant='demo'] {
     font-family: var(--font-family-app, var(--font-family-body));
 }
 
 /* Demo landing — espaciados reducidos para que la imagen gane protagonismo */
 
-:global([data-landing-demo]) .card {
-    border-radius: 24px;
+.flashcardContainer[data-variant='demo'] .card {
+    border-radius: var(--fc-face-radius);
     box-shadow: none;
     background: transparent;
 }
 
-:global([data-landing-demo]) .cardFront {
-    padding: 20px 16px 14px ;
+.cardFront[data-variant='demo'] {
     border: 1px solid #334155;
-    border-radius: 24px;
     background: #1e293b;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
 }
 
-:global([data-landing-demo]) .phonetic {
+.cardFront[data-variant='demo'] .phonetic {
     margin-bottom: 0px;
 }
 
 /* Flip en landing: sin rotateY 3D (overflow-x del .lp lo rompe) — solo fade + z-index */
 
-:global([data-landing-demo]) .card {
+.flashcardContainer[data-variant='demo'] .card {
     transform: none;
     transform-style: flat;
 }
 
-:global([data-landing-demo]) .card.flipped {
+.flashcardContainer[data-variant='demo'] .card.flipped {
     transform: none;
 }
 
-:global([data-landing-demo]) .flashcardContainer {
+.flashcardContainer[data-variant='demo'] {
     overflow: visible;
     perspective: none;
     width: 100%;
     max-width: 100%;
     height: clamp(480px, 52vw, 644px);
     min-height: 460px;
-    border-radius: 24px;
+    border-radius: var(--fc-face-radius);
 }
 
 @media (max-width: 768px) {
-    :global([data-landing-demo]) .flashcardContainer {
+    .flashcardContainer[data-variant='demo'] {
+        --fc-face-radius: clamp(18px, 4vw, 24px);
+        --fc-face-padding-block-start: clamp(12px, 2vw, 16px);
+        --fc-face-padding-inline: clamp(12px, 2vw, 16px);
         width: 100%;
         max-width: 100%;
         min-width: 0;
@@ -558,20 +582,18 @@
         min-height: 440px;
         margin: 0 auto;
         overflow: visible;
-        border-radius: clamp(18px, 4vw, 24px);
+        border-radius: var(--fc-face-radius);
     }
 
-    :global([data-landing-demo]) .card {
+    .flashcardContainer[data-variant='demo'] .card {
         width: 100%;
         max-width: 100%;
         min-width: 0;
         margin: 0;
-        border-radius: clamp(18px, 4vw, 24px);
+        border-radius: var(--fc-face-radius);
     }
 
-    :global([data-landing-demo]) .cardFront {
-        padding: clamp(12px, 2vw, 16px) clamp(12px, 2vw, 16px) 14px;
-        border-radius: clamp(18px, 4vw, 24px);
+    .cardFront[data-variant='demo'] {
         border: 1px solid #334155;
         background: #1e293b;
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
@@ -581,7 +603,7 @@
         box-sizing: border-box;
     }
 
-    :global([data-landing-demo]) .name {
+    .cardFront[data-variant='demo'] .name {
         margin-top: 0;
         margin-bottom: 4px;
         min-height: 0;
@@ -590,24 +612,24 @@
         padding: 2px 0;
     }
 
-    :global([data-landing-demo]) .wordHeader {
+    .cardFront[data-variant='demo'] .wordHeader {
         --fc-word-side-slot: 40px;
     }
 
-    :global([data-landing-demo]) .wordHeader > .soundButton {
+    .cardFront[data-variant='demo'] .wordHeader > .soundButton {
         position: relative;
         transform: none;
         margin: 0;
     }
 
-    :global([data-landing-demo]) .soundButton {
+    .cardFront[data-variant='demo'] .soundButton {
         margin-left: 0;
         margin-top: 0;
         width: 40px;
         height: 40px;
     }
 
-    :global([data-landing-demo]) .soundButton svg {
+    .cardFront[data-variant='demo'] .soundButton svg {
         width: 20px;
         height: 20px;
         min-width: 20px;

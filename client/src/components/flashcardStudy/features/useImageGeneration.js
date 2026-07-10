@@ -12,6 +12,7 @@ import { resolveStudyMediaNamespace } from '../../../contracts/studyMediaVariant
 
 const MAX_IMAGE_ATTEMPTS = 3;
 const IMAGE_RETRY_DELAY = 5000;
+const NOOP_SET_LOADING = () => {};
 const GENERATING_UI_DELAY_MS = 2500;
 const GEN_SLOT_WAIT_MS = 120000;
 const GEN_SLOT_POLL_MS = 200;
@@ -91,7 +92,9 @@ export function useImageGeneration({
     } = useFlashcardContext() ?? {};
     const uiContext = useFlashcardUiContext();
     const isImageLoading = uiContext?.isImageLoading ?? false;
-    const setIsImageLoading = uiContext?.setIsImageLoading ?? (() => {});
+    // NOOP_SET_LOADING (módulo) mantiene identidad estable cuando no hay provider,
+    // igual que el setter de useState del provider cuando sí lo hay.
+    const setIsImageLoading = uiContext?.setIsImageLoading ?? NOOP_SET_LOADING;
     const [isGeneratingImage, setIsGeneratingImage] = useState(false);
     const [imageUrl, setImageUrl] = useState(null);
     const [currentDefIndex, setCurrentDefIndex] = useState(0);
@@ -151,7 +154,7 @@ export function useImageGeneration({
         setIsGeneratingImage(false);
         isTransitioningRef.current = false;
         clearGeneratingUiTimer();
-    }, [clearGeneratingUiTimer]);
+    }, [clearGeneratingUiTimer, setIsImageLoading]);
 
     const buildGlobalFallbackPath = useCallback((defIndex, formOverride) => {
         const form = formOverride ?? activeForm;
@@ -211,7 +214,7 @@ export function useImageGeneration({
         setIsGeneratingImage(false);
         isTransitioningRef.current = false;
         clearGeneratingUiTimer();
-    }, [clearGeneratingUiTimer]);
+    }, [clearGeneratingUiTimer, setIsImageLoading]);
 
     const setImageFromPath = useCallback((path, defIndex, cacheBust = false, form) => {
         const normalizedPath = imagePort.normalizeToAvif(path);
@@ -235,7 +238,7 @@ export function useImageGeneration({
         isTransitioningRef.current = false;
         clearGeneratingUiTimer();
         return true;
-    }, [clearGeneratingUiTimer, imagePort]);
+    }, [clearGeneratingUiTimer, imagePort, setIsImageLoading]);
 
     const fetchViaGenerate = useCallback(async (defIndex, forceRegenerate, seq, pipelineForm, legacyImagePath = null, promptEngine = null) => {
         const requestForm = pipelineForm ?? activeFormRef.current;
@@ -372,6 +375,7 @@ export function useImageGeneration({
         updateCardImagePath, canGenerateImages, demoImagePromptExtraRef, imagePort, isLandingDemo,
         setImageFromPath, clearGeneratingUiTimer, waitForGenerationSlot,
         releasePipelineLoading,
+        setIsImageLoading,
     ]);
 
     const runEnsurePipeline = useCallback(async (defIndex, { forceRegenerate = false, formOverride, promptEngine = null } = {}) => {
@@ -544,8 +548,9 @@ export function useImageGeneration({
     }, [
         cardData, currentCategory, currentDeckName, isAuthenticated,
         buildGlobalFallbackPath, isLandingDemo,
-        canGenerateImages, setImageFromPath, fetchViaGenerate, setAppMessage,
+        canGenerateImages, fetchViaGenerate, setAppMessage,
         clearGeneratingUiTimer, imagePort, releasePipelineLoading, setOptimisticImageFromPath,
+        setIsImageLoading,
     ]);
 
     const ensureImageForDefinition = useCallback(async (defIndex, options = {}) => {
@@ -600,7 +605,7 @@ export function useImageGeneration({
         displayedFormRef.current = activeFormRef.current; // Bug 3: usar el form activo real, no hardcoded 'v1'
         isTransitioningRef.current = false;
         clearGeneratingUiTimer();
-    }, [cardData, clearGeneratingUiTimer]);
+    }, [cardData, clearGeneratingUiTimer, setIsImageLoading]);
 
     const prevFormContextRef = useRef({ form: activeForm, cardId: cardData?.id });
 
@@ -618,7 +623,7 @@ export function useImageGeneration({
         setIsGeneratingImage(false);
         isTransitioningRef.current = true;
         clearGeneratingUiTimer();
-    }, [activeForm, cardData, clearGeneratingUiTimer]);
+    }, [activeForm, cardData, clearGeneratingUiTimer, setIsImageLoading]);
 
     const ensureImageRef = useRef(ensureImageForDefinition);
     ensureImageRef.current = ensureImageForDefinition;
@@ -653,6 +658,9 @@ export function useImageGeneration({
 
         imageBootstrapRef.current = snapshot;
         ensureImageRef.current(0);
+        // El bootstrap se re-ejecuta por cambio de tarjeta (id), no por identidad
+        // del objeto cardData: el resto de campos se lee como snapshot puntual.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [authLoading, cardData?.id, currentCategory, currentDeckName, activeForm]);
 
     const prevApplySignalRef = useRef(0);
@@ -756,6 +764,7 @@ export function useImageGeneration({
         cardData, currentCategory, currentDeckName,
         setAppMessage, updateCardImagePath, getActiveDefinitions, activeForm,
         clearGeneratingUiTimer, imagePort, confirm, language,
+        setIsImageLoading,
     ]);
 
     const uploadImage = useCallback(async (file) => {
@@ -806,6 +815,7 @@ export function useImageGeneration({
         cardData, currentCategory, currentDeckName,
         setAppMessage, updateCardImagePath, activeForm, setImageFromPath, clearGeneratingUiTimer,
         imageCompressionService, imagePort,
+        setIsImageLoading,
     ]);
 
     return {

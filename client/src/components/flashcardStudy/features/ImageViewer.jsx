@@ -8,13 +8,11 @@ import { FiCpu } from 'react-icons/fi';
  * SRP: no conoce lógica de formas verbales ni audio.
  */
 function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl, imageRef, altText, onDelete, onRegenerate, onUploadClick, onImageError, canCustomizeImages, canDeleteImages = canCustomizeImages, isDisabled, imageKey, isLandingDemo = false }) {
-    console.log('[ImageViewer] props:', { isImageLoading, isGeneratingImage, isUploading, imageUrl });
     const isProcessActive = isImageLoading || isUploading;
     const [isDecoding, setIsDecoding] = useState(true);
     const activeUrlRef = useRef(imageUrl);
 
     const handleImageLoad = () => {
-        console.log('[ImageViewer] handleImageLoad');
         setIsDecoding(false);
     };
 
@@ -67,7 +65,10 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
     };
 
     return (
-        <div className={styles.imagePlaceholder}>
+        <div
+            className={styles.imagePlaceholder}
+            data-state={showLoader ? 'loading' : imageUrl ? 'ready' : 'empty'}
+        >
             {/* Controles: eliminar o subir */}
             {(canDeleteImages || canCustomizeImages) && (
                 <div className={styles.imageControls}>

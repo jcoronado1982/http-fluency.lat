@@ -27,6 +27,7 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
         <div
             className={`${styles.allExamplesContainer} ${shouldScrollExamples ? styles.scrollableExamples : ''}`}
             data-fc="examples"
+            data-state={shouldScrollExamples ? 'scrollable' : 'static'}
         >
             <ul>
                 {definitions?.map((def, di) => {

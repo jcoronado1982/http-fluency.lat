@@ -282,10 +282,23 @@ function Flashcard() {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
-    if (!cardData) return <div className={styles.flashcardContainer}>Cargando datos...</div>;
+    const visualVariant = isLandingDemo ? 'demo' : 'app';
+
+    if (!cardData) {
+        return (
+            <div className={styles.flashcardContainer} data-variant={visualVariant} data-state="loading">
+                Cargando datos...
+            </div>
+        );
+    }
 
     return (
-        <div className={styles.flashcardContainer} data-tour="flashcard-contenedor">
+        <div
+            className={styles.flashcardContainer}
+            data-tour="flashcard-contenedor"
+            data-variant={visualVariant}
+            data-state="ready"
+        >
             <div
                 className={`${styles.card} ${isFlipped ? styles.flipped : ''}`}
                 onClick={() => {
@@ -294,6 +307,7 @@ function Flashcard() {
                 }}
                 data-tour="boton-voltear-tarjeta"
                 data-flipped={isFlipped ? 'true' : 'false'}
+                data-state={isFlipped ? 'back' : 'front'}
                 role="button"
                 tabIndex={isImageLoading ? -1 : 0}
                 aria-pressed={isFlipped}

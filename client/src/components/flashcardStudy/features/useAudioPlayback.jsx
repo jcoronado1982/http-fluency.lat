@@ -265,7 +265,7 @@ export function useAudioPlayback({
         }
 
         return { playbackUrl: resolvedUrl, voiceName, fromCache: !!data.from_cache };
-    }, [audioPort, currentCategory, currentDeckName, invalidateCacheEntry, setAppMessage, warmSessionCache]);
+    }, [audioPort, courseDirection, currentCategory, currentDeckName, invalidateCacheEntry, setAppMessage, warmSessionCache]);
 
     const startPlayback = useCallback(async (originalText, playbackUrl, voiceLabel, playbackRequestId) => {
         const { wordIntervals } = buildWordIntervals(originalText);
