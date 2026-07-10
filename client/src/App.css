@@ -3,6 +3,8 @@
  * --- (Controlan el Sidebar y el Contenido Principal) ---
  --- */
 
+/* Tokens de marca: styles/app-brand.css (fuente única).
+   Tipografía de la app autenticada: index.css (.app-layout, .minimal-app-shell). */
 .app-layout {
     display: flex;
     width: 100%;
@@ -10,15 +12,6 @@
     min-height: 100dvh;
     background-color: #0f172a;
     overflow-x: hidden;
-    font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
-    --font-family-body: var(--font-family-app);
-    --font-family-display: var(--font-family-app);
-    --brand-rose: #f472b6;
-    --brand-rose-dark: #be185d;
-    --brand-orange: #fb923c;
-    --brand-gradient: linear-gradient(90deg, #be185d, #f472b6 55%, #fb923c);
-    --brand-gradient-btn: linear-gradient(135deg, #be185d, #f472b6 50%, #fb923c);
-    --brand-surface: #151c2c;
     --app-sidebar-width: 260px;
 }
 
@@ -26,15 +19,6 @@
     min-height: 100dvh;
     width: 100%;
     background-color: #0f172a;
-    font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
-    --font-family-body: var(--font-family-app);
-    --font-family-display: var(--font-family-app);
-    --brand-rose: #f472b6;
-    --brand-rose-dark: #be185d;
-    --brand-orange: #fb923c;
-    --brand-gradient: linear-gradient(90deg, #be185d, #f472b6 55%, #fb923c);
-    --brand-gradient-btn: linear-gradient(135deg, #be185d, #f472b6 50%, #fb923c);
-    --brand-surface: #151c2c;
 }
 
 .main-content,
@@ -47,9 +31,8 @@
     width: 100%;
 }
 
-/* Flashcard app + demo landing: misma tipografía y tokens de marca */
-.flashcard-page-wrapper[data-landing-demo],
-.flashcard-page-wrapper:not([data-landing-demo]) {
+/* Flashcard app + demo landing: misma tipografía (tokens de marca: app-brand.css) */
+.flashcard-page-wrapper {
     font-family: var(--font-family-app);
     --font-family-body: var(--font-family-app);
     --font-family-display: var(--font-family-app);
@@ -130,11 +113,13 @@
     }
 }
 
+/* Columna principal del shell: pila vertical lineal (page-content + footer;
+   header y sidebar son overlays) → flex column es la herramienta correcta,
+   no Grid. El padding-left de .sidebar-open es la única transición prevista. */
 .main-content {
     flex-grow: 1;
     min-width: 0; /* Important for flex-grow to prevent overflow */
-    margin-left: 0;
-    transition: all 0.3s ease;
+    transition: padding-left 0.3s ease;
     background: #0f172a;
     position: relative;
     display: flex;
@@ -617,13 +602,13 @@
     }
 
     .app-container {
-        padding: 60px 10px 0px 10px !important;
+        padding: 60px 10px 0px 10px;
         padding-bottom: 20px;
     }
 
     .flashcard-page-wrapper:not([data-landing-demo]) .app-container {
-        padding: 4px var(--fc-page-inline-padding, 10px) 30px !important;
-        min-height: 0 !important;
+        padding: 4px var(--fc-page-inline-padding, 10px) 30px;
+        min-height: 0;
         align-items: stretch;
     }
 

@@ -108,10 +108,10 @@
     color: #94a3b8;
 }
 
-.admin-empty {
+.admin-table .admin-empty {
     text-align: center;
     color: #64748b;
-    padding: 2rem !important;
+    padding: 2rem;
 }
 
 .admin-device-cell {

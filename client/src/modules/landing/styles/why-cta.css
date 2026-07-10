@@ -240,6 +240,9 @@
 }
 
 /* ── Page loader theme ── */
+/* !important en background: la clase de tema empata en especificidad con el
+   fondo base del módulo PageLoader; el orden de import entre archivos no está
+   garantizado, así que el tema debe forzar. */
 .landing-page-loader {
     --loader-accent: #be185d;
     --loader-accent-2: #f472b6;

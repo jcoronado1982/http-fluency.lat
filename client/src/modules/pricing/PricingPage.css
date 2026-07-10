@@ -520,8 +520,8 @@
     border-bottom: 1px solid rgba(255,255,255,0.07);
 }
 
-.pricing-table-premium-col {
-    color: var(--c-pink) !important;
+.pricing-table .pricing-table-premium-col {
+    color: var(--c-pink);
     display: flex; align-items: center; gap: 6px;
 }
 

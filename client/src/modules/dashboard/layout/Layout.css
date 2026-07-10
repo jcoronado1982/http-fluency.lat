@@ -6,9 +6,7 @@
     padding: 6px 24px;
     background-color: #122035;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
-    --font-family-body: var(--font-family-app);
-    --font-family-display: var(--font-family-app);
+    /* Tipografía heredada de .app-layout (index.css) */
     position: absolute;
     top: 0;
     left: 0;
@@ -157,6 +155,9 @@
 }
 
 /* --- Sidebar (Menú Lateral) --- */
+/* Ancho real 256px; el offset que empuja el contenido en escritorio es
+   --app-sidebar-width: 260px (App.css .main-content.sidebar-open) — los 4px
+   de diferencia son aire visual intencional entre sidebar y contenido. */
 .app-sidebar {
     width: 256px;
     background: #0d1526;
@@ -297,9 +298,9 @@
 }
 
 .sidebarIcon svg {
-    width: 18px !important;
-    height: 18px !important;
-    stroke-width: 1.75px !important;
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.75px;
 }
 
 .sidebarIcon--admin { color: #f43f5e; }

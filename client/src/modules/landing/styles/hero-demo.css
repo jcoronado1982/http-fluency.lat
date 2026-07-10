@@ -148,10 +148,6 @@
     gap: 0px;
 }
 
-[data-landing-demo] .controlsWrapper {
-    margin-top: 16px !important;
-}
-
 [data-landing-demo] .lp-demo-card-frame {
     position: relative;
     width: 100%;
@@ -518,35 +514,13 @@
     padding: 0px 24px;
 }
 
-/* Demo: hereda estilos de tarjeta/controles de la app; solo ajustes de layout */
-[data-landing-demo] .imagePlaceholder {
-    width: 100% !important;
-    height: auto !important;
-    flex: 1 1 auto !important;
-    min-height: clamp(140px, 22vw, 200px) !important;
-    max-height: clamp(180px, 28vw, 240px) !important;
-    margin: clamp(8px, 1.5vh, 14px) auto clamp(6px, 1vh, 10px) !important;
-    border-radius: clamp(14px, 2vw, 20px) !important;
-}
+/* Los ajustes de tarjeta/controles del demo viven en los propios CSS Modules
+   (Flashcard.module.css / Controls.module.css, bloques [data-landing-demo]).
+   Aquí solo clases globales del landing: selectores tipo
+   `[data-landing-demo] .imagePlaceholder` no matchean las clases hasheadas
+   de los módulos y estaban muertos — eliminados. */
 
 @media (min-width: 769px) {
-    [data-landing-demo] .nameContainer {
-        padding-right: 52px !important;
-    }
-
-    [data-landing-demo] .conjugationTable {
-        margin: 8px auto 10px !important;
-    }
-
-    [data-landing-demo] .flashcardContainer {
-        height: clamp(480px, 40vw, 520px) !important;
-        min-height: 480px !important;
-    }
-
-    [data-landing-demo] .controlsWrapper {
-        margin-top: 18px !important;
-    }
-
     [data-landing-demo] .lp-demo-complete {
         height: clamp(480px, 40vw, 520px);
     }

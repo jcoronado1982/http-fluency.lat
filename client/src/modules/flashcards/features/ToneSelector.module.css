@@ -59,16 +59,16 @@
     font-weight: 600;
 }
 
+.selectWrapper {
+    min-width: 180px;
+}
+
 @media (max-width: 768px) {
     .toneSelectorLabel {
         display: none;
     }
 
     .selectWrapper {
-        min-width: 140px !important;
+        min-width: 140px;
     }
-}
-
-.selectWrapper {
-    min-width: 180px;
 }

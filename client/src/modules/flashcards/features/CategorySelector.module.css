@@ -146,6 +146,8 @@
   color: #ffffff;
 }
 
+/* !important: el estado activo debe ganar al hover del item (misma
+   especificidad); patrón idéntico a .activeConjugation de la tarjeta. */
 .activeCategory {
   background: rgba(244, 114, 182, 0.12) !important;
   border-color: rgba(244, 114, 182, 0.2) !important;
@@ -538,6 +540,7 @@
   cursor: not-allowed;
 }
 
+/* !important: activo gana al hover (ver nota de .activeCategory). */
 .activeLevel {
   background: #f472b6 !important;
   color: #ffffff !important;
@@ -956,7 +959,7 @@
   }
 
   .groupsGrid {
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 }

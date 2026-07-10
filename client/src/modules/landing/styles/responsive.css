@@ -34,8 +34,8 @@
 
     [data-landing-demo] .app-container {
         width: 100%;
-        max-width: 100% !important;
-        padding: 0 !important;
+        max-width: 100%;
+        padding: 0;
     }
 
     [data-landing-demo] .flashcard-main-area {
@@ -44,10 +44,6 @@
         width: 100%;
         max-width: var(--lp-demo-mobile-max);
         margin: 0 auto;
-    }
-
-    [data-landing-demo] .controlsWrapper {
-        margin-top: 0 !important;
     }
 
     [data-landing-demo] .lp-demo-card-frame {

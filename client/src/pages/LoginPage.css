@@ -1,5 +1,8 @@
 @import '../modules/landing/styles/base.css';
 
+/* !important en background (más abajo): .login-page convive con .lp en el
+   mismo elemento y el orden de los chunks CSS entre login y landing no está
+   garantizado en runtime; el tema del login debe ganar el empate siempre. */
 .login-page {
     min-height: 100dvh;
     display: flex;
@@ -191,6 +194,7 @@
     transition: transform 0.2s ease;
 }
 
+/* !important: el iframe de Google trae width inline; solo important lo acota. */
 .google-btn-container iframe {
     max-width: 100% !important;
 }

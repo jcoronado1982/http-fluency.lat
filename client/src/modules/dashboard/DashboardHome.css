@@ -1,28 +1,23 @@
-/* ─── Design tokens (aligned with onboarding / flashcard palette) ─────────── */
+/* ─── Design tokens ────────────────────────────────────────────────────────
+   Los colores de marca vienen de styles/app-brand.css (heredados vía
+   .app-layout); aquí solo se alias-an y se añaden los tokens propios del
+   dashboard. Tipografía: heredada del shell (index.css). ─────────────────── */
 .dashboard-home {
     --shell-content-inline-padding: 60px;
     padding-block: 30px 40px;
     color: #f8fafc;
-    font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
-    --font-family-body: var(--font-family-app);
-    --font-family-display: var(--font-family-app);
-    --dash-surface:   #151c2c;
+    --dash-surface:   var(--brand-surface, #151c2c);
     --dash-surface-2: #0f172a;
     --dash-border:    rgba(255, 255, 255, 0.08);
     --dash-muted:     #94a3b8;
-    --dash-accent:    #f472b6;
-    --dash-accent-2:  #be185d;
-    --dash-accent-3:  #fb923c;
-    --dash-teal:      #f472b6;
-    --dash-purple:    #be185d;
+    --dash-accent:    var(--brand-rose, #f472b6);
+    --dash-accent-2:  var(--brand-rose-dark, #be185d);
+    --dash-accent-3:  var(--brand-orange, #fb923c);
+    --dash-teal:      var(--brand-rose, #f472b6);
+    --dash-purple:    var(--brand-rose-dark, #be185d);
     --dash-premium:   #facc15;
-    --dash-gradient:  linear-gradient(90deg, #be185d, #f472b6 55%, #fb923c);
-    --dash-gradient-btn: linear-gradient(135deg, #be185d, #f472b6 50%, #fb923c);
-}
-
-.dashboard-home,
-.dashboard-home * {
-    box-sizing: border-box;
+    --dash-gradient:  var(--brand-gradient, linear-gradient(90deg, #be185d, #f472b6 55%, #fb923c));
+    --dash-gradient-btn: var(--brand-gradient-btn, linear-gradient(135deg, #be185d, #f472b6 50%, #fb923c));
 }
 
 /* ─── Hero layout ──────────────────────────────────────────────────────────── */
@@ -671,10 +666,6 @@
     text-align: left;
     cursor: pointer;
     transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
-}
-
-/* Accent top border per card (uses inline --dash-cat-accent set in JSX or default) */
-.dash-category-card {
     border-top: 1px solid var(--dash-border);
 }
 
