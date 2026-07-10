@@ -1,31 +1,6 @@
 {
   "categories": [
-    {
-      "name": "pronouns",
-      "order": 1,
-      "decks": {
-        "1-basic": [
-          { "name": "Subject", "order": 1 },
-          { "name": "Object", "order": 2 },
-          { "name": "Poss. Adjective", "order": 3 },
-          { "name": "Indefinite", "order": 4 },
-          { "name": "Quantifier", "order": 5 },
-          { "name": "Interrogative Pronouns", "order": 6 }
-        ],
-        "2-intermediate": [
-          { "name": "Indefinite", "order": 1 },
-          { "name": "Reciprocal", "order": 2 },
-          { "name": "Poss. Pronoun", "order": 3 },
-          { "name": "Interrogative/Relative", "order": 4 },
-          { "name": "Reflexive", "order": 5 }
-        ],
-        "3-advanced": [
-          { "name": "Indefinite", "order": 1 },
-          { "name": "Partitives", "order": 2 },
-          { "name": "Relative", "order": 3 }
-        ]
-      }
-    },
+
     {
       "name": "verbs",
       "order": 2,

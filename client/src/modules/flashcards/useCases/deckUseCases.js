@@ -38,7 +38,6 @@ export const NESTED_LEVEL_CATEGORIES = [
     'determinant',
     'phrasal_verbs',
     'preposition',
-    'pronouns',
 ];
 const LEVEL_ORDER = { basic: 1, intermediate: 2, advanced: 3 };
 const PRONOUN_DECK_ORDER = {
