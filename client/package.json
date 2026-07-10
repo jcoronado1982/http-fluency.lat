@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "catalog:generate": "node ../scripts/generate-catalog-manifest.mjs",
+    "build": "npm run catalog:generate && vite build",
     "test:routing": "node scripts/test-routing-paths.mjs",
     "lint": "eslint .",
     "preview": "vite preview"

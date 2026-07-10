@@ -16,6 +16,7 @@
 }
 
 /* App interna: tarjeta proporcional al viewport disponible */
+
 :global(.flashcard-page-wrapper:not([data-landing-demo])) .flashcardContainer {
     width: 100%;
     max-width: var(--fc-card-max-width, 620px);
@@ -28,67 +29,29 @@
     border-radius: clamp(20px, 3vw, 32px);
 }
 
-:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront,
-:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardBack {
+:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront {
     min-height: 0;
     border-radius: clamp(20px, 3vw, 32px);
     padding: clamp(12px, 2vw, 20px) clamp(12px, 2vw, 20px) 0;
 }
 
-:global(.flashcard-page-wrapper:not([data-landing-demo])) .imagePlaceholder {
-    width: 100%;
-    flex: 1 1 0;
-    min-height: clamp(90px, calc(var(--fc-real-vh, 100dvh) * 0.18), 400px);
-    height: auto;
-    max-width: 100%;
-    margin: clamp(6px, 1vh, 12px) auto clamp(10px, 1.5vh, 16px);
-    min-width: 0;
-    align-self: stretch;
-}
-
-:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .conjugationTable {
-    margin: 5px auto 5px;
-    padding: 8px 7px 3px 7px;
-    gap: 8px;
-}
-
-:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer {
-    margin-top: 4px;
-    margin-bottom: 8px;
-    flex-shrink: 0;
-}
-
-:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer li,
-:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .exampleRow {
-    padding: 3px 6px;
-}
-
-:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .imagePlaceholder {
-    margin-top: 10px;
-    flex-shrink: 1;
-}
-
-:global(.flashcard-page-wrapper:not([data-landing-demo])) .allExamplesContainer {
-    flex-shrink: 0;
-    flex-grow: 0;
-    overflow: visible;
-}
-
-:global(.flashcard-page-wrapper:not([data-landing-demo])) .imageLoadingOverlay {
-    min-height: 0;
-}
-
 /* ------------------------------------------------------------------- */
+
 /* LAPTOPS 13"-14" (ancho de escritorio, poca altura: 1366x768, 1440x900) */
+
 /* La tarjeta ya recibe más alto real gracias al bloque equivalente en   */
+
 /* App.css; aquí comprimimos el contenido interno para que quepa entero */
+
 /* sin que la lista de ejemplos empuje la imagen fuera del recorte.     */
+
 /* ------------------------------------------------------------------- */
+
 /* 768.02px y no 769px: ver nota equivalente en App.css (anchos fraccionarios
    bajo escalado del SO no deben caer en el hueco entre breakpoints). */
+
 @media (min-width: 768.02px) and (max-height: 900px) {
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront,
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardBack {
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront {
         padding: clamp(10px, 1.6vh, 16px) clamp(12px, 1.6vw, 18px) 0;
     }
 
@@ -101,61 +64,15 @@
         font-size: 1.1em;
     }
 
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .conjugationTable {
-        margin: 4px auto;
-        padding: 6px 8px 4px;
-        gap: 6px;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .conjugationForm {
-        font-size: 1.05em;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .conjugationPhonetic {
-        font-size: 0.85em;
-    }
-
     /* La lista de ejemplos ya no queda "pinneada": puede encogerse y, si
        aun así no cabe, hace scroll interno en vez de desbordar la tarjeta. */
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .allExamplesContainer {
-        margin-top: 4px;
-        margin-bottom: 6px;
-        flex-shrink: 1;
-        flex-grow: 0;
-        /* Tope reducido (antes 34%): la imagen es el elemento protagonista
-           de la tarjeta y debe quedarse con la mayor parte del espacio que
-           sobra; los ejemplos hacen scroll interno si no entran. */
-        max-height: calc(var(--fc-real-vh, 100dvh) * 0.26);
-        overflow: hidden;
-    }
 
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .allExamplesContainer ul {
-        max-height: calc(var(--fc-real-vh, 100dvh) * 0.26);
-        overflow-y: auto;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .allExamplesContainer li,
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .exampleRow {
-        padding: 3px 6px;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .allExamplesContainer li div,
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .allExamplesContainer li div span {
-        font-size: 1.2rem;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .phraseContainer {
-        font-size: 1.2rem;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .examplePlayBtn,
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .exampleRow .rotateVoiceBtn {
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) [data-fc='examples'] [data-fc-btn='voice'] {
         width: 42px;
         height: 42px;
     }
 
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .examplePlayBtn svg,
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .exampleRow .rotateVoiceBtn svg {
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) [data-fc='examples'] [data-fc-btn='voice'] svg {
         width: 20px;
         height: 20px;
         min-width: 20px;
@@ -165,16 +82,7 @@
     /* La imagen es flex:1 (ver regla base) y ya absorbe el espacio que
        sobra tras el título/tabla/ejemplos; este mínimo solo evita que
        desaparezca del todo en viewports extremadamente bajos. */
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .imagePlaceholder {
-        min-height: clamp(110px, calc(var(--fc-real-vh, 100dvh) * 0.22), 260px);
-        margin: 6px auto 8px;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .imagePlaceholder {
-        margin-top: 8px;
-    }
 }
-
 
 .card {
     width: 100%;
@@ -197,13 +105,6 @@
     z-index: 2;
 }
 
-.cardBack {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.4s ease-in-out, visibility 0.4s;
-}
-
 .flipped .cardFront {
     opacity: 0;
     visibility: hidden;
@@ -211,15 +112,7 @@
     z-index: 1;
 }
 
-.flipped .cardBack {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    z-index: 2;
-}
-
-.cardFront,
-.cardBack {
+.cardFront {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -239,14 +132,6 @@
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
     color: #ffffff;
     font-family: var(--font-family-app, var(--font-family-body));
-}
-
-
-.cardBack {
-    transform: rotateY(180deg);
-    justify-content: flex-start;
-    padding-top: 20px;
-    overflow-y: auto;
 }
 
 /* --- Estilos Generales del Frente --- */
@@ -283,258 +168,6 @@
     padding: 0;
     display: inline-block;
     border: none;
-}
-
-.allExamplesContainer {
-    width: 100%;
-    text-align: left;
-    flex-grow: 0;
-    flex-shrink: 0;
-    overflow: visible;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.scrollableExamples {
-    min-height: 0;
-}
-
-.scrollableExamples ul {
-    overflow-y: auto;
-    overscroll-behavior: contain;
-}
-
-.scrollableExamples ul::-webkit-scrollbar {
-    width: 8px;
-}
-
-.scrollableExamples ul::-webkit-scrollbar-thumb {
-    background: rgba(148, 163, 184, 0.45);
-    border-radius: 999px;
-}
-
-.scrollableExamples ul::-webkit-scrollbar-track {
-    background: rgba(15, 23, 42, 0.35);
-    border-radius: 999px;
-}
-
-
-.allExamplesContainer ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-}
-
-.allExamplesContainer li,
-.exampleRow {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 0;
-    padding: 5px 8px;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    position: relative;
-    cursor: default;
-    isolation: isolate;
-    pointer-events: auto;
-}
-
-.allExamplesContainer li:hover,
-.exampleRow:hover {
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.allExamplesContainer li:last-child {
-    margin-bottom: 0;
-}
-
-.examplePlayBtn {
-    background: transparent;
-    border: 1px solid transparent;
-    border-radius: 50%;
-    width: 52px;
-    height: 52px;
-    font-size: 1em;
-    cursor: pointer;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    color: #f472b6;
-    box-shadow: none;
-    backface-visibility: hidden;
-}
-
-.examplePlayBtn svg {
-    width: 24px;
-    height: 24px;
-    min-width: 24px;
-    min-height: 24px;
-    stroke-width: 2.5;
-}
-
-.examplePlayBtn:hover,
-.exampleRow:hover .examplePlayBtn {
-    background: rgba(244, 114, 182, 0.15);
-    border-color: #f472b6;
-    color: #f472b6;
-    box-shadow: 0 0 15px rgba(244, 114, 182, 0.35);
-}
-
-.allExamplesContainer li div {
-    line-height: 1.4;
-    font-size: 1.5rem;
-    white-space: normal;
-    overflow: visible;
-    color: #b8b8b8;
-}
-
-.allExamplesContainer li div span {
-    transition: transform 0.05s ease;
-    padding: 1px 0px;
-    color: #f0f0f0;
-    font-weight: 300;
-    font-size: 1.5rem;
-    font-family: var(--font-family-body);
-    letter-spacing: 0.01em;
-}
-
-.imagePlaceholder {
-    width: 512px;
-    /* Aumentamos el tamaño para llenar el hueco */
-    height: 420px;
-    max-width: 100%;
-    margin: 20px auto 30px auto;
-    /* Margen superior fijo para evitar que se caiga demasiado */
-    border-radius: 24px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(15, 23, 42, 0.4);
-    backdrop-filter: blur(12px);
-    position: relative;
-    box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.6),
-        inset 0 0 20px rgba(255, 255, 255, 0.05),
-        0 0 15px rgba(56, 189, 248, 0.05);
-    /* Brillo ambiental sutil */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-
-
-/* ------------------------------------------------------------------- */
-/* CONTROLES DE IMÁGENES (Subir/Eliminar) */
-/* ------------------------------------------------------------------- */
-
-.imageControls {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 50;
-    display: flex;
-    gap: 8px;
-}
-
-.imageControlBtn {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 0;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    backface-visibility: hidden;
-}
-
-.deleteImageBtn {
-    color: #ef4444;
-    background: rgba(239, 68, 68, 0.1);
-    border-color: rgba(239, 68, 68, 0.2);
-}
-
-.uploadImageBtn {
-    color: #38bdf8;
-    background: rgba(56, 189, 248, 0.1);
-    border-color: rgba(56, 189, 248, 0.2);
-}
-
-.regenerateImageBtn {
-    color: #a855f7;
-    background: rgba(168, 85, 247, 0.1);
-    border-color: rgba(168, 85, 247, 0.2);
-}
-
-.imageControlBtn:hover {
-    transform: translateY(-2px) scale(1.1);
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-}
-
-.deleteImageBtn:hover {
-    background: rgba(239, 68, 68, 0.25);
-    border-color: #ef4444;
-    color: #ef4444;
-}
-
-.uploadImageBtn:hover {
-    background: rgba(56, 189, 248, 0.25);
-    border-color: #38bdf8;
-    color: #38bdf8;
-    box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
-}
-
-.regenerateImageBtn:hover {
-    background: rgba(168, 85, 247, 0.25);
-    border-color: #a855f7;
-    color: #a855f7;
-    box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
-}
-
-
-/* ------------------------------------------------ */
-
-.noImagePlaceholderImg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.65;
-    filter: brightness(0.85);
-    transition: opacity 0.3s ease;
-}
-
-.image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* Volvemos a cover para que llene el nuevo formato cine */
-    object-position: center 40%;
-    /* Ajuste fino solicitado por el usuario */
-    opacity: 0;
-    transition: opacity 0.8s ease, transform 0.5s ease;
-    display: block;
-}
-
-
-
-.imageVisible {
-    opacity: 1;
 }
 
 .soundButton {
@@ -574,184 +207,6 @@
     box-shadow: 0 0 20px rgba(244, 114, 182, 0.35);
 }
 
-/* !important intencionales: ganan a .blurredText span (color) en estados de
-   blur/spoiler y a resets globales; ver nota Safari 3D más abajo. */
-.highlightedWord,
-.allExamplesContainer li div span.highlightedWord {
-    position: relative;
-    display: inline-block;
-    color: #333333 !important;
-    font-weight: 700 !important;
-    font-size: 1.05em;
-    text-shadow: none;
-    /* translate3d en lugar de scale: Safari no pinta fondos dentro de tarjetas 3D con scale */
-    transform: translate3d(0, 0, 1px);
-    -webkit-transform: translate3d(0, 0, 1px);
-    padding: 2px 6px !important;
-    margin: 0 2px;
-    border-radius: 6px;
-    background: transparent !important;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
-    isolation: isolate;
-    transition: color 0.15s ease-out;
-    -webkit-backface-visibility: visible;
-    backface-visibility: visible;
-}
-
-.highlightedWord::before,
-.allExamplesContainer li div span.highlightedWord::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-color: #FFC107;
-    border-radius: 6px;
-    z-index: -1;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-}
-
-/* ------------------------------------------------------------------- */
-/* SECCIÓN CORREGIDA: ESTILOS DE LA PARTE TRASERA (DARK MODE) */
-/* ------------------------------------------------------------------- */
-
-.definitionBlockBack {
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    /* Línea más sutil */
-    padding-bottom: 20px;
-    margin-bottom: 0px;
-}
-
-.definitionBlockBack:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-}
-
-.meaningSentence {
-    font-size: 1.5em;
-    font-weight: 400;
-    color: #f0f0f0;
-    /* Blanco para el texto principal */
-    margin-top: 10px;
-    margin-bottom: 10px;
-    line-height: 1.4;
-}
-
-.phrasalVerbBack {
-    font-weight: 700;
-    color: #4dabf7;
-    /* Azul claro brillante */
-    text-transform: capitalize;
-    text-shadow: 0 0 10px rgba(77, 171, 247, 0.2);
-}
-
-.meaningBack {
-    font-weight: 700;
-    color: #69db7c;
-    /* Verde claro brillante */
-    text-shadow: 0 0 10px rgba(105, 219, 124, 0.2);
-}
-
-.usageExampleEn {
-    font-size: 1.4em;
-    color: #ffffff;
-    /* Blanco puro para el inglés */
-    font-style: italic;
-    margin: 0 0 8px 0;
-    font-weight: 300;
-}
-
-.usageExampleEn strong {
-    color: #74c0fc;
-    /* Azul resaltado para palabras clave */
-    font-weight: 600;
-}
-
-.usageExampleEs {
-    font-size: 1.1em;
-    color: #a0a0a0;
-    /* Gris claro para español */
-    margin: 0;
-}
-
-.spanishExampleContainer {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-top: 10px;
-}
-
-.playEsBtn {
-    background: transparent;
-    border: none;
-    color: #4ade80;
-    cursor: pointer;
-    padding: 6px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
-}
-
-.playEsBtn:hover {
-    background-color: rgba(74, 222, 128, 0.15);
-    transform: scale(1.1);
-}
-
-.playEsBtn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-}
-
-/* Bloque de Alternativa (She is nice and smart...) */
-.alternativeExample {
-    font-size: 1.2em;
-    font-style: normal;
-    color: #cccccc;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    /* Fondo sutil para separar */
-    padding: 6px 12px;
-    border-radius: 8px;
-    display: inline-block;
-}
-
-.alternativeExample strong,
-.alternativeExample b {
-    color: #91a7ff;
-    /* Etiqueta "Alternativa" en azulado */
-    font-weight: 600;
-    margin-right: 6px;
-}
-
-.alternativeExample em {
-    font-weight: 400;
-    color: #ffffff;
-    /* Texto del ejemplo alternativo en blanco */
-    font-style: italic;
-}
-
-/* ------------------------------------------------------------------- */
-
-.phoneticRow {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    margin: 0;
-    padding: 0;
-    line-height: 1;
-}
-
-.wordBlock .phoneticRow {
-    margin-top: 0;
-}
-
 .wordBlock .ipaChartBtn {
     width: 28px;
     height: 28px;
@@ -761,20 +216,6 @@
 .wordBlock .ipaChartBtn svg {
     width: 18px;
     height: 18px;
-}
-
-.phoneticRow .phonetic {
-    margin: 0;
-    padding: 0;
-    display: inline;
-    line-height: 1;
-}
-
-.phoneticContainer .phonetic {
-    margin: 0;
-    padding: 0;
-    display: inline;
-    line-height: 1;
 }
 
 .ipaChartBtn {
@@ -808,132 +249,8 @@
     transform: scale(1.15);
 }
 
-.allExamplesContainer li div.blurredText {
-    filter: blur(4px);
-    transition: filter 0.3s ease-in-out;
-    cursor: pointer;
-    pointer-events: auto;
-    color: #b8b8b8;
-}
-
-.allExamplesContainer li div.blurredText span {
-    color: #b8b8b8;
-}
-
-.customTooltip {
-    visibility: hidden;
-    opacity: 0;
-    background-color: rgba(30, 30, 40, 0.95);
-    color: #e8eaf6;
-    font-size: 0.9em;
-    font-family: 'Courier New', monospace;
-    letter-spacing: 0.03em;
-    text-align: center;
-    border-radius: 8px;
-    padding: 7px 14px;
-    white-space: nowrap;
-    position: absolute;
-    z-index: 9999;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    pointer-events: none;
-    transition: opacity 0.25s ease, visibility 0.25s ease;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-}
-
-.customTooltip::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 6px solid transparent;
-    border-top-color: rgba(30, 30, 40, 0.95);
-}
-
-/* !important: estado hover validado en producción (no cubierto por capturas). */
-.allExamplesContainer li:hover>.customTooltip,
-.allExamplesContainer li:hover .customTooltip,
-.allExamplesContainer li div:hover~.customTooltip {
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-
-.allExamplesContainer li {
-    z-index: 1;
-}
-
-.allExamplesContainer li:hover {
-    z-index: 20;
-}
-
-/* --- MTG Card Specific Styles --- */
-
-.mtgArtImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.mtgTextList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-}
-
-.mtgTextList li {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 6px;
-    gap: 8px;
-}
-
-.mtgAudioBtnSmall {
-    background: none;
-    border: 1px solid #999;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 0.7em;
-    padding: 0;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: #333;
-    transition: all 0.2s;
-}
-
-.mtgAudioBtnSmall:hover {
-    background-color: #333;
-    color: #fff;
-}
-
-.soundButtonMtg {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1em;
-    color: #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.soundButtonMtg:hover {
-    color: #000;
-    transform: scale(1.1);
-}
-
 /* --- Spinner Animation --- */
+
 .spinner {
     animation: spin 1s linear infinite;
     display: inline-block;
@@ -950,6 +267,7 @@
 }
 
 /* !important: hover debe ganar a la opacidad base de carga. */
+
 .loadingAudioBtn:hover {
     opacity: 1 !important;
     /* Opacidad total al pasar el mouse */
@@ -962,134 +280,6 @@
 
     to {
         transform: rotate(360deg);
-    }
-}
-
-/* --- AI Loader Styles (Premium) --- */
-.imageLoadingOverlay {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-    text-align: center;
-    z-index: 10;
-    width: 100%;
-    height: 100%;
-    min-height: 300px;
-    padding: 32px;
-    overflow: hidden;
-    background:
-        radial-gradient(circle at center, rgba(56, 189, 248, 0.08), transparent 42%),
-        linear-gradient(180deg, rgba(15, 23, 42, 0.78), rgba(15, 23, 42, 0.7));
-    backdrop-filter: blur(12px);
-}
-
-.imageLoadingOverlay::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.08) 50%, transparent 80%);
-    transform: translateX(-120%);
-    animation: imageShimmer 1.8s ease-in-out infinite;
-}
-
-.loaderVisualContainer {
-    position: relative;
-    z-index: 1;
-    width: 92px;
-    height: 92px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.aiLoaderGlow {
-    position: absolute;
-    width: 62px;
-    height: 62px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(56, 189, 248, 0.26), rgba(56, 189, 248, 0));
-    filter: blur(6px);
-}
-
-.aiLoaderCircle {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 3px solid transparent;
-    border-top-color: #38bdf8;
-    border-radius: 50%;
-    animation: spin 2.8s linear infinite;
-    filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.4));
-}
-
-.aiLoaderCircleInner {
-    position: absolute;
-    width: 64%;
-    height: 64%;
-    border: 3px solid transparent;
-    border-bottom-color: #fbbf24;
-    border-radius: 50%;
-    animation: spin-reverse 1.9s linear infinite;
-    filter: drop-shadow(0 0-8px rgba(251, 191, 36, 0.3));
-}
-
-.aiLoaderIcon {
-    font-size: 22px;
-    color: #ffffff;
-    animation: pulse-glow 2s ease-in-out infinite;
-}
-
-.aiLoaderTextContainer {
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-}
-
-.aiLoaderText {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: 0.06em;
-    margin: 0;
-    text-transform: none;
-}
-
-@keyframes spin-reverse {
-    from {
-        transform: rotate(360deg);
-    }
-
-    to {
-        transform: rotate(0deg);
-    }
-}
-
-@keyframes pulse-glow {
-
-    0%,
-    100% {
-        opacity: 0.5;
-        filter: drop-shadow(0 0 5px #38bdf8);
-        transform: scale(0.9);
-    }
-
-    50% {
-        opacity: 1;
-        filter: drop-shadow(0 0 15px #38bdf8);
-        transform: scale(1.1);
-    }
-}
-
-@keyframes imageShimmer {
-    0% {
-        transform: translateX(-120%);
-    }
-
-    100% {
-        transform: translateX(120%);
     }
 }
 
@@ -1122,47 +312,9 @@
     stroke-width: 2.5;
 }
 
-.phraseContainer {
-    flex: 1;
-    min-width: 0;
-    position: relative;
-    white-space: normal;
-    line-height: 1.4;
-    font-size: 1.5rem;
-    overflow: visible;
-    /* Promueve capa de composición para que Safari pinte el resaltado dentro de la tarjeta 3D */
-    transform: translate3d(0, 0, 0);
-    -webkit-transform: translate3d(0, 0, 0);
-}
-
-.exampleRow .rotateVoiceBtn {
+[data-fc='examples'] [data-fc-btn='voice'] {
     margin-left: 0;
     flex-shrink: 0;
-}
-
-.titleContainer {
-    grid-column: 2;
-    justify-self: center;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    position: relative;
-    max-width: 100%;
-    flex-wrap: wrap;
-    transform: translate3d(0, 0, 0);
-    -webkit-transform: translate3d(0, 0, 0);
-}
-
-.titleContainer .rotateVoiceBtn {
-    margin-left: 4px;
-}
-
-.phraseText {
-    display: block;
-    text-align: left;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
 }
 
 .rotateVoiceBtn:hover:not(:disabled) {
@@ -1174,6 +326,7 @@
 }
 
 /* !important: disabled debe ganar al hover. */
+
 .rotateVoiceBtn:disabled {
     cursor: not-allowed;
     opacity: 0.4 !important;
@@ -1201,8 +354,7 @@
         min-height: 0;
     }
 
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront,
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardBack {
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront {
         padding: clamp(8px, 2vw, 14px) clamp(8px, 2vw, 12px) 0;
         border-radius: clamp(18px, 4vw, 24px);
         border: 1px solid #334155;
@@ -1215,72 +367,9 @@
         border-radius: clamp(18px, 4vw, 24px);
     }
 
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .imagePlaceholder {
-        flex: 1 1 0;
-        min-height: clamp(72px, calc(var(--fc-real-vh, 100dvh) * 0.14), 180px);
-        height: auto;
-        max-height: none;
-        margin: 6px auto 8px;
-        border-radius: clamp(12px, 3vw, 16px);
-        min-width: 0;
-        align-self: stretch;
-        flex-shrink: 1;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .imagePlaceholder {
-        margin-top: 12px;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .conjugationTable {
-        margin: 0 auto 4px;
-        padding: 10px 6px 5px 6px;
-        gap: 4px;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .conjugationItem {
-        padding: 3px;
-        gap: 1px;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .conjugationForm {
-        font-size: 1.05em;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .conjugationPhonetic {
-        font-size: 0.85em;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer {
-        margin-top: 2px;
-        margin-bottom: 10px;
-        flex-shrink: 0;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer ul {
-        gap: 0px;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .allExamplesContainer li,
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .exampleRow {
-        padding: 2px 4px;
-        gap: 8px;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .examplePlayBtn,
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .exampleRow .rotateVoiceBtn {
+    :global(.flashcard-page-wrapper:not([data-landing-demo])) [data-fc-face='front']:has([data-fc='conjugation']) [data-fc='examples'] [data-fc-btn='voice'] {
         width: 46px;
         height: 46px;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .titleContainer {
-        height: auto;
-        min-height: 0;
-        padding-top: 0;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .allExamplesContainer {
-        flex-shrink: 0;
-        min-height: 0;
     }
 
     /* --- Móvil, ambas variantes (app + demo) -----------------------------
@@ -1289,10 +378,6 @@
        archivo, gana por orden a igual especificidad). --------------------- */
 
     :global(.flashcard-page-wrapper) .wordHeader {
-        --fc-word-side-slot: 56px;
-    }
-
-    :global(.flashcard-page-wrapper) .nameContainer {
         --fc-word-side-slot: 56px;
     }
 
@@ -1317,7 +402,7 @@
     }
 
     :global(.flashcard-page-wrapper) .ipaChartBtn svg,
-    :global(.flashcard-page-wrapper) .wordBlock .ipaChartBtn svg {
+:global(.flashcard-page-wrapper) .wordBlock .ipaChartBtn svg {
         width: 24px;
         height: 24px;
     }
@@ -1331,14 +416,6 @@
         justify-self: end;
     }
 
-    :global(.flashcard-page-wrapper) .phraseContainer {
-        font-size: 1.25rem;
-    }
-
-    :global(.flashcard-page-wrapper) .titleContainer {
-        gap: 8px;
-    }
-
     /* --- Móvil, solo app (la variante demo define los suyos) ------------- */
 
     :global(.flashcard-page-wrapper:not([data-landing-demo])) .name {
@@ -1346,207 +423,6 @@
         min-height: 0;
     }
 
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .allExamplesContainer {
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .allExamplesContainer ul {
-        gap: 5px;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .allExamplesContainer li,
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .exampleRow {
-        gap: 10px;
-        padding: 4px 6px;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .allExamplesContainer li div span {
-        font-size: 1.25rem;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .examplePlayBtn {
-        width: 48px;
-        height: 48px;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .conjugationForm {
-        max-width: 100%;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .nameContainer {
-        transform: translateY(-4px);
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .titleContainer {
-        min-width: 0;
-        min-height: 0;
-        flex: none;
-    }
-
-    :global(.flashcard-page-wrapper:not([data-landing-demo])) .titleContainer .rotateVoiceBtn {
-        width: 52px;
-        height: 52px;
-    }
-}
-
-.irregularBadge {
-    position: absolute;
-    top: 25px;
-    left: 20px;
-    background: rgba(251, 191, 36, 0.1);
-    color: #fbbf24;
-    border: 1px solid rgba(251, 191, 36, 0.3);
-    padding: 6px 12px;
-    border-radius: 12px;
-    font-size: 0.75em;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    animation: irregularFadeIn 0.5s ease-out;
-}
-
-.irregularBadge::before {
-    content: '✦';
-    font-size: 1.2em;
-}
-
-@keyframes irregularFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-5px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* --- Conjugation Table Styles --- */
-.conjugationTable {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 5px auto;
-    padding: 10px 10px 5px 10px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.conjugationItem {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    flex: 1;
-    min-width: 0;
-    padding: 5px;
-    border-radius: 16px;
-    /* Bordes más redondeados */
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid transparent;
-}
-
-.conjugationItem:hover {
-    background: rgba(255, 255, 255, 0.03);
-}
-
-.conjugationItem:focus-visible {
-    outline: 2px solid rgba(244, 114, 182, 0.65);
-    outline-offset: 2px;
-}
-
-.conjugationLabel {
-    display: none;
-    /* Ocultamos los títulos V1, V2, V3 */
-}
-
-
-.conjugationHeader {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-}
-
-.conjugationAudioBtn {
-    background: transparent;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #4dabf7;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-    flex-shrink: 0;
-    pointer-events: none;
-    opacity: 0.95;
-}
-
-.conjugationAudioBtn {
-    display: none;
-}
-
-.conjugationItem:hover .conjugationAudioBtn,
-.conjugationItem:focus-visible .conjugationAudioBtn {
-    transform: scale(1.1);
-    opacity: 1;
-}
-
-.conjugationForm {
-    font-size: 1.3em;
-    font-weight: 700;
-    color: #f8fafc;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    /* Ajuste para compartir espacio con el icono */
-    max-width: calc(100% - 40px);
-    text-align: center;
-}
-
-.conjugationPhonetic {
-    font-size: 1em;
-    color: #475569;
-    font-family: 'Courier New', monospace;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 100%;
-    text-align: center;
-}
-
-.irregularBadgeContainer {
-    position: absolute;
-    top: 25px;
-    left: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    z-index: 10;
-}
-
-.nameContainer {
-    --fc-word-side-slot: 52px;
-    display: grid;
-    grid-template-columns: var(--fc-word-side-slot) minmax(0, 1fr) var(--fc-word-side-slot);
-    align-items: center;
-    width: 100%;
-    gap: 0;
 }
 
 .wordHeader {
@@ -1614,63 +490,33 @@
     margin: 0;
 }
 
-.wordTitleRow {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    max-width: 100%;
-}
-
 :global(.flashcard-page-wrapper:not([data-landing-demo])) .wordBlock {
     row-gap: 0;
     column-gap: 2px;
 }
 
-:global(.flashcard-page-wrapper:not([data-landing-demo])) .cardFront:has(.conjugationTable) .wordHeader {
+:global(.flashcard-page-wrapper:not([data-landing-demo])) [data-fc-face='front']:has([data-fc='conjugation']) .wordHeader {
     margin-bottom: 5px;
     margin-top: 0px;
 }
 
-
-/* --- Active State for Conjugation --- */
-/* !important: la pestaña activa debe ganar al hover de .conjugationItem. */
-.activeConjugation {
-    background: rgba(244, 114, 182, 0.12) !important;
-    border-color: rgba(244, 114, 182, 0.45) !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(244, 114, 182, 0.22);
-    transform: translateY(-3px);
-    z-index: 5;
-    border-radius: 16px;
-    /* Consistencia en el redondeado */
-}
-
-.activeConjugation .conjugationForm {
-    color: #f472b6;
-    text-shadow: 0 0 10px rgba(244, 114, 182, 0.35);
-}
-
-.activeConjugation .conjugationPhonetic {
-    color: #a0a0a0; /* El mismo gris del fonético principal para mejor legibilidad */
-}
-
 /* Demo landing — layout y flip; colores/tipografía heredan la app */
+
 :global([data-landing-demo]) .flashcardContainer,
 :global([data-landing-demo]) .cardFront,
-:global([data-landing-demo]) .cardBack,
 :global([data-landing-demo]) .controlsWrapper {
     font-family: var(--font-family-app, var(--font-family-body));
 }
 
 /* Demo landing — espaciados reducidos para que la imagen gane protagonismo */
+
 :global([data-landing-demo]) .card {
     border-radius: 24px;
     box-shadow: none;
     background: transparent;
 }
 
-:global([data-landing-demo]) .cardFront,
-:global([data-landing-demo]) .cardBack {
+:global([data-landing-demo]) .cardFront {
     padding: 20px 16px 14px ;
     border: 1px solid #334155;
     border-radius: 24px;
@@ -1682,69 +528,14 @@
     margin-bottom: 0px;
 }
 
-:global([data-landing-demo]) .allExamplesContainer {
-    margin-top: 2px;
-    margin-bottom: 2px;
-}
-
-:global([data-landing-demo]) .allExamplesContainer ul {
-    gap: 2px;
-}
-
-:global([data-landing-demo]) .scrollableExamples ul {
-    max-height: 12rem;
-    padding-right: 6px;
-}
-
-:global([data-landing-demo]) .allExamplesContainer li,
-:global([data-landing-demo]) .exampleRow {
-    padding: 3px 6px;
-}
-
-:global([data-landing-demo]) .imagePlaceholder {
-    margin: 2px 0 0;
-    flex: 1 1 0;
-    height: auto;
-    min-height: 160px;
-    width: 100%;
-    max-width: 100%;
-    border-radius: 18px;
-}
-
-:global([data-landing-demo]) .conjugationForm {
-    max-width: 100%;
-    font-size: 1.2em;
-    white-space: normal;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    text-overflow: unset;
-    overflow: visible;
-    min-width: 0;
-}
-
-:global([data-landing-demo]) .conjugationHeader {
-    min-width: 0;
-    max-width: 100%;
-}
-
-:global([data-landing-demo]) .conjugationPhonetic {
-    font-size: 0.72em;
-    white-space: normal;
-    overflow: visible;
-    text-overflow: unset;
-}
-
 /* Flip en landing: sin rotateY 3D (overflow-x del .lp lo rompe) — solo fade + z-index */
+
 :global([data-landing-demo]) .card {
     transform: none;
     transform-style: flat;
 }
 
 :global([data-landing-demo]) .card.flipped {
-    transform: none;
-}
-
-:global([data-landing-demo]) .cardBack {
     transform: none;
 }
 
@@ -1778,8 +569,7 @@
         border-radius: clamp(18px, 4vw, 24px);
     }
 
-    :global([data-landing-demo]) .cardFront,
-    :global([data-landing-demo]) .cardBack {
+    :global([data-landing-demo]) .cardFront {
         padding: clamp(12px, 2vw, 16px) clamp(12px, 2vw, 16px) 14px;
         border-radius: clamp(18px, 4vw, 24px);
         border: 1px solid #334155;
@@ -1810,31 +600,6 @@
         margin: 0;
     }
 
-    :global([data-landing-demo]) .wordTitleRow {
-        width: 100%;
-        justify-content: center;
-    }
-
-    :global([data-landing-demo]) .nameContainer {
-        transform: none;
-        gap: 6px;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        position: relative;
-        padding-right: 40px;
-    }
-
-    :global([data-landing-demo]) .titleContainer {
-        height: auto;
-        min-height: 0;
-        width: 100%;
-        flex: 1 1 auto;
-        min-width: 0;
-        justify-content: center;
-        text-align: center;
-    }
-
     :global([data-landing-demo]) .soundButton {
         margin-left: 0;
         margin-top: 0;
@@ -1848,141 +613,4 @@
         min-width: 20px;
         min-height: 20px;
     }
-
-    :global([data-landing-demo]) .conjugationTable {
-        margin: 4px auto 8px;
-        padding: 6px 4px 1px 4px;
-        gap: 4px;
-        width: 100%;
-        max-width: 100%;
-        min-width: 0;
-    }
-
-    :global([data-landing-demo]) .conjugationItem {
-        padding: 3px 0px;
-        border-radius: 10px;
-    }
-
-    :global([data-landing-demo]) .conjugationForm {
-        font-size: 0.95em;
-        max-width: 100%;
-    }
-
-:global([data-landing-demo]) .conjugationPhonetic {
-    font-size: 0.65em;
-}
-
-:global([data-landing-demo]) .conjugationAudioBtn {
-    display: flex;
-}
-
-:global([data-landing-demo]) .imagePlaceholder {
-    width: 100%;
-    height: auto;
-    flex: 1 1 auto;
-    min-height: 180px;
-    max-height: 240px;
-    margin: 6px 0 8px;
-    border-radius: 18px;
-}
-
-:global([data-landing-demo]) .allExamplesContainer {
-    margin-top: 4px;
-    margin-bottom: 10px;
-}
-
-:global([data-landing-demo]) .scrollableExamples ul {
-    max-height: 7rem;
-    padding-right: 4px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-:global([data-landing-demo]) .scrollableExamples ul::-webkit-scrollbar {
-    display: none;
-}
-
-:global([data-landing-demo]) .allExamplesContainer li,
-:global([data-landing-demo]) .exampleRow {
-    padding: 0;
-    gap: 8px;
-}
-
-:global([data-landing-demo]) .examplePlayBtn {
-    width: 40px;
-    height: 40px;
-}
-
-:global([data-landing-demo]) .examplePlayBtn svg {
-    width: 19px;
-    height: 19px;
-    min-width: 19px;
-    min-height: 19px;
-}
-
-:global([data-landing-demo]) .allExamplesContainer li div span {
-    font-size: 1.35rem;
-    line-height: 1.3;
-}
-
-:global([data-landing-demo]) .definitionBlockBack {
-    padding-bottom: 14px;
-}
-
-:global([data-landing-demo]) .meaningSentence {
-    font-size: 1.08rem;
-    line-height: 1.35;
-    margin-top: 8px;
-    margin-bottom: 8px;
-}
-
-:global([data-landing-demo]) .usageExampleEn {
-    font-size: 1rem;
-    line-height: 1.4;
-    margin-bottom: 6px;
-}
-
-:global([data-landing-demo]) .usageExampleEs {
-    font-size: 0.88rem;
-    line-height: 1.35;
-}
-
-:global([data-landing-demo]) .alternativeExample {
-    font-size: 0.9rem;
-    line-height: 1.35;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    padding: 5px 10px;
-}
-
-:global([data-landing-demo]) .conjugationAudioBtn {
-    display: none;
-}
-}
-
-:global([data-landing-demo]) .phoneticRow,
-:global([data-landing-demo]) .phoneticContainer {
-    display: none;
-}
-
-:global(body:has([data-tour-step='presentacion-tarjeta'])) :global([data-onboarding-tour='true']) .allExamplesContainer li .phraseContainer {
-    filter: blur(4px);
-    color: #b8b8b8;
-    cursor: default;
-    pointer-events: none;
-}
-
-:global(body:has([data-tour-step='presentacion-tarjeta'])) :global([data-onboarding-tour='true']) .allExamplesContainer li .phraseContainer span {
-    color: #b8b8b8;
-}
-
-:global(body:has([data-tour-step='reproducir-audio'])) :global([data-onboarding-tour='true']) .allExamplesContainer li .phraseContainer {
-    filter: none !important;
-    color: inherit;
-    cursor: pointer;
-    pointer-events: auto;
-}
-
-:global(body:has([data-tour-step='reproducir-audio'])) :global([data-onboarding-tour='true']) .allExamplesContainer li .phraseContainer span {
-    color: inherit;
 }

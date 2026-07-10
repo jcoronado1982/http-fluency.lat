@@ -339,6 +339,9 @@ stages:
         targetFolder: '/root/smart-proxy/infra-proxy'
         cleanTargetFolder: false
 
+    - script: node scripts/generate-catalog-manifest.mjs
+      displayName: 'Generar manifiesto global del catálogo'
+
     - task: CopyFilesOverSSH@0
       displayName: 'Stage json/ del repo → Oracle'
       inputs:

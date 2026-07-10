@@ -7,7 +7,7 @@ import CardBack from './CardBack.jsx';
 import { useUIContext } from '../../../context/UIContext';
 import { useDialog } from '../../../context/DialogContext';
 import { useFlashcardUiContext, useFlashcardContext, useCategoryContext } from '../context/flashcardStudyContext';
-import { getCardTitle, getAudioLang, getAudioLangForConjugation, getStudyExampleText, isLearningEnglish } from './cardLanguageUtils';
+import { getCardTitle, getAudioLang, getAudioLangForConjugation, getStudyExampleText } from './cardLanguageUtils';
 import { registerUiBridgeHandler, unregisterUiBridgeHandler } from '../uiBridge';
 import { useAuth } from '../../../context/AuthContext';
 
@@ -121,7 +121,7 @@ function Flashcard() {
         if (!cardData) return {};
         const defs = getDefinitionsForForm(cardData, form);
         return defs.reduce((acc, _, i) => ({ ...acc, [i]: true }), {});
-    }, [cardData, activeForm, isLandingDemo]);
+    }, [cardData, activeForm]);
 
     const revealDefinition = useCallback((defIndex, form = activeForm) => {
         if (!cardData) return;
@@ -295,9 +295,17 @@ function Flashcard() {
                 data-tour="boton-voltear-tarjeta"
                 data-flipped={isFlipped ? 'true' : 'false'}
                 role="button"
+                tabIndex={isImageLoading ? -1 : 0}
                 aria-pressed={isFlipped}
                 aria-label={language === 'es' ? 'Voltear tarjeta' : 'Flip card'}
                 style={{ cursor: isImageLoading ? 'wait' : 'pointer' }}
+                onKeyDown={(event) => {
+                    if (isImageLoading) return;
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        setIsFlipped((previous) => !previous);
+                    }
+                }}
             >
 
 

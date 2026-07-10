@@ -3,16 +3,16 @@ export function isLearningEnglish(studyLanguage) {
     return studyLanguage === 'en';
 }
 
-export function getCardTitle(displayData, studyLanguage) {
+export function getCardTitle(displayData, _studyLanguage) {
     return displayData.name || '';
 }
 
-export function getStudyExampleText(definition, studyLanguage) {
+export function getStudyExampleText(definition, _studyLanguage) {
     if (!definition) return '';
     return definition.usage_example || '';
 }
 
-export function getReferenceExampleText(definition, studyLanguage) {
+export function getReferenceExampleText(definition, _studyLanguage) {
     if (!definition) return '';
     return definition.usage_example_es || '';
 }

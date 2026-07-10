@@ -24,6 +24,9 @@ trap cleanup SIGINT SIGTERM
 
 REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 
+echo "📚 Generando manifiesto liviano del catálogo..."
+node "$REPO_ROOT/scripts/generate-catalog-manifest.mjs" "$REPO_ROOT/json" || exit 1
+
 DOCKER_READY=false
 if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
     DOCKER_READY=true

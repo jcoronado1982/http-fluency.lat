@@ -1,6 +1,6 @@
 // src/features/flashcards/HighlightedText.jsx
 import React from 'react';
-import styles from './Flashcard.module.css'; // Reutilizamos los estilos de Flashcard
+import styles from './Examples.module.css';
 
 function HighlightedText({ text, activeAudioText, highlightedWordIndex }) {
     if (!text) return null;

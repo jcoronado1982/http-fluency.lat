@@ -11,6 +11,11 @@ if [[ ! -d "$SOURCE" ]]; then
   exit 1
 fi
 
+if [[ ! -f "$SOURCE/catalog-manifest.json" ]]; then
+  echo "ERROR: falta catalog-manifest.json; ejecutar catalog:generate antes del deploy"
+  exit 1
+fi
+
 mkdir -p "$DEST"
 
 echo "Sync json/ → $DEST (incremental, sin borrar decks solo en Oracle)..."

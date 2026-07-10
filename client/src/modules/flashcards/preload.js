@@ -13,6 +13,7 @@ import {
 const preloadState = {
     email: null,
     courseDirection: null,
+    categoriesPromise: null,
     promise: null,
     data: null,
 };
@@ -46,12 +47,24 @@ export async function preloadFlashcardStart(userEmail, resumeSession = null, stu
         return preloadState.promise;
     }
 
-    const promise = (async () => {
+    const categoriesPromise = (async () => {
         const categoriesResult = await flashcardPort.fetchCategories(courseDirection);
         const { names, totals } = parseCategoriesResponse(categoriesResult);
         const categories = sortCategories(names, getCategoryOrderPreference(userEmail, names));
         const resolvedCategories = categories.length > 0 ? categories : [...FALLBACK_CATEGORIES];
         const category = getPreferredCategory(resumeSession?.category, resolvedCategories);
+
+        return {
+            categories: resolvedCategories,
+            categoryTotals: totals,
+            category,
+            courseDirection,
+        };
+    })();
+
+    const promise = (async () => {
+        const categoryData = await categoriesPromise;
+        const { category } = categoryData;
 
         let deckNames = [];
         let deck = null;
@@ -71,10 +84,7 @@ export async function preloadFlashcardStart(userEmail, resumeSession = null, stu
         }
 
         const data = {
-            categories: resolvedCategories,
-            categoryTotals: totals,
-            category,
-            courseDirection,
+            ...categoryData,
             deck,
             deckNames,
             deckData,
@@ -90,8 +100,24 @@ export async function preloadFlashcardStart(userEmail, resumeSession = null, stu
 
     preloadState.email = userEmail;
     preloadState.courseDirection = courseDirection;
+    preloadState.categoriesPromise = categoriesPromise;
     preloadState.promise = promise;
     return promise;
+}
+
+/** Entrega las categorías apenas están disponibles, sin esperar decks ni tarjetas. */
+export function consumeCategoryPreload(userEmail, resumeSession = null, studyLanguage = 'en') {
+    if (!userEmail) return Promise.resolve(null);
+    const courseDirection = getCourseDirectionFromStudyLanguage(studyLanguage);
+    if (
+        preloadState.email === userEmail
+        && preloadState.courseDirection === courseDirection
+        && preloadState.categoriesPromise
+    ) {
+        return preloadState.categoriesPromise;
+    }
+    void preloadFlashcardStart(userEmail, resumeSession, studyLanguage);
+    return preloadState.categoriesPromise;
 }
 
 /** Reutiliza la precarga en curso o la inicia si aún no existe. */
@@ -122,6 +148,7 @@ export function resetFlashcardPreload(userEmail = null) {
 
     preloadState.email = null;
     preloadState.courseDirection = null;
+    preloadState.categoriesPromise = null;
     preloadState.promise = null;
     preloadState.data = null;
 }

@@ -198,6 +198,8 @@ function CategorySelector() {
     const { setIsCatalogVisible } = useFlashcardUiContext();
     const {
         categories,
+        categoryTotals,
+        areCategoryTotalsLoading,
         currentCategory,
         changeCategory,
         moveCategory,
@@ -212,8 +214,6 @@ function CategorySelector() {
     const [draggingGroup, setDraggingGroup] = useState(null);
     const [, setGroupOrderRevision] = useState(0);
     const [isHelpOpen, setIsHelpOpen] = useState(false);
-
-    const { categoryTotals } = useCategoryContext();
 
     const {
         deckNames, deckSummaries, currentDeckName, changeDeck, masterData, setSelectedGroup, resetGroup
@@ -474,13 +474,14 @@ function CategorySelector() {
                 {/* Sidebar Izquierda */}
                 <aside className={styles.sidebar} data-tour="panel-categorias">
                     <h3 className={styles.sidebarTitle}>{t.categoryTitle}</h3>
-                    <nav className={styles.categoryNav}>
+                    <nav className={styles.categoryNav} aria-busy={categoriesLoading || areCategoryTotalsLoading}>
                         {categoriesLoading && categories.length === 0 && (
                             <p className={styles.sidebarLoading}>{t.loadingCategories || '…'}</p>
                         )}
                         {categories.map(cat => {
                             const isActive = cat === currentCategory;
-                            const count = categoryTotals[cat] ?? '…';
+                            const count = categoryTotals[cat];
+                            const isCountLoading = areCategoryTotalsLoading && count == null;
                             const dotColor = categoryColors[cat] || '#ffffff';
                             return (
                                 <button
@@ -515,7 +516,12 @@ function CategorySelector() {
                                         <span className={styles.dot} style={{ backgroundColor: dotColor }} />
                                         <span className={styles.categoryName}>{formatName(cat, t)}</span>
                                     </span>
-                                    <span className={styles.categoryCount}>{count}</span>
+                                    <span
+                                        className={`${styles.categoryCount} ${isCountLoading ? styles.categoryCountLoading : ''}`}
+                                        aria-label={isCountLoading ? (t.loadingCategories || 'Cargando') : undefined}
+                                    >
+                                        {isCountLoading ? <span className={styles.countSpinner} aria-hidden="true" /> : (count ?? '—')}
+                                    </span>
                                 </button>
                             );
                         })}

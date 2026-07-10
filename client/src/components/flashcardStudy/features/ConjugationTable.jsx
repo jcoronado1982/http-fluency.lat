@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Flashcard.module.css';
+import styles from './ConjugationTable.module.css';
 import { FaSpinner } from 'react-icons/fa';
 import { FiPlay } from 'react-icons/fi';
 
@@ -25,7 +25,7 @@ function ConjugationTable({ cardData, activeForm, onConjugationSelect, activeAud
     };
 
     return (
-        <div className={styles.conjugationTable}>
+        <div className={styles.conjugationTable} data-fc="conjugation">
             {forms.map(({ key, form, phonetic }) => (
                 <div
                     key={key}

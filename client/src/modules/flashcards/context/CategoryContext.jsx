@@ -17,24 +17,14 @@ import {
     parseCategoriesResponse,
     resolvePersistedChoice,
 } from '../useCases/deckUseCases';
-import { consumeFlashcardPreload } from '../preload';
+import { consumeCategoryPreload } from '../preload';
 import { LAST_CATEGORY_KEY } from '../config/sessionKeys';
 
 export const CategoryContext = StudyCategoryContext;
-const PRELOAD_TIMEOUT_MS = 1500;
-
-function raceWithTimeout(promise, timeoutMs) {
-    return Promise.race([
-        promise,
-        new Promise((resolve) => {
-            window.setTimeout(() => resolve(null), timeoutMs);
-        }),
-    ]);
-}
-
 export const CategoryProvider = ({ children, resumeSession = null }) => {
     const [categories, setCategories] = useState([]);
     const [categoryTotals, setCategoryTotals] = useState({});
+    const [areCategoryTotalsLoading, setAreCategoryTotalsLoading] = useState(false);
     const [currentCategory, setCurrentCategory] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [loadingStage, setLoadingStage] = useState('loading_categories');
@@ -46,6 +36,7 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
     useEffect(() => {
         if (!isAuthenticated) {
             setIsLoading(false);
+            setAreCategoryTotalsLoading(false);
             setLoadingStage(null);
             return;
         }
@@ -60,6 +51,9 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
         const applyCategories = (nextCategories, totals) => {
             setCategories(nextCategories);
             setCategoryTotals(totals);
+            setAreCategoryTotalsLoading(
+                nextCategories.some((category) => totals?.[category] == null),
+            );
             setCurrentCategory(resolvePreferredCategory(nextCategories));
         };
 
@@ -83,9 +77,10 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
             setIsLoading(true);
             setLoadingStage('loading_categories');
             try {
-                const preloaded = await raceWithTimeout(
-                    consumeFlashcardPreload(user?.email, resumeSession, studyLanguage),
-                    PRELOAD_TIMEOUT_MS,
+                const preloaded = await consumeCategoryPreload(
+                    user?.email,
+                    resumeSession,
+                    studyLanguage,
                 );
                 if (
                     preloaded?.courseDirection === courseDirection
@@ -121,6 +116,7 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
                     getCategoryOrderPreference(user?.email, FALLBACK_CATEGORIES, preferences),
                 );
                 applyCategories(fallback, {});
+                setAreCategoryTotalsLoading(false);
             } finally {
                 setLoadingStage(null);
                 setIsLoading(false);
@@ -128,7 +124,7 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
         };
 
         load();
-    }, [courseDirection, isAuthenticated, resumeSession, updateCatalogPreferences, user?.catalog_preferences, user?.email]);
+    }, [courseDirection, isAuthenticated, resumeSession, studyLanguage, updateCatalogPreferences, user?.catalog_preferences, user?.email]);
 
     useEffect(() => {
         clearedInvalidPreferencesRef.current = false;
@@ -157,6 +153,7 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
         <CategoryContext.Provider value={{
             categories,
             categoryTotals,
+            areCategoryTotalsLoading,
             currentCategory,
             changeCategory,
             moveCategory,

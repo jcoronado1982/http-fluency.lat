@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styles from './Flashcard.module.css';
+import styles from './ImageViewer.module.css';
 import { FaTimes, FaUpload, FaSyncAlt } from 'react-icons/fa';
 import { FiCpu } from 'react-icons/fi';
 
@@ -123,7 +123,7 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
 
             {/* Animación de Carga (Superpuesta) */}
             {showLoader && (
-                <div className={styles.imageLoadingOverlay} style={{ position: 'absolute', zIndex: 10, width: '100%', height: '100%' }}>
+                <div className={styles.imageLoadingOverlay}>
                     <div className={styles.loaderVisualContainer}>
                         <div className={styles.aiLoaderGlow} />
                         <div className={styles.aiLoaderCircle} />
@@ -148,13 +148,7 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
                     alt={altText || 'Flashcard image'}
                     onLoad={handleImageLoad}
                     onError={handleImageError}
-                    style={{
-                        opacity: isDecoding ? 0 : 1,
-                        transition: 'opacity 0.3s ease-in-out',
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover' // Asegura que cubra el placeholder
-                    }}
+                    style={{ '--image-opacity': isDecoding ? 0 : 1 }}
                 />
             ) : !isProcessActive && !isLandingDemo && (
                 <img

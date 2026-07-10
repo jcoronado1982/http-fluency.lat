@@ -1,6 +1,6 @@
 // src/features/flashcards/CardBack.jsx
 import React from 'react';
-import styles from './Flashcard.module.css';
+import styles from './CardBack.module.css';
 import { getCardTitle, isLearningEnglish } from './cardLanguageUtils';
 
 const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

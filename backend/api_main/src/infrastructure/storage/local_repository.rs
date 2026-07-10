@@ -11,7 +11,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use tokio::fs;
 
 /// Caché de mazos: clave = "categoria/deck.json", valor = datos parseados.
-/// Límite: 150 entradas × ~50 KB promedio ≈ 7.5 MB máximo.
+/// Límite pequeño: solo conserva los decks usados recientemente.
 /// TTL: 5 minutos (los mazos cambian muy raramente).
 type DeckCache = Cache<String, Arc<DeckData>>;
 
@@ -88,10 +88,10 @@ impl LocalStorageRepository {
             .timeout(Duration::from_secs(30))
             .build()?;
 
-        // Acotado en entradas — no en bytes, para simplificar con DeckData variable.
-        // 150 decks × ~50 KB = ~7.5 MB máx. Seguro en servidores de 1 GB.
+        // El servidor productivo tiene 1 GB: los metadatos viven en el manifiesto
+        // y solo unos pocos decks completos permanecen en este LRU.
         let deck_cache: DeckCache = Cache::builder()
-            .max_capacity(150)
+            .max_capacity(12)
             .time_to_live(Duration::from_secs(300))
             .time_to_idle(Duration::from_secs(600))
             .build();
@@ -620,6 +620,21 @@ impl LocalStorageRepository {
 
 #[async_trait]
 impl StorageRepository for LocalStorageRepository {
+    async fn get_catalog_manifest(&self) -> Result<Vec<u8>> {
+        let relative_path = format!("{}/catalog-manifest.json", self.json_prefix);
+        let local_path = self.get_full_path(&relative_path);
+
+        // En desarrollo local el manifiesto se genera dentro del repo antes del arranque.
+        // Si existe en disco, debe ganar aunque el repo también esté configurado para sync
+        // con Oracle; de lo contrario la API queda bloqueada por una dependencia remota que
+        // no aplica al entorno local.
+        if local_path.exists() {
+            return Ok(fs::read(&local_path).await?);
+        }
+
+        self.download_blob(&relative_path).await
+    }
+
     async fn list_categories_for_direction(&self, course_direction: &str) -> Result<Vec<String>> {
         let prefix = self.json_direction_prefix(course_direction);
         let cache_key = format!("cats:{}", prefix);
@@ -888,6 +903,9 @@ impl StorageRepository for LocalStorageRepository {
             full_name
         );
         self.deck_cache.invalidate(&cache_key).await;
+        self.list_cache
+            .invalidate(&format!("cats:{}", prefix))
+            .await;
         self.list_cache
             .invalidate(&format!("decks:{}/{}", prefix, category))
             .await;

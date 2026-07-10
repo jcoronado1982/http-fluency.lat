@@ -40,6 +40,17 @@ body {
   font-family: var(--font-family-body);
 }
 
+@media (prefers-reduced-motion: reduce) {
+    html:root *,
+    html:root *::before,
+    html:root *::after {
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+        scroll-behavior: auto;
+        transition-duration: 0.01ms;
+    }
+}
+
 #root {
   width: 100%;
   min-height: 100dvh;

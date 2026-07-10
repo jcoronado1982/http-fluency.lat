@@ -27,6 +27,7 @@ export function useLearningStats(isAuthenticated, courseDirection = 'es_en') {
 
     const refresh = useCallback(async () => {
         if (!isAuthenticated) {
+            statsCache.clear();
             setStats(null);
             setLoading(false);
             return;

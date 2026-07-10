@@ -76,6 +76,12 @@ pub struct DeckQuery {
 pub struct CourseDirectionQuery {
     #[serde(default = "default_course_direction")]
     pub course_direction: String,
+    #[serde(default = "default_include_counts")]
+    pub include_counts: bool,
+}
+
+fn default_include_counts() -> bool {
+    true
 }
 
 /// POST /api/update-batch — persiste hasta BATCH_SIZE tarjetas en una sola petición.
@@ -128,18 +134,30 @@ pub async fn get_categories(
     State(state): State<AppState>,
     Query(query): Query<CourseDirectionQuery>,
 ) -> impl IntoResponse {
-    match state
-        .deck_use_cases
-        .list_categories_with_counts(&query.course_direction)
-        .await
-    {
-        Ok(categories) => {
-            (
-                StatusCode::OK,
-                Json(serde_json::json!({ "success": true, "categories": categories })),
-            )
-                .into_response()
-        }
+    let result = if query.include_counts {
+        state
+            .deck_use_cases
+            .list_categories_with_counts(&query.course_direction)
+            .await
+    } else {
+        state
+            .deck_use_cases
+            .list_categories(&query.course_direction)
+            .await
+            .map(|categories| {
+                categories
+                    .into_iter()
+                    .map(|name| serde_json::json!({ "name": name }))
+                    .collect()
+            })
+    };
+
+    match result {
+        Ok(categories) => (
+            StatusCode::OK,
+            Json(serde_json::json!({ "success": true, "categories": categories })),
+        )
+            .into_response(),
         Err(e) => (
             StatusCode::INTERNAL_SERVER_ERROR,
             Json(serde_json::json!({ "success": false, "detail": e.to_string() })),

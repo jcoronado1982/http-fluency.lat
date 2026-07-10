@@ -102,7 +102,7 @@ function CardFront({
 
     const title = getCardTitle(displayData, currentLanguage);
     return (
-        <div className={styles.cardFront}>
+        <div className={styles.cardFront} data-fc-face="front">
             {/* Nombre + botón borrar audio */}
             <div className={styles.wordHeader}>
                 <button
@@ -129,6 +129,7 @@ function CardFront({
                     {isAdmin && !(isGeneratingAudio && activeAudioText === title) && (
                         <button
                             className={styles.rotateVoiceBtn}
+                            data-fc-btn="voice"
                             onClick={(e) => handleRotateVoice(e, title, getAudioLang(currentLanguage))}
                             title="Actualizar voz aleatoria"
                             disabled={isDisabled}

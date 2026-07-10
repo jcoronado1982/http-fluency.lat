@@ -1,5 +1,5 @@
 import { getAudioLang, getStudyExampleText, isLearningEnglish } from './cardLanguageUtils';
-import styles from './Flashcard.module.css';
+import styles from './DefinitionList.module.css';
 import HighlightedText from './HighlightedText';
 import { FaSpinner } from 'react-icons/fa';
 import { FiPlay, FiRefreshCw } from 'react-icons/fi';
@@ -26,6 +26,7 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
     return (
         <div
             className={`${styles.allExamplesContainer} ${shouldScrollExamples ? styles.scrollableExamples : ''}`}
+            data-fc="examples"
         >
             <ul>
                 {definitions?.map((def, di) => {
@@ -69,6 +70,7 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
                             <button
                                 type="button"
                                 className={styles.rotateVoiceBtn}
+                                data-fc-btn="voice"
                                 onClick={(e) => handleRotateVoice(e, exampleText, getAudioLang(currentLanguage))}
                                 title="Actualizar voz aleatoria"
                                 disabled={isDisabled}

@@ -185,6 +185,33 @@
   transition: all 0.2s ease;
 }
 
+.categoryCountLoading {
+  display: inline-flex;
+  min-width: 28px;
+  min-height: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.countSpinner {
+  width: 10px;
+  height: 10px;
+  border: 2px solid rgba(148, 163, 184, 0.28);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: categoryCountSpin 0.7s linear infinite;
+}
+
+@keyframes categoryCountSpin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .countSpinner {
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+}
+
 .categoryBtn:hover .categoryCount {
   color: #94a3b8;
   background: rgba(255, 255, 255, 0.08);
@@ -291,7 +318,8 @@
   background: rgba(244, 114, 182, 0.14);
   border-color: rgba(244, 114, 182, 0.35);
   color: #f472b6;
-  outline: none;
+  outline: 2px solid rgba(244, 114, 182, 0.7);
+  outline-offset: 2px;
   transform: translateY(-1px);
 }
 
@@ -389,7 +417,8 @@
 .helpPopoverCloseBtn:focus-visible {
   background: rgba(244, 114, 182, 0.14);
   color: #f8fafc;
-  outline: none;
+  outline: 2px solid rgba(244, 114, 182, 0.7);
+  outline-offset: 2px;
 }
 
 .helpPopoverTitle {
@@ -622,10 +651,6 @@
 .categoryBtn,
 .groupCard {
   cursor: grab;
-}
-
-.groupCardComplete {
-  cursor: default;
 }
 
 .categoryBtn:active,

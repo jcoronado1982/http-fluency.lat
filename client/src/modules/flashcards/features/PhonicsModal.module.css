@@ -62,7 +62,8 @@
 .closeButton:focus {
   color: #333; /* Darker color on hover/focus */
   text-decoration: none;
-  outline: none; /* Remove focus outline */
+  outline: 2px solid rgba(244, 114, 182, 0.7);
+  outline-offset: 2px;
 }
 
 /* --- ¡NUEVOS ESTILOS AÑADIDOS! --- */

@@ -259,16 +259,12 @@ async fn async_main() -> anyhow::Result<()> {
         activity_repo.clone(),
     ));
 
-    // Pre-calienta las cachés estáticas de decks en background: leer los
-    // ~256 JSONs tarda >10s en frío y no debe pagarlo ningún usuario del
-    // dashboard (servidor de 1 GB, tráfico simultáneo).
+    // Carga solo el manifiesto global (<1 MB); los decks completos son lazy.
     #[cfg(feature = "flashcards")]
     {
         let warm_deck_use_cases = deck_use_cases.clone();
         tokio::spawn(async move {
-            warm_deck_use_cases
-                .warm_static_caches(&["es_en", "en_es"])
-                .await;
+            warm_deck_use_cases.warm_catalog_manifest().await;
         });
     }
     #[cfg(feature = "flashcards")]
