@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Flashcard, Controls, StudyMediaProvider } from '../../components/flashcardStudy';
+import { useRealViewportHeight } from '../../components/flashcardStudy/features/useRealViewportHeight';
 import { STUDY_MEDIA_VARIANT_APP } from '../../contracts/studyMediaVariants';
 import { useAuth } from '../../context/AuthContext';
 import CategorySelector from './features/CategorySelector';
 import PageLoader from '../../components/common/PageLoader';
 import { usePageLoader } from '../../components/common/usePageLoader';
-import styles from './features/Flashcard.module.css';
+import styles from './features/CardCounter.module.css';
 import CompletionCard from './features/CompletionCard';
 import { useUIContext } from '../../context/UIContext';
 import { useFlashcardUiContext } from './context/FlashcardUiContext';
@@ -162,6 +163,7 @@ const formatLoaderTime = (ms, language) => {
 };
 
 export default function FlashcardPage() {
+    useRealViewportHeight();
     const location = useLocation();
     const { user } = useAuth();
     const isOnboardingTour = new URLSearchParams(location.search).get('onboarding_tour') === 'flashcards';
