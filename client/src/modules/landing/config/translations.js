@@ -10,12 +10,13 @@ export const landingTranslations = {
         navSignupShort: 'Registrarse',
         navApp: 'Ir a la app',
 
-        heroEyebrow: 'Vocabulario de alto impacto',
-        heroTitleLine1: 'Aprende vocabulario',
-        heroTitleFrom: 'con',
-        heroTitleAccent: 'flashcards listas, sin crearlas manualmente.',
-        heroSubtitle:
-            'Empieza con mazos preparados: palabras frecuentes, frases reales, imágenes y audio nativo. Estudia desde el primer minuto y personaliza tus tarjetas con IA en Premium.',
+        heroTitleLine1: 'La IA ya hizo tus flashcards.',
+        heroTitleFrom: 'Tú solo',
+        heroTitleAccent: 'estudia.',
+        heroSubtitleLine1:
+            'Miles de palabras curadas. Frases reales. Audio nativo. Imágenes que se quedan en la memoria.',
+        heroSubtitleLine2: 'Todo listo antes de que llegaras.',
+        heroCtaNote: 'Sin cuenta, sin excusas.',
         trustFree: 'Gratis para empezar',
         trustNoCard: 'Pago seguro con Stripe',
         trustWords: '5.000+ palabras con Premium',
@@ -24,6 +25,10 @@ export const landingTranslations = {
         previewCat: 'Verbo esencial',
         previewHint: 'Toca para ver →',
         demoInteractiveBadge: 'Probar demo',
+
+        imageShowcaseTitle: 'Crea flashcards con IA',
+        imageShowcaseSubtitle:
+            'Tú escribes la palabra. Fluency crea automáticamente una frase en contexto, el audio y una imagen para ayudarte a entenderla y recordarla.',
 
         demoImagePromptLabel: 'Ajusta los detalles de la escena',
         demoImagePromptPlaceholder: 'Cambia el niño por una niña, haz a la mujer más joven, agrega un perro, atardecer…',
@@ -106,12 +111,13 @@ export const landingTranslations = {
         navSignupShort: 'Sign up',
         navApp: 'Go to app',
 
-        heroEyebrow: 'High-impact vocabulary',
-        heroTitleLine1: 'Learn vocabulary',
-        heroTitleFrom: 'with',
-        heroTitleAccent: 'ready-made flashcards.',
-        heroSubtitle:
-            'Start with curated decks: common words, real example sentences, images, and native audio. Study from the first minute and customize your cards with AI in Premium.',
+        heroTitleLine1: 'AI already made your flashcards.',
+        heroTitleFrom: 'You just',
+        heroTitleAccent: 'study.',
+        heroSubtitleLine1:
+            'Thousands of curated words. Real sentences. Native audio. Images that stay with you.',
+        heroSubtitleLine2: 'Everything was ready before you arrived.',
+        heroCtaNote: 'No account, no excuses.',
         trustFree: 'Free to start',
         trustNoCard: 'Secure Stripe checkout',
         trustWords: '5,000+ words with Premium',
@@ -120,6 +126,10 @@ export const landingTranslations = {
         previewCat: 'Essential verb',
         previewHint: 'Tap to see →',
         demoInteractiveBadge: 'Try demo',
+
+        imageShowcaseTitle: 'Create flashcards with AI',
+        imageShowcaseSubtitle:
+            'You enter the word. Fluency automatically creates a sentence in context, the audio, and an image to help you understand and remember it.',
 
         demoImagePromptLabel: 'Adjust scene details',
         demoImagePromptPlaceholder: 'Change the boy to a girl, make the woman younger, add a dog, sunset…',

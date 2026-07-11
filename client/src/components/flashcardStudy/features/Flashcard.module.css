@@ -33,12 +33,12 @@
 }
 
 .flashcardContainer[data-variant='demo'] {
-    --fc-face-radius: 24px;
+    --fc-face-radius: 32px;
     --fc-face-padding-block-start: 20px;
     --fc-face-padding-inline: 16px;
     --fc-face-padding-block-end: 14px;
     --fc-media-radius: 18px;
-    --fc-face-bg: #1e293b;
+    --fc-face-bg: var(--lp-demo-surface, linear-gradient(145deg, #1b0f1a 0%, #0f0911 100%));
     --fc-face-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
     --fc-card-shadow: none;
     max-width: 100%;
@@ -329,7 +329,6 @@
     width: 44px;
     height: 44px;
     padding: 0;
-    margin-left: 14px;
     border-radius: 50%;
     background: transparent;
     border: 1px solid transparent;
@@ -554,6 +553,11 @@
     margin-bottom: 0px;
 }
 
+.cardFront[data-variant='demo'] .name {
+    font-size: 1.9rem;
+    text-transform: uppercase;
+}
+
 /* ─── Demo flip: rotateY 3D real ───────────────────────────────────────────
    Funciona porque sobrescribimos las propiedades que crean stacking context
    en los hijos y que aplanarían preserve-3d:
@@ -600,7 +604,7 @@
 
 @media (max-width: 768px) {
     .flashcardContainer[data-variant='demo'] {
-        --fc-face-radius: clamp(18px, 4vw, 24px);
+        --fc-face-radius: 32px;
         --fc-face-padding-block-start: clamp(12px, 2vw, 16px);
         --fc-face-padding-inline: clamp(12px, 2vw, 16px);
         width: 100%;
@@ -632,7 +636,7 @@
         margin-top: 0;
         margin-bottom: 4px;
         min-height: 0;
-        font-size: clamp(1.75rem, 6.6vw, 2.15rem);
+        font-size: 1.9rem;
         text-align: center;
         padding: 2px 0;
     }

@@ -333,7 +333,7 @@
 
 [data-variant='demo'] .exampleRow {
     padding: 5px 8px;
-    gap: 12px;
+    gap: 10px;
 }
 
 [data-variant='demo'] .examplePlayBtn {
@@ -356,8 +356,13 @@
     font-size: 1.5rem;
 }
 
-[data-variant='demo'] .blurredText {
-    filter: blur(3.5px);
+[data-variant='demo'] .allExamplesContainer li div.blurredText {
+    filter: blur(3px);
+    color: #d8c6d4;
+}
+
+[data-variant='demo'] .allExamplesContainer li div.blurredText span {
+    color: #d8c6d4;
 }
 
 @media (max-width: 768px) {

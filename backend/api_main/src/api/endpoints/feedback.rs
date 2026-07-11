@@ -116,21 +116,36 @@ async fn read_feedback_records(
     let content = match tokio::fs::read_to_string(path).await {
         Ok(c) => c,
         Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
+            tracing::info!(
+                target: "demo_feedback_audit",
+                path = %path.display(),
+                "GET feedback: el archivo todavía no existe"
+            );
             return Ok(Vec::new());
         }
         Err(e) => return Err((StatusCode::INTERNAL_SERVER_ERROR, e.to_string())),
     };
 
     let mut records = Vec::new();
+    let mut invalid_lines = 0_u32;
     for line in content.lines() {
         let line = line.trim();
         if line.is_empty() {
             continue;
         }
-        if let Ok(record) = serde_json::from_str::<DemoFeedbackRecord>(line) {
-            records.push(record);
+        match serde_json::from_str::<DemoFeedbackRecord>(line) {
+            Ok(record) => records.push(record),
+            Err(_) => invalid_lines += 1,
         }
     }
+    tracing::info!(
+        target: "demo_feedback_audit",
+        path = %path.display(),
+        bytes = content.len(),
+        records = records.len(),
+        invalid_lines,
+        "GET feedback: archivo auditado"
+    );
     Ok(records)
 }
 
@@ -141,6 +156,14 @@ pub async fn list_demo_feedback(
     let limit = query.limit.clamp(1, 50);
     let path = feedback_path(&state);
     let mut records = read_feedback_records(&path).await?;
+
+    tracing::info!(
+        target: "demo_feedback_audit",
+        path = %path.display(),
+        limit,
+        records = records.len(),
+        "GET /api/demo-feedback"
+    );
 
     records.sort_by(|a, b| b.created_at.cmp(&a.created_at));
 
@@ -263,15 +286,49 @@ pub async fn submit_demo_feedback(
         .await
         .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
 
+    // La respuesta de éxito solo sale después de que el contenido quede
+    // visible para una lectura nueva (el mismo flujo que ejecuta la recarga).
+    file.flush()
+        .await
+        .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
+    file.sync_data()
+        .await
+        .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
+    drop(file);
+
+    let persisted_records = read_feedback_records(&path).await?;
+    let persisted = persisted_records.iter().any(|saved| {
+        saved.created_at == record.created_at && saved.user_email == record.user_email
+    });
+    if !persisted {
+        tracing::error!(
+            target: "demo_feedback_audit",
+            path = %path.display(),
+            user = %claims.email,
+            "POST feedback: la verificación posterior a escritura falló"
+        );
+        return Err((
+            StatusCode::INTERNAL_SERVER_ERROR,
+            "El comentario no pudo verificarse después de guardarlo".to_string(),
+        ));
+    }
+
     tracing::info!(
-        "📝 Demo feedback guardado de {} ({}★, país={:?}, {})",
-        claims.email,
+        target: "demo_feedback_audit",
+        path = %path.display(),
+        user = %claims.email,
         rating,
-        record.country,
-        path.display()
+        stored_records = persisted_records.len(),
+        "POST feedback: guardado y verificado"
     );
 
-    Ok(Json(serde_json::json!({ "success": true })))
+    Ok(Json(serde_json::json!({
+        "success": true,
+        "audit": {
+            "persisted": true,
+            "stored_records": persisted_records.len()
+        }
+    })))
 }
 
 #[cfg(test)]

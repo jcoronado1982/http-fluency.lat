@@ -198,9 +198,9 @@
 .lp-demo-feedback-input {
     width: calc(100% - 40px);
     resize: vertical;
-    min-height: 80px;
-    padding: 10px 20px;
-    border-radius: 8px;
+    min-height: 100px;
+    padding:  20px;
+    border-radius: 40px;
     border: 1px solid rgba(255, 255, 255, 0.15);
     background: rgba(255, 255, 255, 0.03);
     color: var(--c-text);
@@ -293,7 +293,7 @@
 }
 
 [data-landing-demo].flashcard-page-wrapper {
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
     min-width: 0;
 }
@@ -305,4 +305,3 @@
     min-width: 0;
     overflow: visible;
 }
-

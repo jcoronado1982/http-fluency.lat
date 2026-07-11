@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiCheck } from 'react-icons/fi';
+import { FiCheck, FiMessageSquare } from 'react-icons/fi';
 import { useAuth } from '../../../context/AuthContext';
 import { demoFeedbackPort } from '../composition';
 import {
@@ -187,31 +187,59 @@ function buildReviewColumns(reviews, columnCount = 3) {
 
     return columns;
 }
-
-function DemoFeedbackReviews({ reviews, summary, language }) {
+function DemoFeedbackEmptyState({ language }) {
     const isEs = language === 'es';
     const copy = {
         title: isEs ? 'Qué dicen después de probar Fluency' : 'What people say after trying Fluency',
-        empty: isEs ? 'Sé el primero en dejar tu opinión.' : 'Be the first to leave a review.',
-        count: (n) => (isEs ? `${n} calificaciones` : `${n} ratings`),
+        emptyTitle: isEs ? '¡Aún no hay opiniones!' : 'No reviews yet!',
+        emptyDesc: isEs 
+            ? 'Sé la primera persona en compartir su experiencia probando la aplicación.' 
+            : 'Be the first person to share your experience trying the application.',
+        cta: isEs ? 'Deja tu opinión en el formulario de abajo 👇' : 'Leave your feedback in the form below 👇',
+    };
+
+    return (
+        <div className="lp-reviews-wall lp-reviews-wall--empty-state">
+            <div className="lp-reviews-wall-header">
+                <h3 className="lp-reviews-wall-title">{copy.title}</h3>
+            </div>
+            <div className="lp-reviews-empty-card">
+                <div className="lp-reviews-empty-glow" />
+                <div className="lp-reviews-empty-icon-wrap">
+                    <FiMessageSquare className="lp-reviews-empty-icon" />
+                </div>
+                <h4 className="lp-reviews-empty-title">{copy.emptyTitle}</h4>
+                <p className="lp-reviews-empty-desc">{copy.emptyDesc}</p>
+                <div className="lp-reviews-empty-badge">
+                    <span>{copy.cta}</span>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function DemoFeedbackReviews({ reviews, summary, language }) {
+    const isEs = language === 'es';
+    const hasNoReviews = !reviews || reviews.length === 0;
+
+    if (hasNoReviews) {
+        return <DemoFeedbackEmptyState language={language} />;
+    }
+
+    const copy = {
+        title: isEs ? 'Qué dicen después de probar Fluency' : 'What people say after trying Fluency',
+        count: (n) => {
+            if (isEs) return `${n} ${n === 1 ? 'calificación' : 'calificaciones'}`;
+            return `${n} ${n === 1 ? 'rating' : 'ratings'}`;
+        },
         outOf: isEs ? 'de 5' : 'out of 5',
     };
 
-    if (!reviews.length) {
-        return (
-            <div className="lp-reviews-wall lp-reviews-wall--empty">
-                <div className="lp-reviews-wall-header">
-                    <h3 className="lp-reviews-wall-title">{copy.title}</h3>
-                </div>
-                <p className="lp-reviews-wall-empty">{copy.empty}</p>
-            </div>
-        );
-    }
-
     const columns = buildReviewColumns(reviews, 3);
-    const durations = [42, 52, 47];
-    const delays = [0, -8, -14];
+    const durations = [62, 74, 68];
+    const delays = [0, -10, -18];
     const staggers = [0, 28, 56];
+    const usesStaticGrid = reviews.length <= 3;
 
     return (
         <div className="lp-reviews-wall">
@@ -232,18 +260,30 @@ function DemoFeedbackReviews({ reviews, summary, language }) {
                 </div>
             </div>
 
-            <div className="lp-reviews-wall-viewport">
-                {columns.map((columnReviews, index) => (
-                    <ReviewsScrollColumn
-                        key={`col-${index}`}
-                        reviews={columnReviews}
-                        durationSec={durations[index]}
-                        delaySec={delays[index]}
-                        stagger={staggers[index]}
-                        isEs={isEs}
-                    />
-                ))}
-            </div>
+            {usesStaticGrid ? (
+                <div className={`lp-reviews-wall-static lp-reviews-wall-static--${reviews.length}`}>
+                    {reviews.map((review, index) => (
+                        <ReviewCard
+                            key={`${review.created_at}-${review.user_name}-${index}`}
+                            review={review}
+                            isEs={isEs}
+                        />
+                    ))}
+                </div>
+            ) : (
+                <div className="lp-reviews-wall-viewport">
+                    {columns.map((columnReviews, index) => (
+                        <ReviewsScrollColumn
+                            key={`col-${index}`}
+                            reviews={columnReviews}
+                            durationSec={durations[index]}
+                            delaySec={delays[index]}
+                            stagger={staggers[index]}
+                            isEs={isEs}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
@@ -292,9 +332,19 @@ export default function DemoFeedback({ language }) {
             const sorted = [...(data.reviews || [])].sort(
                 (a, b) => new Date(b.created_at) - new Date(a.created_at),
             );
+            if (import.meta.env.DEV) {
+                console.info('[feedback audit] GET /api/demo-feedback', {
+                    received: sorted.length,
+                    summary: data.summary,
+                });
+            }
             setReviews(sorted);
             setSummary(data.summary || { average: 0, count: 0 });
-        } catch {
+        } catch (error) {
+            // No convertir un fallo de API en "no hay comentarios": durante
+            // desarrollo eso ocultaba que la recarga estaba consultando otro
+            // backend o que el backend no estaba disponible.
+            console.error('No se pudieron cargar los comentarios de la landing:', error);
             setReviews([]);
         }
     }, []);
@@ -328,7 +378,10 @@ export default function DemoFeedback({ language }) {
         setAuthError(false);
         setStatus('sending');
         try {
-            await demoFeedbackPort.submit({ comment: text, rating, language });
+            const result = await demoFeedbackPort.submit({ comment: text, rating, language });
+            if (import.meta.env.DEV) {
+                console.info('[feedback audit] POST /api/demo-feedback', result);
+            }
             setStatus('sent');
             setComment('');
             setRating(0);

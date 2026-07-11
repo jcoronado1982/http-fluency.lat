@@ -38,6 +38,14 @@
     max-width: none;
 }
 
+.lp-reviews-wall-subtitle {
+    margin: 4px 0 0;
+    font-family: var(--font-family-body);
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.4;
+}
+
 .lp-reviews-wall-summary {
     display: flex;
     align-items: center;
@@ -87,6 +95,24 @@
     animation-play-state: paused;
 }
 
+/* Hasta tres reseñas se muestran exactamente una vez. El loop vertical solo
+   se activa cuando ya existe una colección suficiente para animarlo. */
+.lp-reviews-wall-static {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    align-items: start;
+}
+
+.lp-reviews-wall-static--1 {
+    grid-template-columns: minmax(0, 520px);
+}
+
+.lp-reviews-wall-static--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 880px;
+}
+
 .lp-reviews-scroll-col {
     height: 100%;
     overflow: hidden;
@@ -113,7 +139,7 @@
     flex-direction: column;
     gap: 12px;
     padding: 18px 20px;
-    border-radius: 16px;
+    border-radius: 40px;
     border: 1px solid rgba(125, 119, 221, 0.22);
     background: rgba(8, 4, 12, 0.88);
     box-shadow:
@@ -236,6 +262,11 @@
 }
 
 @media (max-width: 900px) {
+    .lp-reviews-wall-static,
+    .lp-reviews-wall-static--2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .lp-reviews-wall-viewport {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         height: 440px;
@@ -247,6 +278,12 @@
 }
 
 @media (max-width: 560px) {
+    .lp-reviews-wall-static,
+    .lp-reviews-wall-static--1,
+    .lp-reviews-wall-static--2 {
+        grid-template-columns: 1fr;
+    }
+
     .lp-reviews-wall-viewport {
         grid-template-columns: 1fr;
         height: 400px;
@@ -261,5 +298,103 @@
 @media (prefers-reduced-motion: reduce) {
     .lp-reviews-scroll-track {
         animation: none;
+    }
+}
+
+/* Empty state decoration */
+.lp-reviews-empty-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 40px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.lp-reviews-empty-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0) 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.lp-reviews-empty-icon-wrap {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    margin-bottom: 24px;
+    color: #a78bfa;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+.lp-reviews-empty-icon {
+    font-size: 2rem;
+}
+
+.lp-reviews-empty-title {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 10px;
+    font-family: var(--font-family-body);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.lp-reviews-empty-desc {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 24px;
+    font-family: var(--font-family-body);
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 400px;
+    line-height: 1.5;
+}
+
+.lp-reviews-empty-badge {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    padding: 6px 16px;
+    background: rgba(167, 139, 250, 0.1);
+    border: 1px solid rgba(167, 139, 250, 0.25);
+    border-radius: 100px;
+    color: #c084fc;
+    font-family: var(--font-family-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    animation: pulse-glow 2.5s infinite ease-in-out;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        opacity: 0.9;
+        box-shadow: 0 0 0 0 rgba(167, 139, 250, 0);
+    }
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 12px 2px rgba(167, 139, 250, 0.15);
     }
 }

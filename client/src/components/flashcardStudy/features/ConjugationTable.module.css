@@ -156,6 +156,11 @@
     overflow: visible;
     min-width: 0;
 }
+
+[data-variant='demo'] .conjugationTable,
+[data-variant='demo'] .conjugationItem {
+    border-radius: 32px;
+}
 [data-variant='demo'] .conjugationHeader {
     min-width: 0;
     max-width: 100%;
@@ -166,6 +171,11 @@
     overflow: visible;
     text-overflow: unset;
 }
+
+[data-variant='demo'] .conjugationItem[data-state='active'] .conjugationPhonetic {
+    color: #d1d5db;
+}
+
 @media (max-width: 768px) {
 
     [data-variant='demo'] .conjugationTable {
@@ -179,7 +189,7 @@
 
     [data-variant='demo'] .conjugationItem {
         padding: 3px 0px;
-        border-radius: 10px;
+        border-radius: 32px;
     }
 
     [data-variant='demo'] .conjugationForm {

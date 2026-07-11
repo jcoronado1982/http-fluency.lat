@@ -66,10 +66,10 @@ export default function LandingPage() {
 
     useEffect(() => {
         if (!returningForFeedback) return;
-        if (window.location.hash !== '#demo') {
-            window.location.hash = 'demo';
+        if (window.location.hash !== '#reviews') {
+            window.location.hash = 'reviews';
         }
-        const el = document.getElementById('demo');
+        const el = document.getElementById('reviews');
         el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, [returningForFeedback]);
 
@@ -96,7 +96,9 @@ export default function LandingPage() {
 
     const landingSectionHash = isLandingSectionHash(location.hash);
 
-    if (isAuthenticated && onboardingRequired) {
+    // Una cuenta nueva que llegó desde "Dejar comentario" debe recuperar el
+    // formulario y su borrador antes de entrar al onboarding general.
+    if (isAuthenticated && onboardingRequired && !returningForFeedback) {
         return <Navigate to="/onboarding" replace />;
     }
 

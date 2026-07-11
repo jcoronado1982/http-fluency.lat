@@ -120,8 +120,11 @@ function Flashcard() {
     const buildAllBlurred = useCallback((form = activeForm) => {
         if (!cardData) return {};
         const defs = getDefinitionsForForm(cardData, form);
-        return defs.reduce((acc, _, i) => ({ ...acc, [i]: true }), {});
-    }, [cardData, activeForm]);
+        return defs.reduce((acc, _, i) => ({
+            ...acc,
+            [i]: isLandingDemo ? i !== 0 : true,
+        }), {});
+    }, [cardData, activeForm, isLandingDemo]);
 
     const revealDefinition = useCallback((defIndex, form = activeForm) => {
         if (!cardData) return;
@@ -144,6 +147,12 @@ function Flashcard() {
 
     const handleToggleBlur = useCallback((defIndex) => {
         setBlurredState(prev => {
+            if (isLandingDemo) {
+                ensureImageForDefinition(defIndex);
+                if (!cardData) return prev;
+                const defs = getDefinitionsForForm(cardData, activeForm);
+                return defs.reduce((acc, _, i) => ({ ...acc, [i]: i !== defIndex }), {});
+            }
             const isCurrentlyBlurred = prev[defIndex] !== false;
             if (isCurrentlyBlurred) {
                 ensureImageForDefinition(defIndex);
@@ -153,7 +162,7 @@ function Flashcard() {
             }
             return { ...prev, [defIndex]: true };
         });
-    }, [ensureImageForDefinition, cardData, activeForm]);
+    }, [ensureImageForDefinition, cardData, activeForm, isLandingDemo]);
 
     const prefetchCardAudio = useCallback((card) => {
         if (!card || isAnyOverlayOpen || isLandingDemo) return;

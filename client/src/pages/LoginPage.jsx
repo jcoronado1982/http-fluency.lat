@@ -6,7 +6,10 @@ import config from '../config';
 import { getAuthenticatedHomePath } from '../modules';
 import { useAuth } from '../context/AuthContext';
 import { useUIContext } from '../context/UIContext';
-import { markDemoFeedbackReturn } from '../utils/demoFeedbackStorage';
+import {
+    hasDemoFeedbackReturn,
+    markDemoFeedbackReturn,
+} from '../utils/demoFeedbackStorage';
 import { shouldShowOnboarding } from '../utils/onboardingStorage';
 import PageLoader from '../components/common/PageLoader';
 import ShellFooter from '../components/shell/ShellFooter';
@@ -31,8 +34,9 @@ const LOGIN_LOADING_COPY = {
 const LOGIN_COPY = {
     es: {
         brand: 'Fluency',
-        subtitle: 'Inicia sesión para continuar',
-        demoSubtitle: 'Inicia sesión para enviar tu comentario sobre el demo.',
+        welcome: 'Bienvenido a Fluency',
+        subtitle: 'Un clic y estás dentro.',
+        trust: 'Sin contraseña. Sin spam. Gratis para empezar.',
         or: 'o',
         apple: 'Continuar con Apple',
         appleSoon: 'Próximamente',
@@ -42,8 +46,9 @@ const LOGIN_COPY = {
     },
     en: {
         brand: 'Fluency',
-        subtitle: 'Sign in to continue',
-        demoSubtitle: 'Sign in to send your feedback about the demo.',
+        welcome: 'Welcome to Fluency',
+        subtitle: "One click and you're in.",
+        trust: 'No password. No spam. Free to start.',
         or: 'or',
         apple: 'Sign in with Apple',
         appleSoon: 'Coming soon',
@@ -92,10 +97,15 @@ const LoginPage = () => {
     const callbackRef = useRef(null);
     const shellRoutes = [{ path: '/admin', enabled: config.features.admin }];
     const defaultPath = getAuthenticatedHomePath(config, shellRoutes);
-    const demoFeedbackReturn = Boolean(location.state?.demoFeedbackReturn);
+    // El state de React Router puede perderse al recargar o durante el flujo
+    // externo de autenticación. La marca de sessionStorage conserva la
+    // intención original: este login se inició para publicar un comentario.
+    const demoFeedbackReturn = Boolean(
+        location.state?.demoFeedbackReturn || hasDemoFeedbackReturn(),
+    );
     const targetPath = useMemo(
         () => (demoFeedbackReturn
-            ? { pathname: '/', hash: 'demo' }
+            ? { pathname: '/', hash: 'reviews' }
             : (location.state?.from || defaultPath)),
         [demoFeedbackReturn, location.state?.from, defaultPath],
     );
@@ -143,9 +153,9 @@ const LoginPage = () => {
             if (demoFeedbackReturn) {
                 markDemoFeedbackReturn();
             }
-            const nextPath = shouldShowOnboarding(authData?.user)
-                ? '/onboarding'
-                : targetPath;
+            const nextPath = demoFeedbackReturn
+                ? targetPath
+                : (shouldShowOnboarding(authData?.user) ? '/onboarding' : targetPath);
             navigate(nextPath, { replace: true, state: nextPath === '/onboarding' ? undefined : targetState });
         } catch (error) {
             console.error('Apple login failed', error);
@@ -159,9 +169,9 @@ const LoginPage = () => {
                 if (demoFeedbackReturn) {
                     markDemoFeedbackReturn();
                 }
-                const nextPath = shouldShowOnboarding(authData?.user)
-                    ? '/onboarding'
-                    : targetPath;
+                const nextPath = demoFeedbackReturn
+                    ? targetPath
+                    : (shouldShowOnboarding(authData?.user) ? '/onboarding' : targetPath);
                 navigate(nextPath, { replace: true, state: nextPath === '/onboarding' ? undefined : targetState });
             } catch {
                 console.error('Login failed');
@@ -174,11 +184,13 @@ const LoginPage = () => {
         const onLoginPage = location.pathname === '/login';
         const onLandingForFeedback = demoFeedbackReturn
             && location.pathname === '/'
-            && (location.hash === '#demo' || location.hash === '');
+            && (location.hash === '#reviews' || location.hash === '');
         if (!onLoginPage && onLandingForFeedback) return;
         if (!demoFeedbackReturn && location.pathname === targetPath && !shouldShowOnboarding(user)) return;
-        if (demoFeedbackReturn && location.pathname === '/' && location.hash === '#demo') return;
-        const nextPath = shouldShowOnboarding(user) ? '/onboarding' : targetPath;
+        if (demoFeedbackReturn && location.pathname === '/' && location.hash === '#reviews') return;
+        const nextPath = demoFeedbackReturn
+            ? targetPath
+            : (shouldShowOnboarding(user) ? '/onboarding' : targetPath);
         if (!demoFeedbackReturn && location.pathname === nextPath) return;
         navigate(nextPath, { replace: true, state: nextPath === '/onboarding' ? undefined : targetState });
     }, [
@@ -281,28 +293,30 @@ const LoginPage = () => {
             </header>
 
             <main className="login-main">
-                <div className="login-panel">
-                    <p className="login-subtitle">
-                        {demoFeedbackReturn ? loginCopy.demoSubtitle : loginCopy.subtitle}
-                    </p>
+                <div className="login-stage">
+                    <div className="login-panel">
+                        <h1 className="login-title">{loginCopy.welcome}</h1>
+                        <p className="login-subtitle">{loginCopy.subtitle}</p>
 
-                    <div className="login-auth">
-                        <div className="google-btn-container" ref={googleBtnRef} />
+                        <div className="login-auth">
+                            <div className="google-btn-container" ref={googleBtnRef} />
+                            <p className="login-trust">{loginCopy.trust}</p>
 
-                        {/*
-                        <div className="login-or" role="separator" aria-label={loginCopy.or}>
-                            <span>{loginCopy.or}</span>
+                            {/*
+                            <div className="login-or" role="separator" aria-label={loginCopy.or}>
+                                <span>{loginCopy.or}</span>
+                            </div>
+
+                            <button
+                                type="button"
+                                className="login-apple-btn"
+                                onClick={handleAppleLogin}
+                            >
+                                <AppleIcon />
+                                <span>{loginCopy.apple}</span>
+                            </button>
+                            */}
                         </div>
-
-                        <button
-                            type="button"
-                            className="login-apple-btn"
-                            onClick={handleAppleLogin}
-                        >
-                            <AppleIcon />
-                            <span>{loginCopy.apple}</span>
-                        </button>
-                        */}
                     </div>
                 </div>
             </main>
@@ -315,11 +329,6 @@ const LoginPage = () => {
                     github: loginCopy.footerGithub,
                 }}
             />
-
-            <div className="login-bg-glow login-bg-glow-top" aria-hidden="true" />
-            <div className="bg-blob blob-1" aria-hidden="true" />
-            <div className="bg-blob blob-2" aria-hidden="true" />
-            <div className="login-bg-vignette" aria-hidden="true" />
         </div>
     );
 };

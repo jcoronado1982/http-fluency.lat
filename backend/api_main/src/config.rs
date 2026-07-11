@@ -103,7 +103,17 @@ impl Settings {
             gcp_api_key: env::var("GCP_API_KEY").ok(),
             comfy_url: env::var("COMFY_URL")
                 .unwrap_or_else(|_| "http://127.0.0.1:8188".to_string()),
-            local_storage_path: env::var("LOCAL_STORAGE_PATH").unwrap_or_else(|_| ".".to_string()),
+            // El feedback se guarda en el filesystem local durante desarrollo.
+            // Usar "." hacía que la ruta dependiera del directorio desde el
+            // que se lanzara el binario; al recargar podía leerse otro archivo.
+            local_storage_path: env::var("LOCAL_STORAGE_PATH").unwrap_or_else(|_| {
+                std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+                    .join("../..")
+                    .canonicalize()
+                    .unwrap_or_else(|_| std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+                    .to_string_lossy()
+                    .to_string()
+            }),
             sync_to_oracle: env::var("SYNC_TO_ORACLE")
                 .unwrap_or_else(|_| "false".to_string())
                 .parse::<bool>()

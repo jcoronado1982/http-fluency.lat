@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import DemoFlashcardSession from './DemoFlashcardSession';
 import DemoImagePromptPanel from './DemoImagePromptPanel';
+import DemoImageCarousel from './DemoImageCarousel';
 
 /**
  * LandingHero — sección hero: titular, CTA de registro y el widget demo
@@ -16,23 +16,19 @@ export default function LandingHero({ t, language }) {
         <section className="lp-hero">
             <div className="lp-section-inner lp-hero-inner">
                 <div className="lp-hero-copy">
-                    <p className="lp-hero-eyebrow">{t.heroEyebrow}</p>
                     <h1 className="lp-hero-title">
                         <span className="lp-hero-title-line1">{t.heroTitleLine1}</span>
                         <span className="lp-hero-title-line2">
                             {t.heroTitleFrom}{' '}{t.heroTitleAccent}
                         </span>
                     </h1>
-                    <p className="lp-hero-sub">{t.heroSubtitle}</p>
+                    <p className="lp-hero-sub">
+                        <span>{t.heroSubtitleLine1}</span>
+                        <span className="lp-hero-sub-closing">{t.heroSubtitleLine2}</span>
+                    </p>
                     <div className="lp-hero-cta">
-                        <Link to="/login" className="lp-btn">{t.ctaSignup}</Link>
-                    </div>
-                    <div className="lp-hero-trust" aria-hidden>
-                        <span>{t.trustFree}</span>
-                        <span className="lp-hero-trust-dot" />
-                        <span>{t.trustNoCard}</span>
-                        <span className="lp-hero-trust-dot" />
-                        <span>{t.trustWords}</span>
+                        <a href="#demo" className="lp-btn lp-hero-demo-link">{t.ctaTryDemo}</a>
+                        <span className="lp-hero-cta-note">{t.heroCtaNote}</span>
                     </div>
                 </div>
 
@@ -51,6 +47,8 @@ export default function LandingHero({ t, language }) {
                     />
                 </div>
             </div>
+
+            <DemoImageCarousel t={t} />
         </section>
     );
 }

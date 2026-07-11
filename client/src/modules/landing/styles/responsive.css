@@ -132,21 +132,24 @@
     .lp-hero-copy { max-width: 100%; }
     .lp-hero-title {
         max-width: none;
-        letter-spacing: -0.022em;
-        margin-bottom: 18px;
+        font-size: clamp(2.3rem, 10.8vw, 2.9rem);
+        line-height: 1.02;
+        letter-spacing: -0.034em;
+        margin-bottom: 22px;
     }
-    .lp-hero-sub { margin-bottom: 26px; }
+    .lp-hero-sub {
+        margin-bottom: 28px;
+        padding-left: 14px;
+        font-size: 1rem;
+        line-height: 1.65;
+    }
     .lp-hero-cta { flex-direction: row; flex-wrap: wrap; }
     .lp-hero-cta .lp-btn,
     .lp-hero-cta .lp-btn--ghost { flex: 1 1 auto; min-width: 0; justify-content: center; }
-    .lp-hero-trust {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 6px 8px;
-        max-width: 100%;
-        font-size: var(--lp-mobile-trust-size);
-        line-height: 1.35;
+    .lp-hero-cta-note {
+        flex-basis: 100%;
         text-align: center;
+        font-size: 0.76rem;
     }
     [data-landing-demo] .lp-demo-badge {
         left: 14px;
@@ -162,8 +165,8 @@
     }
 
     [data-landing-demo] .lp-demo-badge {
-        top: 16px;
-        left: 12px;
+        top: 0;
+        left: 22px;
     }
 
     .lp-feedback-section .lp-section-inner { padding: 30px var(--lp-section-inline-padding, var(--shell-content-inline-padding)) 0; }

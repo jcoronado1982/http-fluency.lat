@@ -16,9 +16,9 @@ import './PricingPage.css';
 
 const FEATURE_ICONS = [FiBook, FiZap, FiVolume2, FiGlobe, FiImage, FiImage, FiVolume2, FiStar];
 
-function FeatureRow({ icon, text, included, highlight }) {
+function FeatureRow({ icon, text, included, highlight, comingSoon }) {
     return (
-        <li className={`pricing-feature ${included ? 'pricing-feature--included' : 'pricing-feature--excluded'} ${highlight ? 'pricing-feature--highlight' : ''}`}>
+        <li className={`pricing-feature ${included ? 'pricing-feature--included' : 'pricing-feature--excluded'} ${highlight ? 'pricing-feature--highlight' : ''} ${comingSoon ? 'pricing-feature--coming-soon' : ''}`}>
             <span className="pricing-feature-icon">
                 {included ? <FiCheck /> : <FiX />}
             </span>
@@ -51,8 +51,9 @@ export default function PricingPage() {
     const { isAuthenticated } = useAuth();
     const location = useLocation();
     const t = getPricingTranslations(language);
-    const [billing, setBilling] = useState('annual');
+    const [billing, setBilling] = useState('monthly');
     const premiumPlan = getPricingPlanCards()[billing];
+    const annualBilling = billing === 'annual';
 
     return (
         <div className="pricing-page">
@@ -108,8 +109,8 @@ export default function PricingPage() {
                 {/* HERO */}
                 <section className="pricing-hero">
                     <h1 className="pricing-title">
-                        {t.hero.title1}<br />
-                        <span className="pricing-title--accent">{t.hero.title2}</span>
+                        <span className="pricing-title-line1">{t.hero.title1}</span>
+                        <span className="pricing-title-line2">{t.hero.title2}</span>
                     </h1>
                     <p className="pricing-subtitle">{t.hero.subtitle}</p>
 
@@ -144,7 +145,6 @@ export default function PricingPage() {
                                 <p className="pricing-plan-tagline">{t.free.tagline}</p>
                                 <div className="pricing-price">
                                     <span className="pricing-price-amount">$0</span>
-                                    <span className="pricing-price-period">/ {billing === 'annual' ? t.hero.annual.toLowerCase() : t.hero.monthly.toLowerCase()}</span>
                                 </div>
                                 <p className="pricing-price-label">{t.free.label}</p>
                             </div>
@@ -170,17 +170,18 @@ export default function PricingPage() {
                                 <div className="pricing-price">
                                     <span className="pricing-price-currency">$</span>
                                     <span className="pricing-price-amount">
-                                        {premiumPlan.premiumPrice}
+                                        {annualBilling ? premiumPlan.monthlyEquivalent : premiumPlan.premiumPrice}
                                     </span>
-                                    <span className="pricing-price-period">USD / {premiumPlan.premiumPeriod}</span>
+                                    <span className="pricing-price-period">{t.premium.monthlyPeriod}</span>
                                 </div>
                                 <p className="pricing-price-label">
-                                    {billing === 'annual' ? t.premium.labelAnnual : t.premium.labelMonth}
+                                    {annualBilling ? t.premium.labelAnnual : t.premium.labelMonth}
                                 </p>
                             </div>
                             <Link to={`/checkout?billing=${billing}`} className="pricing-card-btn pricing-card-btn--premium">
                                 {t.premium.btn} <FiArrowRight size={16} />
                             </Link>
+                            <p className="pricing-card-cancel">{t.premium.cancelAnytime}</p>
                             <ul className="pricing-features">
                                 {t.features.premium.map((f, i) => (
                                     <FeatureRow key={i} icon={React.createElement(FEATURE_ICONS[i] || FiStar)} {...f} />

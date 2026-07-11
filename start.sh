@@ -149,6 +149,11 @@ unset GEMINI_API_KEY
 unset SYNC_TO_ORACLE
 unset ORACLE_REPOSITORY_ONLY
 
+# En desarrollo, los comentarios deben sobrevivir al reinicio del backend.
+# No usar el directorio de trabajo (".") porque puede variar según cómo se
+# lance el script; apuntamos siempre a la raíz compartida del proyecto.
+export LOCAL_STORAGE_PATH="$REPO_ROOT"
+
 # En desarrollo Vite proxya /api, /card_images y /card_audio a localhost:8081.
 export PORT="${PORT:-8081}"
 if [ "$DOCKER_READY" != true ]; then

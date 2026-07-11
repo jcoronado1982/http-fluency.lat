@@ -195,7 +195,7 @@ export default function CheckoutPage() {
                                             <span className="checkout-billing-savings">{t.billingSavings}</span>
                                         </div>
                                         <div className="checkout-billing-option-price">
-                                            <strong>$42.51 USD</strong>
+                                            <strong>{PLAN_DATA.annual.priceDisplay}</strong>
                                             <span>{t.billingAnnualEquivalent}</span>
                                         </div>
                                     </div>
@@ -214,7 +214,7 @@ export default function CheckoutPage() {
                                             <span className="checkout-billing-option-label">{t.billingMonthly}</span>
                                         </div>
                                         <div className="checkout-billing-option-price">
-                                            <strong>$4.99 USD</strong>
+                                            <strong>{PLAN_DATA.monthly.priceDisplay}</strong>
                                             <span>{t.billingMonthlyEquivalent}</span>
                                         </div>
                                     </div>

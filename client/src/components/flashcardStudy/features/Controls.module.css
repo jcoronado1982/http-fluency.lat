@@ -12,7 +12,7 @@
     font-family: var(--font-family-app, var(--font-family-body));
     background: rgba(21, 28, 44, 0.72);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 24px;
+    border-radius: 32px;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     box-shadow:
@@ -144,6 +144,8 @@
 
 .controlsWrapper[data-variant='demo'] {
     max-width: 100%;
+    background: var(--lp-demo-surface, linear-gradient(145deg, #1b0f1a 0%, #0f0911 100%));
+    border-radius: 32px;
 }
 
 @media (max-width: 768px) {
@@ -199,7 +201,7 @@
         width: 100%;
         box-sizing: border-box;
         padding: 10px 14px;
-        border-radius: 18px;
+        border-radius: 32px;
         margin-top: 10px;
     }
 
