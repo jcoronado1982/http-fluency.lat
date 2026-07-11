@@ -57,6 +57,7 @@ function Flashcard() {
         updateCardImagePath,
         isLandingDemo = false,
         demoStudyLanguage,
+        demoSelection,
     } = useFlashcardContext();
     const cardLanguage = isLandingDemo && demoStudyLanguage ? demoStudyLanguage : studyLanguage;
     const [prevCardId, setPrevCardId] = useState(null);
@@ -227,6 +228,23 @@ function Flashcard() {
 
         setBlurredState(buildAllBlurred(activeForm));
     }, [activeForm, cardData, buildAllBlurred]);
+
+    useEffect(() => {
+        if (!isLandingDemo || !demoSelection || cardData?.id !== demoSelection.cardId) return;
+
+        const form = demoSelection.form || 'v1';
+        const defIndex = demoSelection.defIndex ?? 0;
+        setIsFlipped(false);
+        setActiveForm(form);
+        revealDefinition(defIndex, form);
+        ensureImageForForm(form, defIndex);
+    }, [
+        cardData?.id,
+        demoSelection,
+        ensureImageForForm,
+        isLandingDemo,
+        revealDefinition,
+    ]);
 
     useEffect(() => {
         const blurAllPhrases = () => {

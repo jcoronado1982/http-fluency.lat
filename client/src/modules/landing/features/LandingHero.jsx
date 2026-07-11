@@ -15,6 +15,7 @@ const STATIC_REVIEWS_SUMMARY = { average: 5, count: null };
 export default function LandingHero({ t, language, pricingEnabled }) {
     const demoPromptExtraRef = useRef('');
     const [demoImagePromptApply, setDemoImagePromptApply] = useState(0);
+    const [demoSelection, setDemoSelection] = useState(null);
     const [reviewsSummary, setReviewsSummary] = useState(STATIC_REVIEWS_SUMMARY);
 
     useEffect(() => {
@@ -30,6 +31,16 @@ export default function LandingHero({ t, language, pricingEnabled }) {
             .catch(() => {});
         return () => { cancelled = true; };
     }, []);
+
+    const handleCarouselImageSelect = (image) => {
+        setDemoSelection({
+            cardId: image.cardId,
+            defIndex: image.defIndex,
+            form: image.form,
+            requestId: Date.now(),
+        });
+        document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
 
     return (
         <section className="lp-hero" id="how-it-works">
@@ -74,11 +85,16 @@ export default function LandingHero({ t, language, pricingEnabled }) {
                         badgeLabel={t.demoInteractiveBadge}
                         promptExtraRef={demoPromptExtraRef}
                         imagePromptApplySignal={demoImagePromptApply}
+                        demoSelection={demoSelection}
                     />
                 </div>
             </div>
 
-            <DemoImageCarousel t={t} pricingEnabled={pricingEnabled} />
+            <DemoImageCarousel
+                t={t}
+                pricingEnabled={pricingEnabled}
+                onSelectImage={handleCarouselImageSelect}
+            />
         </section>
     );
 }
