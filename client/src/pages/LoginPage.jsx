@@ -84,7 +84,7 @@ function LangToggle({ language, setLanguage }) {
 }
 
 const LoginPage = () => {
-    const { login, isAuthenticated, loading, user } = useAuth();
+    const { login, loginWithApple, isAuthenticated, loading, user } = useAuth();
     const { language = 'en', setLanguage } = useUIContext();
     const navigate = useNavigate();
     const location = useLocation();
@@ -106,6 +106,51 @@ const LoginPage = () => {
         () => (demoFeedbackReturn ? { demoFeedbackReturn: true } : undefined),
         [demoFeedbackReturn],
     );
+
+    useEffect(() => {
+        // Cargar SDK de autenticación de Apple
+        if (!document.getElementById('apple-auth-sdk')) {
+            const script = document.createElement('script');
+            script.id = 'apple-auth-sdk';
+            script.src = 'https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js';
+            script.async = true;
+            document.body.appendChild(script);
+        }
+    }, []);
+
+    const handleAppleLogin = async () => {
+        if (!window.AppleID) {
+            console.error('Apple SDK not loaded');
+            return;
+        }
+        try {
+            window.AppleID.auth.init({
+                clientId: import.meta.env.VITE_APPLE_CLIENT_ID || 'lat.fluency.client',
+                scope: 'name email',
+                redirectURI: window.location.origin + '/login',
+                usePopup: true,
+            });
+            const response = await window.AppleID.auth.signIn();
+            const idToken = response.authorization.id_token;
+
+            let userName = null;
+            if (response.user && response.user.name) {
+                const { firstName, lastName } = response.user.name;
+                userName = [firstName, lastName].filter(Boolean).join(' ');
+            }
+
+            const authData = await loginWithApple(idToken, userName);
+            if (demoFeedbackReturn) {
+                markDemoFeedbackReturn();
+            }
+            const nextPath = shouldShowOnboarding(authData?.user)
+                ? '/onboarding'
+                : targetPath;
+            navigate(nextPath, { replace: true, state: nextPath === '/onboarding' ? undefined : targetState });
+        } catch (error) {
+            console.error('Apple login failed', error);
+        }
+    };
 
     useEffect(() => {
         callbackRef.current = async (response) => {
@@ -244,6 +289,7 @@ const LoginPage = () => {
                     <div className="login-auth">
                         <div className="google-btn-container" ref={googleBtnRef} />
 
+                        {/*
                         <div className="login-or" role="separator" aria-label={loginCopy.or}>
                             <span>{loginCopy.or}</span>
                         </div>
@@ -251,13 +297,12 @@ const LoginPage = () => {
                         <button
                             type="button"
                             className="login-apple-btn"
-                            disabled
-                            aria-disabled="true"
-                            title={loginCopy.appleSoon}
+                            onClick={handleAppleLogin}
                         >
                             <AppleIcon />
                             <span>{loginCopy.apple}</span>
                         </button>
+                        */}
                     </div>
                 </div>
             </main>

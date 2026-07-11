@@ -146,6 +146,8 @@ fi
 
 # Limpiamos la variable global para forzar que use la del .env
 unset GEMINI_API_KEY
+unset SYNC_TO_ORACLE
+unset ORACLE_REPOSITORY_ONLY
 
 # En desarrollo Vite proxya /api, /card_images y /card_audio a localhost:8081.
 export PORT="${PORT:-8081}"

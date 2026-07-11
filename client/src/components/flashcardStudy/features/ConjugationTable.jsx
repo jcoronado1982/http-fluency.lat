@@ -9,7 +9,7 @@ import { isLearningEnglish } from './cardLanguageUtils';
  * ConjugationTable — responsable ÚNICAMENTE de renderizar la tabla v1/v2/v3.
  * SRP: no maneja estado de imagen ni audio global.
  */
-function ConjugationTable({ cardData, activeForm, onConjugationSelect, activeAudioText, isGeneratingAudio, currentLanguage }) {
+function ConjugationTable({ cardData, activeForm, onConjugationSelect, activeAudioText, isGeneratingAudio, currentLanguage, isLandingDemo = false }) {
     if (!cardData.irregular) return null;
 
     const forms = [
@@ -18,7 +18,7 @@ function ConjugationTable({ cardData, activeForm, onConjugationSelect, activeAud
         { key: 'v3', form: cardData.irregular.participle?.form, phonetic: cardData.irregular.participle?.phonetic },
     ];
 
-    if (!isLearningEnglish(currentLanguage)) return null;
+    if (!isLearningEnglish(currentLanguage) && !isLandingDemo) return null;
 
     const handleFormSelect = (key, form) => {
         onConjugationSelect?.(key, form);

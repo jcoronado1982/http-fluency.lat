@@ -34,3 +34,11 @@ pub struct GooglePayload {
     pub picture: Option<String>,
     pub email_verified: bool,
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct ApplePayload {
+    pub sub: String, // Apple ID
+    pub email: Option<String>,
+    pub email_verified: Option<serde_json::Value>, // Apple returns boolean or string
+}
+

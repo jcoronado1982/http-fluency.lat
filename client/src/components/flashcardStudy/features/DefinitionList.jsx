@@ -17,7 +17,7 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
 
         return Boolean(exampleText?.trim());
     });
-    const shouldScrollExamples = visibleDefinitions.length > 3;
+    const shouldScrollExamples = visibleDefinitions.length > 2;
     const handleRotateVoice = (e, text, lang = getAudioLang(currentLanguage)) => {
         e.stopPropagation();
         deleteAudio(text, lang);

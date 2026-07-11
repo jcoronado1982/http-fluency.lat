@@ -77,7 +77,7 @@ function CardFront({
     const displayData = (DISPLAY_DATA_MAP[activeForm] || DISPLAY_DATA_MAP.v1)(cardData);
     const isDisabled  = isImageLoading || isUploading || isGeneratingAudio;
     const visualVariant = isLandingDemo ? 'demo' : 'app';
-    const visualLayout = cardData.irregular && isLearningEnglish(currentLanguage)
+    const visualLayout = cardData.irregular && (isLearningEnglish(currentLanguage) || isLandingDemo)
         ? 'conjugation'
         : 'standard';
 
@@ -146,7 +146,7 @@ function CardFront({
                             <FiRefreshCw size={24} strokeWidth={2.5} />
                         </button>
                     )}
-                    {isLearningEnglish(currentLanguage) && (
+                    {(isLearningEnglish(currentLanguage) || isLandingDemo) && (
                         <>
                             <span className={styles.phonetic}>{displayData.phonetic}</span>
                             <button
@@ -171,6 +171,7 @@ function CardFront({
                 activeAudioText={activeAudioText}
                 isGeneratingAudio={isGeneratingAudio}
                 currentLanguage={currentLanguage}
+                isLandingDemo={isLandingDemo}
             />
 
             {/* Lista de definiciones (componente propio) */}

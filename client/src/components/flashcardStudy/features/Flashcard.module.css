@@ -128,6 +128,11 @@
     transform: rotateY(180deg);
 }
 
+/* Clase temporal aplicada durante el primer semiciclo del flip (solo demo) */
+.flipping {
+    /* El selector ::after con .flipping en Flashcard.module.css activa el shimmer */
+}
+
 .flipped .cardFront {
     opacity: 0;
     visibility: hidden;
@@ -144,6 +149,10 @@
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
+    /* translateZ(1px) separa físicamente el frente en el espacio 3D, evitando z-fighting */
+    transform: translateZ(1px);
+    /* Forzar a Webkit/Chrome a mantener el clipping de border-radius durante la rotación 3D */
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
     background: var(--fc-face-bg);
     border-radius: var(--fc-face-radius);
     padding: var(--fc-face-padding-block-start) var(--fc-face-padding-inline) var(--fc-face-padding-block-end);
@@ -470,7 +479,7 @@
     grid-template-columns: auto auto;
     grid-template-rows: auto auto;
     align-items: center;
-    row-gap: 6px;
+    row-gap: 2px;
     column-gap: 8px;
     max-width: 100%;
     width: fit-content;
@@ -545,20 +554,43 @@
     margin-bottom: 0px;
 }
 
-/* Flip en landing: sin rotateY 3D (overflow-x del .lp lo rompe) — solo fade + z-index */
+/* ─── Demo flip: rotateY 3D real ───────────────────────────────────────────
+   Funciona porque sobrescribimos las propiedades que crean stacking context
+   en los hijos y que aplanarían preserve-3d:
+     • overflow:hidden → overflow:clip  (clip no crea stacking context)
+     • container:…     → container:none (containment crea stacking context)
+   ─────────────────────────────────────────────────────────────────────── */
 
 .flashcardContainer[data-variant='demo'] .card {
-    transform: none;
-    transform-style: flat;
+    transform-style: preserve-3d;
+    transition: transform 0.65s cubic-bezier(0.4, 0.0, 0.2, 1),
+                box-shadow 0.65s ease;
+    will-change: transform;
+    border-radius: var(--fc-face-radius);
+    background: transparent;
+    /* Sombra suave en reposo */
+    box-shadow: 0 24px 52px rgba(0, 0, 0, 0.45),
+                0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
 .flashcardContainer[data-variant='demo'] .card.flipped {
-    transform: none;
+    transform: rotateY(180deg);
+    box-shadow: 0 32px 64px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(244, 114, 182, 0.2),
+                0 0 48px rgba(244, 114, 182, 0.12);
+}
+
+/* Cara del frente en demo: eliminar los creadores de stacking context
+   para que preserve-3d funcione correctamente en el padre. */
+.cardFront[data-variant='demo'] {
+    overflow: hidden;  /* Usamos hidden para clipping óptimo de border-radius */
+    container: none;   /* Desactivamos container query para evitar z-fighting en layouts fluidos */
 }
 
 .flashcardContainer[data-variant='demo'] {
     overflow: visible;
-    perspective: none;
+    perspective: 1400px;
+    perspective-origin: 50% 38%;
     width: 100%;
     max-width: 100%;
     height: clamp(480px, 52vw, 644px);

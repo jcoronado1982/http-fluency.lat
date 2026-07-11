@@ -430,6 +430,7 @@ async fn async_main() -> anyhow::Result<()> {
     {
         app = app
             .route("/api/auth/google", post(api::endpoints::auth::google_login))
+            .route("/api/auth/apple", post(api::endpoints::auth::apple_login))
             .route(
                 "/api/auth/dev-guest",
                 post(api::endpoints::auth::dev_guest_login),

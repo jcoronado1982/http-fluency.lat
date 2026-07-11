@@ -133,7 +133,9 @@
     min-width: 0;
     max-width: 100%;
     align-self: center;
-    overflow: hidden;
+    /* overflow: clip en vez de hidden: recorta visualmente sin crear
+       stacking context, preservando las transformaciones 3D del flip. */
+    overflow: clip;
 }
 
 [data-landing-demo] .flashcard-main-area {
@@ -509,7 +511,8 @@
     width: 100%;
     min-width: 0;
     max-width: 100%;
-    overflow: hidden;
+    /* overflow: clip: recorta sin romper el contexto 3D para el flip de tarjeta */
+    overflow: clip;
     gap: 0;
     padding: 0px 24px;
 }

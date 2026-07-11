@@ -16,6 +16,12 @@ pub struct GoogleLoginRequest {
 }
 
 #[derive(Deserialize)]
+pub struct AppleLoginRequest {
+    pub id_token: String,
+    pub name: Option<String>,
+}
+
+#[derive(Deserialize)]
 pub struct UpdateOnboardingRequest {
     pub completed: bool,
 }
@@ -57,6 +63,31 @@ pub async fn google_login(
     Json(payload): Json<GoogleLoginRequest>,
 ) -> impl IntoResponse {
     match state.auth_use_cases.google_login(&payload.id_token).await {
+        Ok(response) => (
+            StatusCode::OK,
+            Json(serde_json::json!({
+                "success": true,
+                "token": response.token,
+                "user": response.user
+            })),
+        )
+            .into_response(),
+        Err(e) => (
+            StatusCode::UNAUTHORIZED,
+            Json(serde_json::json!({
+                "success": false,
+                "detail": e.to_string()
+            })),
+        )
+            .into_response(),
+    }
+}
+
+pub async fn apple_login(
+    State(state): State<AppState>,
+    Json(payload): Json<AppleLoginRequest>,
+) -> impl IntoResponse {
+    match state.auth_use_cases.apple_login(&payload.id_token, payload.name.as_deref()).await {
         Ok(response) => (
             StatusCode::OK,
             Json(serde_json::json!({
