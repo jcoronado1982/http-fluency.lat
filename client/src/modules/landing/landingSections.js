@@ -1,4 +1,4 @@
-export const LANDING_SECTION_IDS = ['demo', 'vocabulary-first', 'reviews'];
+export const LANDING_SECTION_IDS = ['how-it-works', 'demo', 'vocabulary-first', 'reviews'];
 
 export function isLandingSectionHash(hash) {
     const id = (hash || '').replace(/^#/, '');

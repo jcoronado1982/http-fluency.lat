@@ -32,7 +32,7 @@ export default function LandingHero({ t, language, pricingEnabled }) {
     }, []);
 
     return (
-        <section className="lp-hero">
+        <section className="lp-hero" id="how-it-works">
             <div className="lp-section-inner lp-hero-inner">
                 <div className="lp-hero-copy">
                     <h1 className="lp-hero-title">

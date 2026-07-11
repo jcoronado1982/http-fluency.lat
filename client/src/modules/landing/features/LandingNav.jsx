@@ -45,9 +45,9 @@ export default function LandingNav({
 
                 <nav className="lp-nav-links" aria-label="Primary">
                     <a
-                        href="#demo"
-                        className={activeNav === 'demo' ? 'is-active' : ''}
-                        onClick={() => setActiveSection('demo')}
+                        href="#how-it-works"
+                        className={activeNav === 'how-it-works' ? 'is-active' : ''}
+                        onClick={() => setActiveSection('how-it-works')}
                     >
                         {t.navHowItWorks}
                     </a>

@@ -55,7 +55,7 @@ export const landingTranslations = {
         highlightAiDesc:
             'Conecta frases con escenas visuales para entender y recordar el significado más rápido.',
 
-        vocabularyFirstEyebrow: '¿Por qué vocabulario primero?',
+        vocabularyFirstEyebrow: 'El enfoque',
         vocabularyFirstTitle: '¿Por qué vocabulario primero?',
         vocabularyFirstSubtitle:
             'La mayoría de métodos empiezan por reglas gramaticales. Creemos que es al revés.',
@@ -161,7 +161,7 @@ export const landingTranslations = {
         highlightAiDesc:
             'Connect phrases with visual scenes to understand and remember meaning faster.',
 
-        vocabularyFirstEyebrow: 'Why vocabulary first?',
+        vocabularyFirstEyebrow: 'The approach',
         vocabularyFirstTitle: 'Why vocabulary first?',
         vocabularyFirstSubtitle:
             "Most methods start with grammar rules. We think that's backwards.",

@@ -236,14 +236,15 @@ const LoginPage = () => {
         let retries = 0;
         const initGoogle = () => {
             if (window.google?.accounts?.id && googleBtnRef.current) {
-                if (!window.google_initialized) {
-                    window.google.accounts.id.initialize({
-                        client_id: GOOGLE_CLIENT_ID,
-                        callback: handleCallbackResponse,
-                        use_fedcm_for_prompt: false,
-                    });
-                    window.google_initialized = true;
-                }
+                // Google conserva globalmente la ultima configuracion de
+                // initialize(). Hay que registrar el callback de este montaje:
+                // el anterior puede pertenecer a un login normal ya desmontado
+                // y perder la intencion de volver al formulario de comentarios.
+                window.google.accounts.id.initialize({
+                    client_id: GOOGLE_CLIENT_ID,
+                    callback: handleCallbackResponse,
+                    use_fedcm_for_prompt: false,
+                });
 
                 renderGoogleButton();
 

@@ -31,13 +31,16 @@
 
 .lp-reviews-wall-title {
     margin: 0;
-    font-family: var(--font-family-body);
-    font-size: 2.5rem;
+    font-family: var(--font-family-display);
+    font-size: var(--lp-section-title-size);
     font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
+    font-optical-sizing: auto;
+    font-variation-settings: 'opsz' 56;
+    line-height: var(--lp-section-title-line);
+    letter-spacing: -0.035em;
     color: #ffffff;
-    max-width: none;
+    max-width: 24ch;
+    text-wrap: balance;
 }
 
 .lp-reviews-wall-subtitle {
@@ -74,7 +77,7 @@
 .lp-reviews-wall-viewport {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
+    gap: 20px;
     height: 520px;
     overflow: hidden;
     mask-image: linear-gradient(

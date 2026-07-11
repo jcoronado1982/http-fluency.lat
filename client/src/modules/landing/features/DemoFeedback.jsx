@@ -318,8 +318,8 @@ export default function DemoFeedback({ language }) {
             ? { 1: '1 estrella — Muy malo', 2: '2 estrellas — Malo', 3: '3 estrellas — Regular', 4: '4 estrellas — Bueno', 5: '5 estrellas — Excelente' }
             : { 1: '1 star — Terrible', 2: '2 stars — Poor', 3: '3 stars — Average', 4: '4 stars — Good', 5: '5 stars — Excellent' },
         authHint: isEs
-            ? 'Inicia sesión con Google o Apple para dejar tu comentario. No necesitas contraseña.'
-            : 'Sign in with Google or Apple to leave your comment. No password required.',
+            ? 'Inicia sesión con Google para dejar tu comentario. No necesitas contraseña.'
+            : 'Sign in with Google to leave your comment. No password required.',
         loginCta: isEs ? 'Dejar comentario' : 'Leave feedback',
         placeholder: isEs ? '¿Qué te gustó? ¿Qué mejorarías?' : 'What did you like? What would you improve?',
         submit: isEs ? 'Dejar comentario' : 'Leave feedback',

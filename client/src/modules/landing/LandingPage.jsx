@@ -26,13 +26,13 @@ import './LandingPage.css';
  * del JSX de abajo.
  */
 function useLandingNavActive() {
-    const [active, setActive] = useState('demo');
+    const [active, setActive] = useState('how-it-works');
 
     useEffect(() => {
-        const demo = document.getElementById('demo');
+        const howItWorks = document.getElementById('how-it-works');
         const vocabularyFirst = document.getElementById('vocabulary-first');
         const reviews = document.getElementById('reviews');
-        const targets = [demo, vocabularyFirst, reviews].filter(Boolean);
+        const targets = [howItWorks, vocabularyFirst, reviews].filter(Boolean);
         if (!targets.length) return undefined;
 
         const observer = new IntersectionObserver(
