@@ -1,4 +1,6 @@
-/* Reviews wall — auto-scroll carousel */
+/* Reviews wall — auto-scroll carousel. Todo (título, muro, formulario) vive
+   dentro del mismo .lp-section-inner que las demás secciones del landing:
+   sin full-bleed ni anchos especiales. */
 .lp-reviews-wall {
     overflow: hidden;
 }
@@ -77,40 +79,22 @@
     overflow: hidden;
     mask-image: linear-gradient(
         to bottom,
-        transparent 0%,
-        #000 10%,
-        #000 90%,
-        transparent 100%
+        transparent,
+        #000 12%,
+        #000 88%,
+        transparent
     );
     -webkit-mask-image: linear-gradient(
         to bottom,
-        transparent 0%,
-        #000 10%,
-        #000 90%,
-        transparent 100%
+        transparent,
+        #000 12%,
+        #000 88%,
+        transparent
     );
 }
 
 .lp-reviews-wall-viewport:hover .lp-reviews-scroll-track {
     animation-play-state: paused;
-}
-
-/* Hasta tres reseñas se muestran exactamente una vez. El loop vertical solo
-   se activa cuando ya existe una colección suficiente para animarlo. */
-.lp-reviews-wall-static {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-    align-items: start;
-}
-
-.lp-reviews-wall-static--1 {
-    grid-template-columns: minmax(0, 520px);
-}
-
-.lp-reviews-wall-static--2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    max-width: 880px;
 }
 
 .lp-reviews-scroll-col {
@@ -122,10 +106,19 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding-top: var(--col-stagger, 0);
+    /* Offset inicial por columna (0 / -60px / -120px): margen negativo, no
+       padding, para que el arranque de cada columna quede desfasado a propósito. */
+    margin-top: var(--col-stagger, 0px);
     animation: lp-reviews-scroll-up var(--scroll-duration, 45s) linear infinite;
-    animation-delay: var(--scroll-delay, 0s);
+    animation-direction: var(--scroll-direction, normal);
     will-change: transform;
+}
+
+/* Altura mínima que garantiza que 3 tarjetas + gaps (≥602px) superan la altura
+   del viewport del muro con cualquier offset: el clon del loop nunca es visible
+   a la vez que su original. No bajar sin recalcular ese margen. */
+.lp-reviews-scroll-col .lp-social-card {
+    min-height: 190px;
 }
 
 @keyframes lp-reviews-scroll-up {
@@ -133,6 +126,8 @@
     to { transform: translateY(-50%); }
 }
 
+/* Misma piel que las tarjetas del landing (vocabulary-first / demo del hero):
+   radio 40px, borde blanco sutil y fondo oscuro semi-transparente. */
 .lp-social-card {
     flex-shrink: 0;
     display: flex;
@@ -140,8 +135,8 @@
     gap: 12px;
     padding: 18px 20px;
     border-radius: 40px;
-    border: 1px solid rgba(125, 119, 221, 0.22);
-    background: rgba(8, 4, 12, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(8, 4, 10, 0.55);
     box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.04) inset,
         0 8px 24px rgba(0, 0, 0, 0.28);
@@ -262,11 +257,6 @@
 }
 
 @media (max-width: 900px) {
-    .lp-reviews-wall-static,
-    .lp-reviews-wall-static--2 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
     .lp-reviews-wall-viewport {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         height: 440px;
@@ -278,12 +268,6 @@
 }
 
 @media (max-width: 560px) {
-    .lp-reviews-wall-static,
-    .lp-reviews-wall-static--1,
-    .lp-reviews-wall-static--2 {
-        grid-template-columns: 1fr;
-    }
-
     .lp-reviews-wall-viewport {
         grid-template-columns: 1fr;
         height: 400px;

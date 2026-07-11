@@ -13,6 +13,7 @@ export default function VocabularyFirstSection({ t }) {
         <section className="lp-why-vocabulary-first" id="vocabulary-first">
             <div className="lp-section-inner lp-why-vocabulary-first-inner">
                 <h2 className="lp-why-vocabulary-first-title">{t.vocabularyFirstTitle}</h2>
+                <p className="lp-why-vocabulary-first-subtitle">{t.vocabularyFirstSubtitle}</p>
                 <div className="lp-vocab-first-grid">
                     {t.vocabularyFirstCards.map((card, index) => {
                         const Icon = VOCAB_FIRST_CARD_ICONS[index];

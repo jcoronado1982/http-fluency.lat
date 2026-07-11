@@ -122,7 +122,7 @@ export default function LandingPage() {
 
             <main>
                 <div className="lp-zone-flow">
-                    <LandingHero t={t} language={language} />
+                    <LandingHero t={t} language={language} pricingEnabled={pricingEnabled} />
                 </div>
 
                 {/* Feedback + vocabulary-first + why + CTA comparten degradado */}

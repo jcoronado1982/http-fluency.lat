@@ -145,9 +145,12 @@ function ReviewCard({ review, isEs }) {
     );
 }
 
-function ReviewsScrollColumn({ reviews, durationSec, delaySec = 0, isEs, stagger = 0 }) {
+function ReviewsScrollColumn({ reviews, durationSec, isEs, stagger = 0, reverse = false }) {
     if (!reviews.length) return null;
 
+    // La segunda copia es el clon del loop infinito (translateY -50% exacto,
+    // linear: sin salto al reiniciar). buildReviewColumns garantiza ≥3 tarjetas
+    // por columna, que junto a la altura mínima del CSS cubren el viewport.
     const track = [...reviews, ...reviews];
 
     return (
@@ -156,7 +159,7 @@ function ReviewsScrollColumn({ reviews, durationSec, delaySec = 0, isEs, stagger
                 className="lp-reviews-scroll-track"
                 style={{
                     '--scroll-duration': `${durationSec}s`,
-                    '--scroll-delay': `${delaySec}s`,
+                    '--scroll-direction': reverse ? 'reverse' : 'normal',
                     '--col-stagger': `${stagger}px`,
                 }}
             >
@@ -172,20 +175,35 @@ function ReviewsScrollColumn({ reviews, durationSec, delaySec = 0, isEs, stagger
     );
 }
 
+// El muro está siempre animado, así que con pocos reviews la repetición es
+// inevitable; estas reglas la hacen ver intencional:
+// - Con ≥9 reviews: reparto round-robin disjunto (nada se repite en pantalla).
+// - Con <9: cada columna lleva la lista COMPLETA rotada por un offset distinto
+//   (col 1: A,B,C,D / col 2: B,C,D,A / col 3: C,D,A,B), repetida hasta tener
+//   ≥3 tarjetas. Así el mismo review nunca va dos veces seguidas en una columna
+//   (para n≥2) ni arranca a la misma altura en dos columnas vecinas; las
+//   velocidades y offsets distintos por columna rompen el patrón en movimiento.
 function buildReviewColumns(reviews, columnCount = 3) {
-    if (!reviews.length) return [];
+    const n = reviews.length;
 
-    let pool = [...reviews];
-    while (pool.length < columnCount * 3) {
-        pool = [...pool, ...reviews];
+    if (n >= columnCount * 3) {
+        const columns = Array.from({ length: columnCount }, () => []);
+        reviews.forEach((review, index) => {
+            columns[index % columnCount].push(review);
+        });
+        return columns;
     }
 
-    const columns = Array.from({ length: columnCount }, () => []);
-    pool.forEach((review, index) => {
-        columns[index % columnCount].push(review);
+    const rotationStep = Math.max(1, Math.floor(n / columnCount));
+    return Array.from({ length: columnCount }, (_, columnIndex) => {
+        const offset = (columnIndex * rotationStep) % n;
+        const rotated = [...reviews.slice(offset), ...reviews.slice(0, offset)];
+        const column = [...rotated];
+        while (column.length < 3) {
+            column.push(...rotated);
+        }
+        return column;
     });
-
-    return columns;
 }
 function DemoFeedbackEmptyState({ language }) {
     const isEs = language === 'es';
@@ -236,10 +254,10 @@ function DemoFeedbackReviews({ reviews, summary, language }) {
     };
 
     const columns = buildReviewColumns(reviews, 3);
-    const durations = [62, 74, 68];
-    const delays = [0, -10, -18];
-    const staggers = [0, 28, 56];
-    const usesStaticGrid = reviews.length <= 3;
+    // Lento y flotante a propósito: no debe sentirse como un feed que corre.
+    const durations = [60, 75, 68];
+    const staggers = [0, -60, -120];
+    const reversedColumns = [false, true, false];
 
     return (
         <div className="lp-reviews-wall">
@@ -260,36 +278,26 @@ function DemoFeedbackReviews({ reviews, summary, language }) {
                 </div>
             </div>
 
-            {usesStaticGrid ? (
-                <div className={`lp-reviews-wall-static lp-reviews-wall-static--${reviews.length}`}>
-                    {reviews.map((review, index) => (
-                        <ReviewCard
-                            key={`${review.created_at}-${review.user_name}-${index}`}
-                            review={review}
-                            isEs={isEs}
-                        />
-                    ))}
-                </div>
-            ) : (
-                <div className="lp-reviews-wall-viewport">
-                    {columns.map((columnReviews, index) => (
-                        <ReviewsScrollColumn
-                            key={`col-${index}`}
-                            reviews={columnReviews}
-                            durationSec={durations[index]}
-                            delaySec={delays[index]}
-                            stagger={staggers[index]}
-                            isEs={isEs}
-                        />
-                    ))}
-                </div>
-            )}
+            <div className="lp-reviews-wall-viewport">
+                {columns.map((columnReviews, index) => (
+                    <ReviewsScrollColumn
+                        key={`col-${index}`}
+                        reviews={columnReviews}
+                        durationSec={durations[index]}
+                        stagger={staggers[index]}
+                        reverse={reversedColumns[index]}
+                        isEs={isEs}
+                    />
+                ))}
+            </div>
         </div>
     );
 }
 
+const COMMENT_MAX_LENGTH = 500;
+
 export default function DemoFeedback({ language }) {
-    const { isAuthenticated, user } = useAuth();
+    const { isAuthenticated, user, logout } = useAuth();
     const navigate = useNavigate();
     const [comment, setComment] = useState('');
     const [rating, setRating] = useState(0);
@@ -313,10 +321,11 @@ export default function DemoFeedback({ language }) {
             ? 'Inicia sesión con Google o Apple para dejar tu comentario. No necesitas contraseña.'
             : 'Sign in with Google or Apple to leave your comment. No password required.',
         loginCta: isEs ? 'Dejar comentario' : 'Leave feedback',
-        placeholder: isEs ? 'Escribe tu comentario aquí...' : 'Write your comment here...',
+        placeholder: isEs ? '¿Qué te gustó? ¿Qué mejorarías?' : 'What did you like? What would you improve?',
         submit: isEs ? 'Dejar comentario' : 'Leave feedback',
         sending: isEs ? 'Enviando…' : 'Sending…',
-        thanks: isEs ? '¡Gracias! Tu opinión ya está publicada.' : 'Thanks! Your review is now live.',
+        thanks: isEs ? '¡Gracias! Tu comentario ya está publicado.' : 'Thanks! Your review is now live.',
+        signOut: isEs ? 'Cerrar sesión' : 'Sign out',
         error: isEs
             ? 'No se pudo enviar. Inténtalo de nuevo en un momento.'
             : "Couldn't send it. Please try again in a moment.",
@@ -426,7 +435,13 @@ export default function DemoFeedback({ language }) {
                 )}
 
                 {!isAuthenticated && (
-                    <p className="lp-demo-feedback-auth-hint">{copy.authHint}</p>
+                    <button
+                        type="button"
+                        className="lp-demo-feedback-auth-hint"
+                        onClick={goToLoginForFeedback}
+                    >
+                        {copy.authHint}
+                    </button>
                 )}
 
                 {isAuthenticated && user?.email && (
@@ -436,6 +451,13 @@ export default function DemoFeedback({ language }) {
                             {copy.signedInAs}{' '}
                             <strong>{user.name || user.email}</strong>
                         </span>
+                        <button
+                            type="button"
+                            className="lp-demo-feedback-signout"
+                            onClick={logout}
+                        >
+                            {copy.signOut}
+                        </button>
                     </div>
                 )}
 
@@ -452,14 +474,19 @@ export default function DemoFeedback({ language }) {
                     )}
                 </div>
 
-                <textarea
-                    className="lp-demo-feedback-input"
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                    placeholder={copy.placeholder}
-                    rows={2}
-                    maxLength={500}
-                />
+                <div className="lp-demo-feedback-input-wrap">
+                    <textarea
+                        className="lp-demo-feedback-input"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        placeholder={copy.placeholder}
+                        rows={2}
+                        maxLength={COMMENT_MAX_LENGTH}
+                    />
+                    <span className="lp-demo-feedback-counter" aria-hidden>
+                        {comment.length}/{COMMENT_MAX_LENGTH}
+                    </span>
+                </div>
 
                 <div className="lp-demo-feedback-row">
                     {status === 'error' && (

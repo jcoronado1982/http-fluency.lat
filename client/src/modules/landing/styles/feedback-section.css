@@ -51,13 +51,25 @@
     font-size: 1rem;
 }
 
+/* ≥28px de glifo: cómodas de tocar en móvil. */
 .lp-stars--lg .lp-star-btn {
-    font-size: 1.6rem;
+    font-size: 1.9rem;
+    min-width: 28px;
+    min-height: 28px;
 }
 
 .lp-star,
 .lp-stars--input .lp-star-btn {
     color: rgba(148, 163, 184, 0.35);
+}
+
+/* Estrellas vacías del input como contorno claro, visibles sobre el fondo
+   negro. El @supports evita dejarlas invisibles donde no exista text-stroke. */
+@supports (-webkit-text-stroke: 1px #fff) {
+    .lp-stars--input .lp-star-btn:not(.is-active) {
+        color: transparent;
+        -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.35);
+    }
 }
 
 .lp-star.is-full {
@@ -140,13 +152,29 @@
     color: rgba(245,245,245,0.85);
 }
 
+/* Es un <button>: la línea de "inicia sesión…" abre el login, no es solo texto. */
 .lp-demo-feedback-auth-hint {
     margin: 4px 0 0;
+    padding: 0;
+    border: none;
+    background: none;
+    text-align: left;
+    align-self: flex-start;
+    cursor: pointer;
     font-family: var(--font-family-body);
     font-size: calc(1.25rem - 1px);
     font-weight: 400;
     color: var(--c-teal);
     line-height: 1.65;
+    text-decoration: underline;
+    text-decoration-color: rgba(45, 212, 191, 0.35);
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.2s;
+}
+
+.lp-demo-feedback-auth-hint:hover,
+.lp-demo-feedback-auth-hint:focus-visible {
+    text-decoration-color: var(--c-teal);
 }
 
 .lp-demo-feedback-user {
@@ -167,6 +195,24 @@
 .lp-demo-feedback-user strong {
     color: var(--c-muted2);
     font-weight: 600;
+}
+
+.lp-demo-feedback-signout {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: var(--font-family-body);
+    font-size: 0.78rem;
+    color: rgba(148, 163, 184, 0.6);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+}
+
+.lp-demo-feedback-signout:hover,
+.lp-demo-feedback-signout:focus-visible {
+    color: var(--c-muted2);
 }
 
 .lp-demo-feedback-rating-row {
@@ -195,19 +241,26 @@
     margin-top: 2px;
 }
 
+.lp-demo-feedback-input-wrap {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+/* Misma piel que las tarjetas de review: radio 40px, borde blanco sutil,
+   fondo oscuro semi-transparente. */
 .lp-demo-feedback-input {
-    width: calc(100% - 40px);
+    display: block;
+    width: 100%;
     resize: vertical;
     min-height: 100px;
-    padding:  20px;
+    padding: 20px 20px 34px;
     border-radius: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(8, 4, 10, 0.55);
     color: var(--c-text);
     font-family: var(--font-family-body);
     font-size: 0.875rem;
     line-height: 1.5;
-    margin-bottom: 30px;
 }
 
 .lp-demo-feedback-input::placeholder {
@@ -216,7 +269,17 @@
 
 .lp-demo-feedback-input:focus {
     outline: none;
-    border-color: rgba(255, 255, 255, 0.22);
+    border-color: rgba(244, 114, 182, 0.45);
+}
+
+.lp-demo-feedback-counter {
+    position: absolute;
+    right: 28px;
+    bottom: 12px;
+    pointer-events: none;
+    font-family: var(--font-family-body);
+    font-size: 0.72rem;
+    color: rgba(148, 163, 184, 0.55);
 }
 
 .lp-demo-feedback-row {
@@ -234,22 +297,25 @@
     margin-right: auto;
 }
 
+/* Habilitado = mismo gradiente que los CTAs principales del sitio (.lp-btn). */
 .lp-demo-feedback-submit {
     flex-shrink: 0;
     padding: 10px 20px;
     border-radius: 999px;
     border: none;
-    background: #7c3a2f;
+    background: linear-gradient(135deg, var(--c-rose), var(--c-pink) 50%, var(--c-orange));
     color: #ffffff;
+    box-shadow: 0 8px 24px rgba(190, 24, 93, 0.3);
     font-family: var(--font-family-body);
     font-weight: 600;
     font-size: 0.875rem;
     cursor: pointer;
-    transition: opacity 0.2s, transform 0.15s;
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
 }
 
 .lp-demo-feedback-submit:hover:not(:disabled) {
-    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(190, 24, 93, 0.4);
 }
 
 .lp-demo-feedback-submit:active:not(:disabled) {
@@ -257,7 +323,9 @@
 }
 
 .lp-demo-feedback-submit:disabled {
-    opacity: 0.4;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.45);
+    box-shadow: none;
     cursor: not-allowed;
 }
 

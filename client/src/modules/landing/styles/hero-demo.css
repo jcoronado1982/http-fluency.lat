@@ -166,6 +166,39 @@
     letter-spacing: 0.015em;
 }
 
+.lp-hero-social-proof {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    text-decoration: none;
+}
+
+.lp-hero-social-proof-text {
+    color: rgba(245,245,245,0.7);
+    font-family: var(--font-family-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    transition: color 0.2s ease;
+}
+
+.lp-hero-social-proof-text::after {
+    content: '→';
+    margin-left: 5px;
+    font-size: 1.05em;
+    transition: transform 0.2s ease;
+    display: inline-block;
+}
+
+.lp-hero-social-proof:hover .lp-hero-social-proof-text {
+    color: rgba(245,245,245,0.94);
+}
+
+.lp-hero-social-proof:hover .lp-hero-social-proof-text::after {
+    transform: translateX(3px);
+}
+
 .lp-hero-cta .lp-btn--ghost {
     color: rgba(245,245,245,0.9);
     border-color: rgba(245,245,245,0.2);
