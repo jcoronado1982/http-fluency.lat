@@ -9,6 +9,11 @@ cd "$PROXY_DIR"
 docker build -t fluency-proxy . 2>&1
 
 docker rm -f caddy-smart 2>/dev/null || true
+
+# Con el contenedor eliminado, cualquier traffic-manager/sentinel que siga vivo
+# es un stray a nivel host (hubo uno huérfano 71 días duplicando el gate del centinela).
+pkill -f 'traffic-manager' 2>/dev/null || true
+pkill -f 'sentinel-handler' 2>/dev/null || true
 # 384m: techo generoso (uso real ~80m). Hace determinista quién reinicia
 # ante presión de RAM en la caja de 968m, en vez de dejarlo al OOM killer.
 CADDY_MEMORY_LIMIT="${CADDY_MEMORY_LIMIT:-384m}"

@@ -5,7 +5,7 @@ use axum::{
     response::{IntoResponse, Response},
 };
 
-fn image_cache_control(uri: &http::Uri) -> &'static str {
+fn asset_cache_control(uri: &http::Uri) -> &'static str {
     let query = uri.query().unwrap_or_default();
     if query.contains("v=") || query.contains("t=") {
         "public, max-age=31536000, immutable"
@@ -60,7 +60,7 @@ pub async fn redirect_images(
         response_headers.insert(header::CONTENT_TYPE, HeaderValue::from_static(content_type));
         response_headers.insert(
             header::CACHE_CONTROL,
-            HeaderValue::from_static(image_cache_control(&uri)),
+            HeaderValue::from_static(asset_cache_control(&uri)),
         );
         if let Some(server_tag) = etag {
             if let Ok(value) = HeaderValue::from_str(&server_tag) {
@@ -84,39 +84,57 @@ fn audio_content_type(file_path: &str) -> &'static str {
     }
 }
 
-fn audio_cache_control(file_path: &str) -> &'static str {
-    // Nombres deterministas incluyen hash → seguro cachear 1 año (Caddy hace lo mismo en prod).
-    if file_path.contains('_') && file_path.len() > 24 {
-        "public, max-age=31536000, immutable"
-    } else {
-        "public, max-age=3600"
-    }
-}
-
 pub async fn redirect_audio(
     Path(file_path): Path<String>,
+    headers: HeaderMap,
+    OriginalUri(uri): OriginalUri,
     State(state): State<AppState>,
 ) -> impl IntoResponse {
     if file_path.contains("..") || file_path.starts_with('/') {
         return (StatusCode::BAD_REQUEST, "Ruta de audio inválida.").into_response();
     }
 
+    // El nombre determinista hashea los INPUTS del TTS (texto/idioma/modelo), no el
+    // contenido: rotar voz reescribe el mismo archivo. Misma política que imágenes:
+    // ?v=/?t= → inmutable 1 año; sin versión → no-cache + revalidación ETag (304).
     let blob_path = format!("{}/{}", state.settings.gcs_audio_prefix, file_path);
     let content_type = audio_content_type(&file_path);
-    let cache_control = audio_cache_control(&file_path);
+
+    let version = state
+        .storage_repo
+        .blob_version(&blob_path)
+        .await
+        .ok()
+        .flatten();
+    let etag = version.as_ref().map(|value| format!("\"{value}\""));
+
+    if let (Some(client_tag), Some(server_tag)) = (
+        headers
+            .get(header::IF_NONE_MATCH)
+            .and_then(|value| value.to_str().ok()),
+        etag.as_deref(),
+    ) {
+        if client_tag == server_tag {
+            return StatusCode::NOT_MODIFIED.into_response();
+        }
+    }
 
     match state.storage_repo.download_blob(&blob_path).await {
-        Ok(bytes) => (
-            [
-                (header::CONTENT_TYPE, HeaderValue::from_static(content_type)),
-                (
-                    header::CACHE_CONTROL,
-                    HeaderValue::from_static(cache_control),
-                ),
-            ],
-            bytes,
-        )
-            .into_response(),
+        Ok(bytes) => {
+            let mut response = Response::new(axum::body::Body::from(bytes));
+            let response_headers = response.headers_mut();
+            response_headers.insert(header::CONTENT_TYPE, HeaderValue::from_static(content_type));
+            response_headers.insert(
+                header::CACHE_CONTROL,
+                HeaderValue::from_static(asset_cache_control(&uri)),
+            );
+            if let Some(server_tag) = etag {
+                if let Ok(value) = HeaderValue::from_str(&server_tag) {
+                    response_headers.insert(header::ETAG, value);
+                }
+            }
+            response.into_response()
+        }
         Err(_) => StatusCode::NOT_FOUND.into_response(),
     }
 }

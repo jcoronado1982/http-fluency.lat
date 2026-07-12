@@ -435,7 +435,18 @@ Notas de alcance:
 - En **frontend**, `UIContext` del shell solo contiene UI global (sidebar, idioma, mensajes). Estado de negocio/UI de módulo → `FlashcardUiContext`, etc.
 - Los archivos de estilos grandes no cambian la arquitectura base; sí señalan deuda visual en ciertos módulos.
 
----
+### 8.1 Desviaciones conocidas (auditoría 2026-07-11 — NO "arreglar" de pasada)
+
+Verificado con grep sobre el código real (misma filosofía que `client/CLAUDE.md` §9): `core` y
+`mod_flashcards` están limpios (solo dominio + puertos); `api_main/src/domain` es una fachada de
+re-exports de `fluency_core` (no es violación). Quedan dos desviaciones DIP aceptadas que requieren
+refactor planificado (tocan auth/presencia de producción, nunca fix oportunista):
+
+1. **`mod_shell/src/auth.rs`**: usa `reqwest` (JWKS/tokeninfo de Google) y `jsonwebtoken`
+   directamente dentro del crate de casos de uso. Estricto sería un puerto `TokenVerifier` en
+   `core` + adaptador en `api_main/src/infrastructure`. Riesgo del refactor: flujo de login prod.
+2. **`mod_shell/src/presence_use_cases.rs`**: `reqwest::Client` embebido en el caso de uso
+   (mismo patrón y mismo tratamiento).
 
 ## 9. Módulos actuales
 

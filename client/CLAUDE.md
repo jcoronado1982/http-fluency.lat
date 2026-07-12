@@ -85,7 +85,7 @@ composition.js (composition root del módulo — equivalente al wiring de api_ma
 
 - **Puertos**: `src/modules/flashcards/ports/{flashcardPort,audioPort,imagePort}.js`, `src/modules/dashboard/ports/…`, `src/modules/pricing/ports/…`. Documentan el contrato con `@typedef`. Compartidos: `src/adapters/studyPorts.js`.
 - **Adaptadores HTTP**: mismo directorio `adapters/` de cada módulo + `src/adapters/` (audio/imagen de estudio compartidos). Son el ÚNICO lugar con URLs de API.
-- **`src/services/httpClient.js`**: cliente único — añade `Authorization: Bearer` desde `localStorage.auth_token`, lanza en non-2xx. TODO fetch pasa por aquí (no usar `fetch`/`axios` directo en componentes).
+- **`src/services/httpClient.js`**: cliente único — añade `Authorization: Bearer` desde `localStorage.auth_token`, lanza en non-2xx. TODO fetch pasa por aquí (no usar `fetch`/`axios` directo en componentes). Excepciones justificadas (auditadas jul 2026, no son violaciones): el beacon `keepalive:true` de `useDeckSession.flushProgressBeacon` (beforeunload no admite el httpClient), la descarga de blobs de audio en `useAudioPlayback.fetchAudioBlob` (binario, no JSON; la URL viene del puerto) y los bindings generados `services/wasm_lib.js`.
 - **`composition.js`** por módulo: instancia puertos con sus adaptadores. Los componentes importan **puertos ya cableados**, jamás adaptadores.
 - **useCases**: `deckUseCases.js`, `deckSessionUseCases.js`, `dashboardProgress.js`… funciones puras testeables (ordenamiento de catálogo, progreso, sesiones). La cabecera de `deckUseCases.js` documenta cómo añadir ordenamientos de categorías (toca también `contracts/catalogOrder.json` y el ETL).
 
