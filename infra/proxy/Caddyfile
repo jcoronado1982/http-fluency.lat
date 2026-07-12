@@ -140,6 +140,9 @@ fluency.lat, www.fluency.lat {
             handle /json/* {
                 root * /usr/share/caddy/repository
                 # browse es requerido: el backend lista directorios parseando este HTML
+                # no-cache: sin Cache-Control el navegador aplica caché heurística sobre
+                # Last-Modified y un deck general actualizado podría quedar stale días.
+                header Cache-Control "public, no-cache"
                 import compression
                 file_server browse
             }
@@ -228,6 +231,7 @@ qa.fluency.lat {
 
             handle /json/* {
                 root * /usr/share/caddy/qa_repository
+                header Cache-Control "public, no-cache"
                 import compression
                 file_server browse
             }
