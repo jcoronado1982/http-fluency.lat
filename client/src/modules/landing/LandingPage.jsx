@@ -26,13 +26,13 @@ import './LandingPage.css';
  * del JSX de abajo.
  */
 function useLandingNavActive() {
-    const [active, setActive] = useState('demo');
+    const [active, setActive] = useState('how-it-works');
 
     useEffect(() => {
-        const demo = document.getElementById('demo');
+        const howItWorks = document.getElementById('how-it-works');
         const vocabularyFirst = document.getElementById('vocabulary-first');
         const reviews = document.getElementById('reviews');
-        const targets = [demo, vocabularyFirst, reviews].filter(Boolean);
+        const targets = [howItWorks, vocabularyFirst, reviews].filter(Boolean);
         if (!targets.length) return undefined;
 
         const observer = new IntersectionObserver(
@@ -66,10 +66,10 @@ export default function LandingPage() {
 
     useEffect(() => {
         if (!returningForFeedback) return;
-        if (window.location.hash !== '#demo') {
-            window.location.hash = 'demo';
+        if (window.location.hash !== '#reviews') {
+            window.location.hash = 'reviews';
         }
-        const el = document.getElementById('demo');
+        const el = document.getElementById('reviews');
         el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, [returningForFeedback]);
 
@@ -96,7 +96,9 @@ export default function LandingPage() {
 
     const landingSectionHash = isLandingSectionHash(location.hash);
 
-    if (isAuthenticated && onboardingRequired) {
+    // Una cuenta nueva que llegó desde "Dejar comentario" debe recuperar el
+    // formulario y su borrador antes de entrar al onboarding general.
+    if (isAuthenticated && onboardingRequired && !returningForFeedback) {
         return <Navigate to="/onboarding" replace />;
     }
 
@@ -120,7 +122,7 @@ export default function LandingPage() {
 
             <main>
                 <div className="lp-zone-flow">
-                    <LandingHero t={t} language={language} />
+                    <LandingHero t={t} language={language} pricingEnabled={pricingEnabled} />
                 </div>
 
                 {/* Feedback + vocabulary-first + why + CTA comparten degradado */}

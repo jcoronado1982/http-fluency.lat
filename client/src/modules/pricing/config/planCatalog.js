@@ -5,8 +5,9 @@ export function getPricingPlanCards() {
             premiumPeriod: 'month',
         },
         annual: {
-            premiumPrice: '42.51',
-            premiumPeriod: 'year',
+            premiumPrice: '49.99',
+            monthlyEquivalent: '4.17',
+            premiumPeriod: 'month',
         },
     };
 }
@@ -22,12 +23,12 @@ export function getCheckoutPlanData(t) {
             billedAs: '$4.99 USD / month',
         },
         annual: {
-            price: 42.51,
-            priceDisplay: '$42.51 USD',
+            price: 49.99,
+            priceDisplay: '$49.99 USD',
             period: 'year',
             label: t.annualLabel,
-            savingsBadge: '29%',
-            billedAs: '$42.51 USD / year',
+            savingsBadge: '17%',
+            billedAs: '$49.99 USD / year',
         },
     };
 }

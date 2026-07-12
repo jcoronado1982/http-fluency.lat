@@ -3,19 +3,21 @@ export const landingTranslations = {
         brand: 'Fluency',
         navHowItWorks: 'Cómo funciona',
         navPricing: 'Precios',
-        navWhyVocabularyFirst: '¿Por qué aprender vocabulario?',
+        navWhyVocabularyFirst: '¿Por qué vocabulario primero?',
         navFeedback: 'Comentarios',
         navLogin: 'Entrar',
         navSignup: 'Empezar gratis',
         navSignupShort: 'Registrarse',
         navApp: 'Ir a la app',
 
-        heroEyebrow: 'Vocabulario de alto impacto',
-        heroTitleLine1: 'Aprende vocabulario',
-        heroTitleFrom: 'con',
-        heroTitleAccent: 'flashcards listas, sin crearlas manualmente.',
-        heroSubtitle:
-            'Empieza con mazos preparados: palabras frecuentes, frases reales, imágenes y audio nativo. Estudia desde el primer minuto y personaliza tus tarjetas con IA en Premium.',
+        heroTitleLine1: 'La IA ya hizo tus flashcards.',
+        heroTitleFrom: 'Tú solo',
+        heroTitleAccent: 'estudia.',
+        heroSubtitleLine1:
+            'Miles de palabras curadas. Frases reales. Audio nativo. Imágenes que se quedan en la memoria.',
+        heroSubtitleLine2: 'Todo listo antes de que llegaras.',
+        heroCtaNote: 'Sin cuenta, sin excusas.',
+        heroReviewsLinkText: 'qué dicen los usuarios',
         trustFree: 'Gratis para empezar',
         trustNoCard: 'Pago seguro con Stripe',
         trustWords: '5.000+ palabras con Premium',
@@ -24,6 +26,12 @@ export const landingTranslations = {
         previewCat: 'Verbo esencial',
         previewHint: 'Toca para ver →',
         demoInteractiveBadge: 'Probar demo',
+
+        imageShowcaseTitle: 'Crea flashcards con IA',
+        imageShowcaseSubtitle:
+            'Tú escribes la palabra. Fluency crea automáticamente una frase en contexto, el audio y una imagen para ayudarte a entenderla y recordarla.',
+        premiumBadgeLabel: '✦ PREMIUM',
+        seePremiumCta: 'Ver Premium',
 
         demoImagePromptLabel: 'Ajusta los detalles de la escena',
         demoImagePromptPlaceholder: 'Cambia el niño por una niña, haz a la mujer más joven, agrega un perro, atardecer…',
@@ -47,20 +55,22 @@ export const landingTranslations = {
         highlightAiDesc:
             'Conecta frases con escenas visuales para entender y recordar el significado más rápido.',
 
-        vocabularyFirstEyebrow: '¿Por qué aprender vocabulario?',
-        vocabularyFirstTitle: '¿Por qué aprender vocabulario?',
+        vocabularyFirstEyebrow: 'El enfoque',
+        vocabularyFirstTitle: '¿Por qué vocabulario primero?',
+        vocabularyFirstSubtitle:
+            'La mayoría de métodos empiezan por reglas gramaticales. Creemos que es al revés.',
         vocabularyFirstCards: [
             {
-                title: 'Empieza por lo básico',
-                body: 'A muchos principiantes les dicen que deben hablar desde el primer día. Sin palabras suficientes, hasta una conversación simple se vuelve frustrante.',
+                title: 'El error clásico',
+                body: 'Los cursos tradicionales enseñan reglas gramaticales desde el primer día. Terminas sabiendo cómo funcionan las frases — sin palabras suficientes para armar una. Hasta una conversación simple se vuelve frustrante.',
             },
             {
-                title: 'Vocabulario en contexto',
-                body: 'Fluency empieza por la base: palabras curadas, frases reales, audio nativo e imágenes para reconocer y entender el idioma antes de usarlo.',
+                title: 'Las palabras cargan el significado',
+                body: 'Con el vocabulario esencial correcto puedes entender la mayor parte de lo que escuchas y lees — incluso antes de estudiar gramática. Fluency te da esas palabras con frases reales, audio nativo e imágenes.',
             },
             {
-                title: 'Construye la base',
-                body: 'El objetivo no es prometer fluidez de un día para otro. Es construir la base que después facilita la gramática, el listening, la lectura y el speaking.',
+                title: 'Después, todo encaja',
+                body: 'No prometemos fluidez de un día para otro. Pero con una base sólida de palabras, la gramática empieza a tener sentido por sí sola — y el listening, la lectura y el speaking dejan de sentirse como un muro.',
             },
         ],
 
@@ -106,12 +116,14 @@ export const landingTranslations = {
         navSignupShort: 'Sign up',
         navApp: 'Go to app',
 
-        heroEyebrow: 'High-impact vocabulary',
-        heroTitleLine1: 'Learn vocabulary',
-        heroTitleFrom: 'with',
-        heroTitleAccent: 'ready-made flashcards.',
-        heroSubtitle:
-            'Start with curated decks: common words, real example sentences, images, and native audio. Study from the first minute and customize your cards with AI in Premium.',
+        heroTitleLine1: 'AI already made your flashcards.',
+        heroTitleFrom: 'You just',
+        heroTitleAccent: 'study.',
+        heroSubtitleLine1:
+            'Thousands of curated words. Real sentences. Native audio. Images that stay with you.',
+        heroSubtitleLine2: 'Everything was ready before you arrived.',
+        heroCtaNote: 'No account, no excuses.',
+        heroReviewsLinkText: 'what users say',
         trustFree: 'Free to start',
         trustNoCard: 'Secure Stripe checkout',
         trustWords: '5,000+ words with Premium',
@@ -120,6 +132,12 @@ export const landingTranslations = {
         previewCat: 'Essential verb',
         previewHint: 'Tap to see →',
         demoInteractiveBadge: 'Try demo',
+
+        imageShowcaseTitle: 'Create flashcards with AI',
+        imageShowcaseSubtitle:
+            'You enter the word. Fluency automatically creates a sentence in context, the audio, and an image to help you understand and remember it.',
+        premiumBadgeLabel: '✦ PREMIUM',
+        seePremiumCta: 'See Premium',
 
         demoImagePromptLabel: 'Adjust scene details',
         demoImagePromptPlaceholder: 'Change the boy to a girl, make the woman younger, add a dog, sunset…',
@@ -143,20 +161,22 @@ export const landingTranslations = {
         highlightAiDesc:
             'Connect phrases with visual scenes to understand and remember meaning faster.',
 
-        vocabularyFirstEyebrow: 'Why vocabulary first?',
+        vocabularyFirstEyebrow: 'The approach',
         vocabularyFirstTitle: 'Why vocabulary first?',
+        vocabularyFirstSubtitle:
+            "Most methods start with grammar rules. We think that's backwards.",
         vocabularyFirstCards: [
             {
-                title: 'Start with the basics',
-                body: 'Most beginners are told to start speaking from day one. Without enough words, even a simple conversation becomes frustrating.',
+                title: 'The classic mistake',
+                body: 'Traditional courses drill grammar rules from day one. You end up knowing how sentences work — without enough words to build one. Even a simple conversation becomes frustrating.',
             },
             {
-                title: 'Vocabulary in context',
-                body: 'Fluency starts with the foundation: curated words, real sentences, native audio, and images so you can recognize and understand before you speak.',
+                title: 'Words carry the meaning',
+                body: 'With the right core vocabulary you can understand most of what you hear and read — even before studying grammar. Fluency gives you those words with real sentences, native audio, and images.',
             },
             {
-                title: 'Build the base',
-                body: 'The goal is not to promise fluency overnight. It is to build the base that makes grammar, listening, reading, and speaking easier later.',
+                title: 'Then everything clicks',
+                body: "We don't promise fluency overnight. But with a solid word base, grammar starts making sense on its own — and listening, reading, and speaking stop feeling like a wall.",
             },
         ],
 

@@ -58,14 +58,6 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
     const xpTarget = computeXp(levelXpSpan);
     const greeting = getTimeGreeting(language, userName);
     const streakMsg = stats ? getStreakMessage(stats, labels) : labels.streakStartShort;
-    const quickAccessItems = useMemo(() => getDashboardQuickAccessItems({
-        levelId: level.currentLevel,
-        currentCategory: session?.category,
-        language,
-        limit: 4,
-        stats,
-    }), [language, level.currentLevel, session?.category, stats]);
-
     const carouselItems = useMemo(() => {
         const items = getDashboardCarouselItems({
             levelId: level.currentLevel,
@@ -89,6 +81,17 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
 
         return items;
     }, [language, labels.defaultDeck, level.currentLevel, session, stats]);
+
+    const primaryCourse = carouselItems[0];
+
+    const quickAccessItems = useMemo(() => getDashboardQuickAccessItems({
+        levelId: level.currentLevel,
+        currentCategory: primaryCourse?.category,
+        currentDeck: primaryCourse?.deckName,
+        language,
+        limit: 4,
+        stats,
+    }), [language, level.currentLevel, primaryCourse?.category, primaryCourse?.deckName, stats]);
     const [activeSlide, setActiveSlide] = useState(0);
 
     const carouselSignature = carouselItems.map((item) => item.key).join('|');

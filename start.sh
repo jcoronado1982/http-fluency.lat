@@ -24,6 +24,9 @@ trap cleanup SIGINT SIGTERM
 
 REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 
+echo "📚 Generando manifiesto liviano del catálogo..."
+node "$REPO_ROOT/scripts/generate-catalog-manifest.mjs" "$REPO_ROOT/json" || exit 1
+
 DOCKER_READY=false
 if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
     DOCKER_READY=true
@@ -143,6 +146,13 @@ fi
 
 # Limpiamos la variable global para forzar que use la del .env
 unset GEMINI_API_KEY
+unset SYNC_TO_ORACLE
+unset ORACLE_REPOSITORY_ONLY
+
+# En desarrollo, los comentarios deben sobrevivir al reinicio del backend.
+# No usar el directorio de trabajo (".") porque puede variar según cómo se
+# lance el script; apuntamos siempre a la raíz compartida del proyecto.
+export LOCAL_STORAGE_PATH="$REPO_ROOT"
 
 # En desarrollo Vite proxya /api, /card_images y /card_audio a localhost:8081.
 export PORT="${PORT:-8081}"

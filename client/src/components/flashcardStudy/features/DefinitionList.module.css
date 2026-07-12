@@ -1,0 +1,446 @@
+
+
+[data-variant='app'][data-layout='conjugation'] .allExamplesContainer {
+    margin-top: 4px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+}
+
+[data-variant='app'][data-layout='conjugation'] .exampleRow {
+    padding: 3px 6px;
+}
+
+[data-variant='app'] .allExamplesContainer {
+    flex-shrink: 0;
+    flex-grow: 0;
+    overflow: visible;
+}
+
+@media (min-width: 768.02px) and (max-height: 900px) {
+    [data-variant='app'] .allExamplesContainer {
+        margin-top: 4px;
+        margin-bottom: 6px;
+        flex-shrink: 1;
+        flex-grow: 0;
+        /* Tope reducido (antes 34%): la imagen es el elemento protagonista
+           de la tarjeta y debe quedarse con la mayor parte del espacio que
+           sobra; los ejemplos hacen scroll interno si no entran. */
+        max-height: calc(var(--fc-real-vh, 100dvh) * 0.26);
+        overflow: hidden;
+    }
+
+    [data-variant='app'] .allExamplesContainer ul {
+        max-height: calc(var(--fc-real-vh, 100dvh) * 0.26);
+        overflow-y: auto;
+    }
+
+    [data-variant='app'] .exampleRow {
+        padding: 3px 6px;
+    }
+
+    [data-variant='app'] .phraseContainer,
+    [data-variant='app'] .phraseContainer span {
+        font-size: 1.2rem;
+    }
+
+    [data-variant='app'] .phraseContainer {
+        font-size: 1.2rem;
+    }
+
+    [data-variant='app'] .examplePlayBtn {
+        width: 42px;
+        height: 42px;
+    }
+
+    [data-variant='app'] .examplePlayBtn svg {
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+        min-height: 20px;
+    }
+}
+
+.allExamplesContainer {
+    grid-area: examples;
+    width: 100%;
+    text-align: left;
+    flex-grow: 0;
+    flex-shrink: 0;
+    overflow: visible;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.scrollableExamples {
+    min-height: 0;
+}
+
+.scrollableExamples ul {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.scrollableExamples ul::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollableExamples ul::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.45);
+    border-radius: 999px;
+}
+
+.scrollableExamples ul::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.35);
+    border-radius: 999px;
+}
+
+.allExamplesContainer ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.allExamplesContainer li,
+.exampleRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0;
+    padding: 5px 8px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: default;
+    isolation: isolate;
+    pointer-events: auto;
+}
+
+.allExamplesContainer li:hover,
+.exampleRow:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.allExamplesContainer li:last-child {
+    margin-bottom: 0;
+}
+
+.examplePlayBtn {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    font-size: 1em;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    color: #f472b6;
+    box-shadow: none;
+    backface-visibility: hidden;
+}
+
+.examplePlayBtn svg {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    stroke-width: 2.5;
+}
+
+.examplePlayBtn:hover,
+.exampleRow:hover .examplePlayBtn {
+    background: rgba(244, 114, 182, 0.15);
+    border-color: #f472b6;
+    color: #f472b6;
+    box-shadow: 0 0 15px rgba(244, 114, 182, 0.35);
+}
+
+.allExamplesContainer li div {
+    line-height: 1.4;
+    font-size: 1.5rem;
+    white-space: normal;
+    overflow: visible;
+    color: #b8b8b8;
+}
+
+.allExamplesContainer li div span {
+    transition: transform 0.05s ease;
+    padding: 1px 0px;
+    color: #f0f0f0;
+    font-weight: 300;
+    font-size: 1.5rem;
+    font-family: var(--font-family-body);
+    letter-spacing: 0.01em;
+}
+
+.allExamplesContainer li div.blurredText {
+    --fc-highlight-color: #b8b8b8;
+    --fc-highlight-background: transparent;
+    --fc-highlight-font-weight: 300;
+    --fc-highlight-padding: 1px 0;
+    filter: blur(4px);
+    transition: filter 0.3s ease-in-out;
+    cursor: pointer;
+    pointer-events: auto;
+    color: #b8b8b8;
+}
+
+.allExamplesContainer li div.blurredText span {
+    color: #b8b8b8;
+}
+
+.customTooltip {
+    visibility: hidden;
+    opacity: 0;
+    background-color: rgba(30, 30, 40, 0.95);
+    color: #e8eaf6;
+    font-size: 0.9em;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.03em;
+    text-align: center;
+    border-radius: 8px;
+    padding: 7px 14px;
+    white-space: nowrap;
+    position: absolute;
+    z-index: 9999;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.customTooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(30, 30, 40, 0.95);
+}
+
+/* El tooltip visible debe ganar a su estado oculto base durante hover. */
+.allExamplesContainer li:hover>.customTooltip,
+.allExamplesContainer li:hover .customTooltip,
+.allExamplesContainer li div:hover~.customTooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.allExamplesContainer li {
+    z-index: 1;
+}
+
+.allExamplesContainer li:hover {
+    z-index: 20;
+}
+
+.phraseContainer {
+    --fc-highlight-color: #333333;
+    --fc-highlight-background: transparent;
+    --fc-highlight-font-weight: 700;
+    --fc-highlight-padding: 2px 6px;
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    white-space: normal;
+    line-height: 1.4;
+    font-size: 1.5rem;
+    overflow: visible;
+    /* Promueve capa de composición para que Safari pinte el resaltado dentro de la tarjeta 3D */
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+@media (max-width: 768px) {
+
+    [data-variant='app'][data-layout='conjugation'] .allExamplesContainer {
+        margin-top: 2px;
+        margin-bottom: 10px;
+        flex-shrink: 0;
+    }
+
+    [data-variant='app'][data-layout='conjugation'] .allExamplesContainer ul {
+        gap: 0px;
+    }
+
+    [data-variant='app'][data-layout='conjugation'] .exampleRow {
+        padding: 2px 4px;
+        gap: 8px;
+    }
+
+    [data-variant='app'][data-layout='conjugation'] .examplePlayBtn {
+        width: 46px;
+        height: 46px;
+    }
+
+    [data-variant='app'] .allExamplesContainer {
+        flex-shrink: 0;
+        min-height: 0;
+    }
+
+    .phraseContainer {
+        font-size: 1.25rem;
+    }
+
+    [data-variant='app'] .allExamplesContainer {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    [data-variant='app'] .allExamplesContainer ul {
+        gap: 5px;
+    }
+
+    [data-variant='app'] .exampleRow {
+        gap: 10px;
+        padding: 4px 6px;
+    }
+
+    [data-variant='app'] .phraseContainer span {
+        font-size: 1.25rem;
+    }
+
+    [data-variant='app'] .examplePlayBtn {
+        width: 48px;
+        height: 48px;
+    }
+
+}
+
+[data-variant='demo'] .allExamplesContainer {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+[data-variant='demo'] .allExamplesContainer ul {
+    gap: 4px;
+}
+
+[data-variant='demo'] .scrollableExamples ul {
+    max-height: 124px;
+    padding-right: 6px;
+}
+
+[data-variant='demo'] .exampleRow {
+    padding: 5px 8px;
+    gap: 10px;
+}
+
+[data-variant='demo'] .examplePlayBtn {
+    width: 52px;
+    height: 52px;
+}
+
+[data-variant='demo'] .examplePlayBtn svg {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+}
+
+[data-variant='demo'] .phraseContainer {
+    font-size: 1.5rem;
+}
+
+[data-variant='demo'] .phraseContainer span {
+    font-size: 1.5rem;
+}
+
+[data-variant='demo'] .allExamplesContainer li div.blurredText {
+    filter: blur(3px);
+    color: #d8c6d4;
+}
+
+[data-variant='demo'] .allExamplesContainer li div.blurredText span {
+    color: #d8c6d4;
+}
+
+@media (max-width: 768px) {
+
+[data-variant='demo'] .allExamplesContainer {
+    margin-top: 2px;
+    margin-bottom: 4px;
+}
+
+[data-variant='demo'] .scrollableExamples ul {
+    max-height: 92px;
+    padding-right: 4px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+[data-variant='demo'] .scrollableExamples ul::-webkit-scrollbar {
+    display: none;
+}
+
+[data-variant='demo'] .exampleRow {
+    padding: 0;
+    gap: 8px;
+}
+
+[data-variant='demo'] .examplePlayBtn {
+    width: 40px;
+    height: 40px;
+}
+
+[data-variant='demo'] .examplePlayBtn svg {
+    width: 19px;
+    height: 19px;
+    min-width: 19px;
+    min-height: 19px;
+}
+
+[data-variant='demo'] .phraseContainer {
+    font-size: 1.25rem;
+}
+
+[data-variant='demo'] .phraseContainer span {
+    font-size: 1.35rem;
+    line-height: 1.3;
+}
+}
+
+:global(body:has([data-tour-step='presentacion-tarjeta'])) :global([data-onboarding-tour='true']) .allExamplesContainer li .phraseContainer {
+    filter: blur(4px);
+    color: #b8b8b8;
+    cursor: default;
+    pointer-events: none;
+}
+
+:global(body:has([data-tour-step='presentacion-tarjeta'])) :global([data-onboarding-tour='true']) .allExamplesContainer li .phraseContainer span {
+    color: #b8b8b8;
+}
+
+/* El paso de reproducción debe retirar el blur impuesto por el paso anterior. */
+:global(body:has([data-tour-step='reproducir-audio'])) :global([data-onboarding-tour='true']) .allExamplesContainer li .phraseContainer {
+    filter: none;
+    color: inherit;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+:global(body:has([data-tour-step='reproducir-audio'])) :global([data-onboarding-tour='true']) .allExamplesContainer li .phraseContainer span {
+    color: inherit;
+}
+
+.rotateVoiceBtn {
+    composes: rotateVoiceBtn from './Flashcard.module.css';
+}
+
+.spinner {
+    composes: spinner from './Flashcard.module.css';
+}
+
+.loadingAudioBtn {
+    composes: loadingAudioBtn from './Flashcard.module.css';
+}

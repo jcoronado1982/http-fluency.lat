@@ -48,6 +48,8 @@ function Controls() {
     return (
         <div
             className={styles.controlsWrapper}
+            data-variant={isLandingDemo ? 'demo' : 'app'}
+            data-state={isBusy ? 'busy' : 'ready'}
             onTouchStart={(e) => e.stopPropagation()}
             onTouchEnd={(e) => e.stopPropagation()}
             data-tour="panel-controles"

@@ -36,7 +36,8 @@
 }
 
 .toneSelectDropdown:focus {
-    outline: none;
+    outline: 2px solid rgba(244, 114, 182, 0.7);
+    outline-offset: 2px;
 }
 
 .toneSelectDropdown option {
@@ -59,16 +60,16 @@
     font-weight: 600;
 }
 
+.selectWrapper {
+    min-width: 180px;
+}
+
 @media (max-width: 768px) {
     .toneSelectorLabel {
         display: none;
     }
 
     .selectWrapper {
-        min-width: 140px !important;
+        min-width: 140px;
     }
-}
-
-.selectWrapper {
-    min-width: 180px;
 }

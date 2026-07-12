@@ -1,4 +1,6 @@
-/* Reviews wall — auto-scroll carousel */
+/* Reviews wall — auto-scroll carousel. Todo (título, muro, formulario) vive
+   dentro del mismo .lp-section-inner que las demás secciones del landing:
+   sin full-bleed ni anchos especiales. */
 .lp-reviews-wall {
     overflow: hidden;
 }
@@ -29,13 +31,24 @@
 
 .lp-reviews-wall-title {
     margin: 0;
-    font-family: var(--font-family-body);
-    font-size: 2.5rem;
+    font-family: var(--font-family-display);
+    font-size: var(--lp-section-title-size);
     font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
+    font-optical-sizing: auto;
+    font-variation-settings: 'opsz' 56;
+    line-height: var(--lp-section-title-line);
+    letter-spacing: -0.035em;
     color: #ffffff;
-    max-width: none;
+    max-width: 24ch;
+    text-wrap: balance;
+}
+
+.lp-reviews-wall-subtitle {
+    margin: 4px 0 0;
+    font-family: var(--font-family-body);
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.4;
 }
 
 .lp-reviews-wall-summary {
@@ -64,22 +77,22 @@
 .lp-reviews-wall-viewport {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
+    gap: 20px;
     height: 520px;
     overflow: hidden;
     mask-image: linear-gradient(
         to bottom,
-        transparent 0%,
-        #000 10%,
-        #000 90%,
-        transparent 100%
+        transparent,
+        #000 12%,
+        #000 88%,
+        transparent
     );
     -webkit-mask-image: linear-gradient(
         to bottom,
-        transparent 0%,
-        #000 10%,
-        #000 90%,
-        transparent 100%
+        transparent,
+        #000 12%,
+        #000 88%,
+        transparent
     );
 }
 
@@ -96,10 +109,19 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding-top: var(--col-stagger, 0);
+    /* Offset inicial por columna (0 / -60px / -120px): margen negativo, no
+       padding, para que el arranque de cada columna quede desfasado a propósito. */
+    margin-top: var(--col-stagger, 0px);
     animation: lp-reviews-scroll-up var(--scroll-duration, 45s) linear infinite;
-    animation-delay: var(--scroll-delay, 0s);
+    animation-direction: var(--scroll-direction, normal);
     will-change: transform;
+}
+
+/* Altura mínima que garantiza que 3 tarjetas + gaps (≥602px) superan la altura
+   del viewport del muro con cualquier offset: el clon del loop nunca es visible
+   a la vez que su original. No bajar sin recalcular ese margen. */
+.lp-reviews-scroll-col .lp-social-card {
+    min-height: 190px;
 }
 
 @keyframes lp-reviews-scroll-up {
@@ -107,15 +129,17 @@
     to { transform: translateY(-50%); }
 }
 
+/* Misma piel que las tarjetas del landing (vocabulary-first / demo del hero):
+   radio 40px, borde blanco sutil y fondo oscuro semi-transparente. */
 .lp-social-card {
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
     gap: 12px;
     padding: 18px 20px;
-    border-radius: 16px;
-    border: 1px solid rgba(125, 119, 221, 0.22);
-    background: rgba(8, 4, 12, 0.88);
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(8, 4, 10, 0.55);
     box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.04) inset,
         0 8px 24px rgba(0, 0, 0, 0.28);
@@ -261,5 +285,103 @@
 @media (prefers-reduced-motion: reduce) {
     .lp-reviews-scroll-track {
         animation: none;
+    }
+}
+
+/* Empty state decoration */
+.lp-reviews-empty-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 40px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.lp-reviews-empty-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0) 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.lp-reviews-empty-icon-wrap {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    margin-bottom: 24px;
+    color: #a78bfa;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+.lp-reviews-empty-icon {
+    font-size: 2rem;
+}
+
+.lp-reviews-empty-title {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 10px;
+    font-family: var(--font-family-body);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.lp-reviews-empty-desc {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 24px;
+    font-family: var(--font-family-body);
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 400px;
+    line-height: 1.5;
+}
+
+.lp-reviews-empty-badge {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    padding: 6px 16px;
+    background: rgba(167, 139, 250, 0.1);
+    border: 1px solid rgba(167, 139, 250, 0.25);
+    border-radius: 100px;
+    color: #c084fc;
+    font-family: var(--font-family-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    animation: pulse-glow 2.5s infinite ease-in-out;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        opacity: 0.9;
+        box-shadow: 0 0 0 0 rgba(167, 139, 250, 0);
+    }
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 12px 2px rgba(167, 139, 250, 0.15);
     }
 }

@@ -36,7 +36,7 @@ import { extractFirstPendingImage } from '../useCases/deckPreview';
  * que invalide una entrada. Sin TTL, una imagen regenerada en otra pantalla
  * quedaría "pegada" en el dashboard hasta un full reload. Con TTL corto el
  * Map se autolimpia solo, sin acoplar módulos ni sumar carga al backend
- * (mismo patrón de `STATIC_COUNTS_TTL` en `mod_flashcards/src/lib.rs`).
+ * La caché es pequeña y solo cubre los decks recomendados visibles.
  * ───────────────────────────────────────────────────────────────────────────
  */
 const FIRST_IMAGE_CACHE_TTL_MS = 2 * 60 * 1000;

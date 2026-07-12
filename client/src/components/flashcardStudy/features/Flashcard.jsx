@@ -7,7 +7,7 @@ import CardBack from './CardBack.jsx';
 import { useUIContext } from '../../../context/UIContext';
 import { useDialog } from '../../../context/DialogContext';
 import { useFlashcardUiContext, useFlashcardContext, useCategoryContext } from '../context/flashcardStudyContext';
-import { getCardTitle, getAudioLang, getAudioLangForConjugation, getStudyExampleText, isLearningEnglish } from './cardLanguageUtils';
+import { getCardTitle, getAudioLang, getAudioLangForConjugation, getStudyExampleText } from './cardLanguageUtils';
 import { registerUiBridgeHandler, unregisterUiBridgeHandler } from '../uiBridge';
 import { useAuth } from '../../../context/AuthContext';
 
@@ -57,6 +57,7 @@ function Flashcard() {
         updateCardImagePath,
         isLandingDemo = false,
         demoStudyLanguage,
+        demoSelection,
     } = useFlashcardContext();
     const cardLanguage = isLandingDemo && demoStudyLanguage ? demoStudyLanguage : studyLanguage;
     const [prevCardId, setPrevCardId] = useState(null);
@@ -120,7 +121,10 @@ function Flashcard() {
     const buildAllBlurred = useCallback((form = activeForm) => {
         if (!cardData) return {};
         const defs = getDefinitionsForForm(cardData, form);
-        return defs.reduce((acc, _, i) => ({ ...acc, [i]: true }), {});
+        return defs.reduce((acc, _, i) => ({
+            ...acc,
+            [i]: isLandingDemo ? i !== 0 : true,
+        }), {});
     }, [cardData, activeForm, isLandingDemo]);
 
     const revealDefinition = useCallback((defIndex, form = activeForm) => {
@@ -144,6 +148,12 @@ function Flashcard() {
 
     const handleToggleBlur = useCallback((defIndex) => {
         setBlurredState(prev => {
+            if (isLandingDemo) {
+                ensureImageForDefinition(defIndex);
+                if (!cardData) return prev;
+                const defs = getDefinitionsForForm(cardData, activeForm);
+                return defs.reduce((acc, _, i) => ({ ...acc, [i]: i !== defIndex }), {});
+            }
             const isCurrentlyBlurred = prev[defIndex] !== false;
             if (isCurrentlyBlurred) {
                 ensureImageForDefinition(defIndex);
@@ -153,7 +163,7 @@ function Flashcard() {
             }
             return { ...prev, [defIndex]: true };
         });
-    }, [ensureImageForDefinition, cardData, activeForm]);
+    }, [ensureImageForDefinition, cardData, activeForm, isLandingDemo]);
 
     const prefetchCardAudio = useCallback((card) => {
         if (!card || isAnyOverlayOpen || isLandingDemo) return;
@@ -220,6 +230,23 @@ function Flashcard() {
     }, [activeForm, cardData, buildAllBlurred]);
 
     useEffect(() => {
+        if (!isLandingDemo || !demoSelection || cardData?.id !== demoSelection.cardId) return;
+
+        const form = demoSelection.form || 'v1';
+        const defIndex = demoSelection.defIndex ?? 0;
+        setIsFlipped(false);
+        setActiveForm(form);
+        revealDefinition(defIndex, form);
+        ensureImageForForm(form, defIndex);
+    }, [
+        cardData?.id,
+        demoSelection,
+        ensureImageForForm,
+        isLandingDemo,
+        revealDefinition,
+    ]);
+
+    useEffect(() => {
         const blurAllPhrases = () => {
             setBlurredState(buildAllBlurred(activeForm));
         };
@@ -282,10 +309,23 @@ function Flashcard() {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
-    if (!cardData) return <div className={styles.flashcardContainer}>Cargando datos...</div>;
+    const visualVariant = isLandingDemo ? 'demo' : 'app';
+
+    if (!cardData) {
+        return (
+            <div className={styles.flashcardContainer} data-variant={visualVariant} data-state="loading">
+                Cargando datos...
+            </div>
+        );
+    }
 
     return (
-        <div className={styles.flashcardContainer} data-tour="flashcard-contenedor">
+        <div
+            className={styles.flashcardContainer}
+            data-tour="flashcard-contenedor"
+            data-variant={visualVariant}
+            data-state="ready"
+        >
             <div
                 className={`${styles.card} ${isFlipped ? styles.flipped : ''}`}
                 onClick={() => {
@@ -294,10 +334,19 @@ function Flashcard() {
                 }}
                 data-tour="boton-voltear-tarjeta"
                 data-flipped={isFlipped ? 'true' : 'false'}
+                data-state={isFlipped ? 'back' : 'front'}
                 role="button"
+                tabIndex={isImageLoading ? -1 : 0}
                 aria-pressed={isFlipped}
                 aria-label={language === 'es' ? 'Voltear tarjeta' : 'Flip card'}
                 style={{ cursor: isImageLoading ? 'wait' : 'pointer' }}
+                onKeyDown={(event) => {
+                    if (isImageLoading) return;
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        setIsFlipped((previous) => !previous);
+                    }
+                }}
             >
 
 

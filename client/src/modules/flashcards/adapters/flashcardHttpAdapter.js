@@ -9,7 +9,7 @@ export function createFlashcardHttpAdapter(httpClient) {
 
     return {
         fetchCategories: (courseDirection = 'es_en') =>
-            httpClient.get(`/api/categories?course_direction=${encodeURIComponent(normalizeCourseDirection(courseDirection))}`),
+            httpClient.get(`/api/categories?course_direction=${encodeURIComponent(normalizeCourseDirection(courseDirection))}&include_counts=true`),
 
         fetchDecksForCategory: (category, courseDirection = 'es_en') =>
             httpClient.get(

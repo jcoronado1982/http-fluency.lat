@@ -6,7 +6,10 @@ import config from '../config';
 import { getAuthenticatedHomePath } from '../modules';
 import { useAuth } from '../context/AuthContext';
 import { useUIContext } from '../context/UIContext';
-import { markDemoFeedbackReturn } from '../utils/demoFeedbackStorage';
+import {
+    hasDemoFeedbackReturn,
+    markDemoFeedbackReturn,
+} from '../utils/demoFeedbackStorage';
 import { shouldShowOnboarding } from '../utils/onboardingStorage';
 import PageLoader from '../components/common/PageLoader';
 import ShellFooter from '../components/shell/ShellFooter';
@@ -31,8 +34,9 @@ const LOGIN_LOADING_COPY = {
 const LOGIN_COPY = {
     es: {
         brand: 'Fluency',
-        subtitle: 'Inicia sesión para continuar',
-        demoSubtitle: 'Inicia sesión para enviar tu comentario sobre el demo.',
+        welcome: 'Bienvenido a Fluency',
+        subtitle: 'Un clic y estás dentro.',
+        trust: 'Sin contraseña. Sin spam. Gratis para empezar.',
         or: 'o',
         apple: 'Continuar con Apple',
         appleSoon: 'Próximamente',
@@ -42,8 +46,9 @@ const LOGIN_COPY = {
     },
     en: {
         brand: 'Fluency',
-        subtitle: 'Sign in to continue',
-        demoSubtitle: 'Sign in to send your feedback about the demo.',
+        welcome: 'Welcome to Fluency',
+        subtitle: "One click and you're in.",
+        trust: 'No password. No spam. Free to start.',
         or: 'or',
         apple: 'Sign in with Apple',
         appleSoon: 'Coming soon',
@@ -84,7 +89,7 @@ function LangToggle({ language, setLanguage }) {
 }
 
 const LoginPage = () => {
-    const { login, isAuthenticated, loading, user } = useAuth();
+    const { login, loginWithApple, isAuthenticated, loading, user } = useAuth();
     const { language = 'en', setLanguage } = useUIContext();
     const navigate = useNavigate();
     const location = useLocation();
@@ -92,10 +97,15 @@ const LoginPage = () => {
     const callbackRef = useRef(null);
     const shellRoutes = [{ path: '/admin', enabled: config.features.admin }];
     const defaultPath = getAuthenticatedHomePath(config, shellRoutes);
-    const demoFeedbackReturn = Boolean(location.state?.demoFeedbackReturn);
+    // El state de React Router puede perderse al recargar o durante el flujo
+    // externo de autenticación. La marca de sessionStorage conserva la
+    // intención original: este login se inició para publicar un comentario.
+    const demoFeedbackReturn = Boolean(
+        location.state?.demoFeedbackReturn || hasDemoFeedbackReturn(),
+    );
     const targetPath = useMemo(
         () => (demoFeedbackReturn
-            ? { pathname: '/', hash: 'demo' }
+            ? { pathname: '/', hash: 'reviews' }
             : (location.state?.from || defaultPath)),
         [demoFeedbackReturn, location.state?.from, defaultPath],
     );
@@ -108,15 +118,60 @@ const LoginPage = () => {
     );
 
     useEffect(() => {
+        // Cargar SDK de autenticación de Apple
+        if (!document.getElementById('apple-auth-sdk')) {
+            const script = document.createElement('script');
+            script.id = 'apple-auth-sdk';
+            script.src = 'https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js';
+            script.async = true;
+            document.body.appendChild(script);
+        }
+    }, []);
+
+    const handleAppleLogin = async () => {
+        if (!window.AppleID) {
+            console.error('Apple SDK not loaded');
+            return;
+        }
+        try {
+            window.AppleID.auth.init({
+                clientId: import.meta.env.VITE_APPLE_CLIENT_ID || 'lat.fluency.client',
+                scope: 'name email',
+                redirectURI: window.location.origin + '/login',
+                usePopup: true,
+            });
+            const response = await window.AppleID.auth.signIn();
+            const idToken = response.authorization.id_token;
+
+            let userName = null;
+            if (response.user && response.user.name) {
+                const { firstName, lastName } = response.user.name;
+                userName = [firstName, lastName].filter(Boolean).join(' ');
+            }
+
+            const authData = await loginWithApple(idToken, userName);
+            if (demoFeedbackReturn) {
+                markDemoFeedbackReturn();
+            }
+            const nextPath = demoFeedbackReturn
+                ? targetPath
+                : (shouldShowOnboarding(authData?.user) ? '/onboarding' : targetPath);
+            navigate(nextPath, { replace: true, state: nextPath === '/onboarding' ? undefined : targetState });
+        } catch (error) {
+            console.error('Apple login failed', error);
+        }
+    };
+
+    useEffect(() => {
         callbackRef.current = async (response) => {
             try {
                 const authData = await login(response.credential);
                 if (demoFeedbackReturn) {
                     markDemoFeedbackReturn();
                 }
-                const nextPath = shouldShowOnboarding(authData?.user)
-                    ? '/onboarding'
-                    : targetPath;
+                const nextPath = demoFeedbackReturn
+                    ? targetPath
+                    : (shouldShowOnboarding(authData?.user) ? '/onboarding' : targetPath);
                 navigate(nextPath, { replace: true, state: nextPath === '/onboarding' ? undefined : targetState });
             } catch {
                 console.error('Login failed');
@@ -129,11 +184,13 @@ const LoginPage = () => {
         const onLoginPage = location.pathname === '/login';
         const onLandingForFeedback = demoFeedbackReturn
             && location.pathname === '/'
-            && (location.hash === '#demo' || location.hash === '');
+            && (location.hash === '#reviews' || location.hash === '');
         if (!onLoginPage && onLandingForFeedback) return;
         if (!demoFeedbackReturn && location.pathname === targetPath && !shouldShowOnboarding(user)) return;
-        if (demoFeedbackReturn && location.pathname === '/' && location.hash === '#demo') return;
-        const nextPath = shouldShowOnboarding(user) ? '/onboarding' : targetPath;
+        if (demoFeedbackReturn && location.pathname === '/' && location.hash === '#reviews') return;
+        const nextPath = demoFeedbackReturn
+            ? targetPath
+            : (shouldShowOnboarding(user) ? '/onboarding' : targetPath);
         if (!demoFeedbackReturn && location.pathname === nextPath) return;
         navigate(nextPath, { replace: true, state: nextPath === '/onboarding' ? undefined : targetState });
     }, [
@@ -176,16 +233,18 @@ const LoginPage = () => {
             });
         };
 
+        let retries = 0;
         const initGoogle = () => {
             if (window.google?.accounts?.id && googleBtnRef.current) {
-                if (!window.google_initialized) {
-                    window.google.accounts.id.initialize({
-                        client_id: GOOGLE_CLIENT_ID,
-                        callback: handleCallbackResponse,
-                        use_fedcm_for_prompt: false,
-                    });
-                    window.google_initialized = true;
-                }
+                // Google conserva globalmente la ultima configuracion de
+                // initialize(). Hay que registrar el callback de este montaje:
+                // el anterior puede pertenecer a un login normal ya desmontado
+                // y perder la intencion de volver al formulario de comentarios.
+                window.google.accounts.id.initialize({
+                    client_id: GOOGLE_CLIENT_ID,
+                    callback: handleCallbackResponse,
+                    use_fedcm_for_prompt: false,
+                });
 
                 renderGoogleButton();
 
@@ -193,8 +252,11 @@ const LoginPage = () => {
                     resizeObserver = new ResizeObserver(renderGoogleButton);
                     resizeObserver.observe(googleBtnRef.current);
                 }
-            } else if (isMounted) {
+            } else if (isMounted && retries < 25) {
+                retries++;
                 setTimeout(initGoogle, 200);
+            } else if (!window.google?.accounts?.id) {
+                console.warn('Google Identity Services SDK could not be loaded (offline?).');
             }
         };
 
@@ -232,28 +294,30 @@ const LoginPage = () => {
             </header>
 
             <main className="login-main">
-                <div className="login-panel">
-                    <p className="login-subtitle">
-                        {demoFeedbackReturn ? loginCopy.demoSubtitle : loginCopy.subtitle}
-                    </p>
+                <div className="login-stage">
+                    <div className="login-panel">
+                        <h1 className="login-title">{loginCopy.welcome}</h1>
+                        <p className="login-subtitle">{loginCopy.subtitle}</p>
 
-                    <div className="login-auth">
-                        <div className="google-btn-container" ref={googleBtnRef} />
+                        <div className="login-auth">
+                            <div className="google-btn-container" ref={googleBtnRef} />
+                            <p className="login-trust">{loginCopy.trust}</p>
 
-                        <div className="login-or" role="separator" aria-label={loginCopy.or}>
-                            <span>{loginCopy.or}</span>
+                            {/*
+                            <div className="login-or" role="separator" aria-label={loginCopy.or}>
+                                <span>{loginCopy.or}</span>
+                            </div>
+
+                            <button
+                                type="button"
+                                className="login-apple-btn"
+                                onClick={handleAppleLogin}
+                            >
+                                <AppleIcon />
+                                <span>{loginCopy.apple}</span>
+                            </button>
+                            */}
                         </div>
-
-                        <button
-                            type="button"
-                            className="login-apple-btn"
-                            disabled
-                            aria-disabled="true"
-                            title={loginCopy.appleSoon}
-                        >
-                            <AppleIcon />
-                            <span>{loginCopy.apple}</span>
-                        </button>
                     </div>
                 </div>
             </main>
@@ -266,11 +330,6 @@ const LoginPage = () => {
                     github: loginCopy.footerGithub,
                 }}
             />
-
-            <div className="login-bg-glow login-bg-glow-top" aria-hidden="true" />
-            <div className="bg-blob blob-1" aria-hidden="true" />
-            <div className="bg-blob blob-2" aria-hidden="true" />
-            <div className="login-bg-vignette" aria-hidden="true" />
         </div>
     );
 };

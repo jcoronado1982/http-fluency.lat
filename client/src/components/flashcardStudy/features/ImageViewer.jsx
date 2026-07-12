@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styles from './Flashcard.module.css';
+import styles from './ImageViewer.module.css';
 import { FaTimes, FaUpload, FaSyncAlt } from 'react-icons/fa';
 import { FiCpu } from 'react-icons/fi';
 
@@ -8,13 +8,11 @@ import { FiCpu } from 'react-icons/fi';
  * SRP: no conoce lógica de formas verbales ni audio.
  */
 function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl, imageRef, altText, onDelete, onRegenerate, onUploadClick, onImageError, canCustomizeImages, canDeleteImages = canCustomizeImages, isDisabled, imageKey, isLandingDemo = false }) {
-    console.log('[ImageViewer] props:', { isImageLoading, isGeneratingImage, isUploading, imageUrl });
     const isProcessActive = isImageLoading || isUploading;
     const [isDecoding, setIsDecoding] = useState(true);
     const activeUrlRef = useRef(imageUrl);
 
     const handleImageLoad = () => {
-        console.log('[ImageViewer] handleImageLoad');
         setIsDecoding(false);
     };
 
@@ -67,7 +65,10 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
     };
 
     return (
-        <div className={styles.imagePlaceholder}>
+        <div
+            className={styles.imagePlaceholder}
+            data-state={showLoader ? 'loading' : imageUrl ? 'ready' : 'empty'}
+        >
             {/* Controles: eliminar o subir */}
             {(canDeleteImages || canCustomizeImages) && (
                 <div className={styles.imageControls}>
@@ -123,7 +124,7 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
 
             {/* Animación de Carga (Superpuesta) */}
             {showLoader && (
-                <div className={styles.imageLoadingOverlay} style={{ position: 'absolute', zIndex: 10, width: '100%', height: '100%' }}>
+                <div className={styles.imageLoadingOverlay}>
                     <div className={styles.loaderVisualContainer}>
                         <div className={styles.aiLoaderGlow} />
                         <div className={styles.aiLoaderCircle} />
@@ -148,13 +149,7 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
                     alt={altText || 'Flashcard image'}
                     onLoad={handleImageLoad}
                     onError={handleImageError}
-                    style={{
-                        opacity: isDecoding ? 0 : 1,
-                        transition: 'opacity 0.3s ease-in-out',
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover' // Asegura que cubra el placeholder
-                    }}
+                    style={{ '--image-opacity': isDecoding ? 0 : 1 }}
                 />
             ) : !isProcessActive && !isLandingDemo && (
                 <img

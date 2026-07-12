@@ -14,6 +14,15 @@ class AuthRepository {
         }
     }
 
+    async loginWithApple(idToken, name) {
+        try {
+            return await httpClient.post('/api/auth/apple', { id_token: idToken, name });
+        } catch (error) {
+            console.error('Error logging in with Apple:', error);
+            throw error;
+        }
+    }
+
     saveAuthData(data) {
         localStorage.setItem('auth_token', data.token);
         localStorage.setItem('auth_user', JSON.stringify(data.user));

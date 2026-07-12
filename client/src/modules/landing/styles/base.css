@@ -8,6 +8,12 @@
 
 .lp {
     --lp-section-inline-padding: 20px;
+    /* Escala editorial compartida por los encabezados de las secciones.
+       Queda claramente por debajo del hero, pero evita que cada bloque parezca
+       pertenecer a un sistema tipografico distinto. */
+    --lp-section-title-size: clamp(2.5rem, 3.2vw, 3rem);
+    --lp-section-title-line: 1.04;
+    --lp-cta-title-size: clamp(3.25rem, 3.6vw, 3.5rem);
     --c-bg: #0d0509;
     --c-bg2: #140810;
     --c-rose: #be185d;
@@ -34,9 +40,9 @@
     overflow-x: hidden;
     /*
      * Gradiente maestro — un solo fondo continuo, sin líneas.
-     *   26-54%  feedback/reseñas  → negro
-     *   54-72%  vocabulary-first → burdeos (sección propia)
-     *   72-90%  everything-you-need → negro/gris
+     *   26-58%  feedback/reseñas  → negro
+     *   58-74%  vocabulary-first → burdeos (sección propia)
+     *   76-90%  everything-you-need → negro/gris
      *   90-98%  CTA tail → burdeos intenso
      */
     background: linear-gradient(
@@ -48,19 +54,19 @@
         #080307  26%,
         #040104  32%,
         #000000  40%,
-        #000000  52%,
-        #010001  54%,
-        #040104  56%,
-        #080307  58%,
-        #0d0509  61%,
-        #11070f  64%,
-        #140810  67%,
-        #140810  70%,
-        #130810  72%,
-        #0e060c  74%,
-        #060205  76%,
-        #020102  78%,
-        #000000  80%,
+        #000000  55%,
+        #010001  58%,
+        #040104  60%,
+        #080307  62%,
+        #0d0509  65%,
+        #11070f  68%,
+        #140810  71%,
+        #140810  74%,
+        #130810  76%,
+        #0e060c  78%,
+        #060205  80%,
+        #020102  82%,
+        #000000  84%,
         #000000  88%,
         #010001  90%,
         #030103  92%,
@@ -127,6 +133,7 @@ main,
 }
 
 /* ── NAV ── */
+#how-it-works,
 #demo,
 #reviews,
 #vocabulary-first {

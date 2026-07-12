@@ -76,6 +76,10 @@ function CardFront({
 
     const displayData = (DISPLAY_DATA_MAP[activeForm] || DISPLAY_DATA_MAP.v1)(cardData);
     const isDisabled  = isImageLoading || isUploading || isGeneratingAudio;
+    const visualVariant = isLandingDemo ? 'demo' : 'app';
+    const visualLayout = cardData.irregular && (isLearningEnglish(currentLanguage) || isLandingDemo)
+        ? 'conjugation'
+        : 'standard';
 
     const handleFileChange = async (e) => {
         e.stopPropagation();
@@ -102,7 +106,12 @@ function CardFront({
 
     const title = getCardTitle(displayData, currentLanguage);
     return (
-        <div className={styles.cardFront}>
+        <div
+            className={styles.cardFront}
+            data-fc-face="front"
+            data-variant={visualVariant}
+            data-layout={visualLayout}
+        >
             {/* Nombre + botón borrar audio */}
             <div className={styles.wordHeader}>
                 <button
@@ -129,6 +138,7 @@ function CardFront({
                     {isAdmin && !(isGeneratingAudio && activeAudioText === title) && (
                         <button
                             className={styles.rotateVoiceBtn}
+                            data-fc-btn="voice"
                             onClick={(e) => handleRotateVoice(e, title, getAudioLang(currentLanguage))}
                             title="Actualizar voz aleatoria"
                             disabled={isDisabled}
@@ -136,7 +146,7 @@ function CardFront({
                             <FiRefreshCw size={24} strokeWidth={2.5} />
                         </button>
                     )}
-                    {isLearningEnglish(currentLanguage) && (
+                    {(isLearningEnglish(currentLanguage) || isLandingDemo) && (
                         <>
                             <span className={styles.phonetic}>{displayData.phonetic}</span>
                             <button
@@ -161,6 +171,7 @@ function CardFront({
                 activeAudioText={activeAudioText}
                 isGeneratingAudio={isGeneratingAudio}
                 currentLanguage={currentLanguage}
+                isLandingDemo={isLandingDemo}
             />
 
             {/* Lista de definiciones (componente propio) */}

@@ -89,6 +89,35 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const loginWithApple = async (idToken, name) => {
+        const data = await authRepository.loginWithApple(idToken, name);
+        if (!data.success) return data;
+
+        authRepository.saveAuthData(data);
+        setUser(data.user);
+
+        try {
+            const me = await httpClient.get('/api/auth/me');
+            const syncedUser = {
+                ...data.user,
+                role: me.effective_role || data.user.role,
+                onboarding_completed: resolveOnboardingCompleted(
+                    data.user,
+                    me.onboarding_completed === true,
+                ),
+                catalog_preferences: me.catalog_preferences ?? null,
+            };
+            notifyAuthUserSynced(config, syncedUser);
+            const next = { ...data, user: syncedUser };
+            authRepository.saveAuthData(next);
+            setUser(syncedUser);
+            return next;
+        } catch (err) {
+            console.warn('No se pudo sincronizar onboarding desde /api/auth/me:', err);
+            return data;
+        }
+    };
+
     const loginAsGuest = async () => {
         if (!import.meta.env.DEV) {
             console.warn('Guest login is only available in development mode.');
@@ -195,6 +224,7 @@ export const AuthProvider = ({ children }) => {
         loading,
         loadingStage,
         login,
+        loginWithApple,
         loginAsGuest,
         logout,
         isAuthenticated: !!user,

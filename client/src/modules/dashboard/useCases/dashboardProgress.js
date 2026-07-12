@@ -197,7 +197,6 @@ export function computeDashboardLevelProgress(stats, language = 'en') {
 
     // DEBUG: si el número es sospechosamente bajo (el fallback 1237), loguear.
     if (totalCardsInLevel === current.targetCount && matchedDecks.length === 0) {
-        // eslint-disable-next-line no-console
         console.warn(
             `[dashboardProgress] level ${current.id}: decks_progress vacío o no matcheó prefix "${levelPrefix}".`,
             'matchedDecks:', matchedDecks.length, 'fallback:', current.targetCount,
@@ -226,14 +225,14 @@ export function computeDashboardLevelProgress(stats, language = 'en') {
 function getLevelDeckPrefix(levelId) {
     switch (levelId) {
         case 'A1':
-            return '1-basic';
+            return '1-basic/';
         case 'A2':
-            return '2-intermediate';
+            return '2-intermediate/';
         case 'B1':
         case 'B2':
-            return '3-advanced';
+            return '3-advanced/';
         default:
-            return '1-basic';
+            return '1-basic/';
     }
 }
 
@@ -358,7 +357,7 @@ function mapDecksProgress(decksProgress) {
 }
 
 /**
- * Devuelve el primer mazo (mazo #1) de una categoría a partir de los decks
+ * Devuelve el siguiente mazo pendiente de una categoría a partir de los decks
  * reales del usuario, usando el orden curado de `sortDeckNames` (nivel +
  * orden por categoría). Con `levelPrefix` (ej. '1-basic') restringe al nivel
  * del usuario si esa categoría tiene decks en ese nivel.
@@ -368,13 +367,13 @@ function mapDecksProgress(decksProgress) {
  * display ("Subject", "Being & State", "Poss. Adjective") que NUNCA coinciden
  * con los nombres de archivo del backend ("subject_pronouns", "being_state").
  * La versión anterior hacía ese match y las recomendaciones quedaban vacías o
- * sin imagen. El mazo #1 se deriva SIEMPRE de los decks reales
+ * sin imagen. La secuencia se deriva SIEMPRE de los decks reales
  * (`stats.decks_progress`, nombres de archivo) ordenados con `sortDeckNames`.
  * Las imágenes de las tarjetas las resuelve `useDeckFirstImages` leyendo el
  * JSON del propio deck (ver ese hook para el detalle completo).
  * ───────────────────────────────────────────────────────────────────────────
  */
-function getFirstDeckOfCategory(userDecks, categoryName, levelPrefix = null) {
+function getNextDeckOfCategory(userDecks, categoryName, levelPrefix = null) {
     const normalizedCat = categoryName.toLowerCase();
     let decks = userDecks.filter((d) => d.normalizedCategory === normalizedCat);
     if (decks.length === 0) return null;
@@ -385,13 +384,30 @@ function getFirstDeckOfCategory(userDecks, categoryName, levelPrefix = null) {
     }
 
     const sorted = sortDeckNames(decks.map((d) => d.deckName), normalizedCat);
-    const firstName = (sorted[0] || '').toLowerCase();
-    return decks.find((d) => d.normalizedName === firstName) || decks[0];
+    const orderedDecks = sorted
+        .map((name) => decks.find((deck) => deck.normalizedName === name.toLowerCase()))
+        .filter(Boolean);
+    return orderedDecks.find((deck) => deck.progressPercent < 100)
+        || orderedDecks[0]
+        || decks[0];
+}
+
+function getDynamicCategoryEntries(userDecks = []) {
+    const entries = [...CATALOG_CATEGORIES];
+    const known = new Set(entries.map((entry) => entry.name.toLowerCase()));
+    for (const deck of userDecks) {
+        const name = deck.category;
+        if (!name || known.has(name.toLowerCase())) continue;
+        known.add(name.toLowerCase());
+        entries.push({ name, decks: {} });
+    }
+    return entries;
 }
 
 export function getDashboardQuickAccessItems({
-    _levelId,
-    _currentCategory = null,
+    levelId,
+    currentCategory = null,
+    currentDeck = null,
     language = 'en',
     limit = 3,
     stats = null,
@@ -424,51 +440,87 @@ export function getDashboardQuickAccessItems({
         }
     }
 
-    // 2. Identify the absolute first deck (mazo #1) of each category.
-    // Se resuelve contra los decks reales del usuario (nombres de archivo del
-    // backend), no contra los nombres display del catálogo, para que el match
-    // traiga `firstImagePath` y un deck abrible.
+    // 2. Identifica el primer mazo todavía incompleto de cada categoría.
     const rule2Candidates = [];
-    for (const catEntry of CATALOG_CATEGORIES) {
-        const match = getFirstDeckOfCategory(userDecks, catEntry.name);
+    for (const catEntry of getDynamicCategoryEntries(userDecks)) {
+        const match = getNextDeckOfCategory(userDecks, catEntry.name);
         if (match) {
             rule2Candidates.push(match);
         }
     }
 
     const selected = [];
+    const excludeCat = currentCategory ? currentCategory.toLowerCase() : null;
+    const excludeDk = currentDeck ? currentDeck.replace('.json', '').toLowerCase() : null;
+
+    const isCurrentActive = (deck) => {
+        const normName = deck.normalizedName;
+        const normCat = deck.normalizedCategory;
+        const isSameDeck = excludeDk && (normName === excludeDk || deck.deckName.toLowerCase().replace('.json', '') === excludeDk);
+        const isSameCat = excludeCat && normCat === excludeCat;
+        return { isSameDeck, isSameCat };
+    };
+
+    const tryAdd = (deck, skipCategoryCheck = false) => {
+        if (selected.some(s => s.category === deck.category && s.deckName === deck.deckName)) {
+            return false;
+        }
+        const { isSameDeck, isSameCat } = isCurrentActive(deck);
+        if (isSameDeck) return false;
+        if (isSameCat && !skipCategoryCheck) return false;
+        selected.push(deck);
+        return true;
+    };
 
     // Rule 1: Select decks in progress (progress > 0% and < 100%), sorted by last_touched descending (most recent first)
     const inProgress = userDecks.filter(d => d.progressPercent > 0 && d.progressPercent < 100);
     inProgress.sort((a, b) => b.lastTouched - a.lastTouched);
 
+    // --- PASS 1: Exclude both the current deck and the current category ---
     for (const deck of inProgress) {
-        if (selected.length >= 4) break;
-        selected.push(deck);
+        if (selected.length >= limit) break;
+        tryAdd(deck, false);
     }
 
     // Rule 2: Complete the remaining slots using Rule 2 Candidates that are NOT completed (progress < 100%)
-    if (selected.length < 4) {
+    if (selected.length < limit) {
         for (const deck of rule2Candidates) {
-            if (selected.length >= 4) break;
-            if (selected.some(s => s.category === deck.category && s.deckName === deck.deckName)) {
-                continue;
+            if (selected.length >= limit) break;
+            if (deck.progressPercent < 100) {
+                tryAdd(deck, false);
             }
-            if (deck.progressPercent === 100) {
-                continue;
-            }
-            selected.push(deck);
         }
     }
 
     // Rule 3: Complete remaining slots using completed Rule 2 Candidates (progress === 100%), in category order
-    if (selected.length < 4) {
+    if (selected.length < limit) {
         for (const deck of rule2Candidates) {
-            if (selected.length >= 4) break;
-            if (selected.some(s => s.category === deck.category && s.deckName === deck.deckName)) {
-                continue;
+            if (selected.length >= limit) break;
+            tryAdd(deck, false);
+        }
+    }
+
+    // --- PASS 2: Fallback (if we still need items, relax category filter but keep deck filter) ---
+    if (selected.length < limit) {
+        for (const deck of inProgress) {
+            if (selected.length >= limit) break;
+            tryAdd(deck, true);
+        }
+    }
+
+    if (selected.length < limit) {
+        for (const deck of rule2Candidates) {
+            if (selected.length >= limit) break;
+            if (deck.progressPercent < 100) {
+                tryAdd(deck, true);
             }
-            selected.push(deck);
+        }
+    }
+
+    if (selected.length < limit) {
+        for (const deck of rule2Candidates) {
+            if (selected.length >= limit) break;
+            tryAdd(deck, true);
         }
     }
 
@@ -496,7 +548,10 @@ export function getDashboardCarouselItems({
     stats = null,
 } = {}) {
     const deckKey = getDeckKeyForLevel(levelId);
-    const entries = Array.isArray(CATALOG_CATEGORIES) ? [...CATALOG_CATEGORIES] : [];
+    const statsDecks = Array.isArray(stats?.decks_progress) && stats.decks_progress.length > 0
+        ? mapDecksProgress(stats.decks_progress)
+        : null;
+    const entries = getDynamicCategoryEntries(statsDecks || []);
     const currentIndex = currentCategory ? entries.findIndex((entry) => entry.name === currentCategory) : -1;
     const rotated = currentIndex >= 0
         ? [
@@ -505,17 +560,13 @@ export function getDashboardCarouselItems({
         ]
         : entries;
 
-    const statsDecks = Array.isArray(stats?.decks_progress) && stats.decks_progress.length > 0
-        ? mapDecksProgress(stats.decks_progress)
-        : null;
-
     const categoryItems = rotated
         .filter((entry) => entry.name !== currentSession?.category)
         .map((entry) => {
-            // Con stats reales resolvemos el mazo #1 del nivel del usuario para
+            // Con stats reales resolvemos el siguiente mazo pendiente del nivel para
             // obtener su nombre de archivo abrible y la primera imagen pendiente.
             const realDeck = statsDecks
-                ? getFirstDeckOfCategory(statsDecks, entry.name, deckKey)
+                ? getNextDeckOfCategory(statsDecks, entry.name, deckKey)
                 : null;
             const deckName = realDeck?.deckName || getFirstDeckName(entry, deckKey) || '';
             const deckLabel = realDeck

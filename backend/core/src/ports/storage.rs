@@ -4,6 +4,8 @@ use async_trait::async_trait;
 
 #[async_trait]
 pub trait StorageRepository: Send + Sync {
+    /// Manifiesto global generado durante build/deploy; contiene solo metadatos.
+    async fn get_catalog_manifest(&self) -> Result<Vec<u8>>;
     async fn list_categories_for_direction(&self, course_direction: &str) -> Result<Vec<String>>;
     async fn list_decks_for_direction(
         &self,

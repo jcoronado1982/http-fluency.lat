@@ -2,6 +2,7 @@
 .lp-hero {
     min-height: auto;
     display: flex;
+    flex-direction: column;
     align-items: center;
     padding: 52px 0 56px;
     position: relative;
@@ -20,58 +21,110 @@
 }
 
 .lp-hero-copy {
+    position: relative;
+    isolation: isolate;
     max-width: 100%;
 }
 
-.lp-hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    margin-bottom: 22px;
-    padding: 7px 16px;
-    border-radius: 999px;
-    border: 1px solid rgba(244,114,182,0.28);
-    background: rgba(244,114,182,0.03);
-    font-family: var(--font-family-body);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(244,114,182,0.88);
+.lp-hero-copy::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: min(38rem, 115%);
+    aspect-ratio: 1.35;
+    top: 42%;
+    left: 34%;
+    border-radius: 50%;
+    background: radial-gradient(
+        ellipse,
+        rgba(244, 114, 182, 0.15) 0%,
+        rgba(190, 24, 93, 0.07) 42%,
+        transparent 72%
+    );
+    filter: blur(24px);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
 }
 
 .lp-hero-title {
-    margin: 0 0 20px;
+    max-width: 100%;
+    margin: 0 0 26px;
     font-family: var(--font-family-display);
-    font-size: 3rem;
+    font-size: clamp(2.95rem, 3.7vw, 3.75rem);
     font-weight: 700;
     font-optical-sizing: auto;
-    font-variation-settings: 'opsz' 56;
-    line-height: 1.04;
-    letter-spacing: -0.024em;
+    font-variation-settings: 'opsz' 64;
+    line-height: 1.01;
+    letter-spacing: -0.036em;
+    text-wrap: balance;
+    background: linear-gradient(105deg, #ffffff 8%, #f9a8d4 48%, #fb923c 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 10px 30px rgba(244,114,182,0.1));
 }
 
 .lp-hero-title-line1 {
     display: block;
-    color: var(--color-text-primary);
 }
 
 .lp-hero-title-line2 {
     display: block;
-    margin-top: 0.02em;
-    background: linear-gradient(102deg, #ff4d8d 0%, #ff7e8a 45%, #ff9a7b 100%);
+    width: max-content;
+    max-width: 100%;
+    margin-top: 0.14em;
+    padding-bottom: 0.08em;
+    position: relative;
+    background: linear-gradient(105deg, #f9a8d4 0%, #ff8ca6 54%, #fb923c 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
+.lp-hero-title-line2::after {
+    content: '';
+    position: absolute;
+    right: 2%;
+    bottom: 0;
+    left: 2%;
+    height: 1px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, rgba(249,168,212,0.58), rgba(251,146,60,0.6), transparent);
+    box-shadow: 0 0 12px rgba(244,114,182,0.22);
+}
+
 .lp-hero-sub {
-    margin: 0 0 30px;
+    position: relative;
+    margin: 0 0 32px;
+    padding-left: 18px;
     font-family: var(--font-family-body);
-    color: rgba(245,245,245,0.85);
-    font-size: calc(1.25rem - 1px);
+    color: rgba(245,245,245,0.78);
+    font-size: clamp(1rem, 1.35vw, 1.15rem);
     font-weight: 400;
-    line-height: 1.65;
-    max-width: 36rem;
+    line-height: 1.72;
+    max-width: 35rem;
+}
+
+.lp-hero-sub::before {
+    content: '';
+    position: absolute;
+    top: 0.28em;
+    bottom: 0.28em;
+    left: 0;
+    width: 2px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #f472b6, #fb923c);
+    box-shadow: 0 0 14px rgba(244,114,182,0.32);
+}
+
+.lp-hero-sub > span {
+    display: block;
+}
+
+.lp-hero-sub-closing {
+    margin-top: 0.38rem;
+    color: rgba(255,255,255,0.94);
+    font-weight: 600;
 }
 
 .lp-hero-cta {
@@ -85,9 +138,65 @@
     font-family: var(--font-family-body);
     font-size: 0.9375rem;
     font-weight: 600;
-    min-height: 46px;
-    padding: 0.7rem 1.5rem;
+    min-height: 50px;
+    padding: 0.78rem 1.75rem;
     letter-spacing: 0.005em;
+    box-shadow: 0 15px 38px rgba(190,24,93,0.24), 0 0 0 1px rgba(255,255,255,0.06) inset;
+}
+
+.lp-hero-cta .lp-btn:hover {
+    box-shadow: 0 18px 44px rgba(190,24,93,0.32), 0 0 0 1px rgba(255,255,255,0.1) inset;
+}
+
+.lp-hero-demo-link::after {
+    content: '→';
+    margin-left: 9px;
+    font-size: 1.05em;
+    transition: transform 0.2s ease;
+}
+
+.lp-hero-demo-link:hover::after {
+    transform: translateX(3px);
+}
+
+.lp-hero-cta-note {
+    color: rgba(245,245,245,0.62);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+}
+
+.lp-hero-social-proof {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    text-decoration: none;
+}
+
+.lp-hero-social-proof-text {
+    color: rgba(245,245,245,0.7);
+    font-family: var(--font-family-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    transition: color 0.2s ease;
+}
+
+.lp-hero-social-proof-text::after {
+    content: '→';
+    margin-left: 5px;
+    font-size: 1.05em;
+    transition: transform 0.2s ease;
+    display: inline-block;
+}
+
+.lp-hero-social-proof:hover .lp-hero-social-proof-text {
+    color: rgba(245,245,245,0.94);
+}
+
+.lp-hero-social-proof:hover .lp-hero-social-proof-text::after {
+    transform: translateX(3px);
 }
 
 .lp-hero-cta .lp-btn--ghost {
@@ -108,35 +217,17 @@
     opacity: 0.75;
 }
 
-.lp-hero-trust {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 24px;
-    font-family: var(--font-family-body);
-    font-size: calc(0.95rem - 1px);
-    font-weight: 500;
-    color: rgba(245,245,245,0.7);
-    letter-spacing: 0.02em;
-}
-
-.lp-hero-trust-dot {
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: rgba(148,163,184,0.3);
-    flex-shrink: 0;
-}
-
 .lp-hero-demo {
     width: 100%;
     min-width: 0;
     max-width: 100%;
     align-self: center;
-    overflow: hidden;
+    /* El badge sobresale del borde superior de la tarjeta. */
+    overflow: visible;
 }
 
 [data-landing-demo] .flashcard-main-area {
+    --lp-demo-surface: linear-gradient(145deg, #1b0f1a 0%, #0f0911 100%);
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -146,10 +237,6 @@
     overflow: visible;
     margin-bottom: 0;
     gap: 0px;
-}
-
-[data-landing-demo] .controlsWrapper {
-    margin-top: 16px !important;
 }
 
 [data-landing-demo] .lp-demo-card-frame {
@@ -272,8 +359,8 @@
 
 [data-landing-demo] .lp-demo-badge {
     position: absolute;
-    top: 20px;
-    left: 18px;
+    top: 0;
+    left: 28px;
     z-index: 40;
     display: inline-flex;
     align-items: center;
@@ -339,7 +426,7 @@
     margin-bottom: 18px;
     border: 1px solid #334155;
     border-radius: 16px;
-    background: #1e293b;
+    background: linear-gradient(145deg, #1b0f1a 0%, #0f0911 100%);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     overflow: hidden;
 }
@@ -354,7 +441,7 @@
     padding: 6px 13px;
     border-radius: 10px;
     border: 1px solid #334155;
-    background: #1e293b;
+    background: linear-gradient(145deg, #1b0f1a 0%, #0f0911 100%);
     color: var(--c-muted);
     font-size: 0.76rem;
     font-weight: 500;
@@ -372,7 +459,7 @@
 .lp-demo-prompt-toggle:hover {
     border-color: #475569;
     color: var(--c-text);
-    background: #243044;
+    background: linear-gradient(145deg, #241322 0%, #140b16 100%);
 }
 
 .lp-demo-prompt--card.is-open .lp-demo-prompt-toggle {
@@ -385,7 +472,7 @@
     border-radius: 0;
     border-bottom: 1px solid #334155;
     box-shadow: none;
-    background: #1e293b;
+    background: linear-gradient(145deg, #1b0f1a 0%, #0f0911 100%);
 }
 
 .lp-demo-prompt-body {
@@ -393,13 +480,13 @@
     padding: 14px 16px 16px;
     border: none;
     border-radius: 0;
-    background: #1e293b;
+    background: linear-gradient(145deg, #1b0f1a 0%, #0f0911 100%);
     box-shadow: none;
 }
 
 .lp-demo-prompt--card .lp-demo-prompt-input {
-    border-color: #334155;
-    background: #0f172a;
+    border-color: rgba(244, 114, 182, 0.22);
+    background: #0f0911;
 }
 
 .lp-demo-prompt--card .lp-demo-prompt-input:focus {
@@ -408,14 +495,14 @@
 }
 
 .lp-demo-prompt--card .lp-demo-prompt-apply {
-    border-color: #334155;
-    background: #0f172a;
+    border-color: rgba(244, 114, 182, 0.22);
+    background: #160d17;
     color: var(--c-muted2);
 }
 
 .lp-demo-prompt--card .lp-demo-prompt-apply:hover {
-    border-color: #2dd4bf;
-    background: #132033;
+    border-color: rgba(244, 114, 182, 0.55);
+    background: #241322;
     color: var(--c-teal);
 }
 
@@ -502,7 +589,7 @@
     margin: 8px 0 0;
     font-size: 0.78rem;
     line-height: 1.45;
-    color: rgba(148, 163, 184, 0.7);
+    color: #ffffff;
 }
 
 .lp-demo-widget {
@@ -513,40 +600,19 @@
     width: 100%;
     min-width: 0;
     max-width: 100%;
-    overflow: hidden;
+    /* Permite que el badge flotante no quede recortado. */
+    overflow: visible;
     gap: 0;
     padding: 0px 24px;
 }
 
-/* Demo: hereda estilos de tarjeta/controles de la app; solo ajustes de layout */
-[data-landing-demo] .imagePlaceholder {
-    width: 100% !important;
-    height: auto !important;
-    flex: 1 1 auto !important;
-    min-height: clamp(140px, 22vw, 200px) !important;
-    max-height: clamp(180px, 28vw, 240px) !important;
-    margin: clamp(8px, 1.5vh, 14px) auto clamp(6px, 1vh, 10px) !important;
-    border-radius: clamp(14px, 2vw, 20px) !important;
-}
+/* Los ajustes de tarjeta/controles del demo viven en los propios CSS Modules
+   (Flashcard.module.css / Controls.module.css, bloques [data-landing-demo]).
+   Aquí solo clases globales del landing: selectores tipo
+   `[data-landing-demo] .imagePlaceholder` no matchean las clases hasheadas
+   de los módulos y estaban muertos — eliminados. */
 
 @media (min-width: 769px) {
-    [data-landing-demo] .nameContainer {
-        padding-right: 52px !important;
-    }
-
-    [data-landing-demo] .conjugationTable {
-        margin: 8px auto 10px !important;
-    }
-
-    [data-landing-demo] .flashcardContainer {
-        height: clamp(480px, 40vw, 520px) !important;
-        min-height: 480px !important;
-    }
-
-    [data-landing-demo] .controlsWrapper {
-        margin-top: 18px !important;
-    }
-
     [data-landing-demo] .lp-demo-complete {
         height: clamp(480px, 40vw, 520px);
     }

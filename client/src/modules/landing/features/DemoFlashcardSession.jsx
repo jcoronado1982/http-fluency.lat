@@ -2,7 +2,7 @@
  * DemoFlashcardSession — sesión real de flashcards en el landing (sin login).
  * UI compartida del shell (misma que la app); audio/imagen en namespace landing-demo.
  */
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
     Flashcard,
@@ -32,6 +32,7 @@ export default function DemoFlashcardSession({
     badgeLabel = '',
     promptExtraRef,
     imagePromptApplySignal = 0,
+    demoSelection = null,
 }) {
     const t = getLandingTranslations(language);
     const [cards, setCards] = useState(() => createDemoSessionCards());
@@ -40,6 +41,25 @@ export default function DemoFlashcardSession({
     const masterData = cards;
     const filteredData = useMemo(() => masterData.filter((c) => !c.learned), [masterData]);
     const currentCard = filteredData[currentIndex] ?? null;
+
+    useEffect(() => {
+        if (!demoSelection) return;
+
+        const selectedCard = cards.find((card) => card.id === demoSelection.cardId);
+        if (!selectedCard) return;
+
+        if (selectedCard.learned) {
+            setCards((previous) => previous.map((card) => (
+                card.id === demoSelection.cardId
+                    ? { ...card, learned: false, learned_at: null }
+                    : card
+            )));
+            return;
+        }
+
+        const selectedIndex = filteredData.findIndex((card) => card.id === demoSelection.cardId);
+        if (selectedIndex >= 0) setCurrentIndex(selectedIndex);
+    }, [cards, demoSelection, filteredData]);
 
     const nextCard = useCallback(() => {
         if (filteredData.length <= 1) return;
@@ -96,10 +116,11 @@ export default function DemoFlashcardSession({
         buildDemoImagePath: buildLandingDemoImagePath,
         demoImagePromptExtraRef: promptExtraRef,
         imagePromptApplySignal: imagePromptApplySignal,
+        demoSelection,
     }), [
         currentCard, currentIndex, filteredData, masterData,
         nextCard, prevCard, markAsLearned, resetDeck, updateCardImagePath,
-        promptExtraRef, imagePromptApplySignal, language,
+        promptExtraRef, imagePromptApplySignal, language, demoSelection,
     ]);
 
     const [isAudioLoading, setIsAudioLoading] = useState(false);

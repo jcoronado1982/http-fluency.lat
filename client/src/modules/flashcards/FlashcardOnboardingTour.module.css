@@ -1,3 +1,8 @@
+/* Sistema de elevación del tour: las reglas :global([data-tour-active/marked])
+   usan !important a propósito — deben ganar a los estilos propios de CUALQUIER
+   elemento marcado (botones, nav, contenedores de otros módulos) para subirlo
+   por encima del scrim y neutralizar sus outline/box-shadow/filter. No
+   convertir a especificidad: los competidores son desconocidos por diseño. */
 .overlay {
     position: fixed;
     inset: 0;
@@ -398,7 +403,7 @@
     }
 
     .tooltip[data-mobile-sheet='true'] {
-        width: calc(100vw - 28px) !important;
+        width: calc(100vw - 28px);
         max-width: none;
         max-height: min(34dvh, 216px);
         overflow: hidden;
