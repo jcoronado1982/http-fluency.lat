@@ -95,6 +95,30 @@ backstops (overflow a Cloud Run si RAM < 250 MB; centinela 503 si la DB entra en
 (`generate-catalog-manifest.mjs` + check duro en `sync-json-to-oracle.sh`) existen solo en
 `dev-login`; el `main` desplegado nunca los corrió. El backend de prod usa el fallback por listado
 de directorios y `/api/categories` responde correctamente (verbs 208, nouns 1041, …). Se
-autocorrige al mergear a `main`. **Trampa a vigilar:** el primer deploy de `main` SIN el merge de
-los fixes de Caddy revertiría la política de caché (los scripts de infra se copian del repo en
-cada deploy) — mergear/cherry-pickear `infra/proxy/*` antes del próximo deploy de `main`.
+autocorrige al mergear a `main`.
+
+## 9. Sincronización garantizada (cerrado el mismo día)
+
+Los scripts de infra se copian **del repo al servidor en cada deploy** — nada vive solo en el
+servidor. Para que ningún deploy futuro revierta los fixes, los commits se aplicaron en AMBAS ramas:
+
+- `dev-login`: `8b187eb6` (fixes revisión) + `b1d88921` (no-cache en `/json`).
+- `main`: cherry-picks idénticos `0fd2fce7` + `892be909`, pusheados el 2026-07-11 → pipeline
+  disparado automáticamente (GitHub → Azure). El merge futuro de `dev-login` será limpio
+  (mismo contenido). `client/CLAUDE.md` se excluyó del cherry-pick (no existe en `main`;
+  llega con el merge de la rama).
+
+Regla operativa: **cualquier cambio manual en el proxy/OCI-1 debe commitearse en el repo en la
+misma sesión** — el siguiente deploy lo sobreescribe con lo que haya en la rama desplegada.
+
+### Nota multi-usuario y caché (2026-07-11)
+
+Hay carga general (mazos compartidos) y mazos propios por usuario. La caché es segura por diseño:
+
+- **Media por usuario**: `user_path_segment(email)` entra en el filename de imagen/audio de
+  usuarios no-admin → URL distinta por usuario; la caché del navegador (indexada por URL) no
+  puede cruzar contenido entre usuarios ni con el general (admin/demo).
+- **Mazos propios**: viajan por `/api/*` (DB), sin cabeceras de caché ni validadores → el
+  navegador no los cachea.
+- **Mazos generales** (`/json/*`): `no-cache` explícito desde este fix — sin él, `file_server`
+  emitía `Last-Modified` y el navegador aplicaba caché heurística (stale potencial de días).
