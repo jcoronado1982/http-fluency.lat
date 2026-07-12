@@ -60,6 +60,10 @@ trap - EXIT
 docker stop "$CONTAINER" 2>/dev/null || true
 docker rm "$CONTAINER" 2>/dev/null || true
 
+# ORACLE_REPOSITORY_ONLY=false es obligatorio aquí: este backend convive con el
+# repositorio (montado en /data). El default del binario es true (modo espejo),
+# que lo haría tratarse a sí mismo como remoto vía SSH (sin contraseña en este
+# contenedor) y los listados por prefijo (audio legacy) fallarían siempre.
 docker run -d \
   --name "$CONTAINER" \
   --network host \
@@ -72,6 +76,7 @@ docker run -d \
   -v "$REPO_PATH:/data" \
   -e LOCAL_STORAGE_PATH="/data" \
   -e SYNC_TO_ORACLE="false" \
+  -e ORACLE_REPOSITORY_ONLY="false" \
   -e PORT="${BACKEND_PORT:-8080}" \
   -e RUST_LOG="${RUST_LOG:-info}" \
   -e DATABASE_URL="$DATABASE_URL" \
