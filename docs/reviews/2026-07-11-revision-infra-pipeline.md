@@ -111,14 +111,23 @@ servidor. Para que ningún deploy futuro revierta los fixes, los commits se apli
 Regla operativa: **cualquier cambio manual en el proxy/OCI-1 debe commitearse en el repo en la
 misma sesión** — el siguiente deploy lo sobreescribe con lo que haya en la rama desplegada.
 
+**Hallazgo (H9): cada push a `main`/`qa` dispara el pipeline DOS veces** — el trigger nativo de
+Azure (conexión GitHub, `trigger:` del yml) y el GitHub Action `trigger-azure-pipeline.yml` son
+redundantes (verificado: push `892be909` encoló builds 255 y 256 con 2 s de diferencia; el
+duplicado 256 se canceló a mano, igual que los pares cancelados del historial del 10 jul).
+Recomendación: eliminar el workflow de GitHub (el trigger nativo encola primero y es el fiable);
+decisión pendiente del propietario.
+
 ### Nota multi-usuario y caché (2026-07-11)
 
-Hay carga general (mazos compartidos) y mazos propios por usuario. La caché es segura por diseño:
+Hoy TODOS los usuarios usan los mazos generales; la creación de mazos propios será una feature
+premium **aún no programada**. La caché ya es segura para ambos escenarios:
 
-- **Media por usuario**: `user_path_segment(email)` entra en el filename de imagen/audio de
-  usuarios no-admin → URL distinta por usuario; la caché del navegador (indexada por URL) no
-  puede cruzar contenido entre usuarios ni con el general (admin/demo).
-- **Mazos propios**: viajan por `/api/*` (DB), sin cabeceras de caché ni validadores → el
-  navegador no los cachea.
+- **Media por usuario (ya existe)**: al regenerar imagen/audio, `user_path_segment(email)` entra
+  en el filename para usuarios no-admin → URL distinta por usuario; la caché del navegador
+  (indexada por URL) no puede cruzar contenido entre usuarios ni con el general (admin/demo).
+- **Mazos propios (futuro premium)**: deberán viajar por `/api/*` (DB), sin cabeceras de caché —
+  el navegador no los cachea. Al programarlos, seguir el mismo patrón de namespacing por usuario
+  si generan archivos en disco.
 - **Mazos generales** (`/json/*`): `no-cache` explícito desde este fix — sin él, `file_server`
   emitía `Last-Modified` y el navegador aplicaba caché heurística (stale potencial de días).
