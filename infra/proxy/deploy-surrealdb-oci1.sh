@@ -33,6 +33,8 @@ docker run -d \
   --restart always \
   --memory "$MEMORY_LIMIT" \
   --memory-swap "$MEMORY_LIMIT" \
+  --log-opt max-size=10m \
+  --log-opt max-file=2 \
   -v "$DATA_DIR:/data" \
   surrealdb/surrealdb:v1.5.5 \
   start --user root --pass root --bind "0.0.0.0:${BIND_PORT}" file:/data/surreal.db

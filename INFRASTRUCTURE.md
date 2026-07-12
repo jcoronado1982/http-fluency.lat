@@ -10,14 +10,14 @@ La infraestructura de producción está distribuida para separar estrictamente e
 
 ### Oracle Proxy (157.151.199.170) — Servidor Principal y Fuente de Verdad
 Es el nodo más importante en tiempo de ejecución. Sirve como punto de entrada público seguro (SSL) a través de `fluency.lat`.
-*   **Hardware/SO:** Oracle Cloud (OCI) ARM Ampere A1 (1 GB RAM, 2 vCPUs, Ubuntu 22.04).
+*   **Hardware/SO:** Oracle Cloud (OCI) x86_64 AMD EPYC (1 GB RAM, 2 vCPUs, Alpine Linux). *(Corregido jul 2026: la doc decía ARM Ampere/Ubuntu; verificado en vivo con `uname -m` — es x86_64/Alpine.)*
 *   **Servicios Activos:**
     *   **Caddy (`caddy-smart`)**: Actúa como proxy inverso. Sirve el SPA de React, gestiona SSL, maneja rutas estáticas e intercepta `/api/*` hacia el backend local.
     *   **Backend Rust (`flashcard-backend-node`)**: Ejecuta en el puerto 8080. Usa `SYNC_TO_ORACLE=false` (desconectado de SCP); escribe directamente los activos (archivos de audio, imágenes generadas y JSON) en el volumen del sistema. Se conecta a SurrealDB en **server-oci-1** (`10.0.1.138:8080`, VCN privada).
 *   **Almacenamiento (Fuente de Verdad):** Todos los activos (`card_images/`, `card_audio/`, `json/`) viven y se consumen localmente desde `/root/smart-proxy/repository/flashcard/`. El backend lee y escribe al disco local sin demoras por SCP.
 
 ### SurrealDB — Base de Datos Centralizada (server-oci-1, 10.0.1.138)
-*   **Hardware/SO:** Oracle Cloud (OCI) ARM Ampere (1 GB RAM, 2 vCPUs). Red privada VCN (`10.0.1.138:8080`); solo accesible desde el Oracle proxy (punto de entrada SSH).
+*   **Hardware/SO:** Oracle Cloud (OCI) x86_64 AMD EPYC 7551 (1 GB RAM, 1 vCPU, Alpine Linux). Red privada VCN (`10.0.1.138:8080`); solo accesible desde el Oracle proxy (punto de entrada SSH).
 *   **Almacenamiento:** SurrealDB 1.5.5 (RocksDB), `file:/data/surreal.db`. Namespace `flashcard` para prod, `qa_flashcard` para pre-prod.
 *   **Índices:** `idx_card_progress_user` en tabla `card_progress` — single-field sobre `user_id` (el planner de 1.5.5 no utiliza índices multi-field).
 *   **Funciones:** String en camelCase (e.g., `string::startsWith`, no `starts_with`). Transacciones multi-statement en una sola query (p.ej. `BEGIN TRANSACTION; UPDATE ...; COMMIT;`).
@@ -99,6 +99,31 @@ Para soportar 500 usuarios concurrentes en servidores de 1 GB:
 *   **Válvula de overflow conectada:** `oracle-ram-monitor.sh` siempre gestionó `/tmp/ORACLE_HEALTHY`, pero ningún matcher lo leía. Ahora `/api/*` de `fluency.lat` usa el snippet `api_with_overflow`: RAM libre > 250 MB → backend local; si no → GCP Cloud Run (scale-to-zero). Verificado funcionalmente con Caddy local (4 estados).
 *   **Techos de RAM por contenedor** (la caja tiene 968 MB + 4 GB swap; medido en reposo: backend 43 MB, QA 14 MB, Caddy 80 MB): prod backend 512m, QA backend 128m + `cpu-shares 128` (`azure-pipelines.yml` — QA se usa poco y de noche; bajo contención cede la CPU a prod, con prod ocioso corre a velocidad completa), caddy-smart 384m. Los techos no reservan RAM; hacen determinista qué contenedor se reinicia ante un pico, en vez de dejar que el OOM killer del kernel tumbe la caja.
 *   **Rotación de logs Docker:** `--log-opt max-size=10m --log-opt max-file=2` en backend y Caddy — con `RUST_LOG=info` y 500 usuarios los json-logs de Docker crecían sin límite.
+
+## 3.2 Revisión y fixes (11 Jul 2026)
+
+Detalle completo en `docs/reviews/2026-07-11-revision-infra-pipeline.md`. Cambios operativos:
+
+*   **Caché de audio corregida (bug de matcher Caddy):** el matcher `query v=* t=*` exige AMBOS
+    parámetros (AND) — nunca matcheó, así que la política "immutable con versión" no estaba activa
+    ni para imágenes; y `/card_audio/*` era `immutable` incondicional (audio regenerado quedaba
+    stale hasta 1 año en navegadores de otras sesiones). Ahora el snippet `asset_cache_policy`
+    (expression CEL, verificado en vivo) aplica a imágenes Y audio, prod y QA: `?v=`/`?t=` →
+    `immutable` 1 año; sin versión → `no-cache` + ETag (revalidación 304 sin cuerpo, ~0.26 s).
+    `assets.rs` replica la política (audio ganó ETag/304 y dejó la heurística por nombre de archivo).
+*   **Rotación de logs en SurrealDB (OCI-1):** `deploy-surrealdb-oci1.sh` ahora usa
+    `--log-opt max-size=10m --log-opt max-file=2` (era el único contenedor sin rotación).
+*   **Strays del centinela:** `deploy-caddy.sh` hace `pkill` de `traffic-manager`/`sentinel-handler`
+    tras eliminar el contenedor (hubo un traffic-manager huérfano 71 días a nivel host duplicando
+    el gate). Dentro del contenedor solo corre 1 instancia de cada uno (entrypoint).
+*   **Credenciales Surreal fuera del YAML:** `SURREAL_USER`/`SURREAL_PASS` viven en el variable
+    group `Flashcard-Secrets` (Azure DevOps). Pendiente recomendado: rotar el `root/root` real de la
+    DB y dejar de reusar `OCI_PASSWORD` entre OCI-1 y AWS.
+*   **iptables OCI-1:** eliminada la regla huérfana `ACCEPT tcp dpt:8001` (nada escucha ahí desde
+    la migración del puerto); reglas persistidas en `/etc/iptables/rules-save`.
+*   **Nota arm64:** ningún destino activo del pipeline es ARM (proxy y OCI-1 son x86_64; AWS t3.micro
+    y Cloud Run también). El target `linux/arm64` del Stage 2 solo serviría para el worker Azure
+    (ARM Ampere, fuera del pipeline) — candidato a eliminarse para acortar el build.
 
 ## 4. Entorno de Desarrollo Local
 

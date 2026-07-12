@@ -53,6 +53,23 @@
 }
 
 # ============================================================
+# POLÍTICA DE CACHÉ DE ASSETS (imágenes y audio) — espejo de assets.rs:
+# URL con ?v=/?t= → inmutable 1 año; sin versión → no-cache (el navegador
+# revalida con ETag y recibe 304 sin cuerpo: rápido y nunca stale).
+# Los nombres de archivo hashean los INPUTS de generación, no el contenido:
+# regenerar imagen (force_generation) o rotar voz reescribe el MISMO archivo,
+# así que "immutable sin condición" produce assets viejos hasta 1 año.
+# OJO: el matcher `query v=* t=*` exige AMBOS parámetros (AND) — por eso se
+# usa expression CEL (v= O t=), verificado contra caddy:alpine 2.11.
+# ============================================================
+(asset_cache_policy) {
+    @versioned expression `{http.request.uri.query}.contains("v=") || {http.request.uri.query}.contains("t=")`
+    header @versioned Cache-Control "public, max-age=31536000, immutable"
+    @unversioned expression `!({http.request.uri.query}.contains("v=") || {http.request.uri.query}.contains("t="))`
+    header @unversioned Cache-Control "public, no-cache"
+}
+
+# ============================================================
 # SNIPPET DE COMPRESIÓN: Brotli → zstd → gzip (orden de preferencia)
 # Se aplica a todo tipo de contenido comprimible.
 # ============================================================
@@ -109,21 +126,14 @@ fluency.lat, www.fluency.lat {
                 }
                 rewrite @try_avif {re.avif.1}.avif
 
-                # Misma política que el backend (assets.rs): URL versionada (?v=/?t=)
-                # → inmutable 1 año; sin versión → revalidar (304 barato vía ETag).
-                # Evita servir imagen vieja tras force_generation (mismo filename).
-                @versioned query v=* t=*
-                header @versioned Cache-Control "public, max-age=31536000, immutable"
-                @unversioned not query v=* t=*
-                header @unversioned Cache-Control "public, no-cache"
-
+                import asset_cache_policy
                 header +X-Content-Type-Options "nosniff"
                 file_server
             }
 
             handle /card_audio/* {
                 root * /usr/share/caddy/repository
-                header Cache-Control "public, max-age=31536000, immutable"
+                import asset_cache_policy
                 file_server
             }
 
@@ -205,17 +215,14 @@ qa.fluency.lat {
                     path_regexp avif ^(.+)\.(jpg|jpeg|png)$
                 }
                 rewrite @try_avif {re.avif.1}.avif
-                @versioned query v=* t=*
-                header @versioned Cache-Control "public, max-age=31536000, immutable"
-                @unversioned not query v=* t=*
-                header @unversioned Cache-Control "public, no-cache"
+                import asset_cache_policy
                 header +X-Content-Type-Options "nosniff"
                 file_server
             }
 
             handle /card_audio/* {
                 root * /usr/share/caddy/qa_repository
-                header Cache-Control "public, max-age=31536000, immutable"
+                import asset_cache_policy
                 file_server
             }
 

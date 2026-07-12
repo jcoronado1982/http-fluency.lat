@@ -45,7 +45,9 @@ variables:
 #                                    ▼
 #                          Stage 6 Cleanup (limpia workspace agente + artefacto actual)
 #
-# REGLA DE ORO: Oracle ARM (1 GB) NUNCA compila — solo recibe artefactos.
+# REGLA DE ORO: Oracle (1 GB, x86_64 Alpine) NUNCA compila — solo recibe artefactos.
+# NOTA arm64: ningún destino activo es ARM (proxy/OCI-1/AWS/Cloud Run = x86_64);
+# el target linux/arm64 solo serviría para el worker Azure (fuera del pipeline).
 # Agente LocalBuild: infra/ci/install-local-agent.sh
 #
 # Oracle (fluency.lat):
@@ -366,8 +368,8 @@ stages:
           export GOOGLE_CREDENTIALS_JSON="$(GCP_CREDS_B64)"
           export RUST_LOG=info
           export SURREAL_URL=10.0.1.138:8080
-          export SURREAL_USER=root
-          export SURREAL_PASS=root
+          export SURREAL_USER="$(SURREAL_USER)"
+          export SURREAL_PASS="$(SURREAL_PASS)"
 
           echo "Applying json/ from repo to Oracle production repository..."
           bash /root/smart-proxy/infra-proxy/sync-json-to-oracle.sh \
@@ -499,7 +501,7 @@ stages:
           -e DATABASE_URL="$(DATABASE_URL)" \
           -e SURREAL_URL="wss://fluency.lat/db" \
           -e SURREAL_NS="flashcard" -e SURREAL_DB="flashcard" \
-          -e SURREAL_USER="root" -e SURREAL_PASS="root" \
+          -e SURREAL_USER="$(SURREAL_USER)" -e SURREAL_PASS="$(SURREAL_PASS)" \
           -e GEMINI_API_KEY="$(GEMINI_API_KEY)" \
           -e GCP_API_KEY="$(GCP_API_KEY)" \
           -e GOOGLE_CREDENTIALS_JSON="\$GOOGLE_CREDENTIALS_JSON" \
