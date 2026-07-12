@@ -235,7 +235,7 @@ python3 scripts/refactor_visual_diff.py /tmp/base /tmp/after        # PASS = ≤
 
 Captura 9 estados × 3 viewports (1920×1080, 1366×768, 390×844) con determinismo forzado (animaciones congeladas con `animation-delay:-100s`, datos aleatorios del dashboard enmascarados, espera de imágenes/spinners). Ruido conocido: catálogo-desktop ±4px, antialias del título en móvil. Para lo que el pixel-diff no cubre (bandas de viewport intermedias, dorso del demo): comparar `getComputedStyle` HEAD vs cambio con Playwright.
 
-**Otros gates**: `npx eslint src/components/flashcardStudy` debe dar **0 errores / 0 warnings** (las excepciones de `exhaustive-deps` que quedan están justificadas con comentario); `npm run build` (genera además el manifiesto de catálogo); `node scripts/test-routing-paths.mjs` si tocas rutas.
+**Otros gates**: `npx eslint src/components/flashcardStudy` debe dar **0 errores / 0 warnings** (las excepciones de `exhaustive-deps` que quedan están justificadas con comentario); `npm run build` (genera además el manifiesto de catálogo); `npm test` — suite unitaria de lógica pura SIN framework (scripts Node planos con `node:assert/strict` en `client/scripts/test-*.mjs`: rutas, contratos landing-demo/media, deckUseCases, deckSessionUseCases, imagePrefetchCache; para módulos que leen `localStorage` dentro de una función se shimea `globalThis.localStorage` antes del import — ver `test-deck-use-cases.mjs`). Tests nuevos = otro `test-*.mjs` + entrada `test:*` en package.json + encadenarlo en `"test"`. Solo lógica pura importable desde Node: nada que importe React ni `import.meta.env`.
 
 ---
 

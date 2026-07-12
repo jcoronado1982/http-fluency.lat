@@ -8,6 +8,11 @@
     "catalog:generate": "node ../scripts/generate-catalog-manifest.mjs",
     "build": "npm run catalog:generate && vite build",
     "test:routing": "node scripts/test-routing-paths.mjs",
+    "test:contracts": "node scripts/test-contracts.mjs",
+    "test:deck-usecases": "node scripts/test-deck-use-cases.mjs",
+    "test:deck-session": "node scripts/test-deck-session-use-cases.mjs",
+    "test:prefetch-cache": "node scripts/test-image-prefetch-cache.mjs",
+    "test": "npm run test:routing && npm run test:contracts && npm run test:deck-usecases && npm run test:deck-session && npm run test:prefetch-cache",
     "lint": "eslint .",
     "preview": "vite preview"
   },
