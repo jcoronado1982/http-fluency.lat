@@ -13,7 +13,7 @@ Es el nodo más importante en tiempo de ejecución. Sirve como punto de entrada 
 *   **Hardware/SO:** Oracle Cloud (OCI) x86_64 AMD EPYC (1 GB RAM, 2 vCPUs, Alpine Linux). *(Corregido jul 2026: la doc decía ARM Ampere/Ubuntu; verificado en vivo con `uname -m` — es x86_64/Alpine.)*
 *   **Servicios Activos:**
     *   **Caddy (`caddy-smart`)**: Actúa como proxy inverso. Sirve el SPA de React, gestiona SSL, maneja rutas estáticas e intercepta `/api/*` hacia el backend local.
-    *   **Backend Rust (`flashcard-backend-node`)**: Ejecuta en el puerto 8080. Usa `SYNC_TO_ORACLE=false` (desconectado de SCP); escribe directamente los activos (archivos de audio, imágenes generadas y JSON) en el volumen del sistema. Se conecta a SurrealDB en **server-oci-1** (`10.0.1.138:8080`, VCN privada).
+    *   **Backend Rust (`flashcard-backend-node`)**: Ejecuta en el puerto 8080. Usa `SYNC_TO_ORACLE=false` (desconectado de SCP) **y `ORACLE_REPOSITORY_ONLY=false`** — CRÍTICO: el default del binario es `true` y sin esta variable el backend se trata a sí mismo como repositorio remoto (SSH a sí mismo sin contraseña) y ninguna búsqueda por prefijo (audio legacy) encuentra nada; incidente completo en `docs/INCIDENT_REPORT_AUDIO_ORACLE_MODE_2026-07.md`. Escribe directamente los activos (archivos de audio, imágenes generadas y JSON) en el volumen del sistema. Se conecta a SurrealDB en **server-oci-1** (`10.0.1.138:8080`, VCN privada).
 *   **Almacenamiento (Fuente de Verdad):** Todos los activos (`card_images/`, `card_audio/`, `json/`) viven y se consumen localmente desde `/root/smart-proxy/repository/flashcard/`. El backend lee y escribe al disco local sin demoras por SCP.
 
 ### SurrealDB — Base de Datos Centralizada (server-oci-1, 10.0.1.138)

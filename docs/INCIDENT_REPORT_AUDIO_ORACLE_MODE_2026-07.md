@@ -56,12 +56,21 @@ Se recrearon `flashcard-backend-node` y `qa-flashcard-backend-node` con `ORACLE_
    - `legacy_audio_prefixes()` (función pura, con tests): busca en orden — layout con dirección primero, luego los dos layouts legacy como fallback.
    - Eliminado el salto para español: el sufijo de idioma forma parte del prefijo (`…_es`), así que solo puede matchear audio del mismo texto e idioma; el orden direction-first da la seguridad de dirección que el salto aproximaba.
 
-## ⚡ Nota sobre el "pequeño delay" de imágenes
-Tras el fix, el servidor resuelve imágenes en <1 ms y Caddy sirve los `.avif` (~15 KB) directo de disco. El delay restante en la **primera vista** de una tarjeta es viaje de red, no servidor:
-1. `POST /api/resolve-image` (1 RTT) y después `GET /card_images/….avif?v=mtime` (1 RTT + TLS) — dos viajes serializados a un único servidor Oracle (sin CDN), ~0,4-0,5 s cada uno según distancia del usuario.
-2. Las **vistas repetidas son instantáneas**: con `?v=` el navegador cachea `immutable` 1 año (antes del fix las URLs salían sin `?v=` por el mismo bug, y el navegador revalidaba siempre — esto también mejoró).
+## ⚡ Nota sobre el "pequeño delay" de imágenes (resuelto con prefetch)
+Tras el fix, el servidor resuelve imágenes en <1 ms y Caddy sirve los `.avif` (~15 KB) directo de disco. El delay que quedaba al avanzar de tarjeta era viaje de red, no servidor: `POST /api/resolve-image` (1 RTT) y después `GET /card_images/….avif` (1 RTT + TLS) — dos viajes serializados a un único servidor Oracle (sin CDN), ~0,4-0,5 s cada uno según distancia del usuario.
 
-Es el comportamiento esperado con la política elegida (sin caché en RAM en la caja de 1 GB, Caddy directo de disco). Si algún día se quiere quitar ese RTT inicial: CDN/edge delante de los assets, no caché en memoria.
+**Solución aplicada (commit `39ab2e07`)**: el frontend precarga en segundo plano la imagen de la tarjeta SIGUIENTE (`useNextImagePrefetch` + `imagePrefetchCache` en `client/src/components/flashcardStudy/features/`, documentado en `client/CLAUDE.md` §3). Al avanzar, la imagen sale de la caché del navegador sin ninguna petición. Guardas: una sola tarjeta por delante, debounce 600 ms, sin reintentos, caché client-side de solo strings (24 entradas / TTL 5 min), invalidada por mutaciones — carga neta del servidor ~cero. Verificado con Playwright observando la red.
+
+Lo único que sigue pagando su RTT es la **primera** tarjeta de cada sesión; quitarlo requeriría CDN/edge delante de los assets — nunca caché en RAM en la caja de 1 GB.
+
+## ✅ Verificación final (2026-07-12, tras el deploy del build 263)
+- El deploy recreó el contenedor con el script nuevo: `docker inspect flashcard-backend-node` muestra `ORACLE_REPOSITORY_ONLY=false`.
+- Frase en español (antes 404):
+  `resolve-audio {category: preposition, deck: 1-basic, text: "El libro está sobre la mesa.", lang: es}` →
+  `{"audio_url":"/card_audio/preposition/1-basic/1-basic_on_el_libro_está_sobre_la_mesa_es_f59330c67de98b4f.ogg","voice_name":"Legacy","from_cache":true}`
+- Palabra en inglés: `text: "in"` → `1-basic_in_in_8b78797a2921fbcb.ogg` (`Legacy`).
+- Logs sin `ls remoto falló` ni `🚫 Generación bloqueada` para audio existente.
+- Confirmado por el usuario en producción: el audio reproduce.
 
 ## 🔒 Prevención
 - Diagnóstico rápido futuro: `grep "ls remoto falló"` en logs del backend = config de modo Oracle incorrecta.
