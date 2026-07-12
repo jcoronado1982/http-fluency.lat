@@ -353,6 +353,18 @@ stages:
         targetFolder: '/tmp/flashcard-json-staging'
         cleanTargetFolder: true
 
+    # El landing demo debe ser autosuficiente: sus MP3 versionados se despliegan
+    # junto con el backend y no dependen de una llamada TTS en tiempo real.
+    - task: CopyFilesOverSSH@0
+      displayName: 'Stage audios del landing demo → Oracle'
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+      inputs:
+        sshEndpoint: $(sshConn)
+        sourceFolder: 'card_audio/landing-demo'
+        contents: '**'
+        targetFolder: '/tmp/flashcard-demo-audio-staging'
+        cleanTargetFolder: true
+
     - task: SSH@0
       displayName: 'Deploy Oracle backend (env en memoria vía SSH)'
       inputs:
@@ -378,6 +390,29 @@ stages:
           bash /root/smart-proxy/infra-proxy/sync-json-to-oracle.sh \
             /tmp/flashcard-json-staging \
             /root/smart-proxy/repository/flashcard/json
+
+          if [ "$(Build.SourceBranch)" = "refs/heads/main" ]; then
+            AUDIO_STAGE=/tmp/flashcard-demo-audio-staging
+            AUDIO_DEST=/root/smart-proxy/repository/flashcard/card_audio/landing-demo
+            test -d "$AUDIO_STAGE"
+            mkdir -p "$AUDIO_DEST"
+            # Sin --delete: preserva audios generados que no estén versionados.
+            rsync -a "$AUDIO_STAGE/" "$AUDIO_DEST/"
+            STAGED_AUDIO_COUNT=$(find "$AUDIO_STAGE" -type f \( -name '*.mp3' -o -name '*.ogg' -o -name '*.wav' \) | wc -l | tr -d ' ')
+            MISSING_AUDIO_COUNT=0
+            while IFS= read -r staged_file; do
+              relative_path="${staged_file#${AUDIO_STAGE}/}"
+              if [ ! -s "$AUDIO_DEST/$relative_path" ]; then
+                echo "ERROR: audio no desplegado: $relative_path"
+                MISSING_AUDIO_COUNT=$((MISSING_AUDIO_COUNT + 1))
+              fi
+            done < <(find "$AUDIO_STAGE" -type f \( -name '*.mp3' -o -name '*.ogg' -o -name '*.wav' \))
+            if [ "$STAGED_AUDIO_COUNT" -eq 0 ] || [ "$MISSING_AUDIO_COUNT" -ne 0 ]; then
+              echo "ERROR: sync de audio incompleto (staged=$STAGED_AUDIO_COUNT missing=$MISSING_AUDIO_COUNT)"
+              exit 1
+            fi
+            echo "Landing demo audio → Oracle OK ($STAGED_AUDIO_COUNT archivos)"
+          fi
           
           if [ "$(Build.SourceBranch)" = "refs/heads/qa" ]; then
             export SURREAL_NS=qa_flashcard

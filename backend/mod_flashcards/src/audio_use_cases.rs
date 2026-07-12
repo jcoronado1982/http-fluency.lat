@@ -9,8 +9,8 @@ use std::hash::{Hash, Hasher};
 use std::sync::Arc;
 
 use crate::{
-    is_landing_demo_namespace, normalize_course_direction, safe_deck_prefix,
-    safe_language_suffix, safe_storage_segment, FlashcardsConfig,
+    is_landing_demo_namespace, normalize_course_direction, safe_deck_prefix, safe_language_suffix,
+    safe_storage_segment, FlashcardsConfig,
 };
 
 /// Huella estable de caché: se conserva para no regenerar audios ya existentes
@@ -351,7 +351,11 @@ impl AudioUseCases {
         let verb_slug = self.slugify(&req.verb_name.as_deref().unwrap_or("none"), 40);
         let text_slug = self.slugify(&req.text, 40);
         let lang_suffix = safe_language_suffix(req.lang.as_deref())?;
-        let skip_legacy = Self::is_non_english_lang(req.lang.as_deref());
+        // Los MP3 precargados del landing demo usan el sufijo del idioma de
+        // estudio (p. ej. `_es_`) aunque el texto hablado sea inglés. No se debe
+        // excluir su búsqueda legacy: son la fuente estable del demo y evitan
+        // depender del proveedor TTS durante la reproducción.
+        let skip_legacy = Self::should_skip_legacy_audio(is_demo, req.lang.as_deref());
 
         if !is_admin {
             let global_file = self.deterministic_audio_filename(req, None, false)?;
@@ -640,6 +644,10 @@ impl AudioUseCases {
             .unwrap_or(false)
     }
 
+    fn should_skip_legacy_audio(is_demo: bool, lang: Option<&str>) -> bool {
+        !is_demo && Self::is_non_english_lang(lang)
+    }
+
     fn elevenlabs_plan_unavailable(message: &str) -> bool {
         message.contains("paid_plan_required")
             || message.contains("402 Payment Required")
@@ -763,5 +771,34 @@ impl AudioUseCases {
             Some(seg) => format!("users/{}/{}", seg, rel),
             None => rel,
         })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::AudioUseCases;
+
+    #[test]
+    fn landing_demo_keeps_legacy_lookup_for_study_language_suffixes() {
+        assert!(!AudioUseCases::should_skip_legacy_audio(
+            true,
+            Some("es")
+        ));
+        assert!(!AudioUseCases::should_skip_legacy_audio(
+            true,
+            Some("en")
+        ));
+    }
+
+    #[test]
+    fn regular_non_english_audio_keeps_direction_safe_lookup() {
+        assert!(AudioUseCases::should_skip_legacy_audio(
+            false,
+            Some("es")
+        ));
+        assert!(!AudioUseCases::should_skip_legacy_audio(
+            false,
+            Some("en")
+        ));
     }
 }
