@@ -132,7 +132,11 @@ src/
 │       ├── context/flashcardStudyContext.js   los 3 contexts CANÓNICOS (ver §5)
 │       └── features/              Flashcard, CardFront, CardBack, ConjugationTable,
 │                                  DefinitionList, ImageViewer, Controls, HighlightedText,
-│                                  useAudioPlayback, useImageGeneration, useRealViewportHeight
+│                                  useAudioPlayback, useImageGeneration, useRealViewportHeight,
+│                                  useNextImagePrefetch + imagePrefetchCache (precarga de la
+│                                  imagen de la tarjeta SIGUIENTE: 1 sola por delante, debounce
+│                                  600ms, sin reintentos, TTL 5min; useImageGeneration consulta
+│                                  la caché antes del POST a resolve-image)
 │                                  + un .module.css POR componente (SRP)
 └── modules/                    ← módulos con manifiesto:
     ├── index.js                   registry (ver §1)
