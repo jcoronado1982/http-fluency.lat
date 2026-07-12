@@ -277,11 +277,10 @@ export function useAudioPlayback({
         }
         audioPlayer.load();
 
-        const audioMime = playbackUrl.includes('.wav') ? 'audio/wav' : 'audio/ogg';
-        const source = document.createElement('source');
-        source.src = playbackUrl;
-        source.type = audioMime;
-        audioPlayer.appendChild(source);
+        // Dejar que el navegador use el Content-Type real de la respuesta (o del
+        // Blob). Forzar audio/ogg rompía los MP3 del landing y los blob: cacheados
+        // no conservan una extensión desde la que podamos inferir el formato.
+        audioPlayer.src = playbackUrl;
 
         await waitForAudioReady(audioPlayer);
         if (playbackRequestIdRef.current !== playbackRequestId) return false;
