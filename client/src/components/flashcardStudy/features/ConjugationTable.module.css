@@ -176,6 +176,12 @@
     color: #d1d5db;
 }
 
+@media (min-width: 769px) and (max-width: 1349px) {
+    [data-variant='demo'] .conjugationTable {
+        padding: 8px 6px 4px 6px;
+    }
+}
+
 @media (max-width: 768px) {
 
     [data-variant='demo'] .conjugationTable {

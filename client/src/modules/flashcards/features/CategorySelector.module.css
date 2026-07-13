@@ -871,7 +871,7 @@
   }
 
   .mainContent {
-    flex: 1 1 50%;
+    flex: 1 1 60%;
     min-height: 0;
     overflow-y: auto;
   }
@@ -937,7 +937,7 @@
   }
 
   .sidebar {
-    flex-basis: 50%;
+    flex-basis: 40%;
     max-height: none;
     padding: 10px 0px 2px 0px;
   }

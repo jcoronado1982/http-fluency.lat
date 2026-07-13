@@ -12,7 +12,7 @@ export const landingTranslations = {
 
         heroTitleLine1: 'La IA ya hizo tus flashcards.',
         heroTitleFrom: 'Tú solo',
-        heroTitleAccent: 'estudia.',
+        heroTitleAccent: 'estudia',
         heroSubtitleLine1:
             'Miles de palabras curadas. Frases reales. Audio nativo. Imágenes que se quedan en la memoria.',
         heroSubtitleLine2: 'Todo listo antes de que llegaras.',
@@ -118,7 +118,7 @@ export const landingTranslations = {
 
         heroTitleLine1: 'AI already made your flashcards.',
         heroTitleFrom: 'You just',
-        heroTitleAccent: 'study.',
+        heroTitleAccent: 'study',
         heroSubtitleLine1:
             'Thousands of curated words. Real sentences. Native audio. Images that stay with you.',
         heroSubtitleLine2: 'Everything was ready before you arrived.',
