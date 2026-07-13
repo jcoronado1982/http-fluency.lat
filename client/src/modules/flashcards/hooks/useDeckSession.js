@@ -66,8 +66,12 @@ function writeStoredProgressBatches(batches) {
     }
 }
 
-function makeProgressBatchKey({ userId, category, deck }) {
-    return `${userId || ''}::${category || ''}::${deck || ''}`;
+function normalizeStoredCourseDirection(courseDirection) {
+    return courseDirection === 'en_es' ? 'en_es' : 'es_en';
+}
+
+function makeProgressBatchKey({ userId, category, deck, courseDirection }) {
+    return `${userId || ''}::${normalizeStoredCourseDirection(courseDirection)}::${category || ''}::${deck || ''}`;
 }
 
 function persistProgressBatch(context, cards) {
@@ -104,7 +108,10 @@ function removeStoredProgressBatch(context) {
 function removeStoredProgressCategory(context) {
     writeStoredProgressBatches(
         readStoredProgressBatches().filter((batch) => (
-            batch.userId !== context.userId || batch.category !== context.category
+            batch.userId !== context.userId
+            || batch.category !== context.category
+            || normalizeStoredCourseDirection(batch.courseDirection)
+                !== normalizeStoredCourseDirection(context.courseDirection)
         )),
     );
 }
@@ -152,7 +159,7 @@ export function useDeckSession(resumeSession = null) {
      */
     const pendingBatchRef = useRef(new Map());
     /** Contexto activo en el momento de acumular (para el flush correcto al cambiar). */
-    const batchContextRef = useRef({ category: null, deck: null, userId: null });
+    const batchContextRef = useRef({ category: null, deck: null, userId: null, courseDirection });
     const summarizeDeck = useCallback((cards) => ({
         total: cards.length,
         learned: cards.filter((card) => card.learned).length,
@@ -212,7 +219,7 @@ export function useDeckSession(resumeSession = null) {
             setLoadingStage(null);
             setIsDeckLoading(false);
         }
-    }, [courseDirection, deckNames, setAppMessage, summarizeDeck, user?.email]);
+    }, [courseDirection, deckNames, setAppMessage, studyLanguage, summarizeDeck, user?.email]);
 
     useEffect(() => {
         setCurrentDeckName(null);
@@ -291,7 +298,7 @@ export function useDeckSession(resumeSession = null) {
             }
         };
         loadDecks();
-    }, [courseDirection, currentCategory, setAppMessage, isAuthenticated, resumeSession, user?.email]);
+    }, [courseDirection, currentCategory, setAppMessage, isAuthenticated, resumeSession, studyLanguage, user?.email]);
 
     useEffect(() => {
         if (
@@ -442,16 +449,17 @@ export function useDeckSession(resumeSession = null) {
         const batch = pendingBatchRef.current;
         if (batch.size === 0) return;
 
-        const { category, deck, userId } = batchContextRef.current;
+        const { category, deck, userId, courseDirection: batchCourseDirection } = batchContextRef.current;
         if (!category || !deck || !userId) return;
 
         const cards = Array.from(batch.values()).map(({ index, learned }) => ({ index, learned }));
         pendingBatchRef.current = new Map();
-        persistProgressBatch({ category, deck, userId }, cards);
+        const storedContext = { category, deck, userId, courseDirection: batchCourseDirection };
+        persistProgressBatch(storedContext, cards);
 
         try {
-            await flashcardPort.updateCardsBatch(userId, category, deck, cards, courseDirection);
-            removeStoredProgressBatch({ category, deck, userId });
+            await flashcardPort.updateCardsBatch(userId, category, deck, cards, batchCourseDirection);
+            removeStoredProgressBatch(storedContext);
         } catch (err) {
             cards.forEach((card) => {
                 pendingBatchRef.current.set(card.index, card);
@@ -460,7 +468,14 @@ export function useDeckSession(resumeSession = null) {
                 setAppMessage({ text: `Error al guardar progreso: ${err.message}`, isError: true });
             }
         }
-    }, [courseDirection, setAppMessage]);
+    }, [setAppMessage]);
+
+    const previousCourseDirectionRef = useRef(courseDirection);
+    useEffect(() => {
+        if (previousCourseDirectionRef.current === courseDirection) return;
+        void flushProgress({ silent: true });
+        previousCourseDirectionRef.current = courseDirection;
+    }, [courseDirection, flushProgress]);
 
     /**
      * Versión fire-and-forget para beforeunload (no puede usar async/await).
@@ -470,12 +485,12 @@ export function useDeckSession(resumeSession = null) {
     const flushProgressBeacon = useCallback(() => {
         const batch = pendingBatchRef.current;
         if (batch.size === 0) return;
-        const { category, deck, userId } = batchContextRef.current;
+        const { category, deck, userId, courseDirection: batchCourseDirection } = batchContextRef.current;
         if (!category || !deck || !userId) return;
 
         const cards = Array.from(batch.values()).map(({ index, learned }) => ({ index, learned }));
         pendingBatchRef.current = new Map();
-        persistProgressBatch({ category, deck, userId }, cards);
+        persistProgressBatch({ category, deck, userId, courseDirection: batchCourseDirection }, cards);
 
         const apiBase = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || '';
         const token = localStorage.getItem('auth_token');
@@ -493,7 +508,7 @@ export function useDeckSession(resumeSession = null) {
                     category,
                     deck,
                     cards,
-                    course_direction: courseDirection,
+                    course_direction: normalizeStoredCourseDirection(batchCourseDirection),
                 }),
                 keepalive: true,
                 credentials: 'include',
@@ -501,7 +516,7 @@ export function useDeckSession(resumeSession = null) {
         } catch (_) {
             // No podemos hacer nada en beforeunload
         }
-    }, [courseDirection]);
+    }, []);
 
     useEffect(() => {
         if (!isAuthenticated || !user?.email) return;
@@ -517,7 +532,7 @@ export function useDeckSession(resumeSession = null) {
                         batch.category,
                         batch.deck,
                         batch.cards,
-                        courseDirection,
+                        normalizeStoredCourseDirection(batch.courseDirection),
                     );
                     removeStoredProgressBatch(batch);
                 } catch {
@@ -530,7 +545,7 @@ export function useDeckSession(resumeSession = null) {
         return () => {
             cancelled = true;
         };
-    }, [courseDirection, isAuthenticated, user?.email]);
+    }, [isAuthenticated, user?.email]);
 
     const changeDeck = (newDeck) => {
         markUserNavigation();
@@ -563,6 +578,7 @@ export function useDeckSession(resumeSession = null) {
             category: currentCategory,
             deck: currentDeckName,
             userId: user.email,
+            courseDirection,
         };
         pendingBatchRef.current.set(card.id, { index: card.id, learned: true });
         persistProgressBatch(batchContextRef.current, Array.from(pendingBatchRef.current.values()));
@@ -590,6 +606,7 @@ export function useDeckSession(resumeSession = null) {
         removeStoredProgressCategory({
             category: currentCategory,
             userId: user.email,
+            courseDirection,
         });
 
         try {
@@ -632,7 +649,7 @@ export function useDeckSession(resumeSession = null) {
         const targetIndexes = targetCards.map((card) => card.id);
         targetIndexes.forEach((index) => pendingBatchRef.current.delete(index));
         removeStoredProgressCards(
-            { category: currentCategory, deck: currentDeckName, userId: user.email },
+            { category: currentCategory, deck: currentDeckName, userId: user.email, courseDirection },
             targetIndexes,
         );
 

@@ -29,6 +29,7 @@ impl UserRepository for SurrealUserRepository {
             picture: Option<String>,
             role: String,
             onboarding_completed: bool,
+            study_language: Option<String>,
             catalog_preferences: Option<CatalogPreferences>,
             created_at: chrono::DateTime<chrono::Utc>,
             last_login: chrono::DateTime<chrono::Utc>,
@@ -40,6 +41,7 @@ impl UserRepository for SurrealUserRepository {
             picture: user.picture,
             role: user.role,
             onboarding_completed: user.onboarding_completed,
+            study_language: user.study_language,
             catalog_preferences: user.catalog_preferences,
             created_at: user.created_at,
             last_login: user.last_login,
@@ -101,10 +103,31 @@ impl UserRepository for SurrealUserRepository {
         Ok(updated.map(Into::into))
     }
 
+    async fn update_study_language(
+        &self,
+        email: &str,
+        study_language: &str,
+    ) -> Result<Option<User>> {
+        let normalized = if study_language == "es" { "es" } else { "en" };
+        let mut res = self
+            .0
+            .db()
+            .query(
+                "
+            UPDATE user SET study_language = $study_language WHERE email = $email;
+            SELECT * FROM user WHERE email = $email LIMIT 1;
+        ",
+            )
+            .bind(("email", email))
+            .bind(("study_language", normalized))
+            .await?;
+        let updated: Option<SurrealUser> = res.take(1)?;
+        Ok(updated.map(Into::into))
+    }
+
     async fn reset_all_catalog_preferences(&self) -> Result<u64> {
         let affected = self.list_all_users().await?.len() as u64;
-        self
-            .0
+        self.0
             .db()
             .query("UPDATE user SET catalog_preferences = NONE;")
             .await?;

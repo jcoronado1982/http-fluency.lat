@@ -19,6 +19,11 @@ assert.notEqual(
   makePrefetchKey({ ...base, form: 'v2' }),
   makePrefetchKey({ ...base, form: 'v1' }),
 );
+// Las dos direcciones nunca comparten una entrada posicional de caché.
+assert.notEqual(
+  makePrefetchKey({ ...base, studyLanguage: 'en' }),
+  makePrefetchKey({ ...base, studyLanguage: 'es' }),
+);
 // defIndex por defecto es 0
 assert.equal(
   makePrefetchKey({ category: 'verbs', deck: 'd', cardId: 1 }),

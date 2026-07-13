@@ -21,6 +21,8 @@ pub struct User {
     pub role: String,
     pub onboarding_completed: bool,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub study_language: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub catalog_preferences: Option<CatalogPreferences>,
     pub created_at: DateTime<Utc>,
     pub last_login: DateTime<Utc>,
@@ -41,4 +43,3 @@ pub struct ApplePayload {
     pub email: Option<String>,
     pub email_verified: Option<serde_json::Value>, // Apple returns boolean or string
 }
-

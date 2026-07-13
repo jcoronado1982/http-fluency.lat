@@ -15,24 +15,26 @@
             {
                 "meaning": "remain",
                 "usage_example": "Por favor, permanezca sentado hasta el final.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Please remain seated until the end.",
                 "char_count": "two",
                 "usage_context_en": "position/state",
                 "usage_context_es": "posición/estado",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_16_def0.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_16_def0.avif",
+                "target_meaning_es": "Permanecer/Quedarse"
             },
             {
-                "meaning": "remain (def 2)",
+                "meaning": "remain",
                 "usage_example": "Solo quedan unos pocos minutos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Only a few minutes remain.",
                 "char_count": "two",
                 "usage_context_en": "time/quantity",
                 "usage_context_es": "tiempo/cantidad",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_16_def1.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_16_def1.avif",
+                "target_meaning_es": "Restar/Quedar (como sobra)"
             }
         ],
         "group_name": "Body & Movement",
@@ -54,24 +56,26 @@
             {
                 "meaning": "appear",
                 "usage_example": "El sol apareció detrás de las nubes.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The sun appeared from behind the clouds.",
                 "char_count": "two",
                 "usage_context_en": "visibility/arrival",
                 "usage_context_es": "visibilidad/llegada",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_32_def0.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_32_def0.avif",
+                "target_meaning_es": "Aparecer"
             },
             {
-                "meaning": "appear (def 2)",
+                "meaning": "appear",
                 "usage_example": "Ella parece ser muy inteligente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She appears to be very smart.",
                 "char_count": "two",
                 "usage_context_en": "impression/judgment",
                 "usage_context_es": "impresión/juicio",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_32_def1.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_32_def1.avif",
+                "target_meaning_es": "Parecer/Dar la impresión"
             }
         ],
         "group_name": "Feelings & Reactions",

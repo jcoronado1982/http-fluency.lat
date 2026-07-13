@@ -14,6 +14,7 @@ import {
     makePrefetchKey,
     getPrefetchedImagePath,
 } from './imagePrefetchCache';
+import { parseCardImageStorageIdentity } from './imageStorageIdentity.js';
 
 const MAX_IMAGE_ATTEMPTS = 3;
 const IMAGE_RETRY_DELAY = 5000;
@@ -65,13 +66,9 @@ function demoSceneComplement(extra) {
 
 function pathMatchesDeck(path, category, deck) {
     if (!path || !category || !deck) return false;
-    const cleanPath = path.split('?')[0];
     const cleanDeck = String(deck).replace(/\.json$/, '');
-    const segments = cleanDeck.split('/').filter(Boolean);
-    const mediaDir = segments.join('/');
-    const filePrefix = segments.join('_');
-    if (!mediaDir || !filePrefix) return false;
-    return cleanPath.includes(`/card_images/${category}/${mediaDir}/${filePrefix}_card_`);
+    const identity = parseCardImageStorageIdentity(path);
+    return identity?.category === category && identity.deck === cleanDeck;
 }
 
 export function useImageGeneration({
@@ -90,7 +87,8 @@ export function useImageGeneration({
     );
     const { user, isAuthenticated, loading: authLoading } = useAuth();
     const { confirm } = useDialog();
-    const { language = 'en' } = useUIContext();
+    const { language = 'en', studyLanguage = 'en' } = useUIContext();
+    const courseDirection = studyLanguage === 'es' ? 'en_es' : 'es_en';
     const {
         demoImagePromptExtraRef,
         imagePromptApplySignal = 0,
@@ -125,14 +123,15 @@ export function useImageGeneration({
     }, [cardData, activeForm]);
 
     const isLandingDemo = isLandingDemoMedia || isLandingDemoCategory(currentCategory);
-    const canGenerateImages = isLandingDemo
-        || user?.role === 'premium'
-        || user?.role === 'admin';
-    const canDeleteImages = isLandingDemo
-        || user?.role === 'premium'
-        || user?.role === 'admin';
+    const hasExplicitImageForActiveDefinition = Boolean(getActiveDefinitions()?.[currentDefIndex]?.imagePath);
+    const hasSafeImageStorageTarget = studyLanguage !== 'es' || hasExplicitImageForActiveDefinition;
+    const canGenerateImages = (isLandingDemo
+        || user?.role === 'admin') && hasSafeImageStorageTarget;
+    const canDeleteImages = (isLandingDemo
+        || user?.role === 'admin') && hasSafeImageStorageTarget;
     const canCustomizeImages = !isLandingDemo
-        && (user?.role === 'premium' || user?.role === 'admin');
+        && user?.role === 'admin'
+        && hasSafeImageStorageTarget;
 
     const clearGeneratingUiTimer = useCallback(() => {
         if (generatingUiTimerRef.current) {
@@ -179,6 +178,7 @@ export function useImageGeneration({
                     index: cardData.id,
                     defIndex,
                     form,
+                    courseDirection,
                 });
             }
             if (isLandingDemo && !pathMatchesVerbForm(jsonPath, form)) {
@@ -188,6 +188,7 @@ export function useImageGeneration({
                     index: cardData.id,
                     defIndex,
                     form,
+                    courseDirection,
                 });
             }
             return jsonPath;
@@ -202,10 +203,11 @@ export function useImageGeneration({
                 index: cardData.id,
                 defIndex,
                 form,
+                courseDirection,
             });
         }
         return null;
-    }, [cardData, currentCategory, currentDeckName, activeForm, isLandingDemo, imagePort]);
+    }, [cardData, currentCategory, currentDeckName, activeForm, courseDirection, isLandingDemo, imagePort]);
 
     const applyLoadedImage = useCallback((url, path, defIndex, form) => {
         if (form !== activeFormRef.current) return;
@@ -306,12 +308,17 @@ export function useImageGeneration({
             const sceneComplement = isLandingDemoCategory(currentCategory)
                 ? demoSceneComplement(demoImagePromptExtraRef?.current)
                 : undefined;
-            const data = await imagePort.generate({
+            const explicitIdentity = parseCardImageStorageIdentity(def.imagePath);
+            const storageIdentity = explicitIdentity || {
                 category: currentCategory,
                 deck: currentDeckName,
                 index: cardData.id,
                 defIndex,
                 form: requestForm,
+            };
+            const data = await imagePort.generate({
+                ...storageIdentity,
+                courseDirection: storageIdentity.courseDirection || courseDirection,
                 prompt: usageExample,
                 meaning: def.meaning,
                 usageExample,
@@ -378,7 +385,7 @@ export function useImageGeneration({
         }
     }, [
         cardData, currentCategory, currentDeckName, setAppMessage,
-        updateCardImagePath, canGenerateImages, demoImagePromptExtraRef, imagePort, isLandingDemo,
+        updateCardImagePath, canGenerateImages, courseDirection, demoImagePromptExtraRef, imagePort, isLandingDemo,
         setImageFromPath, clearGeneratingUiTimer, waitForGenerationSlot,
         releasePipelineLoading,
         setIsImageLoading,
@@ -440,14 +447,6 @@ export function useImageGeneration({
 
             const jsonPath = imagePort.normalizeToAvif(formDefs[defIndex].imagePath);
             if (isLandingDemo && !pathMatchesVerbForm(jsonPath, form)) return false;
-            if (
-                typeof currentDeckName === 'string'
-                && currentDeckName.includes('/')
-                && !isLandingDemo
-                && !pathMatchesDeck(jsonPath, currentCategory, currentDeckName)
-            ) {
-                return false;
-            }
             return tryVerifyPath(jsonPath, form);
         };
 
@@ -465,6 +464,7 @@ export function useImageGeneration({
                     cardId: cardData.id,
                     defIndex,
                     form,
+                    studyLanguage,
                 }),
             );
             if (prefetched && !isStale()) {
@@ -483,6 +483,7 @@ export function useImageGeneration({
                     index: cardData.id,
                     defIndex,
                     form: form && form !== 'v1' ? form : undefined,
+                    courseDirection,
                 });
                 if (isStale()) {
                     isTransitioningRef.current = false;
@@ -520,16 +521,18 @@ export function useImageGeneration({
         };
 
         if (!forceRegenerate) {
-            // Resolver la variante exacta en servidor evita usar rutas viejas del JSON
-            // cuando el archivo real ya no existe o fue reemplazado.
-            if (!isLandingDemo && (await tryResolveForm(pipelineForm))) return;
-
-            // Si el servidor no devolvió nada, verificar el path exacto antes de aceptarlo.
+            // La ruta explícita conserva la asociación semántica aunque los índices
+            // de en_es y es_en sean diferentes.
             if (!isLandingDemo && (await tryVerifiedJsonPath(pipelineForm))) return;
 
+            // El fallback por índice es seguro únicamente para el catálogo histórico
+            // es_en. En en_es podría apuntar a otra palabra del mazo inverso.
             if (!isLandingDemo) {
-                const exactPath = buildGlobalFallbackPath(defIndex, pipelineForm);
-                if (await tryVerifyPath(exactPath, pipelineForm)) return;
+                if (studyLanguage !== 'es' && (await tryResolveForm(pipelineForm))) return;
+                if (studyLanguage !== 'es') {
+                    const exactPath = buildGlobalFallbackPath(defIndex, pipelineForm);
+                    if (await tryVerifyPath(exactPath, pipelineForm)) return;
+                }
             } else {
                 // Demo landing: resolve en servidor (Oracle/local) antes del preload en navegador
                 if (await tryResolveForm(pipelineForm)) return;
@@ -574,7 +577,7 @@ export function useImageGeneration({
         setIsGeneratingImage(false);
         isTransitioningRef.current = false;
     }, [
-        cardData, currentCategory, currentDeckName, isAuthenticated,
+        cardData, currentCategory, currentDeckName, courseDirection, isAuthenticated, studyLanguage,
         buildGlobalFallbackPath, isLandingDemo,
         canGenerateImages, fetchViaGenerate, setAppMessage,
         clearGeneratingUiTimer, imagePort, releasePipelineLoading, setOptimisticImageFromPath,
@@ -761,12 +764,16 @@ export function useImageGeneration({
         clearGeneratingUiTimer();
 
         try {
-            await imagePort.delete({
+            const storageIdentity = parseCardImageStorageIdentity(activeDefs[defIndex].imagePath) || {
                 category: currentCategory,
                 deck: currentDeckName,
                 index: cardData.id,
                 defIndex,
                 form: activeForm,
+            };
+            await imagePort.delete({
+                ...storageIdentity,
+                courseDirection: storageIdentity.courseDirection || courseDirection,
             });
 
             clearPrefetchedImages();
@@ -792,7 +799,7 @@ export function useImageGeneration({
     }, [
         cardData, currentCategory, currentDeckName,
         setAppMessage, updateCardImagePath, getActiveDefinitions, activeForm,
-        clearGeneratingUiTimer, imagePort, confirm, language,
+        clearGeneratingUiTimer, courseDirection, imagePort, confirm, language,
         setIsImageLoading,
     ]);
 
@@ -818,12 +825,15 @@ export function useImageGeneration({
             const compressedBlob = await imageCompressionService.compress(file);
             const compressedFile = new File([compressedBlob], 'upload.avif', { type: 'image/avif' });
 
+            const activeDefs = getActiveDefinitions();
+            const explicitIdentity = parseCardImageStorageIdentity(activeDefs?.[defIndex]?.imagePath);
             const data = await imagePort.upload(compressedFile, {
-                category: currentCategory,
-                deck: currentDeckName,
-                cardIndex: cardData.id,
-                defIndex,
-                form: activeForm,
+                category: explicitIdentity?.category || currentCategory,
+                deck: explicitIdentity?.deck || currentDeckName,
+                cardIndex: explicitIdentity?.index ?? cardData.id,
+                defIndex: explicitIdentity?.defIndex ?? defIndex,
+                form: explicitIdentity?.form || activeForm,
+                courseDirection: explicitIdentity?.courseDirection || courseDirection,
             });
 
             clearPrefetchedImages();
@@ -844,7 +854,7 @@ export function useImageGeneration({
     }, [
         cardData, currentCategory, currentDeckName,
         setAppMessage, updateCardImagePath, activeForm, setImageFromPath, clearGeneratingUiTimer,
-        imageCompressionService, imagePort,
+        courseDirection, imageCompressionService, imagePort, getActiveDefinitions,
         setIsImageLoading,
     ]);
 

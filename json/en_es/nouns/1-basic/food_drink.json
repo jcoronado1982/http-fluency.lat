@@ -15,13 +15,14 @@
             {
                 "meaning": "food",
                 "usage_example": "Tengo hambre, necesito comida.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I am hungry, I need food.",
                 "char_count": "one",
                 "usage_context_en": "What people and animals eat",
                 "usage_context_es": "Lo que la gente y los animales comen",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_29_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_29_def0.avif",
+                "target_meaning_es": "Comida"
             }
         ],
         "group_name": "Food",
@@ -43,13 +44,14 @@
             {
                 "meaning": "water",
                 "usage_example": "Por favor, bebe agua.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Please drink water.",
                 "char_count": "two",
                 "usage_context_en": "The clear liquid ($H_2O$) you drink",
                 "usage_context_es": "El líquido transparente ($H_2O$) que bebes",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_30_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_30_def0.avif",
+                "target_meaning_es": "Agua"
             }
         ],
         "group_name": "Food",
@@ -71,13 +73,14 @@
             {
                 "meaning": "bread",
                 "usage_example": "Como pan y queso.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I eat bread and cheese.",
                 "char_count": "one",
                 "usage_context_en": "A basic food made from flour and water",
                 "usage_context_es": "Una comida básica hecha de harina y agua",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_31_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_31_def0.avif",
+                "target_meaning_es": "Pan"
             }
         ],
         "group_name": "Food",
@@ -99,13 +102,14 @@
             {
                 "meaning": "milk",
                 "usage_example": "Bebo leche en la mañana.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I drink milk in the morning.",
                 "char_count": "one",
                 "usage_context_en": "A white liquid from cows",
                 "usage_context_es": "Un líquido blanco de las vacas",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_32_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_32_def0.avif",
+                "target_meaning_es": "Leche"
             }
         ],
         "group_name": "Food",
@@ -127,13 +131,14 @@
             {
                 "meaning": "chicken",
                 "usage_example": "Vamos a cenar pollo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We are having chicken for dinner.",
                 "char_count": "two",
                 "usage_context_en": "A bird, or its meat",
                 "usage_context_es": "Un ave, o su carne",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_33_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_33_def0.avif",
+                "target_meaning_es": "Pollo"
             }
         ],
         "group_name": "Food",
@@ -155,13 +160,14 @@
             {
                 "meaning": "egg",
                 "usage_example": "Como un huevo en el desayuno.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I eat an egg for breakfast.",
                 "char_count": "one",
                 "usage_context_en": "An oval object from a chicken",
                 "usage_context_es": "Un objeto ovalado de una gallina",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_34_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_34_def0.avif",
+                "target_meaning_es": "Huevo"
             }
         ],
         "group_name": "Food",
@@ -183,13 +189,14 @@
             {
                 "meaning": "apple",
                 "usage_example": "Quiero comerme una manzana.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I want to eat an apple.",
                 "char_count": "two",
                 "usage_context_en": "A hard, round fruit",
                 "usage_context_es": "Una fruta dura y redonda",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_35_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_35_def0.avif",
+                "target_meaning_es": "Manzana"
             }
         ],
         "group_name": "Food",
@@ -211,13 +218,14 @@
             {
                 "meaning": "rice",
                 "usage_example": "Me gusta comer arroz.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I like to eat rice.",
                 "char_count": "one",
                 "usage_context_en": "A common grain used for food",
                 "usage_context_es": "Un grano común usado como comida",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_105_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_105_def0.avif",
+                "target_meaning_es": "Arroz"
             }
         ],
         "group_name": "Food",
@@ -239,13 +247,14 @@
             {
                 "meaning": "coffee",
                 "usage_example": "Bebo café por la mañana.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I drink coffee in the morning.",
                 "char_count": "two",
                 "usage_context_en": "A dark brown hot drink",
                 "usage_context_es": "Una bebida caliente de color marrón oscuro",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_106_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_106_def0.avif",
+                "target_meaning_es": "Café"
             }
         ],
         "group_name": "Food",
@@ -267,13 +276,14 @@
             {
                 "meaning": "tea",
                 "usage_example": "¿Quieres té o café?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Do you want tea or coffee?",
                 "char_count": "one",
                 "usage_context_en": "A hot drink made from leaves",
                 "usage_context_es": "Una bebida caliente hecha de hojas",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_107_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_107_def0.avif",
+                "target_meaning_es": "Té"
             }
         ],
         "group_name": "Food",
@@ -295,13 +305,14 @@
             {
                 "meaning": "meat",
                 "usage_example": "No como carne.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I don't eat meat.",
                 "char_count": "one",
                 "usage_context_en": "The flesh of an animal used as food",
                 "usage_context_es": "La carne de un animal usada como comida",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_108_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_108_def0.avif",
+                "target_meaning_es": "Carne"
             }
         ],
         "group_name": "Food",
@@ -323,13 +334,14 @@
             {
                 "meaning": "breakfast",
                 "usage_example": "¿Qué quieres para el desayuno?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What do you want for breakfast?",
                 "char_count": "two",
                 "usage_context_en": "The first meal of the day",
                 "usage_context_es": "La primera comida del día",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_201_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_201_def0.avif",
+                "target_meaning_es": "Desayuno"
             }
         ],
         "group_name": "Food",
@@ -351,13 +363,14 @@
             {
                 "meaning": "lunch",
                 "usage_example": "Es hora del almuerzo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It's time for lunch.",
                 "char_count": "one",
                 "usage_context_en": "The meal eaten in the middle of the day",
                 "usage_context_es": "La comida que se come a mitad del día",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_202_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_202_def0.avif",
+                "target_meaning_es": "Almuerzo"
             }
         ],
         "group_name": "Food",
@@ -379,13 +392,14 @@
             {
                 "meaning": "dinner",
                 "usage_example": "¿Qué hay de cena?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What's for dinner?",
                 "char_count": "two",
                 "usage_context_en": "The main meal of the day, eaten in the evening",
                 "usage_context_es": "La comida principal del día, comida en la tarde-noche",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_203_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_203_def0.avif",
+                "target_meaning_es": "Cena"
             }
         ],
         "group_name": "Food",
@@ -407,13 +421,14 @@
             {
                 "meaning": "meal",
                 "usage_example": "Como tres comidas al día.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I eat three meals a day.",
                 "char_count": "one",
                 "usage_context_en": "An occasion when food is eaten (e.g., breakfast, lunch)",
                 "usage_context_es": "Una ocasión en la que se come (ej. desayuno, almuerzo)",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_204_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_204_def0.avif",
+                "target_meaning_es": "Comida (evento)"
             }
         ],
         "group_name": "Food",
@@ -435,13 +450,14 @@
             {
                 "meaning": "fruit",
                 "usage_example": "Una manzana es una fruta.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "An apple is a fruit.",
                 "char_count": "one",
                 "usage_context_en": "Sweet food that grows on trees or bushes",
                 "usage_context_es": "Comida dulce que crece en árboles o arbustos",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_205_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_205_def0.avif",
+                "target_meaning_es": "Fruta"
             }
         ],
         "group_name": "Food",
@@ -463,13 +479,14 @@
             {
                 "meaning": "vegetable",
                 "usage_example": "Come tus verduras.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Eat your vegetables.",
                 "char_count": "three",
                 "usage_context_en": "A plant or part of a plant used as food",
                 "usage_context_es": "Una planta o parte de una planta usada como comida",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_206_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_206_def0.avif",
+                "target_meaning_es": "Verdura / Vegetal"
             }
         ],
         "group_name": "Food",
@@ -491,13 +508,14 @@
             {
                 "meaning": "potato",
                 "usage_example": "Me gustan las papas al horno.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I like baked potatoes.",
                 "char_count": "three",
                 "usage_context_en": "A round, white vegetable that grows underground",
                 "usage_context_es": "Una verdura redonda y blanca que crece bajo tierra",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_207_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_207_def0.avif",
+                "target_meaning_es": "Papa / Patata"
             }
         ],
         "group_name": "Food",
@@ -519,13 +537,14 @@
             {
                 "meaning": "tomato",
                 "usage_example": "La salsa necesita tomate.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The sauce needs tomato.",
                 "char_count": "three",
                 "usage_context_en": "A soft, red fruit used as a vegetable",
                 "usage_context_es": "Una fruta roja y suave usada como verdura",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_208_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_208_def0.avif",
+                "target_meaning_es": "Tomate"
             }
         ],
         "group_name": "Food",
@@ -547,13 +566,14 @@
             {
                 "meaning": "orange",
                 "usage_example": "Quiero una naranja.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I want an orange.",
                 "char_count": "two",
                 "usage_context_en": "A round, orange-colored fruit",
                 "usage_context_es": "Una fruta redonda de color naranja",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_209_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_209_def0.avif",
+                "target_meaning_es": "Naranja (fruta)"
             }
         ],
         "group_name": "Food",
@@ -575,13 +595,14 @@
             {
                 "meaning": "banana",
                 "usage_example": "A los monos les encantan las bananas.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Monkeys love bananas.",
                 "char_count": "three",
                 "usage_context_en": "A long, yellow fruit",
                 "usage_context_es": "Una fruta larga y amarilla",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_210_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_210_def0.avif",
+                "target_meaning_es": "Banana / Plátano"
             }
         ],
         "group_name": "Food",
@@ -603,13 +624,14 @@
             {
                 "meaning": "cheese",
                 "usage_example": "Me gusta el pan y el queso.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I like bread and cheese.",
                 "char_count": "one",
                 "usage_context_en": "A yellow or white food made from milk",
                 "usage_context_es": "Una comida amarilla o blanca hecha de leche",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_211_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_211_def0.avif",
+                "target_meaning_es": "Queso"
             }
         ],
         "group_name": "Food",
@@ -631,13 +653,14 @@
             {
                 "meaning": "sugar",
                 "usage_example": "Pongo azúcar en mi café.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I put sugar in my coffee.",
                 "char_count": "two",
                 "usage_context_en": "A sweet substance",
                 "usage_context_es": "Una sustancia dulce",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_212_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_212_def0.avif",
+                "target_meaning_es": "Azúcar"
             }
         ],
         "group_name": "Food",
@@ -659,13 +682,14 @@
             {
                 "meaning": "salt",
                 "usage_example": "Añade un poco de sal.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Add a little salt.",
                 "char_count": "one",
                 "usage_context_en": "A white substance used to flavor food",
                 "usage_context_es": "Una sustancia blanca usada para sazonar comida",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_213_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_213_def0.avif",
+                "target_meaning_es": "Sal"
             }
         ],
         "group_name": "Food",
@@ -687,13 +711,14 @@
             {
                 "meaning": "pepper",
                 "usage_example": "Necesito sal y pimienta.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I need salt and pepper.",
                 "char_count": "two",
                 "usage_context_en": "A black powder / A green or red vegetable",
                 "usage_context_es": "Un polvo negro / Una verdura verde o roja",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_214_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_214_def0.avif",
+                "target_meaning_es": "Pimienta / Pimiento"
             }
         ],
         "group_name": "Food",
@@ -715,13 +740,14 @@
             {
                 "meaning": "oil",
                 "usage_example": "Cocina con aceite de oliva.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Cook with olive oil.",
                 "char_count": "one",
                 "usage_context_en": "A liquid fat used in cooking",
                 "usage_context_es": "Una grasa líquida usada para cocinar",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_215_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_215_def0.avif",
+                "target_meaning_es": "Aceite"
             }
         ],
         "group_name": "Food",
@@ -743,13 +769,14 @@
             {
                 "meaning": "butter",
                 "usage_example": "Pan con mantequilla.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Bread with butter.",
                 "char_count": "two",
                 "usage_context_en": "A yellow fat made from milk",
                 "usage_context_es": "Una grasa amarilla hecha de leche",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_216_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_216_def0.avif",
+                "target_meaning_es": "Mantequilla"
             }
         ],
         "group_name": "Food",
@@ -771,13 +798,14 @@
             {
                 "meaning": "soup",
                 "usage_example": "La sopa está caliente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The soup is hot.",
                 "char_count": "one",
                 "usage_context_en": "A hot liquid food made with vegetables or meat",
                 "usage_context_es": "Un alimento líquido caliente hecho con verduras o carne",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_412_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_412_def0.avif",
+                "target_meaning_es": "Sopa"
             }
         ],
         "group_name": "Food",
@@ -799,13 +827,14 @@
             {
                 "meaning": "salad",
                 "usage_example": "Quiero una ensalada.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I want a salad.",
                 "char_count": "two",
                 "usage_context_en": "A cold dish made with vegetables",
                 "usage_context_es": "Un plato frío hecho con verduras",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_413_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_413_def0.avif",
+                "target_meaning_es": "Ensalada"
             }
         ],
         "group_name": "Food",
@@ -827,13 +856,14 @@
             {
                 "meaning": "sandwich",
                 "usage_example": "Comí un sándwich.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I ate a sandwich.",
                 "char_count": "three",
                 "usage_context_en": "Two slices of bread with filling in between",
                 "usage_context_es": "Dos rebanadas de pan con relleno en medio",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_414_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_414_def0.avif",
+                "target_meaning_es": "Sándwich / Emparedado"
             }
         ],
         "group_name": "Food",
@@ -855,13 +885,14 @@
             {
                 "meaning": "cake",
                 "usage_example": "Me gusta el pastel de chocolate.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I like chocolate cake.",
                 "char_count": "one",
                 "usage_context_en": "A sweet baked dessert",
                 "usage_context_es": "Un postre dulce horneado",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_415_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_415_def0.avif",
+                "target_meaning_es": "Torta / Pastel"
             }
         ],
         "group_name": "Food",
@@ -883,13 +914,14 @@
             {
                 "meaning": "juice",
                 "usage_example": "Quiero jugo de naranja.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I want orange juice.",
                 "char_count": "one",
                 "usage_context_en": "A drink made from fruit",
                 "usage_context_es": "Una bebida hecha de fruta",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_416_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_416_def0.avif",
+                "target_meaning_es": "Jugo / Zumo"
             }
         ],
         "group_name": "Food",
@@ -911,13 +943,14 @@
             {
                 "meaning": "beer",
                 "usage_example": "¿Me puede dar una cerveza?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Can I have a beer?",
                 "char_count": "one",
                 "usage_context_en": "An alcoholic drink made from grain",
                 "usage_context_es": "Una bebida alcohólica hecha de grano",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_417_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_417_def0.avif",
+                "target_meaning_es": "Cerveza"
             }
         ],
         "group_name": "Food",
@@ -939,13 +972,14 @@
             {
                 "meaning": "wine",
                 "usage_example": "Ella toma vino tinto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She drinks red wine.",
                 "char_count": "one",
                 "usage_context_en": "An alcoholic drink made from grapes",
                 "usage_context_es": "Una bebida alcohólica hecha de uvas",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_418_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_418_def0.avif",
+                "target_meaning_es": "Vino"
             }
         ],
         "group_name": "Food",
@@ -967,13 +1001,14 @@
             {
                 "meaning": "onion",
                 "usage_example": "La cebolla huele fuerte.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The onion smells strong.",
                 "char_count": "two",
                 "usage_context_en": "A round vegetable with a strong smell",
                 "usage_context_es": "Una verdura redonda con un olor fuerte",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_419_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_419_def0.avif",
+                "target_meaning_es": "Cebolla"
             }
         ],
         "group_name": "Food",
@@ -995,13 +1030,14 @@
             {
                 "meaning": "garlic",
                 "usage_example": "Agrega ajo al arroz.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Add garlic to the rice.",
                 "char_count": "two",
                 "usage_context_en": "A small plant used to flavor food",
                 "usage_context_es": "Una planta pequeña usada para dar sabor a la comida",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_420_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_420_def0.avif",
+                "target_meaning_es": "Ajo"
             }
         ],
         "group_name": "Food",
@@ -1023,13 +1059,14 @@
             {
                 "meaning": "chocolate",
                 "usage_example": "Me encanta el chocolate.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I love chocolate.",
                 "char_count": "two",
                 "usage_context_en": "A sweet food made from cacao",
                 "usage_context_es": "Un alimento dulce hecho de cacao",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_421_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_421_def0.avif",
+                "target_meaning_es": "Chocolate"
             }
         ],
         "group_name": "Food",
@@ -1051,13 +1088,14 @@
             {
                 "meaning": "dessert",
                 "usage_example": "¿Qué hay de postre?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What is for dessert?",
                 "char_count": "two",
                 "usage_context_en": "A sweet dish eaten after a meal",
                 "usage_context_es": "Un plato dulce que se come después de una comida",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_422_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_422_def0.avif",
+                "target_meaning_es": "Postre"
             }
         ],
         "group_name": "Food",
@@ -1079,13 +1117,14 @@
             {
                 "meaning": "snack",
                 "usage_example": "Necesito una merienda.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I need a snack.",
                 "char_count": "one",
                 "usage_context_en": "A small amount of food eaten between meals",
                 "usage_context_es": "Una pequeña cantidad de comida que se come entre comidas",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_423_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_423_def0.avif",
+                "target_meaning_es": "Merienda / Snack"
             }
         ],
         "group_name": "Food",
@@ -1107,13 +1146,14 @@
             {
                 "meaning": "bacon",
                 "usage_example": "Me gusta comer tocino crujiente para el desayuno.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I like to eat crispy bacon for breakfast.",
                 "char_count": "two",
                 "usage_context_en": "Cured meat from a pig",
                 "usage_context_es": "Carne curada de cerdo",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Tocino / Bacon"
             }
         ],
         "group_name": "Food",
@@ -1135,13 +1175,14 @@
             {
                 "meaning": "ketchup",
                 "usage_example": "Me gusta ponerle kétchup a mis papas fritas.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I like to put ketchup on my French fries.",
                 "char_count": "two",
                 "usage_context_en": "A sweet tomato sauce",
                 "usage_context_es": "Una salsa de tomate dulce",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Ketchup / Cátsup"
             }
         ],
         "group_name": "Food",
@@ -1163,13 +1204,14 @@
             {
                 "meaning": "ice cream",
                 "usage_example": "Quiero comer helado de chocolate.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I want to eat chocolate ice cream.",
                 "char_count": "two",
                 "usage_context_en": "A sweet frozen food made from milk and cream",
                 "usage_context_es": "Un alimento dulce congelado hecho de leche y crema",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Helado"
             }
         ],
         "group_name": "Food",

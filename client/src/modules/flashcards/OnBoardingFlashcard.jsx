@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useUIContext } from '../../context/UIContext';
 import { preloadFlashcardStart } from './preload';
+import { useAuth } from '../../context/AuthContext';
 import styles from './OnBoardingFlashcard.module.css';
 
 const COPY = {
@@ -66,6 +67,7 @@ const OnBoardingFlashcard = ({
     onStart,
     onStartTour,
 }) => {
+    const { updateStudyLanguage } = useAuth();
     const {
         language,
         setLanguage,
@@ -195,6 +197,7 @@ const OnBoardingFlashcard = ({
                                     onClick={() => {
                                         setSelectedStudyLanguage(option.id);
                                         setStudyLanguage(option.id);
+                                        void updateStudyLanguage(option.id);
                                     }}
                                     className={`${styles.optionCard} ${isSelected ? styles.optionCardSelected : ''}`}
                                 >

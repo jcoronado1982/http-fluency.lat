@@ -15,13 +15,14 @@
             {
                 "meaning": "acquire",
                 "usage_example": "La compañía adquirió un nuevo edificio.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The company acquired a new building.",
                 "char_count": "two",
                 "usage_context_en": "purchase/gain",
                 "usage_context_es": "compra/obtención",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_21_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_21_def0.avif",
+                "target_meaning_es": "Adquirir (obtener, comprar)"
             }
         ],
         "group_name": "Social Dynamics",

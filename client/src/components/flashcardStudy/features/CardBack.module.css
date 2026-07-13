@@ -118,12 +118,31 @@
 }
 [data-variant='demo'] .cardBack {
     font-family: var(--font-family-app, var(--font-family-body));
-    overflow: hidden;  /* Usamos hidden para clipping óptimo de border-radius */
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(244, 114, 182, 0.5) transparent;
+    -webkit-overflow-scrolling: touch;
+}
+
+[data-variant='demo'] .cardBack::-webkit-scrollbar {
+    width: 6px;
+}
+
+[data-variant='demo'] .cardBack::-webkit-scrollbar-thumb {
+    background: rgba(244, 114, 182, 0.5);
+    border-radius: 999px;
+}
+
+[data-variant='demo'] .cardBack::-webkit-scrollbar-track {
+    background: transparent;
 }
 @media (max-width: 768px) {
 
     [data-variant='demo'] .cardBack {
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: auto;
         min-width: 0;
         max-width: 100%;
         box-sizing: border-box;

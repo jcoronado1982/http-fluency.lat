@@ -249,3 +249,35 @@
         -webkit-overflow-scrolling: touch;
     }
 }
+.studyDirectionControl {
+    display: grid;
+    gap: 7px;
+    margin: 8px 12px 12px;
+}
+
+.studyDirectionLabel {
+    color: #94a3b8;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.studyDirectionOption {
+    width: 100%;
+    padding: 9px 11px;
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    border-radius: 10px;
+    background: rgba(15, 23, 42, 0.42);
+    color: #cbd5e1;
+    font: inherit;
+    font-size: 0.82rem;
+    text-align: left;
+    cursor: pointer;
+}
+
+.studyDirectionOption.active {
+    border-color: rgba(244, 114, 182, 0.7);
+    background: rgba(190, 24, 93, 0.2);
+    color: #fff;
+}

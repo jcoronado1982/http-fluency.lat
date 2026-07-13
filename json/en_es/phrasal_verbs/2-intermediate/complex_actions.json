@@ -15,13 +15,14 @@
             {
                 "meaning": "come up",
                 "usage_example": "Surgió algo en el trabajo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Something came up at work.",
                 "char_count": "one",
                 "usage_context_en": "unexpected situation",
                 "usage_context_es": "situación inesperada",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Surgir / Aparecer"
             }
         ],
         "group_name": "Phrasal Verbs: Come",
@@ -43,24 +44,26 @@
             {
                 "meaning": "bring on",
                 "usage_example": "El estrés me provocó un dolor de cabeza.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The stress brought on a headache.",
                 "char_count": "one",
                 "usage_context_en": "cause illness/problem",
                 "usage_context_es": "causar enfermedad/problema",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_7_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_7_def0.avif",
+                "target_meaning_es": "Causar, provocar (generalmente algo negativo)"
             },
             {
-                "meaning": "bring on (def 2)",
+                "meaning": "bring on",
                 "usage_example": "¿Quieres un reto? ¡Adelante! (¡Venga!)",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "You want a challenge? Bring it on!",
                 "char_count": "one",
                 "usage_context_en": "accepting challenge",
                 "usage_context_es": "aceptar un reto",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_7_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_7_def1.avif",
+                "target_meaning_es": "¡Vamos! / ¡Adelante! (aceptar un reto)"
             }
         ],
         "group_name": "Phrasal Verbs: Bring",
@@ -82,24 +85,26 @@
             {
                 "meaning": "give out",
                 "usage_example": "Repartieron agua después de la carrera.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "They gave out water after the race.",
                 "char_count": "one",
                 "usage_context_en": "distribution/help",
                 "usage_context_es": "distribución/ayuda",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Repartir / Distribuir"
             },
             {
-                "meaning": "give out (def 2)",
+                "meaning": "give out",
                 "usage_example": "Mis piernas fallaron.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "My legs gave out.",
                 "char_count": "one",
                 "usage_context_en": "body/failure",
                 "usage_context_es": "cuerpo/fallo",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Dejar de funcionar / Agotarse"
             }
         ],
         "group_name": "Phrasal Verbs: Give",
@@ -121,35 +126,38 @@
             {
                 "meaning": "put down",
                 "usage_example": "Puedes dejar tu bolso aquí.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "You can put down your bag here.",
                 "char_count": "one",
                 "usage_context_en": "physical action/placing",
                 "usage_context_es": "acción física/colocar",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_12_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_12_def0.avif",
+                "target_meaning_es": "Poner (algo) en el suelo, soltar"
             },
             {
-                "meaning": "put down (def 2)",
+                "meaning": "put down",
                 "usage_example": "Él siempre menosprecia a sus compañeros de trabajo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He always puts down his coworkers.",
                 "char_count": "one",
                 "usage_context_en": "insult/criticism",
                 "usage_context_es": "insulto/crítica",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_12_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_12_def1.avif",
+                "target_meaning_es": "Menospreciar, humillar (a alguien)"
             },
             {
-                "meaning": "put down (def 3)",
+                "meaning": "put down",
                 "usage_example": "Tuvimos que sacrificar a nuestro viejo gato.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We had to put our old cat down.",
                 "char_count": "one",
                 "usage_context_en": "pets/euthanasia",
                 "usage_context_es": "mascotas/eutanasia",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_12_def2.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_12_def2.avif",
+                "target_meaning_es": "Sacrificar (un animal), dormirlo"
             }
         ],
         "group_name": "Phrasal Verbs: Put",
@@ -171,35 +179,38 @@
             {
                 "meaning": "work out",
                 "usage_example": "Intento hacer ejercicio tres veces por semana.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I try to work out three times a week.",
                 "char_count": "one",
                 "usage_context_en": "exercise/health",
                 "usage_context_es": "ejercicio/salud",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_42_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_42_def0.avif",
+                "target_meaning_es": "Hacer ejercicio (en un gimnasio)"
             },
             {
-                "meaning": "work out (def 2)",
+                "meaning": "work out",
                 "usage_example": "Necesitamos encontrar (resolver) una solución.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We need to work out a solution.",
                 "char_count": "one",
                 "usage_context_en": "problem solving",
                 "usage_context_es": "resolver problemas",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_42_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_42_def1.avif",
+                "target_meaning_es": "Resolver (un problema), calcular"
             },
             {
-                "meaning": "work out (def 3)",
+                "meaning": "work out",
                 "usage_example": "Espero que todo te salga bien.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I hope everything works out for you.",
                 "char_count": "one",
                 "usage_context_en": "results/outcome",
                 "usage_context_es": "resultados/desenlace",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_42_def2.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_42_def2.avif",
+                "target_meaning_es": "Salir bien, funcionar (un plan)"
             }
         ],
         "group_name": "Phrasal Verbs: Work",
@@ -221,24 +232,26 @@
             {
                 "meaning": "take down",
                 "usage_example": "¿Puedes anotar mi número de teléfono?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Can you take down my phone number?",
                 "char_count": "one",
                 "usage_context_en": "writing/information",
                 "usage_context_es": "escribir/información",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_33_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_33_def0.avif",
+                "target_meaning_es": "Anotar, tomar nota"
             },
             {
-                "meaning": "take down (def 2)",
+                "meaning": "take down",
                 "usage_example": "Es hora de quitar las luces de Navidad.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It's time to take down the Christmas lights.",
                 "char_count": "one",
                 "usage_context_en": "disassemble/remove",
                 "usage_context_es": "desmontar/quitar",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_33_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_33_def1.avif",
+                "target_meaning_es": "Desmontar, quitar (algo colgado)"
             }
         ],
         "group_name": "Phrasal Verbs: Take",

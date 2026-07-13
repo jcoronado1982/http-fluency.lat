@@ -15,13 +15,14 @@
             {
                 "meaning": "call off",
                 "usage_example": "Tuvimos que cancelar el partido debido a la lluvia.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We had to call off the game due to rain.",
                 "char_count": "one",
                 "usage_context_en": "events/plans",
                 "usage_context_es": "eventos/planes",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_10_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_10_def0.avif",
+                "target_meaning_es": "Cancelar (un evento)"
             }
         ],
         "group_name": "Phrasal Verbs: Call",
@@ -43,24 +44,26 @@
             {
                 "meaning": "call for",
                 "usage_example": "Esta receta requiere tres huevos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "This recipe calls for three eggs.",
                 "char_count": "one",
                 "usage_context_en": "instructions/recipes",
                 "usage_context_es": "instrucciones/recetas",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_13_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_13_def0.avif",
+                "target_meaning_es": "Requerir, necesitar"
             },
             {
-                "meaning": "call for (def 2)",
+                "meaning": "call for",
                 "usage_example": "Los manifestantes están pidiendo un cambio.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The protesters are calling for change.",
                 "char_count": "one",
                 "usage_context_en": "public demand",
                 "usage_context_es": "exigencia pública",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_13_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_13_def1.avif",
+                "target_meaning_es": "Pedir, exigir (públicamente)"
             }
         ],
         "group_name": "Phrasal Verbs: Call",
@@ -82,13 +85,14 @@
             {
                 "meaning": "run by",
                 "usage_example": "¿Puedo consultarte esta idea rápidamente?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Can I run this idea by you quickly?",
                 "char_count": "one",
                 "usage_context_en": "work/getting opinion",
                 "usage_context_es": "trabajo/pedir opinión",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_18_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_18_def0.avif",
+                "target_meaning_es": "Consultar (una idea) con (alguien)"
             }
         ],
         "group_name": "Phrasal Verbs: Run",
@@ -110,24 +114,26 @@
             {
                 "meaning": "bring in",
                 "usage_example": "Mi nuevo trabajo genera más dinero.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "My new job brings in more money.",
                 "char_count": "one",
                 "usage_context_en": "work/salary",
                 "usage_context_es": "trabajo/salario",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_9_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_9_def0.avif",
+                "target_meaning_es": "Ganar (dinero), generar (ingresos)"
             },
             {
-                "meaning": "bring in (def 2)",
+                "meaning": "bring in",
                 "usage_example": "Traigamos a un experto para que nos ayude.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Let's bring in an expert to help us.",
                 "char_count": "one",
                 "usage_context_en": "work/projects",
                 "usage_context_es": "trabajo/proyectos",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_9_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_9_def1.avif",
+                "target_meaning_es": "Involucrar (a alguien), traer (a un experto)"
             }
         ],
         "group_name": "Phrasal Verbs: Bring",
@@ -149,13 +155,14 @@
             {
                 "meaning": "give back",
                 "usage_example": "Por favor, devuélveme mi teléfono.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Please give back my phone.",
                 "char_count": "one",
                 "usage_context_en": "returning items",
                 "usage_context_es": "devolver objetos",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Devolver"
             }
         ],
         "group_name": "Phrasal Verbs: Give",
@@ -177,24 +184,26 @@
             {
                 "meaning": "take back",
                 "usage_example": "Retiro lo dicho. Estaba equivocado.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I take back what I said. I was wrong.",
                 "char_count": "one",
                 "usage_context_en": "conversation/apology",
                 "usage_context_es": "conversación/disculpa",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_32_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_32_def0.avif",
+                "target_meaning_es": "Retirar (lo dicho), retractarse"
             },
             {
-                "meaning": "take back (def 2)",
+                "meaning": "take back",
                 "usage_example": "Necesito devolver estos zapatos. No me quedan.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I need to take back these shoes. They don't fit.",
                 "char_count": "one",
                 "usage_context_en": "shopping/returning",
                 "usage_context_es": "compras/devolver",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_32_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_32_def1.avif",
+                "target_meaning_es": "Devolver (algo a una tienda)"
             }
         ],
         "group_name": "Phrasal Verbs: Take",

@@ -15,35 +15,38 @@
             {
                 "meaning": "drop off",
                 "usage_example": "¿Puedes dejarme en la próxima esquina?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Can you drop me off at the next corner?",
                 "char_count": "one",
                 "usage_context_en": "transport/giving a ride",
                 "usage_context_es": "transporte/llevar a alguien",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_31_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_31_def0.avif",
+                "target_meaning_es": "Dejar (a alguien o algo) en un lugar"
             },
             {
-                "meaning": "drop off (def 2)",
+                "meaning": "drop off",
                 "usage_example": "Las ventas siempre caen después de Navidad.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Sales always drop off after Christmas.",
                 "char_count": "one",
                 "usage_context_en": "business/statistics",
                 "usage_context_es": "negocios/estadísticas",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_31_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_31_def1.avif",
+                "target_meaning_es": "Disminuir, caer (ventas, asistencia)"
             },
             {
-                "meaning": "drop off (def 3)",
+                "meaning": "drop off",
                 "usage_example": "Me quedé dormido durante la película aburrida.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I dropped off during the boring movie.",
                 "char_count": "one",
                 "usage_context_en": "sleep (informal)",
                 "usage_context_es": "dormir (informal)",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_31_def2.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_31_def2.avif",
+                "target_meaning_es": "Quedarse dormido (informal)"
             }
         ],
         "group_name": "Phrasal Verbs: Drop",
@@ -65,24 +68,26 @@
             {
                 "meaning": "set off",
                 "usage_example": "Salimos (de viaje) temprano en la mañana.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We set off early in the morning.",
                 "char_count": "one",
                 "usage_context_en": "travel/starting a journey",
                 "usage_context_es": "viajes/empezar un viaje",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_20_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_20_def0.avif",
+                "target_meaning_es": "Irse de viaje, ponerse en camino"
             },
             {
-                "meaning": "set off (def 2)",
+                "meaning": "set off",
                 "usage_example": "El humo activó la alarma de incendios.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The smoke set off the fire alarm.",
                 "char_count": "one",
                 "usage_context_en": "activate/trigger",
                 "usage_context_es": "activar/provocar",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_20_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_20_def1.avif",
+                "target_meaning_es": "Activar (una alarma, una bomba)"
             }
         ],
         "group_name": "Phrasal Verbs: Set",
@@ -104,24 +109,26 @@
             {
                 "meaning": "get over",
                 "usage_example": "Le tomó meses superar su ruptura.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It took him months to get over his breakup.",
                 "char_count": "one",
                 "usage_context_en": "overcome",
                 "usage_context_es": "superar",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_42_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_42_def0.avif",
+                "target_meaning_es": "superar (una enfermedad o situación difícil)"
             },
             {
-                "meaning": "get over (def 2)",
+                "meaning": "get over",
                 "usage_example": "Necesito pasar por encima de este muro alto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I need to get over this high wall.",
                 "char_count": "one",
                 "usage_context_en": "physical movement",
                 "usage_context_es": "movimiento físico",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_42_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_42_def1.avif",
+                "target_meaning_es": "cruzar o pasar por encima de algo (físico)"
             }
         ],
         "group_name": "Phrasal Verbs: Get",
@@ -143,24 +150,26 @@
             {
                 "meaning": "run into",
                 "usage_example": "Me encontré con mi antiguo profesor en la tienda.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I ran into my old teacher at the store.",
                 "char_count": "one",
                 "usage_context_en": "unexpected meeting",
                 "usage_context_es": "encuentro inesperado",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_14_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_14_def0.avif",
+                "target_meaning_es": "Encontrarse con (alguien) por casualidad"
             },
             {
-                "meaning": "run into (def 2)",
+                "meaning": "run into",
                 "usage_example": "Chocó contra un árbol con su bicicleta.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He ran into a tree with his bike.",
                 "char_count": "one",
                 "usage_context_en": "collision/accident",
                 "usage_context_es": "colisión/accidente",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_14_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_14_def1.avif",
+                "target_meaning_es": "Chocar con (algo)"
             }
         ],
         "group_name": "Phrasal Verbs: Run",
@@ -182,24 +191,26 @@
             {
                 "meaning": "run over",
                 "usage_example": "Un autobús atropelló su bicicleta.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "A bus ran over his bicycle.",
                 "char_count": "one",
                 "usage_context_en": "driving/accident",
                 "usage_context_es": "conducir/accidente",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_15_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_15_def0.avif",
+                "target_meaning_es": "Atropellar (con un vehículo)"
             },
             {
-                "meaning": "run over (def 2)",
-                "usage_example": "La reunión se pasó 10 minutos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "meaning": "run over",
+                "usage_example": "La reunión se prolongó diez minutos más.",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The meeting ran over by 10 minutes.",
                 "char_count": "one",
                 "usage_context_en": "time/schedule",
                 "usage_context_es": "tiempo/horario",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_15_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_15_def1.avif",
+                "target_meaning_es": "Excederse (del tiempo), pasarse"
             }
         ],
         "group_name": "Phrasal Verbs: Run",
@@ -221,24 +232,26 @@
             {
                 "meaning": "get through",
                 "usage_example": "Vamos a superar esto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We will get through this.",
                 "char_count": "one",
                 "usage_context_en": "difficulty/support",
                 "usage_context_es": "dificultad/apoyo",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Superar / Pasar por algo difícil"
             },
             {
-                "meaning": "get through (def 2)",
+                "meaning": "get through",
                 "usage_example": "No pude comunicarme con la oficina.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I couldn’t get through to the office.",
                 "char_count": "one",
                 "usage_context_en": "phone/contact",
                 "usage_context_es": "teléfono/contacto",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Comunicar por teléfono"
             }
         ],
         "group_name": "Phrasal Verbs: Get",

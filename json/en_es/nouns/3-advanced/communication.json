@@ -15,13 +15,14 @@
             {
                 "meaning": "misunderstanding",
                 "usage_example": "Todo fue un malentendido.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It was all a misunderstanding.",
                 "char_count": "5",
                 "usage_context_en": "A failure to understand something correctly.",
                 "usage_context_es": "Un fallo en entender algo correctamente.",
-                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_78_def0.avif"
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_78_def0.avif",
+                "target_meaning_es": "Malentendido"
             }
         ],
         "group_name": "General Concepts",

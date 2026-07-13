@@ -15,13 +15,14 @@
             {
                 "meaning": "modify",
                 "usage_example": "Puede que necesitemos modificar el diseño.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We may need to modify the design.",
                 "char_count": "three",
                 "usage_context_en": "change/adjustment",
                 "usage_context_es": "cambio/ajuste",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_15_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_15_def0.avif",
+                "target_meaning_es": "Modificar/Alterar (ligeramente)"
             }
         ],
         "group_name": "Influence & Change",
@@ -43,13 +44,14 @@
             {
                 "meaning": "establish",
                 "usage_example": "La compañía fue fundada en 1990.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The company was established in 1990.",
                 "char_count": "four",
                 "usage_context_en": "founding/creation",
                 "usage_context_es": "fundación/creación",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_16_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_16_def0.avif",
+                "target_meaning_es": "Establecer/Fundar"
             }
         ],
         "group_name": "Goals & Results",
@@ -71,13 +73,14 @@
             {
                 "meaning": "adapt",
                 "usage_example": "Necesitas adaptarte al nuevo sistema.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "You need to adapt to the new system.",
                 "char_count": "two",
                 "usage_context_en": "change/adjustment",
                 "usage_context_es": "cambio/ajuste",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_19_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_19_def0.avif",
+                "target_meaning_es": "Adaptar/Adaptarse"
             }
         ],
         "group_name": "Influence & Change",
@@ -99,13 +102,14 @@
             {
                 "meaning": "alter",
                 "usage_example": "Tuvimos que alterar nuestros planes.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We had to alter our plans.",
                 "char_count": "two",
                 "usage_context_en": "change/modification",
                 "usage_context_es": "cambio/modificación",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_20_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_20_def0.avif",
+                "target_meaning_es": "Alterar/Cambiar"
             }
         ],
         "group_name": "Influence & Change",
@@ -127,13 +131,14 @@
             {
                 "meaning": "launch",
                 "usage_example": "Lanzarán el nuevo producto el próximo mes.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "They will launch the new product next month.",
                 "char_count": "one",
                 "usage_context_en": "business/start",
                 "usage_context_es": "negocios/inicio",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_40_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_40_def0.avif",
+                "target_meaning_es": "Lanzar (un producto, proyecto)"
             }
         ],
         "group_name": "Goals & Results",
@@ -155,13 +160,14 @@
             {
                 "meaning": "transform",
                 "usage_example": "Internet ha transformado la forma en que vivimos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The internet has transformed the way we live.",
                 "char_count": "two",
                 "usage_context_en": "change/major",
                 "usage_context_es": "cambio/mayor",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_41_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_41_def0.avif",
+                "target_meaning_es": "Transformar (cambiar completamente)"
             }
         ],
         "group_name": "Goals & Results",
@@ -183,13 +189,14 @@
             {
                 "meaning": "fluctuate",
                 "usage_example": "Los precios fluctúan dependiendo de la temporada.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Prices fluctuate depending on the season.",
                 "char_count": "three",
                 "usage_context_en": "vary/change",
                 "usage_context_es": "variar/cambiar",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_44_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_44_def0.avif",
+                "target_meaning_es": "Fluctuar/Variar"
             }
         ],
         "group_name": "Influence & Change",

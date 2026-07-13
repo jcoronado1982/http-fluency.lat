@@ -15,13 +15,14 @@
             {
                 "meaning": "thing",
                 "usage_example": "¿Qué es esa cosa?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What is that thing?",
                 "char_count": "one",
                 "usage_context_en": "An object or idea (very general)",
                 "usage_context_es": "Un objeto o idea (muy general)",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_7_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_7_def0.avif",
+                "target_meaning_es": "Cosa"
             }
         ],
         "group_name": null,
@@ -43,13 +44,14 @@
             {
                 "meaning": "example",
                 "usage_example": "¿Puedes darme un ejemplo?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Can you give me an example?",
                 "char_count": "three",
                 "usage_context_en": "A thing that shows what others are like",
                 "usage_context_es": "Una cosa que muestra cómo son otras",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_177_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_177_def0.avif",
+                "target_meaning_es": "Ejemplo"
             }
         ],
         "group_name": "General Concepts",
@@ -71,13 +73,14 @@
             {
                 "meaning": "kind",
                 "usage_example": "¿Qué tipo de música te gusta?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What kind of music do you like?",
                 "char_count": "1",
                 "usage_context_en": "A group of things with similar characteristics",
                 "usage_context_es": "Un grupo de cosas con características similares",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_483_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_483_def0.avif",
+                "target_meaning_es": "Tipo / Clase"
             }
         ],
         "group_name": "General Concepts",
@@ -99,13 +102,14 @@
             {
                 "meaning": "piece",
                 "usage_example": "Necesito un pedazo de papel.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I need a piece of paper.",
                 "char_count": "1",
                 "usage_context_en": "A part of something that has been separated",
                 "usage_context_es": "Una parte de algo que ha sido separada",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_484_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_484_def0.avif",
+                "target_meaning_es": "Pedazo / Pieza"
             }
         ],
         "group_name": "General Concepts",

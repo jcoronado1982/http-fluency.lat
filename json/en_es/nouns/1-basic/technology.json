@@ -15,13 +15,14 @@
             {
                 "meaning": "computer",
                 "usage_example": "Uso mi computadora para trabajar.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I use my computer for work.",
                 "char_count": "three",
                 "usage_context_en": "An electronic machine",
                 "usage_context_es": "Una máquina electrónica",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_55_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_55_def0.avif",
+                "target_meaning_es": "Computadora / Ordenador"
             }
         ],
         "group_name": "Household",
@@ -43,13 +44,14 @@
             {
                 "meaning": "system",
                 "usage_example": "El sistema informático está caído.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The computer system is down.",
                 "char_count": "two",
                 "usage_context_en": "A set of connected things or parts",
                 "usage_context_es": "Un conjunto de cosas o partes conectadas",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_169_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_169_def0.avif",
+                "target_meaning_es": "Sistema"
             }
         ],
         "group_name": "General Concepts",
@@ -71,13 +73,14 @@
             {
                 "meaning": "email",
                 "usage_example": "Envíame un correo electrónico.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Send me an email.",
                 "char_count": "two",
                 "usage_context_en": "A message sent online",
                 "usage_context_es": "Un mensaje enviado en línea",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_288_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_288_def0.avif",
+                "target_meaning_es": "Correo electrónico"
             }
         ],
         "group_name": "General Concepts",
@@ -99,13 +102,14 @@
             {
                 "meaning": "website",
                 "usage_example": "Lo encontré en este sitio web.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I found it on this website.",
                 "char_count": "two",
                 "usage_context_en": "A location on the internet",
                 "usage_context_es": "Una ubicación en internet",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_289_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_289_def0.avif",
+                "target_meaning_es": "Sitio web"
             }
         ],
         "group_name": "General Concepts",
@@ -127,13 +131,14 @@
             {
                 "meaning": "internet",
                 "usage_example": "Uso el internet todos los días.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I use the internet every day.",
                 "char_count": "three",
                 "usage_context_en": "The global system of computer networks",
                 "usage_context_es": "El sistema global de redes de computadoras",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_290_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_290_def0.avif",
+                "target_meaning_es": "Internet"
             }
         ],
         "group_name": "General Concepts",
@@ -155,13 +160,14 @@
             {
                 "meaning": "call",
                 "usage_example": "Recibí una llamada de mi mamá.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I got a call from my mom.",
                 "char_count": "one",
                 "usage_context_en": "A phone conversation",
                 "usage_context_es": "Una conversación por teléfono",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_470_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_470_def0.avif",
+                "target_meaning_es": "Llamada"
             }
         ],
         "group_name": "General Concepts",
@@ -183,13 +189,14 @@
             {
                 "meaning": "screen",
                 "usage_example": "La pantalla está brillante.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The screen is bright.",
                 "char_count": "two",
                 "usage_context_en": "The flat surface of a phone, computer or TV",
                 "usage_context_es": "La superficie plana de un teléfono, computador o televisor",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_473_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_473_def0.avif",
+                "target_meaning_es": "Pantalla"
             }
         ],
         "group_name": "General Concepts",
@@ -211,13 +218,14 @@
             {
                 "meaning": "battery",
                 "usage_example": "La batería está baja.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The battery is low.",
                 "char_count": "two",
                 "usage_context_en": "The part of a device that stores energy",
                 "usage_context_es": "La parte de un dispositivo que almacena energía",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_474_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_474_def0.avif",
+                "target_meaning_es": "Batería / Pila"
             }
         ],
         "group_name": "General Concepts",
@@ -239,13 +247,14 @@
             {
                 "meaning": "charger",
                 "usage_example": "¿Tienes un cargador?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Do you have a charger?",
                 "char_count": "two",
                 "usage_context_en": "A device used to charge a battery",
                 "usage_context_es": "Un dispositivo usado para cargar una batería",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_475_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_475_def0.avif",
+                "target_meaning_es": "Cargador"
             }
         ],
         "group_name": "General Concepts",
@@ -267,13 +276,14 @@
             {
                 "meaning": "app",
                 "usage_example": "Descarga la app primero.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Download the app first.",
                 "char_count": "one",
                 "usage_context_en": "A software program on a phone or computer",
                 "usage_context_es": "Un programa de software en un teléfono o computador",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_476_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_476_def0.avif",
+                "target_meaning_es": "Aplicación / App"
             }
         ],
         "group_name": "General Concepts",
@@ -294,14 +304,15 @@
         "definitions": [
             {
                 "meaning": "speaker",
-                "usage_example": "Sube el parlante.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "usage_example": "Sube el volumen del altavoz.",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
-                "usage_example_es": "Turn up the speaker.",
+                "usage_example_es": "Turn up the speaker volume.",
                 "char_count": "two",
                 "usage_context_en": "A device that produces sound",
                 "usage_context_es": "Un dispositivo que produce sonido",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_477_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_477_def0.avif",
+                "target_meaning_es": "Parlante / Altavoz"
             }
         ],
         "group_name": "General Concepts",

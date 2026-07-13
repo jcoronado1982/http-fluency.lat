@@ -23,7 +23,7 @@ function UserAvatar({ user, onClick, language }) {
             aria-label={language === 'es' ? 'Abrir menú de cuenta' : 'Open account menu'}
         >
             {user?.picture ? (
-                <img src={user.picture} alt="" className="header-user-avatar-img" />
+                <img src={user.picture} alt="" className="header-user-avatar-img" referrerPolicy="no-referrer" />
             ) : (
                 <span className="header-user-avatar-fallback">{initial}</span>
             )}

@@ -15,13 +15,14 @@
             {
                 "meaning": "surprisingly",
                 "usage_example": "Sorprendentemente, el examen fue fácil.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Surprisingly, the test was easy.",
                 "char_count": 5,
                 "usage_context_en": "In a way that causes surprise; unexpectedly.",
                 "usage_context_es": "De una manera que causa sorpresa; inesperadamente.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Sorprendentemente"
             }
         ],
         "group_name": "Adverbs: Sentence",
@@ -43,13 +44,14 @@
             {
                 "meaning": "obviously",
                 "usage_example": "Está cansado. Obviamente, necesita dormir.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He is tired. Obviously, he needs sleep.",
                 "char_count": 6,
                 "usage_context_en": "In a way that is easy to see, understand, or be certain of.",
                 "usage_context_es": "De una manera que es fácil de ver, entender o estar seguro.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Obviamente / Evidentemente"
             }
         ],
         "group_name": "Adverbs: Certainty",
@@ -71,13 +73,14 @@
             {
                 "meaning": "apparently",
                 "usage_example": "Aparentemente, la reunión fue cancelada.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Apparently, the meeting was canceled.",
                 "char_count": 5,
                 "usage_context_en": "Used to say that something seems true based on what you heard or read.",
                 "usage_context_es": "Usado para decir que algo parece verdad basado en lo que oíste o leíste.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Aparentemente / Por lo visto"
             }
         ],
         "group_name": "Adverbs: Certainty",
@@ -99,13 +102,14 @@
             {
                 "meaning": "actually",
                 "usage_example": "Él parece grosero, pero en realidad es muy amable.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He seems rude, but he is actually very nice.",
                 "char_count": "8",
                 "usage_context_en": "Used to emphasize that something is true or a fact.",
                 "usage_context_es": "Usado para enfatizar que algo es verdad o un hecho.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "En realidad / De hecho"
             }
         ],
         "group_name": "Adverbs: Sentence",
@@ -127,13 +131,14 @@
             {
                 "meaning": "basically",
                 "usage_example": "Básicamente, necesitamos más tiempo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Basically, we need more time.",
                 "char_count": "5",
                 "usage_context_en": "Used to introduce the most important or fundamental point.",
                 "usage_context_es": "Usado para introducir el punto más importante o fundamental.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Básicamente / En esencia"
             }
         ],
         "group_name": "Adverbs: Sentence",

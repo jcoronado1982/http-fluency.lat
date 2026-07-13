@@ -45,8 +45,10 @@ export const AuthProvider = ({ children }) => {
                 const nextUser = {
                     ...authData.user,
                     role: me.effective_role || authData.user.role,
+                    picture: me.picture || authData.user.picture || null,
                     onboarding_completed: onboardingCompleted,
                     catalog_preferences: me.catalog_preferences ?? null,
+                    study_language: me.study_language ?? authData.user.study_language ?? null,
                 };
                 notifyAuthUserSynced(config, nextUser);
                 authRepository.saveAuthData({ token: authData.token, user: nextUser });
@@ -72,11 +74,13 @@ export const AuthProvider = ({ children }) => {
             const syncedUser = {
                 ...data.user,
                 role: me.effective_role || data.user.role,
+                picture: me.picture || data.user.picture || null,
                 onboarding_completed: resolveOnboardingCompleted(
                     data.user,
                     me.onboarding_completed === true,
                 ),
                 catalog_preferences: me.catalog_preferences ?? null,
+                study_language: me.study_language ?? data.user.study_language ?? null,
             };
             notifyAuthUserSynced(config, syncedUser);
             const next = { ...data, user: syncedUser };
@@ -101,11 +105,13 @@ export const AuthProvider = ({ children }) => {
             const syncedUser = {
                 ...data.user,
                 role: me.effective_role || data.user.role,
+                picture: me.picture || data.user.picture || null,
                 onboarding_completed: resolveOnboardingCompleted(
                     data.user,
                     me.onboarding_completed === true,
                 ),
                 catalog_preferences: me.catalog_preferences ?? null,
+                study_language: me.study_language ?? data.user.study_language ?? null,
             };
             notifyAuthUserSynced(config, syncedUser);
             const next = { ...data, user: syncedUser };
@@ -161,8 +167,10 @@ export const AuthProvider = ({ children }) => {
                 const syncedUser = {
                     ...user,
                     role: me.effective_role || user.role,
+                    picture: me.picture || user.picture || null,
                     onboarding_completed: me.onboarding_completed === true,
                     catalog_preferences: me.catalog_preferences ?? user.catalog_preferences ?? null,
+                    study_language: me.study_language ?? user.study_language ?? null,
                 };
 
                 if (syncedUser.onboarding_completed === true) {
@@ -215,6 +223,35 @@ export const AuthProvider = ({ children }) => {
         }
     }, [user]);
 
+    const updateStudyLanguage = useCallback(async (studyLanguage) => {
+        if (!user?.email) return null;
+
+        const normalized = studyLanguage === 'es' ? 'es' : 'en';
+        const authData = authRepository.getAuthData();
+        const optimisticUser = { ...user, study_language: normalized };
+        if (authData?.token) {
+            authRepository.saveAuthData({ token: authData.token, user: optimisticUser });
+        }
+        setUser(optimisticUser);
+
+        try {
+            const response = await httpClient.post('/api/auth/study-language', {
+                study_language: normalized,
+            });
+            const syncedUser = response?.user
+                ? { ...optimisticUser, ...response.user, study_language: normalized }
+                : optimisticUser;
+            if (authData?.token) {
+                authRepository.saveAuthData({ token: authData.token, user: syncedUser });
+            }
+            setUser(syncedUser);
+            return syncedUser;
+        } catch (err) {
+            console.warn('No se pudo sincronizar study_language con el servidor:', err);
+            return optimisticUser;
+        }
+    }, [user]);
+
     const role = user?.role ?? 'viewer';
     const isPremium = role === 'premium' || role === 'admin';
     const isAdmin = role === 'admin';
@@ -235,6 +272,7 @@ export const AuthProvider = ({ children }) => {
         onboardingRequired,
         completeOnboarding,
         updateCatalogPreferences,
+        updateStudyLanguage,
         shouldShowOnboarding,
     };
 

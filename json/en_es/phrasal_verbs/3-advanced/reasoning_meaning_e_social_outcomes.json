@@ -15,13 +15,14 @@
             {
                 "meaning": "account for",
                 "usage_example": "¿Cómo explicas este error?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "How do you account for this mistake?",
                 "char_count": "one",
                 "usage_context_en": "explanation/justification",
                 "usage_context_es": "explicación/justificación",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Explicar / Justificar"
             }
         ],
         "group_name": "Phrasal Verbs: Account",
@@ -43,13 +44,14 @@
             {
                 "meaning": "look forward to",
                 "usage_example": "Espero con ilusión conocerte.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I look forward to meeting you.",
                 "char_count": "one",
                 "usage_context_en": "future expectation",
                 "usage_context_es": "expectativa futura",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Esperar con ilusión"
             }
         ],
         "group_name": "Phrasal Verbs: Look",
@@ -71,24 +73,26 @@
             {
                 "meaning": "add up",
                 "usage_example": "Su historia no tiene sentido.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "His story does not add up.",
                 "char_count": "one",
                 "usage_context_en": "logic/consistency",
                 "usage_context_es": "lógica/coherencia",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Tener sentido"
             },
             {
-                "meaning": "add up (def 2)",
+                "meaning": "add up",
                 "usage_example": "Los números suman 100.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The numbers add up to 100.",
                 "char_count": "one",
                 "usage_context_en": "math/total",
                 "usage_context_es": "matemáticas/total",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Sumar / Dar un total"
             }
         ],
         "group_name": "Phrasal Verbs: Add",
@@ -110,24 +114,26 @@
             {
                 "meaning": "fall for",
                 "usage_example": "Ella se enamoró de él rápidamente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She fell for him quickly.",
                 "char_count": "one",
                 "usage_context_en": "romance",
                 "usage_context_es": "romance",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Enamorarse de"
             },
             {
-                "meaning": "fall for (def 2)",
+                "meaning": "fall for",
                 "usage_example": "No puedo creer que caíste en ese truco.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I can’t believe you fell for that trick.",
                 "char_count": "one",
                 "usage_context_en": "deception",
                 "usage_context_es": "engaño",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Creer una mentira / Caer en una trampa"
             }
         ],
         "group_name": "Phrasal Verbs: Fall",
@@ -149,13 +155,14 @@
             {
                 "meaning": "come down to",
                 "usage_example": "Todo se reduce al dinero.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It comes down to money.",
                 "char_count": "one",
                 "usage_context_en": "summary/core reason",
                 "usage_context_es": "resumen/razón central",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Reducirse a / Depender de"
             }
         ],
         "group_name": "Phrasal Verbs: Come",
@@ -177,13 +184,14 @@
             {
                 "meaning": "go along with",
                 "usage_example": "No estoy de acuerdo, pero lo aceptaré.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I don’t agree, but I’ll go along with it.",
                 "char_count": "one",
                 "usage_context_en": "agreement/compromise",
                 "usage_context_es": "acuerdo/compromiso",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Aceptar / Seguir una idea o plan"
             }
         ],
         "group_name": "Phrasal Verbs: Go",
@@ -205,24 +213,26 @@
             {
                 "meaning": "stand for",
                 "usage_example": "¿Qué representa este símbolo?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What does this symbol stand for?",
                 "char_count": "one",
                 "usage_context_en": "meaning/symbols",
                 "usage_context_es": "significado/símbolos",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Representar / Significar"
             },
             {
-                "meaning": "stand for (def 2)",
+                "meaning": "stand for",
                 "usage_example": "Ella defiende la igualdad.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She stands for equality.",
                 "char_count": "one",
                 "usage_context_en": "values/principles",
                 "usage_context_es": "valores/principios",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Defender / Apoyar un principio"
             }
         ],
         "group_name": "Phrasal Verbs: Stand",
@@ -244,13 +254,14 @@
             {
                 "meaning": "come forward",
                 "usage_example": "Un testigo se presentó después del accidente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "A witness came forward after the accident.",
                 "char_count": "one",
                 "usage_context_en": "crime/information",
                 "usage_context_es": "crimen/información",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Presentarse / Dar información"
             }
         ],
         "group_name": "Phrasal Verbs: Come",
@@ -272,13 +283,14 @@
             {
                 "meaning": "make of",
                 "usage_example": "¿Qué entiendes de este email? / ¿Qué opinas?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What do you make of this email?",
                 "char_count": "one",
                 "usage_context_en": "opinion/interpretation",
                 "usage_context_es": "opinión/interpretación",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_1_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_1_def0.avif",
+                "target_meaning_es": "Entender, opinar sobre (interpretar)"
             }
         ],
         "group_name": "Phrasal Verbs: Make",
@@ -300,35 +312,38 @@
             {
                 "meaning": "come on",
                 "usage_example": "¡Vamos! Vamos a llegar tarde.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Come on! We're going to be late.",
                 "char_count": "one",
                 "usage_context_en": "hurrying someone",
                 "usage_context_es": "apresurar a alguien",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_24_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_24_def0.avif",
+                "target_meaning_es": "¡Vamos!, ¡Date prisa!"
             },
             {
-                "meaning": "come on (def 2)",
+                "meaning": "come on",
                 "usage_example": "¡Oh, venga ya! No puedes hablar en serio.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Oh, come on! You can't be serious.",
                 "char_count": "one",
                 "usage_context_en": "disbelief/annoyance",
                 "usage_context_es": "incredulidad/molestia",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_24_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_24_def1.avif",
+                "target_meaning_es": "¡Venga ya! (expresando incredulidad)"
             },
             {
-                "meaning": "come on (def 3)",
-                "usage_example": "El programa empezará pronto",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "meaning": "come on",
+                "usage_example": "El programa empezará pronto.",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
-                "usage_example_es": "The show is coming on soon",
+                "usage_example_es": "The show is coming on soon.",
                 "char_count": "one",
                 "usage_context_en": "comenzar",
                 "usage_context_es": "comenzar",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_24_def2.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_24_def2.avif",
+                "target_meaning_es": "Empezar (una enfermedad)"
             }
         ],
         "group_name": "Phrasal Verbs: Come",
@@ -350,24 +365,26 @@
             {
                 "meaning": "make out",
                 "usage_example": "Los vi besándose en el auto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I saw them making out in the car.",
                 "char_count": "one",
                 "usage_context_en": "romance/kissing",
                 "usage_context_es": "romance/besarse",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_0_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_0_def0.avif",
+                "target_meaning_es": "Besarse (apasionadamente)"
             },
             {
-                "meaning": "make out (def 2)",
+                "meaning": "make out",
                 "usage_example": "Está muy oscuro. No puedo distinguir la matrícula.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It's too dark. I can't make out the license plate.",
                 "char_count": "one",
                 "usage_context_en": "vision/hearing/understanding",
                 "usage_context_es": "visión/oído/entendimiento",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_0_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_0_def1.avif",
+                "target_meaning_es": "Distinguir, descifrar (con dificultad)"
             }
         ],
         "group_name": "Phrasal Verbs: Make",
@@ -389,13 +406,14 @@
             {
                 "meaning": "fall apart",
                 "usage_example": "El plan se vino abajo rápidamente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The plan fell apart quickly.",
                 "char_count": "one",
                 "usage_context_en": "failure/plan",
                 "usage_context_es": "fracaso/plan",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Desmoronarse / Venirse abajo"
             }
         ],
         "group_name": "Phrasal Verbs: Fall",

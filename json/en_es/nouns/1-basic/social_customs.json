@@ -15,13 +15,14 @@
             {
                 "meaning": "party",
                 "usage_example": "¿Vas a ir a la fiesta?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Are you going to the party?",
                 "char_count": "two",
                 "usage_context_en": "A social event for celebration",
                 "usage_context_es": "Un evento social para celebrar",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_171_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_171_def0.avif",
+                "target_meaning_es": "Fiesta"
             }
         ],
         "group_name": "General Concepts",
@@ -43,13 +44,14 @@
             {
                 "meaning": "gift",
                 "usage_example": "Gracias por el regalo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Thank you for the gift.",
                 "char_count": "one",
                 "usage_context_en": "A present / A natural talent",
                 "usage_context_es": "Un presente / Un talento natural",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_394_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_394_def0.avif",
+                "target_meaning_es": "Regalo / Don"
             }
         ],
         "group_name": "General Concepts",
@@ -71,13 +73,14 @@
             {
                 "meaning": "present",
                 "usage_example": "Tengo un regalo para ti.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I have a present for you.",
                 "char_count": "two",
                 "usage_context_en": "A gift / The time now",
                 "usage_context_es": "Un regalo / El tiempo actual",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_395_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_395_def0.avif",
+                "target_meaning_es": "Regalo / Presente"
             }
         ],
         "group_name": "General Concepts",
@@ -89,7 +92,7 @@
         "example": null,
         "learned": false,
         "learned_at": null,
-        "name": "The yearly anniversary of a person's birth.",
+        "name": "Cumpleaños",
         "phonetic": "",
         "spoken_phonetic_us": "",
         "search_term": "noun/society/seed",
@@ -99,13 +102,14 @@
             {
                 "meaning": "birthday",
                 "usage_example": "Celebramos su cumpleaños.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We celebrated her birthday.",
                 "char_count": "8",
                 "usage_context_en": "The yearly anniversary of a person's birth.",
                 "usage_context_es": "El aniversario anual del nacimiento de una persona.",
-                "imagePath": "/card_images/nouns/1-basic/seed_birthday.avif"
+                "imagePath": "/card_images/nouns/1-basic/seed_birthday.avif",
+                "target_meaning_es": "Cumpleaños"
             }
         ],
         "group_name": "Society",
@@ -117,7 +121,7 @@
         "example": null,
         "learned": false,
         "learned_at": null,
-        "name": "A ceremony where two people get married.",
+        "name": "Boda",
         "phonetic": "",
         "spoken_phonetic_us": "",
         "search_term": "noun/society/seed",
@@ -127,13 +131,14 @@
             {
                 "meaning": "wedding",
                 "usage_example": "Fueron a una boda el sábado.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "They went to a wedding on Saturday.",
                 "char_count": "7",
                 "usage_context_en": "A ceremony where two people get married.",
                 "usage_context_es": "Una ceremonia donde dos personas se casan.",
-                "imagePath": "/card_images/nouns/1-basic/seed_wedding.avif"
+                "imagePath": "/card_images/nouns/1-basic/seed_wedding.avif",
+                "target_meaning_es": "Boda"
             }
         ],
         "group_name": "Society",
@@ -145,7 +150,7 @@
         "example": null,
         "learned": false,
         "learned_at": null,
-        "name": "A special day of celebration or rest.",
+        "name": "Día festivo / Festividad",
         "phonetic": "",
         "spoken_phonetic_us": "",
         "search_term": "noun/society/seed",
@@ -155,13 +160,14 @@
             {
                 "meaning": "holiday",
                 "usage_example": "El pueblo está lleno durante la festividad.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The town is busy during the holiday.",
                 "char_count": "7",
                 "usage_context_en": "A special day of celebration or rest.",
                 "usage_context_es": "Un día especial de celebración o descanso.",
-                "imagePath": "/card_images/nouns/1-basic/seed_holiday.avif"
+                "imagePath": "/card_images/nouns/1-basic/seed_holiday.avif",
+                "target_meaning_es": "Día festivo / Festividad"
             }
         ],
         "group_name": "Society",
@@ -183,13 +189,14 @@
             {
                 "meaning": "bye",
                 "usage_example": "¡Adiós, nos vemos mañana!",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Bye, see you tomorrow!",
                 "char_count": "one",
                 "usage_context_en": "A common informal parting word",
                 "usage_context_es": "Una palabra informal común para despedirse",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Adiós / Chao"
             }
         ],
         "group_name": "General Concepts",
@@ -211,13 +218,14 @@
             {
                 "meaning": "hello / hi",
                 "usage_example": "Hola, ¿cómo estás hoy?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Hello, how are you today?",
                 "char_count": "two",
                 "usage_context_en": "A common daily greeting",
                 "usage_context_es": "Un saludo diario común",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Hola"
             }
         ],
         "group_name": "General Concepts",

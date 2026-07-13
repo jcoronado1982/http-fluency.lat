@@ -15,13 +15,14 @@
             {
                 "meaning": "red",
                 "usage_example": "La manzana es roja.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The apple is red.",
                 "char_count": "one",
                 "usage_context_en": "The color of blood",
                 "usage_context_es": "El color de la sangre",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_69_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_69_def0.avif",
+                "target_meaning_es": "Rojo"
             }
         ],
         "group_name": "Colors",
@@ -43,13 +44,14 @@
             {
                 "meaning": "blue",
                 "usage_example": "El cielo es azul.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The sky is blue.",
                 "char_count": "one",
                 "usage_context_en": "The color of the sky",
                 "usage_context_es": "El color del cielo",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_70_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_70_def0.avif",
+                "target_meaning_es": "Azul"
             }
         ],
         "group_name": "Colors",
@@ -71,13 +73,14 @@
             {
                 "meaning": "green",
                 "usage_example": "El pasto es verde.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The grass is green.",
                 "char_count": "one",
                 "usage_context_en": "The color of grass",
                 "usage_context_es": "El color del pasto",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_71_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_71_def0.avif",
+                "target_meaning_es": "Verde"
             }
         ],
         "group_name": "Colors",
@@ -99,13 +102,14 @@
             {
                 "meaning": "yellow",
                 "usage_example": "El sol es amarillo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The sun is yellow.",
                 "char_count": "two",
                 "usage_context_en": "The color of the sun",
                 "usage_context_es": "El color del sol",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_72_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_72_def0.avif",
+                "target_meaning_es": "Amarillo"
             }
         ],
         "group_name": "Colors",
@@ -127,13 +131,14 @@
             {
                 "meaning": "black",
                 "usage_example": "El gato es negro.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The cat is black.",
                 "char_count": "one",
                 "usage_context_en": "The darkest color, like night",
                 "usage_context_es": "El color más oscuro, como la noche",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_73_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_73_def0.avif",
+                "target_meaning_es": "Negro"
             }
         ],
         "group_name": "Colors",
@@ -155,13 +160,14 @@
             {
                 "meaning": "white",
                 "usage_example": "La nieve es blanca.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The snow is white.",
                 "char_count": "one",
                 "usage_context_en": "The color of milk or snow",
                 "usage_context_es": "El color de la leche o la nieve",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_74_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_74_def0.avif",
+                "target_meaning_es": "Blanco"
             }
         ],
         "group_name": "Colors",
@@ -183,13 +189,14 @@
             {
                 "meaning": "color",
                 "usage_example": "¿Cuál es tu color favorito?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What is your favorite color?",
                 "char_count": "two",
                 "usage_context_en": "Red, blue, green, yellow, etc.",
                 "usage_context_es": "Rojo, azul, verde, amarillo, etc.",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_166_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_166_def0.avif",
+                "target_meaning_es": "Color"
             }
         ],
         "group_name": "Colors",
@@ -211,13 +218,14 @@
             {
                 "meaning": "brown",
                 "usage_example": "Sus zapatos son marrones.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "His shoes are brown.",
                 "char_count": "one",
                 "usage_context_en": "The color of wood or earth",
                 "usage_context_es": "El color de la madera o la tierra",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_366_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_366_def0.avif",
+                "target_meaning_es": "Marrón / Café"
             }
         ],
         "group_name": "Colors",
@@ -239,13 +247,14 @@
             {
                 "meaning": "gray",
                 "usage_example": "El cielo está gris.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The sky is gray.",
                 "char_count": "one",
                 "usage_context_en": "A color between black and white (AmE)",
                 "usage_context_es": "Un color entre negro y blanco (AmE)",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_367_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_367_def0.avif",
+                "target_meaning_es": "Gris"
             }
         ],
         "group_name": "Colors",
@@ -267,13 +276,14 @@
             {
                 "meaning": "pink",
                 "usage_example": "Una flor rosada.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "A pink flower.",
                 "char_count": "one",
                 "usage_context_en": "A light red color",
                 "usage_context_es": "Un color rojo claro",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_368_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_368_def0.avif",
+                "target_meaning_es": "Rosado / Rosa"
             }
         ],
         "group_name": "Colors",
@@ -295,13 +305,14 @@
             {
                 "meaning": "purple",
                 "usage_example": "Las uvas son moradas.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Grapes are purple.",
                 "char_count": "two",
                 "usage_context_en": "A color between red and blue",
                 "usage_context_es": "Un color entre rojo y azul",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_369_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_369_def0.avif",
+                "target_meaning_es": "Morado / Púrpura"
             }
         ],
         "group_name": "Colors",
@@ -313,7 +324,7 @@
         "example": null,
         "learned": false,
         "learned_at": null,
-        "name": "The color between red and yellow.",
+        "name": "Naranja (color)",
         "phonetic": "",
         "spoken_phonetic_us": "",
         "search_term": "noun/colors/seed",
@@ -323,13 +334,14 @@
             {
                 "meaning": "orange",
                 "usage_example": "La camisa es naranja.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The shirt is orange.",
                 "char_count": "6",
                 "usage_context_en": "The color between red and yellow.",
                 "usage_context_es": "El color entre rojo y amarillo.",
-                "imagePath": "/card_images/nouns/1-basic/seed_orange.avif"
+                "imagePath": "/card_images/nouns/1-basic/seed_orange.avif",
+                "target_meaning_es": "Naranja (color)"
             }
         ],
         "group_name": "Colors",

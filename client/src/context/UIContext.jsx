@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import {
     getInitialInterfaceLanguage,
     getInitialStudyLanguage,
@@ -9,7 +9,7 @@ import {
 // Estado de UI global del shell (sin estado de módulos de negocio)
 const UIContext = createContext();
 
-export const UIProvider = ({ children }) => {
+export const UIProvider = ({ children, preferredStudyLanguage = null }) => {
     const [appMessageState, setAppMessageState] = useState({ text: '', isError: false });
 
     const setAppMessage = useCallback((msg) => {
@@ -38,6 +38,12 @@ export const UIProvider = ({ children }) => {
         setStudyLanguageState(normalized);
         persistStudyLanguage(normalized);
     }, []);
+
+    useEffect(() => {
+        if (preferredStudyLanguage !== 'en' && preferredStudyLanguage !== 'es') return;
+        setStudyLanguageState(preferredStudyLanguage);
+        persistStudyLanguage(preferredStudyLanguage);
+    }, [preferredStudyLanguage]);
 
     return (
         <UIContext.Provider value={{

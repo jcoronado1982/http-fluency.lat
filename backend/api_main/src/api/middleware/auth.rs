@@ -9,6 +9,8 @@ pub struct Claims {
     pub sub: String,
     pub email: String,
     pub name: String,
+    #[serde(default)]
+    pub picture: Option<String>,
     pub role: String,
     pub exp: usize,
 }
@@ -20,6 +22,7 @@ pub fn extract_claims_or_guest(state: &AppState, headers: &axum::http::HeaderMap
         sub: "guest".to_string(),
         email: "guest@fluency.lat".to_string(),
         name: "Guest".to_string(),
+        picture: None,
         role: "viewer".to_string(),
         exp: 9999999999,
     })
@@ -54,6 +57,7 @@ pub fn extract_claims(
             sub: "admin".to_string(),
             email: "admin@local.com".to_string(),
             name: "Local Admin (No Auth)".to_string(),
+            picture: None,
             role: "admin".to_string(),
             exp: 9999999999,
         })

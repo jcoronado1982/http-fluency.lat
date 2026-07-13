@@ -15,13 +15,14 @@
             {
                 "meaning": "each",
                 "usage_example": "Cada uno de los estudiantes aprobó.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Each of the students passed.",
                 "char_count": "5",
                 "usage_context_en": "Used as a pronoun to refer to every individual member of a group separately.",
                 "usage_context_es": "Usado como pronombre para referirse a cada miembro individual de un grupo por separado.",
-                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_35_def0.avif"
+                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_35_def0.avif",
+                "target_meaning_es": "Cada uno / Cada una"
             }
         ],
         "group_name": "Cuantificador",
@@ -43,24 +44,26 @@
             {
                 "meaning": "both",
                 "usage_example": "Ambos padres están aquí.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Both parents are here.",
                 "char_count": "4",
                 "usage_context_en": "Used as a determiner before a plural noun to mean 'the two'.",
                 "usage_context_es": "Usado como determinante antes de un sustantivo plural para significar 'los dos'.",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_15_def0.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_15_def0.avif",
+                "target_meaning_es": "Ambos/as (Determinante)"
             },
             {
-                "meaning": "both (def 2)",
+                "meaning": "both",
                 "usage_example": "Ambos son correctos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Both are correct.",
                 "char_count": "3",
                 "usage_context_en": "Used as a pronoun to mean 'the two of them'.",
                 "usage_context_es": "Usado como pronombre para significar 'los dos'.",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_15_def1.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_15_def1.avif",
+                "target_meaning_es": "Ambos/as (Pronombre)"
             }
         ],
         "group_name": "Cuantificador",
@@ -82,24 +85,26 @@
             {
                 "meaning": "few",
                 "usage_example": "Él tiene pocos amigos. (sentido negativo)",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He has few friends.",
                 "char_count": "4",
                 "usage_context_en": "Used as a determiner for a small number (countable, negative meaning).",
                 "usage_context_es": "Usado como determinante para un número pequeño (contable, sentido negativo).",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_16_def0.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_16_def0.avif",
+                "target_meaning_es": "Pocos / Pocas (Determinante)"
             },
             {
-                "meaning": "few (def 2)",
+                "meaning": "few",
                 "usage_example": "Muchos lo intentaron, pero pocos lo lograron.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Many tried, but few succeeded.",
                 "char_count": "5",
                 "usage_context_en": "Used as a pronoun for a small number of people or things.",
                 "usage_context_es": "Usado como pronombre para un número pequeño de personas o cosas.",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_16_def1.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_16_def1.avif",
+                "target_meaning_es": "Pocos / Pocas (Pronombre)"
             }
         ],
         "group_name": "Cuantificador",
@@ -121,24 +126,26 @@
             {
                 "meaning": "many",
                 "usage_example": "Tengo muchos amigos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I have many friends.",
                 "char_count": "4",
                 "usage_context_en": "Used as a determiner for a large number (countable).",
                 "usage_context_es": "Usado como determinante para un gran número (contable).",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_17_def0.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_17_def0.avif",
+                "target_meaning_es": "Muchos / Muchas (Determinante)"
             },
             {
-                "meaning": "many (def 2)",
+                "meaning": "many",
                 "usage_example": "Muchos son llamados, pero pocos son escogidos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Many are called, but few are chosen.",
                 "char_count": "7",
                 "usage_context_en": "Used as a pronoun for a large number of people or things.",
                 "usage_context_es": "Usado como pronombre para un gran número de personas o cosas.",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_17_def1.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_17_def1.avif",
+                "target_meaning_es": "Muchos / Muchas (Pronombre)"
             }
         ],
         "group_name": "Cuantificador",
@@ -160,24 +167,26 @@
             {
                 "meaning": "several",
                 "usage_example": "Él cometió varios errores.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He made several mistakes.",
                 "char_count": "4",
                 "usage_context_en": "Used as a determiner for a medium number (more than two, but not many).",
                 "usage_context_es": "Usado como determinante para un número mediano (más de dos, pero no muchos).",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_18_def0.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_18_def0.avif",
+                "target_meaning_es": "Varios/as (Determinante)"
             },
             {
-                "meaning": "several (def 2)",
+                "meaning": "several",
                 "usage_example": "Varios de ellos están rotos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Several of them are broken.",
                 "char_count": "5",
                 "usage_context_en": "Used as a pronoun for a medium number of people or things.",
                 "usage_context_es": "Usado como pronombre para un número mediano de personas o cosas.",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_18_def1.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_18_def1.avif",
+                "target_meaning_es": "Varios/as (Pronombre)"
             }
         ],
         "group_name": "Cuantificador",
@@ -199,13 +208,14 @@
             {
                 "meaning": "none",
                 "usage_example": "¿Cuánto dinero queda? Nada.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "How much money is left? None.",
                 "char_count": "5",
                 "usage_context_en": "Used as a pronoun to mean 'not any' or 'no one'.",
                 "usage_context_es": "Usado como pronombre para significar 'nada' o 'ninguno'.",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_19_def0.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_19_def0.avif",
+                "target_meaning_es": "Ninguno / Ninguna / Nada"
             }
         ],
         "group_name": "Cuantificador",
@@ -227,24 +237,26 @@
             {
                 "meaning": "either",
                 "usage_example": "Puedes tomar cualquiera de los dos caminos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "You can take either road.",
                 "char_count": "5",
                 "usage_context_en": "Used as a determiner to mean 'one or the other' of two.",
                 "usage_context_es": "Usado como determinante para significar 'uno u otro' de dos.",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_20_def0.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_20_def0.avif",
+                "target_meaning_es": "Cualquiera (de dos) (Determinante)"
             },
             {
-                "meaning": "either (def 2)",
+                "meaning": "either",
                 "usage_example": "¿Cuál quieres? Cualquiera está bien.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Which one do you want? Either is fine.",
                 "char_count": "7",
                 "usage_context_en": "Used as a pronoun to mean 'one or the other'.",
                 "usage_context_es": "Usado como pronombre para significar 'uno u otro'.",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_20_def1.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_20_def1.avif",
+                "target_meaning_es": "Cualquiera (de dos) (Pronombre)"
             }
         ],
         "group_name": "Cuantificador",
@@ -266,24 +278,26 @@
             {
                 "meaning": "neither",
                 "usage_example": "Ninguna de las dos respuestas es correcta.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Neither answer is correct.",
                 "char_count": "4",
                 "usage_context_en": "Used as a determiner to mean 'not one and not the other' of two.",
                 "usage_context_es": "Usado como determinante para significar 'ni uno ni el otro' de dos.",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_21_def0.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_21_def0.avif",
+                "target_meaning_es": "Ninguno (de dos) (Determinante)"
             },
             {
-                "meaning": "neither (def 2)",
+                "meaning": "neither",
                 "usage_example": "Ninguno es correcto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Neither is correct.",
                 "char_count": "3",
                 "usage_context_en": "Used as a pronoun to mean 'not one and not the other'.",
                 "usage_context_es": "Usado como pronombre para significar 'ni uno ni el otro'.",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_21_def1.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_21_def1.avif",
+                "target_meaning_es": "Ninguno (de dos) (Pronombre)"
             }
         ],
         "group_name": "Cuantificador",
@@ -305,13 +319,14 @@
             {
                 "meaning": "each of us",
                 "usage_example": "Cada uno de nosotros tiene una tarea diferente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Each of us has a different task.",
                 "char_count": "7",
                 "usage_context_en": "Every individual in the group 'we', considered separately.",
                 "usage_context_es": "Cada individuo en el grupo 'nosotros', considerado por separado.",
-                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_3_def0.avif"
+                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_3_def0.avif",
+                "target_meaning_es": "Cada uno de nosotros"
             }
         ],
         "group_name": "Partitivo",
@@ -333,13 +348,14 @@
             {
                 "meaning": "none of them",
                 "usage_example": "Ninguno de ellos sabía la respuesta.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "None of them knew the answer.",
                 "char_count": "5",
                 "usage_context_en": "Not one of a specific group of 'them'.",
                 "usage_context_es": "Ni uno solo de un grupo específico de 'ellos'.",
-                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_4_def0.avif"
+                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_4_def0.avif",
+                "target_meaning_es": "Ninguno de ellos/as"
             }
         ],
         "group_name": "Partitivo",
@@ -361,13 +377,14 @@
             {
                 "meaning": "most of them",
                 "usage_example": "La mayoría de ellos son estudiantes.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Most of them are students.",
                 "char_count": "5",
                 "usage_context_en": "The largest part of a specific group of 'them'.",
                 "usage_context_es": "La parte más grande de un grupo específico de 'ellos'.",
-                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_5_def0.avif"
+                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_5_def0.avif",
+                "target_meaning_es": "La mayoría de ellos/as"
             }
         ],
         "group_name": "Partitivo",
@@ -389,13 +406,14 @@
             {
                 "meaning": "some of us",
                 "usage_example": "Algunos de nosotros estamos cansados.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Some of us are tired.",
                 "char_count": "5",
                 "usage_context_en": "An unspecified number of the group 'we'.",
                 "usage_context_es": "Un número no especificado del grupo 'nosotros'.",
-                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_6_def0.avif"
+                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_6_def0.avif",
+                "target_meaning_es": "Algunos de nosotros"
             }
         ],
         "group_name": "Partitivo",
@@ -417,13 +435,14 @@
             {
                 "meaning": "one of them",
                 "usage_example": "Uno de ellos es el líder.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "One of them is the leader.",
                 "char_count": "5",
                 "usage_context_en": "A single member of a specific group of 'them'.",
                 "usage_context_es": "Un solo miembro de un grupo específico de 'ellos'.",
-                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_7_def0.avif"
+                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_7_def0.avif",
+                "target_meaning_es": "Uno de ellos / Una de ellas"
             }
         ],
         "group_name": "Partitivo",
@@ -445,13 +464,14 @@
             {
                 "meaning": "both of us",
                 "usage_example": "Ambos estamos listos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Both of us are ready.",
                 "char_count": "5",
                 "usage_context_en": "The two people in the group 'we'.",
                 "usage_context_es": "Las dos personas en el grupo 'nosotros'.",
-                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_8_def0.avif"
+                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_8_def0.avif",
+                "target_meaning_es": "Ambos / Nosotros dos"
             }
         ],
         "group_name": "Partitivo",
@@ -473,13 +493,14 @@
             {
                 "meaning": "neither of them",
                 "usage_example": "Ninguno de los dos habló.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Neither of them spoke.",
                 "char_count": "4",
                 "usage_context_en": "Not one and not the other of a specific group of two.",
                 "usage_context_es": "Ni uno ni el otro de un grupo específico de dos.",
-                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_9_def0.avif"
+                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_9_def0.avif",
+                "target_meaning_es": "Ninguno de ellos (dos)"
             }
         ],
         "group_name": "Partitivo",
@@ -501,13 +522,14 @@
             {
                 "meaning": "either of them",
                 "usage_example": "Puedes preguntarle a cualquiera de ellos dos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "You can ask either of them.",
                 "char_count": "5",
                 "usage_context_en": "One or the other of a specific group of two.",
                 "usage_context_es": "Uno u otro de un grupo específico de dos.",
-                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_10_def0.avif"
+                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_10_def0.avif",
+                "target_meaning_es": "Cualquiera de ellos (dos)"
             }
         ],
         "group_name": "Partitivo",
@@ -529,13 +551,14 @@
             {
                 "meaning": "all of us",
                 "usage_example": "Todos nosotros estamos listos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "All of us are ready.",
                 "char_count": "5",
                 "usage_context_en": "The entire group of 'we'.",
                 "usage_context_es": "El grupo entero de 'nosotros'.",
-                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_23_def0.avif"
+                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_23_def0.avif",
+                "target_meaning_es": "Todos nosotros"
             }
         ],
         "group_name": "Partitivo",
@@ -557,13 +580,14 @@
             {
                 "meaning": "all of them",
                 "usage_example": "Los invité a todos ellos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I invited all of them.",
                 "char_count": "5",
                 "usage_context_en": "The entire group of 'them'.",
                 "usage_context_es": "El grupo entero de 'ellos'.",
-                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_24_def0.avif"
+                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_24_def0.avif",
+                "target_meaning_es": "Todos ellos/as"
             }
         ],
         "group_name": "Partitivo",
@@ -585,13 +609,14 @@
             {
                 "meaning": "some of them",
                 "usage_example": "Algunos de ellos llegan tarde.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Some of them are late.",
                 "char_count": "5",
                 "usage_context_en": "An unspecified number of a specific group of 'them'.",
                 "usage_context_es": "Un número no especificado de un grupo específico de 'ellos'.",
-                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_25_def0.avif"
+                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_25_def0.avif",
+                "target_meaning_es": "Algunos de ellos/as"
             }
         ],
         "group_name": "Partitivo",
@@ -613,13 +638,14 @@
             {
                 "meaning": "part of us",
                 "usage_example": "Parte de nosotros quería quedarse.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Part of us wanted to stay.",
                 "char_count": "6",
                 "usage_context_en": "A section or portion of the group 'we'.",
                 "usage_context_es": "Una sección o porción del grupo 'nosotros'.",
-                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_26_def0.avif"
+                "imagePath": "/card_images/pronouns/3-advanced/3-advanced_card_26_def0.avif",
+                "target_meaning_es": "Parte de nosotros"
             }
         ],
         "group_name": "Partitivo",

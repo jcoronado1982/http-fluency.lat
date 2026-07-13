@@ -13,6 +13,7 @@ import {
   isLandingDemoMediaVariant,
   resolveStudyMediaNamespace,
 } from '../src/contracts/studyMediaVariants.js';
+import { buildGlobalImageStoragePath } from '../src/components/flashcardStudy/features/imageStorageIdentity.js';
 
 // Estos valores son CONTRATO entre módulos y con el backend (mod_flashcards
 // enruta proveedores TTS/imagen por category): si cambian, debe ser a propósito.
@@ -52,6 +53,28 @@ assert.equal(LANDING_DEMO_MEDIA.deck, LANDING_DEMO_DECK);
 assert.deepEqual(
   resolveStudyMediaNamespace(STUDY_MEDIA_VARIANT_LANDING_DEMO, 'verbs', '1-basic'),
   { category: LANDING_DEMO_CATEGORY, deck: LANDING_DEMO_DECK },
+);
+
+assert.equal(
+  buildGlobalImageStoragePath({
+    category: 'verbs',
+    deck: '1-basic/action',
+    index: 4,
+    defIndex: 1,
+    form: 'v1',
+    courseDirection: 'es_en',
+  }),
+  '/card_images/es_en/verbs/1-basic/action/1-basic_action_card_4_def1.avif',
+);
+assert.equal(
+  buildGlobalImageStoragePath({
+    category: LANDING_DEMO_CATEGORY,
+    deck: LANDING_DEMO_DECK,
+    index: 0,
+    defIndex: 0,
+    courseDirection: 'es_en',
+  }),
+  '/card_images/landing-demo/verbs-essentials/verbs-essentials_card_0_def0.avif',
 );
 assert.deepEqual(
   resolveStudyMediaNamespace(STUDY_MEDIA_VARIANT_APP, 'verbs', '1-basic/action'),

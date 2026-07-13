@@ -15,13 +15,14 @@
             {
                 "meaning": "money",
                 "usage_example": "Necesito más dinero.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I need more money.",
                 "char_count": "two",
                 "usage_context_en": "What you use to buy things",
                 "usage_context_es": "Lo que usas para comprar cosas",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_81_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_81_def0.avif",
+                "target_meaning_es": "Dinero"
             }
         ],
         "group_name": "General Concepts",
@@ -43,13 +44,14 @@
             {
                 "meaning": "health",
                 "usage_example": "La salud es muy importante.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Health is very important.",
                 "char_count": "one",
                 "usage_context_en": "The condition of your body",
                 "usage_context_es": "La condición de tu cuerpo",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_168_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_168_def0.avif",
+                "target_meaning_es": "Salud"
             }
         ],
         "group_name": "General Concepts",
@@ -71,13 +73,14 @@
             {
                 "meaning": "dollar",
                 "usage_example": "Cuesta diez dólares.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It costs ten dollars.",
                 "char_count": "two",
                 "usage_context_en": "The currency of the USA",
                 "usage_context_es": "La moneda de los EE.UU.",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_274_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_274_def0.avif",
+                "target_meaning_es": "Dólar"
             }
         ],
         "group_name": "General Concepts",
@@ -99,13 +102,14 @@
             {
                 "meaning": "pain",
                 "usage_example": "Siento un dolor en la pierna.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I feel a pain in my leg.",
                 "char_count": "one",
                 "usage_context_en": "The feeling you have when your body is hurt",
                 "usage_context_es": "El sentimiento que tienes cuando tu cuerpo está herido",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_340_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_340_def0.avif",
+                "target_meaning_es": "Dolor"
             }
         ],
         "group_name": "Feelings",
@@ -127,13 +131,14 @@
             {
                 "meaning": "price",
                 "usage_example": "¿Cuál es el precio?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What is the price?",
                 "char_count": "one",
                 "usage_context_en": "The amount of money to buy something",
                 "usage_context_es": "La cantidad de dinero para comprar algo",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_282_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_282_def0.avif",
+                "target_meaning_es": "Precio"
             }
         ],
         "group_name": "General Concepts",
@@ -145,7 +150,7 @@
         "example": null,
         "learned": false,
         "learned_at": null,
-        "name": "A substance used to treat illness.",
+        "name": "Medicina / Medicamento",
         "phonetic": "",
         "spoken_phonetic_us": "",
         "search_term": "noun/health-&-medicine/seed",
@@ -155,13 +160,14 @@
             {
                 "meaning": "medicine",
                 "usage_example": "Toma tu medicina después del almuerzo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Take your medicine after lunch.",
                 "char_count": "8",
                 "usage_context_en": "A substance used to treat illness.",
                 "usage_context_es": "Una sustancia usada para tratar una enfermedad.",
-                "imagePath": "/card_images/nouns/1-basic/seed_medicine.avif"
+                "imagePath": "/card_images/nouns/1-basic/seed_medicine.avif",
+                "target_meaning_es": "Medicina / Medicamento"
             }
         ],
         "group_name": "Health & Medicine",
@@ -183,13 +189,14 @@
             {
                 "meaning": "cost",
                 "usage_example": "El costo es demasiado alto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The cost is too high.",
                 "char_count": "one",
                 "usage_context_en": "The money needed to buy or do something",
                 "usage_context_es": "El dinero necesario para comprar o hacer algo",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_283_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_283_def0.avif",
+                "target_meaning_es": "Costo / Coste"
             }
         ],
         "group_name": "General Concepts",
@@ -201,7 +208,7 @@
         "example": null,
         "learned": false,
         "learned_at": null,
-        "name": "A person receiving medical care.",
+        "name": "Paciente",
         "phonetic": "",
         "spoken_phonetic_us": "",
         "search_term": "noun/health-&-medicine/seed",
@@ -211,13 +218,14 @@
             {
                 "meaning": "patient",
                 "usage_example": "El paciente está descansando.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The patient is resting.",
                 "char_count": "7",
                 "usage_context_en": "A person receiving medical care.",
                 "usage_context_es": "Una persona que recibe atención médica.",
-                "imagePath": "/card_images/nouns/1-basic/seed_patient.avif"
+                "imagePath": "/card_images/nouns/1-basic/seed_patient.avif",
+                "target_meaning_es": "Paciente"
             }
         ],
         "group_name": "Health & Medicine",
@@ -239,13 +247,14 @@
             {
                 "meaning": "tax",
                 "usage_example": "Tienes que pagar impuestos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "You have to pay taxes.",
                 "char_count": "one",
                 "usage_context_en": "Money paid to the government",
                 "usage_context_es": "Dinero pagado al gobierno",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_324_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_324_def0.avif",
+                "target_meaning_es": "Impuesto"
             }
         ],
         "group_name": "Society",
@@ -257,7 +266,7 @@
         "example": null,
         "learned": false,
         "learned_at": null,
-        "name": "A condition of being sick.",
+        "name": "Enfermedad",
         "phonetic": "",
         "spoken_phonetic_us": "",
         "search_term": "noun/health-&-medicine/seed",
@@ -267,13 +276,14 @@
             {
                 "meaning": "illness",
                 "usage_example": "La enfermedad duró tres días.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The illness lasted three days.",
                 "char_count": "7",
                 "usage_context_en": "A condition of being sick.",
                 "usage_context_es": "La condición de estar enfermo.",
-                "imagePath": "/card_images/nouns/1-basic/seed_illness.avif"
+                "imagePath": "/card_images/nouns/1-basic/seed_illness.avif",
+                "target_meaning_es": "Enfermedad"
             }
         ],
         "group_name": "Health & Medicine",
@@ -295,13 +305,14 @@
             {
                 "meaning": "sale",
                 "usage_example": "Este artículo está en oferta.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "This item is on sale.",
                 "char_count": "one",
                 "usage_context_en": "A period when items are sold at lower prices",
                 "usage_context_es": "Un período en que las cosas se venden a precios más bajos",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Oferta / Rebaja"
             }
         ],
         "group_name": "General Concepts",

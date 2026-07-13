@@ -1,23 +1,20 @@
 import { API_URL } from '../config/api';
 import { httpClient } from '../services/httpClient';
+import { buildGlobalImageStoragePath } from '../components/flashcardStudy/features/imageStorageIdentity.js';
 
 export function createImageHttpAdapter(http) {
-    const getDeckMediaParts = (deck) => {
-        const cleanDeck = (deck || '').replace('.json', '');
-        const segments = cleanDeck.split('/').filter(Boolean);
-        const mediaDir = segments.join('/') || cleanDeck;
-        const filePrefix = segments.join('_') || cleanDeck;
-        return { mediaDir, filePrefix };
-    };
-
+    const normalizeCourseDirection = (courseDirection) => (
+        courseDirection === 'en_es' ? 'en_es' : 'es_en'
+    );
     const imageAdapter = {
     // POST /api/resolve-image — capa personal (premium) o global (predeterminada), sin generar
-    resolve: async ({ category, deck, index, defIndex, form }) => {
+    resolve: async ({ category, deck, index, defIndex, form, courseDirection }) => {
         const data = await http.post('/api/resolve-image', {
             category,
             deck,
             index,
             def_index: defIndex,
+            course_direction: normalizeCourseDirection(courseDirection),
             form: form && form !== 'v1' ? form : undefined,
         });
         if (!data?.path) throw new Error('Sin ruta de imagen en la respuesta');
@@ -25,12 +22,13 @@ export function createImageHttpAdapter(http) {
     },
 
     // POST /api/generate-image — recupera imagen de GCS o genera una nueva con IA
-    generate: async ({ category, deck, index, defIndex, form, prompt, meaning, usageExample, usageContext, alternativeExample, forceGeneration, legacyImagePath, sceneComplement, promptEngine }) => {
+    generate: async ({ category, deck, index, defIndex, form, courseDirection, prompt, meaning, usageExample, usageContext, alternativeExample, forceGeneration, legacyImagePath, sceneComplement, promptEngine }) => {
         const data = await http.post('/api/generate-image', {
             category,
             deck,
             index,
             def_index: defIndex,
+            course_direction: normalizeCourseDirection(courseDirection),
             form,
             prompt,
             meaning,
@@ -47,22 +45,30 @@ export function createImageHttpAdapter(http) {
     },
 
     // DELETE /api/delete-image — borra el archivo del bucket GCS
-    delete: async ({ category, deck, index, defIndex, form }) => {
+    delete: async ({ category, deck, index, defIndex, form, courseDirection }) => {
         try {
-            return await http.delete('/api/delete-image', { category, deck, index, def_index: defIndex, form });
+            return await http.delete('/api/delete-image', {
+                category,
+                deck,
+                index,
+                def_index: defIndex,
+                form,
+                course_direction: normalizeCourseDirection(courseDirection),
+            });
         } catch (err) {
             throw new Error(err.message || 'Error en el servidor al eliminar', { cause: err });
         }
     },
 
     // POST /api/upload-image — sube imagen local al bucket GCS
-    upload: async (file, { category, deck, cardIndex, defIndex, form }) => {
+    upload: async (file, { category, deck, cardIndex, defIndex, form, courseDirection }) => {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('category', category);
         formData.append('deck', deck);
         formData.append('card_index', cardIndex);
         formData.append('def_index', defIndex);
+        formData.append('course_direction', normalizeCourseDirection(courseDirection));
         if (form) formData.append('form', form);
 
         const data = await http.upload('/api/upload-image', formData);
@@ -71,11 +77,7 @@ export function createImageHttpAdapter(http) {
     },
 
     // Ruta AVIF global predeterminada (capa compartida por todos los usuarios).
-    buildGlobalStoragePath: ({ category, deck, index, defIndex, form }) => {
-        const { mediaDir, filePrefix } = getDeckMediaParts(deck);
-        const formSuffix = form && form !== 'v1' ? `_${form}` : '';
-        return `/card_images/${category}/${mediaDir}/${filePrefix}_card_${index}_def${defIndex}${formSuffix}.avif`;
-    },
+    buildGlobalStoragePath: buildGlobalImageStoragePath,
 
     // Normaliza paths legacy: los JSON antiguos apuntaban a .jpg, pero los assets reales son AVIF.
     normalizeToAvif: (path) => {

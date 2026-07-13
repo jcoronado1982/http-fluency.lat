@@ -15,24 +15,26 @@
             {
                 "meaning": "break in",
                 "usage_example": "Alguien intentó entrar a la fuerza anoche.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Someone tried to break in last night.",
                 "char_count": "one",
                 "usage_context_en": "crime",
                 "usage_context_es": "crimen",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_2_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_2_def0.avif",
+                "target_meaning_es": "Entrar a la fuerza (robar)"
             },
             {
-                "meaning": "break in (def 2)",
+                "meaning": "break in",
                 "usage_example": "Necesito amansar estos zapatos nuevos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I need to break in these new shoes.",
                 "char_count": "one",
                 "usage_context_en": "clothing/use",
                 "usage_context_es": "ropa/uso",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_2_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_2_def1.avif",
+                "target_meaning_es": "Amansar, domar (zapatos, un caballo)"
             }
         ],
         "group_name": "Phrasal Verbs: Break",
@@ -54,24 +56,26 @@
             {
                 "meaning": "find out",
                 "usage_example": "Necesito averiguar a qué hora cierra la tienda.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I need to find out what time the store closes.",
                 "char_count": "one",
                 "usage_context_en": "getting information",
                 "usage_context_es": "obtener información",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_36_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_36_def0.avif",
+                "target_meaning_es": "Descubrir, averiguar (información)"
             },
             {
-                "meaning": "find out (def 2)",
+                "meaning": "find out",
                 "usage_example": "Él descubrió que ella estaba mintiendo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He found out that she was lying.",
                 "char_count": "one",
                 "usage_context_en": "discovering truth",
                 "usage_context_es": "descubrir la verdad",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_36_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_36_def1.avif",
+                "target_meaning_es": "Enterarse (de un secreto o noticia)"
             }
         ],
         "group_name": "Phrasal Verbs: Find",
@@ -93,24 +97,26 @@
             {
                 "meaning": "break into",
                 "usage_example": "Entraron a la fuerza a la casa y robaron la TV.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "They broke into the house and stole the TV.",
                 "char_count": "one",
                 "usage_context_en": "crime",
                 "usage_context_es": "crimen",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_4_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_4_def0.avif",
+                "target_meaning_es": "Entrar a la fuerza (a un lugar específico)"
             },
             {
-                "meaning": "break into (def 2)",
+                "meaning": "break into",
                 "usage_example": "Echó a correr cuando vio el autobús.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She broke into a run when she saw the bus.",
                 "char_count": "one",
                 "usage_context_en": "sudden action",
                 "usage_context_es": "acción repentina",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_4_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_4_def1.avif",
+                "target_meaning_es": "Empezar a hacer algo de repente"
             }
         ],
         "group_name": "Phrasal Verbs: Break",
@@ -132,35 +138,38 @@
             {
                 "meaning": "figure out",
                 "usage_example": "Necesito entender (descifrar) cómo funciona este nuevo software.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I need to figure out how this new software works.",
                 "char_count": "one",
                 "usage_context_en": "problem solving/understanding",
                 "usage_context_es": "resolver problemas/entender",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_35_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_35_def0.avif",
+                "target_meaning_es": "Resolver, entender, descifrar (un problema)"
             },
             {
-                "meaning": "figure out (def 2)",
+                "meaning": "figure out",
                 "usage_example": "¿Puedes calcular el costo total por mí?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Can you figure out the total cost for me?",
                 "char_count": "one",
                 "usage_context_en": "calculating/math",
                 "usage_context_es": "calcular/matemáticas",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_35_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_35_def1.avif",
+                "target_meaning_es": "Calcular (un costo, una cantidad)"
             },
             {
-                "meaning": "figure out (def 3)",
+                "meaning": "figure out",
                 "usage_example": "No puedo entenderlo (descifrarlo). Es muy callado.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I can't figure him out. He's very quiet.",
                 "char_count": "one",
                 "usage_context_en": "understanding people/behavior",
                 "usage_context_es": "entender a la gente/comportamiento",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_35_def2.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_35_def2.avif",
+                "target_meaning_es": "Entender (a una persona, su comportamiento)"
             }
         ],
         "group_name": "Phrasal Verbs: Figure",
@@ -182,13 +191,14 @@
             {
                 "meaning": "look out",
                 "usage_example": "¡Cuidado! Viene un carro.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Look out! A car is coming.",
                 "char_count": "one",
                 "usage_context_en": "warning/danger",
                 "usage_context_es": "advertencia/peligro",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "¡Cuidado! / Tener cuidado"
             }
         ],
         "group_name": "Phrasal Verbs: Look",
@@ -210,13 +220,14 @@
             {
                 "meaning": "look for",
                 "usage_example": "Estoy buscando el hospital.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I am looking for the hospital.",
                 "char_count": "one",
                 "usage_context_en": "asking/searching for a place",
                 "usage_context_es": "buscar un lugar",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Buscar"
             }
         ],
         "group_name": "Phrasal Verbs: Look",
@@ -238,13 +249,14 @@
             {
                 "meaning": "keep away",
                 "usage_example": "Mantente alejado del fuego.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Keep away from the fire.",
                 "char_count": "one",
                 "usage_context_en": "safety/warning",
                 "usage_context_es": "seguridad/advertencia",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Mantenerse alejado"
             }
         ],
         "group_name": "Phrasal Verbs: Keep",
@@ -266,13 +278,14 @@
             {
                 "meaning": "look at",
                 "usage_example": "Mira este mapa.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Look at this map.",
                 "char_count": "one",
                 "usage_context_en": "visual attention",
                 "usage_context_es": "atención visual",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Mirar"
             }
         ],
         "group_name": "Phrasal Verbs: Look",
@@ -294,35 +307,38 @@
             {
                 "meaning": "break down",
                 "usage_example": "Mi auto se descompuso en la autopista.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "My car broke down on the highway.",
                 "char_count": "one",
                 "usage_context_en": "machines/vehicles",
                 "usage_context_es": "máquinas/vehículos",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_1_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_1_def0.avif",
+                "target_meaning_es": "Dejar de funcionar (un auto, una máquina)"
             },
             {
-                "meaning": "break down (def 2)",
+                "meaning": "break down",
                 "usage_example": "Él se derrumbó y lloró después de la noticia.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He broke down and cried after the news.",
                 "char_count": "one",
                 "usage_context_en": "emotions",
                 "usage_context_es": "emociones",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_1_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_1_def1.avif",
+                "target_meaning_es": "Derrumbarse (emocionalmente), romper a llorar"
             },
             {
-                "meaning": "break down (def 3)",
+                "meaning": "break down",
                 "usage_example": "¿Puedes desglosar el problema para mí?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Can you break down the problem for me?",
                 "char_count": "one",
                 "usage_context_en": "explanation/analysis",
                 "usage_context_es": "explicación/análisis",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_1_def2.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_1_def2.avif",
+                "target_meaning_es": "Desglosar, explicar en partes"
             }
         ],
         "group_name": "Phrasal Verbs: Break",
@@ -344,13 +360,14 @@
             {
                 "meaning": "check on",
                 "usage_example": "Voy a ver cómo está el bebé.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I'm going to check on the baby.",
                 "char_count": "one",
                 "usage_context_en": "family/safety/supervision",
                 "usage_context_es": "familia/seguridad/supervisión",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_21_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_21_def0.avif",
+                "target_meaning_es": "Verificar (que alguien o algo esté bien)"
             }
         ],
         "group_name": "Phrasal Verbs: Check",
@@ -372,35 +389,38 @@
             {
                 "meaning": "break out",
                 "usage_example": "Dos prisioneros escaparon de la cárcel.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Two prisoners broke out of jail.",
                 "char_count": "one",
                 "usage_context_en": "escape/crime",
                 "usage_context_es": "escape/crimen",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_3_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_3_def0.avif",
+                "target_meaning_es": "Escapar (de la cárcel)"
             },
             {
-                "meaning": "break out (def 2)",
+                "meaning": "break out",
                 "usage_example": "Siempre me sale acné cuando estoy estresado.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I always break out when I'm stressed.",
                 "char_count": "one",
                 "usage_context_en": "health/skin",
                 "usage_context_es": "salud/piel",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_3_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_3_def1.avif",
+                "target_meaning_es": "Tener un brote (de acné, sarpullido)"
             },
             {
-                "meaning": "break out (def 3)",
+                "meaning": "break out",
                 "usage_example": "Estalló un incendio en el edificio.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "A fire broke out in the building.",
                 "char_count": "one",
                 "usage_context_en": "emergencies/events",
                 "usage_context_es": "emergencias/eventos",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_3_def2.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_3_def2.avif",
+                "target_meaning_es": "Estallar (una guerra, un incendio)"
             }
         ],
         "group_name": "Phrasal Verbs: Break",
@@ -422,24 +442,26 @@
             {
                 "meaning": "put out",
                 "usage_example": "Los bomberos apagaron el fuego rápidamente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The firefighters put out the fire quickly.",
                 "char_count": "one",
                 "usage_context_en": "fire/extinguish",
                 "usage_context_es": "fuego/apagar",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_9_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_9_def0.avif",
+                "target_meaning_es": "Apagar (un fuego, un cigarrillo)"
             },
             {
-                "meaning": "put out (def 2)",
+                "meaning": "put out",
                 "usage_example": "No olvides sacar la basura.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Don't forget to put out the trash.",
                 "char_count": "one",
                 "usage_context_en": "chores/household",
                 "usage_context_es": "quehaceres/hogar",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_9_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_9_def1.avif",
+                "target_meaning_es": "Sacar (la basura)"
             }
         ],
         "group_name": "Phrasal Verbs: Put",

@@ -93,10 +93,7 @@ async fn run_batch(
     println!("========================================================\n");
     let _ = stdout().flush();
 
-    let mut categories = ctx
-        .deck
-        .list_categories(DEFAULT_COURSE_DIRECTION)
-        .await?;
+    let mut categories = ctx.deck.list_categories(DEFAULT_COURSE_DIRECTION).await?;
     if let Some(ref cat) = filter.category {
         categories.retain(|c| c == cat);
         if categories.is_empty() {
@@ -147,7 +144,8 @@ async fn run_batch(
                 .await?;
             let card_count = deck_data.flashcards().len();
 
-            let img_dir = format!("{images_prefix}/{cat_name}/{deck_media_dir}");
+            let img_dir =
+                format!("{images_prefix}/{DEFAULT_COURSE_DIRECTION}/{cat_name}/{deck_media_dir}");
             let deck_files = ctx.deck.list_files_in_dir(&img_dir).await?;
             let file_index: HashSet<String> = deck_files.into_iter().collect();
             println!(
@@ -169,19 +167,19 @@ async fn run_batch(
                 for slot in slots {
                     global_counter += 1;
 
-                    let (
-                        meaning,
-                        usage_example,
-                        usage_context,
-                        alternative_example,
-                        prompt_val,
-                    ) =
+                    let (meaning, usage_example, usage_context, alternative_example, prompt_val) =
                         extract_definition_fields(card, slot.def_index, slot.form);
 
                     let form_suffix = slot.form.suffix();
                     let base_pattern = format!(
-                        "{}/{}/{}_card_{}_def{}{}",
-                        cat_name, deck_media_dir, deck_file_prefix, i, slot.def_index, form_suffix
+                        "{}/{}/{}/{}_card_{}_def{}{}",
+                        DEFAULT_COURSE_DIRECTION,
+                        cat_name,
+                        deck_media_dir,
+                        deck_file_prefix,
+                        i,
+                        slot.def_index,
+                        form_suffix
                     );
                     let filename = format!(
                         "{deck_file_prefix}_card_{i}_def{}{form_suffix}.avif",
@@ -232,6 +230,7 @@ async fn run_batch(
                                     deck: deck_name.clone(),
                                     index: i,
                                     def_index: slot.def_index,
+                                    course_direction: Some(DEFAULT_COURSE_DIRECTION.to_string()),
                                     prompt: prompt_val,
                                     meaning,
                                     usage_example,
@@ -253,7 +252,8 @@ async fn run_batch(
                                         if is_new {
                                             println!("... ✨ GENERADA!");
                                             stats.generated += 1;
-                                            tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
+                                            tokio::time::sleep(tokio::time::Duration::from_secs(1))
+                                                .await;
                                         } else {
                                             println!("... ⏭️  YA EXISTÍA");
                                             stats.skipped += 1;
@@ -305,12 +305,7 @@ async fn run_batch(
             if deck_dirty {
                 match ctx
                     .deck
-                    .save_deck_json(
-                        &cat_name,
-                        &deck_name,
-                        &deck_data,
-                        DEFAULT_COURSE_DIRECTION,
-                    )
+                    .save_deck_json(&cat_name, &deck_name, &deck_data, DEFAULT_COURSE_DIRECTION)
                     .await
                 {
                     Ok(()) => {

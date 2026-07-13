@@ -445,6 +445,10 @@ async fn async_main() -> anyhow::Result<()> {
                 post(api::endpoints::auth::update_catalog_preferences),
             )
             .route(
+                "/api/auth/study-language",
+                post(api::endpoints::auth::update_study_language),
+            )
+            .route(
                 "/api/presence/heartbeat",
                 post(api::endpoints::presence::heartbeat),
             )

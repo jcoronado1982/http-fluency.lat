@@ -1,7 +1,15 @@
 // src/features/flashcards/CardBack.jsx
 import React from 'react';
 import styles from './CardBack.module.css';
-import { getCardTitle, isLearningEnglish } from './cardLanguageUtils';
+import {
+    getCardTitle,
+    getDefinitionStudyTerm,
+    getMeaningConnector,
+    getReferenceExampleText,
+    getReferenceMeaning,
+    getStudyExampleText,
+    isLearningEnglish,
+} from './cardLanguageUtils';
 
 const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -68,36 +76,40 @@ function CardBack({ cardData, activeForm, currentLanguage }) {
 
     return (
         <div className={styles.cardBack}>
-            {displayData.definitions?.map((def, i) => (
-                <div key={i} className={styles.definitionBlockBack}>
-                    <p className={styles.meaningSentence}>
-                        <span className={styles.phrasalVerbBack}>
-                            {isLearningEnglish(currentLanguage) ? displayData.name : title}
-                        </span>{' '}
-                        {isLearningEnglish(currentLanguage) ? 'means' : 'significa'}{' '}
-                        <strong className={styles.meaningBack}>
-                            {isLearningEnglish(currentLanguage) ? def.meaning : displayData.name}
-                        </strong>
-                    </p>
-                    <p className={styles.usageExampleEn}>
-                        <HighlightedExample
-                            text={isLearningEnglish(currentLanguage) ? def.usage_example : def.usage_example_es}
-                            term={displayData.name}
-                        />
-                    </p>
-                    {def.alternative_example && isLearningEnglish(currentLanguage) && (
-                        <p className={styles.alternativeExample}>
-                            <em>Alternativa:</em> "{def.alternative_example}"
-                        </p>
-                    )}
+            {displayData.definitions?.map((def, i) => {
+                const definitionTerm = getDefinitionStudyTerm(def, title, currentLanguage);
 
-                    {def.usage_example_es && (
-                        <p className={styles.usageExampleEs}>
-                            {def.usage_example_es}
+                return (
+                    <div key={i} className={styles.definitionBlockBack}>
+                        <p className={styles.meaningSentence}>
+                            <span className={styles.phrasalVerbBack}>
+                                {definitionTerm}
+                            </span>{' '}
+                            {getMeaningConnector(currentLanguage)}{' '}
+                            <strong className={styles.meaningBack}>
+                                {getReferenceMeaning(def)}
+                            </strong>
                         </p>
-                    )}
-                </div>
-            ))}
+                        <p className={styles.usageExampleEn}>
+                            <HighlightedExample
+                                text={getStudyExampleText(def, currentLanguage)}
+                                term={definitionTerm}
+                            />
+                        </p>
+                        {def.alternative_example && isLearningEnglish(currentLanguage) && (
+                            <p className={styles.alternativeExample}>
+                                <em>Alternativa:</em> "{def.alternative_example}"
+                            </p>
+                        )}
+
+                        {getReferenceExampleText(def, currentLanguage) && (
+                            <p className={styles.usageExampleEs}>
+                                {getReferenceExampleText(def, currentLanguage)}
+                            </p>
+                        )}
+                    </div>
+                );
+            })}
         </div>
     );
 }

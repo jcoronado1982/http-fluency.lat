@@ -15,13 +15,14 @@
             {
                 "meaning": "get away",
                 "usage_example": "Necesitamos alejarnos de aquí.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We need to get away from here.",
                 "char_count": "one",
                 "usage_context_en": "danger/escape",
                 "usage_context_es": "peligro/escape",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Escapar / Alejarse"
             }
         ],
         "group_name": "Phrasal Verbs: Get",
@@ -43,24 +44,26 @@
             {
                 "meaning": "go on",
                 "usage_example": "Por favor, continúa.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Please go on.",
                 "char_count": "one",
                 "usage_context_en": "continuing",
                 "usage_context_es": "continuar",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Continuar / Seguir"
             },
             {
-                "meaning": "go on (def 2)",
+                "meaning": "go on",
                 "usage_example": "¿Qué está pasando?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What is going on?",
                 "char_count": "one",
                 "usage_context_en": "asking about a situation",
                 "usage_context_es": "preguntar por una situación",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Pasar / Suceder"
             }
         ],
         "group_name": "Phrasal Verbs: Go",
@@ -82,24 +85,26 @@
             {
                 "meaning": "get out",
                 "usage_example": "Salgo de la casa por la puerta principal.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I get out of the house through the front door.",
                 "char_count": "one",
                 "usage_context_en": "movement",
                 "usage_context_es": "movimiento",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_38_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_38_def0.avif",
+                "target_meaning_es": "salir (de un lugar), irse"
             },
             {
-                "meaning": "get out (def 2)",
+                "meaning": "get out",
                 "usage_example": "La noticia sobre el escándalo pronto se difundió.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The news about the scandal soon got out.",
                 "char_count": "one",
                 "usage_context_en": "diffuse news",
                 "usage_context_es": "difundir noticias",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_38_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_38_def1.avif",
+                "target_meaning_es": "hacer que una noticia se sepa o difundir"
             }
         ],
         "group_name": "Phrasal Verbs: Get",
@@ -121,35 +126,38 @@
             {
                 "meaning": "get on",
                 "usage_example": "La familia se sube al tren en la estación.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The family gets on the train at the station.",
                 "char_count": "multiple",
                 "usage_context_en": "transport",
                 "usage_context_es": "transporte",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_39_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_39_def0.avif",
+                "target_meaning_es": "subirse (a un transporte)"
             },
             {
-                "meaning": "get on (def 2)",
+                "meaning": "get on",
                 "usage_example": "¿Cómo te llevas con tu nuevo compañero de piso?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "How are you getting on with your new flatmate?",
                 "char_count": "two",
                 "usage_context_en": "relationships",
                 "usage_context_es": "relaciones",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_39_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_39_def1.avif",
+                "target_meaning_es": "llevarse bien con alguien"
             },
             {
-                "meaning": "get on (def 3)",
+                "meaning": "get on",
                 "usage_example": "¿Cómo estás progresando con tu tarea?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "How are you getting on with your homework?",
                 "char_count": "one",
                 "usage_context_en": "progress",
                 "usage_context_es": "progreso",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_39_def2.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_39_def2.avif",
+                "target_meaning_es": "arreglárselas o hacer progreso"
             }
         ],
         "group_name": "Phrasal Verbs: Get",
@@ -171,13 +179,14 @@
             {
                 "meaning": "run away",
                 "usage_example": "El perro se escapó, pero lo encontramos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The dog ran away, but we found him.",
                 "char_count": "one",
                 "usage_context_en": "escape/fleeing",
                 "usage_context_es": "escape/huida",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_16_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_16_def0.avif",
+                "target_meaning_es": "Escapar, huir (especialmente de casa)"
             }
         ],
         "group_name": "Phrasal Verbs: Run",
@@ -199,35 +208,38 @@
             {
                 "meaning": "calm down",
                 "usage_example": "Necesito sentarme y calmarme.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I need to sit down and calm down.",
                 "char_count": "one",
                 "usage_context_en": "relaxing/de-stressing",
                 "usage_context_es": "relajarse/desestresarse",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_15_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_15_def0.avif",
+                "target_meaning_es": "Calmarse, tranquilizarse (uno mismo)"
             },
             {
-                "meaning": "calm down (def 2)",
+                "meaning": "calm down",
                 "usage_example": "Intenté calmarlo, pero estaba demasiado enojado.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I tried to calm him down, but he was too angry.",
                 "char_count": "one",
                 "usage_context_en": "helping others/de-escalating",
                 "usage_context_es": "ayudar a otros/calmar",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_15_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_15_def1.avif",
+                "target_meaning_es": "Calmar (a otra persona)"
             },
             {
-                "meaning": "calm down (def 3)",
+                "meaning": "calm down",
                 "usage_example": "¡Oye, cálmate! Solo fue un accidente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Hey, calm down! It was just an accident.",
                 "char_count": "one",
                 "usage_context_en": "command/telling someone to relax",
                 "usage_context_es": "orden/decirle a alguien que se relaje",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_15_def2.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_15_def2.avif",
+                "target_meaning_es": "¡Cálmate! (una orden)"
             }
         ],
         "group_name": "Phrasal Verbs: Calm",
@@ -249,35 +261,38 @@
             {
                 "meaning": "get off",
                 "usage_example": "El estudiante se baja del autobús en la parada de la escuela.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The student gets off the bus at the school stop.",
                 "char_count": "one",
                 "usage_context_en": "transport",
                 "usage_context_es": "transporte",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_40_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_40_def0.avif",
+                "target_meaning_es": "bajarse (de un transporte)"
             },
             {
-                "meaning": "get off (def 2)",
+                "meaning": "get off",
                 "usage_example": "Él salió temprano del trabajo el viernes.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He got off work early on Friday.",
                 "char_count": "one",
                 "usage_context_en": "work",
                 "usage_context_es": "trabajo",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_40_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_40_def1.avif",
+                "target_meaning_es": "terminar el trabajo"
             },
             {
-                "meaning": "get off (def 3)",
+                "meaning": "get off",
                 "usage_example": "El abogado le ayudó a librarse con solo una multa.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The lawyer helped him get off with only a fine.",
                 "char_count": "one",
                 "usage_context_en": "escape punishment",
                 "usage_context_es": "evitar castigo",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_40_def2.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_40_def2.avif",
+                "target_meaning_es": "librarse de un castigo"
             }
         ],
         "group_name": "Phrasal Verbs: Get",
@@ -299,13 +314,14 @@
             {
                 "meaning": "hurry up",
                 "usage_example": "¡Apúrate! El bus se va.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Hurry up! The bus is leaving.",
                 "char_count": "one",
                 "usage_context_en": "urgent instruction",
                 "usage_context_es": "instrucción urgente",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Apurarse / Darse prisa"
             }
         ],
         "group_name": "Phrasal Verbs: Hurry",
@@ -327,24 +343,26 @@
             {
                 "meaning": "get by",
                 "usage_example": "Ella necesita arreglárselas sin dinero.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She needs to get by without money.",
                 "char_count": "one",
                 "usage_context_en": "survival/finance",
                 "usage_context_es": "supervivencia/finanzas",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_43_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_43_def0.avif",
+                "target_meaning_es": "arreglárselas, sobrevivir con lo mínimo"
             },
             {
-                "meaning": "get by (def 2)",
+                "meaning": "get by",
                 "usage_example": "¿Puedes moverte para que yo pueda pasar?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Can you move so I can get by?",
                 "char_count": "two",
                 "usage_context_en": "pass",
                 "usage_context_es": "pasar",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_43_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_43_def1.avif",
+                "target_meaning_es": "pasar por un lugar estrecho"
             }
         ],
         "group_name": "Phrasal Verbs: Get",
@@ -366,13 +384,14 @@
             {
                 "meaning": "run out",
                 "usage_example": "Nos quedamos sin leche esta mañana.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We ran out of milk this morning.",
                 "char_count": "one",
                 "usage_context_en": "supplies/shortage",
                 "usage_context_es": "suministros/escasez",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_13_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_13_def0.avif",
+                "target_meaning_es": "Agotarse, quedarse sin (algo)"
             }
         ],
         "group_name": "Phrasal Verbs: Run",

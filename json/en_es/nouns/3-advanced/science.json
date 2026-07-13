@@ -15,24 +15,26 @@
             {
                 "meaning": "sensation",
                 "usage_example": "Tengo una sensación de hormigueo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I have a tingling sensation.",
                 "char_count": "5",
                 "usage_context_en": "A physical feeling resulting from something that happens to or comes into contact with the body.",
                 "usage_context_es": "Un sentimiento físico resultante de algo que le sucede o entra en contacto con el cuerpo.",
-                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_103_def0.avif"
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_103_def0.avif",
+                "target_meaning_es": "Sensación (física)"
             },
             {
-                "meaning": "sensation (def 2)",
+                "meaning": "sensation",
                 "usage_example": "La nueva película fue una sensación.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The new movie was a sensation.",
                 "char_count": "6",
                 "usage_context_en": "A widespread reaction of interest and excitement.",
                 "usage_context_es": "Una reacción generalizada de interés y emoción.",
-                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_103_def1.avif"
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_103_def1.avif",
+                "target_meaning_es": "Sensación (conmoción)"
             }
         ],
         "group_name": "General Concepts",

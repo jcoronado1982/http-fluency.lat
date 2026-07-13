@@ -15,13 +15,14 @@
             {
                 "meaning": "turn into",
                 "usage_example": "La oruga se convirtió en mariposa.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The caterpillar turned into a butterfly.",
                 "char_count": "one",
                 "usage_context_en": "transformation/change",
                 "usage_context_es": "transformación/cambio",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_38_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_38_def0.avif",
+                "target_meaning_es": "Convertirse en, transformarse en"
             }
         ],
         "group_name": "Phrasal Verbs: Turn",
@@ -43,13 +44,14 @@
             {
                 "meaning": "call off",
                 "usage_example": "Tuvimos que cancelar el partido debido a la lluvia.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We had to call off the game due to rain.",
                 "char_count": "one",
                 "usage_context_en": "events/plans",
                 "usage_context_es": "eventos/planes",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_10_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_10_def0.avif",
+                "target_meaning_es": "Cancelar (un evento)"
             }
         ],
         "group_name": "Phrasal Verbs: Call",
@@ -71,24 +73,26 @@
             {
                 "meaning": "turn up",
                 "usage_example": "¿Puedes subir la música? Me encanta esta canción.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Can you turn up the music? I love this song.",
                 "char_count": "one",
                 "usage_context_en": "volume/level",
                 "usage_context_es": "volumen/nivel",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_36_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_36_def0.avif",
+                "target_meaning_es": "Subir (el volumen, la calefacción)"
             },
             {
-                "meaning": "turn up (def 2)",
+                "meaning": "turn up",
                 "usage_example": "Él finalmente apareció en la fiesta a medianoche.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He finally turned up at the party at midnight.",
                 "char_count": "one",
                 "usage_context_en": "arriving/social",
                 "usage_context_es": "llegar/social",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_36_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_36_def1.avif",
+                "target_meaning_es": "Aparecer, llegar (inesperadamente)"
             }
         ],
         "group_name": "Phrasal Verbs: Turn",
@@ -110,24 +114,26 @@
             {
                 "meaning": "call for",
                 "usage_example": "Esta receta requiere tres huevos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "This recipe calls for three eggs.",
                 "char_count": "one",
                 "usage_context_en": "instructions/recipes",
                 "usage_context_es": "instrucciones/recetas",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_13_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_13_def0.avif",
+                "target_meaning_es": "Requerir, necesitar"
             },
             {
-                "meaning": "call for (def 2)",
+                "meaning": "call for",
                 "usage_example": "Los manifestantes están pidiendo un cambio.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The protesters are calling for change.",
                 "char_count": "one",
                 "usage_context_en": "public demand",
                 "usage_context_es": "exigencia pública",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_13_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_13_def1.avif",
+                "target_meaning_es": "Pedir, exigir (públicamente)"
             }
         ],
         "group_name": "Phrasal Verbs: Call",
@@ -149,24 +155,26 @@
             {
                 "meaning": "turn down",
                 "usage_example": "¿Podrías bajar la TV? Está muy alta.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Could you turn down the TV? It's too loud.",
                 "char_count": "one",
                 "usage_context_en": "volume/level",
                 "usage_context_es": "volumen/nivel",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_37_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_37_def0.avif",
+                "target_meaning_es": "Bajar (el volumen, la calefacción)"
             },
             {
-                "meaning": "turn down (def 2)",
+                "meaning": "turn down",
                 "usage_example": "Ella rechazó la oferta de trabajo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She turned down the job offer.",
                 "char_count": "one",
                 "usage_context_en": "decisions/work/social",
                 "usage_context_es": "decisiones/trabajo/social",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_37_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_37_def1.avif",
+                "target_meaning_es": "Rechazar (una oferta, una invitación)"
             }
         ],
         "group_name": "Phrasal Verbs: Turn",
@@ -188,13 +196,14 @@
             {
                 "meaning": "run by",
                 "usage_example": "¿Puedo consultarte esta idea rápidamente?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Can I run this idea by you quickly?",
                 "char_count": "one",
                 "usage_context_en": "work/getting opinion",
                 "usage_context_es": "trabajo/pedir opinión",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_18_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_18_def0.avif",
+                "target_meaning_es": "Consultar (una idea) con (alguien)"
             }
         ],
         "group_name": "Phrasal Verbs: Run",
@@ -216,24 +225,26 @@
             {
                 "meaning": "turn out",
                 "usage_example": "La película resultó ser muy buena.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The movie turned out to be really good.",
                 "char_count": "one",
                 "usage_context_en": "results/outcome",
                 "usage_context_es": "resultados/desenlace",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_39_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_39_def0.avif",
+                "target_meaning_es": "Resultar (ser), acabar (siendo)"
             },
             {
-                "meaning": "turn out (def 2)",
+                "meaning": "turn out",
                 "usage_example": "Mucha gente acudió al concierto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "A lot of people turned out for the concert.",
                 "char_count": "one",
                 "usage_context_en": "events/attendance",
                 "usage_context_es": "eventos/asistencia",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_39_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_39_def1.avif",
+                "target_meaning_es": "Asistir (a un evento), acudir"
             }
         ],
         "group_name": "Phrasal Verbs: Turn",
@@ -255,24 +266,26 @@
             {
                 "meaning": "bring in",
                 "usage_example": "Mi nuevo trabajo genera más dinero.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "My new job brings in more money.",
                 "char_count": "one",
                 "usage_context_en": "work/salary",
                 "usage_context_es": "trabajo/salario",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_9_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_9_def0.avif",
+                "target_meaning_es": "Ganar (dinero), generar (ingresos)"
             },
             {
-                "meaning": "bring in (def 2)",
+                "meaning": "bring in",
                 "usage_example": "Traigamos a un experto para que nos ayude.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Let's bring in an expert to help us.",
                 "char_count": "one",
                 "usage_context_en": "work/projects",
                 "usage_context_es": "trabajo/proyectos",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_9_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_9_def1.avif",
+                "target_meaning_es": "Involucrar (a alguien), traer (a un experto)"
             }
         ],
         "group_name": "Phrasal Verbs: Bring",
@@ -294,13 +307,14 @@
             {
                 "meaning": "turn around",
                 "usage_example": "Date la vuelta y déjame ver tu espalda.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Turn around and let me see your back.",
                 "char_count": "one",
                 "usage_context_en": "physical movement/direction",
                 "usage_context_es": "movimiento físico/dirección",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_40_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_40_def0.avif",
+                "target_meaning_es": "Darse la vuelta, girar"
             }
         ],
         "group_name": "Phrasal Verbs: Turn",
@@ -322,13 +336,14 @@
             {
                 "meaning": "give back",
                 "usage_example": "Por favor, devuélveme mi teléfono.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Please give back my phone.",
                 "char_count": "one",
                 "usage_context_en": "returning items",
                 "usage_context_es": "devolver objetos",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Devolver"
             }
         ],
         "group_name": "Phrasal Verbs: Give",
@@ -350,24 +365,26 @@
             {
                 "meaning": "take back",
                 "usage_example": "Retiro lo dicho. Estaba equivocado.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I take back what I said. I was wrong.",
                 "char_count": "one",
                 "usage_context_en": "conversation/apology",
                 "usage_context_es": "conversación/disculpa",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_32_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_32_def0.avif",
+                "target_meaning_es": "Retirar (lo dicho), retractarse"
             },
             {
-                "meaning": "take back (def 2)",
+                "meaning": "take back",
                 "usage_example": "Necesito devolver estos zapatos. No me quedan.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I need to take back these shoes. They don't fit.",
                 "char_count": "one",
                 "usage_context_en": "shopping/returning",
                 "usage_context_es": "compras/devolver",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_32_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_32_def1.avif",
+                "target_meaning_es": "Devolver (algo a una tienda)"
             }
         ],
         "group_name": "Phrasal Verbs: Take",

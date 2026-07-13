@@ -15,13 +15,14 @@
             {
                 "meaning": "currency",
                 "usage_example": "¿Cuál es la moneda local?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What is the local currency?",
                 "char_count": "5",
                 "usage_context_en": "A system of money in general use in a particular country.",
                 "usage_context_es": "Un sistema de dinero en uso general en un país en particular.",
-                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_45_def0.avif"
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_45_def0.avif",
+                "target_meaning_es": "Moneda / Divisa"
             }
         ],
         "group_name": "General Concepts",
@@ -43,13 +44,14 @@
             {
                 "meaning": "incentive",
                 "usage_example": "El bono es un incentivo para trabajar duro.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The bonus is an incentive to work hard.",
                 "char_count": "8",
                 "usage_context_en": "A thing that motivates or encourages one to do something.",
                 "usage_context_es": "Algo que motiva o alienta a uno a hacer algo.",
-                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_55_def0.avif"
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_55_def0.avif",
+                "target_meaning_es": "Incentivo"
             }
         ],
         "group_name": "General Concepts",
@@ -71,13 +73,14 @@
             {
                 "meaning": "income",
                 "usage_example": "Él tiene unos ingresos mensuales altos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He has a high monthly income.",
                 "char_count": "6",
                 "usage_context_en": "Money received, especially on a regular basis, for work or through investments.",
                 "usage_context_es": "Dinero recibido, especialmente de forma regular, por trabajo o a través de inversiones.",
-                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_57_def0.avif"
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_57_def0.avif",
+                "target_meaning_es": "Ingresos / Renta"
             }
         ],
         "group_name": "General Concepts",
@@ -99,13 +102,14 @@
             {
                 "meaning": "revenue",
                 "usage_example": "Los ingresos de la compañía crecieron el año pasado.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The company's revenue grew last year.",
                 "char_count": "6",
                 "usage_context_en": "Income, especially when of a company or organization and of a substantial nature.",
                 "usage_context_es": "Ingresos, especialmente de una compañía u organización y de naturaleza sustancial.",
-                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_101_def0.avif"
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_101_def0.avif",
+                "target_meaning_es": "Ingresos (de una empresa o estado)"
             }
         ],
         "group_name": "General Concepts",
@@ -127,13 +131,14 @@
             {
                 "meaning": "transaction",
                 "usage_example": "Fue una transacción simple.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It was a simple transaction.",
                 "char_count": "5",
                 "usage_context_en": "An instance of buying or selling something; a business deal.",
                 "usage_context_es": "Una instancia de comprar o vender algo; un acuerdo comercial.",
-                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_113_def0.avif"
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_113_def0.avif",
+                "target_meaning_es": "Transacción"
             }
         ],
         "group_name": "General Concepts",

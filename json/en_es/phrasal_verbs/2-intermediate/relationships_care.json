@@ -14,36 +14,39 @@
         "definitions": [
             {
                 "meaning": "break up",
-                "usage_example": "Ellos decidieron terminar el mes pasado.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "usage_example": "Ellos decidieron terminar su relación el mes pasado.",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "They decided to break up last month.",
                 "char_count": "one",
                 "usage_context_en": "relationships",
                 "usage_context_es": "relaciones",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_0_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_0_def0.avif",
+                "target_meaning_es": "Terminar una relación (romántica)"
             },
             {
-                "meaning": "break up (def 2)",
+                "meaning": "break up",
                 "usage_example": "¿Cuándo terminan las clases por el verano?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "When does school break up for summer?",
                 "char_count": "one",
                 "usage_context_en": "school/holidays",
                 "usage_context_es": "colegio/vacaciones",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_0_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_0_def1.avif",
+                "target_meaning_es": "Terminar las clases (por vacaciones)"
             },
             {
-                "meaning": "break up (def 3)",
+                "meaning": "break up",
                 "usage_example": "La fiesta se disolvió a medianoche.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The party broke up at midnight.",
                 "char_count": "one",
                 "usage_context_en": "social events",
                 "usage_context_es": "eventos sociales",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_0_def2.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_0_def2.avif",
+                "target_meaning_es": "Separarse (un grupo), disolverse"
             }
         ],
         "group_name": "Phrasal Verbs: Break",
@@ -65,24 +68,26 @@
             {
                 "meaning": "get along",
                 "usage_example": "Mis amigos y yo nos llevamos muy bien, siempre nos estamos riendo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "My friends and I get along really well. We’re always laughing.",
                 "char_count": "two",
                 "usage_context_en": "relationships",
                 "usage_context_es": "relaciones",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_41_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_41_def0.avif",
+                "target_meaning_es": "llevarse bien"
             },
             {
-                "meaning": "get along (def 2)",
+                "meaning": "get along",
                 "usage_example": "A pesar de los problemas, de alguna manera se las están arreglando.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Despite the problems, they are somehow getting along.",
                 "char_count": "multiple",
                 "usage_context_en": "coping",
                 "usage_context_es": "sobrellevar/arreglárselas",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_41_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_41_def1.avif",
+                "target_meaning_es": "arreglárselas o hacer progreso"
             }
         ],
         "group_name": "Phrasal Verbs: Get",
@@ -104,24 +109,26 @@
             {
                 "meaning": "bring down",
                 "usage_example": "Necesitamos reducir nuestros costos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We need to bring down our costs.",
                 "char_count": "one",
                 "usage_context_en": "finance/prices",
                 "usage_context_es": "finanzas/precios",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_8_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_8_def0.avif",
+                "target_meaning_es": "Bajar (el precio), reducir"
             },
             {
-                "meaning": "bring down (def 2)",
+                "meaning": "bring down",
                 "usage_example": "Esa película triste realmente me deprimió.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "That sad movie really brought me down.",
                 "char_count": "one",
                 "usage_context_en": "emotions/mood",
                 "usage_context_es": "emociones/estado de ánimo",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_8_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_8_def1.avif",
+                "target_meaning_es": "Deprimir, poner triste a alguien"
             }
         ],
         "group_name": "Phrasal Verbs: Bring",
@@ -143,13 +150,14 @@
             {
                 "meaning": "pick on",
                 "usage_example": "Él siempre se mete con su hermano pequeño.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He always picks on his little brother.",
                 "char_count": "one",
                 "usage_context_en": "bullying/behavior",
                 "usage_context_es": "acoso/comportamiento",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_5_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_5_def0.avif",
+                "target_meaning_es": "Molestar, meterse con (persistentemente)"
             }
         ],
         "group_name": "Phrasal Verbs: Pick",
@@ -171,13 +179,14 @@
             {
                 "meaning": "look after",
                 "usage_example": "¿Puedes cuidar a mi perro?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Can you look after my dog?",
                 "char_count": "one",
                 "usage_context_en": "care/responsibility",
                 "usage_context_es": "cuidado/responsabilidad",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Cuidar"
             }
         ],
         "group_name": "Phrasal Verbs: Look",
@@ -199,13 +208,14 @@
             {
                 "meaning": "take after",
                 "usage_example": "Realmente te pareces a tu padre.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "You really take after your father.",
                 "char_count": "one",
                 "usage_context_en": "family/resemblance",
                 "usage_context_es": "familia/parecido",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_31_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_31_def0.avif",
+                "target_meaning_es": "Parecerse a (alguien de la familia)"
             }
         ],
         "group_name": "Phrasal Verbs: Take",
@@ -227,24 +237,26 @@
             {
                 "meaning": "bring up",
                 "usage_example": "No saques el tema de la política en la fiesta.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Don't bring up politics at the party.",
                 "char_count": "one",
                 "usage_context_en": "conversation topic",
                 "usage_context_es": "tema de conversación",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_5_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_5_def0.avif",
+                "target_meaning_es": "Mencionar (un tema), sacar a colación"
             },
             {
-                "meaning": "bring up (def 2)",
+                "meaning": "bring up",
                 "usage_example": "Sus abuelos lo criaron.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "His grandparents brought him up.",
                 "char_count": "one",
                 "usage_context_en": "parenting/family",
                 "usage_context_es": "crianza/familia",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_5_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_5_def1.avif",
+                "target_meaning_es": "Criar (a un niño)"
             }
         ],
         "group_name": "Phrasal Verbs: Bring",

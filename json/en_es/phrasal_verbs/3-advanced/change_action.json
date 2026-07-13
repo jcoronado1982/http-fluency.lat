@@ -15,13 +15,14 @@
             {
                 "meaning": "bring about",
                 "usage_example": "La nueva ley provocó grandes cambios.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The new law brought about major changes.",
                 "char_count": "one",
                 "usage_context_en": "cause/change",
                 "usage_context_es": "causa/cambio",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Provocar / Causar un cambio"
             }
         ],
         "group_name": "Phrasal Verbs: Bring",
@@ -43,13 +44,14 @@
             {
                 "meaning": "do away with",
                 "usage_example": "La empresa eliminó la regla antigua.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The company did away with the old rule.",
                 "char_count": "one",
                 "usage_context_en": "formal change/rules",
                 "usage_context_es": "cambio formal/reglas",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Eliminar / Abolir"
             }
         ],
         "group_name": "Phrasal Verbs: Do",
@@ -71,13 +73,14 @@
             {
                 "meaning": "take apart",
                 "usage_example": "Él desarmó la radio vieja.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He took apart the old radio.",
                 "char_count": "one",
                 "usage_context_en": "repair/objects",
                 "usage_context_es": "reparación/objetos",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Desarmar"
             }
         ],
         "group_name": "Phrasal Verbs: Take",
@@ -98,14 +101,15 @@
         "definitions": [
             {
                 "meaning": "put forward",
-                "usage_example": "Ella propuso una nueva propuesta.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "usage_example": "Ella presentó una nueva propuesta.",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She put forward a new proposal.",
                 "char_count": "one",
                 "usage_context_en": "proposal/work",
                 "usage_context_es": "propuesta/trabajo",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Proponer una idea"
             }
         ],
         "group_name": "Phrasal Verbs: Put",
@@ -127,24 +131,26 @@
             {
                 "meaning": "take on",
                 "usage_example": "No puedo asumir más trabajo ahora.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I can’t take on more work right now.",
                 "char_count": "one",
                 "usage_context_en": "responsibility/workload",
                 "usage_context_es": "responsabilidad/carga de trabajo",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Asumir una responsabilidad"
             },
             {
-                "meaning": "take on (def 2)",
+                "meaning": "take on",
                 "usage_example": "La empresa está contratando nuevos empleados.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The company is taking on new employees.",
                 "char_count": "one",
                 "usage_context_en": "work/hiring",
                 "usage_context_es": "trabajo/contratación",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Contratar"
             }
         ],
         "group_name": "Phrasal Verbs: Take",
@@ -165,14 +171,15 @@
         "definitions": [
             {
                 "meaning": "set in",
-                "usage_example": "La lluvia se ha instalado para (todo) el fin de semana.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "usage_example": "La lluvia comenzó y continuará todo el fin de semana.",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The rain has set in for the weekend.",
                 "char_count": "one",
                 "usage_context_en": "weather/illness/negative start",
                 "usage_context_es": "clima/enfermedad/inicio negativo",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_22_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_22_def0.avif",
+                "target_meaning_es": "Instalarse, empezar (algo negativo y duradero)"
             }
         ],
         "group_name": "Phrasal Verbs: Set",
@@ -194,13 +201,14 @@
             {
                 "meaning": "make up for",
                 "usage_example": "Trabajaré horas extra para compensar el retraso.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I will work extra hours to make up for the delay.",
                 "char_count": "one",
                 "usage_context_en": "compensation/problem solving",
                 "usage_context_es": "compensación/solución",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Compensar"
             }
         ],
         "group_name": "Phrasal Verbs: Make",

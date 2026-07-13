@@ -15,13 +15,14 @@
             {
                 "meaning": "new",
                 "usage_example": "Compré un carro nuevo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I bought a new car.",
                 "char_count": "5",
                 "usage_context_en": "Produced, introduced, or discovered recently; not existing before.",
                 "usage_context_es": "Producido, introducido o descubierto recientemente; que no existía antes.",
-                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_8_def0.avif"
+                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_8_def0.avif",
+                "target_meaning_es": "Nuevo/a"
             }
         ],
         "group_name": "Age & Novelty",
@@ -43,24 +44,26 @@
             {
                 "meaning": "old",
                 "usage_example": "Él es un hombre anciano.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He is an old man.",
                 "char_count": "5",
                 "usage_context_en": "Having lived for a long time; advanced in age.",
                 "usage_context_es": "Haber vivido por mucho tiempo; de edad avanzada.",
-                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_9_def0.avif"
+                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_9_def0.avif",
+                "target_meaning_es": "Viejo/a / Anciano/a"
             },
             {
-                "meaning": "old (def 2)",
+                "meaning": "old",
                 "usage_example": "Este es mi teléfono viejo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "This is my old phone.",
                 "char_count": "5",
                 "usage_context_en": "Having existed for a long time; not new.",
                 "usage_context_es": "Que ha existido por mucho tiempo; no nuevo.",
-                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_9_def1.avif"
+                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_9_def1.avif",
+                "target_meaning_es": "Viejo/a (objeto)"
             }
         ],
         "group_name": "Age & Novelty",
@@ -82,13 +85,14 @@
             {
                 "meaning": "young",
                 "usage_example": "Ella es una mujer joven.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She is a young woman.",
                 "char_count": "5",
                 "usage_context_en": "Having lived for only a short time; not old.",
                 "usage_context_es": "Haber vivido solo por un corto tiempo; no viejo.",
-                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_10_def0.avif"
+                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_10_def0.avif",
+                "target_meaning_es": "Joven"
             }
         ],
         "group_name": "Age & Novelty",
@@ -110,13 +114,14 @@
             {
                 "meaning": "fast",
                 "usage_example": "Un guepardo es un animal rápido.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "A cheetah is a fast animal.",
                 "char_count": "6",
                 "usage_context_en": "Moving or capable of moving at high speed.",
                 "usage_context_es": "Que se mueve o es capaz de moverse a alta velocidad.",
-                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_15_def0.avif"
+                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_15_def0.avif",
+                "target_meaning_es": "Rápido/a"
             }
         ],
         "group_name": "Speed & Time",
@@ -138,13 +143,14 @@
             {
                 "meaning": "slow",
                 "usage_example": "La tortuga es muy lenta.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The turtle is very slow.",
                 "char_count": "5",
                 "usage_context_en": "Moving or operating at a low speed.",
                 "usage_context_es": "Que se mueve u opera a baja velocidad.",
-                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_16_def0.avif"
+                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_16_def0.avif",
+                "target_meaning_es": "Lento/a"
             }
         ],
         "group_name": "Speed & Time",
@@ -166,13 +172,14 @@
             {
                 "meaning": "early",
                 "usage_example": "Tengo una reunión temprano.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I have an early meeting.",
                 "char_count": "5",
                 "usage_context_en": "Happening or done before the usual or expected time.",
                 "usage_context_es": "Que sucede o se hace antes de la hora habitual o esperada.",
-                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_25_def0.avif"
+                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_25_def0.avif",
+                "target_meaning_es": "Temprano"
             }
         ],
         "group_name": "Speed & Time",
@@ -194,13 +201,14 @@
             {
                 "meaning": "late",
                 "usage_example": "El tren está retrasado (llega tarde).",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The train is late.",
                 "char_count": "4",
                 "usage_context_en": "Happening or done after the usual or expected time.",
                 "usage_context_es": "Que sucede o se hace después de la hora habitual o esperada.",
-                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_26_def0.avif"
+                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_26_def0.avif",
+                "target_meaning_es": "Tarde"
             }
         ],
         "group_name": "Speed & Time",
@@ -222,13 +230,14 @@
             {
                 "meaning": "quick",
                 "usage_example": "Él dio una respuesta rápida.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He gave a quick answer.",
                 "char_count": "5",
                 "usage_context_en": "Moving fast or doing something in a short time.",
                 "usage_context_es": "Que se mueve rápido o hace algo en poco tiempo.",
-                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_47_def0.avif"
+                "imagePath": "/card_images/adjectives/1-basic/1-basic_card_47_def0.avif",
+                "target_meaning_es": "Rápido/a / Veloz"
             }
         ],
         "group_name": "Speed & Time",
