@@ -423,7 +423,7 @@
 
 .lp-demo-prompt--card.is-open {
     align-items: stretch;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
     border: 1px solid #334155;
     border-radius: 16px;
     background: linear-gradient(145deg, #1b0f1a 0%, #0f0911 100%);

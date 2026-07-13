@@ -234,7 +234,13 @@ az pipelines build queue \
 
 ### Limpieza rápida (1 comando)
 
-**Prerrequisito:** `az login` y extensión `azure-devops` (`az extension add --name azure-devops`).
+**Autenticación preferida para automatización/IA:** el script toma el PAT de
+`SECRETS_MAP.md` y lo exporta internamente como `AZURE_DEVOPS_EXT_PAT`, sin
+mostrarlo ni guardarlo fuera del proceso. También acepta `AZURE_DEVOPS_EXT_PAT`
+ya definido. Solo hace falta la extensión `azure-devops` (`az extension add --name azure-devops`).
+
+No depender de `az login`, de una sesión del navegador, SSH ni MCP para esta
+operación: el PAT es la vía canónica cuando se ejecuta desde este repositorio.
 
 ```bash
 # Siempre primero: simular sin borrar
@@ -243,7 +249,8 @@ az pipelines build queue \
 # Mantenimiento habitual — conserva último run exitoso de main y qa
 ./scripts/cleanup-ado-builds.sh
 
-# Reset total — pipeline como nuevo + logs del agente LocalBuild en tu PC
+# Reset total de historial terminado + logs del agente LocalBuild en tu PC.
+# Conserva siempre los runs en ejecución o en cola; no crea un pipeline nuevo.
 ./scripts/cleanup-ado-builds.sh --purge-all --clean-agent-logs
 ```
 
@@ -251,13 +258,13 @@ az pipelines build queue \
 |------|--------|
 | *(sin flags)* | Conserva el último run **succeeded** de `main` y `qa`; borra el resto (hasta 200 runs listados) |
 | `--dry-run` | Muestra leases y builds a borrar; no ejecuta DELETE |
-| `--purge-all` | No conserva ningún run — borra todos |
+| `--purge-all` | No conserva ningún **run terminado** — borra todos los históricos; nunca toca ejecuciones activas o en cola |
 | `--clean-agent-logs` | Vacía `~/azp-agent-localbuild/_diag/*.log` y `_work/` (override: `AZP_AGENT_DIR`) |
 | `--keep ID …` | Conserva run IDs concretos (anula la detección automática de main/qa) |
 
 Variables opcionales: `ADO_ORG`, `ADO_PROJECT`, `ADO_PIPELINE_ID` (default pipeline `2`).
 
-El script quita **retention leases** en lote y luego borra cada build — evita el bucle lento run × 3 llamadas API.
+El script quita **retention leases** en lote y luego borra cada build terminado — evita el bucle lento run × 3 llamadas API. El borrado del run elimina también sus logs y artefactos asociados.
 
 ### Automática (cada deploy)
 
