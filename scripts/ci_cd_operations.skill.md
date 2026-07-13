@@ -44,6 +44,12 @@ Trigger automático en push a `qa` o `main` si cambia: `azure-pipelines.yml`, `c
 
 **Un comando (reset total):** `./scripts/cleanup-ado-builds.sh --purge-all --clean-agent-logs`
 
+**Autenticación canónica para IA/automatización:** el script carga en silencio
+el PAT `PAT_token` de `SECRETS_MAP.md` como `AZURE_DEVOPS_EXT_PAT`. No usar
+`az login`, navegador, SSH ni MCP como primer intento. Nunca imprimir el PAT.
+El script solo elimina runs `completed`; conserva el build en ejecución y los
+encolados, y no crea ni reconfigura el pipeline existente.
+
 ```bash
 ./scripts/cleanup-ado-builds.sh --dry-run                              # simular
 ./scripts/cleanup-ado-builds.sh                                      # conserva último main + qa

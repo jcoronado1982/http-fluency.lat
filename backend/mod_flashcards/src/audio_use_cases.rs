@@ -9,8 +9,8 @@ use std::hash::{Hash, Hasher};
 use std::sync::Arc;
 
 use crate::{
-    is_landing_demo_namespace, normalize_course_direction, safe_deck_prefix,
-    safe_language_suffix, safe_storage_segment, FlashcardsConfig,
+    is_landing_demo_namespace, normalize_course_direction, safe_deck_prefix, safe_language_suffix,
+    safe_storage_segment, FlashcardsConfig,
 };
 
 /// Huella estable de caché: se conserva para no regenerar audios ya existentes
@@ -351,7 +351,6 @@ impl AudioUseCases {
         let verb_slug = self.slugify(&req.verb_name.as_deref().unwrap_or("none"), 40);
         let text_slug = self.slugify(&req.text, 40);
         let lang_suffix = safe_language_suffix(req.lang.as_deref())?;
-        let skip_legacy = Self::is_non_english_lang(req.lang.as_deref());
 
         if !is_admin {
             let global_file = self.deterministic_audio_filename(req, None, false)?;
@@ -366,31 +365,27 @@ impl AudioUseCases {
                 return Ok(Some(self.build_result(&global_file, "", true)));
             }
 
-            if !skip_legacy {
-                if let Some(found) = self
-                    .find_legacy_audio(req, &deck_prefix, &verb_slug, &text_slug, &lang_suffix)
-                    .await?
-                {
-                    tracing::info!("✅ Audio legacy global: {}", found);
-                    let rel = found
-                        .strip_prefix(&self.config.gcs_audio_prefix)
-                        .unwrap_or(&found)
-                        .trim_start_matches('/');
-                    return Ok(Some(self.build_result(rel, "Legacy", true)));
-                }
-            }
-        } else if !skip_legacy {
             if let Some(found) = self
                 .find_legacy_audio(req, &deck_prefix, &verb_slug, &text_slug, &lang_suffix)
                 .await?
             {
-                tracing::info!("✅ Audio legacy: {}", found);
+                tracing::info!("✅ Audio legacy global: {}", found);
                 let rel = found
                     .strip_prefix(&self.config.gcs_audio_prefix)
                     .unwrap_or(&found)
                     .trim_start_matches('/');
                 return Ok(Some(self.build_result(rel, "Legacy", true)));
             }
+        } else if let Some(found) = self
+            .find_legacy_audio(req, &deck_prefix, &verb_slug, &text_slug, &lang_suffix)
+            .await?
+        {
+            tracing::info!("✅ Audio legacy: {}", found);
+            let rel = found
+                .strip_prefix(&self.config.gcs_audio_prefix)
+                .unwrap_or(&found)
+                .trim_start_matches('/');
+            return Ok(Some(self.build_result(rel, "Legacy", true)));
         }
 
         if log_miss {
@@ -608,36 +603,75 @@ impl AudioUseCases {
         text_slug: &str,
         lang_suffix: &str,
     ) -> Result<Option<String>> {
-        let legacy_prefix = format!(
-            "{}/{}/{}/{}_{}_{}{}",
-            self.config.gcs_audio_prefix,
-            req.category,
-            deck_prefix,
+        for prefix in Self::legacy_audio_prefixes(
+            &self.config.gcs_audio_prefix,
+            &req.category,
+            req.course_direction.as_deref(),
             deck_prefix,
             verb_slug,
             text_slug,
-            lang_suffix
-        )
-        .replace("//", "/");
-        if let Ok(Some(found)) = self.storage_repo.find_blob_by_prefix(&legacy_prefix).await {
-            return Ok(Some(found));
+            lang_suffix,
+        ) {
+            if let Ok(Some(found)) = self.storage_repo.find_blob_by_prefix(&prefix).await {
+                return Ok(Some(found));
+            }
         }
-        let alt_prefix = format!(
-            "{}/{}/{}_{}_{}{}",
-            self.config.gcs_audio_prefix,
-            req.category,
-            deck_prefix,
-            verb_slug,
-            text_slug,
-            lang_suffix
-        )
-        .replace("//", "/");
-        self.storage_repo.find_blob_by_prefix(&alt_prefix).await
+
+        Ok(None)
     }
 
-    fn is_non_english_lang(lang: Option<&str>) -> bool {
-        lang.map(|l| !l.is_empty() && !l.eq_ignore_ascii_case("en"))
-            .unwrap_or(false)
+    /// Prefijos de búsqueda de audio existente, en orden de preferencia.
+    /// El sufijo de idioma forma parte del prefijo, así que solo matchea audio
+    /// del mismo texto e idioma; la dirección solo decide la carpeta. Los
+    /// layouts sin dirección quedan como fallback: albergan la biblioteca
+    /// pregenerada (~5k archivos, era es_en) que no debe regenerarse.
+    fn legacy_audio_prefixes(
+        audio_prefix: &str,
+        category: &str,
+        course_direction: Option<&str>,
+        deck_prefix: &str,
+        verb_slug: &str,
+        text_slug: &str,
+        lang_suffix: &str,
+    ) -> Vec<String> {
+        let mut prefixes = Vec::new();
+
+        // Formato actual: card_audio/{dirección}/{categoría}/…
+        // El landing demo es la única excepción y vive sin dirección de curso.
+        if !is_landing_demo_namespace(category) {
+            prefixes.push(
+                format!(
+                    "{}/{}/{}/{}/{}_{}_{}{}",
+                    audio_prefix,
+                    normalize_course_direction(course_direction),
+                    category,
+                    deck_prefix,
+                    deck_prefix,
+                    verb_slug,
+                    text_slug,
+                    lang_suffix
+                )
+                .replace("//", "/"),
+            );
+        }
+
+        // Compatibilidad con el layout anterior y con landing-demo.
+        prefixes.push(
+            format!(
+                "{}/{}/{}/{}_{}_{}{}",
+                audio_prefix, category, deck_prefix, deck_prefix, verb_slug, text_slug, lang_suffix
+            )
+            .replace("//", "/"),
+        );
+        prefixes.push(
+            format!(
+                "{}/{}/{}_{}_{}{}",
+                audio_prefix, category, deck_prefix, verb_slug, text_slug, lang_suffix
+            )
+            .replace("//", "/"),
+        );
+
+        prefixes
     }
 
     fn elevenlabs_plan_unavailable(message: &str) -> bool {
@@ -763,5 +797,68 @@ impl AudioUseCases {
             Some(seg) => format!("users/{}/{}", seg, rel),
             None => rel,
         })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::AudioUseCases;
+
+    #[test]
+    fn regular_audio_prefixes_prefer_direction_then_legacy_layouts() {
+        let prefixes = AudioUseCases::legacy_audio_prefixes(
+            "card_audio",
+            "preposition",
+            Some("es_en"),
+            "1-basic",
+            "on",
+            "el_libro_esta_sobre_la_mesa",
+            "_es",
+        );
+        assert_eq!(
+            prefixes,
+            vec![
+                "card_audio/es_en/preposition/1-basic/1-basic_on_el_libro_esta_sobre_la_mesa_es"
+                    .to_string(),
+                "card_audio/preposition/1-basic/1-basic_on_el_libro_esta_sobre_la_mesa_es"
+                    .to_string(),
+                "card_audio/preposition/1-basic_on_el_libro_esta_sobre_la_mesa_es".to_string(),
+            ]
+        );
+    }
+
+    #[test]
+    fn unknown_direction_normalizes_to_default() {
+        let prefixes = AudioUseCases::legacy_audio_prefixes(
+            "card_audio",
+            "verbs",
+            None,
+            "1-basic",
+            "do",
+            "do",
+            "",
+        );
+        assert!(prefixes[0].starts_with("card_audio/es_en/verbs/"));
+        assert_eq!(prefixes.len(), 3);
+    }
+
+    #[test]
+    fn landing_demo_prefixes_have_no_course_direction() {
+        let prefixes = AudioUseCases::legacy_audio_prefixes(
+            "card_audio",
+            "landing-demo",
+            Some("es_en"),
+            "verbs-essentials",
+            "be",
+            "be",
+            "_es",
+        );
+        assert_eq!(
+            prefixes,
+            vec![
+                "card_audio/landing-demo/verbs-essentials/verbs-essentials_be_be_es".to_string(),
+                "card_audio/landing-demo/verbs-essentials_be_be_es".to_string(),
+            ]
+        );
     }
 }

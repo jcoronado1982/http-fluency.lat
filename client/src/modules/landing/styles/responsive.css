@@ -47,7 +47,8 @@
     }
 
     [data-landing-demo] .lp-demo-card-frame {
-        padding-top: 16px;
+        /* El badge se superpone al borde de la tarjeta, como en escritorio. */
+        padding-top: 0;
         width: 100%;
         max-width: none;
         margin: 0;
@@ -120,22 +121,41 @@
         text-wrap: balance;
     }
 
+    .lp-demo-feedback-sub,
+    .lp-demo-feedback-auth-hint {
+        font-size: 0.94rem;
+        line-height: 1.6;
+    }
+    .lp-demo-feedback-head {
+        gap: 15px;
+    }
+
     .lp-nav-inner { padding: 12px 20px; gap: 15px; }
     .lp-nav-end { gap: 12px; }
     .lp-nav-login { display: none; }
     .lp-btn--nav { min-height: 36px; padding: 0.45rem 1rem; font-size: 0.8125rem; }
     .lp-btn--sm { display: none; }
     .lp-hero {
-        padding: 20px 0 40px;
+        padding: 50px 0 40px;
     }
-    .lp-hero-inner { gap: 20px; }
+    .lp-hero-inner { gap: 40px; }
     .lp-hero-copy { max-width: 100%; }
     .lp-hero-title {
         max-width: none;
-        font-size: clamp(2.3rem, 10.8vw, 2.9rem);
+        font-size: clamp(2.3rem, 9.8vw, 2.9rem);
         line-height: 1.02;
         letter-spacing: -0.034em;
         margin-bottom: 22px;
+        text-align: center;
+    }
+    .lp-hero-title-line2 {
+        margin-inline: auto;
+    }
+    .lp-reviews-wall-title {
+        text-align: center;
+    }
+    .lp-demo-feedback-label {
+        text-align: center;
     }
     .lp-hero-sub {
         margin-bottom: 28px;
@@ -173,16 +193,17 @@
     .lp-feedback-section { padding: 0 0 40px; }
     .lp-demo-feedback-wrap { gap: 32px; }
     .lp-demo-feedback-input { width: 100%; }
-    .lp-why-vocabulary-first { padding: 30px 0 40px; }
+    .lp-why-vocabulary-first { padding: 40px 0; }
     .lp-why-vocabulary-first-inner { padding: 0 var(--lp-section-inline-padding, var(--shell-content-inline-padding)); }
     .lp-vocab-first-grid {
         padding: 0;
+        gap: 20px;
     }
     .lp-why-vocabulary-first-title {
-        margin-bottom: 28px;
+        margin-bottom: 15px;
     }
     .lp-vocab-first-card {
-        padding: 24px;
+        padding: 20px;
     }
     .lp-vocab-first-card-body {
         font-size: 0.9rem;
@@ -192,14 +213,18 @@
     .lp-why-title {
         white-space: normal;
     }
-    .lp-why-subtitle { margin: 0 0 40px; }
+    .lp-why-subtitle {
+        margin: 0 0 40px;
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
     .lp-why-grid-wrap {
         padding: 0;
     }
-    .lp-why-card { padding: 24px; }
+    .lp-why-card { padding: 20px; }
     .lp-why-cta-tail {
-        margin-top: 20px;
-        padding-top: 40px;
+        margin-top: 0px;
+        padding-top: 50px;
         max-width: 100%;
     }
     .lp-why-cta-title {

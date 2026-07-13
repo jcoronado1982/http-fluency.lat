@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Borra runs viejos de Azure Pipelines (logs + artefactos) de forma eficiente.
-# Requiere: az login + extensión azure-devops (az pipelines / az devops invoke).
+# Autenticación: usa AZURE_DEVOPS_EXT_PAT si ya está definido. Como fallback local,
+# carga el PAT de SECRETS_MAP.md sin imprimirlo. Requiere la extensión azure-devops.
 #
 # Uso:
 #   ./scripts/cleanup-ado-builds.sh              # conserva último main + último qa
@@ -12,6 +13,20 @@
 # Doc: docs/infrastructure/pipeline-and-deploy.md#limpieza-de-logs-y-artefactos-en-azure-devops
 
 set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+# No mostrar nunca el PAT. Esto permite operar desde un agente no interactivo
+# sin depender de `az login` ni de una sesión del navegador.
+if [[ -z "${AZURE_DEVOPS_EXT_PAT:-}" && -f "$REPO_ROOT/SECRETS_MAP.md" ]]; then
+  export AZURE_DEVOPS_EXT_PAT
+  AZURE_DEVOPS_EXT_PAT=$(grep 'PAT_token' "$REPO_ROOT/SECRETS_MAP.md" | grep -oE '[A-Za-z0-9]{50,}' | head -n1 || true)
+fi
+if [[ -z "${AZURE_DEVOPS_EXT_PAT:-}" ]]; then
+  echo "ERROR: falta AZURE_DEVOPS_EXT_PAT y no se encontró PAT_token en SECRETS_MAP.md" >&2
+  exit 1
+fi
 
 ORG="${ADO_ORG:-https://dev.azure.com/safejcoronado1982}"
 PROJ="${ADO_PROJECT:-theruby}"
@@ -57,8 +72,10 @@ fi
 
 echo "Conservando run IDs: ${KEEP_IDS[*]:-(ninguno)}"
 
+# Nunca interrumpir un deploy: solo se borran runs terminados. Los estados
+# inProgress, notStarted y postponing quedan intactos incluso con --purge-all.
 mapfile -t ALL_RUNS < <(az pipelines runs list --organization "$ORG" --project "$PROJ" \
-  --pipeline-ids "$PIPELINE_ID" --top 200 --query "[].id" -o tsv)
+  --pipeline-ids "$PIPELINE_ID" --top 200 --query "[?status=='completed'].id" -o tsv)
 
 TO_DELETE=()
 for id in "${ALL_RUNS[@]}"; do

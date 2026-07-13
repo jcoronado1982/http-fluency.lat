@@ -1,5 +1,5 @@
 .lp-why-vocabulary-first {
-    padding: 152px 0 120px;
+    padding: 120px 0 120px;
     background: transparent;
     position: relative;
 }
@@ -173,6 +173,12 @@
     font-size: 1rem;
     line-height: 1.65;
     color: rgba(203, 213, 225, 0.95);
+}
+
+@media (max-width: 767px) {
+    .lp-why-vocabulary-first-subtitle {
+        margin: 0 0 30px;
+    }
 }
 
 @media (min-width: 768px) {

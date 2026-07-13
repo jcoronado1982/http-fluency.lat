@@ -9,6 +9,11 @@ import {
     isLandingDemoCategory,
 } from '../../../contracts/landingDemoNamespace';
 import { resolveStudyMediaNamespace } from '../../../contracts/studyMediaVariants';
+import {
+    clearPrefetchedImages,
+    makePrefetchKey,
+    getPrefetchedImagePath,
+} from './imagePrefetchCache';
 
 const MAX_IMAGE_ATTEMPTS = 3;
 const IMAGE_RETRY_DELAY = 5000;
@@ -323,6 +328,7 @@ export function useImageGeneration({
                 return false;
             }
 
+            clearPrefetchedImages();
             const normalizedPath = imagePort.normalizeToAvif(data.path);
             updateCardImagePath(cardData.id, normalizedPath, defIndex, requestForm);
 
@@ -448,6 +454,28 @@ export function useImageGeneration({
         const tryResolveForm = async (form) => {
             const isLandingDemoResolve = isLandingDemoCategory(currentCategory);
             if ((!isAuthenticated && !isLandingDemoResolve) || !currentCategory || !currentDeckName) return false;
+
+            // Ruta ya resuelta por el prefetch de la tarjeta siguiente
+            // (useNextImagePrefetch): mismo resultado que el POST de abajo,
+            // sin viaje de red. Expira por TTL; las mutaciones la invalidan.
+            const prefetched = getPrefetchedImagePath(
+                makePrefetchKey({
+                    category: currentCategory,
+                    deck: currentDeckName,
+                    cardId: cardData.id,
+                    defIndex,
+                    form,
+                }),
+            );
+            if (prefetched && !isStale()) {
+                const resolvedPath = imagePort.normalizeToAvif(prefetched);
+                if (!isLandingDemo || pathMatchesVerbForm(resolvedPath, form)) {
+                    setOptimisticImageFromPath(resolvedPath, defIndex, cardData.force_generation, form);
+                    setAppMessage({ text: `Imagen (Def ${defIndex + 1}) lista`, isError: false });
+                    return true;
+                }
+            }
+
             try {
                 const data = await imagePort.resolve({
                     category: currentCategory,
@@ -741,6 +769,7 @@ export function useImageGeneration({
                 form: activeForm,
             });
 
+            clearPrefetchedImages();
             setImageUrl(null);
             imageUrlRef.current = null;
             updateCardImagePath(cardData.id, null, defIndex, activeForm);
@@ -797,6 +826,7 @@ export function useImageGeneration({
                 form: activeForm,
             });
 
+            clearPrefetchedImages();
             const path = imagePort.normalizeToAvif(data.path);
             updateCardImagePath(cardData.id, path, defIndex, activeForm);
             setImageFromPath(path, defIndex, true, activeFormRef.current);

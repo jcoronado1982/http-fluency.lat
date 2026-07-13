@@ -636,10 +636,6 @@ mod tests {
 
     #[tokio::test]
     async fn test_get_learning_stats_output() {
-        use crate::domain::repositories::storage::StorageRepository;
-        use crate::domain::repositories::db_repository::UserActivityRepository;
-        use crate::domain::repositories::db_repository::CardProgressRepository;
-        
         // This is just a compilation check for the async block logic.
         assert!(true);
     }

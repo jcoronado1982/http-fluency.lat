@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Flashcard, Controls, StudyMediaProvider } from '../../components/flashcardStudy';
 import { useRealViewportHeight } from '../../components/flashcardStudy/features/useRealViewportHeight';
+import { useNextImagePrefetch } from '../../components/flashcardStudy/features/useNextImagePrefetch';
 import { STUDY_MEDIA_VARIANT_APP } from '../../contracts/studyMediaVariants';
 import { useAuth } from '../../context/AuthContext';
 import CategorySelector from './features/CategorySelector';
@@ -183,9 +184,22 @@ export default function FlashcardPage() {
 
     const {
         currentCard, loadingStage: flashcardLoadingStage, filteredData, masterData, currentDeckName,
-        nextCard, prevCard, markAsLearned, resetDeck,
+        currentIndex, nextCard, prevCard, markAsLearned, resetDeck,
         selectedGroup, changeDeck, setSelectedGroup, justCompletedInSession,
     } = useFlashcardContext();
+
+    // Precarga silenciosa de la imagen de la tarjeta SIGUIENTE: al avanzar, la
+    // imagen ya está en la caché del navegador y no se paga el viaje de red.
+    const upcomingCard = filteredData.length > 1
+        ? filteredData[(currentIndex + 1) % filteredData.length]
+        : null;
+    useNextImagePrefetch({
+        imagePort,
+        card: upcomingCard,
+        category: currentCategory,
+        deckName: currentDeckName,
+        enabled: Boolean(currentCard),
+    });
     const isPronounsCategory = currentCategory === 'pronouns';
     const { progress, currentTask, reset, setProgress, setCurrentTask, animateTo } = usePageLoader();
     const [loadingTelemetry, setLoadingTelemetry] = useState({
