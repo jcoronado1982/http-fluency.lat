@@ -148,6 +148,24 @@
     border-radius: 32px;
 }
 
+@media (min-width: 769px) and (max-width: 1349px) {
+    .controlsWrapper[data-variant='demo'] {
+        /* Equivale al espacio original menos sus 10 px adicionales. */
+        margin-top: clamp(12px, 2vh, 24px);
+        padding: 8px 12px;
+    }
+
+    .controlsWrapper[data-variant='demo'] .prevCardBtn,
+    .controlsWrapper[data-variant='demo'] .nextCardBtn,
+    .controlsWrapper[data-variant='demo'] .resetButton,
+    .controlsWrapper[data-variant='demo'] .correctButton {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        min-height: 48px;
+    }
+}
+
 @media (max-width: 768px) {
     .controlsWrapper[data-variant='app'] {
         flex-shrink: 0;

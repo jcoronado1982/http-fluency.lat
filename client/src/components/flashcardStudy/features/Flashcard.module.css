@@ -602,6 +602,12 @@
     border-radius: var(--fc-face-radius);
 }
 
+@media (min-width: 769px) and (max-width: 1349px) {
+    .flashcardContainer[data-variant='demo'] {
+        height: clamp(480px, 52vw, 540px);
+    }
+}
+
 @media (max-width: 768px) {
     .flashcardContainer[data-variant='demo'] {
         --fc-face-radius: 32px;

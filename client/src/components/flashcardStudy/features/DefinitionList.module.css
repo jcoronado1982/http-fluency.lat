@@ -365,6 +365,13 @@
     color: #d8c6d4;
 }
 
+@media (min-width: 769px) and (max-width: 1349px) {
+    [data-variant='demo'] .exampleRow {
+        padding: 3px 0;
+        gap: 10px;
+    }
+}
+
 @media (max-width: 768px) {
 
 [data-variant='demo'] .allExamplesContainer {

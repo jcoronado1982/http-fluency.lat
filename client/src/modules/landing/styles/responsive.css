@@ -17,6 +17,43 @@
     }
 }
 
+/* Laptop: alinea el margen lateral de los contenedores de la landing. */
+@media (min-width: 720px) and (max-width: 1349px) {
+    .lp-hero {
+        padding-inline: 50px;
+        padding-top: 30px;
+    }
+
+    .lp-section-inner {
+        padding-inline: 50px;
+    }
+
+    .lp-section-inner.lp-hero-inner {
+        padding-inline: 0;
+        gap: 90px;
+    }
+
+    .lp-hero-copy {
+        transform: translateY(-30px);
+    }
+
+    .lp-feedback-section .lp-section-inner {
+        padding-inline: 50px;
+    }
+
+    .lp-why-vocabulary-first .lp-section-inner {
+        padding-inline: 50px;
+    }
+
+    .lp-why .lp-section-inner {
+        padding-inline: 50px;
+    }
+
+    .lp-demo-widget {
+        padding-inline: 0;
+    }
+}
+
 @media (max-width: 719px) {
     .lp-demo-widget {
         padding: 0;
