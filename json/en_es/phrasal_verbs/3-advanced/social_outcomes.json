@@ -15,13 +15,14 @@
             {
                 "meaning": "look forward to",
                 "usage_example": "Espero con ilusión conocerte.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I look forward to meeting you.",
                 "char_count": "one",
                 "usage_context_en": "future expectation",
                 "usage_context_es": "expectativa futura",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Esperar con ilusión"
             }
         ],
         "group_name": "Phrasal Verbs: Look",
@@ -43,24 +44,26 @@
             {
                 "meaning": "fall for",
                 "usage_example": "Ella se enamoró de él rápidamente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She fell for him quickly.",
                 "char_count": "one",
                 "usage_context_en": "romance",
                 "usage_context_es": "romance",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Enamorarse de"
             },
             {
-                "meaning": "fall for (def 2)",
+                "meaning": "fall for",
                 "usage_example": "No puedo creer que caíste en ese truco.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I can’t believe you fell for that trick.",
                 "char_count": "one",
                 "usage_context_en": "deception",
                 "usage_context_es": "engaño",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Creer una mentira / Caer en una trampa"
             }
         ],
         "group_name": "Phrasal Verbs: Fall",
@@ -82,13 +85,14 @@
             {
                 "meaning": "go along with",
                 "usage_example": "No estoy de acuerdo, pero lo aceptaré.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I don’t agree, but I’ll go along with it.",
                 "char_count": "one",
                 "usage_context_en": "agreement/compromise",
                 "usage_context_es": "acuerdo/compromiso",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Aceptar / Seguir una idea o plan"
             }
         ],
         "group_name": "Phrasal Verbs: Go",
@@ -110,13 +114,14 @@
             {
                 "meaning": "come forward",
                 "usage_example": "Un testigo se presentó después del accidente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "A witness came forward after the accident.",
                 "char_count": "one",
                 "usage_context_en": "crime/information",
                 "usage_context_es": "crimen/información",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Presentarse / Dar información"
             }
         ],
         "group_name": "Phrasal Verbs: Come",
@@ -138,35 +143,38 @@
             {
                 "meaning": "come on",
                 "usage_example": "¡Vamos! Vamos a llegar tarde.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Come on! We're going to be late.",
                 "char_count": "one",
                 "usage_context_en": "hurrying someone",
                 "usage_context_es": "apresurar a alguien",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_24_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_24_def0.avif",
+                "target_meaning_es": "¡Vamos!, ¡Date prisa!"
             },
             {
-                "meaning": "come on (def 2)",
+                "meaning": "come on",
                 "usage_example": "¡Oh, venga ya! No puedes hablar en serio.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Oh, come on! You can't be serious.",
                 "char_count": "one",
                 "usage_context_en": "disbelief/annoyance",
                 "usage_context_es": "incredulidad/molestia",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_24_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_24_def1.avif",
+                "target_meaning_es": "¡Venga ya! (expresando incredulidad)"
             },
             {
-                "meaning": "come on (def 3)",
-                "usage_example": "El programa empezará pronto",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "meaning": "come on",
+                "usage_example": "El programa empezará pronto.",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
-                "usage_example_es": "The show is coming on soon",
+                "usage_example_es": "The show is coming on soon.",
                 "char_count": "one",
                 "usage_context_en": "comenzar",
                 "usage_context_es": "comenzar",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_24_def2.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_24_def2.avif",
+                "target_meaning_es": "Empezar (una enfermedad)"
             }
         ],
         "group_name": "Phrasal Verbs: Come",
@@ -188,13 +196,14 @@
             {
                 "meaning": "fall apart",
                 "usage_example": "El plan se vino abajo rápidamente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The plan fell apart quickly.",
                 "char_count": "one",
                 "usage_context_en": "failure/plan",
                 "usage_context_es": "fracaso/plan",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Desmoronarse / Venirse abajo"
             }
         ],
         "group_name": "Phrasal Verbs: Fall",

@@ -15,13 +15,14 @@
             {
                 "meaning": "well",
                 "usage_example": "Hablas bien inglés.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "You speak English well.",
                 "char_count": "4",
                 "usage_context_en": "The adverb form of 'good'; in a satisfactory way.",
                 "usage_context_es": "La forma adverbial de 'good'; de manera satisfactoria.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Bien"
             }
         ],
         "group_name": "Adverbs: Manner",
@@ -43,13 +44,14 @@
             {
                 "meaning": "badly",
                 "usage_example": "Él canta mal.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He sings badly.",
                 "char_count": "3",
                 "usage_context_en": "The adverb form of 'bad'; in an unsatisfactory or poor way.",
                 "usage_context_es": "La forma adverbial de 'bad'; de manera insatisfactoria o pobre.",
-                "imagePath": "/card_images/adverbs/1-basic/1-basic_card_5_def0.avif"
+                "imagePath": "/card_images/adverbs/1-basic/1-basic_card_5_def0.avif",
+                "target_meaning_es": "Mal / Malamente"
             }
         ],
         "group_name": "Adverbs: Manner",
@@ -71,13 +73,14 @@
             {
                 "meaning": "slowly",
                 "usage_example": "Él camina muy despacio.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He walks very slowly.",
                 "char_count": "4",
                 "usage_context_en": "At a slow speed.",
                 "usage_context_es": "A baja velocidad.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Lentamente / Despacio"
             }
         ],
         "group_name": "Adverbs: Manner",
@@ -99,13 +102,14 @@
             {
                 "meaning": "quickly",
                 "usage_example": "Ella terminó el examen rápidamente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She finished the test quickly.",
                 "char_count": "5",
                 "usage_context_en": "At a fast speed; fast.",
                 "usage_context_es": "A alta velocidad; rápido.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Rápidamente / Rápido"
             }
         ],
         "group_name": "Adverbs: Manner",
@@ -127,13 +131,14 @@
             {
                 "meaning": "fast",
                 "usage_example": "Ella corre muy rápido.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She runs very fast.",
                 "char_count": "4",
                 "usage_context_en": "At high speed (adverb form is the same as the adjective).",
                 "usage_context_es": "A alta velocidad (la forma adverbial es igual al adjetivo).",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Rápido / Rápidamente"
             }
         ],
         "group_name": "Adverbs: Manner",
@@ -155,13 +160,14 @@
             {
                 "meaning": "carefully",
                 "usage_example": "Por favor, conduce con cuidado.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Please drive carefully.",
                 "char_count": "3",
                 "usage_context_en": "In a way that avoids potential harm or mistakes.",
                 "usage_context_es": "De una manera que evita daño o errores potenciales.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Cuidadosamente / Con cuidado"
             }
         ],
         "group_name": "Adverbs: Manner",
@@ -183,24 +189,26 @@
             {
                 "meaning": "just",
                 "usage_example": "Recién llegué. (Acabo de llegar).",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I have just arrived.",
                 "char_count": 4,
                 "usage_context_en": "Used to indicate a very recent past action.",
                 "usage_context_es": "Usado para indicar una acción en el pasado muy reciente.",
-                "imagePath": "/card_images/adverbs/1-basic/1-basic_card_25_def0.avif"
+                "imagePath": "/card_images/adverbs/1-basic/1-basic_card_25_def0.avif",
+                "target_meaning_es": "Recién / Acabar de"
             },
             {
-                "meaning": "just (def 2)",
+                "meaning": "just",
                 "usage_example": "Es solo un juego.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It is just a game.",
                 "char_count": 5,
                 "usage_context_en": "Used to mean 'only' or 'simply'.",
                 "usage_context_es": "Usado para significar 'solamente' o 'simplemente'.",
-                "imagePath": "/card_images/adverbs/1-basic/1-basic_card_25_def1.avif"
+                "imagePath": "/card_images/adverbs/1-basic/1-basic_card_25_def1.avif",
+                "target_meaning_es": "Solo / Solamente"
             }
         ],
         "group_name": "Adverbs: Manner",
@@ -222,13 +230,14 @@
             {
                 "meaning": "very",
                 "usage_example": "Hace mucho calor hoy.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It is very hot today.",
                 "char_count": "5",
                 "usage_context_en": "Used to intensify an adjective or adverb.",
                 "usage_context_es": "Usado para intensificar un adjetivo o adverbio.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Muy"
             }
         ],
         "group_name": "Adverbs: Degree",
@@ -250,13 +259,14 @@
             {
                 "meaning": "really",
                 "usage_example": "Esta comida es realmente buena (muy buena).",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "This food is really good.",
                 "char_count": "5",
                 "usage_context_en": "Used to mean 'very' or to emphasize a statement.",
                 "usage_context_es": "Usado para significar 'muy' o para enfatizar una declaración.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Realmente / Muy"
             }
         ],
         "group_name": "Adverbs: Degree",
@@ -268,7 +278,7 @@
         "example": null,
         "learned": false,
         "learned_at": null,
-        "name": "Demasiado / También",
+        "name": "Demasiado",
         "phonetic": "",
         "spoken_phonetic_us": "",
         "search_term": "survival/degree",
@@ -278,13 +288,14 @@
             {
                 "meaning": "too",
                 "usage_example": "Es demasiado caro.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It is too expensive.",
                 "char_count": "4",
                 "usage_context_en": "Used to mean more than needed; also can mean 'also'.",
                 "usage_context_es": "Usado para significar más de lo necesario; también puede significar 'también'.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Demasiado / También"
             }
         ],
         "group_name": "Survival: Street Basics",
@@ -306,13 +317,14 @@
             {
                 "meaning": "enough",
                 "usage_example": "Eso es suficiente, gracias.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "That is enough, thank you.",
                 "char_count": "5",
                 "usage_context_en": "Used to say that the amount is sufficient.",
                 "usage_context_es": "Usado para decir que la cantidad es suficiente.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Suficiente"
             }
         ],
         "group_name": "Survival: Street Basics",
@@ -334,13 +346,14 @@
             {
                 "meaning": "more",
                 "usage_example": "Necesito más agua.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I need more water.",
                 "char_count": "4",
                 "usage_context_en": "Used to ask for or describe a greater amount.",
                 "usage_context_es": "Usado para pedir o describir una cantidad mayor.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Más"
             }
         ],
         "group_name": "Survival: Street Basics",
@@ -362,13 +375,14 @@
             {
                 "meaning": "less",
                 "usage_example": "Necesito menos azúcar.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I need less sugar.",
                 "char_count": "4",
                 "usage_context_en": "Used to ask for or describe a smaller amount.",
                 "usage_context_es": "Usado para pedir o describir una cantidad menor.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Menos"
             }
         ],
         "group_name": "Survival: Street Basics",

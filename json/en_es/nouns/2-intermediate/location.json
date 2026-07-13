@@ -15,13 +15,14 @@
             {
                 "meaning": "border",
                 "usage_example": "Cruzamos la frontera.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We crossed the border.",
                 "char_count": "4",
                 "usage_context_en": "The line separating two countries or regions.",
                 "usage_context_es": "La línea que separa dos países o regiones.",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_123_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_123_def0.avif",
+                "target_meaning_es": "Frontera"
             }
         ],
         "group_name": "Places & Locations",
@@ -43,24 +44,26 @@
             {
                 "meaning": "direction",
                 "usage_example": "Vamos en la dirección equivocada.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We are going in the wrong direction.",
                 "char_count": "7",
                 "usage_context_en": "The path that a moving object follows.",
                 "usage_context_es": "El camino que sigue un objeto en movimiento.",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_267_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_267_def0.avif",
+                "target_meaning_es": "Dirección (rumbo)"
             },
             {
-                "meaning": "direction (def 2)",
+                "meaning": "direction",
                 "usage_example": "Sigue las instrucciones.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Follow the directions.",
                 "char_count": "3",
                 "usage_context_en": "An instruction on how to do something or reach a place.",
                 "usage_context_es": "Una instrucción sobre cómo hacer algo o llegar a un lugar.",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_267_def1.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_267_def1.avif",
+                "target_meaning_es": "Instrucción (a menudo plural)"
             }
         ],
         "group_name": "General Concepts",
@@ -82,13 +85,14 @@
             {
                 "meaning": "distance",
                 "usage_example": "¿Cuál es la distancia a la ciudad?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What is the distance to the city?",
                 "char_count": "7",
                 "usage_context_en": "The amount of space between two things or places.",
                 "usage_context_es": "La cantidad de espacio entre dos cosas o lugares.",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_271_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_271_def0.avif",
+                "target_meaning_es": "Distancia"
             }
         ],
         "group_name": "General Concepts",

@@ -7,8 +7,8 @@ use std::sync::Arc;
 use std::time::Instant;
 
 use crate::{
-    is_landing_demo_namespace, safe_deck_media_path, safe_form_suffix, safe_storage_segment,
-    FlashcardsConfig,
+    is_landing_demo_namespace, normalize_course_direction, safe_deck_media_path, safe_form_suffix,
+    safe_storage_segment, FlashcardsConfig,
 };
 
 /// Convierte un email en un segmento de path seguro para URL/filesystem.
@@ -30,6 +30,61 @@ fn normalize_role(role: &str) -> String {
     role.trim().to_ascii_lowercase()
 }
 
+fn is_personal_image_role(role: &str) -> bool {
+    // Reservado para el plan futuro. El rol todavía no forma parte del sistema
+    // de suscripciones, por lo que hoy todas las imágenes de estudio son globales.
+    role == "platinum"
+}
+
+fn global_image_base(
+    course_direction: Option<&str>,
+    category: &str,
+    deck_media_dir: &str,
+    deck_file_prefix: &str,
+    index: usize,
+    def_index: usize,
+    form_suffix: &str,
+) -> String {
+    let card_path = format!(
+        "{}/{}/{}_card_{}_def{}{}",
+        category, deck_media_dir, deck_file_prefix, index, def_index, form_suffix
+    );
+    if is_landing_demo_namespace(category) {
+        card_path
+    } else {
+        format!(
+            "{}/{}",
+            normalize_course_direction(course_direction),
+            card_path
+        )
+    }
+}
+
+fn personal_image_base(
+    user_email: &str,
+    course_direction: Option<&str>,
+    category: &str,
+    deck_media_dir: &str,
+    deck_file_prefix: &str,
+    index: usize,
+    def_index: usize,
+    form_suffix: &str,
+) -> String {
+    format!(
+        "users/{}/{}",
+        user_path_segment(user_email),
+        global_image_base(
+            course_direction,
+            category,
+            deck_media_dir,
+            deck_file_prefix,
+            index,
+            def_index,
+            form_suffix,
+        )
+    )
+}
+
 fn preview_for_log(text: &str, max_chars: usize) -> String {
     let compact = text.split_whitespace().collect::<Vec<_>>().join(" ");
     let mut preview = String::new();
@@ -44,7 +99,12 @@ fn preview_for_log(text: &str, max_chars: usize) -> String {
 
 fn build_prompt_meaning_context(req: &ImageGenRequest) -> Option<String> {
     let mut parts = Vec::new();
-    if let Some(value) = req.meaning.as_deref().map(str::trim).filter(|s| !s.is_empty()) {
+    if let Some(value) = req
+        .meaning
+        .as_deref()
+        .map(str::trim)
+        .filter(|s| !s.is_empty())
+    {
         parts.push(format!("MEANING: \"{value}\""));
     }
     if let Some(value) = req
@@ -88,6 +148,7 @@ pub struct ImageGenRequest {
     pub deck: String,
     pub index: usize,
     pub def_index: usize,
+    pub course_direction: Option<String>,
     pub prompt: String,
     pub meaning: Option<String>,
     pub usage_example: Option<String>,
@@ -106,6 +167,7 @@ pub struct UploadImageRequest {
     pub deck: String,
     pub card_index: usize,
     pub def_index: usize,
+    pub course_direction: Option<String>,
     pub form: Option<String>,
     pub file_data: Vec<u8>,
     pub file_name: String,
@@ -297,7 +359,8 @@ impl ImageUseCases {
     }
 
     /// Devuelve (url, is_nueva), generando si no existe.
-    /// - Admin → capa global; usuario normal → personal primero, fallback a global, genera en personal.
+    /// - Admin/batch → capa global por dirección.
+    /// - La capa personal queda reservada para el futuro rol Platinum.
     pub async fn get_or_generate_image(
         &self,
         req: &ImageGenRequest,
@@ -315,11 +378,11 @@ impl ImageUseCases {
 
         let role = normalize_role(role);
         let is_admin = role == "admin";
-        let is_premium = role == "premium";
+        let has_personal_images = is_personal_image_role(&role);
         let is_demo = is_landing_demo_namespace(&req.category);
 
         // Premium/admin en app; invitados solo en namespace landing-demo.
-        if !is_admin && !is_premium && !is_demo {
+        if !is_admin && !has_personal_images && !is_demo {
             tracing::warn!("🚫 Intento de generación de imagen por IA bloqueado: el usuario '{}' con rol '{}' no está autorizado.", user_email, role);
             return Err(anyhow::anyhow!(
                 "No autorizado para generar imágenes por IA (requiere plan Premium)"
@@ -329,26 +392,31 @@ impl ImageUseCases {
         let category = safe_storage_segment(&req.category, "category")?;
         let (deck_media_dir, deck_file_prefix) = safe_deck_media_path(&req.deck)?;
         let form_suffix = safe_form_suffix(req.form.as_deref())?;
-        let user_segment = if is_admin || is_demo {
-            None
-        } else {
+        let user_segment = if has_personal_images {
             Some(user_path_segment(user_email))
+        } else {
+            None
         };
 
         let base_pattern = match &user_segment {
-            Some(seg) => format!(
-                "users/{}/{}/{}/{}_card_{}_def{}{}",
-                seg,
-                category,
-                deck_media_dir,
-                deck_file_prefix,
+            Some(_) => personal_image_base(
+                user_email,
+                req.course_direction.as_deref(),
+                &category,
+                &deck_media_dir,
+                &deck_file_prefix,
                 req.index,
                 req.def_index,
-                form_suffix
+                &form_suffix,
             ),
-            None => format!(
-                "{}/{}/{}_card_{}_def{}{}",
-                category, deck_media_dir, deck_file_prefix, req.index, req.def_index, form_suffix
+            None => global_image_base(
+                req.course_direction.as_deref(),
+                &category,
+                &deck_media_dir,
+                &deck_file_prefix,
+                req.index,
+                req.def_index,
+                &form_suffix,
             ),
         };
 
@@ -364,14 +432,14 @@ impl ImageUseCases {
 
             // Para usuarios normales: fallback a capa global antes de generar
             if !is_admin {
-                let global_base = format!(
-                    "{}/{}/{}_card_{}_def{}{}",
-                    category,
-                    deck_media_dir,
-                    deck_file_prefix,
+                let global_base = global_image_base(
+                    req.course_direction.as_deref(),
+                    &category,
+                    &deck_media_dir,
+                    &deck_file_prefix,
                     req.index,
                     req.def_index,
-                    form_suffix
+                    &form_suffix,
                 );
                 let global_avif = format!("{}/{}.avif", self.config.gcs_images_prefix, global_base);
                 if let Ok(true) = self.storage_repo.blob_exists(&global_avif).await {
@@ -678,6 +746,7 @@ impl ImageUseCases {
         deck: &str,
         index: usize,
         def_index: usize,
+        course_direction: Option<&str>,
         form: Option<&str>,
         user_email: &str,
         is_admin: bool,
@@ -687,25 +756,62 @@ impl ImageUseCases {
         let form_suffix = safe_form_suffix(form)?;
 
         let base_pattern = if is_admin {
-            format!(
-                "{}/{}/{}_card_{}_def{}{}",
-                category, deck_media_dir, deck_file_prefix, index, def_index, form_suffix
+            global_image_base(
+                course_direction,
+                &category,
+                &deck_media_dir,
+                &deck_file_prefix,
+                index,
+                def_index,
+                &form_suffix,
             )
         } else {
-            let seg = user_path_segment(user_email);
-            format!(
-                "users/{}/{}/{}/{}_card_{}_def{}{}",
-                seg, category, deck_media_dir, deck_file_prefix, index, def_index, form_suffix
+            personal_image_base(
+                user_email,
+                course_direction,
+                &category,
+                &deck_media_dir,
+                &deck_file_prefix,
+                index,
+                def_index,
+                &form_suffix,
             )
         };
 
+        let mut base_patterns = vec![base_pattern];
+        if !is_landing_demo_namespace(&category) {
+            let legacy_base = if is_admin {
+                format!(
+                    "{}/{}/{}_card_{}_def{}{}",
+                    category, deck_media_dir, deck_file_prefix, index, def_index, form_suffix
+                )
+            } else {
+                format!(
+                    "users/{}/{}/{}/{}_card_{}_def{}{}",
+                    user_path_segment(user_email),
+                    category,
+                    deck_media_dir,
+                    deck_file_prefix,
+                    index,
+                    def_index,
+                    form_suffix
+                )
+            };
+            base_patterns.push(legacy_base);
+        }
+
         let mut deleted_any = false;
-        for ext in [".avif", ".jpg", ".png", ".jpeg"] {
-            let blob_path = format!("{}/{}{}", self.config.gcs_images_prefix, base_pattern, ext);
-            if let Ok(true) = self.storage_repo.blob_exists(&blob_path).await {
-                if self.storage_repo.delete_blob(&blob_path).await.is_ok() {
-                    tracing::info!("✅ Deleted: {}", blob_path);
-                    deleted_any = true;
+        for candidate_base in base_patterns {
+            for ext in [".avif", ".jpg", ".png", ".jpeg", ".webp"] {
+                let blob_path = format!(
+                    "{}/{}{}",
+                    self.config.gcs_images_prefix, candidate_base, ext
+                );
+                if let Ok(true) = self.storage_repo.blob_exists(&blob_path).await {
+                    if self.storage_repo.delete_blob(&blob_path).await.is_ok() {
+                        tracing::info!("✅ Deleted: {}", blob_path);
+                        deleted_any = true;
+                    }
                 }
             }
         }
@@ -714,15 +820,16 @@ impl ImageUseCases {
     }
 
     /// Resuelve la mejor ruta de imagen sin generar.
-    /// - viewer → capa global (predeterminada)
-    /// - premium → capa personal primero, fallback a global
-    /// - admin → capa global (las subidas de admin son globales)
+    /// - usuarios actuales → capa global de su dirección
+    /// - futuro Platinum → capa personal primero, fallback a global
+    /// - admin → capa global
     pub async fn resolve_image_path(
         &self,
         category: &str,
         deck: &str,
         index: usize,
         def_index: usize,
+        course_direction: Option<&str>,
         form: Option<&str>,
         user_email: &str,
         role: &str,
@@ -744,11 +851,16 @@ impl ImageUseCases {
         );
 
         // Premium (no admin): capa personal primero
-        if role == "premium" {
-            let seg = user_path_segment(user_email);
-            let personal_base = format!(
-                "users/{}/{}/{}/{}_card_{}_def{}{}",
-                seg, category, deck_media_dir, deck_file_prefix, index, def_index, form_suffix
+        if is_personal_image_role(&role) {
+            let personal_base = personal_image_base(
+                user_email,
+                course_direction,
+                &category,
+                &deck_media_dir,
+                &deck_file_prefix,
+                index,
+                def_index,
+                &form_suffix,
             );
             let personal_avif = format!("{}/{}.avif", images_prefix, personal_base);
             tracing::info!("  → check personal: {}", personal_avif);
@@ -759,12 +871,41 @@ impl ImageUseCases {
                         .await,
                 ));
             }
+
+            if !is_landing_demo_namespace(&category) {
+                let legacy_personal_base = format!(
+                    "users/{}/{}/{}/{}_card_{}_def{}{}",
+                    user_path_segment(user_email),
+                    category,
+                    deck_media_dir,
+                    deck_file_prefix,
+                    index,
+                    def_index,
+                    form_suffix
+                );
+                let legacy_personal_avif =
+                    format!("{}/{}.avif", images_prefix, legacy_personal_base);
+                if self.storage_repo.blob_exists(&legacy_personal_avif).await? {
+                    return Ok(Some(
+                        self.versioned_image_url(
+                            &format!("{}.avif", legacy_personal_base),
+                            &legacy_personal_avif,
+                        )
+                        .await,
+                    ));
+                }
+            }
         }
 
         // Capa global predeterminada (todos los roles)
-        let global_base = format!(
-            "{}/{}/{}_card_{}_def{}{}",
-            category, deck_media_dir, deck_file_prefix, index, def_index, form_suffix
+        let global_base = global_image_base(
+            course_direction,
+            &category,
+            &deck_media_dir,
+            &deck_file_prefix,
+            index,
+            def_index,
+            &form_suffix,
         );
         let global_avif = format!("{}/{}.avif", images_prefix, global_base);
         tracing::info!("  → check global: {}", global_avif);
@@ -774,6 +915,26 @@ impl ImageUseCases {
                 self.versioned_image_url(&format!("{}.avif", global_base), &global_avif)
                     .await,
             ));
+        }
+
+        // Compatibilidad de lectura con la biblioteca anterior, que no tenía
+        // dirección. Los lotes nuevos siempre escriben en es_en/… y migran al
+        // generar; este fallback evita romper tarjetas aún no migradas.
+        if !is_landing_demo_namespace(&category) {
+            let legacy_global_base = format!(
+                "{}/{}/{}_card_{}_def{}{}",
+                category, deck_media_dir, deck_file_prefix, index, def_index, form_suffix
+            );
+            let legacy_global_avif = format!("{}/{}.avif", images_prefix, legacy_global_base);
+            if self.storage_repo.blob_exists(&legacy_global_avif).await? {
+                return Ok(Some(
+                    self.versioned_image_url(
+                        &format!("{}.avif", legacy_global_base),
+                        &legacy_global_avif,
+                    )
+                    .await,
+                ));
+            }
         }
 
         tracing::info!(
@@ -792,7 +953,8 @@ impl ImageUseCases {
         self.storage_repo.download_blob(blob_path).await
     }
 
-    /// Sube una imagen manualmente. Admin → capa global; usuario normal → capa personal.
+    /// Sube una imagen manualmente. Hoy solo admin; la capa personal queda
+    /// preparada para el futuro plan Platinum.
     pub async fn upload_image(
         &self,
         req: UploadImageRequest,
@@ -812,31 +974,29 @@ impl ImageUseCases {
             _ => anyhow::bail!("Extensión de imagen no permitida"),
         };
 
-        let final_name = if is_admin {
-            format!(
-                "{}/{}/{}_card_{}_def{}{}.{}",
-                category,
-                deck_media_dir,
-                deck_file_prefix,
+        let base_name = if is_admin {
+            global_image_base(
+                req.course_direction.as_deref(),
+                &category,
+                &deck_media_dir,
+                &deck_file_prefix,
                 req.card_index,
                 req.def_index,
-                form_suffix,
-                extension
+                &form_suffix,
             )
         } else {
-            let seg = user_path_segment(user_email);
-            format!(
-                "users/{}/{}/{}/{}_card_{}_def{}{}.{}",
-                seg,
-                category,
-                deck_media_dir,
-                deck_file_prefix,
+            personal_image_base(
+                user_email,
+                req.course_direction.as_deref(),
+                &category,
+                &deck_media_dir,
+                &deck_file_prefix,
                 req.card_index,
                 req.def_index,
-                form_suffix,
-                extension
+                &form_suffix,
             )
         };
+        let final_name = format!("{base_name}.{extension}");
         let blob_path = format!("{}/{}", self.config.gcs_images_prefix, final_name);
 
         tracing::info!("📤 Uploading manual image to: {}", blob_path);
@@ -862,5 +1022,59 @@ impl ImageUseCases {
             .collect();
         let parts: Vec<_> = slug.split('_').filter(|s| !s.is_empty()).collect();
         parts.join("_")
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{global_image_base, personal_image_base};
+
+    #[test]
+    fn global_images_are_scoped_by_course_direction() {
+        assert_eq!(
+            global_image_base(
+                Some("es_en"),
+                "verbs",
+                "1-basic/action",
+                "1-basic_action",
+                4,
+                1,
+                "",
+            ),
+            "es_en/verbs/1-basic/action/1-basic_action_card_4_def1"
+        );
+    }
+
+    #[test]
+    fn personal_images_are_scoped_by_user_and_course_direction() {
+        assert_eq!(
+            personal_image_base(
+                "Student@example.com",
+                Some("es_en"),
+                "verbs",
+                "1-basic/action",
+                "1-basic_action",
+                4,
+                1,
+                "_v2",
+            ),
+            "users/student_example_com/es_en/verbs/1-basic/action/1-basic_action_card_4_def1_v2"
+        );
+    }
+
+    #[test]
+    fn landing_demo_keeps_its_dedicated_legacy_namespace() {
+        assert_eq!(
+            global_image_base(
+                Some("es_en"),
+                "landing-demo",
+                "verbs-essentials",
+                "verbs-essentials",
+                0,
+                0,
+                "",
+            ),
+            "landing-demo/verbs-essentials/verbs-essentials_card_0_def0"
+        );
     }
 }

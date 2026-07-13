@@ -15,13 +15,14 @@
             {
                 "meaning": "thirty",
                 "usage_example": "Treinta días en abril.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Thirty days in April.",
                 "char_count": "1",
                 "usage_context_en": "The number 30",
                 "usage_context_es": "El número 30",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_412_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_412_def0.avif",
+                "target_meaning_es": "Treinta"
             }
         ],
         "group_name": "Numbers",
@@ -43,13 +44,14 @@
             {
                 "meaning": "forty",
                 "usage_example": "Él tiene cuarenta años.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He is forty years old.",
                 "char_count": "1",
                 "usage_context_en": "The number 40",
                 "usage_context_es": "El número 40",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_413_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_413_def0.avif",
+                "target_meaning_es": "Cuarenta"
             }
         ],
         "group_name": "Numbers",
@@ -71,13 +73,14 @@
             {
                 "meaning": "fifty",
                 "usage_example": "Cincuenta por ciento de descuento.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Fifty percent discount.",
                 "char_count": "1",
                 "usage_context_en": "The number 50",
                 "usage_context_es": "El número 50",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_414_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_414_def0.avif",
+                "target_meaning_es": "Cincuenta"
             }
         ],
         "group_name": "Numbers",
@@ -99,13 +102,14 @@
             {
                 "meaning": "sixty",
                 "usage_example": "Sesenta segundos en un minuto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Sixty seconds in a minute.",
                 "char_count": "1",
                 "usage_context_en": "The number 60",
                 "usage_context_es": "El número 60",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_415_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_415_def0.avif",
+                "target_meaning_es": "Sesenta"
             }
         ],
         "group_name": "Numbers",
@@ -127,13 +131,14 @@
             {
                 "meaning": "seventy",
                 "usage_example": "Setenta millas por hora.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Seventy miles per hour.",
                 "char_count": "1",
                 "usage_context_en": "The number 70",
                 "usage_context_es": "El número 70",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_416_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_416_def0.avif",
+                "target_meaning_es": "Setenta"
             }
         ],
         "group_name": "Numbers",
@@ -155,13 +160,14 @@
             {
                 "meaning": "eighty",
                 "usage_example": "Ochenta páginas de largo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Eighty pages long.",
                 "char_count": "1",
                 "usage_context_en": "The number 80",
                 "usage_context_es": "El número 80",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_417_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_417_def0.avif",
+                "target_meaning_es": "Ochenta"
             }
         ],
         "group_name": "Numbers",
@@ -183,13 +189,14 @@
             {
                 "meaning": "ninety",
                 "usage_example": "Noventa grados.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Ninety degrees.",
                 "char_count": "1",
                 "usage_context_en": "The number 90",
                 "usage_context_es": "El número 90",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_418_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_418_def0.avif",
+                "target_meaning_es": "Noventa"
             }
         ],
         "group_name": "Numbers",
@@ -211,13 +218,14 @@
             {
                 "meaning": "hundred",
                 "usage_example": "Cien personas.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "One hundred people.",
                 "char_count": "1",
                 "usage_context_en": "The number 100",
                 "usage_context_es": "El número 100",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_419_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_419_def0.avif",
+                "target_meaning_es": "Cien / Ciento"
             }
         ],
         "group_name": "Numbers",
@@ -239,13 +247,14 @@
             {
                 "meaning": "thousand",
                 "usage_example": "Mil millas.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "A thousand miles.",
                 "char_count": "1",
                 "usage_context_en": "The number 1,000",
                 "usage_context_es": "El número 1.000",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_420_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_420_def0.avif",
+                "target_meaning_es": "Mil"
             }
         ],
         "group_name": "Numbers",

@@ -15,13 +15,14 @@
             {
                 "meaning": "implement",
                 "usage_example": "Necesitamos implementar el nuevo plan inmediatamente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We need to implement the new plan immediately.",
                 "char_count": "three",
                 "usage_context_en": "plan/execution",
                 "usage_context_es": "plan/ejecución",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_12_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_12_def0.avif",
+                "target_meaning_es": "Implementar/Ejecutar"
             }
         ],
         "group_name": "Professional Action",
@@ -43,13 +44,14 @@
             {
                 "meaning": "consult",
                 "usage_example": "Deberías consultar a un médico.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "You should consult a doctor.",
                 "char_count": "two",
                 "usage_context_en": "advice/expert",
                 "usage_context_es": "consejo/experto",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_35_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_35_def0.avif",
+                "target_meaning_es": "Consultar (pedir consejo)"
             }
         ],
         "group_name": "Professional Action",
@@ -71,13 +73,14 @@
             {
                 "meaning": "prioritize",
                 "usage_example": "Debes priorizar tus tareas.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "You must prioritize your tasks.",
                 "char_count": "five",
                 "usage_context_en": "importance/order",
                 "usage_context_es": "importancia/orden",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_38_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_38_def0.avif",
+                "target_meaning_es": "Priorizar/Dar prioridad"
             }
         ],
         "group_name": "Professional Action",
@@ -99,13 +102,14 @@
             {
                 "meaning": "delegate",
                 "usage_example": "Un buen gerente sabe cómo delegar.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "A good manager knows how to delegate.",
                 "char_count": "three",
                 "usage_context_en": "work/responsibility",
                 "usage_context_es": "trabajo/responsabilidad",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_39_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_39_def0.avif",
+                "target_meaning_es": "Delegar (asignar tareas)"
             }
         ],
         "group_name": "Professional Action",
@@ -127,13 +131,14 @@
             {
                 "meaning": "comply",
                 "usage_example": "Debes cumplir con las regulaciones.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "You must comply with the regulations.",
                 "char_count": "two",
                 "usage_context_en": "obey/rules",
                 "usage_context_es": "obedecer/reglas",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_47_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_47_def0.avif",
+                "target_meaning_es": "Cumplir (con una regla, ley)"
             }
         ],
         "group_name": "Professional Action",
@@ -155,13 +160,14 @@
             {
                 "meaning": "collaborate",
                 "usage_example": "Colaboraremos en este proyecto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We will collaborate on this project.",
                 "char_count": "four",
                 "usage_context_en": "teamwork/projects",
                 "usage_context_es": "trabajo en equipo/proyectos",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_48_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_48_def0.avif",
+                "target_meaning_es": "Colaborar (trabajar en conjunto)"
             }
         ],
         "group_name": "Professional & Business",
@@ -183,13 +189,14 @@
             {
                 "meaning": "coordinate",
                 "usage_example": "Ella coordina el equipo de marketing.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She coordinates the marketing team.",
                 "char_count": "four",
                 "usage_context_en": "management/logistics",
                 "usage_context_es": "gestión/logística",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_49_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_49_def0.avif",
+                "target_meaning_es": "Coordinar (organizar diferentes elementos)"
             }
         ],
         "group_name": "Professional & Business",
@@ -211,13 +218,14 @@
             {
                 "meaning": "mediate",
                 "usage_example": "El gerente tuvo que mediar en el conflicto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The manager had to mediate the conflict.",
                 "char_count": "three",
                 "usage_context_en": "conflict resolution/HR",
                 "usage_context_es": "resolución de conflictos/RRHH",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_50_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_50_def0.avif",
+                "target_meaning_es": "Mediar (intervenir en una disputa)"
             }
         ],
         "group_name": "Professional & Business",
@@ -239,13 +247,14 @@
             {
                 "meaning": "allocate",
                 "usage_example": "Necesitamos asignar recursos de manera eficiente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We need to allocate resources efficiently.",
                 "char_count": "three",
                 "usage_context_en": "budgeting/resources",
                 "usage_context_es": "presupuesto/recursos",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_51_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_51_def0.avif",
+                "target_meaning_es": "Asignar (distribuir recursos o fondos)"
             }
         ],
         "group_name": "Professional & Business",
@@ -267,13 +276,14 @@
             {
                 "meaning": "execute",
                 "usage_example": "Fallaron en ejecutar el plan correctamente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "They failed to execute the plan properly.",
                 "char_count": "three",
                 "usage_context_en": "implementation/action",
                 "usage_context_es": "implementación/acción",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_52_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_52_def0.avif",
+                "target_meaning_es": "Ejecutar (llevar a cabo una acción o plan)"
             }
         ],
         "group_name": "Professional & Business",
@@ -295,13 +305,14 @@
             {
                 "meaning": "strategize",
                 "usage_example": "La junta se reunió para idear estrategias para el próximo trimestre.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The board met to strategize for the next quarter.",
                 "char_count": "three",
                 "usage_context_en": "planning/leadership",
                 "usage_context_es": "planificación/liderazgo",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_53_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_53_def0.avif",
+                "target_meaning_es": "Idear estrategias (planear a futuro)"
             }
         ],
         "group_name": "Professional & Business",
@@ -323,13 +334,14 @@
             {
                 "meaning": "benchmark",
                 "usage_example": "Evaluamos nuestro rendimiento en comparación con la competencia.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We benchmark our performance against competitors.",
                 "char_count": "two",
                 "usage_context_en": "evaluation/standards",
                 "usage_context_es": "evaluación/estándares",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_54_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_54_def0.avif",
+                "target_meaning_es": "Evaluar/Comparar (usando un estándar de referencia)"
             }
         ],
         "group_name": "Professional & Business",
@@ -351,13 +363,14 @@
             {
                 "meaning": "outsource",
                 "usage_example": "Muchas empresas subcontratan sus servicios de TI.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Many companies outsource their IT services.",
                 "char_count": "two",
                 "usage_context_en": "business/contracts",
                 "usage_context_es": "negocios/contratos",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_55_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_55_def0.avif",
+                "target_meaning_es": "Subcontratar / Tercerizar"
             }
         ],
         "group_name": "Professional & Business",
@@ -379,13 +392,14 @@
             {
                 "meaning": "streamline",
                 "usage_example": "Debemos optimizar nuestro proceso de producción.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We must streamline our production process.",
                 "char_count": "two",
                 "usage_context_en": "efficiency/operations",
                 "usage_context_es": "eficiencia/operaciones",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_56_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_56_def0.avif",
+                "target_meaning_es": "Optimizar/Agilizar (hacer más eficiente un proceso)"
             }
         ],
         "group_name": "Professional & Business",
@@ -407,13 +421,14 @@
             {
                 "meaning": "audit",
                 "usage_example": "La firma auditará nuestros registros financieros.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The firm will audit our financial records.",
                 "char_count": "two",
                 "usage_context_en": "accounting/inspection",
                 "usage_context_es": "contabilidad/inspección",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_57_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_57_def0.avif",
+                "target_meaning_es": "Auditar (examinar cuentas, registros o procesos)"
             }
         ],
         "group_name": "Professional & Business",

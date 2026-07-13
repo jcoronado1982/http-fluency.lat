@@ -31,6 +31,11 @@ pub struct UpdateCatalogPreferencesRequest {
     pub catalog_preferences: Option<CatalogPreferences>,
 }
 
+#[derive(Deserialize)]
+pub struct UpdateStudyLanguageRequest {
+    pub study_language: String,
+}
+
 /// POST /api/auth/dev-guest — solo desarrollo; emite JWT válido para pruebas locales.
 pub async fn dev_guest_login(State(state): State<AppState>) -> impl IntoResponse {
     if !AuthUseCases::dev_guest_token_allowed() {
@@ -87,7 +92,11 @@ pub async fn apple_login(
     State(state): State<AppState>,
     Json(payload): Json<AppleLoginRequest>,
 ) -> impl IntoResponse {
-    match state.auth_use_cases.apple_login(&payload.id_token, payload.name.as_deref()).await {
+    match state
+        .auth_use_cases
+        .apple_login(&payload.id_token, payload.name.as_deref())
+        .await
+    {
         Ok(response) => (
             StatusCode::OK,
             Json(serde_json::json!({
@@ -131,10 +140,46 @@ pub async fn get_me(
         "jwt_role": claims.role,
         "effective_role": effective_role,
         "onboarding_completed": onboarding_completed,
+        "picture": user.as_ref().and_then(|u| u.picture.clone()).or_else(|| claims.picture.clone()),
         "catalog_preferences": user.as_ref().and_then(|u| u.catalog_preferences.clone()),
+        "study_language": user.as_ref().and_then(|u| u.study_language.clone()),
         "is_admin": AuthUseCases::is_admin_role(&effective_role),
         "is_premium": AuthUseCases::is_premium_role(&effective_role),
     })))
+}
+
+pub async fn update_study_language(
+    State(state): State<AppState>,
+    headers: HeaderMap,
+    Json(payload): Json<UpdateStudyLanguageRequest>,
+) -> Result<impl IntoResponse, (StatusCode, String)> {
+    let claims = extract_claims(&state, &headers)?;
+    let study_language = match payload.study_language.as_str() {
+        "en" => "en",
+        "es" => "es",
+        _ => {
+            return Err((
+                StatusCode::BAD_REQUEST,
+                "study_language debe ser 'en' o 'es'".to_string(),
+            ))
+        }
+    };
+    let user = state
+        .auth_use_cases
+        .update_study_language(&claims.email, study_language)
+        .await
+        .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
+
+    match user {
+        Some(user) => Ok((
+            StatusCode::OK,
+            Json(serde_json::json!({
+                "success": true,
+                "user": user
+            })),
+        )),
+        None => Err((StatusCode::NOT_FOUND, "User not found".to_string())),
+    }
 }
 
 pub async fn update_onboarding(

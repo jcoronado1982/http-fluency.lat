@@ -15,13 +15,14 @@
             {
                 "meaning": "victory",
                 "usage_example": "Fue una gran victoria.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It was a great victory.",
                 "char_count": "5",
                 "usage_context_en": "An act of defeating an enemy or opponent in a battle, game, or other competition.",
                 "usage_context_es": "Un acto de derrotar a un enemigo u oponente en una batalla, juego u otra competición.",
-                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_118_def0.avif"
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_118_def0.avif",
+                "target_meaning_es": "Victoria"
             }
         ],
         "group_name": "General Concepts",

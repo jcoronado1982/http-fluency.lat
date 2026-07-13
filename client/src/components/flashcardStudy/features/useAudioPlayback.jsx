@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { useStudyMediaContext } from '../StudyMediaContext';
 import { resolveStudyMediaNamespace } from '../../../contracts/studyMediaVariants';
 import { useUIContext } from '../../../context/UIContext';
@@ -133,7 +133,9 @@ export function useAudioPlayback({
         playbackRequestIdRef.current += 1;
         audioPlayer.pause();
         audioPlayer.currentTime = 0;
-        if (audioPlayer.src.startsWith('blob:')) URL.revokeObjectURL(audioPlayer.src);
+        // Los blob: pertenecen a sessionCacheRef y deben seguir válidos para
+        // poder reproducir el mismo audio nuevamente. Se revocan al invalidar
+        // la entrada o al desmontar este hook, no al detener cada reproducción.
         audioPlayer.removeAttribute('src');
         while (audioPlayer.firstChild) {
             audioPlayer.removeChild(audioPlayer.firstChild);
@@ -150,6 +152,22 @@ export function useAudioPlayback({
         setIsAudioLoading(false);
         setIsGeneratingAudio(false);
     }, [setIsAudioLoading]);
+
+    useEffect(() => () => {
+        const cachedBlobUrls = new Set();
+        for (const entry of sessionCacheRef.current.values()) {
+            if (entry?.blobUrl) cachedBlobUrls.add(entry.blobUrl);
+        }
+
+        if (cachedBlobUrls.has(audioPlayer.src)) {
+            audioPlayer.pause();
+            audioPlayer.removeAttribute('src');
+            audioPlayer.load();
+        }
+
+        for (const blobUrl of cachedBlobUrls) revokeBlobUrl(blobUrl);
+        sessionCacheRef.current.clear();
+    }, [revokeBlobUrl]);
 
     const warmSessionCache = useCallback(async (key, resolvedUrl, voiceName) => {
         const existing = sessionCacheRef.current.get(key);

@@ -15,13 +15,14 @@
             {
                 "meaning": "thing",
                 "usage_example": "¿Qué es esa cosa?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What is that thing?",
                 "char_count": "one",
                 "usage_context_en": "An object or idea (very general)",
                 "usage_context_es": "Un objeto o idea (muy general)",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_7_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_7_def0.avif",
+                "target_meaning_es": "Cosa"
             }
         ],
         "group_name": null,
@@ -43,24 +44,26 @@
             {
                 "meaning": "time",
                 "usage_example": "¿Qué hora es?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What time is it?",
                 "char_count": "one",
                 "usage_context_en": "The concept of duration, a specific moment",
                 "usage_context_es": "El concepto de duración, un momento específico",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_0_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_0_def0.avif",
+                "target_meaning_es": "Tiempo / Hora"
             },
             {
-                "meaning": "time (def 2)",
+                "meaning": "time",
                 "usage_example": "Me llamó tres veces.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He called me three times.",
                 "char_count": "2",
                 "usage_context_en": "An instance or occasion when something happens.",
                 "usage_context_es": "Una ocasión o vez en la que algo ocurre.",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_0_def1.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_0_def1.avif",
+                "target_meaning_es": "Ocasión / Vez"
             }
         ],
         "group_name": "Time",
@@ -82,13 +85,14 @@
             {
                 "meaning": "example",
                 "usage_example": "¿Puedes darme un ejemplo?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Can you give me an example?",
                 "char_count": "three",
                 "usage_context_en": "A thing that shows what others are like",
                 "usage_context_es": "Una cosa que muestra cómo son otras",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_177_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_177_def0.avif",
+                "target_meaning_es": "Ejemplo"
             }
         ],
         "group_name": "General Concepts",
@@ -110,13 +114,14 @@
             {
                 "meaning": "hour",
                 "usage_example": "Volveré en una hora.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I will be back in an hour.",
                 "char_count": "two",
                 "usage_context_en": "A period of 60 minutes",
                 "usage_context_es": "Un período de 60 minutos",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_120_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_120_def0.avif",
+                "target_meaning_es": "Hora"
             }
         ],
         "group_name": "Time",
@@ -138,13 +143,14 @@
             {
                 "meaning": "kind",
                 "usage_example": "¿Qué tipo de música te gusta?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What kind of music do you like?",
                 "char_count": "1",
                 "usage_context_en": "A group of things with similar characteristics",
                 "usage_context_es": "Un grupo de cosas con características similares",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_483_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_483_def0.avif",
+                "target_meaning_es": "Tipo / Clase"
             }
         ],
         "group_name": "General Concepts",
@@ -166,13 +172,14 @@
             {
                 "meaning": "minute",
                 "usage_example": "Espera un minuto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Wait a minute.",
                 "char_count": "two",
                 "usage_context_en": "A period of 60 seconds",
                 "usage_context_es": "Un período de 60 segundos",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_121_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_121_def0.avif",
+                "target_meaning_es": "Minuto"
             }
         ],
         "group_name": "Time",
@@ -194,13 +201,14 @@
             {
                 "meaning": "piece",
                 "usage_example": "Necesito un pedazo de papel.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I need a piece of paper.",
                 "char_count": "1",
                 "usage_context_en": "A part of something that has been separated",
                 "usage_context_es": "Una parte de algo que ha sido separada",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_484_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_484_def0.avif",
+                "target_meaning_es": "Pedazo / Pieza"
             }
         ],
         "group_name": "General Concepts",
@@ -222,13 +230,14 @@
             {
                 "meaning": "second",
                 "usage_example": "Solo un segundo, por favor.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Just a second, please.",
                 "char_count": "two",
                 "usage_context_en": "A very short unit of time",
                 "usage_context_es": "Una unidad de tiempo muy corta",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_122_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_122_def0.avif",
+                "target_meaning_es": "Segundo"
             }
         ],
         "group_name": "Time",
@@ -250,13 +259,14 @@
             {
                 "meaning": "clock",
                 "usage_example": "El reloj está en la pared.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The clock is on the wall.",
                 "char_count": "one",
                 "usage_context_en": "A device that shows time (not worn)",
                 "usage_context_es": "Un dispositivo que muestra la hora (no se lleva puesto)",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_264_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_264_def0.avif",
+                "target_meaning_es": "Reloj (de pared o mesa)"
             }
         ],
         "group_name": "Household",

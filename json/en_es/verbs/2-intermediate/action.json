@@ -15,24 +15,26 @@
             {
                 "meaning": "include",
                 "usage_example": "¿El precio incluye el desayuno?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Does the price include breakfast?",
                 "char_count": "two",
                 "usage_context_en": "costs/groups",
                 "usage_context_es": "costos/grupos",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Incluir"
             },
             {
-                "meaning": "include (def 2)",
+                "meaning": "include",
                 "usage_example": "La lista incluye 50 verbos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The list includes 50 verbs.",
                 "char_count": "two",
                 "usage_context_en": "lists/elements",
                 "usage_context_es": "listas/elementos",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Contener (como parte de un grupo)"
             }
         ],
         "group_name": "Managing & Control",
@@ -54,24 +56,26 @@
             {
                 "meaning": "continue",
                 "usage_example": "Por favor, sigue leyendo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Please continue reading.",
                 "char_count": "three",
                 "usage_context_en": "activities/duration",
                 "usage_context_es": "actividades/duración",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Continuar/Seguir"
             },
             {
-                "meaning": "continue (def 2)",
+                "meaning": "continue",
                 "usage_example": "Continuaremos la discusión mañana.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We will continue the discussion tomorrow.",
                 "char_count": "three",
                 "usage_context_en": "discussion/path",
                 "usage_context_es": "discusión/camino",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Reanudar"
             }
         ],
         "group_name": "Social & Daily Life",
@@ -93,24 +97,26 @@
             {
                 "meaning": "set",
                 "usage_example": "Fijemos una fecha para la reunión.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Let's set a date for the meeting.",
                 "char_count": "one",
                 "usage_context_en": "time/rules",
                 "usage_context_es": "tiempo/reglas",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_2_def0.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_2_def0.avif",
+                "target_meaning_es": "Establecer/Fijar"
             },
             {
-                "meaning": "set (def 2)",
+                "meaning": "set",
                 "usage_example": "Pon la mesa para la cena.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Set the table for dinner.",
                 "char_count": "one",
                 "usage_context_en": "objects/position",
                 "usage_context_es": "objetos/posición",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_2_def1.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_2_def1.avif",
+                "target_meaning_es": "Colocar/Poner"
             }
         ],
         "group_name": "Managing & Control",
@@ -132,24 +138,26 @@
             {
                 "meaning": "allow",
                 "usage_example": "Mi mamá me permite quedarme despierto hasta tarde.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "My mom allows me to stay up late.",
                 "char_count": "two",
                 "usage_context_en": "permission/rules",
                 "usage_context_es": "permiso/reglas",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Permitir/Dejar"
             },
             {
-                "meaning": "allow (def 2)",
+                "meaning": "allow",
                 "usage_example": "Dame un momento para pensar.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Allow me a moment to think.",
                 "char_count": "two",
                 "usage_context_en": "time/contingency",
                 "usage_context_es": "tiempo/contingencia",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Dar (tiempo, dinero, etc.)"
             }
         ],
         "group_name": "Managing & Control",
@@ -171,24 +179,26 @@
             {
                 "meaning": "add",
                 "usage_example": "Añade un poco de sal a la sopa.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Add a little salt to the soup.",
                 "char_count": "one",
                 "usage_context_en": "cooking/math",
                 "usage_context_es": "cocina/matemáticas",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Añadir/Sumar"
             },
             {
-                "meaning": "add (def 2)",
+                "meaning": "add",
                 "usage_example": "¿Añadiste tu nombre a la lista?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Did you add your name to the list?",
                 "char_count": "one",
                 "usage_context_en": "lists/speech",
                 "usage_context_es": "listas/discurso",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Agregar (algo más)"
             }
         ],
         "group_name": "Daily Tasks",
@@ -210,24 +220,26 @@
             {
                 "meaning": "kill",
                 "usage_example": "Los mosquitos pueden matar gente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Mosquitoes can kill people.",
                 "char_count": "one",
                 "usage_context_en": "life/insects",
                 "usage_context_es": "vida/insectos",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Matar/Quitar la vida"
             },
             {
-                "meaning": "kill (def 2)",
+                "meaning": "kill",
                 "usage_example": "La nueva ley anuló el proyecto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The new law killed the project.",
                 "char_count": "one",
                 "usage_context_en": "plans/time",
                 "usage_context_es": "planes/tiempo",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Anular/Detener (una idea, plan)"
             }
         ],
         "group_name": "Daily Tasks",
@@ -249,24 +261,26 @@
             {
                 "meaning": "require",
                 "usage_example": "El trabajo requiere mucha experiencia.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The job requires a lot of experience.",
                 "char_count": "two",
                 "usage_context_en": "skills/necessity",
                 "usage_context_es": "habilidades/necesidad",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Requerir/Necesitar (formal)"
             },
             {
-                "meaning": "require (def 2)",
+                "meaning": "require",
                 "usage_example": "La ley exige que uses un cinturón de seguridad.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The law requires you to wear a seatbelt.",
                 "char_count": "two",
                 "usage_context_en": "laws/safety",
                 "usage_context_es": "leyes/seguridad",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Exigir/Ordenar (reglas)"
             }
         ],
         "group_name": "Managing & Control",
@@ -288,24 +302,26 @@
             {
                 "meaning": "wear",
                 "usage_example": "¿Qué llevas puesto hoy?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What are you wearing today?",
                 "char_count": "one",
                 "usage_context_en": "clothing/accessories",
                 "usage_context_es": "ropa/accesorios",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Usar/Llevar puesto (ropa, joyas)"
             },
             {
-                "meaning": "wear (def 2)",
+                "meaning": "wear",
                 "usage_example": "La alfombra está empezando a desgastarse.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The carpet is starting to wear out.",
                 "char_count": "one",
                 "usage_context_en": "materials/time",
                 "usage_context_es": "materiales/tiempo",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Desgastar/Erosionar"
             }
         ],
         "group_name": "Daily Routine",
@@ -327,24 +343,26 @@
             {
                 "meaning": "carry",
                 "usage_example": "¿Puedes llevar esta bolsa por mí?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Can you carry this bag for me?",
                 "char_count": "two",
                 "usage_context_en": "objects/transport",
                 "usage_context_es": "objetos/transporte",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_25_def0.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_25_def0.avif",
+                "target_meaning_es": "Llevar/Cargar"
             },
             {
-                "meaning": "carry (def 2)",
+                "meaning": "carry",
                 "usage_example": "Este trabajo conlleva una gran responsabilidad.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "This job carries great responsibility.",
                 "char_count": "two",
                 "usage_context_en": "responsibility/plans",
                 "usage_context_es": "responsabilidad/planes",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_25_def1.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_25_def1.avif",
+                "target_meaning_es": "Conllevar/Implicar"
             }
         ],
         "group_name": "Daily Tasks",
@@ -366,24 +384,26 @@
             {
                 "meaning": "join",
                 "usage_example": "¿Quieres unirte a nuestro equipo?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Do you want to join our team?",
                 "char_count": "one",
                 "usage_context_en": "groups/membership",
                 "usage_context_es": "grupos/membresía",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Unirse a (un grupo, club)"
             },
             {
-                "meaning": "join (def 2)",
+                "meaning": "join",
                 "usage_example": "Junta estas dos piezas.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Join these two pieces together.",
                 "char_count": "one",
                 "usage_context_en": "connection/objects",
                 "usage_context_es": "conexión/objetos",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Juntar/Conectar"
             }
         ],
         "group_name": "Daily Tasks",
@@ -405,24 +425,26 @@
             {
                 "meaning": "break",
                 "usage_example": "Ten cuidado de no romper el vaso.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Be careful not to break the glass.",
                 "char_count": "one",
                 "usage_context_en": "objects/injury",
                 "usage_context_es": "objetos/herida",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Romper/Quebrar"
             },
             {
-                "meaning": "break (def 2)",
+                "meaning": "break",
                 "usage_example": "Paremos para almorzar.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Let's break for lunch.",
                 "char_count": "one",
                 "usage_context_en": "rest/interruption",
                 "usage_context_es": "descanso/interrupción",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Tomar un descanso/Interrumpir"
             }
         ],
         "group_name": "Daily Tasks",
@@ -444,24 +466,26 @@
             {
                 "meaning": "catch",
                 "usage_example": "¡Atrapa la pelota!",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Catch the ball!",
                 "char_count": "one",
                 "usage_context_en": "sports/illness",
                 "usage_context_es": "deportes/enfermedad",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Atrapar/Coger (un objeto en movimiento)"
             },
             {
-                "meaning": "catch (def 2)",
+                "meaning": "catch",
                 "usage_example": "Tenemos que tomar el autobús.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We need to catch the bus.",
                 "char_count": "one",
                 "usage_context_en": "transport/discovery",
                 "usage_context_es": "transporte/descubrimiento",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Tomar (un transporte)/Descubrir"
             }
         ],
         "group_name": "Daily Tasks",
@@ -483,24 +507,26 @@
             {
                 "meaning": "throw",
                 "usage_example": "Lánzame las llaves.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Throw the keys to me.",
                 "char_count": "one",
                 "usage_context_en": "objects/movement",
                 "usage_context_es": "objetos/movimiento",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_39_def0.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_39_def0.avif",
+                "target_meaning_es": "Lanzar/Arrojar"
             },
             {
-                "meaning": "throw (def 2)",
+                "meaning": "throw",
                 "usage_example": "Vamos a hacer una fiesta.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We are going to throw a party.",
                 "char_count": "one",
                 "usage_context_en": "party/idiom",
                 "usage_context_es": "fiesta/modismo",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_39_def1.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_39_def1.avif",
+                "target_meaning_es": "Hacer (una fiesta)"
             }
         ],
         "group_name": "Daily Tasks",
@@ -522,24 +548,26 @@
             {
                 "meaning": "support",
                 "usage_example": "Siempre apoyaré tus decisiones.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I will always support your decisions.",
                 "char_count": "two",
                 "usage_context_en": "emotional/teams",
                 "usage_context_es": "emocional/equipos",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Apoyar/Ayudar (a alguien)"
             },
             {
-                "meaning": "support (def 2)",
+                "meaning": "support",
                 "usage_example": "Las columnas sostienen el techo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The columns support the roof.",
                 "char_count": "two",
                 "usage_context_en": "physical/structure",
                 "usage_context_es": "físico/estructura",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Sostener/Mantener (físicamente)"
             }
         ],
         "group_name": "Social & Daily Life",
@@ -561,24 +589,26 @@
             {
                 "meaning": "argue",
                 "usage_example": "Mis padres siempre discuten por dinero.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "My parents always argue about money.",
                 "char_count": "two",
                 "usage_context_en": "disagreement/conflict",
                 "usage_context_es": "desacuerdo/conflicto",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_57_def0.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_57_def0.avif",
+                "target_meaning_es": "Discutir (en desacuerdo)"
             },
             {
-                "meaning": "argue (def 2)",
+                "meaning": "argue",
                 "usage_example": "Argumentó que el plan era demasiado caro.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He argued that the plan was too expensive.",
                 "char_count": "two",
                 "usage_context_en": "reasoning/debate",
                 "usage_context_es": "razonamiento/debate",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_57_def1.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_57_def1.avif",
+                "target_meaning_es": "Argumentar/Sostener (una idea)"
             }
         ],
         "group_name": "Feelings & Reactions",
@@ -600,24 +630,26 @@
             {
                 "meaning": "fix",
                 "usage_example": "¿Puedes arreglar mi silla rota?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Can you fix my broken chair?",
                 "char_count": "one",
                 "usage_context_en": "repair/objects",
                 "usage_context_es": "reparación/objetos",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_61_def0.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_61_def0.avif",
+                "target_meaning_es": "Arreglar/Reparar"
             },
             {
-                "meaning": "fix (def 2)",
+                "meaning": "fix",
                 "usage_example": "Fijaron una fecha para la boda.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "They fixed a date for the wedding.",
                 "char_count": "one",
                 "usage_context_en": "schedule/solution",
                 "usage_context_es": "horario/solución",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_61_def1.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_61_def1.avif",
+                "target_meaning_es": "Fijar/Establecer (una fecha, precio)"
             }
         ],
         "group_name": "Building & Creating",
@@ -639,24 +671,26 @@
             {
                 "meaning": "clean",
                 "usage_example": "Necesito limpiar mi cuarto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I need to clean my room.",
                 "char_count": "one",
                 "usage_context_en": "housework/hygiene",
                 "usage_context_es": "tareas del hogar/higiene",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Limpiar"
             },
             {
-                "meaning": "clean (def 2)",
+                "meaning": "clean",
                 "usage_example": "Él limpió la suciedad de sus zapatos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He cleaned the dirt off his shoes.",
                 "char_count": "one",
                 "usage_context_en": "dirt/tidiness",
                 "usage_context_es": "suciedad/orden",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Quitar la suciedad"
             }
         ],
         "group_name": "Daily Routine",
@@ -678,24 +712,26 @@
             {
                 "meaning": "cook",
                 "usage_example": "Me gusta cocinar pasta.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I like to cook pasta.",
                 "char_count": "one",
                 "usage_context_en": "food/hobby",
                 "usage_context_es": "comida/pasatiempo",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Cocinar"
             },
             {
-                "meaning": "cook (def 2)",
+                "meaning": "cook",
                 "usage_example": "Mi padre cocina la cena todas las noches.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "My father cooks dinner every night.",
                 "char_count": "one",
                 "usage_context_en": "meals/routine",
                 "usage_context_es": "comidas/rutina",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Preparar comida"
             }
         ],
         "group_name": "Daily Routine",
@@ -717,24 +753,26 @@
             {
                 "meaning": "wash",
                 "usage_example": "Debes lavarte las manos antes de comer.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "You should wash your hands before eating.",
                 "char_count": "one",
                 "usage_context_en": "hygiene/cleaning",
                 "usage_context_es": "higiene/limpieza",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Lavar (con agua y jabón)"
             },
             {
-                "meaning": "wash (def 2)",
+                "meaning": "wash",
                 "usage_example": "Ella está lavando la ropa.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She is washing the clothes.",
                 "char_count": "one",
                 "usage_context_en": "laundry/movement",
                 "usage_context_es": "lavandería/movimiento",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Lavar (ropa)"
             }
         ],
         "group_name": "Daily Routine",
@@ -756,24 +794,26 @@
             {
                 "meaning": "shop",
                 "usage_example": "Hacemos la compra los sábados.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We shop for groceries on Saturdays.",
                 "char_count": "one",
                 "usage_context_en": "shopping/routine",
                 "usage_context_es": "compras/rutina",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_65_def0.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_65_def0.avif",
+                "target_meaning_es": "Ir de compras"
             },
             {
-                "meaning": "shop (def 2)",
+                "meaning": "shop",
                 "usage_example": "¿Dónde compras habitualmente?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Where do you usually shop?",
                 "char_count": "one",
                 "usage_context_en": "stores/comparison",
                 "usage_context_es": "tiendas/comparación",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_65_def1.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_65_def1.avif",
+                "target_meaning_es": "Comprar en (una tienda)"
             }
         ],
         "group_name": "Daily Routine",
@@ -795,24 +835,26 @@
             {
                 "meaning": "search",
                 "usage_example": "Estoy buscando información en línea.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I am searching for information online.",
                 "char_count": "one",
                 "usage_context_en": "internet/investigation",
                 "usage_context_es": "internet/investigación",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Buscar (con intención)"
             },
             {
-                "meaning": "search (def 2)",
+                "meaning": "search",
                 "usage_example": "Él registró sus bolsillos buscando sus llaves.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He searched his pockets for his keys.",
                 "char_count": "one",
                 "usage_context_en": "objects/rescue",
                 "usage_context_es": "objetos/rescate",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Registrar (un lugar)"
             }
         ],
         "group_name": "Daily Tasks",
@@ -834,13 +876,14 @@
             {
                 "meaning": "reset",
                 "usage_example": "¿Cómo reinicio mi teléfono?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "How do I reset my phone?",
                 "char_count": "two",
                 "usage_context_en": "To restart an electronic device to its default state",
                 "usage_context_es": "Reiniciar un dispositivo electrónico a su estado inicial",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Reiniciar / Restablecer"
             }
         ],
         "group_name": "Managing & Control",

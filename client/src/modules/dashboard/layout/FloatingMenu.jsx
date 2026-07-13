@@ -27,9 +27,11 @@ const FloatingMenu = ({ mobileTrigger = null }) => {
     const {
         isFloatingMenuOpen: isOpen,
         setIsFloatingMenuOpen: setIsOpen,
-        language = 'en'
+        language = 'en',
+        studyLanguage = 'en',
+        setStudyLanguage,
     } = useAppContext();
-    const { user, logout } = useAuth();
+    const { user, logout, updateStudyLanguage } = useAuth();
     const [showPronun, setShowPronun] = useState(false);
     const containerRef = useRef(null);
     const navigate = useNavigate();
@@ -62,6 +64,12 @@ const FloatingMenu = ({ mobileTrigger = null }) => {
     const toggleMenu = () => {
         setIsOpen((open) => !open);
         setShowPronun(false);
+    };
+
+    const changeStudyLanguage = (nextLanguage) => {
+        if (nextLanguage === studyLanguage) return;
+        setStudyLanguage(nextLanguage);
+        void updateStudyLanguage(nextLanguage);
     };
 
     return (
@@ -142,13 +150,33 @@ const FloatingMenu = ({ mobileTrigger = null }) => {
 
                 <div className="userProfileItem">
                     {user?.picture
-                        ? <img src={user.picture} alt="" className="userAvatar" />
+                        ? <img src={user.picture} alt="" className="userAvatar" referrerPolicy="no-referrer" />
                         : <span className="userAvatarFallback">{(user?.name || user?.email || '?').charAt(0).toUpperCase()}</span>
                     }
                     <div className="userInfo">
                         <span className="userName">{user?.name}</span>
                         <span className="userRole">{user?.role}</span>
                     </div>
+                </div>
+
+                <div className="studyDirectionControl" role="group" aria-label={t.studyDirection}>
+                    <span className="studyDirectionLabel">{t.studyDirection}</span>
+                    <button
+                        type="button"
+                        className={`studyDirectionOption ${studyLanguage === 'en' ? 'active' : ''}`}
+                        onClick={() => changeStudyLanguage('en')}
+                        aria-pressed={studyLanguage === 'en'}
+                    >
+                        {t.learnEnglish}
+                    </button>
+                    <button
+                        type="button"
+                        className={`studyDirectionOption ${studyLanguage === 'es' ? 'active' : ''}`}
+                        onClick={() => changeStudyLanguage('es')}
+                        aria-pressed={studyLanguage === 'es'}
+                    >
+                        {t.learnSpanish}
+                    </button>
                 </div>
 
                 <button

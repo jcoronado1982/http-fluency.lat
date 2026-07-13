@@ -2,7 +2,7 @@
  * DemoFlashcardSession — sesión real de flashcards en el landing (sin login).
  * UI compartida del shell (misma que la app); audio/imagen en namespace landing-demo.
  */
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
     Flashcard,
@@ -26,6 +26,7 @@ import {
 import { getLandingTranslations } from '../config/translations';
 
 const noop = () => {};
+const MIN_SWIPE_DISTANCE = 50;
 
 export default function DemoFlashcardSession({
     language = 'en',
@@ -37,6 +38,7 @@ export default function DemoFlashcardSession({
     const t = getLandingTranslations(language);
     const [cards, setCards] = useState(() => createDemoSessionCards());
     const [currentIndex, setCurrentIndex] = useState(0);
+    const touchStartRef = useRef(null);
 
     const masterData = cards;
     const filteredData = useMemo(() => masterData.filter((c) => !c.learned), [masterData]);
@@ -164,7 +166,42 @@ export default function DemoFlashcardSession({
                     <FlashcardContext.Provider value={flashcardValue}>
                         <div className="flashcard-page-wrapper" data-landing-demo>
                             <div className="app-container">
-                                <div className="flashcard-main-area">
+                                <div
+                                    className="flashcard-main-area"
+                                    onTouchStart={(event) => {
+                                        if (event.targetTouches.length !== 1) {
+                                            touchStartRef.current = null;
+                                            return;
+                                        }
+
+                                        const touch = event.targetTouches[0];
+                                        touchStartRef.current = {
+                                            x: touch.clientX,
+                                            y: touch.clientY,
+                                        };
+                                    }}
+                                    onTouchEnd={(event) => {
+                                        if (touchStartRef.current == null) return;
+
+                                        const touchEnd = event.changedTouches[0];
+                                        const touchStart = touchStartRef.current;
+                                        touchStartRef.current = null;
+                                        if (!touchEnd) return;
+
+                                        const horizontalDistance = touchStart.x - touchEnd.clientX;
+                                        const verticalDistance = touchStart.y - touchEnd.clientY;
+                                        const isHorizontalGesture = (
+                                            Math.abs(horizontalDistance) > Math.abs(verticalDistance)
+                                        );
+
+                                        if (!isHorizontalGesture) return;
+                                        if (horizontalDistance > MIN_SWIPE_DISTANCE) nextCard();
+                                        else if (horizontalDistance < -MIN_SWIPE_DISTANCE) prevCard();
+                                    }}
+                                    onTouchCancel={() => {
+                                        touchStartRef.current = null;
+                                    }}
+                                >
                                     <div className="lp-demo-card-frame">
                                         {badgeLabel ? (
                                             <span className="lp-demo-badge">

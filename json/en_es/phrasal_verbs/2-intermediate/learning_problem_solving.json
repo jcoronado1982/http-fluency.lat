@@ -15,13 +15,14 @@
             {
                 "meaning": "look into",
                 "usage_example": "La policía investigará el caso.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The police will look into the case.",
                 "char_count": "one",
                 "usage_context_en": "investigation",
                 "usage_context_es": "investigación",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Investigar / Revisar"
             }
         ],
         "group_name": "Phrasal Verbs: Look",
@@ -43,13 +44,14 @@
             {
                 "meaning": "check over",
                 "usage_example": "¿Puedes revisar mi informe antes de que lo entregue?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Can you check over my report before I submit it?",
                 "char_count": "one",
                 "usage_context_en": "work/reviewing",
                 "usage_context_es": "trabajo/revisar",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_22_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_22_def0.avif",
+                "target_meaning_es": "Revisar, examinar (buscando errores)"
             }
         ],
         "group_name": "Phrasal Verbs: Check",
@@ -71,13 +73,14 @@
             {
                 "meaning": "check off",
                 "usage_example": "Me encanta marcar tareas (ítems) en mi lista de pendientes.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I love to check off items on my to-do list.",
                 "char_count": "one",
                 "usage_context_en": "tasks/lists",
                 "usage_context_es": "tareas/listas",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_23_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_23_def0.avif",
+                "target_meaning_es": "Marcar (como completado en una lista)"
             }
         ],
         "group_name": "Phrasal Verbs: Check",
@@ -99,13 +102,14 @@
             {
                 "meaning": "go over",
                 "usage_example": "Repasemos el plan.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Let’s go over the plan.",
                 "char_count": "one",
                 "usage_context_en": "review/planning",
                 "usage_context_es": "revisión/planificación",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Revisar / Repasar"
             }
         ],
         "group_name": "Phrasal Verbs: Go",
@@ -127,13 +131,14 @@
             {
                 "meaning": "run through",
                 "usage_example": "Repasemos el plan una vez más.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Let's run through the plan one more time.",
                 "char_count": "one",
                 "usage_context_en": "practice/rehearsal",
                 "usage_context_es": "práctica/ensayo",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_17_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_17_def0.avif",
+                "target_meaning_es": "Repasar, ensayar (rápidamente)"
             }
         ],
         "group_name": "Phrasal Verbs: Run",
@@ -155,24 +160,26 @@
             {
                 "meaning": "look up",
                 "usage_example": "Busca la dirección en internet.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Look up the address online.",
                 "char_count": "one",
                 "usage_context_en": "searching information",
                 "usage_context_es": "buscar información",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Buscar información"
             },
             {
-                "meaning": "look up (def 2)",
+                "meaning": "look up",
                 "usage_example": "Las cosas están mejorando.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Things are looking up.",
                 "char_count": "one",
                 "usage_context_en": "improvement",
                 "usage_context_es": "mejora",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Mejorar"
             }
         ],
         "group_name": "Phrasal Verbs: Look",
@@ -194,13 +201,14 @@
             {
                 "meaning": "come up with",
                 "usage_example": "Se le ocurrió una gran idea.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He came up with a great idea.",
                 "char_count": "one",
                 "usage_context_en": "ideas/planning",
                 "usage_context_es": "ideas/planificación",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_28_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_28_def0.avif",
+                "target_meaning_es": "Idear, proponer, ocurrirse (una idea)"
             }
         ],
         "group_name": "Phrasal Verbs: Come",
@@ -222,24 +230,26 @@
             {
                 "meaning": "come across",
                 "usage_example": "Encontré una foto vieja por casualidad.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I came across an old photo.",
                 "char_count": "one",
                 "usage_context_en": "unexpected discovery",
                 "usage_context_es": "hallazgo casual",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Encontrar por casualidad"
             },
             {
-                "meaning": "come across (def 2)",
+                "meaning": "come across",
                 "usage_example": "Da la impresión de ser amigable.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He comes across as friendly.",
                 "char_count": "one",
                 "usage_context_en": "impression/personality",
                 "usage_context_es": "impresión/personalidad",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Dar la impresión"
             }
         ],
         "group_name": "Phrasal Verbs: Come",

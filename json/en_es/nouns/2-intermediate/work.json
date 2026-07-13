@@ -15,13 +15,14 @@
             {
                 "meaning": "career",
                 "usage_example": "Él tiene una larga carrera.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He has a long career.",
                 "char_count": "five",
                 "usage_context_en": "An occupation undertaken for a significant period of a person's life.",
                 "usage_context_es": "Una ocupación emprendida durante un período significativo de la vida de una persona.",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_83_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_83_def0.avif",
+                "target_meaning_es": "Carrera (profesional)"
             }
         ],
         "group_name": "General Concepts",
@@ -43,13 +44,14 @@
             {
                 "meaning": "corporation",
                 "usage_example": "Él trabaja para una gran corporación.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He works for a large corporation.",
                 "char_count": "six",
                 "usage_context_en": "A large company or group of companies authorized to act as a single entity.",
                 "usage_context_es": "Una gran compañía o grupo de compañías autorizadas para actuar como una sola entidad.",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_91_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_91_def0.avif",
+                "target_meaning_es": "Corporación / Empresa grande"
             }
         ],
         "group_name": "General Concepts",
@@ -71,13 +73,14 @@
             {
                 "meaning": "employment",
                 "usage_example": "Él está buscando empleo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He is looking for employment.",
                 "char_count": "5",
                 "usage_context_en": "The state of having paid work.",
                 "usage_context_es": "El estado de tener un trabajo remunerado.",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_276_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_276_def0.avif",
+                "target_meaning_es": "Empleo / Trabajo"
             }
         ],
         "group_name": "General Concepts",
@@ -99,13 +102,14 @@
             {
                 "meaning": "management",
                 "usage_example": "El proyecto necesita una mejor gestión.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The project needs better management.",
                 "char_count": "5",
                 "usage_context_en": "The process of dealing with or controlling things or people.",
                 "usage_context_es": "El proceso de lidiar con o controlar cosas o personas.",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_307_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_307_def0.avif",
+                "target_meaning_es": "Gestión / Dirección / Administración"
             }
         ],
         "group_name": "General Concepts",
@@ -127,13 +131,14 @@
             {
                 "meaning": "profession",
                 "usage_example": "La enseñanza es una profesión difícil.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Teaching is a difficult profession.",
                 "char_count": "5",
                 "usage_context_en": "A paid occupation, especially one that involves prolonged training and a formal qualification.",
                 "usage_context_es": "Una ocupación remunerada, especialmente una que implica formación prolongada y una cualificación formal.",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_329_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_329_def0.avif",
+                "target_meaning_es": "Profesión"
             }
         ],
         "group_name": "General Concepts",
@@ -155,13 +160,14 @@
             {
                 "meaning": "internship",
                 "usage_example": "Él consiguió una pasantía en Google.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He got an internship at Google.",
                 "char_count": "three",
                 "usage_context_en": "A temporary job to gain experience",
                 "usage_context_es": "Un trabajo temporal para ganar experiencia",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_407_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_407_def0.avif",
+                "target_meaning_es": "Pasantía / Práctica"
             }
         ],
         "group_name": "General Concepts",

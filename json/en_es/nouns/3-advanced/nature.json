@@ -15,13 +15,14 @@
             {
                 "meaning": "pollution",
                 "usage_example": "Necesitamos reducir la contaminación del aire.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We need to reduce air pollution.",
                 "char_count": "6",
                 "usage_context_en": "The presence of harmful substances or contaminants in the environment.",
                 "usage_context_es": "La presencia de sustancias dañinas o contaminantes en el medio ambiente.",
-                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_93_def0.avif"
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_93_def0.avif",
+                "target_meaning_es": "Contaminación"
             }
         ],
         "group_name": "Nature & Environment",

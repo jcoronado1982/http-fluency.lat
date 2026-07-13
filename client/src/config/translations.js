@@ -9,6 +9,9 @@ export const translations = {
             diphthongs: "Diptongos",
             consonants: "Consonantes",
             account: "Cuenta",
+            studyDirection: "Idioma de estudio",
+            learnEnglish: "Español → Inglés",
+            learnSpanish: "Inglés → Español",
             logout: "Cerrar sesión"
         },
         sidebar: {
@@ -27,6 +30,9 @@ export const translations = {
             diphthongs: "Diphthongs",
             consonants: "Consonants",
             account: "Account",
+            studyDirection: "Study language",
+            learnEnglish: "Spanish → English",
+            learnSpanish: "English → Spanish",
             logout: "Log out"
         },
         sidebar: {

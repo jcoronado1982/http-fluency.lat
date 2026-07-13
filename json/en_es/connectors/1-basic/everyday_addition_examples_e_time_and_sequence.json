@@ -15,13 +15,14 @@
             {
                 "meaning": "and",
                 "usage_example": "Me gusta el café y el té.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I like coffee and tea.",
                 "char_count": "5",
                 "usage_context_en": "Used to connect two words, phrases, or clauses of equal importance.",
                 "usage_context_es": "Usado para conectar dos palabras, frases o cláusulas de igual importancia.",
-                "imagePath": "/card_images/connectors/1-basic/1-basic_card_0_def0.avif"
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_0_def0.avif",
+                "target_meaning_es": "Y"
             }
         ],
         "group_name": "Connectors: Addition",
@@ -43,13 +44,14 @@
             {
                 "meaning": "first",
                 "usage_example": "Primero, abre la caja. Luego, lee el manual.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "First, open the box. Then, read the manual.",
                 "char_count": "7",
                 "usage_context_en": "Used to mark the beginning of a sequence or list.",
                 "usage_context_es": "Usado para marcar el inicio de una secuencia o lista.",
-                "imagePath": "/card_images/connectors/1-basic/1-basic_card_13_def0.avif"
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_13_def0.avif",
+                "target_meaning_es": "Primero / En primer lugar"
             }
         ],
         "group_name": "Connectors: Sequence",
@@ -71,13 +73,14 @@
             {
                 "meaning": "also",
                 "usage_example": "También me gusta el té.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I also like tea.",
                 "char_count": "4",
                 "usage_context_en": "In addition; too. (Typically placed before the main verb or after 'to be').",
                 "usage_context_es": "Además; también. (Típicamente ubicado antes del verbo principal o después de 'to be').",
-                "imagePath": "/card_images/connectors/1-basic/1-basic_card_1_def0.avif"
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_1_def0.avif",
+                "target_meaning_es": "También / Además"
             }
         ],
         "group_name": "Connectors: Addition",
@@ -99,13 +102,14 @@
             {
                 "meaning": "next",
                 "usage_example": "Luego, añade el azúcar.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Next, add the sugar.",
                 "char_count": "4",
                 "usage_context_en": "Used to indicate the step following the current one.",
                 "usage_context_es": "Usado para indicar el paso siguiente al actual.",
-                "imagePath": "/card_images/connectors/1-basic/1-basic_card_15_def0.avif"
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_15_def0.avif",
+                "target_meaning_es": "Luego / Siguiente"
             }
         ],
         "group_name": "Connectors: Sequence",
@@ -127,24 +131,26 @@
             {
                 "meaning": "too",
                 "usage_example": "Me gusta el café también.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I like coffee, too.",
                 "char_count": "4",
                 "usage_context_en": "In addition; also. (Typically at the end of a clause).",
                 "usage_context_es": "Además; también. (Típicamente al final de una cláusula).",
-                "imagePath": "/card_images/connectors/1-basic/1-basic_card_2_def0.avif"
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_2_def0.avif",
+                "target_meaning_es": "También"
             },
             {
-                "meaning": "too (def 2)",
+                "meaning": "too",
                 "usage_example": "Hace demasiado calor.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It is too hot.",
                 "char_count": "4",
                 "usage_context_en": "An intensifier meaning 'excessively' or 'more than is wanted'.",
                 "usage_context_es": "Un intensificador que significa 'excesivamente' o 'más de lo deseado'.",
-                "imagePath": "/card_images/connectors/1-basic/1-basic_card_2_def1.avif"
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_2_def1.avif",
+                "target_meaning_es": "Demasiado"
             }
         ],
         "group_name": "Connectors: Addition",
@@ -166,13 +172,14 @@
             {
                 "meaning": "after that",
                 "usage_example": "Cenamos y, después de eso, vimos una película.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We ate dinner, and after that, we watched a movie.",
                 "char_count": "9",
                 "usage_context_en": "Used to introduce the next event in a sequence.",
                 "usage_context_es": "Usado para introducir el siguiente evento en una secuencia.",
-                "imagePath": "/card_images/connectors/1-basic/1-basic_card_16_def0.avif"
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_16_def0.avif",
+                "target_meaning_es": "Después de eso"
             }
         ],
         "group_name": "Connectors: Sequence",
@@ -194,13 +201,14 @@
             {
                 "meaning": "or",
                 "usage_example": "¿Te gustaría té o café?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Would you like tea or coffee?",
                 "char_count": "2",
                 "usage_context_en": "Used to link alternatives.",
                 "usage_context_es": "Usado para enlazar alternativas.",
-                "imagePath": "/card_images/connectors/1-basic/1-basic_card_39_def0.avif"
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_39_def0.avif",
+                "target_meaning_es": "O (alternativa)"
             }
         ],
         "group_name": "Connectors: Alternative",
@@ -222,13 +230,14 @@
             {
                 "meaning": "finally",
                 "usage_example": "Finalmente, cierra la caja.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Finally, close the box.",
                 "char_count": "4",
                 "usage_context_en": "Used to introduce the last item in a list or sequence.",
                 "usage_context_es": "Usado para introducir el último ítem en una lista o secuencia.",
-                "imagePath": "/card_images/connectors/1-basic/1-basic_card_17_def0.avif"
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_17_def0.avif",
+                "target_meaning_es": "Finalmente / Por último"
             }
         ],
         "group_name": "Connectors: Sequence",
@@ -250,13 +259,14 @@
             {
                 "meaning": "for example",
                 "usage_example": "Me gustan las frutas, por ejemplo, las manzanas.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I like fruits, for example, apples.",
                 "char_count": "6",
                 "usage_context_en": "Used to introduce a specific item that illustrates a general point.",
                 "usage_context_es": "Usado para introducir un ítem específico que ilustra un punto general.",
-                "imagePath": "/card_images/connectors/1-basic/1-basic_card_26_def0.avif"
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_26_def0.avif",
+                "target_meaning_es": "Por ejemplo"
             }
         ],
         "group_name": "Connectors: Example",
@@ -278,24 +288,26 @@
             {
                 "meaning": "then",
                 "usage_example": "Primero trabajo, luego descanso.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "First I work, then I rest.",
                 "char_count": "5",
                 "usage_context_en": "Used to indicate what happens next in a sequence.",
                 "usage_context_es": "Usado para indicar lo que sucede a continuación en una secuencia.",
-                "imagePath": "/card_images/connectors/1-basic/1-basic_card_14_def0.avif"
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_14_def0.avif",
+                "target_meaning_es": "Luego / Después"
             },
             {
-                "meaning": "then (def 2)",
+                "meaning": "then",
                 "usage_example": "Si tienes hambre, entonces deberías comer.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "If you are hungry, then you should eat.",
                 "char_count": "7",
                 "usage_context_en": "Used to state a consequence or result.",
                 "usage_context_es": "Usado para indicar una consecuencia o resultado.",
-                "imagePath": "/card_images/connectors/1-basic/1-basic_card_14_def1.avif"
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_14_def1.avif",
+                "target_meaning_es": "Entonces / En ese caso"
             }
         ],
         "group_name": "Connectors: Sequence",
@@ -317,13 +329,14 @@
             {
                 "meaning": "when",
                 "usage_example": "Llámame cuando llegues.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Call me when you arrive.",
                 "char_count": "5",
                 "usage_context_en": "Used to introduce a clause of time.",
                 "usage_context_es": "Usado para introducir una cláusula de tiempo.",
-                "imagePath": "/card_images/connectors/1-basic/1-basic_card_38_def0.avif"
+                "imagePath": "/card_images/connectors/1-basic/1-basic_card_38_def0.avif",
+                "target_meaning_es": "Cuando"
             }
         ],
         "group_name": "Connectors: Time",

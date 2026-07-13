@@ -15,13 +15,14 @@
             {
                 "meaning": "where",
                 "usage_example": "¿Dónde vives?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Where do you live?",
                 "char_count": 5,
                 "usage_context_en": "Used to ask about place or destination.",
                 "usage_context_es": "Usado para preguntar por lugar o destino.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Dónde / Adónde"
             }
         ],
         "group_name": "Adverbs: Questions",
@@ -43,13 +44,14 @@
             {
                 "meaning": "when",
                 "usage_example": "¿Cuándo empieza la clase?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "When does the class start?",
                 "char_count": 4,
                 "usage_context_en": "Used to ask about time.",
                 "usage_context_es": "Usado para preguntar por tiempo.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Cuándo"
             }
         ],
         "group_name": "Adverbs: Questions",
@@ -71,13 +73,14 @@
             {
                 "meaning": "how",
                 "usage_example": "¿Cómo haces eso?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "How do you do that?",
                 "char_count": 3,
                 "usage_context_en": "Used to ask about manner, condition, or method.",
                 "usage_context_es": "Usado para preguntar por manera, estado o método.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Cómo"
             }
         ],
         "group_name": "Adverbs: Questions",
@@ -99,13 +102,14 @@
             {
                 "meaning": "why",
                 "usage_example": "¿Por qué llegaste tarde?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Why are you late?",
                 "char_count": 3,
                 "usage_context_en": "Used to ask about reason or cause.",
                 "usage_context_es": "Usado para preguntar por razón o causa.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Por qué"
             }
         ],
         "group_name": "Adverbs: Questions",

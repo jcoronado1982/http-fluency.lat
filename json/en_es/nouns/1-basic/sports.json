@@ -15,13 +15,14 @@
             {
                 "meaning": "game",
                 "usage_example": "Juguemos un juego.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Let's play a game.",
                 "char_count": "one",
                 "usage_context_en": "An activity for fun",
                 "usage_context_es": "Una actividad para divertirse",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_94_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_94_def0.avif",
+                "target_meaning_es": "Juego"
             }
         ],
         "group_name": "General Concepts",
@@ -43,13 +44,14 @@
             {
                 "meaning": "sport",
                 "usage_example": "El fútbol es un deporte popular.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Soccer is a popular sport.",
                 "char_count": "one",
                 "usage_context_en": "A physical game or activity",
                 "usage_context_es": "Un juego o actividad física",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_329_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_329_def0.avif",
+                "target_meaning_es": "Deporte"
             }
         ],
         "group_name": "General Concepts",
@@ -71,13 +73,14 @@
             {
                 "meaning": "soccer",
                 "usage_example": "Estamos jugando al fútbol.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We are playing soccer.",
                 "char_count": "two",
                 "usage_context_en": "A game played with a ball and two teams (AmE)",
                 "usage_context_es": "Un juego con una pelota y dos equipos (AmE)",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_330_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_330_def0.avif",
+                "target_meaning_es": "Fútbol (AmE)"
             }
         ],
         "group_name": "General Concepts",
@@ -99,13 +102,14 @@
             {
                 "meaning": "football",
                 "usage_example": "El fútbol es popular en Europa.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Football is popular in Europe.",
                 "char_count": "two",
                 "usage_context_en": "Soccer (BrE) / American football (AmE)",
                 "usage_context_es": "Fútbol (BrE) / Fútbol Americano (AmE)",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_331_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_331_def0.avif",
+                "target_meaning_es": "Fútbol (BrE) / Fútbol Americano (AmE)"
             }
         ],
         "group_name": "General Concepts",
@@ -127,13 +131,14 @@
             {
                 "meaning": "basketball",
                 "usage_example": "Él juega al baloncesto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He plays basketball.",
                 "char_count": "three",
                 "usage_context_en": "A game using a ball and a hoop",
                 "usage_context_es": "Un juego que usa una pelota y un aro",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_332_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_332_def0.avif",
+                "target_meaning_es": "Baloncesto / Básquetbol"
             }
         ],
         "group_name": "General Concepts",
@@ -155,13 +160,14 @@
             {
                 "meaning": "baseball",
                 "usage_example": "El béisbol es popular en los EE.UU.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Baseball is popular in the US.",
                 "char_count": "two",
                 "usage_context_en": "A game played with a bat and ball",
                 "usage_context_es": "Un juego con un bate y una pelota",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_333_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_333_def0.avif",
+                "target_meaning_es": "Béisbol"
             }
         ],
         "group_name": "General Concepts",
@@ -183,13 +189,14 @@
             {
                 "meaning": "player",
                 "usage_example": "Un jugador de fútbol.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "A soccer player.",
                 "char_count": "two",
                 "usage_context_en": "A person who plays a game or sport",
                 "usage_context_es": "Una persona que juega un juego o deporte",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_386_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_386_def0.avif",
+                "target_meaning_es": "Jugador"
             }
         ],
         "group_name": "People",
@@ -211,13 +218,14 @@
             {
                 "meaning": "knockout",
                 "usage_example": "Él ganó la pelea por noqueo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He won the fight by a knockout.",
                 "char_count": "two",
                 "usage_context_en": "A winning blow in a fight that disables the opponent",
                 "usage_context_es": "Un golpe ganador en una pelea que incapacita al oponente",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Noqueo / Fuera de combate (K.O.)"
             }
         ],
         "group_name": "General Concepts",

@@ -2,7 +2,7 @@
  * Casos de uso de sesión de deck (lógica pura, sin React).
  */
 
-import { filterUnlearned } from './deckUseCases';
+import { filterUnlearned } from './deckUseCases.js';
 
 export const updateCardImageInDeck = (cards, cardId, newPath, defIndex, form = 'v1') =>
     cards.map((card) => {

@@ -15,13 +15,14 @@
             {
                 "meaning": "go against",
                 "usage_example": "Eso va en contra de las reglas.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "That goes against the rules.",
                 "char_count": "one",
                 "usage_context_en": "rules/opposition",
                 "usage_context_es": "reglas/oposición",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Ir en contra de"
             }
         ],
         "group_name": "Phrasal Verbs: Go",
@@ -43,13 +44,14 @@
             {
                 "meaning": "turn against",
                 "usage_example": "Sus amigos se volvieron en contra de él.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "His friends turned against him.",
                 "char_count": "one",
                 "usage_context_en": "relationships/conflict",
                 "usage_context_es": "relaciones/conflicto",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Volverse en contra de"
             }
         ],
         "group_name": "Phrasal Verbs: Turn",
@@ -71,13 +73,14 @@
             {
                 "meaning": "look down on",
                 "usage_example": "Ella desprecia a la gente sin dinero.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She looks down on people without money.",
                 "char_count": "one",
                 "usage_context_en": "attitude/social judgment",
                 "usage_context_es": "actitud/juicio social",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Mirar por encima del hombro / Despreciar"
             }
         ],
         "group_name": "Phrasal Verbs: Look",
@@ -99,13 +102,14 @@
             {
                 "meaning": "get away with",
                 "usage_example": "Mintió y se salió con la suya.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He lied and got away with it.",
                 "char_count": "one",
                 "usage_context_en": "consequences/rules",
                 "usage_context_es": "consecuencias/reglas",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Salirse con la suya / No recibir castigo"
             }
         ],
         "group_name": "Phrasal Verbs: Get",
@@ -127,13 +131,14 @@
             {
                 "meaning": "run up against",
                 "usage_example": "Nos encontramos con varios obstáculos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We ran up against several obstacles.",
                 "char_count": "one",
                 "usage_context_en": "problems/obstacles",
                 "usage_context_es": "problemas/obstáculos",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Encontrarse con un problema"
             }
         ],
         "group_name": "Phrasal Verbs: Run",
@@ -155,13 +160,14 @@
             {
                 "meaning": "back out",
                 "usage_example": "Se echó atrás del acuerdo en el último minuto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He backed out of the deal at the last minute.",
                 "char_count": "one",
                 "usage_context_en": "agreement/decision",
                 "usage_context_es": "acuerdo/decisión",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Echarse atrás / Retirarse de un acuerdo"
             }
         ],
         "group_name": "Phrasal Verbs: Back",

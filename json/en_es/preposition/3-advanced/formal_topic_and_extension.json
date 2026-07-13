@@ -15,13 +15,14 @@
             {
                 "meaning": "in addition to",
                 "usage_example": "Además de inglés, él habla francés.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "In addition to English, he speaks French.",
                 "char_count": "7",
                 "usage_context_en": "Used to add another item or piece of information.",
                 "usage_context_es": "Usado para añadir otro ítem o pieza de información.",
-                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_7_def0.avif"
+                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_7_def0.avif",
+                "target_meaning_es": "Además de"
             }
         ],
         "group_name": "Prepositions: Addition",
@@ -43,13 +44,14 @@
             {
                 "meaning": "on behalf of",
                 "usage_example": "Estoy hablando en nombre de mi equipo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I am speaking on behalf of my team.",
                 "char_count": "8",
                 "usage_context_en": "As a representative of someone or for someone's benefit.",
                 "usage_context_es": "Como representante de alguien o para el beneficio de alguien.",
-                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_6_def0.avif"
+                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_6_def0.avif",
+                "target_meaning_es": "En nombre de / De parte de"
             }
         ],
         "group_name": "Prepositions: Representation",
@@ -71,13 +73,14 @@
             {
                 "meaning": "prior to",
                 "usage_example": "Por favor termina el informe antes de la reunión.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Please finish the report prior to the meeting.",
                 "char_count": "8",
                 "usage_context_en": "A formal way to say 'before' a specific time or event.",
                 "usage_context_es": "Una forma formal de decir 'antes de' un tiempo o evento específico.",
-                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_8_def0.avif"
+                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_8_def0.avif",
+                "target_meaning_es": "Antes de / Previo a (formal)"
             }
         ],
         "group_name": "Prepositions: Time",
@@ -99,13 +102,14 @@
             {
                 "meaning": "concerning",
                 "usage_example": "Tengo una pregunta con respecto a tu informe.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I have a question concerning your report.",
                 "char_count": "10",
                 "usage_context_en": "On the subject of or in connection with; about.",
                 "usage_context_es": "Sobre el tema de o en conexión con; acerca de.",
-                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_14_def0.avif"
+                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_14_def0.avif",
+                "target_meaning_es": "Con respecto a / Sobre"
             }
         ],
         "group_name": "Prepositions: Topic",
@@ -127,13 +131,14 @@
             {
                 "meaning": "regarding",
                 "usage_example": "Con respecto al contrato, estamos de acuerdo con los términos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Regarding the contract, we agree to the terms.",
                 "char_count": "9",
                 "usage_context_en": "In respect of; concerning.",
                 "usage_context_es": "Con respecto a; en cuanto a.",
-                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_15_def0.avif"
+                "imagePath": "/card_images/preposition/3-advanced/3-advanced_card_15_def0.avif",
+                "target_meaning_es": "Con respecto a / En cuanto a"
             }
         ],
         "group_name": "Prepositions: Topic",

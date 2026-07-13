@@ -8,7 +8,7 @@
 import {
     LANDING_DEMO_CATEGORY,
     LANDING_DEMO_DECK,
-} from './landingDemoNamespace';
+} from './landingDemoNamespace.js';
 
 export const STUDY_MEDIA_VARIANT_APP = 'app';
 export const STUDY_MEDIA_VARIANT_LANDING_DEMO = 'landing-demo';

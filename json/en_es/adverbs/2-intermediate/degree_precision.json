@@ -15,13 +15,14 @@
             {
                 "meaning": "nearly",
                 "usage_example": "Casi he terminado.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I am nearly finished.",
                 "char_count": "4",
                 "usage_context_en": "Very close to; almost.",
                 "usage_context_es": "Muy cerca de; casi.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Casi"
             }
         ],
         "group_name": "Adverbs: Degree",
@@ -43,13 +44,14 @@
             {
                 "meaning": "almost",
                 "usage_example": "La comida está casi lista.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The food is almost ready.",
                 "char_count": "5",
                 "usage_context_en": "Very nearly; not completely.",
                 "usage_context_es": "Muy cerca de; no completamente.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Casi"
             }
         ],
         "group_name": "Adverbs: Degree",
@@ -71,13 +73,14 @@
             {
                 "meaning": "especially",
                 "usage_example": "Me gustan todas las frutas, especialmente las manzanas.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I like all fruits, especially apples.",
                 "char_count": "6",
                 "usage_context_en": "To a great extent; very much; above all.",
                 "usage_context_es": "En gran medida; muchísimo; sobre todo.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Especialmente / Sobre todo"
             }
         ],
         "group_name": "Adverbs: Degree",
@@ -99,13 +102,14 @@
             {
                 "meaning": "exactly",
                 "usage_example": "Eso es exactamente lo que quiero decir.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "That is exactly what I mean.",
                 "char_count": "6",
                 "usage_context_en": "Used to emphasize precision or correctness.",
                 "usage_context_es": "Usado para enfatizar precisión o corrección.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Exactamente / Exacto"
             }
         ],
         "group_name": "Adverbs: Manner",
@@ -127,24 +131,26 @@
             {
                 "meaning": "simply",
                 "usage_example": "Debes explicarlo simplemente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "You must explain it simply.",
                 "char_count": 5,
                 "usage_context_en": "In a plain or easy-to-understand way.",
                 "usage_context_es": "De una manera llana o fácil de entender.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Simplemente (modo)"
             },
             {
-                "meaning": "simply (def 2)",
+                "meaning": "simply",
                 "usage_example": "Es simplemente una cuestión de tiempo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It is simply a matter of time.",
                 "char_count": 6,
                 "usage_context_en": "Used to mean 'only', 'just', or 'absolutely'.",
                 "usage_context_es": "Usado para significar 'solo', 'solamente' o 'absolutamente'.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Simplemente / Solo (énfasis)"
             }
         ],
         "group_name": "Adverbs: Manner",

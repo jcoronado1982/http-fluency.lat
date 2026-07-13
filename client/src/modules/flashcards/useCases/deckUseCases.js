@@ -26,8 +26,8 @@
  * ============================================================================
  */
 
-import { LANDING_DEMO_CATEGORY } from '../../../contracts/landingDemoNamespace';
-import { getFlashcardTranslations } from '../config/translations';
+import { LANDING_DEMO_CATEGORY } from '../../../contracts/landingDemoNamespace.js';
+import { getFlashcardTranslations } from '../config/translations.js';
 
 export const NESTED_LEVEL_CATEGORIES = [
     'verbs',

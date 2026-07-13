@@ -15,13 +15,14 @@
             {
                 "meaning": "lots of",
                 "usage_example": "Ella tiene mucho dinero.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She has lots of money.",
                 "char_count": 5,
                 "usage_context_en": "An informal version of 'a lot of'.",
                 "usage_context_es": "Una versión informal de 'a lot of'.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Mucho / Mucha / Muchos / Muchas (Informal)"
             }
         ],
         "group_name": "Determiners: Quantifiers",
@@ -43,13 +44,14 @@
             {
                 "meaning": "several",
                 "usage_example": "Él cometió varios errores.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He made several mistakes.",
                 "char_count": "4",
                 "usage_context_en": "More than two but not many; a medium, indefinite number.",
                 "usage_context_es": "Más de dos pero no muchos; un número mediano e indefinido.",
-                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_6_def0.avif"
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_6_def0.avif",
+                "target_meaning_es": "Varios/as"
             }
         ],
         "group_name": "Determiners: Quantifiers",
@@ -71,13 +73,14 @@
             {
                 "meaning": "plenty of",
                 "usage_example": "Tenemos mucho tiempo (de sobra).",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We have plenty of time.",
                 "char_count": "5",
                 "usage_context_en": "A large or sufficient amount or quantity; more than enough.",
                 "usage_context_es": "Una cantidad grande o suficiente; más que suficiente.",
-                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_7_def0.avif"
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_7_def0.avif",
+                "target_meaning_es": "Mucho/a / Muchos/as (de sobra)"
             }
         ],
         "group_name": "Determiners: Quantifiers",
@@ -99,13 +102,14 @@
             {
                 "meaning": "most",
                 "usage_example": "A la mayoría de la gente le gusta la música.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Most people like music.",
                 "char_count": "4",
                 "usage_context_en": "The greatest in amount, quantity, or degree; nearly all of.",
                 "usage_context_es": "El mayor en cantidad, cuantía o grado; casi todos.",
-                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_10_def0.avif"
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_10_def0.avif",
+                "target_meaning_es": "La mayoría (de)"
             }
         ],
         "group_name": "Determiners: Quantifiers",
@@ -127,13 +131,14 @@
             {
                 "meaning": "fewer",
                 "usage_example": "Hay menos estudiantes hoy.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "There are fewer students today.",
                 "char_count": "5",
                 "usage_context_en": "A smaller number of (used with countable nouns).",
                 "usage_context_es": "Un número menor de (usado con sustantivos contables).",
-                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_12_def0.avif"
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_12_def0.avif",
+                "target_meaning_es": "Menos (contable)"
             }
         ],
         "group_name": "Determiners: Quantifiers",
@@ -155,13 +160,14 @@
             {
                 "meaning": "certain",
                 "usage_example": "Cierta persona me dijo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "A certain person told me.",
                 "char_count": "5",
                 "usage_context_en": "Used to refer to a specific person or thing without naming it.",
                 "usage_context_es": "Usado para referirse a una persona o cosa específica sin nombrarla.",
-                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_16_def0.avif"
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_16_def0.avif",
+                "target_meaning_es": "Cierto/a / Ciertos/as"
             }
         ],
         "group_name": "Determiners: Other",
@@ -183,13 +189,14 @@
             {
                 "meaning": "whole",
                 "usage_example": "Me comí la pizza entera.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I ate the whole pizza.",
                 "char_count": "5",
                 "usage_context_en": "All of; entire (used with singular nouns).",
                 "usage_context_es": "Todo/a; entero/a (usado con sustantivos singulares).",
-                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_17_def0.avif"
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_17_def0.avif",
+                "target_meaning_es": "Todo/a / Entero/a"
             }
         ],
         "group_name": "Determiners: Quantifiers",
@@ -211,13 +218,14 @@
             {
                 "meaning": "entire",
                 "usage_example": "Leí el libro entero.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I read the entire book.",
                 "char_count": "5",
                 "usage_context_en": "With no part left out; whole (often for emphasis).",
                 "usage_context_es": "Sin dejar ninguna parte fuera; todo (a menudo para énfasis).",
-                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_18_def0.avif"
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_18_def0.avif",
+                "target_meaning_es": "Entero/a / Completo/a"
             }
         ],
         "group_name": "Determiners: Quantifiers",
@@ -239,13 +247,14 @@
             {
                 "meaning": "various",
                 "usage_example": "Hay varias opciones disponibles.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "There are various options available.",
                 "char_count": "5",
                 "usage_context_en": "More than one; different kinds of.",
                 "usage_context_es": "Más de uno; diferentes tipos de.",
-                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_19_def0.avif"
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_19_def0.avif",
+                "target_meaning_es": "Varios/as / Diversos/as"
             }
         ],
         "group_name": "Determiners: Quantifiers",
@@ -267,13 +276,14 @@
             {
                 "meaning": "half",
                 "usage_example": "Me comí la mitad de la pizza.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I ate half the pizza.",
                 "char_count": "5",
                 "usage_context_en": "Exactly 50% of something.",
                 "usage_context_es": "Exactamente el 50% de algo.",
-                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_23_def0.avif"
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_23_def0.avif",
+                "target_meaning_es": "Mitad / Medio/a"
             }
         ],
         "group_name": "Determiners: Quantifiers",
@@ -295,13 +305,14 @@
             {
                 "meaning": "double",
                 "usage_example": "Pagué el doble del precio.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I paid double the price.",
                 "char_count": "5",
                 "usage_context_en": "Twice as much or as many.",
                 "usage_context_es": "Dos veces más en cantidad o número.",
-                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_24_def0.avif"
+                "imagePath": "/card_images/determinant/2-intermediate/2-intermediate_card_24_def0.avif",
+                "target_meaning_es": "Doble"
             }
         ],
         "group_name": "Determiners: Numbers",

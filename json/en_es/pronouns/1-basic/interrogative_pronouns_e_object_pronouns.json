@@ -15,24 +15,26 @@
             {
                 "meaning": "who",
                 "usage_example": "¿Quién es esa persona?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Who is that person?",
                 "char_count": "4",
                 "usage_context_en": "Used as an interrogative pronoun to ask about a person.",
                 "usage_context_es": "Usado como pronombre interrogativo para preguntar sobre una persona.",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_11_def0.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_11_def0.avif",
+                "target_meaning_es": "¿Quién / Quiénes?"
             },
             {
-                "meaning": "who (def 2)",
+                "meaning": "who",
                 "usage_example": "El hombre que me llamó está aquí.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The man who called me is here.",
                 "char_count": "7",
                 "usage_context_en": "Used as a relative pronoun to introduce a clause about a person.",
                 "usage_context_es": "Usado como pronombre relativo para introducir una cláusula sobre una persona.",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_11_def1.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_11_def1.avif",
+                "target_meaning_es": "Que / Quien / El cual (para personas)"
             }
         ],
         "group_name": "Interrogativo/Relativo",
@@ -54,13 +56,14 @@
             {
                 "meaning": "me",
                 "usage_example": "Él me dio el libro (a mí).",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He gave me the book.",
                 "char_count": "5",
                 "usage_context_en": "The pronoun for the 1st person singular as the object.",
                 "usage_context_es": "El pronombre de la 1ª persona singular como objeto.",
-                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_7_def0.avif"
+                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_7_def0.avif",
+                "target_meaning_es": "Me / Mí"
             }
         ],
         "group_name": "Objeto",
@@ -82,24 +85,26 @@
             {
                 "meaning": "what",
                 "usage_example": "¿Cuál es tu nombre?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What is your name?",
                 "char_count": "4",
                 "usage_context_en": "Used as an interrogative word to ask for information (open choice).",
                 "usage_context_es": "Usado como palabra interrogativa para pedir información (elección abierta).",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_14_def0.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_14_def0.avif",
+                "target_meaning_es": "Qué / Cuál (pregunta)"
             },
             {
-                "meaning": "what (def 2)",
+                "meaning": "what",
                 "usage_example": "No sé qué hacer. (No sé lo que debo hacer).",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I don't know what to do.",
                 "char_count": "6",
                 "usage_context_en": "Used as a relative pronoun to refer to 'the thing(s) that'.",
                 "usage_context_es": "Usado como pronombre relativo para referirse a 'la(s) cosa(s) que'.",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_14_def1.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_14_def1.avif",
+                "target_meaning_es": "Lo que (pronombre relativo)"
             }
         ],
         "group_name": "Interrogativo/Relativo",
@@ -121,13 +126,14 @@
             {
                 "meaning": "him",
                 "usage_example": "Lo llamé ayer (a él).",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I called him yesterday.",
                 "char_count": "4",
                 "usage_context_en": "The pronoun for the 3rd person singular (male) as the object.",
                 "usage_context_es": "El pronombre de la 3ª persona singular (masculino) como objeto.",
-                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_8_def0.avif"
+                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_8_def0.avif",
+                "target_meaning_es": "Le / Lo / A él"
             }
         ],
         "group_name": "Objeto",
@@ -139,7 +145,7 @@
         "example": null,
         "learned": false,
         "learned_at": null,
-        "name": "¿Cuál / Cuáles?",
+        "name": "Qué / Cuál / Que",
         "phonetic": "",
         "spoken_phonetic_us": "",
         "search_term": "pronoun/interrogative/relative",
@@ -148,25 +154,27 @@
         "definitions": [
             {
                 "meaning": "which",
-                "usage_example": "¿Cuál color prefieres?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "usage_example": "¿Qué color prefieres?",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Which color do you prefer?",
                 "char_count": "5",
                 "usage_context_en": "Used as an interrogative word to ask about a limited choice.",
                 "usage_context_es": "Usado como palabra interrogativa para preguntar sobre una elección limitada.",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_13_def0.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_13_def0.avif",
+                "target_meaning_es": "¿Cuál / Cuáles?"
             },
             {
-                "meaning": "which (def 2)",
+                "meaning": "which",
                 "usage_example": "El carro que es rojo es mío.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The car which is red is mine.",
                 "char_count": "7",
                 "usage_context_en": "Used as a relative pronoun to introduce a clause about a thing.",
                 "usage_context_es": "Usado como pronombre relativo para introducir una cláusula sobre una cosa.",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_13_def1.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_13_def1.avif",
+                "target_meaning_es": "Que / El cual / La cual"
             }
         ],
         "group_name": "Interrogativo/Relativo",
@@ -188,13 +196,14 @@
             {
                 "meaning": "us",
                 "usage_example": "Él nos está esperando (a nosotros).",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He is waiting for us.",
                 "char_count": "5",
                 "usage_context_en": "The pronoun for the 1st person plural as the object.",
                 "usage_context_es": "El pronombre de la 1ª persona plural como objeto.",
-                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_10_def0.avif"
+                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_10_def0.avif",
+                "target_meaning_es": "Nos / Nosotros/as"
             }
         ],
         "group_name": "Objeto",
@@ -216,13 +225,14 @@
             {
                 "meaning": "them",
                 "usage_example": "No los conozco (a ellos).",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I don't know them.",
                 "char_count": "4",
                 "usage_context_en": "The pronoun for the 3rd person plural as the object.",
                 "usage_context_es": "El pronombre de la 3ª persona plural como objeto.",
-                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_11_def0.avif"
+                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_11_def0.avif",
+                "target_meaning_es": "Los / Las / Les / A ellos/as"
             }
         ],
         "group_name": "Objeto",
@@ -234,7 +244,7 @@
         "example": null,
         "learned": false,
         "learned_at": null,
-        "name": "Tú / Usted / Ustedes (Sujeto)",
+        "name": "Te / Lo / La / Le / A ti / A usted(es)",
         "phonetic": "",
         "spoken_phonetic_us": "",
         "search_term": "pronoun/subject/object",
@@ -243,28 +253,18 @@
         "definitions": [
             {
                 "meaning": "you",
-                "usage_example": "Tú eres mi amigo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
-                "alternative_example": "",
-                "usage_example_es": "You are my friend.",
-                "char_count": "4",
-                "usage_context_en": "The pronoun for the 2nd person (the listener) as the subject.",
-                "usage_context_es": "El pronombre de la 2ª persona (el oyente) como sujeto.",
-                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_1_def0.avif"
-            },
-            {
-                "meaning": "you (def 2)",
                 "usage_example": "Te ayudaré.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I will help you.",
                 "char_count": "4",
                 "usage_context_en": "The pronoun for the 2nd person (the listener) as the object.",
                 "usage_context_es": "El pronombre de la 2ª persona (el oyente) como objeto.",
-                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_1_def1.avif"
+                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_1_def1.avif",
+                "target_meaning_es": "Te / Ti / Le / A usted / Les / A ustedes (Objeto)"
             }
         ],
-        "group_name": "Subject",
+        "group_name": "Objeto",
         "category": "Basic"
     },
     {
@@ -273,7 +273,7 @@
         "example": null,
         "learned": false,
         "learned_at": null,
-        "name": "(Sujeto neutro) / Ello",
+        "name": "Lo / La",
         "phonetic": "",
         "spoken_phonetic_us": "",
         "search_term": "pronoun/subject/object",
@@ -282,28 +282,18 @@
         "definitions": [
             {
                 "meaning": "it",
-                "usage_example": "Hace frío afuera. (Ello está frío afuera).",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
-                "alternative_example": "",
-                "usage_example_es": "It is cold outside.",
-                "char_count": "4",
-                "usage_context_en": "The pronoun for the 3rd person singular (thing/animal) as the subject.",
-                "usage_context_es": "El pronombre de la 3ª persona singular (cosa/animal) como sujeto.",
-                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_4_def0.avif"
-            },
-            {
-                "meaning": "it (def 2)",
                 "usage_example": "No lo entiendo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I don't understand it.",
                 "char_count": "4",
                 "usage_context_en": "The pronoun for the 3rd person singular (thing/animal) as the object.",
                 "usage_context_es": "El pronombre de la 3ª persona singular (cosa/animal) como objeto.",
-                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_4_def1.avif"
+                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_4_def1.avif",
+                "target_meaning_es": "Lo / La (Objeto neutro)"
             }
         ],
-        "group_name": "Subject",
+        "group_name": "Objeto",
         "category": "Basic"
     },
     {
@@ -312,7 +302,7 @@
         "example": null,
         "learned": false,
         "learned_at": null,
-        "name": "La / Le / A ella (Objeto)",
+        "name": "La / Le / A ella",
         "phonetic": "",
         "spoken_phonetic_us": "",
         "search_term": "pronoun/object/possessive-adjective",
@@ -322,24 +312,14 @@
             {
                 "meaning": "her",
                 "usage_example": "La conozco (a ella).",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I know her.",
                 "char_count": "3",
                 "usage_context_en": "The pronoun for the 3rd person singular (female) as the object.",
                 "usage_context_es": "El pronombre de la 3ª persona singular (femenino) como objeto.",
-                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_9_def0.avif"
-            },
-            {
-                "meaning": "her (def 2)",
-                "usage_example": "Este es su libro (de ella).",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
-                "alternative_example": "",
-                "usage_example_es": "This is her book.",
-                "char_count": "4",
-                "usage_context_en": "The possessive determiner for the 3rd person singular (female).",
-                "usage_context_es": "El determinante posesivo de la 3ª persona singular (femenino).",
-                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_9_def1.avif"
+                "imagePath": "/card_images/pronouns/1-basic/1-basic_card_9_def0.avif",
+                "target_meaning_es": "La / Le / A ella (Objeto)"
             }
         ],
         "group_name": "Objeto",

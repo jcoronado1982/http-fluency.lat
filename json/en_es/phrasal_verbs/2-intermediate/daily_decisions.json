@@ -15,13 +15,14 @@
             {
                 "meaning": "pick out",
                 "usage_example": "Necesito elegir un regalo para mi mamá.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I need to pick out a gift for my mom.",
                 "char_count": "one",
                 "usage_context_en": "shopping/decisions",
                 "usage_context_es": "compras/decisiones",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_4_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_4_def0.avif",
+                "target_meaning_es": "Elegir, seleccionar (de un grupo)"
             }
         ],
         "group_name": "Phrasal Verbs: Pick",
@@ -43,13 +44,14 @@
             {
                 "meaning": "pick at",
                 "usage_example": "Ella solo está picoteando su comida.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She is just picking at her food.",
                 "char_count": "one",
                 "usage_context_en": "eating/health",
                 "usage_context_es": "comer/salud",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_6_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_6_def0.avif",
+                "target_meaning_es": "Picotear (comida, comer sin ganas)"
             }
         ],
         "group_name": "Phrasal Verbs: Pick",
@@ -71,24 +73,26 @@
             {
                 "meaning": "take up",
                 "usage_example": "Estoy pensando en empezar a hacer yoga.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I'm thinking of taking up yoga.",
                 "char_count": "one",
                 "usage_context_en": "hobbies/starting",
                 "usage_context_es": "pasatiempos/empezar",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_29_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_29_def0.avif",
+                "target_meaning_es": "Empezar (un hobby, actividad)"
             },
             {
-                "meaning": "take up (def 2)",
+                "meaning": "take up",
                 "usage_example": "Este nuevo sofá ocupa mucho espacio.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "This new sofa takes up a lot of space.",
                 "char_count": "one",
                 "usage_context_en": "space/time/occupation",
                 "usage_context_es": "espacio/tiempo/ocupar",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_29_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_29_def1.avif",
+                "target_meaning_es": "Ocupar (espacio o tiempo)"
             }
         ],
         "group_name": "Phrasal Verbs: Take",
@@ -110,13 +114,14 @@
             {
                 "meaning": "drop out (of)",
                 "usage_example": "Él abandonó la universidad después de un semestre.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He dropped out of college after one semester.",
                 "char_count": "one",
                 "usage_context_en": "school/education/quit",
                 "usage_context_es": "colegio/educación/abandonar",
-                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_32_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/1-basic/1-basic_card_32_def0.avif",
+                "target_meaning_es": "Abandonar (estudios, una carrera)"
             }
         ],
         "group_name": "Phrasal Verbs: Drop",
@@ -138,24 +143,26 @@
             {
                 "meaning": "give up",
                 "usage_example": "No te rindas.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Don’t give up.",
                 "char_count": "one",
                 "usage_context_en": "motivation/effort",
                 "usage_context_es": "motivación/esfuerzo",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Rendirse / Dejar de intentar"
             },
             {
-                "meaning": "give up (def 2)",
+                "meaning": "give up",
                 "usage_example": "Él dejó de fumar.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He gave up smoking.",
                 "char_count": "one",
                 "usage_context_en": "habits/health",
                 "usage_context_es": "hábitos/salud",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Dejar un hábito"
             }
         ],
         "group_name": "Phrasal Verbs: Give",
@@ -177,24 +184,26 @@
             {
                 "meaning": "put off",
                 "usage_example": "Nunca dejes para mañana lo que puedes hacer hoy.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Never put off until tomorrow what you can do today.",
                 "char_count": "one",
                 "usage_context_en": "procrastination/planning",
                 "usage_context_es": "procrastinación/planificación",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_8_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_8_def0.avif",
+                "target_meaning_es": "Posponer, aplazar"
             },
             {
-                "meaning": "put off (def 2)",
+                "meaning": "put off",
                 "usage_example": "El mal olor me quitó las ganas de comer.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The bad smell put me off the food.",
                 "char_count": "one",
                 "usage_context_en": "feelings/dislike",
                 "usage_context_es": "sentimientos/disgusto",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_8_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_8_def1.avif",
+                "target_meaning_es": "Desanimar, disuadir (a alguien)"
             }
         ],
         "group_name": "Phrasal Verbs: Put",
@@ -216,13 +225,14 @@
             {
                 "meaning": "give in",
                 "usage_example": "Ella finalmente cedió.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She finally gave in.",
                 "char_count": "one",
                 "usage_context_en": "pressure/negotiation",
                 "usage_context_es": "presión/negociación",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Ceder / Rendirse ante presión"
             }
         ],
         "group_name": "Phrasal Verbs: Give",
@@ -244,13 +254,14 @@
             {
                 "meaning": "put up with",
                 "usage_example": "Ya no puedo soportar sus excusas.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I can't put up with his excuses anymore.",
                 "char_count": "one",
                 "usage_context_en": "tolerance/frustration",
                 "usage_context_es": "tolerancia/frustración",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_10_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_10_def0.avif",
+                "target_meaning_es": "Soportar, aguantar (algo o a alguien)"
             }
         ],
         "group_name": "Phrasal Verbs: Put",
@@ -272,13 +283,14 @@
             {
                 "meaning": "work around",
                 "usage_example": "La función está rota, pero podemos encontrar una alternativa.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The feature is broken, but we can work around it.",
                 "char_count": "one",
                 "usage_context_en": "problem solving/bypass",
                 "usage_context_es": "resolver problemas/evitar",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_44_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_44_def0.avif",
+                "target_meaning_es": "Evitar (un problema), encontrar una alternativa"
             }
         ],
         "group_name": "Phrasal Verbs: Work",

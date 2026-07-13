@@ -15,13 +15,14 @@
             {
                 "meaning": "influence",
                 "usage_example": "Su opinión influyó en mi decisión.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "His opinion influenced my decision.",
                 "char_count": "three",
                 "usage_context_en": "effect/decision",
                 "usage_context_es": "efecto/decisión",
-                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_17_def0.avif"
+                "imagePath": "/card_images/verbs/3-advanced/3-advanced_card_17_def0.avif",
+                "target_meaning_es": "Influir/Influenciar"
             }
         ],
         "group_name": "Influence & Change",

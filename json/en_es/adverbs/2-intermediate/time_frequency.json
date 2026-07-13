@@ -15,13 +15,14 @@
             {
                 "meaning": "already",
                 "usage_example": "Ya he comido.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I have already eaten.",
                 "char_count": 4,
                 "usage_context_en": "Before or by now; sooner than expected.",
                 "usage_context_es": "Antes o por ahora; más pronto de lo esperado.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Ya"
             }
         ],
         "group_name": "Adverbs: Time",
@@ -43,13 +44,14 @@
             {
                 "meaning": "still",
                 "usage_example": "¿Todavía estás aquí?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Are you still here?",
                 "char_count": 4,
                 "usage_context_en": "Continuing to happen or be in a situation up to the present time.",
                 "usage_context_es": "Que continúa sucediendo o estando en una situación hasta el tiempo presente.",
-                "imagePath": "/card_images/adverbs/1-basic/1-basic_card_27_def0.avif"
+                "imagePath": "/card_images/adverbs/1-basic/1-basic_card_27_def0.avif",
+                "target_meaning_es": "Todavía / Aún"
             }
         ],
         "group_name": "Adverbs: Time",
@@ -71,13 +73,14 @@
             {
                 "meaning": "recently",
                 "usage_example": "Lo vi recientemente.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I saw him recently.",
                 "char_count": "4",
                 "usage_context_en": "At a recent time; not long ago.",
                 "usage_context_es": "En un tiempo reciente; no hace mucho.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Recientemente / Hace poco"
             }
         ],
         "group_name": "Adverbs: Time",
@@ -99,13 +102,14 @@
             {
                 "meaning": "eventually",
                 "usage_example": "Él finalmente encontró sus llaves.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He eventually found his keys.",
                 "char_count": "5",
                 "usage_context_en": "In the end, especially after a long time or much effort.",
                 "usage_context_es": "Al final, especialmente después de mucho tiempo o mucho esfuerzo.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Finalmente / Al final"
             }
         ],
         "group_name": "Adverbs: Time",
@@ -127,13 +131,14 @@
             {
                 "meaning": "forever",
                 "usage_example": "Te amaré para siempre.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I will love you forever.",
                 "char_count": "5",
                 "usage_context_en": "For all future time; for eternity.",
                 "usage_context_es": "Por todo el tiempo futuro; por la eternidad.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Para siempre"
             }
         ],
         "group_name": "Adverbs: Time",
@@ -155,24 +160,26 @@
             {
                 "meaning": "finally",
                 "usage_example": "Primero, mezcla la harina. Por último, hornea el pastel.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "First, mix the flour. Finally, bake the cake.",
                 "char_count": "7",
                 "usage_context_en": "Used to introduce the last item in a sequence.",
                 "usage_context_es": "Usado para introducir el último ítem en una secuencia.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Por último / Finalmente (secuencia)"
             },
             {
-                "meaning": "finally (def 2)",
+                "meaning": "finally",
                 "usage_example": "Después de tres horas, por fin llegó.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "After three hours, he finally arrived.",
                 "char_count": "6",
                 "usage_context_en": "After a long time, typically after difficulty or delay.",
                 "usage_context_es": "Después de mucho tiempo, típicamente después de dificultad o retraso.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Por fin / Finalmente (resultado)"
             }
         ],
         "group_name": "Adverbs: Time",
@@ -194,13 +201,14 @@
             {
                 "meaning": "rarely",
                 "usage_example": "Él rara vez va al cine.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He rarely goes to the cinema.",
                 "char_count": "6",
                 "usage_context_en": "Not often; seldom (approx. 5-10% of the time).",
                 "usage_context_es": "No a menudo; pocas veces (aprox. 5-10% del tiempo).",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Rara vez / Casi nunca"
             }
         ],
         "group_name": "Adverbs: Frequency",
@@ -222,13 +230,14 @@
             {
                 "meaning": "generally",
                 "usage_example": "Generalmente me despierto temprano.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I generally wake up early.",
                 "char_count": 5,
                 "usage_context_en": "Usually; in most cases.",
                 "usage_context_es": "Usualmente; en la mayoría de los casos.",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Generalmente / Por lo general"
             }
         ],
         "group_name": "Adverbs: Frequency",

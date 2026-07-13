@@ -15,13 +15,14 @@
             {
                 "meaning": "celebration",
                 "usage_example": "Tuvimos una pequeña celebración.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We had a small celebration.",
                 "char_count": "5",
                 "usage_context_en": "The action of marking a special day, event, or victory.",
                 "usage_context_es": "La acción de conmemorar un día especial, evento o victoria.",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_241_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_241_def0.avif",
+                "target_meaning_es": "Celebración"
             }
         ],
         "group_name": "General Concepts",
@@ -43,13 +44,14 @@
             {
                 "meaning": "fashion",
                 "usage_example": "Ella siempre sigue la última moda.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She always follows the latest fashion.",
                 "char_count": "two",
                 "usage_context_en": "The style of clothes that is popular right now",
                 "usage_context_es": "El estilo de ropa que es popular en este momento",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Moda"
             }
         ],
         "group_name": "General Concepts",

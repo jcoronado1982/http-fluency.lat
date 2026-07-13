@@ -186,6 +186,16 @@ impl UserRepository for NullDbRepository {
         ))
     }
 
+    async fn update_study_language(
+        &self,
+        _email: &str,
+        _study_language: &str,
+    ) -> Result<Option<User>> {
+        Err(anyhow!(
+            "Preferencias no disponibles: DB no configurada en este entorno"
+        ))
+    }
+
     async fn reset_all_catalog_preferences(&self) -> Result<u64> {
         Ok(0)
     }

@@ -15,13 +15,14 @@
             {
                 "meaning": "mine",
                 "usage_example": "Este libro es mío.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "This book is mine.",
                 "char_count": "4",
                 "usage_context_en": "The possessive pronoun for 'I'. (It is not followed by a noun).",
                 "usage_context_es": "El pronombre posesivo para 'Yo'. (No va seguido de un sustantivo).",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_5_def0.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_5_def0.avif",
+                "target_meaning_es": "Mío / Mía / Míos / Mías"
             }
         ],
         "group_name": "Posesivo (Pronombre)",
@@ -43,13 +44,14 @@
             {
                 "meaning": "yours",
                 "usage_example": "¿Es este abrigo tuyo?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Is this coat yours?",
                 "char_count": "4",
                 "usage_context_en": "The possessive pronoun for 'you'. (It is not followed by a noun).",
                 "usage_context_es": "El pronombre posesivo para 'tú/usted'. (No va seguido de un sustantivo).",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_6_def0.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_6_def0.avif",
+                "target_meaning_es": "Tuyo / Tuya / Suyo / Suya (de usted)"
             }
         ],
         "group_name": "Posesivo (Pronombre)",
@@ -71,13 +73,14 @@
             {
                 "meaning": "hers",
                 "usage_example": "El abrigo azul es suyo (de ella).",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The blue coat is hers.",
                 "char_count": "5",
                 "usage_context_en": "The possessive pronoun for 'she'. (It is not followed by a noun).",
                 "usage_context_es": "El pronombre posesivo para 'ella'. (No va seguido de un sustantivo).",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_8_def0.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_8_def0.avif",
+                "target_meaning_es": "Suyo / Suya / Suyos / Suyas (de ella)"
             }
         ],
         "group_name": "Posesivo (Pronombre)",
@@ -99,13 +102,14 @@
             {
                 "meaning": "ours",
                 "usage_example": "Esa casa es nuestra.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "That house is ours.",
                 "char_count": "4",
                 "usage_context_en": "The possessive pronoun for 'we'. (It is not followed by a noun).",
                 "usage_context_es": "El pronombre posesivo para 'nosotros'. (No va seguido de un sustantivo).",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_9_def0.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_9_def0.avif",
+                "target_meaning_es": "Nuestro / Nuestra / Nuestros / Nuestras"
             }
         ],
         "group_name": "Posesivo (Pronombre)",
@@ -127,13 +131,14 @@
             {
                 "meaning": "theirs",
                 "usage_example": "El carro más grande es suyo (de ellos).",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The biggest car is theirs.",
                 "char_count": "5",
                 "usage_context_en": "The possessive pronoun for 'they'. (It is not followed by a noun).",
                 "usage_context_es": "El pronombre posesivo para 'ellos/ellas'. (No va seguido de un sustantivo).",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_10_def0.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_10_def0.avif",
+                "target_meaning_es": "Suyo / Suya / Suyos / Suyas (de ellos/ellas)"
             }
         ],
         "group_name": "Posesivo (Pronombre)",
@@ -145,7 +150,7 @@
         "example": null,
         "learned": false,
         "learned_at": null,
-        "name": "Su / Sus (de él) (Determinante)",
+        "name": "Suyo / Suya / Suyos / Suyas (de él)",
         "phonetic": "",
         "spoken_phonetic_us": "",
         "search_term": "pronoun/possessive-adjective/possessive-pronoun",
@@ -154,25 +159,15 @@
         "definitions": [
             {
                 "meaning": "his",
-                "usage_example": "Ese es su carro (el carro de él).",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
-                "alternative_example": "",
-                "usage_example_es": "That is his car.",
-                "char_count": "4",
-                "usage_context_en": "The possessive determiner for 'he' (followed by a noun).",
-                "usage_context_es": "El determinante posesivo para 'él' (seguido de un sustantivo).",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_7_def0.avif"
-            },
-            {
-                "meaning": "his (def 2)",
                 "usage_example": "El carro rojo es suyo (de él).",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The red car is his.",
                 "char_count": "5",
                 "usage_context_en": "The possessive pronoun for 'he'. (It is not followed by a noun).",
                 "usage_context_es": "El pronombre posesivo para 'él'. (No va seguido de un sustantivo).",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_7_def1.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_7_def1.avif",
+                "target_meaning_es": "Suyo / Suyos (de él) (Pronombre)"
             }
         ],
         "group_name": "Posesivo (Pronombre)",
@@ -194,13 +189,14 @@
             {
                 "meaning": "my own",
                 "usage_example": "Lo vi con mis propios ojos.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I saw it with my own eyes.",
                 "char_count": "6",
                 "usage_context_en": "Used to emphasize possession ('my').",
                 "usage_context_es": "Usado para enfatizar posesión ('mi').",
-                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_29_def0.avif"
+                "imagePath": "/card_images/pronouns/2-intermediate/2-intermediate_card_29_def0.avif",
+                "target_meaning_es": "Mi propio/a"
             }
         ],
         "group_name": "Posesivo (Pronombre)",

@@ -15,13 +15,14 @@
             {
                 "meaning": "week",
                 "usage_example": "Hay siete días en una semana.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "There are seven days in a week.",
                 "char_count": "one",
                 "usage_context_en": "A period of 7 days",
                 "usage_context_es": "Un período de 7 días",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_87_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_87_def0.avif",
+                "target_meaning_es": "Semana"
             }
         ],
         "group_name": "Time",
@@ -43,13 +44,14 @@
             {
                 "meaning": "Monday",
                 "usage_example": "Empiezo a trabajar el lunes.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I start work on Monday.",
                 "char_count": "two",
                 "usage_context_en": "The first day of the working week",
                 "usage_context_es": "El primer día de la semana laboral",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_123_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_123_def0.avif",
+                "target_meaning_es": "Lunes"
             }
         ],
         "group_name": "Days of the Week",
@@ -71,13 +73,14 @@
             {
                 "meaning": "Tuesday",
                 "usage_example": "Nos vemos el martes.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "See you on Tuesday.",
                 "char_count": "two",
                 "usage_context_en": "The day after Monday",
                 "usage_context_es": "El día después del lunes",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_124_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_124_def0.avif",
+                "target_meaning_es": "Martes"
             }
         ],
         "group_name": "Days of the Week",
@@ -99,13 +102,14 @@
             {
                 "meaning": "Wednesday",
                 "usage_example": "Tenemos una reunión el miércoles.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We have a meeting on Wednesday.",
                 "char_count": "two",
                 "usage_context_en": "The day after Tuesday",
                 "usage_context_es": "El día después del martes",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_125_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_125_def0.avif",
+                "target_meaning_es": "Miércoles"
             }
         ],
         "group_name": "Days of the Week",
@@ -127,13 +131,14 @@
             {
                 "meaning": "Thursday",
                 "usage_example": "La fiesta es el jueves.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The party is on Thursday.",
                 "char_count": "two",
                 "usage_context_en": "The day after Wednesday",
                 "usage_context_es": "El día después del miércoles",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_126_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_126_def0.avif",
+                "target_meaning_es": "Jueves"
             }
         ],
         "group_name": "Days of the Week",
@@ -155,13 +160,14 @@
             {
                 "meaning": "Friday",
                 "usage_example": "Me encanta el viernes.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I love Friday.",
                 "char_count": "two",
                 "usage_context_en": "The day after Thursday",
                 "usage_context_es": "El día después del jueves",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_127_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_127_def0.avif",
+                "target_meaning_es": "Viernes"
             }
         ],
         "group_name": "Days of the Week",
@@ -183,13 +189,14 @@
             {
                 "meaning": "Saturday",
                 "usage_example": "Jugamos al fútbol el sábado.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We play soccer on Saturday.",
                 "char_count": "three",
                 "usage_context_en": "The day after Friday (weekend)",
                 "usage_context_es": "El día después del viernes (fin de semana)",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_128_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_128_def0.avif",
+                "target_meaning_es": "Sábado"
             }
         ],
         "group_name": "Days of the Week",
@@ -211,13 +218,14 @@
             {
                 "meaning": "Sunday",
                 "usage_example": "El domingo es un día de descanso.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Sunday is a day of rest.",
                 "char_count": "two",
                 "usage_context_en": "The day after Saturday (weekend)",
                 "usage_context_es": "El día después del sábado (fin de semana)",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_129_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_129_def0.avif",
+                "target_meaning_es": "Domingo"
             }
         ],
         "group_name": "Days of the Week",
@@ -239,13 +247,14 @@
             {
                 "meaning": "weekend",
                 "usage_example": "¿Qué vas a hacer este fin de semana?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What are you doing this weekend?",
                 "char_count": "two",
                 "usage_context_en": "Saturday and Sunday",
                 "usage_context_es": "Sábado y domingo",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_130_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_130_def0.avif",
+                "target_meaning_es": "Fin de semana"
             }
         ],
         "group_name": "Time",

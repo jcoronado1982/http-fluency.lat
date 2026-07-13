@@ -198,6 +198,7 @@ export default function FlashcardPage() {
         card: upcomingCard,
         category: currentCategory,
         deckName: currentDeckName,
+        studyLanguage,
         enabled: Boolean(currentCard),
     });
     const isPronounsCategory = currentCategory === 'pronouns';

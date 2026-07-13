@@ -23,7 +23,7 @@ const PREFETCH_DELAY_MS = 600;
  * - no corre con la pestaña oculta;
  * - carga neta del servidor ~cero: el resolve on-view se ahorra vía caché.
  */
-export function useNextImagePrefetch({ imagePort, card, category, deckName, enabled = true }) {
+export function useNextImagePrefetch({ imagePort, card, category, deckName, studyLanguage = 'en', enabled = true }) {
     const cardId = card?.id;
     const forceGeneration = Boolean(card?.force_generation);
 
@@ -31,18 +31,38 @@ export function useNextImagePrefetch({ imagePort, card, category, deckName, enab
         if (!enabled || !imagePort || !category || !deckName) return undefined;
         if (cardId === undefined || cardId === null || forceGeneration) return undefined;
 
-        const key = makePrefetchKey({ category, deck: deckName, cardId, defIndex: 0, form: 'v1' });
+        const preferredPath = card?.definitions?.[0]?.imagePath || null;
+        const key = makePrefetchKey({
+            category,
+            deck: deckName,
+            cardId,
+            defIndex: 0,
+            form: 'v1',
+            studyLanguage,
+        });
         if (hasPrefetchEntry(key)) return undefined;
 
         let cancelled = false;
         const timer = setTimeout(async () => {
             if (cancelled || document.visibilityState === 'hidden') return;
             try {
+                if (preferredPath) {
+                    setPrefetchedImagePath(key, preferredPath);
+                    imagePort.preloadImage(preferredPath).catch(() => {});
+                    return;
+                }
+                // Nunca resolver en_es por índice: los mazos inversos no tienen
+                // garantizado el mismo orden que es_en.
+                if (studyLanguage === 'es') {
+                    setPrefetchedImagePath(key, null);
+                    return;
+                }
                 const data = await imagePort.resolve({
                     category,
                     deck: deckName,
                     index: cardId,
                     defIndex: 0,
+                    courseDirection: studyLanguage === 'es' ? 'en_es' : 'es_en',
                 });
                 if (cancelled || !data?.path) {
                     setPrefetchedImagePath(key, data?.path ?? null);
@@ -62,5 +82,5 @@ export function useNextImagePrefetch({ imagePort, card, category, deckName, enab
             cancelled = true;
             clearTimeout(timer);
         };
-    }, [enabled, imagePort, category, deckName, cardId, forceGeneration]);
+    }, [enabled, imagePort, category, deckName, card, cardId, forceGeneration, studyLanguage]);
 }

@@ -10,6 +10,11 @@ pub trait UserRepository: Send + Sync {
     async fn get_user_by_email(&self, email: &str) -> Result<Option<User>>;
     async fn upsert_user(&self, user: User) -> Result<User>;
     async fn set_onboarding_completed(&self, email: &str, completed: bool) -> Result<Option<User>>;
+    async fn update_study_language(
+        &self,
+        email: &str,
+        study_language: &str,
+    ) -> Result<Option<User>>;
     async fn update_catalog_preferences(
         &self,
         email: &str,
@@ -78,7 +83,6 @@ pub trait CardProgressRepository: Send + Sync {
         &self,
         user_id: &str,
     ) -> Result<Vec<(String, String, i32, Option<chrono::DateTime<chrono::Utc>>)>>;
-
 
     /// Guarda el estado de múltiples tarjetas en una sola operación.
     /// Reduce N peticiones HTTP a 1 cuando el frontend hace flush del lote.

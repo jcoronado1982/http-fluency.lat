@@ -15,13 +15,14 @@
             {
                 "meaning": "agenda",
                 "usage_example": "¿Qué hay en la agenda hoy?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What is on the agenda today?",
                 "char_count": "6",
                 "usage_context_en": "A list of items to be discussed at a formal meeting.",
                 "usage_context_es": "Una lista de temas a discutir en una reunión formal.",
-                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_7_def0.avif"
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_7_def0.avif",
+                "target_meaning_es": "Agenda / Orden del día"
             }
         ],
         "group_name": "General Concepts",
@@ -43,13 +44,14 @@
             {
                 "meaning": "misunderstanding",
                 "usage_example": "Todo fue un malentendido.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It was all a misunderstanding.",
                 "char_count": "5",
                 "usage_context_en": "A failure to understand something correctly.",
                 "usage_context_es": "Un fallo en entender algo correctamente.",
-                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_78_def0.avif"
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_78_def0.avif",
+                "target_meaning_es": "Malentendido"
             }
         ],
         "group_name": "General Concepts",
@@ -71,13 +73,14 @@
             {
                 "meaning": "schedule",
                 "usage_example": "¿Cuál es tu horario para hoy?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What is your schedule for today?",
                 "char_count": "6",
                 "usage_context_en": "A plan for carrying out a process or procedure, giving lists of intended events and times.",
                 "usage_context_es": "Un plan para llevar a cabo un proceso, dando listas de eventos y horas previstas.",
-                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_102_def0.avif"
+                "imagePath": "/card_images/nouns/3-advanced/3-advanced_card_102_def0.avif",
+                "target_meaning_es": "Horario / Agenda / Programa"
             }
         ],
         "group_name": "General Concepts",

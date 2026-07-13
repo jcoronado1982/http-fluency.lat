@@ -14,6 +14,8 @@ pub struct Claims {
     pub sub: String,
     pub email: String,
     pub name: String,
+    #[serde(default)]
+    pub picture: Option<String>,
     pub role: String,
     pub exp: usize,
 }
@@ -116,6 +118,7 @@ impl AuthUseCases {
                         "viewer".to_string()
                     },
                     onboarding_completed: false,
+                    study_language: None,
                     catalog_preferences: None,
                     created_at: Utc::now(),
                     last_login: Utc::now(),
@@ -143,12 +146,19 @@ impl AuthUseCases {
         Ok(AuthResponse { token, user })
     }
 
-    pub async fn apple_login(&self, id_token: &str, user_name: Option<&str>) -> Result<AuthResponse> {
+    pub async fn apple_login(
+        &self,
+        id_token: &str,
+        user_name: Option<&str>,
+    ) -> Result<AuthResponse> {
         // 1. Validar token de Apple (usa JWKS de Apple cacheado)
         let payload = self.validate_apple_token(id_token).await?;
 
         // Si el email no viene en el token (poco probable, pero por si acaso), usamos un email derivado del sub
-        let email = payload.email.clone().unwrap_or_else(|| format!("{}@appleid.com", payload.sub));
+        let email = payload
+            .email
+            .clone()
+            .unwrap_or_else(|| format!("{}@appleid.com", payload.sub));
 
         let is_super_admin = !self.super_admin_email.is_empty()
             && self.super_admin_email.to_lowercase() == email.to_lowercase();
@@ -166,9 +176,10 @@ impl AuthUseCases {
             .map(|n| n.to_string())
             .filter(|s| !s.trim().is_empty())
             .unwrap_or_else(|| {
-                user_opt.as_ref().map(|u| u.name.clone()).unwrap_or_else(|| {
-                    email.split('@').next().unwrap_or("Apple User").to_string()
-                })
+                user_opt
+                    .as_ref()
+                    .map(|u| u.name.clone())
+                    .unwrap_or_else(|| email.split('@').next().unwrap_or("Apple User").to_string())
             });
 
         // 3. Upsert del usuario
@@ -193,6 +204,7 @@ impl AuthUseCases {
                         "viewer".to_string()
                     },
                     onboarding_completed: false,
+                    study_language: None,
                     catalog_preferences: None,
                     created_at: Utc::now(),
                     last_login: Utc::now(),
@@ -256,6 +268,9 @@ impl AuthUseCases {
         let user = match existing {
             Some(mut user) => {
                 user.name = claims.name.clone();
+                if claims.picture.is_some() {
+                    user.picture = claims.picture.clone();
+                }
                 user.role = claims.role.clone();
                 user.last_login = now;
                 user.onboarding_completed = onboarding_completed;
@@ -265,9 +280,10 @@ impl AuthUseCases {
                 id: None,
                 email: claims.email.clone(),
                 name: claims.name.clone(),
-                picture: None,
+                picture: claims.picture.clone(),
                 role: claims.role.clone(),
                 onboarding_completed,
+                study_language: None,
                 catalog_preferences: None,
                 created_at: now,
                 last_login: now,
@@ -284,6 +300,16 @@ impl AuthUseCases {
     ) -> Result<Option<User>> {
         self.user_repo
             .update_catalog_preferences(email, preferences)
+            .await
+    }
+
+    pub async fn update_study_language(
+        &self,
+        email: &str,
+        study_language: &str,
+    ) -> Result<Option<User>> {
+        self.user_repo
+            .update_study_language(email, study_language)
             .await
     }
 
@@ -534,6 +560,7 @@ impl AuthUseCases {
             sub: user.email.clone(),
             email: user.email.clone(),
             name: user.name.clone(),
+            picture: user.picture.clone(),
             role: user.role.clone(),
             exp: expiration,
         };
@@ -557,6 +584,7 @@ impl AuthUseCases {
             picture: None,
             role: "admin".to_string(),
             onboarding_completed: false,
+            study_language: Some("en".to_string()),
             catalog_preferences: None,
             created_at: now,
             last_login: now,
@@ -572,6 +600,7 @@ impl AuthUseCases {
                 sub: "guest@local.dev".to_string(),
                 email: "guest@local.dev".to_string(),
                 name: "Invitado Local".to_string(),
+                picture: None,
                 role: "admin".to_string(),
                 exp: usize::MAX,
             });

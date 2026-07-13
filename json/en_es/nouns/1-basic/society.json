@@ -15,13 +15,14 @@
             {
                 "meaning": "law",
                 "usage_example": "Debes seguir la ley.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "You must follow the law.",
                 "char_count": "one",
                 "usage_context_en": "The system of rules in a country",
                 "usage_context_es": "El sistema de reglas en un país",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_319_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_319_def0.avif",
+                "target_meaning_es": "Ley"
             }
         ],
         "group_name": "Society",
@@ -43,13 +44,14 @@
             {
                 "meaning": "government",
                 "usage_example": "El gobierno hizo una nueva ley.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The government made a new law.",
                 "char_count": "three",
                 "usage_context_en": "The group of people who control a country",
                 "usage_context_es": "El grupo de personas que controla un país",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_320_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_320_def0.avif",
+                "target_meaning_es": "Gobierno"
             }
         ],
         "group_name": "Society",
@@ -71,13 +73,14 @@
             {
                 "meaning": "president",
                 "usage_example": "El presidente de la compañía.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The president of the company.",
                 "char_count": "three",
                 "usage_context_en": "The leader of a country or company",
                 "usage_context_es": "El líder de un país o compañía",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_321_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_321_def0.avif",
+                "target_meaning_es": "Presidente"
             }
         ],
         "group_name": "Society",
@@ -99,13 +102,14 @@
             {
                 "meaning": "war",
                 "usage_example": "La guerra es una cosa terrible.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "War is a terrible thing.",
                 "char_count": "one",
                 "usage_context_en": "A conflict between countries with armies",
                 "usage_context_es": "Un conflicto entre países con ejércitos",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_322_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_322_def0.avif",
+                "target_meaning_es": "Guerra"
             }
         ],
         "group_name": "Society",
@@ -127,13 +131,14 @@
             {
                 "meaning": "peace",
                 "usage_example": "Todos queremos la paz.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We all want peace.",
                 "char_count": "one",
                 "usage_context_en": "A time without war; calm",
                 "usage_context_es": "Un tiempo sin guerra; calma",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_323_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_323_def0.avif",
+                "target_meaning_es": "Paz"
             }
         ],
         "group_name": "Society",

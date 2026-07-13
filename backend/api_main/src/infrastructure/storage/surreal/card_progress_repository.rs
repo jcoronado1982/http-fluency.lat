@@ -224,4 +224,3 @@ impl CardProgressRepository for SurrealCardProgressRepository {
             .collect())
     }
 }
-

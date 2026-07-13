@@ -15,13 +15,14 @@
             {
                 "meaning": "account for",
                 "usage_example": "¿Cómo explicas este error?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "How do you account for this mistake?",
                 "char_count": "one",
                 "usage_context_en": "explanation/justification",
                 "usage_context_es": "explicación/justificación",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Explicar / Justificar"
             }
         ],
         "group_name": "Phrasal Verbs: Account",
@@ -43,24 +44,26 @@
             {
                 "meaning": "add up",
                 "usage_example": "Su historia no tiene sentido.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "His story does not add up.",
                 "char_count": "one",
                 "usage_context_en": "logic/consistency",
                 "usage_context_es": "lógica/coherencia",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Tener sentido"
             },
             {
-                "meaning": "add up (def 2)",
+                "meaning": "add up",
                 "usage_example": "Los números suman 100.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The numbers add up to 100.",
                 "char_count": "one",
                 "usage_context_en": "math/total",
                 "usage_context_es": "matemáticas/total",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Sumar / Dar un total"
             }
         ],
         "group_name": "Phrasal Verbs: Add",
@@ -82,13 +85,14 @@
             {
                 "meaning": "come down to",
                 "usage_example": "Todo se reduce al dinero.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It comes down to money.",
                 "char_count": "one",
                 "usage_context_en": "summary/core reason",
                 "usage_context_es": "resumen/razón central",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Reducirse a / Depender de"
             }
         ],
         "group_name": "Phrasal Verbs: Come",
@@ -110,24 +114,26 @@
             {
                 "meaning": "stand for",
                 "usage_example": "¿Qué representa este símbolo?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What does this symbol stand for?",
                 "char_count": "one",
                 "usage_context_en": "meaning/symbols",
                 "usage_context_es": "significado/símbolos",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Representar / Significar"
             },
             {
-                "meaning": "stand for (def 2)",
+                "meaning": "stand for",
                 "usage_example": "Ella defiende la igualdad.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She stands for equality.",
                 "char_count": "one",
                 "usage_context_en": "values/principles",
                 "usage_context_es": "valores/principios",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Defender / Apoyar un principio"
             }
         ],
         "group_name": "Phrasal Verbs: Stand",
@@ -149,13 +155,14 @@
             {
                 "meaning": "make of",
                 "usage_example": "¿Qué entiendes de este email? / ¿Qué opinas?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What do you make of this email?",
                 "char_count": "one",
                 "usage_context_en": "opinion/interpretation",
                 "usage_context_es": "opinión/interpretación",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_1_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_1_def0.avif",
+                "target_meaning_es": "Entender, opinar sobre (interpretar)"
             }
         ],
         "group_name": "Phrasal Verbs: Make",
@@ -177,24 +184,26 @@
             {
                 "meaning": "make out",
                 "usage_example": "Los vi besándose en el auto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I saw them making out in the car.",
                 "char_count": "one",
                 "usage_context_en": "romance/kissing",
                 "usage_context_es": "romance/besarse",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_0_def0.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_0_def0.avif",
+                "target_meaning_es": "Besarse (apasionadamente)"
             },
             {
-                "meaning": "make out (def 2)",
+                "meaning": "make out",
                 "usage_example": "Está muy oscuro. No puedo distinguir la matrícula.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "It's too dark. I can't make out the license plate.",
                 "char_count": "one",
                 "usage_context_en": "vision/hearing/understanding",
                 "usage_context_es": "visión/oído/entendimiento",
-                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_0_def1.avif"
+                "imagePath": "/card_images/phrasal_verbs/3-advanced/3-advanced_card_0_def1.avif",
+                "target_meaning_es": "Distinguir, descifrar (con dificultad)"
             }
         ],
         "group_name": "Phrasal Verbs: Make",

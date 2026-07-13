@@ -15,13 +15,14 @@
             {
                 "meaning": "steel",
                 "usage_example": "El puente está hecho de acero.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The bridge is made of steel.",
                 "char_count": "6",
                 "usage_context_en": "A hard, strong, gray or bluish-gray alloy of iron with carbon.",
                 "usage_context_es": "Una aleación dura, fuerte, gris o gris azulada de hierro con carbono.",
-                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_161_def0.avif"
+                "imagePath": "/card_images/nouns/2-intermediate/2-intermediate_card_161_def0.avif",
+                "target_meaning_es": "Acero"
             }
         ],
         "group_name": "Nature & Materials",

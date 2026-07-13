@@ -22,6 +22,18 @@ const MAX_IMAGE_PROMPT_LEN: usize = 1_200;
 const MAX_SCENE_COMPLEMENT_LEN: usize = 500;
 const MAX_UPLOAD_IMAGE_BYTES: usize = 8 * 1024 * 1024;
 
+fn require_image_customization_role(role: &str) -> Result<(), (StatusCode, String)> {
+    if role == "admin" {
+        Ok(())
+    } else {
+        Err((
+            StatusCode::FORBIDDEN,
+            "Las imágenes personalizadas estarán disponibles con el futuro plan Platinum"
+                .to_string(),
+        ))
+    }
+}
+
 fn validate_len(value: &str, max: usize, field: &str) -> Result<(), (StatusCode, String)> {
     if value.trim().is_empty() {
         return Err((StatusCode::BAD_REQUEST, format!("{field} está vacío")));
@@ -98,7 +110,8 @@ pub async fn synthesize_speech(
 }
 
 /// Resuelve la ruta AVIF a mostrar (sin generar).
-/// Viewer → global; premium → personal → global; admin → global.
+/// Todos los planes actuales resuelven la biblioteca global; la capa personal
+/// queda reservada para el futuro plan Platinum.
 pub async fn resolve_image(
     State(state): State<AppState>,
     headers: axum::http::HeaderMap,
@@ -118,6 +131,7 @@ pub async fn resolve_image(
             &body.deck,
             body.index,
             body.def_index,
+            body.course_direction.as_deref(),
             body.form.as_deref(),
             &claims.email,
             &role,
@@ -154,7 +168,7 @@ pub async fn generate_image(
         }
     }
     if !is_demo {
-        require_premium_role(&role)?;
+        require_image_customization_role(&role)?;
     }
 
     let req = to_image_gen_request(body);
@@ -213,7 +227,7 @@ pub async fn delete_image(
     };
     let role = resolve_effective_role(&state, &claims).await;
     if !is_demo {
-        require_premium_role(&role)?;
+        require_image_customization_role(&role)?;
     }
     let is_admin = role == "admin" || is_demo;
 
@@ -224,6 +238,7 @@ pub async fn delete_image(
             &body.deck,
             body.index,
             body.def_index,
+            body.course_direction.as_deref(),
             body.form.as_deref(),
             &claims.email,
             is_admin,
@@ -249,13 +264,14 @@ pub async fn upload_image(
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
     let claims = extract_claims(&state, &headers)?;
     let role = resolve_effective_role(&state, &claims).await;
-    require_premium_role(&role)?;
+    require_image_customization_role(&role)?;
     let is_admin = role == "admin";
 
     let mut category = String::new();
     let mut deck = String::new();
     let mut card_index: usize = 0;
     let mut def_index: usize = 0;
+    let mut course_direction: Option<String> = None;
     let mut form: Option<String> = None;
     let mut file_data: Vec<u8> = Vec::new();
     let mut file_name = String::new();
@@ -295,6 +311,14 @@ pub async fn upload_image(
                     .map_err(|e| (StatusCode::BAD_REQUEST, e.to_string()))?
                     .parse()
                     .unwrap_or(0)
+            }
+            "course_direction" => {
+                course_direction = Some(
+                    field
+                        .text()
+                        .await
+                        .map_err(|e| (StatusCode::BAD_REQUEST, e.to_string()))?,
+                )
             }
             "form" => {
                 form = Some(
@@ -344,6 +368,7 @@ pub async fn upload_image(
         deck,
         card_index,
         def_index,
+        course_direction,
         form,
         file_data,
         file_name,

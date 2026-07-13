@@ -15,13 +15,14 @@
             {
                 "meaning": "car",
                 "usage_example": "Conduzco un carro rojo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I drive a red car.",
                 "char_count": "one",
                 "usage_context_en": "A vehicle with four wheels",
                 "usage_context_es": "Un vehículo con cuatro ruedas",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_56_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_56_def0.avif",
+                "target_meaning_es": "Carro / Coche"
             }
         ],
         "group_name": "Transportation",
@@ -43,13 +44,14 @@
             {
                 "meaning": "bus",
                 "usage_example": "Tomo el autobús a la escuela.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I take the bus to school.",
                 "char_count": "one",
                 "usage_context_en": "A large vehicle for many people",
                 "usage_context_es": "Un vehículo grande para muchas personas",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_57_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_57_def0.avif",
+                "target_meaning_es": "Autobús / Bus"
             }
         ],
         "group_name": "Transportation",
@@ -71,13 +73,14 @@
             {
                 "meaning": "train",
                 "usage_example": "El tren está retrasado.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The train is late.",
                 "char_count": "one",
                 "usage_context_en": "A vehicle that moves on rails",
                 "usage_context_es": "Un vehículo que se mueve sobre rieles",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_58_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_58_def0.avif",
+                "target_meaning_es": "Tren"
             }
         ],
         "group_name": "Transportation",
@@ -99,13 +102,14 @@
             {
                 "meaning": "plane",
                 "usage_example": "El avión está volando.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The plane is flying.",
                 "char_count": "one",
                 "usage_context_en": "A vehicle that flies in the air",
                 "usage_context_es": "Un vehículo que vuela en el aire",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_115_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_115_def0.avif",
+                "target_meaning_es": "Avión"
             }
         ],
         "group_name": "Transportation",
@@ -127,13 +131,14 @@
             {
                 "meaning": "airport",
                 "usage_example": "Vamos al aeropuerto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We are going to the airport.",
                 "char_count": "two",
                 "usage_context_en": "A place where airplanes take off and land",
                 "usage_context_es": "Un lugar donde los aviones despegan y aterrizan",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_140_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_140_def0.avif",
+                "target_meaning_es": "Aeropuerto"
             }
         ],
         "group_name": "Transportation",
@@ -155,13 +160,14 @@
             {
                 "meaning": "station",
                 "usage_example": "La estación de tren está cerca de aquí.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The train station is near here.",
                 "char_count": "two",
                 "usage_context_en": "A place where buses or trains stop",
                 "usage_context_es": "Un lugar donde los buses o trenes paran",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_141_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_141_def0.avif",
+                "target_meaning_es": "Estación"
             }
         ],
         "group_name": "Transportation",
@@ -183,13 +189,14 @@
             {
                 "meaning": "boat",
                 "usage_example": "Un bote pequeño en el lago.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "A small boat on the lake.",
                 "char_count": "one",
                 "usage_context_en": "A vehicle for traveling on water",
                 "usage_context_es": "Un vehículo para viajar sobre el agua",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_275_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_275_def0.avif",
+                "target_meaning_es": "Bote / Barco (pequeño)"
             }
         ],
         "group_name": "Transportation",
@@ -211,13 +218,14 @@
             {
                 "meaning": "ship",
                 "usage_example": "Un barco grande cruzó el océano.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "A large ship crossed the ocean.",
                 "char_count": "one",
                 "usage_context_en": "A large boat for traveling on the sea",
                 "usage_context_es": "Un bote grande para viajar en el mar",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_276_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_276_def0.avif",
+                "target_meaning_es": "Barco (grande)"
             }
         ],
         "group_name": "Transportation",
@@ -239,13 +247,14 @@
             {
                 "meaning": "bicycle",
                 "usage_example": "Monto mi bicicleta al trabajo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I ride my bicycle to work.",
                 "char_count": "three",
                 "usage_context_en": "A vehicle with two wheels (a bike)",
                 "usage_context_es": "Un vehículo con dos ruedas (una bici)",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_277_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_277_def0.avif",
+                "target_meaning_es": "Bicicleta"
             }
         ],
         "group_name": "Transportation",
@@ -267,13 +276,14 @@
             {
                 "meaning": "motorcycle",
                 "usage_example": "Él tiene una motocicleta rápida.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "He has a fast motorcycle.",
                 "char_count": "four",
                 "usage_context_en": "A vehicle with two wheels and an engine",
                 "usage_context_es": "Un vehículo con dos ruedas y un motor",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_278_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_278_def0.avif",
+                "target_meaning_es": "Motocicleta / Moto"
             }
         ],
         "group_name": "Transportation",
@@ -295,13 +305,14 @@
             {
                 "meaning": "taxi",
                 "usage_example": "Tomemos un taxi.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Let's take a taxi.",
                 "char_count": "two",
                 "usage_context_en": "",
                 "usage_context_es": "Un carro con un conductor al que le pagas",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_279_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_279_def0.avif",
+                "target_meaning_es": "Taxi"
             }
         ],
         "group_name": "Transportation",
@@ -323,13 +334,14 @@
             {
                 "meaning": "airplane",
                 "usage_example": "El avión está volando alto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The airplane is flying high.",
                 "char_count": "three",
                 "usage_context_en": "A vehicle that flies (AmE)",
                 "usage_context_es": "Un vehículo que vuela (AmE)",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_370_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_370_def0.avif",
+                "target_meaning_es": "Avión"
             }
         ],
         "group_name": "Transportation",
@@ -351,13 +363,14 @@
             {
                 "meaning": "truck",
                 "usage_example": "Un camión rojo y grande.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "A big red truck.",
                 "char_count": "one",
                 "usage_context_en": "A large vehicle for carrying goods (AmE)",
                 "usage_context_es": "",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_371_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_371_def0.avif",
+                "target_meaning_es": "Camión"
             }
         ],
         "group_name": "Transportation",
@@ -379,13 +392,14 @@
             {
                 "meaning": "lorry",
                 "usage_example": "Un camión grande.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "A large lorry.",
                 "char_count": "two",
                 "usage_context_en": "A large vehicle for carrying goods (BrE)",
                 "usage_context_es": "Un vehículo grande para llevar mercancías (BrE)",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_372_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_372_def0.avif",
+                "target_meaning_es": "Camión (BrE)"
             }
         ],
         "group_name": "Transportation",
@@ -407,13 +421,14 @@
             {
                 "meaning": "subway",
                 "usage_example": "Tomemos el metro.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Let's take the subway.",
                 "char_count": "two",
                 "usage_context_en": "An underground electric train (AmE)",
                 "usage_context_es": "Un tren eléctrico subterráneo (AmE)",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_373_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_373_def0.avif",
+                "target_meaning_es": "Metro (Subterráneo) (AmE)"
             }
         ],
         "group_name": "Transportation",
@@ -435,13 +450,14 @@
             {
                 "meaning": "underground",
                 "usage_example": "Tomemos el metro.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Let's take the underground.",
                 "char_count": "four",
                 "usage_context_en": "An underground electric train (BrE, 'the tube')",
                 "usage_context_es": "Un tren eléctrico subterráneo (BrE, 'the tube')",
-                "imagePath": "/card_images/nouns/1-basic/1-basic_card_374_def0.avif"
+                "imagePath": "/card_images/nouns/1-basic/1-basic_card_374_def0.avif",
+                "target_meaning_es": "Metro (Subterráneo) (BrE)"
             }
         ],
         "group_name": "Transportation",

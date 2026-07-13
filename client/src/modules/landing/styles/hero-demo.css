@@ -237,6 +237,9 @@
     overflow: visible;
     margin-bottom: 0;
     gap: 0px;
+    /* El landing puede desplazarse verticalmente, pero el eje horizontal
+       pertenece al gesto de navegación entre tarjetas. */
+    touch-action: pan-y pinch-zoom;
 }
 
 [data-landing-demo] .lp-demo-card-frame {

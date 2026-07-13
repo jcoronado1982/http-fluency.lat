@@ -15,24 +15,26 @@
             {
                 "meaning": "believe",
                 "usage_example": "¿Crees su historia?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Do you believe his story?",
                 "char_count": "two",
                 "usage_context_en": "truth/faith",
                 "usage_context_es": "verdad/fe",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Creer (algo)"
             },
             {
-                "meaning": "believe (def 2)",
+                "meaning": "believe",
                 "usage_example": "Creo en ti.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I believe in you.",
                 "char_count": "two",
                 "usage_context_en": "trust/optimism",
                 "usage_context_es": "confianza/optimismo",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Tener fe/Confiar"
             }
         ],
         "group_name": "Mind & Senses",
@@ -54,24 +56,26 @@
             {
                 "meaning": "learn",
                 "usage_example": "Quiero aprender inglés.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I want to learn English.",
                 "char_count": "one",
                 "usage_context_en": "study/skills",
                 "usage_context_es": "estudio/habilidades",
-                "imagePath": "/card_images/verbs/1-basic/1-basic_card_58_def0.avif"
+                "imagePath": "/card_images/verbs/1-basic/1-basic_card_58_def0.avif",
+                "target_meaning_es": "Aprender"
             },
             {
-                "meaning": "learn (def 2)",
+                "meaning": "learn",
                 "usage_example": "Me enteré de la noticia esta mañana.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I learned about the news this morning.",
                 "char_count": "one",
                 "usage_context_en": "information/experience",
                 "usage_context_es": "información/experiencia",
-                "imagePath": "/card_images/verbs/1-basic/1-basic_card_58_def1.avif"
+                "imagePath": "/card_images/verbs/1-basic/1-basic_card_58_def1.avif",
+                "target_meaning_es": "Enterarse de/Saber (información)"
             }
         ],
         "group_name": "Mind & Senses",
@@ -93,24 +97,26 @@
             {
                 "meaning": "remember",
                 "usage_example": "No puedo recordar su nombre.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I can't remember his name.",
                 "char_count": "three",
                 "usage_context_en": "memory/tasks",
                 "usage_context_es": "memoria/tareas",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Recordar"
             },
             {
-                "meaning": "remember (def 2)",
+                "meaning": "remember",
                 "usage_example": "Dale mis saludos a tu familia.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Remember me to your family.",
                 "char_count": "three",
                 "usage_context_en": "greetings/past",
                 "usage_context_es": "saludos/pasado",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Tener en cuenta/Asegurarse"
             }
         ],
         "group_name": "Thinking & Deciding",
@@ -132,24 +138,26 @@
             {
                 "meaning": "consider",
                 "usage_example": "Deberíamos considerar todas las opciones.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We should consider all options.",
                 "char_count": "three",
                 "usage_context_en": "options/decisions",
                 "usage_context_es": "opciones/decisiones",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Considerar/Pensar en"
             },
             {
-                "meaning": "consider (def 2)",
+                "meaning": "consider",
                 "usage_example": "Lo considero un buen amigo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I consider him a good friend.",
                 "char_count": "three",
                 "usage_context_en": "judgment/reputation",
                 "usage_context_es": "juicio/reputación",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Creer/Juzgar"
             }
         ],
         "group_name": "Thinking & Deciding",
@@ -171,24 +179,26 @@
             {
                 "meaning": "expect",
                 "usage_example": "Espero una llamada de él pronto.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I expect a call from him soon.",
                 "char_count": "two",
                 "usage_context_en": "anticipation/punctuality",
                 "usage_context_es": "anticipación/puntualidad",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_11_def0.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_11_def0.avif",
+                "target_meaning_es": "Esperar (que algo suceda)"
             },
             {
-                "meaning": "expect (def 2)",
+                "meaning": "expect",
                 "usage_example": "¿Qué esperas de mí?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "What do you expect of me?",
                 "char_count": "two",
                 "usage_context_en": "demand/refund",
                 "usage_context_es": "demanda/reembolso",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_11_def1.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_11_def1.avif",
+                "target_meaning_es": "Exigir (formal)"
             }
         ],
         "group_name": "Thinking & Deciding",
@@ -210,24 +220,26 @@
             {
                 "meaning": "decide",
                 "usage_example": "Necesitamos decidirnos rápido.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We need to decide quickly.",
                 "char_count": "two",
                 "usage_context_en": "time/choice",
                 "usage_context_es": "tiempo/elección",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Decidir/Resolver"
             },
             {
-                "meaning": "decide (def 2)",
+                "meaning": "decide",
                 "usage_example": "El juez decidirá el caso.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "The judge will decide the case.",
                 "char_count": "two",
                 "usage_context_en": "law/plans",
                 "usage_context_es": "ley/planes",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Determinar/Fallar (legal)"
             }
         ],
         "group_name": "Thinking & Deciding",
@@ -249,24 +261,26 @@
             {
                 "meaning": "understand",
                 "usage_example": "No entiendo la pregunta.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I don't understand the question.",
                 "char_count": "three",
                 "usage_context_en": "comprehension/language",
                 "usage_context_es": "comprensión/idioma",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Entender/Comprender"
             },
             {
-                "meaning": "understand (def 2)",
+                "meaning": "understand",
                 "usage_example": "Entiendo que estás ocupado.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I understand you are busy.",
                 "char_count": "three",
                 "usage_context_en": "awareness/empathy",
                 "usage_context_es": "consciencia/empatía",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Saber/Interpretar"
             }
         ],
         "group_name": "Thinking & Deciding",
@@ -288,24 +302,26 @@
             {
                 "meaning": "choose",
                 "usage_example": "Tienes que elegir una opción.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "You have to choose one option.",
                 "char_count": "one",
                 "usage_context_en": "decision/selection",
                 "usage_context_es": "decisión/selección",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Elegir/Escoger"
             },
             {
-                "meaning": "choose (def 2)",
+                "meaning": "choose",
                 "usage_example": "Ella eligió quedarse en casa.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She chose to stay home.",
                 "char_count": "one",
                 "usage_context_en": "action/preference",
                 "usage_context_es": "acción/preferencia",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Decidir/Preferir"
             }
         ],
         "group_name": "Thinking & Deciding",
@@ -327,24 +343,26 @@
             {
                 "meaning": "forget",
                 "usage_example": "Siempre olvido su cumpleaños.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I always forget his birthday.",
                 "char_count": "two",
                 "usage_context_en": "memory/tasks",
                 "usage_context_es": "memoria/tareas",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Olvidar"
             },
             {
-                "meaning": "forget (def 2)",
+                "meaning": "forget",
                 "usage_example": "No puedo olvidar lo que dijo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I can't forget what she said.",
                 "char_count": "two",
                 "usage_context_en": "past events/actions",
                 "usage_context_es": "eventos pasados/acciones",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Dejar de pensar en"
             }
         ],
         "group_name": "Thinking & Deciding",
@@ -366,24 +384,26 @@
             {
                 "meaning": "realize",
                 "usage_example": "De repente me di cuenta de que olvidé mis llaves.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I suddenly realized I forgot my keys.",
                 "char_count": "three",
                 "usage_context_en": "awareness/understanding",
                 "usage_context_es": "conciencia/comprensión",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Darse cuenta de"
             },
             {
-                "meaning": "realize (def 2)",
+                "meaning": "realize",
                 "usage_example": "Finalmente hizo realidad su sueño de viajar.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "She finally realized her dream of traveling.",
                 "char_count": "three",
                 "usage_context_en": "achievement/dreams",
                 "usage_context_es": "logro/sueños",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Cumplir/Hacer realidad (un sueño)"
             }
         ],
         "group_name": "Thinking & Deciding",
@@ -405,24 +425,26 @@
             {
                 "meaning": "guess",
                 "usage_example": "¿Puedes adivinar mi edad?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Can you guess my age?",
                 "char_count": "one",
                 "usage_context_en": "questions/answers",
                 "usage_context_es": "preguntas/respuestas",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_53_def0.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_53_def0.avif",
+                "target_meaning_es": "Adivinar"
             },
             {
-                "meaning": "guess (def 2)",
+                "meaning": "guess",
                 "usage_example": "Supongo que lloverá mañana.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I guess it will rain tomorrow.",
                 "char_count": "one",
                 "usage_context_en": "opinion/supposition",
                 "usage_context_es": "opinión/suposición",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_53_def1.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_53_def1.avif",
+                "target_meaning_es": "Suponer/Creer (informal)"
             }
         ],
         "group_name": "Thinking & Deciding",
@@ -444,24 +466,26 @@
             {
                 "meaning": "wonder",
                 "usage_example": "Me pregunto por qué llega tarde.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I wonder why he is late.",
                 "char_count": "two",
                 "usage_context_en": "curiosity/doubt",
                 "usage_context_es": "curiosidad/duda",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_54_def0.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_54_def0.avif",
+                "target_meaning_es": "Preguntarse/Querer saber"
             },
             {
-                "meaning": "wonder (def 2)",
+                "meaning": "wonder",
                 "usage_example": "Me maravilla su habilidad para mantener la calma.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I wonder at her ability to stay calm.",
                 "char_count": "two",
                 "usage_context_en": "admiration/awe",
                 "usage_context_es": "admiración/asombro",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_54_def1.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_54_def1.avif",
+                "target_meaning_es": "Maravillarse/Asombrarse"
             }
         ],
         "group_name": "Thinking & Deciding",
@@ -483,24 +507,26 @@
             {
                 "meaning": "recognize",
                 "usage_example": "No te reconocí con el nuevo corte de pelo.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I didn't recognize you with the new haircut.",
                 "char_count": "three",
                 "usage_context_en": "identity/memory",
                 "usage_context_es": "identidad/memoria",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Reconocer (identificar)"
             },
             {
-                "meaning": "recognize (def 2)",
+                "meaning": "recognize",
                 "usage_example": "Debemos reconocer el problema.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We must recognize the problem.",
                 "char_count": "three",
                 "usage_context_en": "acceptance/official",
                 "usage_context_es": "aceptación/oficial",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Reconocer (aceptar, admitir)"
             }
         ],
         "group_name": "Thinking & Deciding",
@@ -522,24 +548,26 @@
             {
                 "meaning": "doubt",
                 "usage_example": "Dudo que venga.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I doubt he will come.",
                 "char_count": "one",
                 "usage_context_en": "uncertainty/belief",
                 "usage_context_es": "incertidumbre/creencia",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Dudar (no estar seguro)"
             },
             {
-                "meaning": "doubt (def 2)",
+                "meaning": "doubt",
                 "usage_example": "Nunca dudes de tus habilidades.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Never doubt your abilities.",
                 "char_count": "one",
                 "usage_context_en": "confidence/trust",
                 "usage_context_es": "confianza/confianza",
-                "imagePath": ""
+                "imagePath": "",
+                "target_meaning_es": "Cuestionar"
             }
         ],
         "group_name": "Thinking & Deciding",
@@ -561,24 +589,26 @@
             {
                 "meaning": "plan",
                 "usage_example": "Estamos planeando un viaje a la costa.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "We are planning a trip to the coast.",
                 "char_count": "one",
                 "usage_context_en": "future/travel",
                 "usage_context_es": "futuro/viaje",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_59_def0.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_59_def0.avif",
+                "target_meaning_es": "Planear/Planificar"
             },
             {
-                "meaning": "plan (def 2)",
+                "meaning": "plan",
                 "usage_example": "Tengo la intención de estudiar más este año.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "I plan to study more this year.",
                 "char_count": "one",
                 "usage_context_en": "intention/strategy",
                 "usage_context_es": "intención/estrategia",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_59_def1.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_59_def1.avif",
+                "target_meaning_es": "Tener la intención de"
             }
         ],
         "group_name": "Thinking & Deciding",
@@ -600,24 +630,26 @@
             {
                 "meaning": "worry",
                 "usage_example": "No te preocupes por mí.",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Don't worry about me.",
                 "char_count": "two",
                 "usage_context_en": "anxiety/reassurance",
                 "usage_context_es": "ansiedad/tranquilizar",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_78_def0.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_78_def0.avif",
+                "target_meaning_es": "Preocuparse"
             },
             {
-                "meaning": "worry (def 2)",
+                "meaning": "worry",
                 "usage_example": "¿Te molesta el ruido?",
-                "pronunciation_guide_es": "[PRONUNCIACIÓN EN ES PARA HABLANTES DE EN]",
+                "pronunciation_guide_es": "",
                 "alternative_example": "",
                 "usage_example_es": "Does the noise worry you?",
                 "char_count": "two",
                 "usage_context_en": "bother/concern",
                 "usage_context_es": "molestia/preocupación",
-                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_78_def1.avif"
+                "imagePath": "/card_images/verbs/2-intermediate/2-intermediate_card_78_def1.avif",
+                "target_meaning_es": "Molestar/Inquietar"
             }
         ],
         "group_name": "Thinking & Deciding",

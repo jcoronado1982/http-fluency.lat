@@ -30,6 +30,8 @@ pub struct GenerateImageBody {
     pub deck: String,
     pub index: usize,
     pub def_index: usize,
+    #[serde(default)]
+    pub course_direction: Option<String>,
     pub prompt: String,
     pub meaning: Option<String>,
     pub usage_example: Option<String>,
@@ -62,6 +64,8 @@ pub struct ResolveImageBody {
     pub index: usize,
     pub def_index: usize,
     #[serde(default)]
+    pub course_direction: Option<String>,
+    #[serde(default)]
     pub form: Option<String>,
 }
 
@@ -86,6 +90,8 @@ pub struct DeleteImageBody {
     pub deck: String,
     pub index: usize,
     pub def_index: usize,
+    #[serde(default)]
+    pub course_direction: Option<String>,
     #[serde(default)]
     pub form: Option<String>,
 }

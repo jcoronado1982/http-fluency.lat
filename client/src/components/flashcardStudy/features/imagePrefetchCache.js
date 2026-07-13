@@ -17,9 +17,10 @@ const TTL_MS = 5 * 60 * 1000;
 
 const entries = new Map();
 
-export function makePrefetchKey({ category, deck, cardId, defIndex = 0, form }) {
+export function makePrefetchKey({ category, deck, cardId, defIndex = 0, form, studyLanguage = 'en' }) {
     const normalizedForm = form && form !== 'v1' ? form : 'v1';
-    return `${category}::${deck}::${cardId}::${defIndex}::${normalizedForm}`;
+    const direction = studyLanguage === 'es' ? 'en_es' : 'es_en';
+    return `${direction}::${category}::${deck}::${cardId}::${defIndex}::${normalizedForm}`;
 }
 
 export function hasPrefetchEntry(key) {
