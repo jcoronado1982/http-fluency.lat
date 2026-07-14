@@ -34,7 +34,8 @@ Internet (fluency.lat)
 │                                                         │
 │  NO debe correr aquí:                                   │
 │    ✗ surrealdb (movido a OCI-1)                         │
-│    ✗ qa-flashcard-backend-node (eliminado en migración) │
+│    • qa-flashcard-backend-node → :8081 solo cuando      │
+│      una publicación de QA lo despliega (128m)          │
 └───────────────────────────┬─────────────────────────────┘
                             │
               Red privada VCN (10.0.1.0/24)
@@ -217,7 +218,7 @@ handle /db/* {
 | "Puerto SurrealDB es 8001 en OCI-1" | **Falso.** Es **8080** (VCN firewall) |
 | "Rust corre en OCI-1" | **Falso en prod.** Rust solo en proxy; OCI-1 solo DB |
 | "Subir SURREAL_MEMORY_LIMIT a 350m en proxy" | **Obsoleto.** Surreal ya no está en proxy |
-| "Apagar qa-flashcard-backend-node" | Ya no corre (eliminado en migración manual) |
+| "QA siempre está eliminado" | Estado histórico. El pipeline de la rama `qa` puede desplegar `qa-flashcard-backend-node` en `:8081` con límite `128m`. |
 
 ---
 
@@ -287,4 +288,5 @@ Umbral Sentinel proxy: `THRESHOLD_MB=250` en `oracle-ram-monitor.sh`.
 
 ---
 
-*Última verificación en producción: 29 jun 2026 — `fluency.lat/api/health` OK, Rust conectado a `10.0.1.138:8080`.*
+*Última revisión: 14 jul 2026 — topología contrastada con pipeline/Caddy; endpoint público de
+producción y QA respondió 200. La conectividad privada de SurrealDB se verifica desde el Proxy.*

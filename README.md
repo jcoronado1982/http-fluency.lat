@@ -18,6 +18,7 @@ Documento canónico: [docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md
 
 | Archivo / Carpeta | Qué contiene |
 |---|---|
+| ⚠️ **[docs/infrastructure/AI_OPERATIONS_CONTEXT.md](docs/infrastructure/AI_OPERATIONS_CONTEXT.md)** | Lectura obligatoria antes de optimizar: dos Oracle de 1 GB, cachés, Caddy/Cloudflare, riesgos y verificaciones. |
 | 🌿 **[docs/GIT_BRANCHES.md](docs/GIT_BRANCHES.md)** | Ramas: publicación **`dev-flashcards` → `qa` → `main`**; integración local en **`dev-full`**. |
 | 🚀 **[docs/DEPLOY_Y_REPOSITORIO.md](docs/DEPLOY_Y_REPOSITORIO.md)** | Repo GitHub, Azure DevOps, pipeline `jcoronado1982.fluency`. |
 | 📑 **[INFRASTRUCTURE.md](INFRASTRUCTURE.md)** | Servidores, capacidades, enrutamiento y pipeline CI/CD. |
@@ -48,8 +49,9 @@ Documento canónico: [docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md
 | Servidor | Rol |
 |---|---|
 | **Oracle** `157.151.199.170` | Caddy, SPA, backend local, assets en disco |
-| **GCP Cloud Run** | Mirror / failover del backend |
-| **AWS / OCI** | Mirrors adicionales vía pipeline |
+| **Oracle OCI-1** `10.0.1.138` | Segundo Oracle de 1 GB, dedicado solo a SurrealDB |
+| **GCP Cloud Run** | Overflow del backend cuando el Oracle Proxy queda bajo el umbral de RAM |
+| **AWS** | Espejo adicional vía pipeline |
 
 ---
 

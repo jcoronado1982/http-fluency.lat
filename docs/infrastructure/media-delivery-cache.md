@@ -27,11 +27,11 @@ el arranque o el despliegue para evitar una configuración parcial.
 | TLS de producción | Cloudflare **Full (strict)** | No cambiar a `Full` ni `Flexible`. |
 | Regla Cloudflare | `Media versionada`, activa, orden 1 | Solo `fluency.lat`/`www` y `/card_images/`/`/card_audio/`. |
 | Cache key | Standard/Default | Conserva toda la query, incluido `v`/`t`; nunca usar `Ignore Query String`. |
-| Aplicación | Pipeline preparado con `MEDIA_DELIVERY_MODE=cloudflare` | Se aplica en Oracle/backend/Caddy al publicar en `main` y completar el pipeline. |
+| Aplicación | `MEDIA_DELIVERY_MODE=cloudflare` desplegado en backend y Caddy | El pipeline comprueba que ambos contenedores coincidan. |
 
-La configuración externa ya está activa. La última fila no se vuelve efectiva en los contenedores
-hasta ejecutar el despliegue de `main`; antes de ello Cloudflare puede cachear extensiones estáticas
-por defecto, pero el origen todavía conserva la política anterior de navegador.
+La configuración externa y la política del origen están activas. El cambio de modo sigue requiriendo
+un nuevo despliegue: modificar solo Cloudflare o solo una variable local no actualiza contenedores ya
+iniciados.
 
 ## Comportamiento por modo
 
@@ -316,6 +316,9 @@ incluir `/api`, `/db`, JSON ni HTML, no forzar TTL y no modificar Cache Key. El 
 
 Cloudflare puede consumir y ocultar `Cloudflare-CDN-Cache-Control` en la respuesta que llega al
 navegador; la prueba funcional es `CF-Cache-Status`, no la presencia downstream de ese header.
+Además, su Browser Cache TTL puede elevar el `max-age` visible: el valor por defecto observado fue
+4 horas. La identidad `?v=` sigue evitando contenido anterior después de reemplazar un archivo, pero
+no se debe afirmar que el navegador siempre verá `no-cache` sin revisar ese ajuste del panel.
 
 ### Procedimiento del panel aplicado
 
@@ -345,16 +348,21 @@ Resultados esperados:
 
 - Sin versión: `Cache-Control: public, no-cache`.
 - `oracle` con versión: `Cache-Control: public, max-age=31536000, immutable`.
-- `cloudflare` con versión: navegador recibe `Cache-Control: public, no-cache`; al repetir la
-  solicitud, `CF-Cache-Status` debe evolucionar según la caché del edge (`MISS`, luego `HIT`, salvo
-  reglas o estado previo del punto de presencia).
+- `cloudflare` con versión: el origen Caddy entrega `Cache-Control: public, no-cache`; Cloudflare
+  puede devolver al navegador ese valor o elevarlo al Browser Cache TTL configurado (4 horas en la
+  observación del 14 de julio de 2026). Al repetir, `CF-Cache-Status` debe evolucionar según la caché
+  del edge (`MISS`, luego `HIT`, salvo reglas o estado previo del punto de presencia).
 - Cambiar `v=prueba-1` por `v=prueba-2` debe producir identidades de caché diferentes.
 
-Comprobación realizada antes del despliegue del nuevo modo, el 14 de julio de 2026: el dominio ya
-respondía con `server: cloudflare`; una imagen AVIF versionada respondió `MISS` y luego `HIT` desde
-el POP de Miami. La página HTML respondió `DYNAMIC`, que es el comportamiento correcto. Después
-del despliegue se debe repetir la prueba y confirmar además que el `Cache-Control` visible del asset
-versionado pasó de `immutable` a `public, no-cache`.
+Comprobación realizada después del despliegue, el 14 de julio de 2026: producción respondió con
+`server: cloudflare`; una imagen AVIF versionada respondió `MISS` desde el POP de Miami y
+`Cache-Control: public, max-age=14400`. La misma ruta por QA directo mostró las cabeceras de origen:
+`Cache-Control: public, no-cache` y
+`Cloudflare-CDN-Cache-Control: public, max-age=31536000`. La página/API permanece `DYNAMIC`.
+Los 14.400 segundos proceden del Browser Cache TTL predeterminado de Cloudflare, que toma el valor
+mayor. Para revalidación estricta del navegador, seleccionar **Respect Existing Headers** o definir
+una regla específica y volver a medir. El versionado actual sigue siendo correcto porque una
+actualización cambia la URL solicitada.
 
 Comprobar el modo de los contenedores:
 
@@ -372,8 +380,8 @@ docker inspect flashcard-backend-node --format '{{range .Config.Env}}{{println .
 2. Esperar Azure Pipeline en verde. El pipeline despliega frontend, Caddy y backend; luego verifica
    que ambos contenedores usan el mismo `MEDIA_DELIVERY_MODE` y hace `HEAD` de una imagen y un audio
    con y sin versión.
-3. Repetir un `curl -sI` real o abrir DevTools: asset versionado → `Cache-Control: public, no-cache`
-   y `CF-Cache-Status: MISS`/`HIT`; HTML/API → `DYNAMIC`.
+3. Repetir un `curl -sI` real o abrir DevTools: asset versionado → `CF-Cache-Status: MISS`/`HIT`;
+   el `Cache-Control` visible depende del Browser Cache TTL. HTML/API → `DYNAMIC`.
 4. Probar QA por separado: debe responder directo desde Caddy, sin cabeceras `server: cloudflare` ni
    `CF-Cache-Status`.
 
@@ -411,6 +419,8 @@ docker inspect flashcard-backend-node --format '{{range .Config.Env}}{{println .
 - [Cache Rules](https://developers.cloudflare.com/cache/how-to/cache-rules/)
 - [Ajustes de Cache Rules](https://developers.cloudflare.com/cache/how-to/cache-rules/settings/)
 - [Niveles de caché y query string](https://developers.cloudflare.com/cache/how-to/set-caching-levels/)
+- [Edge y Browser Cache TTL](https://developers.cloudflare.com/cache/how-to/edge-browser-cache-ttl/)
+- [CDN-Cache-Control](https://developers.cloudflare.com/cache/concepts/cdn-cache-control/)
 - [Full (strict)](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/full-strict/)
 - [Retención y expulsión de la caché edge](https://developers.cloudflare.com/cache/concepts/retention-vs-freshness/)
 - [Planes de caché y Cache Reserve](https://developers.cloudflare.com/cache/plans/)

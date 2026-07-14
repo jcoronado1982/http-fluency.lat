@@ -1,4 +1,4 @@
-# Pipeline y Deploy — Guía canónica (Jun 2026)
+# Pipeline y Deploy — Guía canónica (Jul 2026)
 
 > **Documento fuente de verdad** para IAs y operadores sobre CI/CD, compilación y despliegue.
 > Si otro archivo contradice esto, **este documento manda** (salvo `SECRETS_MAP.md` para credenciales).
@@ -8,6 +8,8 @@
 **Repositorio y Azure:** [`../DEPLOY_Y_REPOSITORIO.md`](../DEPLOY_Y_REPOSITORIO.md)
 
 **Documentos relacionados (no duplicar lógica aquí):**
+- Restricciones de los dos Oracle de 1 GB y protocolo para IA:
+  [`AI_OPERATIONS_CONTEXT.md`](AI_OPERATIONS_CONTEXT.md)
 - Runtime Oracle / audio / Caddy: [`oracle-local-backend-deploy.md`](oracle-local-backend-deploy.md)
 - Inventario servidores: [`INFRASTRUCTURE.md`](../../INFRASTRUCTURE.md)
 - Scripts de deploy: `infra/proxy/*.sh`
@@ -132,9 +134,23 @@ Condición: `Deploy_Frontend` OK y `Deploy_GCP` Succeeded o Skipped (si falló c
 
 1. Prepara `GCP_CREDS_B64` (base64 de `GCP_KEY_JSON`) como variable secreta del job
 2. Sync scripts `infra/proxy` (si no llegaron en stage 3)
-3. **`SSH@0` con `runOptions: inline`** (obligatorio — ver sección Secretos)
+3. Genera el manifiesto global del catálogo.
+4. Transfiere todo `json/` a staging y los audios de `landing-demo` en `main`.
+5. **`SSH@0` con `runOptions: inline`** (obligatorio — ver sección Secretos)
 
 Ejecuta `bootstrap-oracle.sh --backend-only --no-monitors`
+
+#### Costo conocido del staging JSON
+
+`CopyFilesOverSSH` vuelve a transferir los 2.978 archivos de `json/` (~46 MB) en cada despliegue.
+En el run 279 tardó ~12 minutos. El paso posterior sí es incremental: `rsync -a --update` aplica el
+staging al repositorio en unos segundos y no borra decks que solo existan en Oracle. El landing demo
+transfiere 157 audios y tardó ~25 segundos. Las imágenes y audios normales no se copian completos en
+cada deploy.
+
+Esto es una ineficiencia conocida del transporte de staging, no consumo de RAM por usuario. Una
+optimización futura debe preservar el manifiesto, la ausencia de `--delete`, los decks exclusivos de
+Oracle y recuperación; no reemplazarla a ciegas por una sincronización destructiva.
 
 ### B. OCI-1 Mirror (`129.158.214.227`)
 

@@ -1,9 +1,10 @@
-# Oracle Local Backend — Runtime en producción (Jun 2026)
+# Oracle Local Backend — Runtime en producción (Jul 2026)
 
 > **Documento para IAs y operadores.** Leer antes de tocar Caddy, el backend en Oracle o audio TTS.
+> **Restricciones de RAM y topología:** [`AI_OPERATIONS_CONTEXT.md`](AI_OPERATIONS_CONTEXT.md).
 > **Para pipeline CI/CD, secretos y compilación:** [`pipeline-and-deploy.md`](pipeline-and-deploy.md) (fuente de verdad).
 > **Para entrega y caché de imágenes/audio:** [`media-delivery-cache.md`](media-delivery-cache.md).
-> Última validación runtime: pipeline `#165` (2026-06-08).
+> Última revisión contra el código y endpoints públicos: 2026-07-14.
 
 ---
 
@@ -24,7 +25,8 @@ Usuario
               ├── /card_images/*   → disco (mismo path)
               ├── /json/*          → disco (mismo path)
               ├── /test/*          → proyecto independiente test1 en :8083 (NO es flashcard)
-              └── /api/*           → reverse_proxy localhost:8080  ← BACKEND ORACLE LOCAL
+              └── /api/*           → localhost:8080 si RAM libre > 250 MB
+                                      GCP Cloud Run si el monitor retira ORACLE_HEALTHY
 ```
 
 ### Flujo de audio TTS (flashcard)
@@ -52,7 +54,10 @@ Contenedor: `flashcard-backend-node`
 | `SYNC_TO_ORACLE` | `false` | **Crítico.** Si es `true`, intenta SCP por SSH → falla o es lento |
 | `PORT` | `8080` | Caddy apunta aquí |
 | Volumen | `/root/smart-proxy/repository/flashcard:/data` | Mismo disco que sirve Caddy |
-| Red | `--network host` | Acceso a SurrealDB en `127.0.0.1:8001` |
+| Red | `--network host` | Acceso a SurrealDB del segundo Oracle en `10.0.1.138:8080` |
+| `SURREAL_URL` | `10.0.1.138:8080` | VCN privada; SurrealDB no vive en el Proxy |
+| `ORACLE_REPOSITORY_ONLY` | `false` | Evita tratar el volumen local como repositorio remoto |
+| `MEDIA_DELIVERY_MODE` | `cloudflare` en producción actual | Debe coincidir con Caddy; `oracle` es rollback explícito |
 
 ### Verificar en servidor
 
@@ -75,8 +80,11 @@ Valores esperados:
 Archivo fuente: `infra/proxy/Caddyfile`
 
 ```caddyfile
-handle /api/* {
-    reverse_proxy localhost:8080   # NO usar api_with_overflow para flashcard API
+@backend_routes {
+    path /api/*
+}
+handle @backend_routes {
+    import api_with_overflow
 }
 ```
 
@@ -84,7 +92,7 @@ handle /api/* {
 
 | Error | Síntoma | Causa |
 |-------|---------|-------|
-| API vía AWS + `SYNC_TO_ORACLE=true` en Oracle | `500` en `/api/synthesize-speech`, mensaje `ssh mkdir falló con código 255` | Backend intenta SSH a sí mismo o sin credenciales |
+| `SYNC_TO_ORACLE=true` en Oracle local | `500` en `/api/synthesize-speech`, mensaje `ssh mkdir falló con código 255` | Backend intenta SSH a sí mismo o sin credenciales |
 | Backend sin volumen `/data` | `404` en `/card_audio/...` tras generar audio | Archivo guardado dentro del contenedor, Caddy sirve otro path |
 | `SYNC_TO_ORACLE=true` en Oracle | Conexiones SSH extra, RAM desperdiciada en servidor 1 GB | Innecesario cuando backend y disco están en la misma VM |
 | Cambiar solo Caddyfile en servidor sin pipeline | Config se pierde en próximo deploy | Fuente de verdad es el repo + pipeline |
@@ -111,12 +119,13 @@ bash /root/smart-proxy/infra-proxy/bootstrap-oracle.sh --all
 # Solo Caddy (tras cambio de Caddyfile)
 bash /root/smart-proxy/infra-proxy/bootstrap-oracle.sh --caddy-only
 
-# Solo backend (tras nuevo build de imagen)
-FLASHCARD_BACKEND_ENV=/tmp/flashcard-backend.env \
-  bash /root/smart-proxy/infra-proxy/bootstrap-oracle.sh --backend-only --no-monitors
+# Solo backend (tras nuevo build de imagen): exportar primero los secretos en
+# la misma sesión shell. El pipeline usa SSH inline y es el procedimiento normal.
+bash /root/smart-proxy/infra-proxy/bootstrap-oracle.sh --backend-only --no-monitors
 ```
 
-El archivo `/tmp/flashcard-backend.env` lo genera el pipeline con secrets de Azure DevOps.
+El pipeline inyecta secretos en memoria dentro de una única sesión `SSH inline`; no genera
+`/tmp/flashcard-backend.env`. Ese archivo es legado y el deploy lo elimina si existe.
 
 ---
 
@@ -135,7 +144,7 @@ Reglas que aplican aquí (el resto del pipeline está en el otro doc):
 
 1. **NO** `SYNC_TO_ORACLE=true` en contenedor Oracle.
 2. **NO** quitar volumen `repository/flashcard:/data`.
-3. **SÍ** `reverse_proxy localhost:8080` en Caddyfile para `/api/*`.
+3. **SÍ** mantener `api_with_overflow`: Oracle local es primario y GCP solo entra bajo presión de RAM.
 
 ---
 
@@ -147,7 +156,9 @@ Reglas que aplican aquí (el resto del pipeline está en el otro doc):
 | GCP Cloud Run | Overflow histórico | `true` | Pipeline stage 4 sigue desplegando |
 | Oracle `157.151.199.170` | **Primario en producción** | `false` | API y almacenamiento local |
 
-El snippet `api_with_overflow` (AWS → GCP) **sigue en Caddyfile** pero **ya no se usa** para `/api/*` de flashcard. No reactivarlo sin revisar este documento.
+El snippet `api_with_overflow` **sí se usa** para `/api/*`: el archivo
+`/tmp/ORACLE_HEALTHY` selecciona Oracle local; si falta, selecciona GCP Cloud Run. AWS no forma parte
+de esta decisión de Caddy.
 
 `aws-health-monitor.sh` puede seguir corriendo; no afecta el routing actual de `/api/*`.
 
@@ -173,11 +184,14 @@ curl -sf https://fluency.lat/api/health
 ssh root@157.151.199.170 \
   'docker inspect flashcard-backend-node --format "{{range .Config.Env}}{{println .}}{{end}}" | grep SYNC'
 
-# 3. Caddy apunta a localhost (no AWS)
+# 3. Caddy conserva la válvula Oracle local → GCP
 ssh root@157.151.199.170 \
-  'docker exec caddy-smart grep -A2 "reverse_proxy localhost:8080" /etc/caddy/Caddyfile'
+  'docker exec caddy-smart grep -A20 "(api_with_overflow)" /etc/caddy/Caddyfile'
 
-# 4. Probar síntesis (requiere JWT de usuario autenticado)
+# 4. La respuesta indica el backend elegido
+curl -sI https://fluency.lat/api/health | grep -i '^x-backend:'
+
+# 5. Probar síntesis (requiere JWT de usuario autenticado)
 # Si 500 con "ssh mkdir" → SYNC_TO_ORACLE=true o API yendo a AWS
 ```
 
@@ -193,6 +207,7 @@ ssh root@157.151.199.170 \
 | 2026-06-07 | Pipeline #154 succeeded — config reproducible en cada deploy |
 | 2026-06-08 | Secretos efímeros, SSH inline, deploy serializado — ver `pipeline-and-deploy.md` |
 | 2026-06-08 | Pipeline #165 — 5 stages OK |
+| 2026-07-14 | Documentado `api_with_overflow`, SurrealDB remoto, modo Cloudflare y secretos SSH inline |
 
 ---
 

@@ -1,5 +1,12 @@
 # Resumen de Contexto - Sesión de Ajustes de Generación de Imágenes (06-Jul-2026)
 
+> **AVISO: documento histórico de esa sesión, no describe el runtime vigente completo.** Algunas
+> decisiones de UI, media e infraestructura cambiaron después del 6 de julio. Antes de reutilizar
+> una conclusión de aquí, leer
+> [`docs/infrastructure/AI_OPERATIONS_CONTEXT.md`](docs/infrastructure/AI_OPERATIONS_CONTEXT.md) y
+> contrastar el código actual. En particular, la navegación rápida ya cancela trabajo abandonado y
+> no debe volver a bloquearse esperando imagen/audio.
+
 Este documento resume los cambios realizados en el proyecto **Flashcard** para resolver problemas de composición de imágenes, rendimiento, gestión de memoria (OOM), y UI. Sirve como punto de partida para que cualquier agente en futuras sesiones retome el contexto rápidamente.
 
 ---

@@ -1,5 +1,9 @@
 # INFRASTRUCTURE & PIPELINE — Flashcard AI
 
+> **Antes de optimizar o cambiar infraestructura:** leer
+> [Contexto operativo obligatorio para IA](docs/infrastructure/AI_OPERATIONS_CONTEXT.md). Resume los
+> dos Oracle de 1 GB, presupuesto de RAM, cachés reales, Cloudflare/Caddy, riesgos y verificaciones.
+
 Este documento provee una descripción detallada y actualizada (al 2026) sobre cómo está creada la infraestructura del proyecto, qué servicios posee, cómo se ejecuta todo, y cómo se configura el ciclo de integración y despliegue continuo (CI/CD).
 
 ---
@@ -26,7 +30,7 @@ Es el nodo más importante en tiempo de ejecución. Sirve como punto de entrada 
 Estos servidores mantienen el servicio disponible como respaldo, pero **no procesan la ruta pública principal** en tiempo de operación normal. Todos los mirrors reciben copias idénticas en el pipeline tirando la imagen desde Google Container Registry (GCR).
 *   **AWS (34.229.229.255)**: EC2 t3.micro (Alpine Linux, 1 GB RAM). Corre Backend Rust. Usa `SYNC_TO_ORACLE=true` (sincroniza activos de vuelta hacia Oracle vía SCP).
 *   **OCI-1 (129.158.214.227)**: **No corre Backend Rust.** Dedicado exclusivamente a SurrealDB (ver sección anterior); el pipeline solo le despliega `deploy-surrealdb-oci1.sh` / `oci1-db-tuning.sh` (`azure-pipelines.yml`, job `Mirror_OCI1`). Detalle completo en `docs/infrastructure/ARQUITECTURA_ORACLE_DB.md` y `docs/infrastructure/server_inventory.md`.
-*   **GCP Cloud Run**: Backend de overflow alojado en us-east1 (proyecto `launch-490115`). Escala a cero y se mantiene como fallback sin estado (usa llamadas remotas para guardar archivos).
+*   **GCP Cloud Run**: Backend de overflow alojado en us-east1 (proyecto `launch-490115`). Escala a cero y se activa cuando `oracle-ram-monitor.sh` retira `/tmp/ORACLE_HEALTHY`; no es el backend principal mientras Oracle conserva más de 250 MB libres.
 
 ### Servidor de Compilación (LocalBuild / PC Dev)
 *   **Uso exclusivo:** Compilación de artefactos y empuje de imágenes a registros de Docker (no expone la aplicación al público).

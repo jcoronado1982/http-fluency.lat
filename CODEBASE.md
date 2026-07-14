@@ -81,17 +81,24 @@ client/src/
 
 ---
 
-## Sincronización de Archivos y Assets (SCP a Oracle)
+## Almacenamiento y sincronización de archivos
 
 La aplicación almacena archivos (JSONs de barajas, audio sintetizado `.ogg` e imágenes generadas por IA) de manera centralizada y persistente en el proxy de **Oracle Cloud**.
 
-### Flujo de Sincronización
-El backend soporta dos configuraciones controladas por la variable `SYNC_TO_ORACLE`:
+### Flujo vigente
 
-*   **En desarrollo (`SYNC_TO_ORACLE=false`):** Los archivos se leen y escriben localmente en el disco de desarrollo.
-*   **En producción (`SYNC_TO_ORACLE=true`):**
-    *   **Lectura:** El backend realiza peticiones directas al balanceador Caddy (`https://fluency.lat/json/...`).
-    *   **Escritura:** El backend genera el archivo temporalmente en disco local (`/tmp`), lo transfiere de forma segura mediante SCP a Oracle utilizando `sshpass` y variables de entorno, y finalmente elimina el archivo temporal.
+El comportamiento depende del lugar donde corre el backend:
+
+*   **Oracle Proxy, producción (`SYNC_TO_ORACLE=false`, `ORACLE_REPOSITORY_ONLY=false`):** el
+    volumen `/root/smart-proxy/repository/flashcard:/data` es local. Rust lee/escribe `/data` y
+    Caddy sirve el mismo disco. No hay SSH/SCP por archivo.
+*   **AWS/GCP remotos (`SYNC_TO_ORACLE=true`):** cuando actúan como espejo/overflow, transfieren a
+    Oracle los archivos generados; no son la ruta primaria mientras Oracle está saludable.
+*   **Desarrollo local:** puede usar disco local o `./start.sh oracle` en modo de lectura contra
+    Oracle. Revisar la configuración antes de permitir sincronización hacia producción.
+
+No inferir que “producción” significa siempre `SYNC_TO_ORACLE=true`: en el backend que vive dentro
+del propio Oracle ese valor sería lento e incorrecto.
 
 ---
 
@@ -106,12 +113,13 @@ El backend soporta dos configuraciones controladas por la variable `SYNC_TO_ORAC
 | `GEMINI_API_KEY` | Sí | Llave para habilitar el tutor y explicaciones de Gemini 2.0 |
 | `GEMINI_TTS_API_KEY` | Sí (audio EN) | Clave primaria Google AI Studio para Gemini TTS (inglés) |
 | `GEMINI_TTS_API_KEY_BACKUP` | Solo local batch | Respaldo en `backend/.env` para `--batch-gen-audio`; **no** se usa en producción |
-| `SYNC_TO_ORACLE` | Sí | Habilita la copia remota mediante SCP (`true` en producción) |
+| `SYNC_TO_ORACLE` | Sí | `false` en Oracle local; `true` solo en mirrors remotos que deban copiar hacia Oracle |
+| `ORACLE_REPOSITORY_ONLY` | Sí en Oracle | `false` en backend Oracle para usar el volumen local; los modos de lectura remota pueden usar `true` |
 | `ORACLE_HOST` | Sí | Dirección IP pública de la máquina proxy de Oracle |
 | `ORACLE_SSH_PASSWORD` | Sí | Contraseña de acceso SSH seguro para realizar transferencias SCP |
 | `ORACLE_REMOTE_PATH` | Sí | Ruta destino en Oracle (`/root/smart-proxy/repository/flashcard`) |
-| `LOCAL_STORAGE_PATH` | Sí | Directorio temporal del backend para generación de archivos (`/tmp`) |
-| `SURREAL_URL` | Sí | Dirección de conexión a la base de datos SurrealDB en AWS |
+| `LOCAL_STORAGE_PATH` | Sí | `/data` en Oracle, montado al repositorio persistente; puede ser temporal en mirrors |
+| `SURREAL_URL` | Sí | `10.0.1.138:8080` en Oracle por VCN privada; mirrors usan el endpoint autorizado correspondiente |
 | `MEDIA_DELIVERY_MODE` | No (fallback `oracle`) | Proveedor de entrega/caché de imágenes y audio: `oracle` o `cloudflare`; el pipeline de producción fija `cloudflare` |
 
 ### Proveedor de entrega de media
@@ -138,3 +146,6 @@ metadatos/ETag y cambia aunque el nombre físico permanezca igual; no regenera n
 
 Guía operativa, verificación y reversión:
 [docs/infrastructure/media-delivery-cache.md](docs/infrastructure/media-delivery-cache.md).
+
+Antes de proponer cambios de rendimiento o memoria, leer también
+[docs/infrastructure/AI_OPERATIONS_CONTEXT.md](docs/infrastructure/AI_OPERATIONS_CONTEXT.md).
