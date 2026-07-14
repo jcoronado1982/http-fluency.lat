@@ -54,8 +54,9 @@
 
 # ============================================================
 # POLÍTICA DE CACHÉ DE ASSETS (imágenes y audio) — espejo de assets.rs:
-# URL con ?v=/?t= → inmutable 1 año; sin versión → no-cache (el navegador
-# revalida con ETag y recibe 304 sin cuerpo: rápido y nunca stale).
+# MEDIA_DELIVERY_MODE se traduce en deploy-caddy.sh a estas directivas:
+# oracle → navegador conserva la URL versionada; cloudflare → CDN conserva 1 año
+# y el navegador revalida contra el edge. Sin versión → no-cache en todos los modos.
 # Los nombres de archivo hashean los INPUTS de generación, no el contenido:
 # regenerar imagen (force_generation) o rotar voz reescribe el MISMO archivo,
 # así que "immutable sin condición" produce assets viejos hasta 1 año.
@@ -63,10 +64,14 @@
 # usa expression CEL (v= O t=), verificado contra caddy:alpine 2.11.
 # ============================================================
 (asset_cache_policy) {
-    @versioned expression `{http.request.uri.query}.contains("v=") || {http.request.uri.query}.contains("t=")`
-    header @versioned Cache-Control "public, max-age=31536000, immutable"
-    @unversioned expression `!({http.request.uri.query}.contains("v=") || {http.request.uri.query}.contains("t="))`
+    # En un matcher `query v=* t=*`, claves distintas son AND. CEL expresa el OR
+    # real y evita falsos positivos como `?preview=`.
+    @versioned `query({'v': '*'}) || query({'t': '*'})`
+    header @versioned Cache-Control "{$MEDIA_VERSIONED_BROWSER_CACHE_CONTROL:public, max-age=31536000, immutable}"
+    header @versioned {$MEDIA_SHARED_CACHE_HEADER:X-Media-Shared-Cache-Control} "{$MEDIA_VERSIONED_SHARED_CACHE_CONTROL:public, no-cache}"
+    @unversioned `!query({'v': '*'}) && !query({'t': '*'})`
     header @unversioned Cache-Control "public, no-cache"
+    header @unversioned {$MEDIA_SHARED_CACHE_HEADER:X-Media-Shared-Cache-Control} "public, no-cache"
 }
 
 # ============================================================

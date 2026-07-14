@@ -21,6 +21,7 @@ Documento canónico: [docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md
 | 🌿 **[docs/GIT_BRANCHES.md](docs/GIT_BRANCHES.md)** | Ramas: publicación **`dev-flashcards` → `qa` → `main`**; integración local en **`dev-full`**. |
 | 🚀 **[docs/DEPLOY_Y_REPOSITORIO.md](docs/DEPLOY_Y_REPOSITORIO.md)** | Repo GitHub, Azure DevOps, pipeline `jcoronado1982.fluency`. |
 | 📑 **[INFRASTRUCTURE.md](INFRASTRUCTURE.md)** | Servidores, capacidades, enrutamiento y pipeline CI/CD. |
+| 🌐 **[docs/infrastructure/media-delivery-cache.md](docs/infrastructure/media-delivery-cache.md)** | Oracle/Cloudflare, versionado y caché de imágenes y audio. |
 | 🏗️ **[docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md)** | Clean/Hexagonal, registry, sparse-checkout, módulos plug & play. |
 | 🗃️ **[database_schema_diagram.md](database_schema_diagram.md)** | Modelo SurrealDB y relaciones entre colecciones. |
 | 📂 **[CODEBASE.md](CODEBASE.md)** | Índice técnico: directorios, endpoints, env vars. |

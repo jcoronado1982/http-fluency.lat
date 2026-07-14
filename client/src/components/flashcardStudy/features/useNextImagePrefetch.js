@@ -4,12 +4,12 @@ import {
     makePrefetchKey,
     setPrefetchedImagePath,
 } from './imagePrefetchCache';
+import { parseCardImageStorageIdentity } from './imageStorageIdentity.js';
 
-// Espera tras cambiar de tarjeta antes de prefetear: si el usuario avanza
-// rápido, el cleanup del efecto cancela el timer y no se dispara ninguna
-// petición — así una racha de "siguiente siguiente siguiente" no genera
-// ráfagas contra el backend de 1 GB.
-const PREFETCH_DELAY_MS = 600;
+// Un margen corto cancela clics ultrarrápidos, pero permite que la única
+// consulta de metadatos termine mientras el usuario estudia la tarjeta actual.
+// Con 600 ms el prefetch empezaba demasiado tarde al usar Oracle remoto.
+const PREFETCH_DELAY_MS = 100;
 
 /**
  * Precarga en segundo plano la imagen de la SIGUIENTE tarjeta (def 0, forma
@@ -21,7 +21,8 @@ const PREFETCH_DELAY_MS = 600;
  * - debounce de {@link PREFETCH_DELAY_MS}: navegar rápido cancela, no acumula;
  * - sin reintentos: un 404 se cachea como negativo y no se vuelve a pedir;
  * - no corre con la pestaña oculta;
- * - carga neta del servidor ~cero: el resolve on-view se ahorra vía caché.
+ * - una resolución ligera por tarjeta como máximo; el resolve on-view se ahorra
+ *   vía caché y nunca dispara generación de imágenes.
  */
 export function useNextImagePrefetch({ imagePort, card, category, deckName, studyLanguage = 'en', enabled = true }) {
     const cardId = card?.id;
@@ -43,12 +44,34 @@ export function useNextImagePrefetch({ imagePort, card, category, deckName, stud
         if (hasPrefetchEntry(key)) return undefined;
 
         let cancelled = false;
+        const abortController = new AbortController();
         const timer = setTimeout(async () => {
             if (cancelled || document.visibilityState === 'hidden') return;
             try {
                 if (preferredPath) {
-                    setPrefetchedImagePath(key, preferredPath);
-                    imagePort.preloadImage(preferredPath).catch(() => {});
+                    // El JSON persiste una ruta sin versión. Resolver su
+                    // identidad conserva la asociación semántica y precalienta
+                    // la misma URL ?v= que mostrará la tarjeta.
+                    const identity = parseCardImageStorageIdentity(preferredPath);
+                    if (!identity) {
+                        setPrefetchedImagePath(key, null);
+                        return;
+                    }
+                    const data = await imagePort.resolve({
+                        category: identity.category,
+                        deck: identity.deck,
+                        index: identity.index,
+                        defIndex: identity.defIndex,
+                        form: identity.form !== 'v1' ? identity.form : undefined,
+                        courseDirection: identity.courseDirection || (studyLanguage === 'es' ? 'en_es' : 'es_en'),
+                        signal: abortController.signal,
+                    });
+                    if (cancelled || !data?.path) {
+                        setPrefetchedImagePath(key, data?.path ?? null);
+                        return;
+                    }
+                    setPrefetchedImagePath(key, data.path);
+                    imagePort.preloadImage(data.path, false, { signal: abortController.signal }).catch(() => {});
                     return;
                 }
                 // Nunca resolver en_es por índice: los mazos inversos no tienen
@@ -63,15 +86,16 @@ export function useNextImagePrefetch({ imagePort, card, category, deckName, stud
                     index: cardId,
                     defIndex: 0,
                     courseDirection: studyLanguage === 'es' ? 'en_es' : 'es_en',
+                    signal: abortController.signal,
                 });
                 if (cancelled || !data?.path) {
                     setPrefetchedImagePath(key, data?.path ?? null);
                     return;
                 }
                 setPrefetchedImagePath(key, data.path);
-                // Calienta la caché HTTP con la MISMA URL que usará la vista
-                // (normalizada, sin ?v=); los bytes quedan en el navegador.
-                imagePort.preloadImage(data.path).catch(() => {});
+                // Calienta la caché HTTP con la misma URL versionada que usará
+                // la vista; los bytes quedan en el navegador.
+                imagePort.preloadImage(data.path, false, { signal: abortController.signal }).catch(() => {});
             } catch {
                 // 404 o red: negativo, sin reintentos.
                 setPrefetchedImagePath(key, null);
@@ -80,6 +104,7 @@ export function useNextImagePrefetch({ imagePort, card, category, deckName, stud
 
         return () => {
             cancelled = true;
+            abortController.abort();
             clearTimeout(timer);
         };
     }, [enabled, imagePort, category, deckName, card, cardId, forceGeneration, studyLanguage]);

@@ -24,6 +24,11 @@ variables:
     value: 'GCP-Registry-Connection'
   - name: cacheRef
     value: 'gcr.io/launch-490115/flashcard-backend:buildcache'
+  # Un único switch para backend + Caddy + mirrors: oracle | cloudflare.
+  # Producción entra por el proxy de Cloudflare; qa.fluency.lat permanece DNS-only.
+  # En QA, el header exclusivo del CDN es ignorado y el navegador revalida siempre.
+  - name: MEDIA_DELIVERY_MODE
+    value: 'cloudflare'
   - ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/qa') }}:
     - name: remotePath
       value: '/root/smart-proxy/qa_flashcard'
@@ -240,6 +245,7 @@ stages:
         runOptions: 'inline'
         failOnStdErr: false
         inline: |
+          export MEDIA_DELIVERY_MODE="$(MEDIA_DELIVERY_MODE)"
           bash /root/smart-proxy/infra-proxy/bootstrap-oracle.sh --caddy-only
           if [ "$(Build.SourceBranch)" = "refs/heads/qa" ]; then
             curl -sf -k -H "Host: qa.fluency.lat" https://127.0.0.1/api/health || echo "WARN: QA API health via Caddy not ready yet"
@@ -274,7 +280,7 @@ stages:
           --allow-unauthenticated \
           --cpu 1 --memory 512Mi \
           --concurrency 80 \
-          --set-env-vars "SURREAL_URL=wss://fluency.lat/db,GEMINI_API_KEY=$(GEMINI_API_KEY),GCP_API_KEY=$(GCP_API_KEY),RUST_LOG=info,GOOGLE_CLIENT_ID=$(GOOGLE_CLIENT_ID),JWT_SECRET=$(JWT_SECRET),SUPER_ADMIN_EMAIL=$(SUPER_ADMIN_EMAIL),SYNC_TO_ORACLE=true,ORACLE_HOST=$(ORACLE_HOST),ORACLE_SSH_PASSWORD=$(ORACLE_SSH_PASSWORD),ORACLE_REMOTE_PATH=/root/smart-proxy/repository/flashcard,LOCAL_STORAGE_PATH=/tmp,GCS_JSON_PREFIX=json,GCS_IMAGES_PREFIX=card_images,GCS_AUDIO_PREFIX=card_audio"
+          --set-env-vars "SURREAL_URL=wss://fluency.lat/db,GEMINI_API_KEY=$(GEMINI_API_KEY),GCP_API_KEY=$(GCP_API_KEY),RUST_LOG=info,GOOGLE_CLIENT_ID=$(GOOGLE_CLIENT_ID),JWT_SECRET=$(JWT_SECRET),SUPER_ADMIN_EMAIL=$(SUPER_ADMIN_EMAIL),SYNC_TO_ORACLE=true,ORACLE_HOST=$(ORACLE_HOST),ORACLE_SSH_PASSWORD=$(ORACLE_SSH_PASSWORD),ORACLE_REMOTE_PATH=/root/smart-proxy/repository/flashcard,LOCAL_STORAGE_PATH=/tmp,GCS_JSON_PREFIX=json,GCS_IMAGES_PREFIX=card_images,GCS_AUDIO_PREFIX=card_audio,MEDIA_DELIVERY_MODE=$(MEDIA_DELIVERY_MODE)"
       displayName: 'gcloud run deploy'
 
 # ───────────────────────────────────────────────────────────────────────
@@ -385,6 +391,7 @@ stages:
           export SURREAL_URL=10.0.1.138:8080
           export SURREAL_USER="$(SURREAL_USER)"
           export SURREAL_PASS="$(SURREAL_PASS)"
+          export MEDIA_DELIVERY_MODE="$(MEDIA_DELIVERY_MODE)"
 
           echo "Applying json/ from repo to Oracle production repository..."
           bash /root/smart-proxy/infra-proxy/sync-json-to-oracle.sh \
@@ -468,6 +475,50 @@ stages:
             echo "Production categories OK (${PROD_CATS})"
           fi
 
+          echo "Verifying media provider consistency and origin cache policy..."
+          CADDY_MEDIA_MODE=$(docker inspect caddy-smart --format '{{range .Config.Env}}{{println .}}{{end}}' | sed -n 's/^MEDIA_DELIVERY_MODE=//p')
+          BACKEND_MEDIA_MODE=$(docker inspect "$FLASHCARD_BACKEND_CONTAINER" --format '{{range .Config.Env}}{{println .}}{{end}}' | sed -n 's/^MEDIA_DELIVERY_MODE=//p')
+          if [ "$CADDY_MEDIA_MODE" != "$MEDIA_DELIVERY_MODE" ] || [ "$BACKEND_MEDIA_MODE" != "$MEDIA_DELIVERY_MODE" ]; then
+            echo "ERROR: media mode mismatch (pipeline=$MEDIA_DELIVERY_MODE caddy=$CADDY_MEDIA_MODE backend=$BACKEND_MEDIA_MODE)"
+            exit 1
+          fi
+
+          if [ "$(Build.SourceBranch)" = "refs/heads/qa" ]; then
+            MEDIA_REPO=/root/smart-proxy/repository/qa_flashcard
+            MEDIA_HOST=qa.fluency.lat
+          else
+            MEDIA_REPO=/root/smart-proxy/repository/flashcard
+            MEDIA_HOST=fluency.lat
+          fi
+          IMAGE_FILE=$(find "$MEDIA_REPO/card_images" -type f \( -name '*.avif' -o -name '*.webp' -o -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' \) -print -quit)
+          AUDIO_FILE=$(find "$MEDIA_REPO/card_audio" -type f \( -name '*.ogg' -o -name '*.mp3' -o -name '*.wav' \) -print -quit)
+          if [ -z "$IMAGE_FILE" ] || [ -z "$AUDIO_FILE" ]; then
+            echo "ERROR: image/audio unavailable to verify cache policy in $MEDIA_REPO"
+            exit 1
+          fi
+          for MEDIA_FILE in "$IMAGE_FILE" "$AUDIO_FILE"; do
+            MEDIA_PATH=${MEDIA_FILE#"$MEDIA_REPO/"}
+            VERSIONED_HEADERS=$(curl -skI -H "Host: $MEDIA_HOST" "https://127.0.0.1/$MEDIA_PATH?v=pipeline-check")
+            UNVERSIONED_HEADERS=$(curl -skI -H "Host: $MEDIA_HOST" "https://127.0.0.1/$MEDIA_PATH")
+            printf '%s\n' "$UNVERSIONED_HEADERS" | grep -qi '^cache-control: public, no-cache' || {
+              echo "ERROR: unversioned media is not revalidated ($MEDIA_PATH)"; exit 1;
+            }
+            if [ "$MEDIA_DELIVERY_MODE" = "cloudflare" ]; then
+              printf '%s\n' "$VERSIONED_HEADERS" | grep -qi '^cache-control: public, no-cache' || {
+                echo "ERROR: browser cache policy is not safe for Cloudflare mode ($MEDIA_PATH)"; exit 1;
+              }
+              printf '%s\n' "$VERSIONED_HEADERS" | grep -qi '^cloudflare-cdn-cache-control: public, max-age=31536000' || {
+                echo "ERROR: Cloudflare edge cache policy is missing ($MEDIA_PATH)"; exit 1;
+              }
+            else
+              printf '%s\n' "$VERSIONED_HEADERS" | grep -qi '^cache-control: public, max-age=31536000, immutable' || {
+                echo "ERROR: Oracle browser cache policy is missing ($MEDIA_PATH)"; exit 1;
+              }
+            fi
+            echo "Media cache policy OK ($MEDIA_PATH)"
+          done
+          echo "Media provider consistency OK ($MEDIA_DELIVERY_MODE)"
+
           echo "Verifying external DNS health check..."
           if curl -sf --connect-timeout 5 "$EXTERNAL_HEALTH_URL"; then
             echo "External health check OK"
@@ -547,6 +598,7 @@ stages:
           -e GOOGLE_CLIENT_ID="$(GOOGLE_CLIENT_ID)" \
           -e JWT_SECRET="$(JWT_SECRET)" \
           -e SUPER_ADMIN_EMAIL="${SUPER_ADMIN_EMAIL_VAL}" \
+          -e MEDIA_DELIVERY_MODE="$(MEDIA_DELIVERY_MODE)" \
           -e SYNC_TO_ORACLE="true" \
           -e ORACLE_HOST="${ORACLE_HOST_VAL}" \
           -e ORACLE_SSH_PASSWORD="${ORACLE_SSH_PASSWORD_VAL}" \

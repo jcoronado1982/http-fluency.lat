@@ -278,7 +278,7 @@ impl AudioUseCases {
                         .upload_blob(&blob_path, bytes, Self::audio_mime_type(true))
                         .await?;
                     self.write_voice_meta(&blob_path, &label).await?;
-                    return Ok(self.build_result(&file_name, &label, false));
+                    return Ok(self.build_result(&file_name, &label, false).await);
                 }
                 Err(e) if Self::elevenlabs_plan_unavailable(&e.to_string()) => {
                     tracing::warn!(
@@ -310,7 +310,7 @@ impl AudioUseCases {
             .await?;
         self.write_voice_meta(&blob_path, &voice).await?;
 
-        Ok(self.build_result(&file_name, &voice, false))
+        Ok(self.build_result(&file_name, &voice, false).await)
     }
 
     async fn lookup_existing_audio(
@@ -321,13 +321,10 @@ impl AudioUseCases {
         log_miss: bool,
     ) -> Result<Option<AudioSynthResult>> {
         let role = normalize_role(role);
-        let is_admin = role == "admin";
         let is_demo = is_landing_demo_namespace(&req.category);
-        let user_segment = if is_admin || is_demo {
-            None
-        } else {
-            Some(user_path_segment(user_email))
-        };
+        // Solo Premium puede tener audio personal. Viewer/guest nunca genera en
+        // users/{email}, así que consultar esa ruta agregaba un HEAD inútil.
+        let personal_segment = (role == "premium").then(|| user_path_segment(user_email));
         let demo_elevenlabs = self.uses_elevenlabs_demo(is_demo);
         let force_new = req.force_regenerate || req.exclude_voice.is_some();
 
@@ -336,14 +333,38 @@ impl AudioUseCases {
         }
 
         if demo_elevenlabs {
-            let el_name = self.deterministic_audio_filename(req, user_segment.as_deref(), true)?;
+            let el_name = self.deterministic_audio_filename(req, None, true)?;
             if let Some(result) = self.try_cached_audio(&el_name).await? {
                 return Ok(Some(result));
             }
         }
 
-        let file_name = self.deterministic_audio_filename(req, user_segment.as_deref(), false)?;
-        if let Some(result) = self.try_cached_audio(&file_name).await? {
+        if let Some(segment) = personal_segment.as_deref() {
+            let personal_file = self.deterministic_audio_filename(req, Some(segment), false)?;
+            if let Some(result) = self.try_cached_audio(&personal_file).await? {
+                return Ok(Some(result));
+            }
+        }
+
+        let global_file = self.deterministic_audio_filename(req, None, false)?;
+        if let Some(legacy_file) = Self::legacy_deterministic_audio_filename(&global_file) {
+            // La biblioteca pregenerada vive mayoritariamente en el layout sin
+            // dirección. Consultar ambos nombres a la vez conserva la prioridad
+            // del formato actual sin sumar dos RTT secuenciales contra Oracle.
+            let (current, legacy) = tokio::join!(
+                self.cached_audio_result(&global_file, ""),
+                self.cached_audio_result(&legacy_file, "Legacy"),
+            );
+            if let Some(result) = current {
+                tracing::info!("✅ Audio global activo: {}", global_file);
+                return Ok(Some(result));
+            }
+            if let Some(result) = legacy {
+                tracing::info!("✅ Audio legacy exacto: {}", legacy_file);
+                return Ok(Some(result));
+            }
+        } else if let Some(result) = self.cached_audio_result(&global_file, "").await {
+            tracing::info!("✅ Audio global activo: {}", global_file);
             return Ok(Some(result));
         }
 
@@ -352,46 +373,30 @@ impl AudioUseCases {
         let text_slug = self.slugify(&req.text, 40);
         let lang_suffix = safe_language_suffix(req.lang.as_deref())?;
 
-        if !is_admin {
-            let global_file = self.deterministic_audio_filename(req, None, false)?;
-            let global_path = format!("{}/{}", self.config.gcs_audio_prefix, global_file);
-            if self
-                .storage_repo
-                .blob_exists(&global_path)
-                .await
-                .unwrap_or(false)
-            {
-                tracing::info!("✅ Audio global fallback: {}", global_path);
-                return Ok(Some(self.build_result(&global_file, "", true)));
-            }
-
-            if let Some(found) = self
-                .find_legacy_audio(req, &deck_prefix, &verb_slug, &text_slug, &lang_suffix)
-                .await?
-            {
-                tracing::info!("✅ Audio legacy global: {}", found);
-                let rel = found
-                    .strip_prefix(&self.config.gcs_audio_prefix)
-                    .unwrap_or(&found)
-                    .trim_start_matches('/');
-                return Ok(Some(self.build_result(rel, "Legacy", true)));
-            }
-        } else if let Some(found) = self
+        // Fallback para hashes/modelos/formato realmente antiguos cuyo nombre
+        // no coincide con el determinista actual. Este listado ya no participa
+        // en el camino normal de la biblioteca existente.
+        if let Some(found) = self
             .find_legacy_audio(req, &deck_prefix, &verb_slug, &text_slug, &lang_suffix)
             .await?
         {
-            tracing::info!("✅ Audio legacy: {}", found);
+            tracing::info!("✅ Audio legacy por prefijo: {}", found);
             let rel = found
                 .strip_prefix(&self.config.gcs_audio_prefix)
                 .unwrap_or(&found)
                 .trim_start_matches('/');
-            return Ok(Some(self.build_result(rel, "Legacy", true)));
+            return Ok(Some(self.build_result(rel, "Legacy", true).await));
         }
 
         if log_miss {
             tracing::debug!("🔍 Audio no encontrado en disco para text='{}'", req.text);
         }
         Ok(None)
+    }
+
+    fn legacy_deterministic_audio_filename(file_name: &str) -> Option<String> {
+        let (direction, relative) = file_name.split_once('/')?;
+        matches!(direction, "es_en" | "en_es").then(|| relative.to_string())
     }
 
     /// Archiva el audio activo (no borra del disco) para permitir otra voz aleatoria.
@@ -494,11 +499,29 @@ impl AudioUseCases {
         self.storage_repo.download_blob(blob_path).await
     }
 
-    fn build_result(&self, file_name: &str, voice: &str, from_cache: bool) -> AudioSynthResult {
-        let audio_url = if from_cache {
-            format!("/card_audio/{}", file_name)
+    async fn build_result(
+        &self,
+        file_name: &str,
+        voice: &str,
+        from_cache: bool,
+    ) -> AudioSynthResult {
+        let audio_url = if !from_cache {
+            // La generación ya tiene un identificador único: no hacemos un stat/HEAD
+            // adicional en el camino costoso de TTS.
+            format!("/card_audio/{file_name}?v={}", uuid::Uuid::new_v4())
         } else {
-            format!("/card_audio/{}?v={}", file_name, uuid::Uuid::new_v4())
+            let blob_path = format!("{}/{}", self.config.gcs_audio_prefix, file_name);
+            match self
+                .storage_repo
+                .blob_version(&blob_path)
+                .await
+                .ok()
+                .flatten()
+                .filter(|value| !value.is_empty())
+            {
+                Some(version) => format!("/card_audio/{file_name}?v={version}"),
+                None => format!("/card_audio/{file_name}"),
+            }
         };
         AudioSynthResult {
             audio_url,
@@ -683,17 +706,42 @@ impl AudioUseCases {
     }
 
     async fn try_cached_audio(&self, file_name: &str) -> Result<Option<AudioSynthResult>> {
-        let blob_path = format!("{}/{}", self.config.gcs_audio_prefix, file_name);
-        if self
-            .storage_repo
-            .blob_exists(&blob_path)
-            .await
-            .unwrap_or(false)
-        {
-            tracing::info!("✅ Audio activo encontrado: {}", blob_path);
-            return Ok(Some(self.build_result(file_name, "", true)));
+        if let Some(result) = self.cached_audio_result(file_name, "").await {
+            tracing::info!("✅ Audio activo encontrado: {}", file_name);
+            return Ok(Some(result));
         }
         Ok(None)
+    }
+
+    /// Resuelve existencia + versión en una sola consulta de metadatos en el
+    /// camino normal. Evita dos HEAD consecutivos contra Oracle al reproducir.
+    async fn cached_audio_result(&self, file_name: &str, voice: &str) -> Option<AudioSynthResult> {
+        let blob_path = format!("{}/{}", self.config.gcs_audio_prefix, file_name);
+        let audio_url = match self
+            .storage_repo
+            .blob_version(&blob_path)
+            .await
+            .ok()
+            .flatten()
+            .filter(|value| !value.is_empty())
+        {
+            Some(version) => format!("/card_audio/{file_name}?v={version}"),
+            None if self
+                .storage_repo
+                .blob_exists(&blob_path)
+                .await
+                .unwrap_or(false) =>
+            {
+                format!("/card_audio/{file_name}")
+            }
+            None => return None,
+        };
+
+        Some(AudioSynthResult {
+            audio_url,
+            voice_name: voice.to_string(),
+            from_cache: true,
+        })
     }
 
     fn audio_mime_type(elevenlabs: bool) -> &'static str {
@@ -859,6 +907,22 @@ mod tests {
                 "card_audio/landing-demo/verbs-essentials/verbs-essentials_be_be_es".to_string(),
                 "card_audio/landing-demo/verbs-essentials_be_be_es".to_string(),
             ]
+        );
+    }
+
+    #[test]
+    fn exact_legacy_audio_removes_only_the_course_direction() {
+        assert_eq!(
+            AudioUseCases::legacy_deterministic_audio_filename(
+                "es_en/verbs/1-basic/1-basic_be_be_hash.ogg"
+            ),
+            Some("verbs/1-basic/1-basic_be_be_hash.ogg".to_string())
+        );
+        assert_eq!(
+            AudioUseCases::legacy_deterministic_audio_filename(
+                "landing-demo/verbs-essentials/file.mp3"
+            ),
+            None
         );
     }
 }

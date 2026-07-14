@@ -110,10 +110,10 @@ flowchart TB
 
 | Capa | Ubicación | Responsabilidad |
 |------|-----------|-----------------|
-| Dominio + puertos | `backend/core` | Modelos, traits async (`StorageRepository`, `AITutor`, …) |
+| Dominio + puertos | `backend/core` | Modelos y contratos (`StorageRepository`, `MediaDeliveryProvider`, `AITutor`, …) |
 | Aplicación | `backend/mod_*` | Casos de uso por módulo y shell (`mod_shell`, `mod_flashcards`, `mod_pronoun`) |
 | API | `backend/api_main/src/api/` | Handlers HTTP delgados; DTOs en `dto/`; mapeo HTTP→use case en `mappers/` |
-| Infraestructura | `backend/api_main/src/infrastructure/` | Adapters por puerto: `storage/surreal/*`, Gemini, ComfyUI, storage local |
+| Infraestructura | `backend/api_main/src/infrastructure/` | Adapters por puerto: `storage/surreal/*`, entrega Oracle/Cloudflare, Gemini, ComfyUI, storage local |
 | Composition root | `backend/api_main/src/main.rs` | Wiring de dependencias y `AppState` |
 | Registro modular | `backend/api_main/src/modules/` | `register_routes()` por módulo |
 
@@ -154,7 +154,17 @@ Cada módulo expone `register_routes(app) -> Router` en `api_main/src/modules/`:
 
 El shell registra siempre: `/api/health`, `/api/features`, tutor, notificaciones, auth (si feature activa), **y media estática compartida**.
 
-**Landing demo (TRY DEMO):** la UI vive en el módulo `landing`; sirve imágenes vía shell (`/card_images`); generación invitada (`/api/resolve-image`, `/api/generate-image` con `category=landing-demo`) requiere feature **`flashcards`** en backend. El perfil sparse `flashcards` (rama `dev-flashcards`) incluye `landing` + `dashboard` + `flashcards`.
+La política de entrega de esa media usa el puerto `MediaDeliveryProvider`. Los adaptadores Oracle y
+Cloudflare se seleccionan en el composition root mediante `MEDIA_DELIVERY_MODE`; el handler no
+contiene condicionales por proveedor. La guía operativa vive en
+[`infrastructure/media-delivery-cache.md`](infrastructure/media-delivery-cache.md).
+
+**Landing demo (TRY DEMO):** la UI vive en el módulo `landing` y comparte con el estudio normal los
+puertos/adaptadores de media, el versionado, la precarga cancelable de la siguiente imagen/audio y
+la política Oracle/Cloudflare. La precarga solo resuelve archivos existentes y nunca invoca IA; la
+generación invitada visible (`category=landing-demo`) conserva Gemini/ElevenLabs. El perfil sparse
+`flashcards` (rama `dev-flashcards`) incluye `landing` + `dashboard` + `flashcards`. Detalle operativo:
+[`infrastructure/media-delivery-cache.md`](infrastructure/media-delivery-cache.md).
 
 `TutorUseCases` usa `Option<PronounPracticeRepository>` — sin módulo pronoun no hay acoplamiento a su DB.
 
@@ -424,10 +434,10 @@ Cursor y herramientas de indexación solo ven lo presente físicamente.
 | Principio | Cómo se aplica |
 |-----------|----------------|
 | **SRP** | Casos de uso en `mod_*`; shell solo compone. Frontend: `useCases/` + `queries/` por módulo |
-| **OCP** | Nuevo módulo = nuevo crate/carpeta + registro, sin editar otros módulos |
+| **OCP** | Nuevo módulo = nuevo crate/carpeta + registro; nuevo proveedor de media = nuevo adaptador |
 | **LSP** | `NullDbRepository` cuando Surreal no está disponible |
 | **ISP** | Puertos separados por responsabilidad en `core`, `modules/*/ports/` y adapters Surreal por trait |
-| **DIP** | Use cases dependen de traits/ports; batch y HTTP mapean en composition root / mappers, no en handlers |
+| **DIP** | Use cases y handlers dependen de traits/ports; proveedores se eligen en el composition root |
 
 Notas de alcance:
 
@@ -457,5 +467,6 @@ Ver tabla actualizada en [modules/README.md](../modules/README.md).
 ## 10. Documentos relacionados (no arquitectura modular)
 
 - Infraestructura y deploy: `docs/infrastructure/pipeline-and-deploy.md`
+- Entrega Oracle/Cloudflare y caché de media: `docs/infrastructure/media-delivery-cache.md`
 - Integración de sistemas externos (IA, Caddy, Surreal): `docs/INTEGRACION_SISTEMA.md`
 - Mapa por dominio funcional: `docs/MAPA_DOMINIOS.md`

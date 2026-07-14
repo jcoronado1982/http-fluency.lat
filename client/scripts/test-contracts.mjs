@@ -14,6 +14,7 @@ import {
   resolveStudyMediaNamespace,
 } from '../src/contracts/studyMediaVariants.js';
 import { buildGlobalImageStoragePath } from '../src/components/flashcardStudy/features/imageStorageIdentity.js';
+import { normalizeCardImageUrl } from '../src/utils/mediaUrl.js';
 
 // Estos valores son CONTRATO entre módulos y con el backend (mod_flashcards
 // enruta proveedores TTS/imagen por category): si cambian, debe ser a propósito.
@@ -79,6 +80,20 @@ assert.equal(
 assert.deepEqual(
   resolveStudyMediaNamespace(STUDY_MEDIA_VARIANT_APP, 'verbs', '1-basic/action'),
   { category: 'verbs', deck: '1-basic/action' },
+);
+
+// El cache-buster es contrato: normalizar formatos legacy nunca puede borrar ?v=.
+assert.equal(
+  normalizeCardImageUrl('/card_images/verbs/card.png?v=abc123'),
+  '/card_images/verbs/card.avif?v=abc123',
+);
+assert.equal(
+  normalizeCardImageUrl('https://cdn.test/card_images/card.webp?v=7#preview'),
+  'https://cdn.test/card_images/card.avif?v=7#preview',
+);
+assert.equal(
+  normalizeCardImageUrl('/unrelated/file.png?v=keep'),
+  '/unrelated/file.png?v=keep',
 );
 
 console.log('✅ test-contracts: todos los asserts pasaron');

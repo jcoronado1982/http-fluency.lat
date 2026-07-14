@@ -93,7 +93,21 @@ Para soportar 500 usuarios concurrentes en servidores de 1 GB:
 
 *   **Centinela sin forks por request:** `db_protection` en Caddy ya no usa `forward_auth` → socat → shell (6-8 procesos por CADA request, incluidos assets). Caddy evalúa directamente los archivos de estado (`/tmp/PROXY_CLOSED`, `/tmp/GATE_FILE`) con matchers `file` nativos. `sentinel-handler` y `traffic-manager` mantienen el invariante `PROXY_CLOSED existe ⟺ estado ≠ normal`; el puerto 8888 sigue sirviendo los endpoints de control (`/rojo`, `/amarillo`, `/normal`, `/status`, `/check`).
 *   **Límite de RAM del backend en el proxy:** `deploy-oracle-backend.sh` ahora usa `--memory 512m` (`FLASHCARD_BACKEND_MEMORY_LIMIT`). Antes, un pico del backend (encode AVIF) podía provocar OOM global y tumbar Caddy; ahora Docker reinicia solo el backend.
-*   **Cache-Control de imágenes en Caddy:** `/card_images/*` replica la política del backend (`assets.rs`): URL con `?v=`/`?t=` → `immutable` 1 año; sin versión → `no-cache` (revalidación 304 barata). Antes no había cabecera y el navegador podía mostrar imágenes viejas tras `force_generation` (mismo filename).
+*   **Proveedor de entrega de media configurable:** `MEDIA_DELIVERY_MODE=oracle|cloudflare` selecciona un adaptador sin cambiar handlers. En `oracle`, Caddy entrega directo y el navegador conserva URLs versionadas. En `cloudflare`, `/card_images/*` y `/card_audio/*` envían caché larga solo al CDN y el navegador revalida contra el edge. Sin versión, todos revalidan. La versión se obtiene solo de metadatos del archivo (fecha de modificación + tamaño): no regenera, no lee el contenido, no crea procesos y no agrega caché en RAM.
+    El estudio normal y `landing-demo` comparten la precarga cancelable de la siguiente imagen/audio
+    existente. La tarjeta visible tiene prioridad y la anticipación nunca ejecuta IA.
+    El cambio requiere redesplegar backend y Caddy. No cambia el enrutamiento DNS: el modo
+    `cloudflare` requiere un registro proxyado; el modo `oracle` requiere DNS-only o un hostname
+    de origen separado para que el tráfico no atraviese Cloudflare.
+    Guía canónica: [entrega y caché de imágenes y audio](docs/infrastructure/media-delivery-cache.md).
+    El pipeline de producción está configurado para `cloudflare`. `fluency.lat`/`www` tienen proxy
+    naranja; `qa.fluency.lat` permanece DNS-only y directo a Oracle, por lo que no usa caché CDN.
+    Cloudflare quedó configurado con la regla activa `Media versionada` (solo imágenes/audio de
+    producción, cache key estándar) y SSL/TLS **Full (strict)**. La configuración detallada del
+    panel, costos, actualización bajo el mismo nombre y procedimiento de publicación están en la
+    guía canónica.
+    Para metadatos remotos se prefiere el ETag de Caddy (mtime de alta precisión + tamaño) dentro
+    del mismo `HEAD`, evitando colisiones por redondeo sin hash, lectura de bytes ni RAM adicional.
 *   **Compresión en `/json/*`:** los decks JSON se sirven con zstd/gzip (−70 % egress). `browse` se mantiene: el backend lista directorios parseando ese HTML.
 *   **Dependencias muertas eliminadas:** `sqlx` (Postgres aún no desarrollado), `google-cloud-storage` y `google-cloud-token` fuera de `api_main/Cargo.toml` — menos binario y menos tiempo de compilación. `openssl` vendored se conserva (lo requiere `native-tls` vía SurrealDB).
 *   **Válvula de overflow conectada:** `oracle-ram-monitor.sh` siempre gestionó `/tmp/ORACLE_HEALTHY`, pero ningún matcher lo leía. Ahora `/api/*` de `fluency.lat` usa el snippet `api_with_overflow`: RAM libre > 250 MB → backend local; si no → GCP Cloud Run (scale-to-zero). Verificado funcionalmente con Caddy local (4 estados).
@@ -109,7 +123,9 @@ Detalle completo en `docs/reviews/2026-07-11-revision-infra-pipeline.md`. Cambio
     ni para imágenes; y `/card_audio/*` era `immutable` incondicional (audio regenerado quedaba
     stale hasta 1 año en navegadores de otras sesiones). Ahora el snippet `asset_cache_policy`
     (expression CEL, verificado en vivo) aplica a imágenes Y audio, prod y QA: `?v=`/`?t=` →
-    `immutable` 1 año; sin versión → `no-cache` + ETag (revalidación 304 sin cuerpo, ~0.26 s).
+    caché larga en Cloudflare; sin versión → `no-cache` + ETag. Desde la revisión del
+    versionado, el navegador conserva `no-cache` incluso para URLs versionadas y delega la
+    copia duradera al CDN mediante `Cloudflare-CDN-Cache-Control`.
     `assets.rs` replica la política (audio ganó ETag/304 y dejó la heurística por nombre de archivo).
 *   **Rotación de logs en SurrealDB (OCI-1):** `deploy-surrealdb-oci1.sh` ahora usa
     `--log-opt max-size=10m --log-opt max-file=2` (era el único contenedor sin rotación).

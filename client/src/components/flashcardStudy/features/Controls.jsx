@@ -2,11 +2,10 @@ import React, { useEffect } from 'react';
 import styles from './Controls.module.css';
 import { getStudyCardControlLabels } from '../studyCardTranslations';
 import { useUIContext } from '../../../context/UIContext';
-import { useFlashcardUiContext, useFlashcardContext } from '../context/flashcardStudyContext';
+import { useFlashcardContext } from '../context/flashcardStudyContext';
 
 function Controls() {
     const { language = 'en' } = useUIContext();
-    const { isAudioLoading, isImageLoading } = useFlashcardUiContext();
     const {
         prevCard, nextCard, markAsLearned, resetDeck,
         currentIndex, filteredData, currentDeckName, isLandingDemo,
@@ -14,9 +13,10 @@ function Controls() {
 
     const t = getStudyCardControlLabels(language);
     const totalCards = filteredData.length;
-    // Demo: no bloquear flechas mientras carga/sintetiza audio (permite navegar fluido).
-    const isBusy = totalCards === 0 || (!isLandingDemo && (isAudioLoading || isImageLoading));
-    const isResetDisabled = (!isLandingDemo && (isAudioLoading || isImageLoading)) || !currentDeckName;
+    // Imagen y audio se cancelan al abandonar la tarjeta; nunca deben bloquear
+    // anterior/siguiente ni marcar aprendida.
+    const isBusy = totalCards === 0;
+    const isResetDisabled = !currentDeckName;
 
     useEffect(() => {
         const handleKeyDown = (e) => {

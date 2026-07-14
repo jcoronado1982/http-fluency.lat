@@ -39,11 +39,12 @@ async function parseResponse(res) {
     return res.json();
 }
 
-async function request(method, path, body) {
+async function request(method, path, body, { signal } = {}) {
     const url = buildUrl(path);
     const options = {
         method,
         headers: buildHeaders(),
+        signal,
     };
     if (body !== undefined) {
         options.body = JSON.stringify(body);
@@ -68,8 +69,8 @@ async function upload(path, formData, extraHeaders = {}) {
 }
 
 export const httpClient = {
-    get: (path) => request('GET', path),
-    post: (path, body) => request('POST', path, body),
-    delete: (path, body) => request('DELETE', path, body),
+    get: (path, options) => request('GET', path, undefined, options),
+    post: (path, body, options) => request('POST', path, body, options),
+    delete: (path, body, options) => request('DELETE', path, body, options),
     upload,
 };

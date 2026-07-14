@@ -112,3 +112,29 @@ El backend soporta dos configuraciones controladas por la variable `SYNC_TO_ORAC
 | `ORACLE_REMOTE_PATH` | Sí | Ruta destino en Oracle (`/root/smart-proxy/repository/flashcard`) |
 | `LOCAL_STORAGE_PATH` | Sí | Directorio temporal del backend para generación de archivos (`/tmp`) |
 | `SURREAL_URL` | Sí | Dirección de conexión a la base de datos SurrealDB en AWS |
+| `MEDIA_DELIVERY_MODE` | No (fallback `oracle`) | Proveedor de entrega/caché de imágenes y audio: `oracle` o `cloudflare`; el pipeline de producción fija `cloudflare` |
+
+### Proveedor de entrega de media
+
+`MEDIA_DELIVERY_MODE` es el único switch de la aplicación y del despliegue para backend y Caddy:
+
+```bash
+MEDIA_DELIVERY_MODE=oracle      # acceso directo; navegador cachea URLs versionadas
+MEDIA_DELIVERY_MODE=cloudflare  # Cloudflare cachea; navegador revalida contra el edge
+```
+
+El contrato vive en `backend/core/src/ports/media_delivery.rs`; las implementaciones viven en
+`backend/api_main/src/infrastructure/media_delivery/` y se seleccionan en el composition root.
+Un proveedor nuevo se agrega como otro adaptador, sin modificar handlers ni casos de uso.
+
+El cambio se aplica al volver a desplegar backend y Caddy. La variable no modifica el DNS de
+Cloudflare: para `cloudflare`, el registro debe estar proxyado (nube naranja); para llegar realmente
+directo a Oracle con `oracle`, debe usarse un registro DNS-only (nube gris) o un hostname de origen
+separado. Esto evita acoplar la aplicación a la API o las credenciales de un proveedor DNS.
+
+Topología actual: producción (`fluency.lat` y `www`) está proxyada; `qa.fluency.lat` es un A
+DNS-only directo a Oracle. QA revalida media y no usa el CDN. La query `?v=` se deriva únicamente de
+metadatos/ETag y cambia aunque el nombre físico permanezca igual; no regenera ni cachea bytes en RAM.
+
+Guía operativa, verificación y reversión:
+[docs/infrastructure/media-delivery-cache.md](docs/infrastructure/media-delivery-cache.md).

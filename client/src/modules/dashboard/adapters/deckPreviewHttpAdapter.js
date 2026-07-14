@@ -1,3 +1,5 @@
+import { normalizeCardImageUrl } from '../../../utils/mediaUrl.js';
+
 /**
  * Adaptador HTTP de vista previa de mazos (infraestructura del dashboard).
  * Implementa `DeckPreviewPort` vía `httpClient` del shell.
@@ -22,10 +24,7 @@ export function createDeckPreviewHttpAdapter(httpClient) {
 
         // Los JSON antiguos apuntan a .jpg/.png pero los assets reales son AVIF.
         normalizeImagePath: (path) => {
-            if (!path) return path;
-            const cleanPath = path.split('?')[0];
-            if (!cleanPath.includes('/card_images/')) return cleanPath;
-            return cleanPath.replace(/\.(jpe?g|png|webp)$/i, '.avif');
+            return normalizeCardImageUrl(path);
         },
     };
 }
