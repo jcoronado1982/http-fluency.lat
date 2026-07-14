@@ -783,6 +783,31 @@
   letter-spacing: -0.1px;
 }
 
+/* Laptop: el catálogo queda completamente por debajo del header visible. */
+@media (min-width: 901px) and (max-height: 900px) {
+  .categorySelectorOverlay {
+    --catalog-laptop-top: var(--app-header-height, 76px);
+    top: var(--catalog-laptop-top);
+    height: calc(var(--fc-real-vh, 100dvh) - var(--catalog-laptop-top));
+    min-height: calc(var(--fc-real-vh, 100dvh) - var(--catalog-laptop-top));
+    padding-block: 0;
+    align-items: center;
+  }
+
+  .sidebarTitle {
+    margin-bottom: 10px;
+  }
+
+  .dashboardContainer {
+    max-height: 650px;
+  }
+
+  .categoryNav {
+    overflow-y: auto;
+  }
+
+}
+
 /* Mobile Responsive */
 @media (max-width: 900px) {
   .helpPopover {

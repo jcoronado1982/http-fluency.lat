@@ -2,14 +2,14 @@
 
 [data-variant='app'][data-layout='conjugation'] .conjugationTable {
     margin: 5px auto 5px;
-    padding: 8px 7px 3px 7px;
+    padding: 6px 4px 1px 4px;
     gap: 8px;
 }
 @media (min-width: 768.02px) and (max-height: 900px) {
 
     [data-variant='app'] .conjugationTable {
         margin: 4px auto;
-        padding: 6px 8px 4px;
+        padding: 6px 4px 1px 4px;
         gap: 6px;
     }
 

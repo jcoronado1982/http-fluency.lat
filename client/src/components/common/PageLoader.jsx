@@ -6,6 +6,7 @@ function PageLoader({
     subtitle = '',
     status = '',
     currentTask = '',
+    operation = '',
     progress = 0,
     stats = [],
     className = '',
@@ -34,7 +35,7 @@ function PageLoader({
                     </div>
                 </div>
 
-                {stats.length > 0 ? (
+                {operation ? <p className={styles.operation}>{operation}</p> : stats.length > 0 ? (
                     <dl className={styles.statsGrid}>
                         {stats.map((item) => (
                             <div className={styles.statItem} key={item.label}>

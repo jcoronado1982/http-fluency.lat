@@ -4,7 +4,7 @@
    los contenedores `flashcard` y `flashcard-face` quedan declarados para reglas
    futuras, pero los breakpoints existentes NO se convierten a @container porque
    la relación viewport→ancho-de-tarjeta no es monótona: en app la tarjeta mide
-   620px fijos con viewport ≥769px y SALTA a ~748px justo al cruzar a ≤768px
+   600px fijos con viewport ≥769px y SALTA a ~748px justo al cruzar a ≤768px
    (el layout de página colapsa y libera espacio); en el demo del hero pasa de
    282px (dos columnas, viewport 740px) a 660px (una columna, viewport 700px).
    Ningún umbral de inline-size puede replicar el corte de 768px sin cambiar la
@@ -25,7 +25,7 @@
     --fc-face-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
     --fc-card-shadow: var(--fc-face-shadow);
     width: 100%;
-    max-width: var(--fc-card-max-width, 620px);
+    max-width: var(--fc-card-max-width, 560px);
     height: var(--fc-card-base-height, 720px);
     perspective: 1200px;
     margin: 0 auto;
@@ -54,7 +54,7 @@
     --fc-face-padding-block-start: clamp(12px, 2vw, 20px);
     --fc-face-padding-inline: clamp(12px, 2vw, 20px);
     width: 100%;
-    max-width: var(--fc-card-max-width, 620px);
+    max-width: var(--fc-card-max-width, 580px);
     height: var(--fc-card-height, clamp(420px, calc(var(--fc-real-vh, 100dvh) * 0.72), 720px));
     min-height: var(--fc-card-min-height, 380px);
     flex-shrink: 0;
@@ -83,6 +83,8 @@
     .flashcardContainer[data-variant='app'] {
         --fc-face-padding-block-start: clamp(10px, 1.6vh, 16px);
         --fc-face-padding-inline: clamp(12px, 1.6vw, 18px);
+        max-width: 540px;
+        height: var(--fc-card-height);
     }
 
     .cardFront[data-variant='app'] .name {
@@ -186,7 +188,7 @@
     font-weight: 800;
     color: #ffffff;
     margin: 0;
-    text-transform: capitalize;
+    text-transform: uppercase;
     letter-spacing: -0.02em;
     line-height: 1;
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
@@ -226,8 +228,8 @@
     background-color: transparent;
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     color: #f472b6;
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -237,10 +239,10 @@
 }
 
 .soundButton svg {
-    width: 24px;
-    height: 24px;
-    min-width: 24px;
-    min-height: 24px;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
     stroke-width: 2.5;
 }
 
@@ -252,9 +254,9 @@
 }
 
 .wordBlock .ipaChartBtn {
-    width: 28px;
-    height: 28px;
-    min-width: 28px;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
 }
 
 .wordBlock .ipaChartBtn svg {
@@ -326,8 +328,8 @@
 }
 
 .rotateVoiceBtn {
-    width: 44px;
-    height: 44px;
+    width: 34px;
+    height: 34px;
     padding: 0;
     border-radius: 50%;
     background: transparent;
@@ -346,10 +348,10 @@
 }
 
 .rotateVoiceBtn svg {
-    width: 24px;
-    height: 24px;
-    min-width: 24px;
-    min-height: 24px;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
     stroke-width: 2.5;
 }
 
@@ -526,12 +528,12 @@
 }
 
 .cardFront[data-variant='app'] .wordBlock {
-    row-gap: 0;
+    row-gap: 2px;
     column-gap: 2px;
 }
 
 .cardFront[data-variant='app'][data-layout='conjugation'] .wordHeader {
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     margin-top: 0px;
 }
 

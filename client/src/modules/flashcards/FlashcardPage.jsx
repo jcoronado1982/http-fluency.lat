@@ -521,6 +521,7 @@ export default function FlashcardPage() {
                                 subtitle={loadingCopy.subtitle}
                                 status={loadingCopy.status}
                                 currentTask={currentTask}
+                                operation={loadingCopy.operation || loadingCopy.status}
                                 progress={progress}
                                 stats={loaderStats}
                             />

@@ -7,7 +7,7 @@
 }
 
 [data-variant='app'][data-layout='conjugation'] .exampleRow {
-    padding: 3px 6px;
+    padding: 2px 0px;
 }
 
 [data-variant='app'] .allExamplesContainer {
@@ -35,7 +35,7 @@
     }
 
     [data-variant='app'] .exampleRow {
-        padding: 3px 6px;
+        padding: 2px 5px;
     }
 
     [data-variant='app'] .phraseContainer,
@@ -131,8 +131,8 @@
     background: transparent;
     border: 1px solid transparent;
     border-radius: 50%;
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
     font-size: 1em;
     cursor: pointer;
     flex-shrink: 0;

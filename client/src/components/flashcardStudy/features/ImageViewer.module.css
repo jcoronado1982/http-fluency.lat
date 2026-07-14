@@ -27,7 +27,7 @@
     }
 
     [data-variant='app'][data-layout='conjugation'] .imagePlaceholder {
-        margin-top: 8px;
+        margin-top: 0;
     }
 }
 

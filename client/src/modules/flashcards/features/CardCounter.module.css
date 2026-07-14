@@ -5,8 +5,11 @@
    tenga su propia hoja y no dependa del CSS del componente Flashcard. */
 
 .cardCounter {
-    position: fixed;
-    top: 100px;
+    /* Se posiciona respecto a .flashcard-page-wrapper (position: relative),
+       no respecto al viewport. Así permanece unido a la tarjeta al hacer
+       scroll y comparte su padding superior responsivo. */
+    position: absolute;
+    top: clamp(12px, 2.5vh, 36px);
     right: 40px;
     z-index: 1000;
     display: flex;
@@ -22,6 +25,14 @@
     color: #f8fafc;
     font-family: var(--font-family-body);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* En portátiles de poca altura App.css elimina el padding superior de la
+   tarjeta para aprovechar el viewport; el contador debe hacer lo mismo. */
+@media (min-width: 768.02px) and (max-width: 1600px) and (max-height: 900px) {
+    .cardCounter {
+        top: 0;
+    }
 }
 
 .cardCounter:hover {

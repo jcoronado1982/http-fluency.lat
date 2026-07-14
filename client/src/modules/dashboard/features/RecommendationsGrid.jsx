@@ -20,7 +20,6 @@ export default function RecommendationsGrid({ items, getItemImage, labels, onOpe
                         <span>{item.levelId}</span>
                     </span>
                     <strong>{item.deckLabel || item.deckName}</strong>
-                    <small>{labels.quickAccessSubtitle.replace('{level}', item.levelId)}</small>
                     <span className="dash-category-action">{labels.quickAccessButton}</span>
                 </button>
             ))}
