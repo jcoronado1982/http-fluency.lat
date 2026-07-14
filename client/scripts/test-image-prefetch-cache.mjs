@@ -6,6 +6,14 @@ import {
   makePrefetchKey,
   setPrefetchedImagePath,
 } from '../src/components/flashcardStudy/features/imagePrefetchCache.js';
+import {
+  clearPrefetchedAudio,
+  deletePrefetchedAudio,
+  getPrefetchedAudio,
+  hasAudioPrefetchEntry,
+  makeAudioPrefetchKey,
+  setPrefetchedAudio,
+} from '../src/components/flashcardStudy/features/audioPrefetchCache.js';
 
 // La clave normaliza form ausente/'v1' al mismo valor (el prefetch guarda 'v1'
 // y useImageGeneration puede consultar con undefined)
@@ -75,4 +83,42 @@ assert.equal(getPrefetchedImagePath(lastKey), '/img/24-bis.avif');
 assert.equal(getPrefetchedImagePath(makePrefetchKey({ ...base, cardId: 1 })), '/img/1.avif');
 
 clearPrefetchedImages();
-console.log('✅ test-image-prefetch-cache: todos los asserts pasaron');
+
+// Audio: metadatos versionados solamente; los bytes quedan en caché HTTP.
+clearPrefetchedAudio();
+const audioBase = {
+  category: 'verbs',
+  deck: '1-basic/action',
+  text: 'run',
+  lang: 'en',
+  verbName: 'run',
+  courseDirection: 'es_en',
+};
+const audioKey = makeAudioPrefetchKey(audioBase);
+setPrefetchedAudio(audioKey, {
+  resolvedUrl: '/card_audio/run.ogg?v=123-456',
+  voiceName: 'Zephyr',
+});
+assert.deepEqual(getPrefetchedAudio(audioKey), {
+  resolvedUrl: '/card_audio/run.ogg?v=123-456',
+  voiceName: 'Zephyr',
+});
+assert.equal(hasAudioPrefetchEntry(audioKey), true);
+assert.notEqual(
+  audioKey,
+  makeAudioPrefetchKey({ ...audioBase, courseDirection: 'en_es' }),
+  'las direcciones de curso no deben compartir audio anticipado',
+);
+
+const missingAudioKey = makeAudioPrefetchKey({ ...audioBase, text: 'missing' });
+setPrefetchedAudio(missingAudioKey, null);
+assert.equal(hasAudioPrefetchEntry(missingAudioKey), true);
+assert.equal(getPrefetchedAudio(missingAudioKey), null);
+
+deletePrefetchedAudio(missingAudioKey);
+assert.equal(hasAudioPrefetchEntry(missingAudioKey), false);
+
+clearPrefetchedAudio();
+assert.equal(hasAudioPrefetchEntry(audioKey), false);
+
+console.log('✅ test-media-prefetch-cache: todos los asserts pasaron');

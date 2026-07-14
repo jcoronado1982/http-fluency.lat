@@ -24,6 +24,36 @@ trap cleanup SIGINT SIGTERM
 
 REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 
+# Selección explícita del origen de assets.  Se exporta justo antes de lanzar
+# el backend para que tenga prioridad sobre backend/.env.
+STORAGE_MODE="${1:-local}"
+case "$STORAGE_MODE" in
+    local)
+        STORAGE_SYNC_TO_ORACLE="false"
+        STORAGE_ORACLE_REPOSITORY_ONLY="false"
+        STORAGE_PUBLIC_BASE_URL=""
+        ;;
+    # Revisión segura: Oracle es fuente de lectura, sin SCP ni modificaciones
+    # remotas desde el entorno local.
+    oracle|origen)
+        STORAGE_SYNC_TO_ORACLE="false"
+        STORAGE_ORACLE_REPOSITORY_ONLY="true"
+        STORAGE_PUBLIC_BASE_URL="${ORACLE_PUBLIC_BASE_URL:-https://fluency.lat}"
+        ;;
+    remoto|remote)
+        STORAGE_SYNC_TO_ORACLE="true"
+        STORAGE_ORACLE_REPOSITORY_ONLY="true"
+        STORAGE_PUBLIC_BASE_URL=""
+        ;;
+    *)
+        echo "Uso: $0 [local|oracle|remoto]"
+        echo "  oracle: lee desde Oracle sin escribir; remoto: sincroniza escritura a Oracle"
+        exit 1
+        ;;
+esac
+
+echo "🗂️  Assets: modo $STORAGE_MODE"
+
 echo "📚 Generando manifiesto liviano del catálogo..."
 node "$REPO_ROOT/scripts/generate-catalog-manifest.mjs" "$REPO_ROOT/json" || exit 1
 
@@ -144,10 +174,17 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Limpiamos la variable global para forzar que use la del .env
+# Limpiamos variables heredadas y aplicamos el modo seleccionado. dotenv no
+# sobrescribe variables de entorno ya exportadas, así que este modo prevalece
+# sobre backend/.env.
 unset GEMINI_API_KEY
 unset SYNC_TO_ORACLE
 unset ORACLE_REPOSITORY_ONLY
+export SYNC_TO_ORACLE="$STORAGE_SYNC_TO_ORACLE"
+export ORACLE_REPOSITORY_ONLY="$STORAGE_ORACLE_REPOSITORY_ONLY"
+if [ -n "$STORAGE_PUBLIC_BASE_URL" ]; then
+    export PUBLIC_BASE_URL="$STORAGE_PUBLIC_BASE_URL"
+fi
 
 # En desarrollo, los comentarios deben sobrevivir al reinicio del backend.
 # No usar el directorio de trabajo (".") porque puede variar según cómo se
@@ -156,10 +193,6 @@ export LOCAL_STORAGE_PATH="$REPO_ROOT"
 
 # En desarrollo Vite proxya /api, /card_images y /card_audio a localhost:8081.
 export PORT="${PORT:-8081}"
-if [ "$DOCKER_READY" != true ]; then
-    export SYNC_TO_ORACLE="false"
-fi
-
 # Lanzamos el binario en segundo plano para verificarlo
 RUST_MIN_STACK=8388608 ./target/debug/api_main &
 BACKEND_PID=$!

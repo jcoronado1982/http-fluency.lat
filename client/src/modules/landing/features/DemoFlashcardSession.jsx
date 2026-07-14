@@ -24,6 +24,8 @@ import {
     patchDefinitionImage,
 } from './demo/demoSessionUtils';
 import { getLandingTranslations } from '../config/translations';
+import { useNextImagePrefetch } from '../../../components/flashcardStudy/features/useNextImagePrefetch';
+import { useNextAudioPrefetch } from '../../../components/flashcardStudy/features/useNextAudioPrefetch';
 
 const noop = () => {};
 const MIN_SWIPE_DISTANCE = 50;
@@ -43,6 +45,7 @@ export default function DemoFlashcardSession({
     const masterData = cards;
     const filteredData = useMemo(() => masterData.filter((c) => !c.learned), [masterData]);
     const currentCard = filteredData[currentIndex] ?? null;
+    const demoStudyLanguage = language === 'es' ? 'en' : 'es';
 
     useEffect(() => {
         if (!demoSelection) return;
@@ -114,7 +117,7 @@ export default function DemoFlashcardSession({
         setSelectedGroup: noop,
         updateCardImagePath,
         isLandingDemo: true,
-        demoStudyLanguage: language === 'es' ? 'en' : 'es',
+        demoStudyLanguage,
         buildDemoImagePath: buildLandingDemoImagePath,
         demoImagePromptExtraRef: promptExtraRef,
         imagePromptApplySignal: imagePromptApplySignal,
@@ -122,13 +125,37 @@ export default function DemoFlashcardSession({
     }), [
         currentCard, currentIndex, filteredData, masterData,
         nextCard, prevCard, markAsLearned, resetDeck, updateCardImagePath,
-        promptExtraRef, imagePromptApplySignal, language, demoSelection,
+        promptExtraRef, imagePromptApplySignal, demoStudyLanguage, demoSelection,
     ]);
 
     const [isAudioLoading, setIsAudioLoading] = useState(false);
     const [isImageLoading, setIsImageLoading] = useState(false);
     const [isIpaModalOpen, setIsIpaModalOpen] = useState(false);
     const [isPhonicsModalOpen, setIsPhonicsModalOpen] = useState(false);
+
+    const upcomingCard = filteredData.length > 1
+        ? filteredData[(currentIndex + 1) % filteredData.length]
+        : null;
+    const canPrefetchNextMedia = Boolean(currentCard) && !isAudioLoading && !isImageLoading;
+
+    // Mismo pipeline del estudio autenticado: solo la tarjeta siguiente,
+    // únicamente archivos existentes y cancelación al navegar de largo.
+    useNextImagePrefetch({
+        imagePort: demoImagePort,
+        card: upcomingCard,
+        category: LANDING_DEMO_CATEGORY,
+        deckName: LANDING_DEMO_DECK,
+        studyLanguage: demoStudyLanguage,
+        enabled: canPrefetchNextMedia,
+    });
+    useNextAudioPrefetch({
+        audioPort: demoAudioPort,
+        card: upcomingCard,
+        category: LANDING_DEMO_CATEGORY,
+        deckName: LANDING_DEMO_DECK,
+        studyLanguage: demoStudyLanguage,
+        enabled: canPrefetchNextMedia,
+    });
 
     const uiValue = useMemo(() => ({
         isCatalogVisible: false,

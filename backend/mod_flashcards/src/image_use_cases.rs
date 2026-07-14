@@ -215,6 +215,27 @@ impl ImageUseCases {
         }
     }
 
+    /// Comprueba existencia y obtiene la versión con una sola consulta de
+    /// metadatos en el camino normal. En desarrollo contra Oracle, hacer
+    /// `blob_exists` seguido de `blob_version` duplicaba el HEAD remoto y
+    /// retrasaba el cambio de tarjeta. Si el origen no expone metadatos de
+    /// versión, conserva el fallback seguro a existencia + URL no-cache.
+    async fn existing_versioned_image_url(
+        &self,
+        file_name: &str,
+        blob_path: &str,
+    ) -> Result<Option<String>> {
+        match self.storage_repo.blob_version(blob_path).await? {
+            Some(version) if !version.is_empty() => {
+                Ok(Some(format!("/card_images/{}?v={}", file_name, version)))
+            }
+            _ if self.storage_repo.blob_exists(blob_path).await? => {
+                Ok(Some(format!("/card_images/{}", file_name)))
+            }
+            _ => Ok(None),
+        }
+    }
+
     fn legacy_public_path_to_blob_path(&self, legacy_path: &str) -> Option<String> {
         let prefix = self.config.gcs_images_prefix.trim_matches('/');
         let clean = legacy_path.split('?').next()?.trim();
@@ -864,12 +885,12 @@ impl ImageUseCases {
             );
             let personal_avif = format!("{}/{}.avif", images_prefix, personal_base);
             tracing::info!("  → check personal: {}", personal_avif);
-            if self.storage_repo.blob_exists(&personal_avif).await? {
+            if let Some(url) = self
+                .existing_versioned_image_url(&format!("{}.avif", personal_base), &personal_avif)
+                .await?
+            {
                 tracing::info!("  ✔️ found personal: {}", personal_avif);
-                return Ok(Some(
-                    self.versioned_image_url(&format!("{}.avif", personal_base), &personal_avif)
-                        .await,
-                ));
+                return Ok(Some(url));
             }
 
             if !is_landing_demo_namespace(&category) {
@@ -885,14 +906,14 @@ impl ImageUseCases {
                 );
                 let legacy_personal_avif =
                     format!("{}/{}.avif", images_prefix, legacy_personal_base);
-                if self.storage_repo.blob_exists(&legacy_personal_avif).await? {
-                    return Ok(Some(
-                        self.versioned_image_url(
-                            &format!("{}.avif", legacy_personal_base),
-                            &legacy_personal_avif,
-                        )
-                        .await,
-                    ));
+                if let Some(url) = self
+                    .existing_versioned_image_url(
+                        &format!("{}.avif", legacy_personal_base),
+                        &legacy_personal_avif,
+                    )
+                    .await?
+                {
+                    return Ok(Some(url));
                 }
             }
         }
@@ -909,12 +930,12 @@ impl ImageUseCases {
         );
         let global_avif = format!("{}/{}.avif", images_prefix, global_base);
         tracing::info!("  → check global: {}", global_avif);
-        if self.storage_repo.blob_exists(&global_avif).await? {
+        if let Some(url) = self
+            .existing_versioned_image_url(&format!("{}.avif", global_base), &global_avif)
+            .await?
+        {
             tracing::info!("  ✔️ found global: {}", global_avif);
-            return Ok(Some(
-                self.versioned_image_url(&format!("{}.avif", global_base), &global_avif)
-                    .await,
-            ));
+            return Ok(Some(url));
         }
 
         // Compatibilidad de lectura con la biblioteca anterior, que no tenía
@@ -926,14 +947,14 @@ impl ImageUseCases {
                 category, deck_media_dir, deck_file_prefix, index, def_index, form_suffix
             );
             let legacy_global_avif = format!("{}/{}.avif", images_prefix, legacy_global_base);
-            if self.storage_repo.blob_exists(&legacy_global_avif).await? {
-                return Ok(Some(
-                    self.versioned_image_url(
-                        &format!("{}.avif", legacy_global_base),
-                        &legacy_global_avif,
-                    )
-                    .await,
-                ));
+            if let Some(url) = self
+                .existing_versioned_image_url(
+                    &format!("{}.avif", legacy_global_base),
+                    &legacy_global_avif,
+                )
+                .await?
+            {
+                return Ok(Some(url));
             }
         }
 

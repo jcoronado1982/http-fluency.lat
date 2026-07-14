@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styles from './Flashcard.module.css';
 import { useAudioPlayback } from './useAudioPlayback.jsx';
 import { useImageGeneration } from './useImageGeneration.js';
@@ -10,6 +10,8 @@ import { useFlashcardUiContext, useFlashcardContext, useCategoryContext } from '
 import { getCardTitle, getAudioLang, getAudioLangForConjugation, getStudyExampleText } from './cardLanguageUtils';
 import { registerUiBridgeHandler, unregisterUiBridgeHandler } from '../uiBridge';
 import { useAuth } from '../../../context/AuthContext';
+
+const AUTO_PLAY_DELAY_MS = 50;
 
 const getDefinitionsForForm = (card, form) => {
     if (!card) return [];
@@ -52,8 +54,6 @@ function Flashcard() {
     const {
         currentCard: cardData,
         currentDeckName,
-        filteredData = [],
-        currentIndex = 0,
         updateCardImagePath,
         isLandingDemo = false,
         demoStudyLanguage,
@@ -71,9 +71,10 @@ function Flashcard() {
     const [isFlipped, setIsFlipped] = useState(false);
     const [activeForm, setActiveForm] = useState('v1');
     const [blurredState, setBlurredState] = useState({});
+    const autoPlayTimerRef = useRef(null);
 
     const {
-        playAudio, prefetchAudio, stopAudio, deleteAudio, activeAudioText, highlightedWordIndex, isGeneratingAudio
+        playAudio, stopAudio, deleteAudio, activeAudioText, highlightedWordIndex, isGeneratingAudio
     } = useAudioPlayback({
         setAppMessage, setIsAudioLoading, currentCategory, currentDeckName,
         verbName: cardData?.name
@@ -165,47 +166,21 @@ function Flashcard() {
         });
     }, [ensureImageForDefinition, cardData, activeForm, isLandingDemo]);
 
-    const prefetchCardAudio = useCallback((card) => {
-        if (!card || isAnyOverlayOpen || isLandingDemo) return;
-
-        const defs = getDefinitionsForForm(card, 'v1');
-        const title = getCardTitle({
-            name: card.name,
-            definitions: card.definitions || [],
-        }, cardLanguage);
-        const audioLang = getAudioLang(cardLanguage);
-        const cardVerbName = card.name;
-
-        if (title) void prefetchAudio(title, audioLang, cardVerbName);
-        defs.forEach((def) => {
-            const exampleText = getStudyExampleText(def, cardLanguage);
-            if (exampleText) void prefetchAudio(exampleText, audioLang, cardVerbName);
-        });
-    }, [cardLanguage, isAnyOverlayOpen, isLandingDemo, prefetchAudio]);
-
     useEffect(() => {
         if (!cardData) return;
-        prefetchCardAudio(cardData);
-    }, [cardData, prefetchCardAudio]);
 
-    useEffect(() => {
-        if (!filteredData.length || isAnyOverlayOpen) return;
-
-        const nextIndex = (currentIndex + 1) % filteredData.length;
-        const prevIndex = (currentIndex - 1 + filteredData.length) % filteredData.length;
-
-        if (nextIndex !== currentIndex) prefetchCardAudio(filteredData[nextIndex]);
-        if (prevIndex !== currentIndex && prevIndex !== nextIndex) {
-            prefetchCardAudio(filteredData[prevIndex]);
+        if (isAnyOverlayOpen) {
+            if (autoPlayTimerRef.current) clearTimeout(autoPlayTimerRef.current);
+            autoPlayTimerRef.current = null;
+            stopAudio();
+            return;
         }
-    }, [filteredData, currentIndex, isAnyOverlayOpen, prefetchCardAudio]);
 
-    useEffect(() => {
-        if (!cardData) return;
-        
         // Solo reseteamos si realmente cambiamos de tarjeta (ID o nombre)
         const currentId = cardData.id || cardData.name || cardData.word;
         if (currentId !== prevCardId) {
+            if (autoPlayTimerRef.current) clearTimeout(autoPlayTimerRef.current);
+            autoPlayTimerRef.current = null;
             stopAudio();
             setIsFlipped(false);
             setActiveForm('v1');
@@ -217,8 +192,13 @@ function Flashcard() {
                 name: cardData.name,
                 definitions: cardData.definitions || [],
             }, cardLanguage);
-            if (title && !isAnyOverlayOpen) {
-                void playAudio(title, getAudioLang(cardLanguage));
+            if (title) {
+                // Si el usuario sigue avanzando, el siguiente cambio limpia
+                // este timer antes de iniciar red o reproducción.
+                autoPlayTimerRef.current = setTimeout(() => {
+                    autoPlayTimerRef.current = null;
+                    void playAudio(title, getAudioLang(cardLanguage));
+                }, AUTO_PLAY_DELAY_MS);
             }
         }
     }, [cardData, setAppMessage, prevCardId, stopAudio, playAudio, cardLanguage, isAnyOverlayOpen, buildAllBlurred]);
@@ -295,6 +275,7 @@ function Flashcard() {
     }, [activeForm, buildAllBlurred, cardData, cardLanguage, ensureImageForDefinition, playAudio, revealDefinition]);
 
     useEffect(() => () => {
+        if (autoPlayTimerRef.current) clearTimeout(autoPlayTimerRef.current);
         stopAudio();
     }, [stopAudio]);
 
@@ -329,19 +310,17 @@ function Flashcard() {
             <div
                 className={`${styles.card} ${isFlipped ? styles.flipped : ''}`}
                 onClick={() => {
-                    if (isImageLoading) return;
                     setIsFlipped(p => !p);
                 }}
                 data-tour="boton-voltear-tarjeta"
                 data-flipped={isFlipped ? 'true' : 'false'}
                 data-state={isFlipped ? 'back' : 'front'}
                 role="button"
-                tabIndex={isImageLoading ? -1 : 0}
+                tabIndex={0}
                 aria-pressed={isFlipped}
                 aria-label={language === 'es' ? 'Voltear tarjeta' : 'Flip card'}
-                style={{ cursor: isImageLoading ? 'wait' : 'pointer' }}
+                style={{ cursor: 'pointer' }}
                 onKeyDown={(event) => {
-                    if (isImageLoading) return;
                     if (event.key === 'Enter' || event.key === ' ') {
                         event.preventDefault();
                         setIsFlipped((previous) => !previous);

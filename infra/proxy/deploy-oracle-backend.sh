@@ -77,6 +77,7 @@ docker run -d \
   -e LOCAL_STORAGE_PATH="/data" \
   -e SYNC_TO_ORACLE="false" \
   -e ORACLE_REPOSITORY_ONLY="false" \
+  -e MEDIA_DELIVERY_MODE="${MEDIA_DELIVERY_MODE:-oracle}" \
   -e PORT="${BACKEND_PORT:-8080}" \
   -e RUST_LOG="${RUST_LOG:-info}" \
   -e DATABASE_URL="$DATABASE_URL" \

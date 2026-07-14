@@ -1,6 +1,7 @@
 import { API_URL } from '../config/api';
 import { httpClient } from '../services/httpClient';
 import { buildGlobalImageStoragePath } from '../components/flashcardStudy/features/imageStorageIdentity.js';
+import { normalizeCardImageUrl } from '../utils/mediaUrl.js';
 
 export function createImageHttpAdapter(http) {
     const normalizeCourseDirection = (courseDirection) => (
@@ -8,7 +9,7 @@ export function createImageHttpAdapter(http) {
     );
     const imageAdapter = {
     // POST /api/resolve-image — capa personal (premium) o global (predeterminada), sin generar
-    resolve: async ({ category, deck, index, defIndex, form, courseDirection }) => {
+    resolve: async ({ category, deck, index, defIndex, form, courseDirection, signal }) => {
         const data = await http.post('/api/resolve-image', {
             category,
             deck,
@@ -16,13 +17,13 @@ export function createImageHttpAdapter(http) {
             def_index: defIndex,
             course_direction: normalizeCourseDirection(courseDirection),
             form: form && form !== 'v1' ? form : undefined,
-        });
+        }, { signal });
         if (!data?.path) throw new Error('Sin ruta de imagen en la respuesta');
         return data;
     },
 
     // POST /api/generate-image — recupera imagen de GCS o genera una nueva con IA
-    generate: async ({ category, deck, index, defIndex, form, courseDirection, prompt, meaning, usageExample, usageContext, alternativeExample, forceGeneration, legacyImagePath, sceneComplement, promptEngine }) => {
+    generate: async ({ category, deck, index, defIndex, form, courseDirection, prompt, meaning, usageExample, usageContext, alternativeExample, forceGeneration, legacyImagePath, sceneComplement, promptEngine, signal }) => {
         const data = await http.post('/api/generate-image', {
             category,
             deck,
@@ -39,7 +40,7 @@ export function createImageHttpAdapter(http) {
             legacy_image_path: legacyImagePath || undefined,
             scene_complement: sceneComplement || undefined,
             prompt_engine: promptEngine || undefined,
-        });
+        }, { signal });
         if (!data?.path) throw new Error('Sin ruta de imagen en la respuesta');
         return data;
     },
@@ -81,10 +82,7 @@ export function createImageHttpAdapter(http) {
 
     // Normaliza paths legacy: los JSON antiguos apuntaban a .jpg, pero los assets reales son AVIF.
     normalizeToAvif: (path) => {
-        if (!path) return path;
-        const cleanPath = path.split('?')[0];
-        if (!cleanPath.includes('/card_images/')) return cleanPath;
-        return cleanPath.replace(/\.(jpe?g|png|webp)$/i, '.avif');
+        return normalizeCardImageUrl(path);
     },
 
     // Construye URL absoluta dado un path relativo de imagen.
@@ -110,25 +108,44 @@ export function createImageHttpAdapter(http) {
     },
 
     // Preload completo (decodifica en memoria). Solo para subidas/regeneraciones explícitas.
-    preloadImage: (path, forceCacheBust = false) => {
+    preloadImage: (path, forceCacheBust = false, { signal } = {}) => {
         const url = imageAdapter.buildUrl(path, forceCacheBust);
         if (!url) return Promise.reject(new Error('Ruta de imagen vacía'));
 
         return new Promise((resolve, reject) => {
             const img = new Image();
-            img.onload = () => resolve(url);
-            img.onerror = () => reject(new Error(`No se pudo cargar: ${url}`));
+            let settled = false;
+            const cleanup = () => signal?.removeEventListener('abort', onAbort);
+            const finish = (callback) => {
+                if (settled) return;
+                settled = true;
+                cleanup();
+                callback();
+            };
+            const onAbort = () => {
+                img.src = '';
+                finish(() => reject(new DOMException('Aborted', 'AbortError')));
+            };
+            if (signal?.aborted) {
+                onAbort();
+                return;
+            }
+            signal?.addEventListener('abort', onAbort, { once: true });
+            img.onload = () => finish(() => resolve(url));
+            img.onerror = () => finish(() => reject(new Error(`No se pudo cargar: ${url}`)));
             img.src = url;
         });
     },
 
     /** Preload con reintentos tras generación (Oracle/CDN puede ir retrasado). */
-    preloadImageWithRetry: async (path, forceCacheBust = false, { attempts = 4, delayMs = 700 } = {}) => {
+    preloadImageWithRetry: async (path, forceCacheBust = false, { attempts = 4, delayMs = 700, signal } = {}) => {
         let lastErr;
         for (let i = 0; i < attempts; i += 1) {
+            if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
             try {
-                return await imageAdapter.preloadImage(path, forceCacheBust || i > 0);
+                return await imageAdapter.preloadImage(path, forceCacheBust || i > 0, { signal });
             } catch (err) {
+                if (err?.name === 'AbortError') throw err;
                 lastErr = err;
                 if (i < attempts - 1) {
                     await new Promise((resolve) => { setTimeout(resolve, delayMs); });

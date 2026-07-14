@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Flashcard, Controls, StudyMediaProvider } from '../../components/flashcardStudy';
 import { useRealViewportHeight } from '../../components/flashcardStudy/features/useRealViewportHeight';
 import { useNextImagePrefetch } from '../../components/flashcardStudy/features/useNextImagePrefetch';
+import { useNextAudioPrefetch } from '../../components/flashcardStudy/features/useNextAudioPrefetch';
 import { STUDY_MEDIA_VARIANT_APP } from '../../contracts/studyMediaVariants';
 import { useAuth } from '../../context/AuthContext';
 import CategorySelector from './features/CategorySelector';
@@ -173,6 +174,8 @@ export default function FlashcardPage() {
         setIsCatalogVisible,
         isIpaModalOpen, isPhonicsModalOpen,
         setIsIpaModalOpen,
+        isAudioLoading,
+        isImageLoading,
     } = useFlashcardUiContext();
     const {
         isFloatingMenuOpen, isSidebarOpen,
@@ -199,7 +202,15 @@ export default function FlashcardPage() {
         category: currentCategory,
         deckName: currentDeckName,
         studyLanguage,
-        enabled: Boolean(currentCard),
+        enabled: Boolean(currentCard) && !isAudioLoading && !isImageLoading,
+    });
+    useNextAudioPrefetch({
+        audioPort,
+        card: upcomingCard,
+        category: currentCategory,
+        deckName: currentDeckName,
+        studyLanguage,
+        enabled: Boolean(currentCard) && !isAudioLoading && !isImageLoading,
     });
     const isPronounsCategory = currentCategory === 'pronouns';
     const { progress, currentTask, reset, setProgress, setCurrentTask, animateTo } = usePageLoader();

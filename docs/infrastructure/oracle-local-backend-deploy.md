@@ -2,6 +2,7 @@
 
 > **Documento para IAs y operadores.** Leer antes de tocar Caddy, el backend en Oracle o audio TTS.
 > **Para pipeline CI/CD, secretos y compilación:** [`pipeline-and-deploy.md`](pipeline-and-deploy.md) (fuente de verdad).
+> **Para entrega y caché de imágenes/audio:** [`media-delivery-cache.md`](media-delivery-cache.md).
 > Última validación runtime: pipeline `#165` (2026-06-08).
 
 ---

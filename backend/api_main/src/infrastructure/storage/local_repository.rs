@@ -21,6 +21,25 @@ type ListCache = Cache<String, Arc<Vec<String>>>;
 /// Caché ligera de existencia de blobs (evita SSH/stat repetidos).
 type ExistsCache = Cache<String, bool>;
 
+/// Convierte el ETag opaco de Caddy en una versión segura para query string.
+/// Caddy calcula ese ETag a partir de metadatos del archivo (mtime de alta
+/// precisión + tamaño), así que no hay lectura de bytes ni hash de contenido.
+fn caddy_etag_version(value: &str) -> Option<String> {
+    let trimmed = value.trim();
+    let without_weak = trimmed
+        .strip_prefix("W/")
+        .or_else(|| trimmed.strip_prefix("w/"))
+        .unwrap_or(trimmed);
+    let candidate = without_weak.trim_matches('"');
+    let safe = !candidate.is_empty()
+        && candidate.len() <= 128
+        && candidate
+            .bytes()
+            .all(|byte| byte.is_ascii_alphanumeric() || matches!(byte, b'-' | b'_' | b'.'));
+
+    safe.then(|| format!("e-{candidate}"))
+}
+
 /// NO agregar una caché en memoria de bytes de imágenes/audio (`download_blob`) para
 /// "optimizar" la carga cuando se lee de Oracle vía SSH — los servidores de prod
 /// corren con 1 GB de RAM y cachear blobs binarios es la forma más rápida de tumbar
@@ -317,8 +336,9 @@ impl LocalStorageRepository {
             return Ok(None);
         }
 
-        // HEAD vía Caddy (pool ya abierto) primero: evita otro spawn SSH además del
-        // que ya hace download_blob para el mismo archivo. SSH stat queda de respaldo.
+        // Solo HEAD vía Caddy usando el pool HTTP ya abierto. El versionado es una
+        // optimización y nunca debe crear un proceso SSH: si Caddy no responde, la
+        // URL queda sin versión y `no-cache` conserva la corrección.
         if self.can_read_from_oracle() {
             let url = format!(
                 "{}/{}",
@@ -326,53 +346,43 @@ impl LocalStorageRepository {
                 blob_path.trim_start_matches('/')
             );
             if let Ok(res) = self.http_client.head(&url).send().await {
-                if res.status().is_success() {
+                let exists = res.status().is_success();
+                // La misma consulta resuelve existencia y versión. Guardar el
+                // resultado evita que un caller haga un segundo HEAD cuando el
+                // archivo no existe o Caddy no expone Last-Modified.
+                self.exists_cache
+                    .insert(blob_path.to_string(), exists)
+                    .await;
+                if exists {
+                    // Preferir el ETag de Caddy conserva la precisión del mtime
+                    // aun cuando Last-Modified viaje redondeado a segundos. Es
+                    // el mismo HEAD: cero procesos y cero buffers adicionales.
+                    if let Some(version) = res
+                        .headers()
+                        .get(reqwest::header::ETAG)
+                        .and_then(|value| value.to_str().ok())
+                        .and_then(caddy_etag_version)
+                    {
+                        return Ok(Some(version));
+                    }
                     if let Some(epoch) = res
                         .headers()
                         .get(reqwest::header::LAST_MODIFIED)
                         .and_then(|v| v.to_str().ok())
                         .and_then(|s| chrono::DateTime::parse_from_rfc2822(s).ok())
                     {
-                        return Ok(Some(epoch.timestamp().to_string()));
+                        let size = res
+                            .headers()
+                            .get(reqwest::header::CONTENT_LENGTH)
+                            .and_then(|v| v.to_str().ok())
+                            .unwrap_or("0");
+                        return Ok(Some(format!("{}-{size}", epoch.timestamp())));
                     }
                 }
             }
         }
 
-        let remote_file = format!(
-            "{}/{}",
-            self.oracle_remote_path,
-            blob_path.trim_start_matches('/')
-        );
-        let cp = self.control_path();
-
-        let output = tokio::process::Command::new("sshpass")
-            .env("SSHPASS", &self.oracle_ssh_password)
-            .args([
-                "-e",
-                "ssh",
-                "-o",
-                "StrictHostKeyChecking=no",
-                "-o",
-                "ControlMaster=auto",
-                "-o",
-                &format!("ControlPath={}", cp),
-                &format!("root@{}", self.oracle_host),
-                &format!("stat -c %Y '{}'", remote_file),
-            ])
-            .output()
-            .await?;
-
-        if !output.status.success() {
-            return Ok(None);
-        }
-
-        let version = String::from_utf8_lossy(&output.stdout).trim().to_string();
-        if version.is_empty() {
-            Ok(None)
-        } else {
-            Ok(Some(version))
-        }
+        Ok(None)
     }
 
     async fn local_blob_mtime(&self, blob_path: &str) -> Result<Option<String>> {
@@ -384,12 +394,14 @@ impl LocalStorageRepository {
 
         let metadata = fs::metadata(&path).await?;
         let modified = metadata.modified().unwrap_or(SystemTime::UNIX_EPOCH);
-        let version = modified
+        // Nanosegundos + tamaño: solo consulta metadatos del filesystem (no lee el
+        // contenido ni reserva un buffer). Evita que dos reemplazos rápidos del
+        // mismo nombre compartan versión en servidores con mtime de alta precisión.
+        let modified_ns = modified
             .duration_since(UNIX_EPOCH)
             .unwrap_or_default()
-            .as_secs()
-            .to_string();
-        Ok(Some(version))
+            .as_nanos();
+        Ok(Some(format!("{modified_ns}-{}", metadata.len())))
     }
 
     /// Lista entradas en Oracle via Caddy browse (reutiliza pool de conexiones).
@@ -618,6 +630,29 @@ impl LocalStorageRepository {
     }
 }
 
+#[cfg(test)]
+mod tests {
+    use super::caddy_etag_version;
+
+    #[test]
+    fn caddy_etag_becomes_a_safe_high_precision_version() {
+        assert_eq!(
+            caddy_etag_version("\"djpuv6rca226gp5\""),
+            Some("e-djpuv6rca226gp5".to_string())
+        );
+        assert_eq!(
+            caddy_etag_version("W/\"abc-123_xyz\""),
+            Some("e-abc-123_xyz".to_string())
+        );
+    }
+
+    #[test]
+    fn unsafe_etag_is_not_exposed_in_a_url() {
+        assert_eq!(caddy_etag_version("\"bad/value\""), None);
+        assert_eq!(caddy_etag_version("\"\""), None);
+    }
+}
+
 #[async_trait]
 impl StorageRepository for LocalStorageRepository {
     async fn get_catalog_manifest(&self) -> Result<Vec<u8>> {
@@ -649,8 +684,7 @@ impl StorageRepository for LocalStorageRepository {
                     "Oracle repository mode activo pero public_base_url no está configurado"
                 );
             }
-            self.list_oracle_entries(&prefix, true)
-                .await?
+            self.list_oracle_entries(&prefix, true).await?
         } else if path.exists() {
             let mut entries = fs::read_dir(&path).await?;
             let mut categories = Vec::new();

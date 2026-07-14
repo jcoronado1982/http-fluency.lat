@@ -105,6 +105,7 @@ export function useImageGeneration({
     const imageAttempts = useRef({});
     const activeGenerations = useRef({});
     const generatingUiTimerRef = useRef(null);
+    const imageAbortControllerRef = useRef(null);
 
     const loadSeqRef = useRef(0);
     const currentDefIndexRef = useRef(0);
@@ -138,6 +139,11 @@ export function useImageGeneration({
             clearTimeout(generatingUiTimerRef.current);
             generatingUiTimerRef.current = null;
         }
+    }, []);
+
+    const abortImageRequest = useCallback(() => {
+        imageAbortControllerRef.current?.abort();
+        imageAbortControllerRef.current = null;
     }, []);
 
     const waitForGenerationSlot = useCallback((genKey, isStale) => new Promise((resolve) => {
@@ -247,7 +253,7 @@ export function useImageGeneration({
         return true;
     }, [clearGeneratingUiTimer, imagePort, setIsImageLoading]);
 
-    const fetchViaGenerate = useCallback(async (defIndex, forceRegenerate, seq, pipelineForm, legacyImagePath = null, promptEngine = null) => {
+    const fetchViaGenerate = useCallback(async (defIndex, forceRegenerate, seq, pipelineForm, legacyImagePath = null, promptEngine = null, signal) => {
         const requestForm = pipelineForm ?? activeFormRef.current;
         const formDefs = (FORM_DEF_MAP[requestForm] || FORM_DEF_MAP.v1)(cardData);
         if (!cardData || !formDefs?.[defIndex] || !currentCategory) return false;
@@ -328,6 +334,7 @@ export function useImageGeneration({
                 forceGeneration: forceRegenerate,
                 legacyImagePath,
                 promptEngine,
+                signal,
             });
 
             if (isRequestStale()) {
@@ -340,7 +347,7 @@ export function useImageGeneration({
             updateCardImagePath(cardData.id, normalizedPath, defIndex, requestForm);
 
             try {
-                await imagePort.preloadImageWithRetry(normalizedPath, true);
+                await imagePort.preloadImageWithRetry(normalizedPath, true, { signal });
             } catch (preloadErr) {
                 if (isRequestStale()) {
                     releasePipelineLoading(seq);
@@ -359,6 +366,10 @@ export function useImageGeneration({
             return true;
 
         } catch (err) {
+            if (err?.name === 'AbortError' || isRequestStale()) {
+                releasePipelineLoading(seq);
+                return false;
+            }
             console.warn(`Error imagen def ${defIndex}:`, err);
             const isDisabled = err.message.includes('deshabilitada');
 
@@ -371,7 +382,7 @@ export function useImageGeneration({
             } else if (!isRequestStale()) {
                 setTimeout(() => {
                     if (!isRequestStale()) {
-                        fetchViaGenerate(defIndex, forceRegenerate, seq, requestForm, legacyImagePath);
+                        fetchViaGenerate(defIndex, forceRegenerate, seq, requestForm, legacyImagePath, promptEngine, signal);
                     }
                 }, IMAGE_RETRY_DELAY);
                 return 'retrying';
@@ -392,6 +403,10 @@ export function useImageGeneration({
     ]);
 
     const runEnsurePipeline = useCallback(async (defIndex, { forceRegenerate = false, formOverride, promptEngine = null } = {}) => {
+        abortImageRequest();
+        const abortController = new AbortController();
+        imageAbortControllerRef.current = abortController;
+        const { signal } = abortController;
         const pipelineForm = formOverride ?? activeFormRef.current;
         // Sincronizar ref antes de async: setActiveForm y ensureImageForForm van en la misma tick.
         if (formOverride) {
@@ -447,6 +462,36 @@ export function useImageGeneration({
 
             const jsonPath = imagePort.normalizeToAvif(formDefs[defIndex].imagePath);
             if (isLandingDemo && !pathMatchesVerbForm(jsonPath, form)) return false;
+
+            // Los JSON históricos guardan una ruta sin ?v=. Antes este atajo
+            // la mostraba directamente y saltaba la resolución del backend,
+            // dejando a Cloudflare sin una clave de caché versionada. La
+            // identidad persistida permite resolver el mismo archivo (incluido
+            // el layout legacy) y obtener su versión por metadatos, sin
+            // regenerar ni leer el contenido de la imagen.
+            const identity = parseCardImageStorageIdentity(jsonPath);
+            if (identity) {
+                try {
+                    const data = await imagePort.resolve({
+                        category: identity.category,
+                        deck: identity.deck,
+                        index: identity.index,
+                        defIndex: identity.defIndex,
+                        form: identity.form !== 'v1' ? identity.form : undefined,
+                        courseDirection: identity.courseDirection || courseDirection,
+                        signal,
+                    });
+                    if (data?.path) {
+                        return tryVerifyPath(imagePort.normalizeToAvif(data.path), form);
+                    }
+                } catch (err) {
+                    if (err?.name === 'AbortError' || isStale()) return false;
+                    // La ruta directa queda como compatibilidad para un JSON
+                    // legado que no pueda resolverse. Al no llevar versión,
+                    // responde no-cache y no puede quedar stale.
+                    console.warn('[ensureImage] no se pudo versionar imagePath:', err.message);
+                }
+            }
             return tryVerifyPath(jsonPath, form);
         };
 
@@ -484,6 +529,7 @@ export function useImageGeneration({
                     defIndex,
                     form: form && form !== 'v1' ? form : undefined,
                     courseDirection,
+                    signal,
                 });
                 if (isStale()) {
                     isTransitioningRef.current = false;
@@ -563,7 +609,15 @@ export function useImageGeneration({
                 && !pathMatchesDeck(rawLegacyPath, currentCategory, currentDeckName)
                 ? rawLegacyPath
                 : null;
-            const generated = await fetchViaGenerate(defIndex, shouldForceGenerate, seq, pipelineForm, legacyImagePath, promptEngine);
+            const generated = await fetchViaGenerate(
+                defIndex,
+                shouldForceGenerate,
+                seq,
+                pipelineForm,
+                legacyImagePath,
+                promptEngine,
+                signal,
+            );
             if (generated === false && !isStale()) {
                 releasePipelineLoading(seq);
             }
@@ -581,7 +635,7 @@ export function useImageGeneration({
         buildGlobalFallbackPath, isLandingDemo,
         canGenerateImages, fetchViaGenerate, setAppMessage,
         clearGeneratingUiTimer, imagePort, releasePipelineLoading, setOptimisticImageFromPath,
-        setIsImageLoading,
+        setIsImageLoading, abortImageRequest,
     ]);
 
     const ensureImageForDefinition = useCallback(async (defIndex, options = {}) => {
@@ -625,6 +679,7 @@ export function useImageGeneration({
         if (prevCardIdRef.current === cardData.id) return;
 
         prevCardIdRef.current = cardData.id;
+        abortImageRequest();
         loadSeqRef.current += 1;
         setIsImageLoading(true);
         setIsGeneratingImage(false);
@@ -636,7 +691,7 @@ export function useImageGeneration({
         displayedFormRef.current = activeFormRef.current; // Bug 3: usar el form activo real, no hardcoded 'v1'
         isTransitioningRef.current = false;
         clearGeneratingUiTimer();
-    }, [cardData, clearGeneratingUiTimer, setIsImageLoading]);
+    }, [cardData, abortImageRequest, clearGeneratingUiTimer, setIsImageLoading]);
 
     const prevFormContextRef = useRef({ form: activeForm, cardId: cardData?.id });
 
@@ -711,7 +766,10 @@ export function useImageGeneration({
         ensureImageForDefinition(defIndex, { forceRegenerate: true });
     }, [imagePromptApplySignal, currentCategory, authLoading, cardData, ensureImageForDefinition]);
 
-    useEffect(() => () => clearGeneratingUiTimer(), [clearGeneratingUiTimer]);
+    useEffect(() => () => {
+        abortImageRequest();
+        clearGeneratingUiTimer();
+    }, [abortImageRequest, clearGeneratingUiTimer]);
 
     // Demo landing: reintentar si el backend aún no estaba listo al montar
     useEffect(() => {

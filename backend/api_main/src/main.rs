@@ -32,6 +32,7 @@ use crate::domain::repositories::image::ImageGenerator;
 use crate::domain::repositories::image_compressor::ImageCompressor;
 #[cfg(feature = "payments")]
 use crate::domain::repositories::payment::PaymentProvider;
+use crate::domain::repositories::media_delivery::MediaDeliveryProvider;
 use crate::domain::repositories::storage::StorageRepository;
 use crate::domain::repositories::tutor::AITutor;
 #[cfg(any(feature = "flashcards", feature = "pronoun_practice"))]
@@ -47,6 +48,7 @@ use crate::infrastructure::ai::gemini_interactions_image_provider::GeminiInterac
 use crate::infrastructure::ai::gemini_tts_provider::GeminiTtsProvider;
 #[cfg(feature = "flashcards")]
 use crate::infrastructure::ai::routing_tts_provider::RoutingTtsProvider;
+use crate::infrastructure::media_delivery::provider_from_name as media_delivery_provider_from_name;
 #[cfg(feature = "payments")]
 use crate::infrastructure::payment::null_payment_provider::NullPaymentProvider;
 #[cfg(feature = "payments")]
@@ -80,12 +82,13 @@ use pronoun_practice::StoryUseCases;
 
 /// Application state exposed to HTTP handlers.
 /// Only contains use-case facades and shared infrastructure primitives
-/// (settings, notification channel, storage for media GET). Raw infrastructure
-/// ports are otherwise NOT exposed; business logic goes through use-cases.
+/// (settings, notification channel, storage for media GET and its delivery policy).
+/// Raw infrastructure ports are otherwise NOT exposed; business logic goes through use-cases.
 #[derive(Clone)]
 pub struct AppState {
     pub settings: Arc<Settings>,
     pub storage_repo: Arc<dyn StorageRepository>,
+    pub media_delivery_provider: Arc<dyn MediaDeliveryProvider>,
     #[cfg(feature = "flashcards")]
     pub deck_use_cases: Arc<DeckUseCases>,
     pub tutor_use_cases: Arc<TutorUseCases>,
@@ -184,6 +187,12 @@ async fn async_main() -> anyhow::Result<()> {
     );
     let storage_repo: Arc<dyn StorageRepository> =
         Arc::new(LocalStorageRepository::new(&settings).await?);
+    let media_delivery_provider =
+        media_delivery_provider_from_name(&settings.media_delivery_provider)?;
+    tracing::info!(
+        "📦 Entrega de imágenes/audio: {}",
+        media_delivery_provider.name()
+    );
 
     let surreal_url = std::env::var("SURREAL_URL").unwrap_or_else(|_| "127.0.0.1:8001".to_string());
     #[allow(unused_variables)]
@@ -334,6 +343,7 @@ async fn async_main() -> anyhow::Result<()> {
     let state = AppState {
         settings,
         storage_repo: storage_repo.clone(),
+        media_delivery_provider,
         #[cfg(feature = "flashcards")]
         deck_use_cases,
         tutor_use_cases,

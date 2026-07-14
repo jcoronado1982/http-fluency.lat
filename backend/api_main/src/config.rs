@@ -30,6 +30,8 @@ pub struct Settings {
     pub oracle_remote_path: String,
     /// Public base URL used to build absolute URLs for stored assets (e.g. story images).
     pub public_base_url: String,
+    /// Controla quién conserva la caché larga de imágenes/audio.
+    pub media_delivery_provider: String,
     /// ElevenLabs — solo TTS del landing demo (`landing-demo`).
     pub elevenlabs_api_key: Option<String>,
     pub elevenlabs_model_id: Option<String>,
@@ -128,6 +130,12 @@ impl Settings {
                 .unwrap_or_else(|_| "/root/smart-proxy/repository/flashcard".to_string()),
             public_base_url: env::var("PUBLIC_BASE_URL")
                 .unwrap_or_else(|_| "https://fluency.lat".to_string()),
+            // Oracle es el default seguro: funciona aunque Cloudflare todavía no
+            // esté proxying el dominio. Cambiar una sola variable activa el CDN.
+            media_delivery_provider: env::var("MEDIA_DELIVERY_MODE")
+                .unwrap_or_else(|_| "oracle".to_string())
+                .trim()
+                .to_ascii_lowercase(),
             elevenlabs_api_key: env::var("ELEVENLABS_API_KEY").ok(),
             elevenlabs_model_id: env::var("ELEVENLABS_MODEL_ID").ok(),
             ollama_url: env::var("OLLAMA_URL").unwrap_or_else(|_| "http://127.0.0.1:11434".to_string()),

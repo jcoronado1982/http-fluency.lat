@@ -1,17 +1,20 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useStudyMediaContext } from '../StudyMediaContext';
 import { resolveStudyMediaNamespace } from '../../../contracts/studyMediaVariants';
 import { useUIContext } from '../../../context/UIContext';
 import { getCourseDirectionFromStudyLanguage } from '../../../modules/flashcards/useCases/deckUseCases';
+import {
+    clearPrefetchedAudio,
+    deletePrefetchedAudio,
+    getPrefetchedAudio,
+    makeAudioPrefetchKey,
+    setPrefetchedAudio,
+} from './audioPrefetchCache';
 
 const MAX_ATTEMPTS = 3;
 const RETRY_DELAY  = 5000;
 
 const audioPlayer = new Audio();
-
-function buildCacheKey(category, deck, text, lang, verbName) {
-    return `${category}|${deck}|${text}|${lang}|${verbName ?? ''}`;
-}
 
 function getPlaybackDuration(player) {
     const duration = player.duration;
@@ -87,10 +90,24 @@ function waitForAudioReady(player) {
     });
 }
 
-async function fetchAudioBlob(resolvedUrl) {
-    const res = await fetch(resolvedUrl, { credentials: 'include' });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return URL.createObjectURL(await res.blob());
+function waitForRetry(ms, signal) {
+    return new Promise((resolve, reject) => {
+        if (signal?.aborted) {
+            reject(new DOMException('Aborted', 'AbortError'));
+            return;
+        }
+        const timer = setTimeout(resolve, ms);
+        signal?.addEventListener('abort', () => {
+            clearTimeout(timer);
+            reject(new DOMException('Aborted', 'AbortError'));
+        }, { once: true });
+    });
+}
+
+function shouldRetryAudioError(err) {
+    if (err?.name === 'AbortError') return false;
+    const status = Number(String(err?.message || '').match(/HTTP\s+(\d{3})/)?.[1]);
+    return !status || status >= 500;
 }
 
 export function useAudioPlayback({
@@ -114,28 +131,17 @@ export function useAudioPlayback({
     const [highlightedWordIndex, setHighlightedWordIndex] = useState(-1);
     const [isGeneratingAudio, setIsGeneratingAudio] = useState(false);
     const playbackRequestIdRef = useRef(0);
-    const sessionCacheRef = useRef(new Map());
-    const prefetchInFlightRef = useRef(new Set());
-
-    const revokeBlobUrl = useCallback((blobUrl) => {
-        if (blobUrl?.startsWith('blob:')) {
-            URL.revokeObjectURL(blobUrl);
-        }
+    const playbackAbortControllerRef = useRef(null);
+    const invalidateCacheEntry = useCallback((key) => {
+        deletePrefetchedAudio(key);
     }, []);
 
-    const invalidateCacheEntry = useCallback((key) => {
-        const entry = sessionCacheRef.current.get(key);
-        if (entry?.blobUrl) revokeBlobUrl(entry.blobUrl);
-        sessionCacheRef.current.delete(key);
-    }, [revokeBlobUrl]);
-
     const stopAudio = useCallback(() => {
+        playbackAbortControllerRef.current?.abort();
+        playbackAbortControllerRef.current = null;
         playbackRequestIdRef.current += 1;
         audioPlayer.pause();
         audioPlayer.currentTime = 0;
-        // Los blob: pertenecen a sessionCacheRef y deben seguir válidos para
-        // poder reproducir el mismo audio nuevamente. Se revocan al invalidar
-        // la entrada o al desmontar este hook, no al detener cada reproducción.
         audioPlayer.removeAttribute('src');
         while (audioPlayer.firstChild) {
             audioPlayer.removeChild(audioPlayer.firstChild);
@@ -153,43 +159,6 @@ export function useAudioPlayback({
         setIsGeneratingAudio(false);
     }, [setIsAudioLoading]);
 
-    useEffect(() => () => {
-        const cachedBlobUrls = new Set();
-        for (const entry of sessionCacheRef.current.values()) {
-            if (entry?.blobUrl) cachedBlobUrls.add(entry.blobUrl);
-        }
-
-        if (cachedBlobUrls.has(audioPlayer.src)) {
-            audioPlayer.pause();
-            audioPlayer.removeAttribute('src');
-            audioPlayer.load();
-        }
-
-        for (const blobUrl of cachedBlobUrls) revokeBlobUrl(blobUrl);
-        sessionCacheRef.current.clear();
-    }, [revokeBlobUrl]);
-
-    const warmSessionCache = useCallback(async (key, resolvedUrl, voiceName) => {
-        const existing = sessionCacheRef.current.get(key);
-        if (existing?.blobUrl) return existing;
-
-        const entry = { resolvedUrl, voiceName, blobUrl: existing?.blobUrl ?? null };
-        sessionCacheRef.current.set(key, entry);
-
-        try {
-            const blobUrl = await fetchAudioBlob(resolvedUrl);
-            const current = sessionCacheRef.current.get(key);
-            if (current?.blobUrl && current.blobUrl !== blobUrl) {
-                revokeBlobUrl(current.blobUrl);
-            }
-            sessionCacheRef.current.set(key, { ...entry, blobUrl });
-            return sessionCacheRef.current.get(key);
-        } catch (err) {
-            console.warn('Audio prefetch failed:', err);
-            return entry;
-        }
-    }, [revokeBlobUrl]);
-
     const resolveAudioSource = useCallback(async ({
         key,
         originalText,
@@ -197,15 +166,17 @@ export function useAudioPlayback({
         finalVerbName,
         excludeVoice,
         forceRegenerate,
+        signal,
         silent = false,
     }) => {
         if (!forceRegenerate) {
-            const cached = sessionCacheRef.current.get(key);
-            if (cached?.blobUrl) {
-                return { playbackUrl: cached.blobUrl, voiceName: cached.voiceName, fromCache: true };
-            }
-            if (cached?.resolvedUrl) {
-                return { playbackUrl: cached.resolvedUrl, voiceName: cached.voiceName, fromCache: true };
+            const prefetched = getPrefetchedAudio(key);
+            if (prefetched?.resolvedUrl) {
+                return {
+                    playbackUrl: prefetched.resolvedUrl,
+                    voiceName: prefetched.voiceName,
+                    fromCache: true,
+                };
             }
         } else {
             invalidateCacheEntry(key);
@@ -223,6 +194,7 @@ export function useAudioPlayback({
                     courseDirection,
                     excludeVoice,
                     forceRegenerate: true,
+                    signal,
                 });
             }
 
@@ -234,6 +206,7 @@ export function useAudioPlayback({
                     verbName: finalVerbName,
                     lang,
                     courseDirection,
+                    signal,
                 });
             } catch (err) {
                 const is404 = String(err?.message || '').includes('404');
@@ -247,6 +220,7 @@ export function useAudioPlayback({
                     courseDirection,
                     excludeVoice,
                     forceRegenerate: false,
+                    signal,
                 });
             }
         };
@@ -265,25 +239,20 @@ export function useAudioPlayback({
                 data = await fetchResolved();
                 break;
             } catch (err) {
-                if (attempt === MAX_ATTEMPTS) throw err;
+                if (attempt === MAX_ATTEMPTS || !shouldRetryAudioError(err)) throw err;
                 if (!silent) {
                     setAppMessage({ text: `Reintentando audio... (${attempt}/${MAX_ATTEMPTS})`, isError: true });
                 }
-                await new Promise((r) => setTimeout(r, RETRY_DELAY));
+                await waitForRetry(RETRY_DELAY, signal);
             }
         }
 
         const voiceName = data.voice_name || '—';
         const resolvedUrl = audioPort.buildUrl(data.audio_url, forceRegenerate || !data.from_cache);
-        sessionCacheRef.current.set(key, { resolvedUrl, voiceName, blobUrl: null });
-
-        if (data.from_cache && !forceRegenerate) {
-            // No bloqueamos la reproducción esperando el blob completo.
-            void warmSessionCache(key, resolvedUrl, voiceName);
-        }
+        setPrefetchedAudio(key, { resolvedUrl, voiceName });
 
         return { playbackUrl: resolvedUrl, voiceName, fromCache: !!data.from_cache };
-    }, [audioPort, courseDirection, currentCategory, currentDeckName, invalidateCacheEntry, setAppMessage, warmSessionCache]);
+    }, [audioPort, courseDirection, currentCategory, currentDeckName, invalidateCacheEntry, setAppMessage]);
 
     const startPlayback = useCallback(async (originalText, playbackUrl, voiceLabel, playbackRequestId) => {
         const { wordIntervals } = buildWordIntervals(originalText);
@@ -295,9 +264,8 @@ export function useAudioPlayback({
         }
         audioPlayer.load();
 
-        // Dejar que el navegador use el Content-Type real de la respuesta (o del
-        // Blob). Forzar audio/ogg rompía los MP3 del landing y los blob: cacheados
-        // no conservan una extensión desde la que podamos inferir el formato.
+        // Dejar que el navegador use el Content-Type real de la respuesta.
+        // Forzar audio/ogg rompía los MP3 del landing.
         audioPlayer.src = playbackUrl;
 
         await waitForAudioReady(audioPlayer);
@@ -376,6 +344,10 @@ export function useAudioPlayback({
             cleanupDurationListeners();
             return false;
         }
+        // A partir de aquí el audio ya está listo y reproduciéndose. El estado
+        // loading no debe durar hasta onended: permite anticipar la tarjeta
+        // siguiente mientras el usuario escucha la actual.
+        setIsAudioLoading(false);
 
         if (animationFrameId) cancelAnimationFrame(animationFrameId);
         animationFrameId = requestAnimationFrame(trackHighlight);
@@ -392,10 +364,19 @@ export function useAudioPlayback({
         if (!originalText || !currentCategory) return;
 
         const finalVerbName = currentDeckName === 'phonics' ? originalText : verbName;
-        const key = buildCacheKey(currentCategory, currentDeckName, originalText, lang, finalVerbName);
+        const key = makeAudioPrefetchKey({
+            category: currentCategory,
+            deck: currentDeckName,
+            text: originalText,
+            lang,
+            verbName: finalVerbName,
+            courseDirection,
+        });
 
         stopAudio();
         const playbackRequestId = playbackRequestIdRef.current;
+        const abortController = new AbortController();
+        playbackAbortControllerRef.current = abortController;
 
         setHighlightedWordIndex(-1);
         setActiveAudioText(originalText);
@@ -411,6 +392,7 @@ export function useAudioPlayback({
                 finalVerbName,
                 excludeVoice,
                 forceRegenerate,
+                signal: abortController.signal,
             });
 
             if (playbackRequestIdRef.current !== playbackRequestId) return;
@@ -423,12 +405,9 @@ export function useAudioPlayback({
 
             const played = await startPlayback(originalText, playbackUrl, voiceName, playbackRequestId);
             if (!played) stopAudio();
-
-            if (!fromCache && playbackUrl && !playbackUrl.startsWith('blob:')) {
-                void warmSessionCache(key, playbackUrl, voiceName);
-            }
         } catch (err) {
             if (playbackRequestIdRef.current !== playbackRequestId) return;
+            if (err?.name === 'AbortError') return;
             console.error('Error en playAudio:', err);
             audioPlayer.ontimeupdate = null;
             setAppMessage({ text: `Error: ${err.message}`, isError: true });
@@ -439,6 +418,9 @@ export function useAudioPlayback({
             setIsAudioLoading(false);
         } finally {
             if (playbackRequestIdRef.current === playbackRequestId) {
+                if (playbackAbortControllerRef.current === abortController) {
+                    playbackAbortControllerRef.current = null;
+                }
                 setIsGeneratingAudio(false);
             }
         }
@@ -449,48 +431,23 @@ export function useAudioPlayback({
         stopAudio,
         resolveAudioSource,
         startPlayback,
-        warmSessionCache,
         setAppMessage,
         setIsAudioLoading,
+        courseDirection,
     ]);
-
-    const prefetchAudio = useCallback(async (originalText, lang = 'en', verbNameOverride = null) => {
-        if (!originalText || !currentCategory) return;
-
-        const finalVerbName = currentDeckName === 'phonics'
-            ? originalText
-            : (verbNameOverride ?? verbName);
-        const key = buildCacheKey(currentCategory, currentDeckName, originalText, lang, finalVerbName);
-
-        const cached = sessionCacheRef.current.get(key);
-        if (cached?.blobUrl || prefetchInFlightRef.current.has(key)) return;
-
-        prefetchInFlightRef.current.add(key);
-        try {
-            const { playbackUrl, voiceName } = await resolveAudioSource({
-                key,
-                originalText,
-                lang,
-                finalVerbName,
-                excludeVoice: null,
-                forceRegenerate: false,
-                silent: true,
-            });
-            if (playbackUrl && !playbackUrl.startsWith('blob:')) {
-                await warmSessionCache(key, playbackUrl, voiceName);
-            }
-        } catch {
-            // Prefetch silencioso: no bloquear la UI
-        } finally {
-            prefetchInFlightRef.current.delete(key);
-        }
-    }, [currentCategory, currentDeckName, verbName, resolveAudioSource, warmSessionCache]);
 
     const deleteAudio = useCallback(async (textToDelete, lang = 'en') => {
         if (!textToDelete || !currentCategory) return;
 
         const finalVerbName = currentDeckName === 'phonics' ? textToDelete : verbName;
-        const key = buildCacheKey(currentCategory, currentDeckName, textToDelete, lang, finalVerbName);
+        const key = makeAudioPrefetchKey({
+            category: currentCategory,
+            deck: currentDeckName,
+            text: textToDelete,
+            lang,
+            verbName: finalVerbName,
+            courseDirection,
+        });
 
         try {
             setAppMessage({ text: '⏳ Actualizando voz (archivando audio anterior)...', isError: false });
@@ -512,6 +469,7 @@ export function useAudioPlayback({
             }
 
             invalidateCacheEntry(key);
+            clearPrefetchedAudio();
             setActiveVoiceName(null);
             setAppMessage({ text: '🎲 Generando nueva voz aleatoria...', isError: false });
             await playAudio(textToDelete, lang, previousVoice, true);
@@ -523,7 +481,6 @@ export function useAudioPlayback({
 
     return {
         playAudio,
-        prefetchAudio,
         stopAudio,
         deleteAudio,
         isAudioPlaying,
