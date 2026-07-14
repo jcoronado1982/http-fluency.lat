@@ -226,6 +226,9 @@ Después del despliegue, el job de Oracle compara el valor real de los contenedo
 y prueba una imagen y un audio existentes, con y sin versión, directamente contra el origen. El
 pipeline falla si los modos difieren, si una URL sin versión no revalida o si falta la política larga
 exclusiva del CDN. Las pruebas solo hacen `HEAD`; no cargan los archivos en RAM.
+La prueba conecta a `127.0.0.1` mediante `curl --resolve`, conservando el hostname y SNI de Caddy;
+no sustituirlo por `https://127.0.0.1` con un header `Host`, porque TLS no seleccionaría el
+certificado del sitio.
 
 ## Cambio manual en Oracle
 

@@ -498,8 +498,11 @@ stages:
           fi
           for MEDIA_FILE in "$IMAGE_FILE" "$AUDIO_FILE"; do
             MEDIA_PATH=${MEDIA_FILE#"$MEDIA_REPO/"}
-            VERSIONED_HEADERS=$(curl -skI -H "Host: $MEDIA_HOST" "https://127.0.0.1/$MEDIA_PATH?v=pipeline-check")
-            UNVERSIONED_HEADERS=$(curl -skI -H "Host: $MEDIA_HOST" "https://127.0.0.1/$MEDIA_PATH")
+            # --resolve conserva Host y SNI de MEDIA_HOST, pero conecta al
+            # Caddy local. Un header Host sobre https://127.0.0.1 no basta:
+            # TLS negocia con SNI=127.0.0.1 y Caddy rechaza el certificado.
+            VERSIONED_HEADERS=$(curl -skI --resolve "$MEDIA_HOST:443:127.0.0.1" "https://$MEDIA_HOST/$MEDIA_PATH?v=pipeline-check")
+            UNVERSIONED_HEADERS=$(curl -skI --resolve "$MEDIA_HOST:443:127.0.0.1" "https://$MEDIA_HOST/$MEDIA_PATH")
             printf '%s\n' "$UNVERSIONED_HEADERS" | grep -qi '^cache-control: public, no-cache' || {
               echo "ERROR: unversioned media is not revalidated ($MEDIA_PATH)"; exit 1;
             }
