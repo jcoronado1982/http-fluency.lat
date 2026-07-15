@@ -105,17 +105,6 @@ function removeStoredProgressBatch(context) {
     );
 }
 
-function removeStoredProgressCategory(context) {
-    writeStoredProgressBatches(
-        readStoredProgressBatches().filter((batch) => (
-            batch.userId !== context.userId
-            || batch.category !== context.category
-            || normalizeStoredCourseDirection(batch.courseDirection)
-                !== normalizeStoredCourseDirection(context.courseDirection)
-        )),
-    );
-}
-
 function removeStoredProgressCards(context, indexes) {
     const targetKey = makeProgressBatchKey(context);
     const indexSet = new Set(indexes);
@@ -601,16 +590,18 @@ export function useDeckSession(resumeSession = null) {
         });
         if (!shouldReset) return;
 
-        // Al resetear la categoría, descartamos cualquier lote pendiente de esa categoría.
+        // El reset solo afecta al deck/tópico activo. Conservamos los lotes pendientes
+        // de los demás decks y categorías del usuario.
         pendingBatchRef.current = new Map();
-        removeStoredProgressCategory({
+        removeStoredProgressBatch({
             category: currentCategory,
+            deck: currentDeckName,
             userId: user.email,
             courseDirection,
         });
 
         try {
-            await flashcardPort.resetCategoryStatus(
+            await flashcardPort.resetDeckStatus(
                 user.email,
                 currentCategory,
                 currentDeckName,
@@ -620,16 +611,10 @@ export function useDeckSession(resumeSession = null) {
             const resetCards = masterData.map((card) => ({ ...card, learned: false }));
             setMasterData(resetCards);
             setFilteredData(filterUnlearned(resetCards, selectedGroup));
-            setDeckSummaries((prev) => {
-                const next = { ...prev };
-                deckNames.forEach((deckName) => {
-                    const total = deckName === currentDeckName
-                        ? resetCards.length
-                        : (prev[deckName]?.total ?? 0);
-                    next[deckName] = { total, learned: 0 };
-                });
-                return next;
-            });
+            setDeckSummaries((prev) => ({
+                ...prev,
+                [currentDeckName]: { total: resetCards.length, learned: 0 },
+            }));
             setJustCompletedInSession(false);
             setResetKey((k) => k + 1);
             await loadFlashcards(currentCategory, currentDeckName);

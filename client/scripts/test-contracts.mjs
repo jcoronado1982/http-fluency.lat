@@ -15,6 +15,7 @@ import {
 } from '../src/contracts/studyMediaVariants.js';
 import { buildGlobalImageStoragePath } from '../src/components/flashcardStudy/features/imageStorageIdentity.js';
 import { normalizeCardImageUrl } from '../src/utils/mediaUrl.js';
+import { createFlashcardHttpAdapter } from '../src/modules/flashcards/adapters/flashcardHttpAdapter.js';
 
 // Estos valores son CONTRATO entre módulos y con el backend (mod_flashcards
 // enruta proveedores TTS/imagen por category): si cambian, debe ser a propósito.
@@ -95,5 +96,31 @@ assert.equal(
   normalizeCardImageUrl('/unrelated/file.png?v=keep'),
   '/unrelated/file.png?v=keep',
 );
+
+// El reset de un bloque debe conservar el alcance exacto usuario/categoría/deck.
+// En particular, no puede enviar scope=category porque borraría los otros tópicos.
+const requests = [];
+const flashcardAdapter = createFlashcardHttpAdapter({
+  post: async (url, body) => {
+    requests.push({ url, body });
+    return { success: true };
+  },
+});
+await flashcardAdapter.resetDeckStatus(
+  'student@example.com',
+  'verbs',
+  '1-basic/actions',
+  'en_es',
+);
+assert.deepEqual(requests, [{
+  url: '/api/reset-all',
+  body: {
+    user_id: 'student@example.com',
+    category: 'verbs',
+    deck: '1-basic/actions',
+    confirm: true,
+    course_direction: 'en_es',
+  },
+}]);
 
 console.log('✅ test-contracts: todos los asserts pasaron');
