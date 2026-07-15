@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /flashcard
+Disallow: /review
+Disallow: /dashboard
+Disallow: /admin
+Disallow: /grammar
+Disallow: /test
+Disallow: /onboarding
+Disallow: /checkout
+Disallow: /login
+
+Sitemap: https://fluency.lat/sitemap.xml
