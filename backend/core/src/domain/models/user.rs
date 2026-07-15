@@ -8,6 +8,8 @@ pub struct CatalogPreferences {
     pub categories: Vec<String>,
     #[serde(default)]
     pub groups: HashMap<String, Vec<String>>,
+    #[serde(default)]
+    pub version: Option<i32>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub updated_at: Option<DateTime<Utc>>,
 }

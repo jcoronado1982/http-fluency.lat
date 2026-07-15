@@ -35,8 +35,10 @@ export const normalizeCatalogPreferences = (preferences) => ({
     updated_at: preferences?.updated_at ?? null,
 });
 
-export const isCatalogPreferencesCurrent = (preferences) =>
-    normalizeCatalogPreferences(preferences).version === CATALOG_ORDER_SCHEMA_VERSION;
+export const isCatalogPreferencesCurrent = (preferences) => {
+    const version = normalizeCatalogPreferences(preferences).version;
+    return version === CATALOG_ORDER_SCHEMA_VERSION || version === null;
+};
 
 export const isCatalogPreferencesEmpty = (preferences) => {
     const normalized = normalizeCatalogPreferences(preferences);

@@ -52,9 +52,19 @@ impl Settings {
         dotenv().ok();
 
         let gemini_api_key = env::var("GEMINI_API_KEY").ok();
-        let flashcard_prompt_engine = env::var("FLASHCARD_PROMPT_ENGINE")
-            .unwrap_or_else(|_| "ollama".to_string())
-            .to_ascii_lowercase();
+        let database_url = env::var("DATABASE_URL").unwrap_or_default();
+        let is_production = !database_url.is_empty()
+            && !database_url.contains("localhost")
+            && !database_url.contains("127.0.0.1")
+            && !database_url.contains("db");
+
+        let flashcard_prompt_engine = if is_production {
+            "gemini".to_string()
+        } else {
+            env::var("FLASHCARD_PROMPT_ENGINE")
+                .unwrap_or_else(|_| "ollama".to_string())
+                .to_ascii_lowercase()
+        };
         let uses_local_prompt_llm = matches!(flashcard_prompt_engine.as_str(), "ollama" | "qwen3");
         let image_ai_enabled = env::var("IMAGE_AI_ENABLED")
             .unwrap_or_else(|_| "true".to_string())

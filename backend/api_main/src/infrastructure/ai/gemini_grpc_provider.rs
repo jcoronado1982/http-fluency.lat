@@ -630,11 +630,23 @@ Do not include the internal checklist, word counts, explanations, markdown, or a
             "\nSCENE RULES: choose a normal daily-life situation where someone would naturally use this sentence; make the target action/state/relation visible, not just implied by people talking.\nCOMPOSITION RULES: full bodies when people are visible; no cropped humans; no isolated limbs; main subject centered and large enough; avoid key details at image edges.",
         );
 
+        let database_url = std::env::var("DATABASE_URL").unwrap_or_default();
+        let is_production = !database_url.is_empty()
+            && !database_url.contains("localhost")
+            && !database_url.contains("127.0.0.1")
+            && !database_url.contains("db");
+
         let prompt_engine = engine_override
             .map(|s| s.to_string())
-            .unwrap_or_else(|| std::env::var("FLASHCARD_PROMPT_ENGINE")
-                .unwrap_or_else(|_| "ollama".to_string())
-                .to_ascii_lowercase());
+            .unwrap_or_else(|| {
+                if is_production {
+                    "gemini".to_string()
+                } else {
+                    std::env::var("FLASHCARD_PROMPT_ENGINE")
+                        .unwrap_or_else(|_| "ollama".to_string())
+                        .to_ascii_lowercase()
+                }
+            });
 
         if matches!(prompt_engine.as_str(), "ollama" | "qwen3") {
             info!(

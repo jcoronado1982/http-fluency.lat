@@ -2,7 +2,7 @@ import { useState, useCallback, useRef } from 'react';
 import { useStudyMediaContext } from '../StudyMediaContext';
 import { resolveStudyMediaNamespace } from '../../../contracts/studyMediaVariants';
 import { useUIContext } from '../../../context/UIContext';
-import { getCourseDirectionFromStudyLanguage } from '../../../modules/flashcards/useCases/deckUseCases';
+import { getCourseDirectionFromStudyLanguage } from '../../../contracts/courseDirection.js';
 import {
     clearPrefetchedAudio,
     deletePrefetchedAudio,

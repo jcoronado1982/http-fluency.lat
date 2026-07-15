@@ -202,9 +202,7 @@ const PHRASAL_VERBS_DECK_ORDER = {
 
 const isAppStudyCategory = (name) => name && name !== LANDING_DEMO_CATEGORY;
 export const usesNestedLevelDecks = (category) => NESTED_LEVEL_CATEGORIES.includes(category);
-export const getCourseDirectionFromStudyLanguage = (studyLanguage) => (
-    studyLanguage === 'es' ? 'en_es' : 'es_en'
-);
+export { getCourseDirectionFromStudyLanguage } from '../../../contracts/courseDirection.js';
 
 const normalizeDefinitions = (defs) =>
     (defs || []).map((def) => ({ ...def, imagePath: def.imagePath ?? null }));

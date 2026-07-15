@@ -335,26 +335,17 @@ impl ImageUseCases {
             return Ok(false);
         };
 
-        let source_ext = source_blob_path
-            .rsplit('.')
-            .next()
-            .unwrap_or("")
-            .to_ascii_lowercase();
-        let target_bytes = if source_ext == "avif" || Self::bytes_are_avif(&source_bytes) {
-            source_bytes
-        } else {
-            self.image_compressor
-                .compress_to_avif(&source_bytes, avif_quality)
-                .map_err(|e| {
-                    tracing::error!(
-                        trace_id = %trace_short,
-                        legacy_blob_path = %source_blob_path,
-                        error = %e,
-                        "img-gen:legacy-migration-compression-failed"
-                    );
-                    anyhow::anyhow!("[trace={trace_short}] legacy image compression: {e}")
-                })?
-        };
+        let target_bytes = self.image_compressor
+            .compress_to_avif(&source_bytes, avif_quality)
+            .map_err(|e| {
+                tracing::error!(
+                    trace_id = %trace_short,
+                    legacy_blob_path = %source_blob_path,
+                    error = %e,
+                    "img-gen:legacy-migration-compression-failed"
+                );
+                anyhow::anyhow!("[trace={trace_short}] legacy image compression: {e}")
+            })?;
 
         self.storage_repo
             .upload_blob(target_blob_path, target_bytes, "image/avif")
@@ -986,13 +977,16 @@ impl ImageUseCases {
         let (deck_media_dir, deck_file_prefix) = safe_deck_media_path(&req.deck)?;
         let form_suffix = safe_form_suffix(req.form.as_deref())?;
 
-        let extension = std::path::Path::new(&req.file_name)
-            .extension()
-            .and_then(|s| s.to_str())
-            .unwrap_or("png");
-        let extension = match extension.to_ascii_lowercase().as_str() {
-            "avif" | "jpg" | "jpeg" | "png" | "webp" => extension.to_ascii_lowercase(),
-            _ => anyhow::bail!("Extensión de imagen no permitida"),
+        // No confiar en la extensión del nombre de archivo ni en el content-type
+        // que manda el cliente: se verifica el contenido real y, si no es AVIF
+        // válido, se recodifica. Así solo puede terminar en el repositorio un
+        // AVIF real, sin importar cómo llegó (jpg/png/webp/renombrado).
+        let target_bytes = if Self::bytes_are_avif(&req.file_data) {
+            req.file_data
+        } else {
+            self.image_compressor
+                .compress_to_avif(&req.file_data, 80)
+                .map_err(|e| anyhow::anyhow!("La imagen subida no se pudo convertir a AVIF: {e}"))?
         };
 
         let base_name = if is_admin {
@@ -1017,12 +1011,12 @@ impl ImageUseCases {
                 &form_suffix,
             )
         };
-        let final_name = format!("{base_name}.{extension}");
+        let final_name = format!("{base_name}.avif");
         let blob_path = format!("{}/{}", self.config.gcs_images_prefix, final_name);
 
         tracing::info!("📤 Uploading manual image to: {}", blob_path);
         self.storage_repo
-            .upload_blob(&blob_path, req.file_data, &req.content_type)
+            .upload_blob(&blob_path, target_bytes, "image/avif")
             .await?;
 
         Ok(self.versioned_image_url(&final_name, &blob_path).await)

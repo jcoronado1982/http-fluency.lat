@@ -65,7 +65,7 @@ El único punto de contacto central es UNA línea en el registry. No se toca `Ap
 - **Físico (sparse-checkout)**: quitar el directorio del disco con el perfil sparse (ver `docs/GIT_SPARSE_WORKFLOW.md`). El registry solo carga lo presente; el flag debe estar en `false` para que el `import()` no se intente.
 - **Permanente (borrado real)**: eliminar `src/modules/<x>/`, su línea en `moduleLoaders`, su feature en `config/index.js` y sus flags en `.env*`/`env-profiles/`. Antes de borrar, comprobar que nada externo lo importa: `grep -rn "modules/<x>" src/ --include="*.js*"` debe devolver solo el propio módulo y el registry. Lo compartido NO se borra con el módulo: `contracts/`, `components/flashcardStudy`, `src/adapters` pertenecen al shell.
 
-**Garantía verificada (jul 2026)**: no existen imports horizontales entre módulos (landing↛flashcards, dashboard↮flashcards); cada módulo tiene su propio `composition.js`; el perfil `admin.profile` corre la app sin módulos de estudio. Única excepción conocida: `flashcards/index.jsx` importa `isDefaultHomeModule` del registry (deuda #5, §9).
+**Garantía verificada (2026-07-14)**: no existen imports horizontales entre módulos (landing↛flashcards, dashboard↮flashcards); cada módulo tiene su propio `composition.js`; el perfil `admin.profile` corre la app sin módulos de estudio. Los dos imports que violaban esto (dashboard→flashcards y kit flashcardStudy→flashcards) se eliminaron moviendo `getCourseDirectionFromStudyLanguage` a `contracts/courseDirection.js`; `deckUseCases.js` la re-exporta para sus consumidores internos. Única excepción conocida: `flashcards/index.jsx` importa `isDefaultHomeModule` del registry (deuda #5, §9).
 
 ---
 
@@ -85,7 +85,7 @@ composition.js (composition root del módulo — equivalente al wiring de api_ma
 
 - **Puertos**: `src/modules/flashcards/ports/{flashcardPort,audioPort,imagePort}.js`, `src/modules/dashboard/ports/…`, `src/modules/pricing/ports/…`. Documentan el contrato con `@typedef`. Compartidos: `src/adapters/studyPorts.js`.
 - **Adaptadores HTTP**: mismo directorio `adapters/` de cada módulo + `src/adapters/` (audio/imagen de estudio compartidos). Son el ÚNICO lugar con URLs de API.
-- **`src/services/httpClient.js`**: cliente único — añade `Authorization: Bearer` desde `localStorage.auth_token`, lanza en non-2xx. TODO fetch pasa por aquí (no usar `fetch`/`axios` directo en componentes). Excepciones justificadas (auditadas jul 2026, no son violaciones): el beacon `keepalive:true` de `useDeckSession.flushProgressBeacon` (beforeunload no admite el httpClient), la descarga de blobs de audio en `useAudioPlayback.fetchAudioBlob` (binario, no JSON; la URL viene del puerto) y los bindings generados `services/wasm_lib.js`.
+- **`src/services/httpClient.js`**: cliente único — añade `Authorization: Bearer` desde `localStorage.auth_token`, lanza en non-2xx. TODO fetch pasa por aquí (no usar `fetch`/`axios` directo en componentes). Excepciones justificadas (auditadas 2026-07-14, no son violaciones): el beacon `keepalive:true` de `useDeckSession.flushProgressBeacon` (beforeunload no admite el httpClient), el `preload` cancelable de audio en `adapters/studyAudioHttpAdapter.js` (streaming binario que calienta la caché HTTP; vive en la capa adapter, que es la correcta) y los bindings generados `services/wasm_lib.js`.
 - **`composition.js`** por módulo: instancia puertos con sus adaptadores. Los componentes importan **puertos ya cableados**, jamás adaptadores.
 - **useCases**: `deckUseCases.js`, `deckSessionUseCases.js`, `dashboardProgress.js`… funciones puras testeables (ordenamiento de catálogo, progreso, sesiones). La cabecera de `deckUseCases.js` documenta cómo añadir ordenamientos de categorías (toca también `contracts/catalogOrder.json` y el ETL).
 
@@ -105,6 +105,7 @@ src/
 ├── contracts/                  ← contratos ENTRE módulos (no tocar sin revisar consumidores):
 │   ├── landingDemoNamespace.js    categoría/deck/límite del demo público + rutas de imagen
 │   ├── studyMediaVariants.js      variante 'app' vs 'landing-demo' (elige proveedor TTS/imagen backend)
+│   ├── courseDirection.js         studyLanguage → course_direction (lo usan kit, dashboard y flashcards)
 │   └── catalogOrder.json          orden del catálogo (sincronizado con ETL/DB)
 ├── context/                    ← estado global compartido:
 │   ├── AuthContext.jsx            sesión JWT, restore, onboardingRequired, navigate post-login
@@ -177,7 +178,7 @@ src/
 - `.cardFront` es **Grid con áreas** `'header' 'conjugation' 'examples' 'image'`; cada región declara su `grid-area` en su propio módulo CSS. Flexbox solo para grupos lineales (controles, filas de ejemplos, tabla de conjugación).
 - **Piel de las caras** = variables en `.flashcardContainer`: `--fc-face-border`, `--fc-face-bg`, `--fc-face-shadow`, `--fc-card-shadow` (las variantes app-móvil y demo las redefinen). Tamaños: `--fc-card-max-width`, `--fc-card-base-height`, `--fc-image-base-width/height`. NO re-hardcodear estos valores.
 - **Container Queries: decisión CERRADA y documentada** en el comentario inicial de `Flashcard.module.css`. La relación viewport→ancho de tarjeta NO es monótona (app: 620px fijos en escritorio, salta a ~748px al cruzar a ≤768px; demo hero: 282px→660px al colapsar columnas), así que ningún umbral de contenedor replica el corte de 768px. Los contenedores `flashcard`/`flashcard-face` quedan declarados solo para reglas futuras. No "modernizar" las media queries a `@container` sin nuevas mediciones.
-- Solo **2 familias de breakpoints**: `max-width: 768px` (colapso de layout de página) y `min-width: 768.02px + max-height: 900px` (portátiles con poca altura). El `.02` es deliberado: con escalado fraccional del SO el ancho lógico puede ser 768.5px y no debe caer en un hueco entre bloques. No añadir breakpoints puntuales.
+- Solo **2 familias de breakpoints** generales: `max-width: 768px` (colapso de layout de página) y `min-width: 768.02px + max-height: 900px` (portátiles con poca altura). El `.02` es deliberado: con escalado fraccional del SO el ancho lógico puede ser 768.5px y no debe caer en un hueco entre bloques. No añadir breakpoints puntuales. **Excepción versionada** (commit `responsive`, jul 2026): la banda `min-width: 769px + max-width: 1349px` en 4 archivos del kit (Flashcard, Controls, DefinitionList, ConjugationTable) ajusta SOLO la variante `data-variant='demo'` en portátiles. Ojo: usa `769px`, no `768.02px`, así que a 768.5px lógicos esas reglas demo no aplican (deuda visual conocida, solo bajo escalado fraccional); unificarla a `768.02px` requiere arnés pixel-diff, nunca fix oportunista.
 - **Altura real del viewport**: `useRealViewportHeight` mide `window.innerHeight` y lo publica como `--fc-real-vh` en `:root` (workaround del bug de `dvh` bajo escalado fraccional en Linux/Chromium). Toda fórmula de alto usa `var(--fc-real-vh, 100dvh)`. No volver a `dvh` puro.
 - Los 8 `:global()` restantes (DefinitionList) pertenecen al **tour de onboarding** (`body:has([data-tour-step=…])`) — intocables.
 - `.conjugationAudioBtn` existe en JSX pero va `display:none` deliberado (el audio se dispara al clicar la forma verbal).
@@ -243,11 +244,13 @@ Captura 9 estados × 3 viewports (1920×1080, 1366×768, 390×844) con determini
 
 Desviaciones SOLID identificadas y aceptadas (jul 2026). Son el código más delicado de la app (reintentos, carreras de generación, refs de secuencia); cualquier corrección requiere refactor planificado + arnés visual + revisión de comportamiento, nunca un fix oportunista:
 
-1. **Hooks-dios (SRP)**: `useImageGeneration.js` (~840 líneas: resolución + pipeline de generación + upload + borrado + reintentos + demo + bootstrap), `CategorySelector.jsx` (~780), `FlashcardPage.jsx` (~530), `useAudioPlayback.jsx` (~520).
+1. **Hooks-dios (SRP)**: `useImageGeneration.js` (~930 líneas y creciendo: resolución + pipeline de generación + upload + borrado + reintentos + demo + bootstrap), `CategorySelector.jsx` (~780), `FlashcardPage.jsx` (~550), `useAudioPlayback.jsx` (~490).
 2. **Autorización en presentación**: `canGenerateImages`/`canDeleteImages` con `user?.role === 'premium'|'admin'` dentro de `useImageGeneration` — política de dominio que debería ser un useCase/policy.
 3. **Fuga de infraestructura**: `useImageGeneration.js` (`pathMatchesDeck`) hardcodea el patrón `` `/card_images/${category}/…` `` en vez de delegar en `imagePort`.
 4. **useCase impuro**: `deckUseCases.js` se declara "lógica pura" pero lee `localStorage` (~línea 609).
 5. **Módulo→registry**: `modules/flashcards/index.jsx` importa `isDefaultHomeModule` desde `../index` (ciclo suave; funciona por import dinámico, pero invierte la dirección de dependencia).
+6. **`!important` fuera del kit** (auditado 2026-07-14; el kit sigue en 0): `FlashcardOnboardingTour.module.css` (41 — overrides del tour sobre estilos del kit, en parte inherentes a pisar estilos ajenos), `CardCounter.module.css` (27), `IpaModal.module.css` (8), `CategorySelector.module.css` (7), `pages/LoginPage.css` (4), `landing/styles/why-cta.css` (2). Reducirlos = mismo tratamiento que el refactor del kit: por archivo, con arnés pixel-diff, nunca de pasada.
+7. **Breakpoints sueltos fuera del kit** (auditado 2026-07-14): apariciones únicas o casi únicas de `767px`, `760px`, `680px`, `860px`, `901px`, `520px`… en landing/pricing/dashboard, contra la regla del spec `refactor` de no añadir breakpoints por defecto aislado. Este CSS está PROBADO en móvil, portátil y PC — consolidarlos a las familias canónicas (768/768.02/900/720/480/1600) solo con arnés pixel-diff por archivo, nunca de pasada.
 
 ## 10. Checklist para la IA antes de modificar el frontend
 

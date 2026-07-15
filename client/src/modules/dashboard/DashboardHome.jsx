@@ -7,7 +7,7 @@ import { useLearningStats } from './hooks/useLearningStats';
 import DashboardHero from './features/DashboardHero';
 import PageLoader from '../../components/common/PageLoader';
 import './DashboardHome.css';
-import { getCourseDirectionFromStudyLanguage } from '../flashcards/useCases/deckUseCases';
+import { getCourseDirectionFromStudyLanguage } from '../../contracts/courseDirection.js';
 
 export default function DashboardHome() {
     const { user, isAuthenticated } = useAuth();

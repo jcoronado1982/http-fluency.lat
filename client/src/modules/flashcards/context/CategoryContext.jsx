@@ -22,6 +22,7 @@ import { LAST_CATEGORY_KEY } from '../config/sessionKeys';
 
 export const CategoryContext = StudyCategoryContext;
 export const CategoryProvider = ({ children, resumeSession = null }) => {
+    const [rawCategories, setRawCategories] = useState([]);
     const [categories, setCategories] = useState([]);
     const [categoryTotals, setCategoryTotals] = useState({});
     const [areCategoryTotalsLoading, setAreCategoryTotalsLoading] = useState(false);
@@ -38,24 +39,56 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
             setIsLoading(false);
             setAreCategoryTotalsLoading(false);
             setLoadingStage(null);
+            setRawCategories([]);
+            setCategories([]);
             return;
         }
 
-        const resolvePreferredCategory = (nextCategories) => {
-            if (resumeSession?.category && nextCategories.includes(resumeSession.category)) {
-                return resumeSession.category;
+        const load = async () => {
+            setIsLoading(true);
+            setLoadingStage('loading_categories');
+            try {
+                const preloaded = await consumeCategoryPreload(
+                    user?.email,
+                    resumeSession,
+                    studyLanguage,
+                );
+                if (
+                    preloaded?.courseDirection === courseDirection
+                    && preloaded?.categories?.length
+                ) {
+                    setRawCategories(preloaded.categories);
+                    setCategoryTotals(preloaded.categoryTotals ?? {});
+                    setAreCategoryTotalsLoading(
+                        preloaded.categories.some((category) => preloaded.categoryTotals?.[category] == null),
+                    );
+                    return;
+                }
+
+                const result = await flashcardPort.fetchCategories(courseDirection);
+                const { names, totals } = parseCategoriesResponse(result);
+                const nextCategories = names.length > 0 ? names : [...FALLBACK_CATEGORIES];
+                setRawCategories(nextCategories);
+                setCategoryTotals(totals);
+                setAreCategoryTotalsLoading(
+                    nextCategories.some((category) => totals?.[category] == null),
+                );
+            } catch {
+                console.error('No se pudieron cargar las categorías. Usando fallback local.');
+                setRawCategories([...FALLBACK_CATEGORIES]);
+                setCategoryTotals({});
+                setAreCategoryTotalsLoading(false);
+            } finally {
+                setLoadingStage(null);
+                setIsLoading(false);
             }
-            return resolvePersistedChoice(LAST_CATEGORY_KEY, nextCategories, nextCategories[0] ?? null);
         };
 
-        const applyCategories = (nextCategories, totals) => {
-            setCategories(nextCategories);
-            setCategoryTotals(totals);
-            setAreCategoryTotalsLoading(
-                nextCategories.some((category) => totals?.[category] == null),
-            );
-            setCurrentCategory(resolvePreferredCategory(nextCategories));
-        };
+        load();
+    }, [courseDirection, isAuthenticated, resumeSession, studyLanguage, user?.email]);
+
+    useEffect(() => {
+        if (rawCategories.length === 0) return;
 
         const getValidCatalogPreferences = (availableCategories) => {
             const preferences = user?.catalog_preferences;
@@ -73,58 +106,23 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
             return null;
         };
 
-        const load = async () => {
-            setIsLoading(true);
-            setLoadingStage('loading_categories');
-            try {
-                const preloaded = await consumeCategoryPreload(
-                    user?.email,
-                    resumeSession,
-                    studyLanguage,
-                );
-                if (
-                    preloaded?.courseDirection === courseDirection
-                    && preloaded?.categories?.length
-                ) {
-                    const preferences = getValidCatalogPreferences(preloaded.categories);
-                    const ordered = sortCategories(
-                        preloaded.categories,
-                        getCategoryOrderPreference(
-                            user?.email,
-                            preloaded.categories,
-                            preferences,
-                        ),
-                    );
-                    applyCategories(ordered, preloaded.categoryTotals ?? {});
-                    return;
-                }
+        const preferences = getValidCatalogPreferences(rawCategories);
+        const sorted = sortCategories(
+            rawCategories,
+            getCategoryOrderPreference(user?.email, rawCategories, preferences),
+        );
 
-                const result = await flashcardPort.fetchCategories(courseDirection);
-                const { names, totals } = parseCategoriesResponse(result);
-                const preferences = getValidCatalogPreferences(names);
-                const sorted = sortCategories(
-                    names,
-                    getCategoryOrderPreference(user?.email, names, preferences),
-                );
-                const nextCategories = sorted.length > 0 ? sorted : [...FALLBACK_CATEGORIES];
-                applyCategories(nextCategories, totals);
-            } catch {
-                console.error('No se pudieron cargar las categorías. Usando fallback local.');
-                const preferences = getValidCatalogPreferences(FALLBACK_CATEGORIES);
-                const fallback = sortCategories(
-                    [...FALLBACK_CATEGORIES],
-                    getCategoryOrderPreference(user?.email, FALLBACK_CATEGORIES, preferences),
-                );
-                applyCategories(fallback, {});
-                setAreCategoryTotalsLoading(false);
-            } finally {
-                setLoadingStage(null);
-                setIsLoading(false);
+        setCategories(sorted);
+
+        // Update currentCategory if it's not set or not valid anymore
+        setCurrentCategory((prev) => {
+            if (prev && sorted.includes(prev)) return prev;
+            if (resumeSession?.category && sorted.includes(resumeSession.category)) {
+                return resumeSession.category;
             }
-        };
-
-        load();
-    }, [courseDirection, isAuthenticated, resumeSession, studyLanguage, updateCatalogPreferences, user?.catalog_preferences, user?.email]);
+            return resolvePersistedChoice(LAST_CATEGORY_KEY, sorted, sorted[0] ?? null);
+        });
+    }, [rawCategories, user?.catalog_preferences, user?.email, resumeSession, updateCatalogPreferences]);
 
     useEffect(() => {
         clearedInvalidPreferencesRef.current = false;
@@ -137,16 +135,26 @@ export const CategoryProvider = ({ children, resumeSession = null }) => {
     }, []);
 
     const moveCategory = useCallback((fromIndex, toIndex) => {
+        console.log(`[CategoryContext] 🔄 Moviendo categoría en memoria de índice ${fromIndex} a ${toIndex}`);
+        let next;
         setCategories((previous) => {
-            const next = moveOrderedItem(previous, fromIndex, toIndex);
-            const nextPreferences = saveCategoryOrderPreference(
-                user?.email,
-                next,
-                user?.catalog_preferences,
-            );
-            void updateCatalogPreferences(nextPreferences);
+            next = moveOrderedItem(previous, fromIndex, toIndex);
+            console.log('[CategoryContext] ➡️ Nuevo orden de categorías en memoria:', next);
             return next;
         });
+
+        setTimeout(() => {
+            if (next) {
+                console.log('[CategoryContext] 💾 Guardando orden final de categorías en servidor:', next);
+                const nextPreferences = saveCategoryOrderPreference(
+                    user?.email,
+                    next,
+                    user?.catalog_preferences,
+                );
+                console.log('[CategoryContext] ➡️ Preferencias de catálogo actualizadas a enviar:', nextPreferences);
+                void updateCatalogPreferences(nextPreferences);
+            }
+        }, 0);
     }, [updateCatalogPreferences, user?.catalog_preferences, user?.email]);
 
     return (

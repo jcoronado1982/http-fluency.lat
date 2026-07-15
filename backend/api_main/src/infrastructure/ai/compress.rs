@@ -10,11 +10,12 @@ pub fn compress_bytes_to_avif(image_bytes: &[u8], quality: u8) -> Result<Vec<u8>
     let img = image::load_from_memory(image_bytes)
         .map_err(|e| format!("Fallo al decodificar imagen de la IA: {}", e))?;
 
-    let img = if img.width() == CARD_IMAGE_WIDTH && img.height() == CARD_IMAGE_HEIGHT {
-        img
-    } else {
-        img.resize_exact(CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT, FilterType::Lanczos3)
-    };
+    let is_avif = image_bytes.windows(8).take(32).any(|w| w == b"ftypavif" || w == b"ftypavis");
+    if img.width() == CARD_IMAGE_WIDTH && img.height() == CARD_IMAGE_HEIGHT && is_avif {
+        return Ok(image_bytes.to_vec());
+    }
+
+    let img = img.resize_exact(CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT, FilterType::Lanczos3);
 
     let mut buf = Cursor::new(Vec::new());
     let encoder = AvifEncoder::new_with_speed_quality(&mut buf, 8, quality);

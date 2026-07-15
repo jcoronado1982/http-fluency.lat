@@ -445,18 +445,27 @@ Notas de alcance:
 - En **frontend**, `UIContext` del shell solo contiene UI global (sidebar, idioma, mensajes). Estado de negocio/UI de módulo → `FlashcardUiContext`, etc.
 - Los archivos de estilos grandes no cambian la arquitectura base; sí señalan deuda visual en ciertos módulos.
 
-### 8.1 Desviaciones conocidas (auditoría 2026-07-11 — NO "arreglar" de pasada)
+### 8.1 Desviaciones conocidas (auditoría 2026-07-14 — NO "arreglar" de pasada)
 
-Verificado con grep sobre el código real (misma filosofía que `client/CLAUDE.md` §9): `core` y
-`mod_flashcards` están limpios (solo dominio + puertos); `api_main/src/domain` es una fachada de
-re-exports de `fluency_core` (no es violación). Quedan dos desviaciones DIP aceptadas que requieren
-refactor planificado (tocan auth/presencia de producción, nunca fix oportunista):
+Verificado con grep sobre el código real (misma filosofía que `client/CLAUDE.md` §9): `core` está
+limpio (solo dominio + puertos); `api_main/src/domain` es una fachada de re-exports de
+`fluency_core` (no es violación). Quedan desviaciones aceptadas que requieren refactor planificado
+(tocan auth/presencia de producción o el pipeline de media probado/optimizado, nunca fix oportunista):
 
 1. **`mod_shell/src/auth.rs`**: usa `reqwest` (JWKS/tokeninfo de Google) y `jsonwebtoken`
    directamente dentro del crate de casos de uso. Estricto sería un puerto `TokenVerifier` en
    `core` + adaptador en `api_main/src/infrastructure`. Riesgo del refactor: flujo de login prod.
 2. **`mod_shell/src/presence_use_cases.rs`**: `reqwest::Client` embebido en el caso de uso
    (mismo patrón y mismo tratamiento).
+3. **`mod_flashcards/src/image_use_cases.rs` (~línea 642)**: escribe `../image_generation.log`
+   con `std::fs` (ruta relativa al CWD) dentro del caso de uso. Estricto sería un puerto de
+   telemetría/logging. Es parte del pipeline de imágenes optimizado y probado — no tocar de pasada.
+4. **`mod_flashcards/src/batch/audio.rs`**: append de `batch_audio_failures.log` con `std::fs`
+   en la capa de aplicación (contexto CLI batch; la ruta sí viene de config, no hardcodeada).
+
+Matiz aceptado (no es desviación de capa): `api_main/src/api/endpoints/generation.rs` importa la
+**función** `mod_flashcards::is_landing_demo_namespace` (predicado de dominio, no un tipo); la regla
+"HTTP delgado" del §3.3 se refiere a tipos de request/response, que sí pasan por DTOs y mappers.
 
 ## 9. Módulos actuales
 

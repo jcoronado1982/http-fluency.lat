@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { FiHelpCircle } from 'react-icons/fi';
 import styles from './CategorySelector.module.css';
 import { useAuth } from '../../../context/AuthContext';
@@ -212,7 +212,6 @@ function CategorySelector() {
     const helpButtonRef = useRef(null);
     const [draggingCategory, setDraggingCategory] = useState(null);
     const [draggingGroup, setDraggingGroup] = useState(null);
-    const [, setGroupOrderRevision] = useState(0);
     const [isHelpOpen, setIsHelpOpen] = useState(false);
 
     const {
@@ -221,15 +220,22 @@ function CategorySelector() {
 
     const isNestedCatalog = usesNestedLevelDecks(currentCategory);
     const activeLevel = getLevelFromDeckName(currentDeckName);
-    const nestedDeckNames = isNestedCatalog
-        ? deckNames.filter((name) => getLevelFromDeckName(name) === activeLevel)
-        : [];
-    const levelTotals = nestedDeckNames.reduce((acc, deckName) => {
-        const summary = deckSummaries[deckName];
-        acc.total += summary?.total ?? 0;
-        acc.learned += summary?.learned ?? 0;
-        return acc;
-    }, { total: 0, learned: 0 });
+
+    const nestedDeckNames = useMemo(() => {
+        return isNestedCatalog
+            ? deckNames.filter((name) => getLevelFromDeckName(name) === activeLevel)
+            : [];
+    }, [isNestedCatalog, deckNames, activeLevel]);
+
+    const levelTotals = useMemo(() => {
+        return nestedDeckNames.reduce((acc, deckName) => {
+            const summary = deckSummaries[deckName];
+            acc.total += summary?.total ?? 0;
+            acc.learned += summary?.learned ?? 0;
+            return acc;
+        }, { total: 0, learned: 0 });
+    }, [nestedDeckNames, deckSummaries]);
+
     const totalCards = isNestedCatalog && nestedDeckNames.length > 0
         ? levelTotals.total
         : masterData.length;
@@ -261,60 +267,81 @@ function CategorySelector() {
         : null;
 
     // Obtener los grupos únicos de la data cargada actualmente
-    const groupsMap = {};
-    masterData.forEach(card => {
-        const groupName = card.group_name || 'General';
-        if (!groupsMap[groupName]) {
-            groupsMap[groupName] = [];
-        }
-        groupsMap[groupName].push(card);
-    });
+    const groupsMap = useMemo(() => {
+        const map = {};
+        masterData.forEach(card => {
+            const groupName = card.group_name || 'General';
+            if (!map[groupName]) {
+                map[groupName] = [];
+            }
+            map[groupName].push(card);
+        });
+        return map;
+    }, [masterData]);
 
-    const groupNames = Object.keys(groupsMap);
-    const completedGroupNames = groupNames.filter((groupName) => {
-        const cards = groupsMap[groupName] || [];
-        return cards.length > 0 && cards.every((card) => card.learned);
-    });
+    const groupNames = useMemo(() => Object.keys(groupsMap), [groupsMap]);
 
-    const storedGroupOrder = getGroupOrderPreference(
-        user?.email,
-        currentCategory,
-        currentDeckName,
-        groupNames,
-        user?.catalog_preferences,
-    );
-    const orderedGroupNames = sortGroups(
-        currentCategory,
-        currentDeckName,
-        groupNames,
-        storedGroupOrder,
-        completedGroupNames,
-    );
+    const completedGroupNames = useMemo(() => {
+        return groupNames.filter((groupName) => {
+            const cards = groupsMap[groupName] || [];
+            return cards.length > 0 && cards.every((card) => card.learned);
+        });
+    }, [groupNames, groupsMap]);
 
-    const groupsList = orderedGroupNames
+    const completedNestedDeckNames = useMemo(() => {
+        return nestedDeckNames.filter((deckName) => {
+            const summary = deckSummaries[deckName];
+            return summary?.total > 0 && summary.learned === summary.total;
+        });
+    }, [nestedDeckNames, deckSummaries]);
+
+    // Local states to handle fluid drag-and-drop before saving
+    const [localGroupOrder, setLocalGroupOrder] = useState([]);
+    const [localNestedDeckOrder, setLocalNestedDeckOrder] = useState([]);
+
+    useEffect(() => {
+        const storedGroupOrder = getGroupOrderPreference(
+            user?.email,
+            currentCategory,
+            currentDeckName,
+            groupNames,
+            user?.catalog_preferences,
+        );
+        const ordered = sortGroups(
+            currentCategory,
+            currentDeckName,
+            groupNames,
+            storedGroupOrder,
+            completedGroupNames,
+        );
+        setLocalGroupOrder(ordered);
+    }, [currentCategory, currentDeckName, groupNames, user?.catalog_preferences, completedGroupNames, user?.email]);
+
+    const levelPreferenceKey = `__level__${activeLevel || 'basic'}`;
+    useEffect(() => {
+        const storedNestedDeckOrder = getGroupOrderPreference(
+            user?.email,
+            currentCategory,
+            levelPreferenceKey,
+            nestedDeckNames,
+            user?.catalog_preferences,
+        );
+        const ordered = partitionCompletedItems(
+            applyPreferenceOrder(nestedDeckNames, storedNestedDeckOrder),
+            completedNestedDeckNames,
+        );
+        setLocalNestedDeckOrder(ordered);
+    }, [currentCategory, levelPreferenceKey, nestedDeckNames, user?.catalog_preferences, completedNestedDeckNames, user?.email]);
+
+    const groupsList = localGroupOrder
         .map(name => {
-            const cards = groupsMap[name];
+            const cards = groupsMap[name] || [];
             const total = cards.length;
             const learned = cards.filter(c => c.learned).length;
             return { name, total, learned };
         });
     const visibleGroups = groupsList;
-    const levelPreferenceKey = `__level__${activeLevel || 'basic'}`;
-    const completedNestedDeckNames = nestedDeckNames.filter((deckName) => {
-        const summary = deckSummaries[deckName];
-        return summary?.total > 0 && summary.learned === summary.total;
-    });
-    const storedNestedDeckOrder = getGroupOrderPreference(
-        user?.email,
-        currentCategory,
-        levelPreferenceKey,
-        nestedDeckNames,
-        user?.catalog_preferences,
-    );
-    const visibleNestedDecks = partitionCompletedItems(
-        applyPreferenceOrder(nestedDeckNames, storedNestedDeckOrder),
-        completedNestedDeckNames,
-    );
+    const visibleNestedDecks = localNestedDeckOrder;
 
     const handleLevelChange = (level) => {
         const targetDeck = isNestedCatalog
@@ -343,68 +370,54 @@ function CategorySelector() {
         setIsCatalogVisible(false);
     };
 
-    const reorderCategories = (targetCategory) => {
-        const sourceCategory = dragStateRef.current.id;
-        if (!sourceCategory || sourceCategory === targetCategory) return;
+    const moveLocalGroup = (fromIndex, toIndex) => {
+        console.log(`[CategorySelector] 🔄 Moviendo grupo de índice ${fromIndex} a ${toIndex}`);
+        let next;
+        setLocalGroupOrder((previous) => {
+            next = moveOrderedItem(previous, fromIndex, toIndex);
+            console.log('[CategorySelector] ➡️ Nuevo orden de grupos en memoria:', next);
+            return next;
+        });
 
-        const fromIndex = categories.indexOf(sourceCategory);
-        const toIndex = categories.indexOf(targetCategory);
-        if (fromIndex === -1 || toIndex === -1) return;
-
-        moveCategory(fromIndex, toIndex);
+        setTimeout(() => {
+            if (next) {
+                console.log('[CategorySelector] 💾 Guardando orden final de grupos en servidor:', next);
+                const nextPreferences = saveGroupOrderPreference(
+                    user?.email,
+                    currentCategory,
+                    currentDeckName,
+                    next,
+                    user?.catalog_preferences,
+                );
+                console.log('[CategorySelector] ➡️ Preferencias de grupos actualizadas a enviar:', nextPreferences);
+                void updateCatalogPreferences(nextPreferences);
+            }
+        }, 0);
     };
 
-    const reorderGroups = (targetGroupName) => {
-        const sourceGroupName = dragStateRef.current.id;
-        if (!sourceGroupName || sourceGroupName === targetGroupName) return;
+    const moveLocalNestedDeck = (fromIndex, toIndex) => {
+        console.log(`[CategorySelector] 🔄 Moviendo subcategoría de índice ${fromIndex} a ${toIndex}`);
+        let next;
+        setLocalNestedDeckOrder((previous) => {
+            next = moveOrderedItem(previous, fromIndex, toIndex);
+            console.log('[CategorySelector] ➡️ Nuevo orden de subcategorías en memoria:', next);
+            return next;
+        });
 
-        const incompleteGroupNames = groupsList
-            .filter((group) => group.learned !== group.total)
-            .map((group) => group.name);
-        const fromIndex = incompleteGroupNames.indexOf(sourceGroupName);
-        const toIndex = incompleteGroupNames.indexOf(targetGroupName);
-
-        if (fromIndex === -1 || toIndex === -1) return;
-
-        const reorderedIncomplete = moveOrderedItem(incompleteGroupNames, fromIndex, toIndex);
-        const completeGroupNames = groupsList
-            .filter((group) => group.learned === group.total)
-            .map((group) => group.name);
-        const nextOrder = [...reorderedIncomplete, ...completeGroupNames];
-        const nextPreferences = saveGroupOrderPreference(
-            user?.email,
-            currentCategory,
-            currentDeckName,
-            nextOrder,
-            user?.catalog_preferences,
-        );
-        void updateCatalogPreferences(nextPreferences);
-        setGroupOrderRevision((value) => value + 1);
-    };
-
-    const reorderNestedDecks = (targetDeckName) => {
-        const sourceDeckName = dragStateRef.current.id;
-        if (!sourceDeckName || sourceDeckName === targetDeckName) return;
-
-        const incompleteDeckNames = visibleNestedDecks.filter(
-            (deckName) => !completedNestedDeckNames.includes(deckName),
-        );
-        const fromIndex = incompleteDeckNames.indexOf(sourceDeckName);
-        const toIndex = incompleteDeckNames.indexOf(targetDeckName);
-
-        if (fromIndex === -1 || toIndex === -1) return;
-
-        const reorderedIncomplete = moveOrderedItem(incompleteDeckNames, fromIndex, toIndex);
-        const nextOrder = [...reorderedIncomplete, ...completedNestedDeckNames];
-        const nextPreferences = saveGroupOrderPreference(
-            user?.email,
-            currentCategory,
-            levelPreferenceKey,
-            nextOrder,
-            user?.catalog_preferences,
-        );
-        void updateCatalogPreferences(nextPreferences);
-        setGroupOrderRevision((value) => value + 1);
+        setTimeout(() => {
+            if (next) {
+                console.log('[CategorySelector] 💾 Guardando orden final de subcategorías en servidor:', next);
+                const nextPreferences = saveGroupOrderPreference(
+                    user?.email,
+                    currentCategory,
+                    levelPreferenceKey,
+                    next,
+                    user?.catalog_preferences,
+                );
+                console.log('[CategorySelector] ➡️ Preferencias de subcategorías actualizadas a enviar:', nextPreferences);
+                void updateCatalogPreferences(nextPreferences);
+            }
+        }, 0);
     };
 
     const handleGroupReset = async (event, groupName) => {
@@ -502,9 +515,19 @@ function CategorySelector() {
                                     onDrop={(event) => {
                                         event.preventDefault();
                                         if (dragStateRef.current.type !== 'category') return;
-                                        reorderCategories(cat);
+                                        const sourceCategory = dragStateRef.current.id;
+                                        console.log(`[CategorySelector] 📥 Soltando categoría "${sourceCategory}" sobre "${cat}"`);
+                                        if (sourceCategory && sourceCategory !== cat) {
+                                            const fromIndex = categories.indexOf(sourceCategory);
+                                            const toIndex = categories.indexOf(cat);
+                                            if (fromIndex !== -1 && toIndex !== -1) {
+                                                console.log(`[CategorySelector] 🔄 Reordenando categorías en memoria de índice ${fromIndex} a ${toIndex}`);
+                                                moveCategory(fromIndex, toIndex);
+                                            }
+                                        }
                                     }}
                                     onDragEnd={() => {
+                                        console.log('[CategorySelector] 🏁 Fin de arrastre de categoría');
                                         dragStateRef.current = { type: null, id: null };
                                         setDraggingCategory(null);
                                     }}
@@ -651,6 +674,7 @@ function CategorySelector() {
                                         event.dataTransfer.setData('text/plain', deckName);
                                         dragStateRef.current = { type: 'nested-deck', id: deckName };
                                         setDraggingGroup(deckName);
+                                        console.log('[CategorySelector] 🚀 Inicia arrastre de subcategoría:', deckName);
                                     }}
                                     onDragOver={(event) => {
                                         if (isComplete || dragStateRef.current.type !== 'nested-deck') return;
@@ -659,9 +683,19 @@ function CategorySelector() {
                                     onDrop={(event) => {
                                         event.preventDefault();
                                         if (isComplete || dragStateRef.current.type !== 'nested-deck') return;
-                                        reorderNestedDecks(deckName);
+                                        const sourceDeckName = dragStateRef.current.id;
+                                        console.log(`[CategorySelector] 📥 Soltando subcategoría "${sourceDeckName}" sobre "${deckName}"`);
+                                        if (sourceDeckName && sourceDeckName !== deckName) {
+                                            const fromIndex = localNestedDeckOrder.indexOf(sourceDeckName);
+                                            const toIndex = localNestedDeckOrder.indexOf(deckName);
+                                            if (fromIndex !== -1 && toIndex !== -1) {
+                                                console.log(`[CategorySelector] 🔄 Reordenando subcategoría local de índice ${fromIndex} a ${toIndex}`);
+                                                moveLocalNestedDeck(fromIndex, toIndex);
+                                            }
+                                        }
                                     }}
                                     onDragEnd={() => {
+                                        console.log('[CategorySelector] 🏁 Fin de arrastre de subcategoría');
                                         dragStateRef.current = { type: null, id: null };
                                         setDraggingGroup(null);
                                     }}
@@ -713,6 +747,7 @@ function CategorySelector() {
                                         event.dataTransfer.setData('text/plain', group.name);
                                         dragStateRef.current = { type: 'group', id: group.name };
                                         setDraggingGroup(group.name);
+                                        console.log('[CategorySelector] 🚀 Inicia arrastre de grupo:', group.name);
                                     }}
                                     onDragOver={(event) => {
                                         if (isComplete || dragStateRef.current.type !== 'group') return;
@@ -721,9 +756,19 @@ function CategorySelector() {
                                     onDrop={(event) => {
                                         event.preventDefault();
                                         if (isComplete || dragStateRef.current.type !== 'group') return;
-                                        reorderGroups(group.name);
+                                        const sourceGroupName = dragStateRef.current.id;
+                                        console.log(`[CategorySelector] 📥 Soltando grupo "${sourceGroupName}" sobre "${group.name}"`);
+                                        if (sourceGroupName && sourceGroupName !== group.name) {
+                                            const fromIndex = localGroupOrder.indexOf(sourceGroupName);
+                                            const toIndex = localGroupOrder.indexOf(group.name);
+                                            if (fromIndex !== -1 && toIndex !== -1) {
+                                                console.log(`[CategorySelector] 🔄 Reordenando grupo local de índice ${fromIndex} a ${toIndex}`);
+                                                moveLocalGroup(fromIndex, toIndex);
+                                            }
+                                        }
                                     }}
                                     onDragEnd={() => {
+                                        console.log('[CategorySelector] 🏁 Fin de arrastre de grupo');
                                         dragStateRef.current = { type: null, id: null };
                                         setDraggingGroup(null);
                                     }}
