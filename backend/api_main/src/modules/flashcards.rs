@@ -27,6 +27,10 @@ pub fn register_routes(app: Router<AppState>) -> Router<AppState> {
         post(api::endpoints::decks::update_cards_batch),
     )
     .route(
+        "/api/srs/due",
+        get(api::endpoints::decks::get_srs_due_cards),
+    )
+    .route(
         "/api/reset-all",
         post(api::endpoints::decks::reset_all_statuses),
     )

@@ -66,7 +66,7 @@ assert.equal(
     form: 'v1',
     courseDirection: 'es_en',
   }),
-  '/card_images/es_en/verbs/1-basic/action/1-basic_action_card_4_def1.avif',
+  '/card_images/verbs/1-basic/action/1-basic_action_card_4_def1.avif',
 );
 assert.equal(
   buildGlobalImageStoragePath({

@@ -10,6 +10,7 @@ import { useFlashcardUiContext, useFlashcardContext, useCategoryContext } from '
 import { getCardTitle, getAudioLang, getAudioLangForConjugation, getStudyExampleText } from './cardLanguageUtils';
 import { registerUiBridgeHandler, unregisterUiBridgeHandler } from '../uiBridge';
 import { useAuth } from '../../../context/AuthContext';
+import { LuCalendarPlus } from 'react-icons/lu';
 
 const AUTO_PLAY_DELAY_MS = 50;
 
@@ -50,7 +51,7 @@ function Flashcard() {
         isIpaModalOpen,
         isPhonicsModalOpen,
     } = useFlashcardUiContext();
-    const { currentCategory } = useCategoryContext();
+    const { currentCategory: categoryFromCatalog } = useCategoryContext();
     const {
         currentCard: cardData,
         currentDeckName,
@@ -58,7 +59,11 @@ function Flashcard() {
         isLandingDemo = false,
         demoStudyLanguage,
         demoSelection,
+        currentCategory: categoryFromSession,
+        isSrsMode = false,
+        addToReview,
     } = useFlashcardContext();
+    const currentCategory = categoryFromSession || categoryFromCatalog;
     const cardLanguage = isLandingDemo && demoStudyLanguage ? demoStudyLanguage : studyLanguage;
     const [prevCardId, setPrevCardId] = useState(null);
     const isAnyOverlayOpen =
@@ -177,7 +182,7 @@ function Flashcard() {
         }
 
         // Solo reseteamos si realmente cambiamos de tarjeta (ID o nombre)
-        const currentId = cardData.id || cardData.name || cardData.word;
+        const currentId = cardData.srs_key || cardData.id || cardData.name || cardData.word;
         if (currentId !== prevCardId) {
             if (autoPlayTimerRef.current) clearTimeout(autoPlayTimerRef.current);
             autoPlayTimerRef.current = null;
@@ -307,6 +312,20 @@ function Flashcard() {
             data-variant={visualVariant}
             data-state="ready"
         >
+            {!isLandingDemo && !isSrsMode && (
+                <button
+                    type="button"
+                    className={styles.srsToggle}
+                    onClick={(event) => {
+                        event.stopPropagation();
+                        void addToReview?.();
+                    }}
+                    aria-label={language === 'es' ? 'Agregar al repaso espaciado' : 'Add to spaced review'}
+                    title={language === 'es' ? 'Agregar al repaso' : 'Add to review'}
+                >
+                    <LuCalendarPlus aria-hidden="true" />
+                </button>
+            )}
             <div
                 className={`${styles.card} ${isFlipped ? styles.flipped : ''}`}
                 onClick={() => {

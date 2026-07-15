@@ -1,4 +1,5 @@
 use crate::api::middleware::auth::extract_claims;
+use crate::domain::models::srs::{CardProgressUpdate, SrsSchedule};
 use crate::AppState;
 use axum::{
     extract::{Query, State},
@@ -17,6 +18,14 @@ fn default_course_direction() -> String {
 pub struct CardUpdateItem {
     pub index: usize,
     pub learned: bool,
+    #[serde(default)]
+    pub box_level: Option<i32>,
+    #[serde(default)]
+    pub ease_factor: Option<f64>,
+    #[serde(default)]
+    pub interval_days: Option<f64>,
+    #[serde(default)]
+    pub next_review_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
 /// Payload del endpoint bulk: envía N actualizaciones en una sola petición.
@@ -80,6 +89,18 @@ pub struct CourseDirectionQuery {
     pub include_counts: bool,
 }
 
+#[derive(Deserialize)]
+pub struct SrsDueQuery {
+    #[serde(default = "default_course_direction")]
+    pub course_direction: String,
+    #[serde(default = "default_srs_candidate_limit")]
+    pub limit: usize,
+}
+
+fn default_srs_candidate_limit() -> usize {
+    5_000
+}
+
 fn default_include_counts() -> bool {
     true
 }
@@ -109,21 +130,106 @@ pub async fn update_cards_batch(
             format!("El lote no puede superar {} tarjetas", MAX_BATCH),
         ));
     }
-    let pairs: Vec<(usize, bool)> = payload.cards.iter().map(|c| (c.index, c.learned)).collect();
+    let mut updates = Vec::with_capacity(payload.cards.len());
+    for card in &payload.cards {
+        let has_srs = card.box_level.is_some()
+            || card.ease_factor.is_some()
+            || card.interval_days.is_some()
+            || card.next_review_at.is_some();
+        let srs = if has_srs {
+            let box_level = card.box_level.ok_or_else(|| {
+                (
+                    StatusCode::BAD_REQUEST,
+                    "box_level es obligatorio en una actualización SRS".to_string(),
+                )
+            })?;
+            let ease_factor = card.ease_factor.ok_or_else(|| {
+                (
+                    StatusCode::BAD_REQUEST,
+                    "ease_factor es obligatorio en una actualización SRS".to_string(),
+                )
+            })?;
+            let interval_days = card.interval_days.ok_or_else(|| {
+                (
+                    StatusCode::BAD_REQUEST,
+                    "interval_days es obligatorio en una actualización SRS".to_string(),
+                )
+            })?;
+            if !(0..=99).contains(&box_level)
+                || !ease_factor.is_finite()
+                || !(1.3..=5.0).contains(&ease_factor)
+                || !interval_days.is_finite()
+                || !(1.0..=36_500.0).contains(&interval_days)
+            {
+                return Err((StatusCode::BAD_REQUEST, "Estado SRS inválido".to_string()));
+            }
+            if box_level != 99 && card.next_review_at.is_none() {
+                return Err((
+                    StatusCode::BAD_REQUEST,
+                    "next_review_at es obligatorio salvo para una tarjeta dominada".to_string(),
+                ));
+            }
+            Some(SrsSchedule {
+                box_level,
+                ease_factor,
+                interval_days,
+                next_review_at: card.next_review_at,
+            })
+        } else {
+            None
+        };
+        let card_index = i32::try_from(card.index).map_err(|_| {
+            (
+                StatusCode::BAD_REQUEST,
+                "Índice de tarjeta fuera de rango".to_string(),
+            )
+        })?;
+        updates.push(CardProgressUpdate {
+            card_index,
+            learned: card.learned,
+            srs,
+        });
+    }
     match state
         .deck_use_cases
         .update_cards_batch(
             &payload.user_id,
             &payload.category,
             &payload.deck,
-            &pairs,
+            &updates,
             &payload.course_direction,
         )
         .await
     {
         Ok(_) => Ok((
             StatusCode::OK,
-            Json(serde_json::json!({ "success": true, "saved": pairs.len() })),
+            Json(serde_json::json!({ "success": true, "saved": updates.len() })),
+        )
+            .into_response()),
+        Err(e) => Err((StatusCode::INTERNAL_SERVER_ERROR, e.to_string())),
+    }
+}
+
+/// GET /api/srs/due — proyección mínima; toda la priorización ocurre en React.
+pub async fn get_srs_due_cards(
+    State(state): State<AppState>,
+    headers: axum::http::HeaderMap,
+    Query(query): Query<SrsDueQuery>,
+) -> Result<impl IntoResponse, (StatusCode, String)> {
+    let claims = extract_claims(&state, &headers)?;
+    match state
+        .deck_use_cases
+        .get_srs_review_candidates(
+            &claims.email,
+            &query.course_direction,
+            chrono::Utc::now(),
+            query.limit,
+        )
+        .await
+    {
+        Ok(cards) => Ok((
+            StatusCode::OK,
+            Json(serde_json::json!({ "success": true, "cards": cards })),
         )
             .into_response()),
         Err(e) => Err((StatusCode::INTERNAL_SERVER_ERROR, e.to_string())),

@@ -23,3 +23,15 @@ export function extractFirstPendingImage(deckResponse) {
     const def = Array.isArray(card?.definitions) ? card.definitions[0] : null;
     return def?.imagePath || def?.image_path || null;
 }
+
+/** Extrae la imagen de una tarjeta concreta usando el índice persistido por SRS. */
+export function extractCardImage(deckResponse, cardIndex) {
+    const cards = Array.isArray(deckResponse)
+        ? deckResponse
+        : (deckResponse?.flashcards || []);
+    if (!Array.isArray(cards) || !Number.isInteger(cardIndex)) return null;
+
+    const card = cards[cardIndex];
+    const def = Array.isArray(card?.definitions) ? card.definitions[0] : null;
+    return def?.imagePath || def?.image_path || null;
+}

@@ -4,16 +4,13 @@ export function buildGlobalImageStoragePath({
     index,
     defIndex,
     form,
-    courseDirection,
 }) {
     const cleanDeck = String(deck || '').replace(/\.json$/, '');
     const segments = cleanDeck.split('/').filter(Boolean);
     const mediaDir = segments.join('/') || cleanDeck;
     const filePrefix = segments.join('_') || cleanDeck;
     const formSuffix = form && form !== 'v1' ? `_${form}` : '';
-    const normalizedDirection = courseDirection === 'en_es' ? 'en_es' : 'es_en';
-    const directionPrefix = category === 'landing-demo' ? '' : `${normalizedDirection}/`;
-    return `/card_images/${directionPrefix}${category}/${mediaDir}/${filePrefix}_card_${index}_def${defIndex}${formSuffix}.avif`;
+    return `/card_images/${category}/${mediaDir}/${filePrefix}_card_${index}_def${defIndex}${formSuffix}.avif`;
 }
 
 /**

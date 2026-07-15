@@ -1,12 +1,12 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { LuLayers, LuGrid2X2 } from 'react-icons/lu';
+import { LuLayers } from 'react-icons/lu';
 import ProtectedRoute from '../../components/common/ProtectedRoute';
 import FlashcardPage from './FlashcardPage';
 import FlashcardOverlays from './FlashcardOverlays';
 import FlashcardOnboardingTour from './FlashcardOnboardingTour';
 import OnBoardingFlashcard from './OnBoardingFlashcard';
-import { CategoryProvider } from './context/CategoryContext';
+import { CategoryContext, CategoryProvider } from './context/CategoryContext';
 import { FlashcardProvider } from './context/FlashcardContext';
 import { FlashcardUiProvider } from './context/FlashcardUiContext';
 import { getFlashcardFloatingMenuLabels, getFlashcardSidebarLabels } from './config/translations';
@@ -19,22 +19,41 @@ import { STUDY_MEDIA_VARIANT_APP } from '../../contracts/studyMediaVariants';
 import { audioPort, imagePort, imageCompressionService } from './composition';
 import { isDefaultHomeModule } from '../index';
 
+/* Opción "Tabla de vocales" oculta temporalmente del menú flotante.
 const IconVowelChart = () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="4" y="4" width="16" height="16" rx="2" />
         <path d="M4 9h16M9 4v16" />
     </svg>
 );
+*/
 
-function FlashcardRouteLayout({ children }) {
+function FlashcardRouteLayout({ children, mode = 'free' }) {
     const location = useLocation();
     const resumeSession = location.state?.resumeSession ?? null;
 
+    const study = (
+        <FlashcardProvider resumeSession={resumeSession} mode={mode}>
+            {children}
+        </FlashcardProvider>
+    );
+
+    if (mode === 'srs') {
+        return (
+            <CategoryContext.Provider value={{
+                categories: [],
+                currentCategory: null,
+                changeCategory: () => {},
+                loadingStage: null,
+            }}>
+                {study}
+            </CategoryContext.Provider>
+        );
+    }
+
     return (
         <CategoryProvider resumeSession={resumeSession}>
-            <FlashcardProvider resumeSession={resumeSession}>
-                {children}
-            </FlashcardProvider>
+            {study}
         </CategoryProvider>
     );
 }
@@ -45,6 +64,7 @@ const flashcardsModule = {
     routes: (config) => {
         if (!config.features.flashcards) return [];
         const path = isDefaultHomeModule('flashcards', config) ? '/' : '/flashcard';
+        const reviewPath = path === '/' ? '/review' : `${path}/review`;
         const flashcardElement = (
             <ProtectedRoute>
                 <FlashcardRouteLayout>
@@ -52,7 +72,17 @@ const flashcardsModule = {
                 </FlashcardRouteLayout>
             </ProtectedRoute>
         );
-        return [{ path, element: flashcardElement }];
+        const reviewElement = (
+            <ProtectedRoute>
+                <FlashcardRouteLayout mode="srs">
+                    <FlashcardPage />
+                </FlashcardRouteLayout>
+            </ProtectedRoute>
+        );
+        return [
+            { path, element: flashcardElement },
+            { path: reviewPath, element: reviewElement },
+        ];
     },
     navSections: ({ language, config }) => {
         if (!config.features.flashcards) return [];
@@ -128,6 +158,7 @@ const flashcardsModule = {
                 name: t.categories,
                 sub: t.wordCollections,
             },
+            /* Opción "Tabla de vocales" oculta temporalmente.
             {
                 id: 'flashcards-ipa',
                 onClick: () => openFromShell('openIpa', { openIpa: true }),
@@ -136,6 +167,7 @@ const flashcardsModule = {
                 name: t.vowelChart,
                 sub: t.referenceChart,
             },
+            */
         ];
     },
 };

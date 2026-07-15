@@ -1,5 +1,6 @@
 use anyhow::Result;
 use fluency_core::domain::models::flashcard::DeckData;
+use fluency_core::domain::models::srs::{CardProgressUpdate, SrsReviewCandidate};
 use fluency_core::domain::models::user_activity::{
     DeckProgressInfo, LearningLevelStats, LearningStats, B2_VOCABULARY_TARGET,
 };
@@ -419,7 +420,7 @@ impl DeckUseCases {
         user_id: &str,
         category: &str,
         deck_name: &str,
-        cards: &[(usize, bool)],
+        cards: &[CardProgressUpdate],
         course_direction: &str,
     ) -> Result<()> {
         if cards.is_empty() {
@@ -428,20 +429,48 @@ impl DeckUseCases {
         let normalized_direction = normalize_course_direction(Some(course_direction));
         let deck_key = progress_deck_key(normalized_direction, deck_name);
         let progress_category = progress_category_key(normalized_direction, category);
-        let normalized: Vec<(i32, bool)> = cards
-            .iter()
-            .map(|&(idx, learned)| (idx as i32, learned))
-            .collect();
-
         self.db_repo
-            .upsert_cards_batch(user_id, &progress_category, &deck_key, &normalized)
+            .upsert_cards_batch(user_id, &progress_category, &deck_key, cards)
             .await?;
 
-        let any_learned = cards.iter().any(|&(_, learned)| learned);
+        let any_learned = cards.iter().any(|card| card.learned);
         if any_learned {
             self.activity_repo.record_study_day(user_id).await?;
         }
         Ok(())
+    }
+
+    /// Obtiene candidatos vencidos y elimina el namespace interno antes de
+    /// exponer las coordenadas al cliente. La urgencia se calcula en React.
+    pub async fn get_srs_review_candidates(
+        &self,
+        user_id: &str,
+        course_direction: &str,
+        now: chrono::DateTime<chrono::Utc>,
+        limit: usize,
+    ) -> Result<Vec<SrsReviewCandidate>> {
+        const MAX_CANDIDATES: usize = 5_000;
+        let candidate_limit = limit.clamp(1, MAX_CANDIDATES);
+        let direction = normalize_course_direction(Some(course_direction));
+        let prefix = format!("{direction}::");
+        let mut rows = self
+            .db_repo
+            .get_srs_review_candidates(user_id, &prefix, now, candidate_limit)
+            .await?;
+
+        for row in &mut rows {
+            row.category = row
+                .category
+                .strip_prefix(&prefix)
+                .unwrap_or(&row.category)
+                .to_string();
+            row.deck = row
+                .deck
+                .strip_prefix(&prefix)
+                .unwrap_or(&row.deck)
+                .to_string();
+        }
+        Ok(rows)
     }
 
     pub async fn touch_study_day(&self, user_id: &str) -> Result<()> {

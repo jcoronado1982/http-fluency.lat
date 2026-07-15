@@ -248,10 +248,26 @@ stages:
           export MEDIA_DELIVERY_MODE="$(MEDIA_DELIVERY_MODE)"
           bash /root/smart-proxy/infra-proxy/bootstrap-oracle.sh --caddy-only
           if [ "$(Build.SourceBranch)" = "refs/heads/qa" ]; then
+            FRONTEND_HOST=qa.fluency.lat
             curl -sf -k -H "Host: qa.fluency.lat" https://127.0.0.1/api/health || echo "WARN: QA API health via Caddy not ready yet"
           else
+            FRONTEND_HOST=fluency.lat
             curl -sf https://fluency.lat/api/health >/dev/null || echo "WARN: API health via Caddy not ready yet"
           fi
+
+          echo "Verifying SPA cache policy..."
+          HTML_HEADERS=$(curl -skI --resolve "$FRONTEND_HOST:443:127.0.0.1" "https://$FRONTEND_HOST/")
+          printf '%s\n' "$HTML_HEADERS" | grep -qi '^cache-control: no-cache, must-revalidate' || {
+            echo "ERROR: index.html can remain stale after a deployment"; exit 1;
+          }
+          HTML=$(curl -sk --resolve "$FRONTEND_HOST:443:127.0.0.1" "https://$FRONTEND_HOST/")
+          ASSET_PATH=$(printf '%s' "$HTML" | grep -oE '/assets/[^" ]+\.js' | head -1)
+          test -n "$ASSET_PATH" || { echo "ERROR: no hashed JS bundle found in index.html"; exit 1; }
+          ASSET_HEADERS=$(curl -skI --resolve "$FRONTEND_HOST:443:127.0.0.1" "https://$FRONTEND_HOST$ASSET_PATH")
+          printf '%s\n' "$ASSET_HEADERS" | grep -qi '^cache-control: public, max-age=31536000, immutable' || {
+            echo "ERROR: hashed frontend assets are not immutable"; exit 1;
+          }
+          echo "SPA cache policy OK"
           echo "Frontend deploy OK"
 
 

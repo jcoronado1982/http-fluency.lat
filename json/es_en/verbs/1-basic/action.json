@@ -9,7 +9,7 @@
       {
         "alternative_example": "She does her job well.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_0_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_0_def0.avif",
         "meaning": "Hacer (una actividad)",
         "pronunciation_guide_es": "/ai_DU_mai_EKserSaisis_in_de_MORning/",
         "usage_context_en": "tasks/activities",
@@ -20,7 +20,7 @@
       {
         "alternative_example": "I do not know the answer.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_0_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_0_def1.avif",
         "meaning": "Verbo auxiliar (para preguntas/negaciones)",
         "pronunciation_guide_es": "/DU_iu_LAIK_COFI/",
         "usage_context_en": "questions/negations",
@@ -46,14 +46,14 @@
             "usage_example_es": "Hice mi tarea anoche.",
             "pronunciation_guide_es": "/ai_DID_mai_JOUMuork_last_NAIT/",
             "meaning": "Pasado de Hacer (acción)",
-            "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_0_def0_v2.avif"
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_0_def0_v2.avif"
           },
           {
             "usage_example": "Did you see the movie yesterday?",
             "usage_example_es": "¿Viste la película ayer?",
             "pronunciation_guide_es": "/DID_iu_si_de_MUvi_iesterdei/",
             "meaning": "Pasado Auxiliar (preguntas)",
-            "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_0_def1_v2.avif"
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_0_def1_v2.avif"
           }
         ]
       },
@@ -67,14 +67,14 @@
             "usage_example_es": "He hecho esto muchas veces.",
             "pronunciation_guide_es": "/ai_JAV_don_dis_meni_TAIMS/",
             "meaning": "Participio de Hacer (hecho)",
-            "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_0_def0_v3.avif"
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_0_def0_v3.avif"
           },
           {
             "usage_example": "Well done! You did a great job.",
             "usage_example_es": "¡Bien hecho! Hiciste un gran trabajo.",
             "pronunciation_guide_es": "/uel_DON_iu_did_a_greit_YOB/",
             "meaning": "Participio de Hacer (completado)",
-            "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_0_def1_v3.avif"
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_0_def1_v3.avif"
           }
         ]
       }
@@ -91,7 +91,7 @@
       {
         "alternative_example": "She makes her bed every morning.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_1_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_1_def0.avif",
         "meaning": "Hacer/Crear",
         "pronunciation_guide_es": "/kan_iu_MEIK_a_KEIK_for_de_PARTI/",
         "usage_context_en": "cooking/creating",
@@ -102,7 +102,7 @@
       {
         "alternative_example": "Make sure you lock the door.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_1_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_1_def1.avif",
         "meaning": "Obligar/Causar",
         "pronunciation_guide_es": "/de_MUVI_MEID_mi_CRAI/",
         "usage_context_en": "emotions/assurance",
@@ -126,7 +126,7 @@
         "usage_example_es": "Ella hizo un pastel delicioso.",
         "pronunciation_guide_es": "/shi_MEID_a_diLISHOS_KEIK/",
         "meaning": "Pasado de hacer",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_1_def0_v2.avif"
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_1_def0_v2.avif"
       },
       "participle": {
         "form": "made",
@@ -136,7 +136,7 @@
         "usage_example_es": "La silla estaba hecha de madera.",
         "pronunciation_guide_es": "/de_CHEAR_was_MEID_ov_WUD/",
         "meaning": "Participio de hacer",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_1_def0_v3.avif"
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_1_def0_v3.avif"
       }
     },
     "group_name": "Handling & Creating"
@@ -163,7 +163,7 @@
         "char_count": "one",
         "usage_context_en": "food/meals",
         "usage_context_es": "comida/comidas",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_2_def0.avif"
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_2_def0.avif"
       },
       {
         "meaning": "Corroer/Desgastar (con 'away')",
@@ -174,7 +174,7 @@
         "char_count": "one",
         "usage_context_en": "chemical/idiom",
         "usage_context_es": "químico/modismo",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_2_def1.avif"
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_2_def1.avif"
       }
     ],
     "irregular": {
@@ -192,14 +192,14 @@
             "usage_example_es": "Comimos en un restaurante elegante.",
             "pronunciation_guide_es": "/ui_EIT_DINer_at_a_FANsi_REStaurant/",
             "meaning": "Pasado de Comer",
-            "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_2_def0_v2.avif"
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_2_def0_v2.avif"
           },
           {
             "usage_example": "The rust ate away at the metal.",
             "usage_example_es": "El óxido desgastó el metal.",
             "pronunciation_guide_es": "/de_ROST_EIT_aUEI_at_de_METal/",
             "meaning": "Pasado de Desgastar/Corroer",
-            "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_2_def1_v2.avif"
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_2_def1_v2.avif"
           }
         ]
       },
@@ -217,14 +217,14 @@
             "usage_example_es": "Comimos en un restaurante elegante.",
             "pronunciation_guide_es": "/ui_EIT_DINer_at_a_FANsi_REStaurant/",
             "meaning": "Participio de Comer",
-            "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_2_def0_v3.avif"
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_2_def0_v3.avif"
           },
           {
             "usage_example": "The rust ate away at the metal.",
             "usage_example_es": "El óxido desgastó el metal.",
             "pronunciation_guide_es": "/de_ROST_EIT_aUEI_at_de_METal/",
             "meaning": "Participio de Desgastar/Corroer",
-            "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_2_def1_v3.avif"
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_2_def1_v3.avif"
           }
         ]
       }
@@ -253,7 +253,7 @@
         "char_count": "one",
         "usage_context_en": "liquid/health",
         "usage_context_es": "líquido/salud",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_3_def0.avif"
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_3_def0.avif"
       },
       {
         "meaning": "Beber (alcohol)",
@@ -264,7 +264,7 @@
         "char_count": "one",
         "usage_context_en": "alcohol/celebration",
         "usage_context_es": "alcohol/celebración",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_3_def1.avif"
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_3_def1.avif"
       }
     ],
     "irregular": {
@@ -282,14 +282,14 @@
             "usage_example_es": "Bebí un vaso de agua fría.",
             "pronunciation_guide_es": "/ai_DRANK_a_KOULD_GLAS_of_UOTer/",
             "meaning": "Pasado de Beber",
-            "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_3_def0_v2.avif"
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_3_def0_v2.avif"
           },
           {
             "usage_example": "The dry soil drank up the rain.",
             "usage_example_es": "El suelo seco absorbió la lluvia.",
             "pronunciation_guide_es": "/de_DRAI_SOIL_DRANK_ap_de_REIN/",
             "meaning": "Pasado de Absorber",
-            "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_3_def1_v2.avif"
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_3_def1_v2.avif"
           }
         ]
       },
@@ -307,14 +307,14 @@
             "usage_example_es": "Bebí un vaso de agua fría.",
             "pronunciation_guide_es": "/ai_DRANK_a_KOULD_GLAS_of_UOTer/",
             "meaning": "Participio de Beber",
-            "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_3_def0_v3.avif"
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_3_def0_v3.avif"
           },
           {
             "usage_example": "The dry soil drank up the rain.",
             "usage_example_es": "El suelo seco absorbió la lluvia.",
             "pronunciation_guide_es": "/de_DRAI_SOIL_DRANK_ap_de_REIN/",
             "meaning": "Participio de Absorber",
-            "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_3_def1_v3.avif"
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_3_def1_v3.avif"
           }
         ]
       }
@@ -343,7 +343,7 @@
         "char_count": "one",
         "usage_context_en": "rest/health",
         "usage_context_es": "descanso/salud",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_4_def0.avif"
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_4_def0.avif"
       },
       {
         "meaning": "Alojar (un número de personas)",
@@ -354,7 +354,7 @@
         "char_count": "one",
         "usage_context_en": "accommodation/capacity",
         "usage_context_es": "alojamiento/capacidad",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_4_def1.avif"
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_4_def1.avif"
       }
     ],
     "irregular": {
@@ -372,14 +372,14 @@
             "usage_example_es": "Dormí durante diez horas anoche.",
             "pronunciation_guide_es": "/ai_SLEPT_for_TEN_AUArs_last_NAIT/",
             "meaning": "Pasado de Dormir",
-            "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_4_def0_v2.avif"
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_4_def0_v2.avif"
           },
           {
             "usage_example": "They slept in a tent during the trip.",
             "usage_example_es": "Pernoctaron en una tienda durante el viaje.",
             "pronunciation_guide_es": "/dei_SLEPT_in_a_TENT_DUring_de_TRIP/",
             "meaning": "Pasado de Pernoctar",
-            "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_4_def1_v2.avif"
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_4_def1_v2.avif"
           }
         ]
       },
@@ -397,14 +397,14 @@
             "usage_example_es": "Dormí durante diez horas anoche.",
             "pronunciation_guide_es": "/ai_SLEPT_for_TEN_AUArs_last_NAIT/",
             "meaning": "Participio de Dormir",
-            "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_4_def0_v3.avif"
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_4_def0_v3.avif"
           },
           {
             "usage_example": "They slept in a tent during the trip.",
             "usage_example_es": "Pernoctaron en una tienda durante el viaje.",
             "pronunciation_guide_es": "/dei_SLEPT_in_a_TENT_DUring_de_TRIP/",
             "meaning": "Participio de Pernoctar",
-            "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_4_def1_v3.avif"
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_4_def1_v3.avif"
           }
         ]
       }
@@ -421,7 +421,7 @@
       {
         "alternative_example": "We use this tool for work.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_5_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_5_def0.avif",
         "meaning": "Usar/Utilizar",
         "pronunciation_guide_es": "/kan_ai_IUZ_yor_PEN/",
         "usage_context_en": "tools/objects",
@@ -432,7 +432,7 @@
       {
         "alternative_example": "Use sunblock every day.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_5_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_5_def1.avif",
         "meaning": "Consumir/Aplicar",
         "pronunciation_guide_es": "/shi_IUZis_a_lot_of_SHUGAR/",
         "usage_context_en": "consumption/application",
@@ -459,7 +459,7 @@
       {
         "alternative_example": "They work very hard.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_6_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_6_def0.avif",
         "meaning": "Trabajar (tener un empleo)",
         "pronunciation_guide_es": "/ai_UORK_in_an_OFIS/",
         "usage_context_en": "job/effort",
@@ -470,7 +470,7 @@
       {
         "alternative_example": "This plan will work.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_6_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_6_def1.avif",
         "meaning": "Funcionar (una máquina, plan)",
         "pronunciation_guide_es": "/das_de_maSHIN_UORK/",
         "usage_context_en": "function/success",
@@ -497,7 +497,7 @@
       {
         "alternative_example": "Try your best!",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_7_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_7_def0.avif",
         "meaning": "Intentar/Probar (esforzarse)",
         "pronunciation_guide_es": "/ai_uil_TRAI_tu_FINish_de_YOB/",
         "usage_context_en": "effort/attempt",
@@ -508,7 +508,7 @@
       {
         "alternative_example": "She tried on the dress.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_7_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_7_def1.avif",
         "meaning": "Probar (comida, ropa)",
         "pronunciation_guide_es": "/TRAI_dis_niu_KEIK/",
         "usage_context_en": "food/clothing",
@@ -535,7 +535,7 @@
       {
         "alternative_example": "When does the class start?",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_8_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_8_def0.avif",
         "meaning": "Empezar/Comenzar",
         "pronunciation_guide_es": "/lets_START_de_GEIM_nau/",
         "usage_context_en": "activities/time",
@@ -546,7 +546,7 @@
       {
         "alternative_example": "He started the engine.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_8_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_8_def1.avif",
         "meaning": "Poner en marcha (una máquina)",
         "pronunciation_guide_es": "/ai_kant_START_de_KAR/",
         "usage_context_en": "vehicles/machines",
@@ -573,7 +573,7 @@
       {
         "alternative_example": "Let's begin the meeting.",
         "char_count": "two",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_9_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_9_def0.avif",
         "meaning": "Comenzar/Empezar",
         "pronunciation_guide_es": "/de_MUVI_biGINS_at_eit_PI_EM/",
         "usage_context_en": "time/events",
@@ -584,7 +584,7 @@
       {
         "alternative_example": "The journey begins here.",
         "char_count": "two",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_9_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_9_def1.avif",
         "meaning": "Iniciar (una acción)",
         "pronunciation_guide_es": "/hi_biGAN_tu_RAN_kuikli/",
         "usage_context_en": "action/process",
@@ -608,7 +608,7 @@
         "usage_example_es": "La película comenzó a las 8 PM.",
         "pronunciation_guide_es": "/de_MUvi_biGAN_at_EIT_piEM/",
         "meaning": "Pasado de comenzar",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_9_def0_v2.avif"
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_9_def0_v2.avif"
       },
       "participle": {
         "form": "begun",
@@ -617,7 +617,8 @@
         "usage_example": "The race has already begun.",
         "usage_example_es": "La carrera ya ha comenzado.",
         "pronunciation_guide_es": "/de_REIS_jas_olREDI_biGON/",
-        "meaning": "Participio de comenzar"
+        "meaning": "Participio de comenzar",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_9_def0_v3.avif"
       }
     },
     "group_name": "Change & Result"
@@ -632,7 +633,7 @@
       {
         "alternative_example": "The rain finally stopped.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_10_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_10_def0.avif",
         "meaning": "Parar/Detenerse",
         "pronunciation_guide_es": "/STOP_de_KAR/",
         "usage_context_en": "movement/cessation",
@@ -643,7 +644,7 @@
       {
         "alternative_example": "I stopped smoking last year.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_10_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_10_def1.avif",
         "meaning": "Dejar de (hacer algo)",
         "pronunciation_guide_es": "/STOP_TORKing_PLIS/",
         "usage_context_en": "activities/habits",
@@ -675,7 +676,8 @@
         "pronunciation_guide_es": "/PUT_de_PLEIT_on_de_TEIBOL/",
         "usage_context_en": "placement/clothing",
         "usage_context_es": "colocación/ropa",
-        "usage_example": "Put the plate on the table."
+        "usage_example": "Put the plate on the table.",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_11_def0.avif"
       },
       {
         "alternative_example": "He put his idea into words.",
@@ -685,7 +687,8 @@
         "pronunciation_guide_es": "/jau_kan_ai_PUT_dis_SIMpli/",
         "usage_context_en": "expression/communication",
         "usage_context_es": "expresión/comunicación",
-        "usage_example": "How can I put this simply?"
+        "usage_example": "How can I put this simply?",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_11_def1.avif"
       }
     ],
     "force_generation": false,
@@ -702,7 +705,8 @@
         "usage_example": "I put the books on the table.",
         "usage_example_es": "Puse los libros en la mesa.",
         "pronunciation_guide_es": "/ai_PUT_de_BUKS_on_de_TEIBOL/",
-        "meaning": "Pasado de poner"
+        "meaning": "Pasado de poner",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_11_def0_v2.avif"
       },
       "participle": {
         "form": "put",
@@ -711,7 +715,8 @@
         "usage_example": "The fire was put out.",
         "usage_example_es": "El fuego fue extinguido.",
         "pronunciation_guide_es": "/de_FAIAr_uas_PUT_AUT/",
-        "meaning": "Participio de poner"
+        "meaning": "Participio de poner",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_11_def0_v3.avif"
       }
     },
     "group_name": "Handling & Creating"
@@ -726,7 +731,7 @@
       {
         "alternative_example": "We played cards last night.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_12_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_12_def0.avif",
         "meaning": "Jugar",
         "pronunciation_guide_es": "/CHILdren_PLEI_in_de_GARDEN/",
         "usage_context_en": "games/sports",
@@ -737,7 +742,7 @@
       {
         "alternative_example": "I love to play music.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_12_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_12_def1.avif",
         "meaning": "Tocar (un instrumento)",
         "pronunciation_guide_es": "/hi_kan_PLEI_de_guiTAR/",
         "usage_context_en": "music/instruments",
@@ -769,7 +774,8 @@
         "usage_context_en": "delay/patience",
         "usage_context_es": "demora/paciencia",
         "usage_example": "Wait for me here.",
-        "usage_example_es": "Espérame aquí."
+        "usage_example_es": "Espérame aquí.",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_13_def0.avif"
       },
       {
         "alternative_example": "Wait until you are ready.",
@@ -779,7 +785,8 @@
         "usage_context_en": "results/readiness",
         "usage_context_es": "resultados/preparación",
         "usage_example": "We are waiting for the results.",
-        "usage_example_es": "Estamos esperando los resultados."
+        "usage_example_es": "Estamos esperando los resultados.",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_13_def1.avif"
       }
     ],
     "force_generation": false,
@@ -805,12 +812,13 @@
         "pronunciation_guide_es": "/LET_mi_HELP_iu/",
         "usage_context_en": "permission/assistance",
         "usage_context_es": "permiso/asistencia",
-        "usage_example": "Let me help you."
+        "usage_example": "Let me help you.",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_14_def0.avif"
       },
       {
         "alternative_example": "Is this apartment to let?",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_14_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_14_def1.avif",
         "meaning": "Alquilar (formal, a veces)",
         "pronunciation_guide_es": "/ui_LET_aur_HAUS_last_YIR/",
         "usage_context_en": "renting/property",
@@ -833,7 +841,8 @@
         "usage_example": "He let me borrow his car.",
         "usage_example_es": "Él me dejó prestado su coche.",
         "pronunciation_guide_es": "/ji_LET_mi_BORou_jis_KAR/",
-        "meaning": "Pasado de dejar/permitir"
+        "meaning": "Pasado de dejar/permitir",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_14_def0_v2.avif"
       },
       "participle": {
         "form": "let",
@@ -842,7 +851,8 @@
         "usage_example": "I have let him know.",
         "usage_example_es": "Se lo he hecho saber.",
         "pronunciation_guide_es": "/ai_JAV_LET_jim_NOU/",
-        "meaning": "Participio de dejar/permitir"
+        "meaning": "Participio de dejar/permitir",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_14_def0_v3.avif"
       }
     },
     "group_name": "Handling & Creating"
@@ -857,7 +867,7 @@
       {
         "alternative_example": "The weather changes quickly here.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_15_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_15_def0.avif",
         "meaning": "Cambiar/Modificar",
         "pronunciation_guide_es": "/shi_UANTS_tu_CHEINY_her_YOB/",
         "usage_context_en": "work/condition",
@@ -868,7 +878,7 @@
       {
         "alternative_example": "I need to change trains.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_15_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_15_def1.avif",
         "meaning": "Cambiar (dinero)",
         "pronunciation_guide_es": "/kan_iu_CHEINY_dis_DOLar_BIL/",
         "usage_context_en": "money/transport",
@@ -895,7 +905,7 @@
       {
         "alternative_example": "He pulled the rope.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_16_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_16_def0.avif",
         "meaning": "Jalar/Tirar (hacia uno)",
         "pronunciation_guide_es": "/PUL_de_DOR_dont_PUSH_it/",
         "usage_context_en": "doors/force",
@@ -906,7 +916,7 @@
       {
         "alternative_example": "They pulled him from the water.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_16_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_16_def1.avif",
         "meaning": "Extraer/Sacar",
         "pronunciation_guide_es": "/de_DENTist_jad_tu_PUL_a_TUTH/",
         "usage_context_en": "extraction/rescue",
@@ -933,7 +943,7 @@
       {
         "alternative_example": "Push the button to start.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_17_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_17_def0.avif",
         "meaning": "Empujar (alejando)",
         "pronunciation_guide_es": "/dont_PUSH_mi/",
         "usage_context_en": "force/buttons",
@@ -944,7 +954,7 @@
       {
         "alternative_example": "The wind pushed the boat.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_17_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_17_def1.avif",
         "meaning": "Impulsar/Animar",
         "pronunciation_guide_es": "/shi_PUSHes_herSELF_tu_UORK_HARDer/",
         "usage_context_en": "motivation/wind",
@@ -971,7 +981,7 @@
       {
         "alternative_example": "She cut her finger.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_18_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_18_def0.avif",
         "meaning": "Cortar (con tijeras, cuchillo)",
         "pronunciation_guide_es": "/KAT_de_PEIper_in_JAF/",
         "usage_context_en": "scissors/injuries",
@@ -982,7 +992,7 @@
       {
         "alternative_example": "The editor cut the last scene.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_18_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_18_def1.avif",
         "meaning": "Reducir/Acortar",
         "pronunciation_guide_es": "/iu_NID_tu_KAT_daun_on_SHUGAR/",
         "usage_context_en": "diet/editing",
@@ -1005,7 +1015,8 @@
         "usage_example": "I cut my finger by accident.",
         "usage_example_es": "Me corté el dedo por accidente.",
         "pronunciation_guide_es": "/ai_KUT_mai_FINGuer_bai_AKsident/",
-        "meaning": "Pasado de cortar"
+        "meaning": "Pasado de cortar",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_18_def0_v2.avif"
       },
       "participle": {
         "form": "cut",
@@ -1014,7 +1025,8 @@
         "usage_example": "The grass has been cut.",
         "usage_example_es": "El césped ha sido cortado.",
         "pronunciation_guide_es": "/de_GRAS_jas_bin_KUT/",
-        "meaning": "Participio de cortar"
+        "meaning": "Participio de cortar",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_18_def0_v3.avif"
       }
     },
     "group_name": "Handling & Creating"
@@ -1029,7 +1041,7 @@
       {
         "alternative_example": "Please close the door slowly.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_19_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_19_def0.avif",
         "meaning": "Cerrar",
         "pronunciation_guide_es": "/CLOUS_de_UINdou/",
         "usage_context_en": "doors/windows",
@@ -1045,7 +1057,8 @@
         "pronunciation_guide_es": "/de_stor_CLOUS_at_nain/",
         "usage_context_en": "business/schedules",
         "usage_context_es": "negocios/horarios",
-        "usage_example": "The bank closes at five."
+        "usage_example": "The bank closes at five.",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_19_def1.avif"
       }
     ],
     "force_generation": false,
@@ -1066,7 +1079,7 @@
       {
         "alternative_example": "Pick a color for the wall.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_20_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_20_def0.avif",
         "meaning": "Escoger",
         "pronunciation_guide_es": "/PIK_uan/",
         "usage_context_en": "choices/options",
@@ -1082,7 +1095,8 @@
         "pronunciation_guide_es": "/PIK_ap_de_toi/",
         "usage_context_en": "objects/actions",
         "usage_context_es": "objetos/acciones",
-        "usage_example": "Pick up the toy."
+        "usage_example": "Pick up the toy.",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_20_def1.avif"
       }
     ],
     "force_generation": false,
@@ -1103,7 +1117,7 @@
       {
         "alternative_example": "Place the keys on the table.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_21_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_21_def0.avif",
         "meaning": "Colocar",
         "pronunciation_guide_es": "/PLEIS_it_jir/",
         "usage_context_en": "objects/position",
@@ -1119,7 +1133,8 @@
         "pronunciation_guide_es": "/dei_PLEIST_jer_in_front/",
         "usage_context_en": "position/order",
         "usage_context_es": "ubicación/orden",
-        "usage_example": "They placed her in front."
+        "usage_example": "They placed her in front.",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_21_def1.avif"
       }
     ],
     "force_generation": false,
@@ -1140,7 +1155,7 @@
       {
         "alternative_example": "Did you bring your umbrella?",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_22_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_22_def0.avif",
         "meaning": "Traer (a donde está el hablante)",
         "pronunciation_guide_es": "/PLIS_BRING_mi_a_kap_of_TI/",
         "usage_context_en": "delivery/transport",
@@ -1151,7 +1166,7 @@
       {
         "alternative_example": "Poverty brings problems.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_22_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_22_def1.avif",
         "meaning": "Causar/Generar",
         "pronunciation_guide_es": "/de_gud_NIUS_BROT_a_SMAIL_tu_her_FEIS/",
         "usage_context_en": "cause/result",
@@ -1174,7 +1189,8 @@
         "usage_example": "I brought some snacks.",
         "usage_example_es": "Traje algunos bocadillos.",
         "pronunciation_guide_es": "/ai_BROT_som_SNAKS/",
-        "meaning": "Pasado de traer"
+        "meaning": "Pasado de traer",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_22_def0_v2.avif"
       },
       "participle": {
         "form": "brought",
@@ -1183,7 +1199,8 @@
         "usage_example": "She has brought her friend.",
         "usage_example_es": "Ella ha traído a su amigo.",
         "pronunciation_guide_es": "/shi_jas_BROT_jer_FREND/",
-        "meaning": "Participio de traer"
+        "meaning": "Participio de traer",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_22_def0_v3.avif"
       }
     },
     "group_name": "Social & Exchange"
@@ -1198,7 +1215,7 @@
       {
         "alternative_example": "Finish your homework before dinner.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_23_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_23_def0.avif",
         "meaning": "Terminar/Finalizar",
         "pronunciation_guide_es": "/FINish_ior_FUD/",
         "usage_context_en": "tasks/meals",
@@ -1214,7 +1231,8 @@
         "pronunciation_guide_es": "/de_race_FINishes_sun/",
         "usage_context_en": "time/events",
         "usage_context_es": "tiempo/eventos",
-        "usage_example": "The race finishes soon."
+        "usage_example": "The race finishes soon.",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_23_def1.avif"
       }
     ],
     "force_generation": false,
@@ -1240,7 +1258,8 @@
         "pronunciation_guide_es": "/END_it_nau/",
         "usage_context_en": "events/actions",
         "usage_context_es": "eventos/acciones",
-        "usage_example": "End it now."
+        "usage_example": "End it now.",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_24_def0.avif"
       },
       {
         "alternative_example": "The road ends at the river.",
@@ -1250,7 +1269,8 @@
         "pronunciation_guide_es": "/de_gueim_ENDS_jir/",
         "usage_context_en": "places/processes",
         "usage_context_es": "lugares/procesos",
-        "usage_example": "The game ends here."
+        "usage_example": "The game ends here.",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_24_def1.avif"
       }
     ],
     "force_generation": false,
@@ -1271,7 +1291,7 @@
       {
         "alternative_example": "My father teaches math.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_25_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_25_def0.avif",
         "meaning": "Enseñar",
         "pronunciation_guide_es": "/PLIS_TICH_mi/",
         "usage_context_en": "school/learning",
@@ -1287,7 +1307,8 @@
         "pronunciation_guide_es": "/dis_gueim_TICHis_pacIens/",
         "usage_context_en": "life/experience",
         "usage_context_es": "vida/experiencia",
-        "usage_example": "This game teaches patience."
+        "usage_example": "This game teaches patience.",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_25_def1.avif"
       }
     ],
     "force_generation": false,
@@ -1306,7 +1327,8 @@
             "usage_example": "She taught me English last year.",
             "usage_example_es": "Ella me enseñó inglés el año pasado.",
             "pronunciation_guide_es": "/shi_TOT_mi_INGglish_last_yir/",
-            "meaning": "Pasado de Enseñar"
+            "meaning": "Pasado de Enseñar",
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_25_def0_v2.avif"
           }
         ]
       },
@@ -1319,7 +1341,8 @@
             "usage_example": "He has taught here for years.",
             "usage_example_es": "Él ha enseñado aquí por años.",
             "pronunciation_guide_es": "/ji_jas_TOT_jir_for_yirs/",
-            "meaning": "Participio de Enseñar"
+            "meaning": "Participio de Enseñar",
+            "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_25_def0_v3.avif"
           }
         ]
       }
@@ -1336,7 +1359,7 @@
       {
         "alternative_example": "She studies English every night.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_26_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_26_def0.avif",
         "meaning": "Estudiar",
         "pronunciation_guide_es": "/ai_STAdi_INGglish/",
         "usage_context_en": "school/languages",
@@ -1352,7 +1375,8 @@
         "pronunciation_guide_es": "/ji_STAdid_de_map/",
         "usage_context_en": "analysis/observation",
         "usage_context_es": "análisis/observación",
-        "usage_example": "He studied the map."
+        "usage_example": "He studied the map.",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_26_def1.avif"
       }
     ],
     "force_generation": false,
@@ -1373,7 +1397,7 @@
       {
         "alternative_example": "Pause the video for a minute.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_27_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_27_def0.avif",
         "meaning": "Pausar",
         "pronunciation_guide_es": "/POZ_de_viDIou/",
         "usage_context_en": "videos/music",
@@ -1389,7 +1413,8 @@
         "pronunciation_guide_es": "/ji_POZD_for_a_sekend/",
         "usage_context_en": "speech/thought",
         "usage_context_es": "habla/pensamiento",
-        "usage_example": "He paused for a second."
+        "usage_example": "He paused for a second.",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_27_def1.avif"
       }
     ],
     "force_generation": false,
@@ -1410,7 +1435,7 @@
       {
         "alternative_example": "We won the lottery!",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_28_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_28_def0.avif",
         "meaning": "Ganar (un juego, premio)",
         "pronunciation_guide_es": "/ju_uil_UIN_de_REIS/",
         "usage_context_en": "competition/luck",
@@ -1421,7 +1446,7 @@
       {
         "alternative_example": "He won her trust.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_28_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_28_def1.avif",
         "meaning": "Obtener (algo con esfuerzo)",
         "pronunciation_guide_es": "/dei_UON_indiPENDens/",
         "usage_context_en": "achievement/trust",
@@ -1444,7 +1469,8 @@
         "usage_example": "They won the game easily.",
         "usage_example_es": "Ganaron el juego fácilmente.",
         "pronunciation_guide_es": "/dei_UON_de_GUEIM_ISili/",
-        "meaning": "Pasado de ganar"
+        "meaning": "Pasado de ganar",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_28_def0_v2.avif"
       },
       "participle": {
         "form": "won",
@@ -1453,7 +1479,8 @@
         "usage_example": "He has won three awards.",
         "usage_example_es": "Él ha ganado tres premios.",
         "pronunciation_guide_es": "/ji_jas_UON_thri_aUARDS/",
-        "meaning": "Participio de ganar"
+        "meaning": "Participio de ganar",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_28_def0_v3.avif"
       }
     },
     "group_name": "Change & Result"
@@ -1468,7 +1495,7 @@
       {
         "alternative_example": "I lost my phone yesterday.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_29_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_29_def0.avif",
         "meaning": "Perder (un objeto)",
         "pronunciation_guide_es": "/bi_KERful_not_tu_LUZ_yor_UALet/",
         "usage_context_en": "misplacement/objects",
@@ -1479,7 +1506,7 @@
       {
         "alternative_example": "Don't lose hope.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_29_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_29_def1.avif",
         "meaning": "Perder (un juego, batalla)",
         "pronunciation_guide_es": "/aur_TIM_LOST_de_GEIM/",
         "usage_context_en": "competition/hope",
@@ -1502,7 +1529,8 @@
         "usage_example": "I lost my phone yesterday.",
         "usage_example_es": "Perdí mi teléfono ayer.",
         "pronunciation_guide_es": "/ai_LOST_mai_FOUN_iesterdei/",
-        "meaning": "Pasado de perder"
+        "meaning": "Pasado de perder",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_29_def0_v2.avif"
       },
       "participle": {
         "form": "lost",
@@ -1511,7 +1539,8 @@
         "usage_example": "We have lost the keys.",
         "usage_example_es": "Hemos perdido las llaves.",
         "pronunciation_guide_es": "/ui_JAV_LOST_de_KIS/",
-        "meaning": "Participio de perder"
+        "meaning": "Participio de perder",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_29_def0_v3.avif"
       }
     },
     "group_name": "Change & Result"
@@ -1526,7 +1555,7 @@
       {
         "alternative_example": "Many plants die in the winter.",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_30_def0.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_30_def0.avif",
         "meaning": "Morir (cesar de vivir)",
         "pronunciation_guide_es": "/hi_DAID_PISfuli_in_jis_SLIP/",
         "usage_context_en": "life/nature",
@@ -1537,7 +1566,7 @@
       {
         "alternative_example": "I'm dying to know the secret!",
         "char_count": "one",
-        "imagePath": "/card_images/es_en/verbs/1-basic/action/1-basic_action_card_30_def1.avif",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_30_def1.avif",
         "meaning": "Extinguirse/Cesar (figurado)",
         "pronunciation_guide_es": "/de_FAIR_DAID_daun_SLOULI/",
         "usage_context_en": "fire/desire",
@@ -1568,7 +1597,8 @@
         "usage_context_en": "To strike or touch something with force",
         "usage_context_es": "Golpear o tocar algo con fuerza",
         "usage_example": "Be careful, don't hit your head.",
-        "usage_example_es": "Ten cuidado, no te golpees la cabeza."
+        "usage_example_es": "Ten cuidado, no te golpees la cabeza.",
+        "imagePath": "/card_images/verbs/1-basic/action/1-basic_action_card_31_def0.avif"
       }
     ],
     "force_generation": false,

@@ -21,6 +21,7 @@ import { getCategoryOrderPreference, getGroupOrderPreference } from './config/ca
 import { navigationIntentRef, markInitialNavigation } from './navigationIntent';
 import { formatDeckCategoryName, getLevelFromDeckName, usesNestedLevelDecks } from './useCases/deckUseCases';
 import { flashcardPort, audioPort, imagePort, imageCompressionService } from './composition';
+import SrsControls from './features/SrsControls';
 import {
     registerUiBridgeHandler,
     unregisterUiBridgeHandler,
@@ -183,32 +184,41 @@ export default function FlashcardPage() {
         studyLanguage = 'en',
         setIsHeaderSuppressed,
     } = useUIContext();
-    const { categories, currentCategory, changeCategory, loadingStage: categoryLoadingStage } = useCategoryContext();
+    const {
+        categories,
+        currentCategory: categoryFromCatalog,
+        changeCategory,
+        loadingStage: categoryLoadingStage,
+    } = useCategoryContext();
 
     const {
         currentCard, loadingStage: flashcardLoadingStage, filteredData, masterData, currentDeckName,
         currentIndex, nextCard, prevCard, markAsLearned, resetDeck,
         selectedGroup, changeDeck, setSelectedGroup, justCompletedInSession,
+        currentCategory: categoryFromSession, isSrsMode = false,
     } = useFlashcardContext();
+    const currentCategory = categoryFromSession || categoryFromCatalog;
 
     // Precarga silenciosa de la imagen de la tarjeta SIGUIENTE: al avanzar, la
     // imagen ya está en la caché del navegador y no se paga el viaje de red.
     const upcomingCard = filteredData.length > 1
         ? filteredData[(currentIndex + 1) % filteredData.length]
         : null;
+    const upcomingCategory = upcomingCard?.srs_coordinate?.category || currentCategory;
+    const upcomingDeck = upcomingCard?.srs_coordinate?.deck || currentDeckName;
     useNextImagePrefetch({
         imagePort,
         card: upcomingCard,
-        category: currentCategory,
-        deckName: currentDeckName,
+        category: upcomingCategory,
+        deckName: upcomingDeck,
         studyLanguage,
         enabled: Boolean(currentCard) && !isAudioLoading && !isImageLoading,
     });
     useNextAudioPrefetch({
         audioPort,
         card: upcomingCard,
-        category: currentCategory,
-        deckName: currentDeckName,
+        category: upcomingCategory,
+        deckName: upcomingDeck,
         studyLanguage,
         enabled: Boolean(currentCard) && !isAudioLoading && !isImageLoading,
     });
@@ -279,8 +289,8 @@ export default function FlashcardPage() {
     ]);
 
     useEffect(() => {
-        flashcardPort.touchStudyDay().catch(() => {});
-    }, []);
+        if (!isSrsMode) flashcardPort.touchStudyDay().catch(() => {});
+    }, [isSrsMode]);
 
     const touchStartRef = useRef(null);
     const minSwipeDistance = 50;
@@ -288,17 +298,21 @@ export default function FlashcardPage() {
     const isOverlayOpen = isFloatingMenuOpen || isSidebarOpen || isCatalogVisible || isIpaModalOpen || isPhonicsModalOpen;
 
     const groupCards = selectedGroup ? masterData.filter(c => c.group_name === selectedGroup) : masterData;
-    const displayTotal = groupCards.length;
-    const displayLearned = groupCards.filter(c => c.learned).length;
-    const displayLabel = getProgressLabel(currentCategory, selectedGroup, language);
+    const displayTotal = isSrsMode ? masterData.length : groupCards.length;
+    const displayLearned = isSrsMode
+        ? masterData.length - filteredData.length
+        : groupCards.filter(c => c.learned).length;
+    const displayLabel = isSrsMode
+        ? (language === 'es' ? 'Repaso diario' : 'Daily review')
+        : getProgressLabel(currentCategory, selectedGroup, language);
     const locale = language === 'es' ? 'es' : 'en';
     const isCompletionVisible = masterData.length > 0 && filteredData.length === 0;
     const isUserViewingCompleted = isCompletionVisible
         && !justCompletedInSession
         && navigationIntentRef.current === 'user';
-    const shouldShowCompletionCelebration = isCompletionVisible && justCompletedInSession;
-    const shouldShowCompletionCard = shouldShowCompletionCelebration || isUserViewingCompleted;
-    const activeLoadingStage = flashcardLoadingStage || categoryLoadingStage;
+    const shouldShowCompletionCelebration = !isSrsMode && isCompletionVisible && justCompletedInSession;
+    const shouldShowCompletionCard = shouldShowCompletionCelebration || (!isSrsMode && isUserViewingCompleted);
+    const activeLoadingStage = flashcardLoadingStage || (!isSrsMode ? categoryLoadingStage : null);
     const shouldShowLoading = Boolean(activeLoadingStage);
     const completedGroupNames = Array.from(
         masterData.reduce((acc, card) => {
@@ -331,7 +345,7 @@ export default function FlashcardPage() {
                 : (locale === 'es' ? 'Terminando' : 'Finishing'),
         },
     ] : [];
-    const recommendation = isCompletionVisible
+    const recommendation = !isSrsMode && isCompletionVisible
         ? getNextStudyStep(currentCategory, currentDeckName, selectedGroup, {
             categoryOrder: getCategoryOrderPreference(
                 user?.email,
@@ -445,7 +459,7 @@ export default function FlashcardPage() {
     }, [currentCategory, currentDeckName, selectedGroup]);
 
     useEffect(() => {
-        if (!justCompletedInSession) return;
+        if (isSrsMode || !justCompletedInSession) return;
         if (navigationIntentRef.current === 'user') return;
         if (shouldShowLoading || !isCompletionVisible || autoAdvancedRef.current) {
             return;
@@ -459,10 +473,11 @@ export default function FlashcardPage() {
         shouldShowLoading,
         isCompletionVisible,
         handleContinueRecommendation,
+        isSrsMode,
     ]);
 
     useEffect(() => {
-        if (!dashboardResumeRef.current) return;
+        if (isSrsMode || !dashboardResumeRef.current) return;
         if (shouldShowLoading) return;
         if (justCompletedInSession) { dashboardResumeRef.current = false; return; }
         if (!isCompletionVisible) { dashboardResumeRef.current = false; return; }
@@ -472,7 +487,7 @@ export default function FlashcardPage() {
         autoAdvancedRef.current = true;
         handleContinueRecommendation();
         markInitialNavigation();
-    }, [isCompletionVisible, shouldShowLoading, justCompletedInSession, handleContinueRecommendation]);
+    }, [isCompletionVisible, shouldShowLoading, justCompletedInSession, handleContinueRecommendation, isSrsMode]);
 
     return (
         <StudyMediaProvider
@@ -498,7 +513,7 @@ export default function FlashcardPage() {
                     </div>
                 )}
 
-                {isCatalogVisible && <CategorySelector />}
+                {isCatalogVisible && !isSrsMode && <CategorySelector />}
 
                 <div className="app-container">
                     <div
@@ -525,6 +540,12 @@ export default function FlashcardPage() {
                                 progress={progress}
                                 stats={loaderStats}
                             />
+                        ) : isSrsMode && !currentCard ? (
+                            <div className="all-done-message">
+                                {masterData.length > 0
+                                    ? (language === 'es' ? 'Repaso diario completado.' : 'Daily review complete.')
+                                    : (language === 'es' ? 'No tienes tarjetas pendientes hoy.' : 'You have no cards due today.')}
+                            </div>
                         ) : shouldShowCompletionCard ? (
                             <CompletionCard
                                 language={language}
@@ -543,9 +564,11 @@ export default function FlashcardPage() {
                                 <div className="all-done-message">No hay tarjetas disponibles en este momento.</div>
                             )
                         ) : (
-                            <Flashcard key={`${currentCategory}-${currentDeckName}-${language}-${studyLanguage}`} />
+                            <Flashcard key={`${currentCard?.srs_key || `${currentCategory}-${currentDeckName}`}-${language}-${studyLanguage}`} />
                         )}
-                        {!shouldShowLoading && !shouldShowCompletionCard && <Controls />}
+                        {!shouldShowLoading && !shouldShowCompletionCard && (!isSrsMode || currentCard) && (
+                            isSrsMode ? <SrsControls /> : <Controls />
+                        )}
                     </div>
                 </div>
             </div>

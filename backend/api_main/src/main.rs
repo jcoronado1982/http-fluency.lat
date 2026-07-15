@@ -23,8 +23,8 @@ use crate::config::Settings;
 #[cfg(feature = "flashcards")]
 use crate::domain::repositories::audio::AudioGenerator;
 use crate::domain::repositories::db_repository::{
-    CardProgressRepository, PronounPracticeRepository, SubscriptionRepository,
-    UserActivityRepository, UserRepository,
+    CardProgressRepository, DailyStatsRepository, PronounPracticeRepository,
+    SubscriptionRepository, UserActivityRepository, UserRepository,
 };
 #[cfg(any(feature = "flashcards", feature = "pronoun_practice"))]
 use crate::domain::repositories::image::ImageGenerator;
@@ -56,8 +56,9 @@ use crate::infrastructure::payment::stripe_provider::StripeProvider;
 use crate::infrastructure::storage::local_repository::LocalStorageRepository;
 use crate::infrastructure::storage::null_db_repository::NullDbRepository;
 use crate::infrastructure::storage::surreal::{
-    SurrealCardProgressRepository, SurrealConnection, SurrealPronounRepository,
-    SurrealSubscriptionRepository, SurrealUserActivityRepository, SurrealUserRepository,
+    SurrealCardProgressRepository, SurrealConnection, SurrealDailyStatsRepository,
+    SurrealPronounRepository, SurrealSubscriptionRepository, SurrealUserActivityRepository,
+    SurrealUserRepository,
 };
 #[cfg(feature = "flashcards")]
 use mod_flashcards::audio_use_cases::AudioUseCases;
@@ -72,6 +73,8 @@ use mod_flashcards::image_use_cases::ImageUseCases;
 use mod_flashcards::{DeckUseCases, FlashcardsConfig};
 #[cfg(feature = "auth")]
 use mod_shell::auth::AuthUseCases;
+#[cfg(feature = "auth")]
+use mod_shell::daily_stats_use_cases::DailyStatsUseCases;
 #[cfg(feature = "auth")]
 use mod_shell::presence_use_cases::PresenceUseCases;
 #[cfg(feature = "subscriptions")]
@@ -102,6 +105,8 @@ pub struct AppState {
     pub auth_use_cases: Arc<AuthUseCases>,
     #[cfg(feature = "auth")]
     pub presence_use_cases: Arc<PresenceUseCases>,
+    #[cfg(feature = "auth")]
+    pub daily_stats_use_cases: Arc<DailyStatsUseCases>,
     #[cfg(feature = "subscriptions")]
     pub subscription_use_cases: Arc<SubscriptionUseCases>,
     pub notification_sender: broadcast::Sender<String>,
@@ -196,12 +201,13 @@ async fn async_main() -> anyhow::Result<()> {
 
     let surreal_url = std::env::var("SURREAL_URL").unwrap_or_else(|_| "127.0.0.1:8001".to_string());
     #[allow(unused_variables)]
-    let (user_repo, sub_repo, card_repo, story_repo, activity_repo): (
+    let (user_repo, sub_repo, card_repo, story_repo, activity_repo, daily_stats_repo): (
         Arc<dyn UserRepository>,
         Arc<dyn SubscriptionRepository>,
         Arc<dyn CardProgressRepository>,
         Arc<dyn PronounPracticeRepository>,
         Arc<dyn UserActivityRepository>,
+        Arc<dyn DailyStatsRepository>,
     ) = match SurrealConnection::new(&surreal_url, "flashcard", "flashcard").await {
         Ok(conn) => {
             tracing::info!("✅ Conectado a SurrealDB en {}", surreal_url);
@@ -217,6 +223,8 @@ async fn async_main() -> anyhow::Result<()> {
                     as Arc<dyn PronounPracticeRepository>,
                 Arc::new(SurrealUserActivityRepository::new(conn.clone()))
                     as Arc<dyn UserActivityRepository>,
+                Arc::new(SurrealDailyStatsRepository(conn.clone()))
+                    as Arc<dyn DailyStatsRepository>,
             )
         }
         Err(e) => {
@@ -227,6 +235,7 @@ async fn async_main() -> anyhow::Result<()> {
             );
             let repo = Arc::new(NullDbRepository);
             (
+                repo.clone(),
                 repo.clone(),
                 repo.clone(),
                 repo.clone(),
@@ -325,6 +334,13 @@ async fn async_main() -> anyhow::Result<()> {
         activity_repo.clone(),
     ));
 
+    #[cfg(feature = "auth")]
+    let daily_stats_use_cases = Arc::new(DailyStatsUseCases::new(
+        user_repo.clone(),
+        activity_repo.clone(),
+        daily_stats_repo.clone(),
+    ));
+
     #[cfg(feature = "payments")]
     let payment: Arc<dyn PaymentProvider> = match std::env::var("STRIPE_SECRET_KEY") {
         Ok(key) if !key.is_empty() => {
@@ -357,6 +373,8 @@ async fn async_main() -> anyhow::Result<()> {
         auth_use_cases,
         #[cfg(feature = "auth")]
         presence_use_cases,
+        #[cfg(feature = "auth")]
+        daily_stats_use_cases,
         #[cfg(feature = "subscriptions")]
         subscription_use_cases,
         notification_sender,
@@ -466,6 +484,14 @@ async fn async_main() -> anyhow::Result<()> {
             .route(
                 "/api/admin/users/activity",
                 get(api::endpoints::admin_users::list_users_activity),
+            )
+            .route(
+                "/api/admin/users/countries",
+                get(api::endpoints::admin_users::get_users_by_country),
+            )
+            .route(
+                "/api/admin/stats/daily",
+                get(api::endpoints::admin_users::get_daily_stats),
             )
             .route(
                 "/api/admin/catalog-preferences/reset",

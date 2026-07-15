@@ -4,6 +4,8 @@ import { useFlashcardUiContext } from '../context/FlashcardUiContext';
 import { useUIContext } from '../../../context/UIContext';
 import { useDialog } from '../../../context/AppContext';
 import { flashcardPort } from '../composition';
+import { queueSrsBatch, listSrsBatches, removeSrsBatch } from '../adapters/srsOutboxIndexedDb';
+import { SrsEngine } from '../domain/SrsEngine';
 import { useAuth } from '../../../context/AuthContext';
 import { getFlashcardTranslations } from '../config/translations';
 import { markUserNavigation } from '../navigationIntent';
@@ -528,6 +530,25 @@ export function useDeckSession(resumeSession = null) {
                     return;
                 }
             }
+
+            const srsBatches = (await listSrsBatches().catch(() => [])).filter(
+                (batch) => batch.userId === user.email,
+            );
+            for (const batch of srsBatches) {
+                if (cancelled) return;
+                try {
+                    await flashcardPort.updateCardsBatch(
+                        batch.userId,
+                        batch.category,
+                        batch.deck,
+                        batch.cards,
+                        normalizeStoredCourseDirection(batch.courseDirection),
+                    );
+                    await removeSrsBatch(batch);
+                } catch {
+                    return;
+                }
+            }
         };
 
         void retryStoredBatches();
@@ -576,6 +597,55 @@ export function useDeckSession(resumeSession = null) {
         if (pendingBatchRef.current.size >= BATCH_FLUSH_SIZE) {
             void flushProgress({ silent: true });
         }
+    };
+
+    /**
+     * La selección manual convierte la tarjeta en candidata SRS para hoy.
+     * Se respalda primero en IndexedDB para sobrevivir modo offline/cierre.
+     */
+    const addToReview = async () => {
+        const card = filteredData[currentIndex];
+        if (!card || !user?.email || !currentCategory || !currentDeckName) return;
+
+        const context = {
+            category: currentCategory,
+            deck: currentDeckName,
+            userId: user.email,
+            courseDirection,
+        };
+        const update = {
+            index: card.id,
+            learned: true,
+            ...SrsEngine.scheduleForReview(new Date()),
+        };
+
+        try {
+            await queueSrsBatch(context, [update]);
+            await flashcardPort.updateCardsBatch(
+                context.userId,
+                context.category,
+                context.deck,
+                [update],
+                context.courseDirection,
+            );
+            await removeSrsBatch(context);
+            setAppMessage({ text: language === 'es' ? 'Tarjeta agregada al repaso diario.' : 'Card added to daily review.', isError: false });
+        } catch {
+            setAppMessage({
+                text: language === 'es'
+                    ? 'Tarjeta guardada localmente; se sincronizará al reconectar.'
+                    : 'Card saved locally; it will sync when reconnected.',
+                isError: false,
+            });
+        }
+
+        // Al entrar en SRS queda aprendida también para el flujo libre actual.
+        const { updated, remaining, completed } = computeFilteredAfterLearn(masterData, card.id, selectedGroup);
+        setMasterData(updated);
+        setFilteredData(remaining);
+        setDeckSummaries((prev) => ({ ...prev, [currentDeckName]: summarizeDeck(updated) }));
+        if (completed) setJustCompletedInSession(true);
+        setCurrentIndex((previous) => computeNextIndex(previous, remaining.length));
     };
 
     const resetDeck = async () => {
@@ -709,6 +779,7 @@ export function useDeckSession(resumeSession = null) {
         changeDeck,
         updateCardImagePath,
         markAsLearned,
+        addToReview,
         resetDeck,
         resetGroup,
         nextCard,

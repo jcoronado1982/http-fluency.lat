@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::sync::Arc;
 use std::time::Duration;
 
@@ -5,7 +6,7 @@ use anyhow::Result;
 use chrono::{DateTime, Utc};
 use dashmap::DashMap;
 use fluency_core::domain::models::user_activity::{
-    AdminUserActivity, ClientInfo, PaginatedAdminUsers, UserActivityStats,
+    AdminUserActivity, ClientInfo, CountryCount, PaginatedAdminUsers, UserActivityStats,
 };
 use fluency_core::ports::db_repository::{UserActivityRepository, UserRepository};
 use tokio::time::interval;
@@ -223,6 +224,8 @@ impl PresenceUseCases {
                 0.0
             };
 
+            let retention_days = (user.last_login - user.created_at).num_days().max(0);
+
             rows.push(AdminUserActivity {
                 email: user.email.clone(),
                 name: user.name.clone(),
@@ -237,6 +240,7 @@ impl PresenceUseCases {
                 browser,
                 os,
                 country,
+                retention_days,
             });
         }
 
@@ -246,6 +250,29 @@ impl PresenceUseCases {
             page: page.max(1),
             total_pages,
         })
+    }
+
+    /// Cuenta usuarios registrados por país (según su última ubicación conocida).
+    pub async fn get_country_stats(&self) -> Result<Vec<CountryCount>> {
+        let stats_list = self.activity_repo.get_all_stats().await?;
+
+        let mut counts: HashMap<String, usize> = HashMap::new();
+        for stats in &stats_list {
+            let country = stats
+                .last_country
+                .clone()
+                .filter(|c| !c.is_empty())
+                .unwrap_or_else(|| "Unknown".to_string());
+            *counts.entry(country).or_insert(0) += 1;
+        }
+
+        let mut rows: Vec<CountryCount> = counts
+            .into_iter()
+            .map(|(country, count)| CountryCount { country, count })
+            .collect();
+        rows.sort_by(|a, b| b.count.cmp(&a.count).then_with(|| a.country.cmp(&b.country)));
+
+        Ok(rows)
     }
 
     async fn close_session(&self, email: &str) {

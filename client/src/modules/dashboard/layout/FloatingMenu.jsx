@@ -1,6 +1,6 @@
 // FloatingMenu.jsx
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { /* useState, */ useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FiMoreVertical } from "react-icons/fi";
 import "./FloatingMenu.css";
@@ -10,6 +10,7 @@ import { translations } from '../../../config/translations';
 import config from '../../../config';
 import { getModuleFloatingMenuItems } from '../../index';
 
+/* Opción "Pronunciación" oculta temporalmente del menú flotante.
 const VOWELS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=60s";
 const DIPHTHONGS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=421s";
 const CONSONANTS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=600s";
@@ -22,6 +23,7 @@ const IconPronunciation = () => (
         <line x1="8" y1="23" x2="16" y2="23" />
     </svg>
 );
+*/
 
 const FloatingMenu = ({ mobileTrigger = null }) => {
     const {
@@ -32,14 +34,14 @@ const FloatingMenu = ({ mobileTrigger = null }) => {
         setStudyLanguage,
     } = useAppContext();
     const { user, logout, updateStudyLanguage } = useAuth();
-    const [showPronun, setShowPronun] = useState(false);
+    // const [showPronun, setShowPronun] = useState(false);
     const containerRef = useRef(null);
     const navigate = useNavigate();
     const location = useLocation();
     
     const t = translations[language].floatingMenu;
 
-    const close = () => { setIsOpen(false); setShowPronun(false); };
+    const close = () => { setIsOpen(false); /* setShowPronun(false); */ };
 
     const moduleFloatingItems = getModuleFloatingMenuItems(config, {
         language,
@@ -52,18 +54,18 @@ const FloatingMenu = ({ mobileTrigger = null }) => {
         const handleClickOutside = (e) => {
             if (containerRef.current && !containerRef.current.contains(e.target)) {
                 setIsOpen(false);
-                setShowPronun(false);
+                // setShowPronun(false);
             }
         };
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [setIsOpen]);
 
-    const openExternal = (url) => { window.open(url, "_blank"); close(); };
+    // const openExternal = (url) => { window.open(url, "_blank"); close(); };
 
     const toggleMenu = () => {
         setIsOpen((open) => !open);
-        setShowPronun(false);
+        // setShowPronun(false);
     };
 
     const changeStudyLanguage = (nextLanguage) => {
@@ -113,7 +115,7 @@ const FloatingMenu = ({ mobileTrigger = null }) => {
                     </>
                 )}
 
-                {/* ── REFERENCIAS ── */}
+                {/* Opción "Pronunciación" oculta temporalmente.
                 <span className="fmSectionLabel">{t.practice}</span>
 
                 <button
@@ -144,6 +146,7 @@ const FloatingMenu = ({ mobileTrigger = null }) => {
                 )}
 
                 <div className="fmDivider" />
+                */}
 
                 {/* ── CUENTA ── */}
                 <span className="fmSectionLabel">{t.account}</span>

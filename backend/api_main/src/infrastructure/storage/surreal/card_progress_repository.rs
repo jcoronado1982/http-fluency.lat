@@ -1,4 +1,5 @@
 use super::connection::SurrealConnection;
+use crate::domain::models::srs::{CardProgressUpdate, SrsReviewCandidate};
 use crate::domain::repositories::db_repository::CardProgressRepository;
 use anyhow::Result;
 use async_trait::async_trait;
@@ -105,7 +106,7 @@ impl CardProgressRepository for SurrealCardProgressRepository {
         user_id: &str,
         category: &str,
         deck: &str,
-        cards: &[(i32, bool)],
+        cards: &[CardProgressUpdate],
     ) -> Result<()> {
         if cards.is_empty() {
             return Ok(());
@@ -116,7 +117,14 @@ impl CardProgressRepository for SurrealCardProgressRepository {
 
         let mut sql = String::with_capacity(64 + cards.len() * 220);
         sql.push_str("BEGIN TRANSACTION;\n");
-        for i in 0..cards.len() {
+        for (i, card) in cards.iter().enumerate() {
+            let srs_fields = if card.srs.is_some() {
+                format!(
+                    ",\n                    box_level: $box_level_{i},\n                    ease_factor: $ease_factor_{i},\n                    interval_days: $interval_days_{i},\n                    next_review_at: $next_review_at_{i}"
+                )
+            } else {
+                String::new()
+            };
             sql.push_str(&format!(
                 "UPDATE type::thing($id_{i}) MERGE {{
                     user_id: $user_id,
@@ -124,7 +132,7 @@ impl CardProgressRepository for SurrealCardProgressRepository {
                     deck: $deck,
                     card_index: $card_index_{i},
                     learned: $learned_{i},
-                    learned_at: $learned_at_{i}
+                    learned_at: $learned_at_{i}{srs_fields}
                 }};\n"
             ));
         }
@@ -137,7 +145,9 @@ impl CardProgressRepository for SurrealCardProgressRepository {
             .bind(("category", category.clone()))
             .bind(("deck", deck.clone()));
 
-        for (i, &(card_index, learned)) in cards.iter().enumerate() {
+        for (i, card) in cards.iter().enumerate() {
+            let card_index = card.card_index;
+            let learned = card.learned;
             let id = format!(
                 "card_progress:['{}', '{}', '{}', {}]",
                 user_id, category, deck, card_index
@@ -148,12 +158,50 @@ impl CardProgressRepository for SurrealCardProgressRepository {
                 .bind((format!("card_index_{i}"), card_index))
                 .bind((format!("learned_{i}"), learned))
                 .bind((format!("learned_at_{i}"), learned_at));
+            if let Some(srs) = &card.srs {
+                query = query
+                    .bind((format!("box_level_{i}"), srs.box_level))
+                    .bind((format!("ease_factor_{i}"), srs.ease_factor))
+                    .bind((format!("interval_days_{i}"), srs.interval_days))
+                    .bind((format!("next_review_at_{i}"), srs.next_review_at));
+            }
         }
 
         // .check() propaga errores por-statement (p.ej. transacción cancelada),
         // que .await? solo no reporta.
         query.await?.check()?;
         Ok(())
+    }
+
+    async fn get_srs_review_candidates(
+        &self,
+        user_id: &str,
+        category_prefix: &str,
+        now: chrono::DateTime<chrono::Utc>,
+        limit: usize,
+    ) -> Result<Vec<SrsReviewCandidate>> {
+        let mut response = self
+            .0
+            .db()
+            .query(
+                "SELECT category, deck, card_index, learned, box_level, ease_factor, \
+                        interval_days, next_review_at \
+                 FROM card_progress \
+                 WHERE user_id = $user_id \
+                   AND learned = true \
+                   AND string::startsWith(category, $category_prefix) \
+                   AND (box_level = NONE OR box_level != 99) \
+                   AND (next_review_at = NONE OR next_review_at <= $now) \
+                 LIMIT $limit",
+            )
+            .bind(("user_id", user_id.to_string()))
+            .bind(("category_prefix", category_prefix.to_lowercase()))
+            .bind(("now", now))
+            .bind(("limit", i64::try_from(limit).unwrap_or(i64::MAX)))
+            .await?;
+
+        let rows: Vec<SrsReviewCandidate> = response.take(0)?;
+        Ok(rows)
     }
 
     async fn count_learned_cards(&self, user_id: &str) -> Result<i32> {

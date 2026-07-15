@@ -144,8 +144,9 @@ async fn run_batch(
                 .await?;
             let card_count = deck_data.flashcards().len();
 
-            let img_dir =
-                format!("{images_prefix}/{DEFAULT_COURSE_DIRECTION}/{cat_name}/{deck_media_dir}");
+            // Las imágenes generadas por lote son globales y compartidas por
+            // todos los catálogos; solo el JSON conserva dirección de idioma.
+            let img_dir = format!("{images_prefix}/{cat_name}/{deck_media_dir}");
             let deck_files = ctx.deck.list_files_in_dir(&img_dir).await?;
             let file_index: HashSet<String> = deck_files.into_iter().collect();
             println!(
@@ -172,14 +173,8 @@ async fn run_batch(
 
                     let form_suffix = slot.form.suffix();
                     let base_pattern = format!(
-                        "{}/{}/{}/{}_card_{}_def{}{}",
-                        DEFAULT_COURSE_DIRECTION,
-                        cat_name,
-                        deck_media_dir,
-                        deck_file_prefix,
-                        i,
-                        slot.def_index,
-                        form_suffix
+                        "{}/{}/{}_card_{}_def{}{}",
+                        cat_name, deck_media_dir, deck_file_prefix, i, slot.def_index, form_suffix
                     );
                     let filename = format!(
                         "{deck_file_prefix}_card_{i}_def{}{form_suffix}.avif",

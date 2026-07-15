@@ -26,6 +26,167 @@
     color: #f87171;
 }
 
+.admin-charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.admin-chart-card,
+.admin-stat-tile {
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #122035;
+}
+
+.admin-stat-tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.admin-chart-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.admin-chart-title {
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.admin-chart-headline {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    font-variant-numeric: tabular-nums;
+}
+
+.admin-chart-plot {
+    position: relative;
+}
+
+.admin-chart-svg {
+    width: 100%;
+    height: 90px;
+    display: block;
+    overflow: visible;
+    cursor: crosshair;
+}
+
+.admin-chart-baseline {
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 1;
+}
+
+.admin-chart-line {
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.admin-chart-crosshair {
+    stroke: rgba(255, 255, 255, 0.18);
+    stroke-width: 1;
+}
+
+.admin-chart-tooltip {
+    position: absolute;
+    top: -0.25rem;
+    transform: translate(-50%, -100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+    padding: 0.35rem 0.55rem;
+    border-radius: 8px;
+    background: #0b1524;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.7rem;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.admin-chart-tooltip-date {
+    color: #64748b;
+}
+
+.admin-chart-tooltip-value {
+    color: #e2e8f0;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.admin-countries {
+    margin-bottom: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #122035;
+}
+
+.admin-section-title {
+    margin: 0 0 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.admin-countries-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.admin-country-row {
+    display: grid;
+    grid-template-columns: 96px 1fr 32px;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+}
+
+.admin-country-name {
+    color: #e2e8f0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.admin-country-bar-track {
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+}
+
+.admin-country-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #38bdf8, #818cf8);
+}
+
+.admin-country-count {
+    text-align: right;
+    color: #94a3b8;
+    font-variant-numeric: tabular-nums;
+}
+
 .admin-table-wrap {
     overflow-x: auto;
     border-radius: 12px;
@@ -185,5 +346,15 @@
 
     .admin-pagination button {
         width: 100%;
+    }
+
+    .admin-countries {
+        padding: 1rem;
+    }
+
+    .admin-country-row {
+        grid-template-columns: 72px 1fr 28px;
+        gap: 0.5rem;
+        font-size: 0.8rem;
     }
 }

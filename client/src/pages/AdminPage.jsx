@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { adminRepository } from '../repositories/adminRepository';
 import { formatDeviceType } from '../utils/clientInfo';
+import AdminDailyChart from './AdminDailyChart';
 import './AdminPage.css';
 
 function formatDuration(seconds) {
@@ -9,6 +10,12 @@ function formatDuration(seconds) {
     const secs = Math.round(seconds % 60);
     if (mins === 0) return `${secs}s`;
     return `${mins}m ${secs}s`;
+}
+
+function formatRetention(days) {
+    if (!days || days <= 0) return 'New';
+    if (days === 1) return '1 day';
+    return `${days} days`;
 }
 
 function formatDate(iso) {
@@ -26,6 +33,8 @@ export default function AdminPage() {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [countries, setCountries] = useState([]);
+    const [dailyStats, setDailyStats] = useState([]);
 
     const load = useCallback(async (currentPage) => {
         try {
@@ -39,13 +48,47 @@ export default function AdminPage() {
         }
     }, []);
 
+    const loadCountries = useCallback(async () => {
+        try {
+            const result = await adminRepository.getUsersByCountry();
+            setCountries(result);
+        } catch {
+            // Non-critical stat; the main table already reports the load error.
+        }
+    }, []);
+
+    const loadDailyStats = useCallback(async () => {
+        try {
+            const result = await adminRepository.getDailyStats(30);
+            setDailyStats(result);
+        } catch {
+            // Non-critical stat; the main table already reports the load error.
+        }
+    }, []);
+
     useEffect(() => {
         load(page);
         const interval = setInterval(() => load(page), 30_000);
         return () => clearInterval(interval);
     }, [load, page]);
 
+    useEffect(() => {
+        loadCountries();
+        const interval = setInterval(loadCountries, 30_000);
+        return () => clearInterval(interval);
+    }, [loadCountries]);
+
+    useEffect(() => {
+        loadDailyStats();
+        // La serie diaria solo cambia una vez al día (snapshot del backend); refrescar
+        // cada 30s como el resto del panel sería trabajo desperdiciado.
+        const interval = setInterval(loadDailyStats, 10 * 60_000);
+        return () => clearInterval(interval);
+    }, [loadDailyStats]);
+
     const onlineCount = data.users.filter((u) => u.is_online).length;
+    const maxCountryCount = countries.reduce((max, c) => Math.max(max, c.count), 0);
+    const totalUsersLatest = dailyStats.length > 0 ? dailyStats[dailyStats.length - 1].total_users : null;
 
     return (
         <div className="admin-page">
@@ -55,6 +98,54 @@ export default function AdminPage() {
                     {data.total} registered user{data.total !== 1 ? 's' : ''} · {onlineCount} online on this page
                 </p>
             </header>
+
+            {dailyStats.length > 0 && (
+                <section className="admin-charts">
+                    <AdminDailyChart
+                        title="Daily active users"
+                        color="#38bdf8"
+                        points={dailyStats.map((d) => ({ date: d.date, value: d.dau }))}
+                    />
+                    <AdminDailyChart
+                        title="New signups"
+                        color="#818cf8"
+                        points={dailyStats.map((d) => ({ date: d.date, value: d.new_signups }))}
+                    />
+                    <AdminDailyChart
+                        title="Retained users (7d)"
+                        color="#4ade80"
+                        points={dailyStats.map((d) => ({ date: d.date, value: d.retained_7d }))}
+                    />
+                    {totalUsersLatest !== null && (
+                        <div className="admin-stat-tile">
+                            <span className="admin-chart-title">Total users</span>
+                            <span className="admin-chart-headline">{totalUsersLatest}</span>
+                        </div>
+                    )}
+                </section>
+            )}
+
+            {countries.length > 0 && (
+                <section className="admin-countries">
+                    <h2 className="admin-section-title">Users by country</h2>
+                    <ul className="admin-countries-list">
+                        {countries.map((c) => (
+                            <li key={c.country} className="admin-country-row">
+                                <span className="admin-country-name">{c.country}</span>
+                                <div className="admin-country-bar-track">
+                                    <div
+                                        className="admin-country-bar-fill"
+                                        style={{
+                                            width: `${maxCountryCount > 0 ? (c.count / maxCountryCount) * 100 : 0}%`,
+                                        }}
+                                    />
+                                </div>
+                                <span className="admin-country-count">{c.count}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </section>
+            )}
 
             {loading && data.users.length === 0 && <p className="admin-status">Loading users...</p>}
             {error && <p className="admin-error">{error}</p>}
@@ -72,13 +163,14 @@ export default function AdminPage() {
                                     <th>Visits</th>
                                     <th>Avg Time</th>
                                     <th>Current Session</th>
+                                    <th>Retention</th>
                                     <th>Last Access</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {data.users.length === 0 ? (
                                     <tr>
-                                        <td colSpan={8} className="admin-empty">
+                                        <td colSpan={9} className="admin-empty">
                                             No registered users yet.
                                         </td>
                                     </tr>
@@ -127,6 +219,7 @@ export default function AdminPage() {
                                                     ? formatDuration(user.current_session_secs)
                                                     : '—'}
                                             </td>
+                                            <td>{formatRetention(user.retention_days)}</td>
                                             <td>{formatDate(user.last_login)}</td>
                                         </tr>
                                     ))

@@ -37,7 +37,7 @@ fn is_personal_image_role(role: &str) -> bool {
 }
 
 fn global_image_base(
-    course_direction: Option<&str>,
+    _course_direction: Option<&str>,
     category: &str,
     deck_media_dir: &str,
     deck_file_prefix: &str,
@@ -49,15 +49,7 @@ fn global_image_base(
         "{}/{}/{}_card_{}_def{}{}",
         category, deck_media_dir, deck_file_prefix, index, def_index, form_suffix
     );
-    if is_landing_demo_namespace(category) {
-        card_path
-    } else {
-        format!(
-            "{}/{}",
-            normalize_course_direction(course_direction),
-            card_path
-        )
-    }
+    card_path
 }
 
 fn personal_image_base(
@@ -71,10 +63,11 @@ fn personal_image_base(
     form_suffix: &str,
 ) -> String {
     format!(
-        "users/{}/{}",
+        "users/{}/{}/{}",
         user_path_segment(user_email),
+        normalize_course_direction(course_direction),
         global_image_base(
-            course_direction,
+            None,
             category,
             deck_media_dir,
             deck_file_prefix,
@@ -335,17 +328,24 @@ impl ImageUseCases {
             return Ok(false);
         };
 
-        let target_bytes = self.image_compressor
-            .compress_to_avif(&source_bytes, avif_quality)
-            .map_err(|e| {
-                tracing::error!(
-                    trace_id = %trace_short,
-                    legacy_blob_path = %source_blob_path,
-                    error = %e,
-                    "img-gen:legacy-migration-compression-failed"
-                );
-                anyhow::anyhow!("[trace={trace_short}] legacy image compression: {e}")
-            })?;
+        // Un AVIF legacy ya tiene el formato canónico. Copiarlo directamente evita
+        // exigir un decoder AVIF solo para reubicar el archivo; el compresor sigue
+        // normalizando los formatos fuente que sí necesitan conversión.
+        let target_bytes = if Self::bytes_are_avif(&source_bytes) {
+            source_bytes
+        } else {
+            self.image_compressor
+                .compress_to_avif(&source_bytes, avif_quality)
+                .map_err(|e| {
+                    tracing::error!(
+                        trace_id = %trace_short,
+                        legacy_blob_path = %source_blob_path,
+                        error = %e,
+                        "img-gen:legacy-migration-compression-failed"
+                    );
+                    anyhow::anyhow!("[trace={trace_short}] legacy image compression: {e}")
+                })?
+        };
 
         self.storage_repo
             .upload_blob(target_blob_path, target_bytes, "image/avif")
@@ -794,8 +794,14 @@ impl ImageUseCases {
         if !is_landing_demo_namespace(&category) {
             let legacy_base = if is_admin {
                 format!(
-                    "{}/{}/{}_card_{}_def{}{}",
-                    category, deck_media_dir, deck_file_prefix, index, def_index, form_suffix
+                    "{}/{}/{}/{}_card_{}_def{}{}",
+                    normalize_course_direction(course_direction),
+                    category,
+                    deck_media_dir,
+                    deck_file_prefix,
+                    index,
+                    def_index,
+                    form_suffix
                 )
             } else {
                 format!(
@@ -832,7 +838,7 @@ impl ImageUseCases {
     }
 
     /// Resuelve la mejor ruta de imagen sin generar.
-    /// - usuarios actuales → capa global de su dirección
+    /// - usuarios actuales → biblioteca global compartida
     /// - futuro Platinum → capa personal primero, fallback a global
     /// - admin → capa global
     pub async fn resolve_image_path(
@@ -929,13 +935,19 @@ impl ImageUseCases {
             return Ok(Some(url));
         }
 
-        // Compatibilidad de lectura con la biblioteca anterior, que no tenía
-        // dirección. Los lotes nuevos siempre escriben en es_en/… y migran al
-        // generar; este fallback evita romper tarjetas aún no migradas.
+        // Compatibilidad de lectura con la etapa en que las imágenes globales
+        // se escribían bajo es_en/… o en_es/…. La biblioteca canónica ya no
+        // depende del idioma; la dirección solo aplica a futuras capas personales.
         if !is_landing_demo_namespace(&category) {
             let legacy_global_base = format!(
-                "{}/{}/{}_card_{}_def{}{}",
-                category, deck_media_dir, deck_file_prefix, index, def_index, form_suffix
+                "{}/{}/{}/{}_card_{}_def{}{}",
+                normalize_course_direction(course_direction),
+                category,
+                deck_media_dir,
+                deck_file_prefix,
+                index,
+                def_index,
+                form_suffix
             );
             let legacy_global_avif = format!("{}/{}.avif", images_prefix, legacy_global_base);
             if let Some(url) = self
@@ -1045,7 +1057,7 @@ mod tests {
     use super::{global_image_base, personal_image_base};
 
     #[test]
-    fn global_images_are_scoped_by_course_direction() {
+    fn global_images_are_shared_across_course_directions() {
         assert_eq!(
             global_image_base(
                 Some("es_en"),
@@ -1056,7 +1068,7 @@ mod tests {
                 1,
                 "",
             ),
-            "es_en/verbs/1-basic/action/1-basic_action_card_4_def1"
+            "verbs/1-basic/action/1-basic_action_card_4_def1"
         );
     }
 

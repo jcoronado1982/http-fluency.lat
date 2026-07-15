@@ -1,6 +1,8 @@
 export const landingTranslations = {
     es: {
         brand: 'Fluency',
+        metaTitle: 'Fluency — Flashcards con IA para aprender inglés o español | Vocabulario, audio e imágenes',
+        metaDescription: 'Aprende inglés o español con flashcards generadas por IA: miles de palabras curadas, frases reales, audio nativo, imágenes con IA y repetición espaciada (SRS). Empieza gratis, sin tarjeta.',
         navHowItWorks: 'Cómo funciona',
         navPricing: 'Precios',
         navWhyVocabularyFirst: '¿Por qué vocabulario primero?',
@@ -107,6 +109,8 @@ export const landingTranslations = {
 
     en: {
         brand: 'Fluency',
+        metaTitle: 'Fluency — AI Flashcards to Learn English or Spanish | Vocabulary, Audio & Images',
+        metaDescription: 'Learn English or Spanish with AI-generated flashcards: thousands of curated words, real sentences, native audio, AI images, and spaced repetition (SRS). Start free, no card required.',
         navHowItWorks: 'How it works',
         navPricing: 'Pricing',
         navWhyVocabularyFirst: 'Why vocabulary first?',

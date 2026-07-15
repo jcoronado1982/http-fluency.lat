@@ -29,7 +29,52 @@
     height: var(--fc-card-base-height, 720px);
     perspective: 1200px;
     margin: 0 auto;
+    position: relative;
     container: flashcard / inline-size;
+}
+
+.srsToggle {
+    position: absolute;
+    z-index: 4;
+    inset-block-start: clamp(12px, 2vw, 20px);
+    inset-inline-start: clamp(12px, 2vw, 20px);
+    inset-inline-end: auto;
+    display: flex;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    border-radius: 9px;
+    background: rgba(15, 23, 42, 0.32);
+    color: rgba(203, 213, 225, 0.62);
+    cursor: pointer;
+    box-shadow: none;
+    opacity: 0.72;
+    transition: background 160ms ease, border-color 160ms ease, color 160ms ease, opacity 160ms ease;
+}
+
+.srsToggle:hover {
+    border-color: rgba(236, 72, 153, 0.48);
+    background: rgba(74, 32, 75, 0.68);
+    color: #f9a8d4;
+    opacity: 1;
+}
+.srsToggle:focus-visible { outline: 2px solid #f9a8d4; outline-offset: 2px; }
+.srsToggle svg { display: block; width: 20px; height: 20px; flex: 0 0 auto; }
+
+@media (max-width: 768px) {
+    .srsToggle {
+        inset-block-start: 12px;
+        inset-inline-start: 12px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+    }
 }
 
 .flashcardContainer[data-variant='demo'] {

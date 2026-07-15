@@ -13,6 +13,7 @@ import FeedbackSection from './features/FeedbackSection';
 import VocabularyFirstSection from './features/VocabularyFirstSection';
 import WhySection from './features/WhySection';
 import { hasDemoFeedbackReturn } from '../../utils/demoFeedbackStorage';
+import useDocumentMeta from '../../hooks/useDocumentMeta';
 import {
     isLandingSectionHash,
     scrollToLandingSection,
@@ -63,6 +64,8 @@ export default function LandingPage() {
     const pricingEnabled = config.features.pricing !== false;
     const { active: activeNav, setActiveSection } = useLandingNavActive();
     const returningForFeedback = hasDemoFeedbackReturn();
+
+    useDocumentMeta({ title: t.metaTitle, description: t.metaDescription, lang: language });
 
     useEffect(() => {
         if (!returningForFeedback) return;

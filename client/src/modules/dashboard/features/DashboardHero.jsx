@@ -12,7 +12,8 @@ import determinantImage from '../../../assets/Determinant.png';
 import phrasalVerbsImage from '../../../assets/Phrasal Verbs.png';
 import { getModuleResumeSession, isDefaultHomeModule } from '../../index';
 import { learningStatsPort } from '../composition';
-import { useDeckFirstImages } from '../hooks/useDeckFirstImages';
+import { getDeckPreviewKey, useDeckFirstImages } from '../hooks/useDeckFirstImages';
+import { useDailyReviewSuggestion } from '../hooks/useDailyReviewSuggestion';
 import {
     computeDashboardLevelProgress,
     computeXp,
@@ -49,6 +50,9 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
     const navigate = useNavigate();
     const session = getModuleResumeSession(config);
     const flashcardPath = isDefaultHomeModule('flashcards', config) ? '/' : '/flashcard';
+    const reviewPath = flashcardPath === '/' ? '/review' : `${flashcardPath}/review`;
+    const dailyReviewSuggestion = useDailyReviewSuggestion(Boolean(userEmail), courseDirection);
+    const { pendingCount: dailyReviewCount, previewCard: dailyReviewPreview } = dailyReviewSuggestion;
 
     const mastered = stats?.mastered_count ?? 0;
     const level = computeDashboardLevelProgress(stats, language);
@@ -59,7 +63,7 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
     const greeting = getTimeGreeting(language, userName);
     const streakMsg = stats ? getStreakMessage(stats, labels) : labels.streakStartShort;
     const carouselItems = useMemo(() => {
-        const items = getDashboardCarouselItems({
+        const studyItems = getDashboardCarouselItems({
             levelId: level.currentLevel,
             currentCategory: session?.category,
             currentSession: session,
@@ -67,8 +71,8 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
             stats,
         });
 
-        if (items.length === 0) {
-            items.push({
+        if (studyItems.length === 0) {
+            studyItems.push({
                 key: 'fallback-nouns',
                 category: 'nouns',
                 categoryLabel: formatCategoryLabel('nouns', language),
@@ -79,10 +83,24 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
             });
         }
 
-        return items;
-    }, [language, labels.defaultDeck, level.currentLevel, session, stats]);
+        if (dailyReviewCount > 0) {
+            const visualSource = studyItems[0];
+            return [{
+                key: 'daily-review',
+                isDailyReview: true,
+                category: dailyReviewPreview?.category || visualSource?.category || 'nouns',
+                deckName: dailyReviewPreview?.deck || visualSource?.deckName || labels.defaultDeck,
+                previewCardIndex: Number.isInteger(dailyReviewPreview?.card_index)
+                    ? dailyReviewPreview.card_index
+                    : undefined,
+                cardsRemaining: dailyReviewCount,
+            }, ...studyItems];
+        }
 
-    const primaryCourse = carouselItems[0];
+        return studyItems;
+    }, [dailyReviewCount, dailyReviewPreview, language, labels.defaultDeck, level.currentLevel, session, stats]);
+
+    const primaryCourse = carouselItems.find((item) => !item.isDailyReview) || carouselItems[0];
 
     const quickAccessItems = useMemo(() => getDashboardQuickAccessItems({
         levelId: level.currentLevel,
@@ -102,7 +120,9 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
 
     const activeCourse = carouselItems[activeSlide] || carouselItems[0];
     const activeCategory = activeCourse?.category || 'nouns';
-    const categoryLabel = activeCourse?.categoryLabel || formatCategoryLabel(activeCategory, language);
+    const categoryLabel = activeCourse?.isDailyReview
+        ? labels.dailyReviewTitle
+        : (activeCourse?.categoryLabel || formatCategoryLabel(activeCategory, language));
 
     /**
      * Imagen de cada recomendación (fix Jul 2026) — orden de resolución:
@@ -120,7 +140,7 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
         userEmail,
         courseDirection,
     );
-    const deckImageFor = (item) => (item ? deckImages[`${item.category}|${item.deckName}`] : null);
+    const deckImageFor = (item) => (item ? deckImages[getDeckPreviewKey(item)] : null);
 
     const courseImage = deckImageFor(activeCourse)
         || activeCourse?.firstImagePath
@@ -133,6 +153,9 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
         || nounsImage;
     const cardsRemaining = activeCourse?.cardsRemaining ?? 0;
     const minutesLeft = estimateMinutesRemaining(cardsRemaining);
+    const activeProgressPercent = activeCourse?.isDailyReview
+        ? Math.min(100, cardsRemaining * 10)
+        : level.levelPercent;
     const canCycleCourses = carouselItems.length > 1;
 
     const openSession = (resumeSession = session) => {
@@ -142,6 +165,14 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
         } else {
             navigate(flashcardPath);
         }
+    };
+
+    const openActiveCourse = () => {
+        if (activeCourse?.isDailyReview) {
+            navigate(reviewPath);
+            return;
+        }
+        openSession(activeCourse?.resumeSession);
     };
 
     const cycleCourse = (direction) => {
@@ -175,10 +206,10 @@ export default function DashboardHero({ stats, statsLoading, labels, language, u
                     courseImage={courseImage}
                     cardsRemaining={cardsRemaining}
                     minutesLeft={minutesLeft}
-                    progressPercent={level.levelPercent}
+                    progressPercent={activeProgressPercent}
                     labels={labels}
                     language={language}
-                    onOpen={() => openSession(activeCourse?.resumeSession)}
+                    onOpen={openActiveCourse}
                 />
 
                 <StatsSideStack

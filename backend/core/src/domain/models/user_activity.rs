@@ -173,6 +173,29 @@ pub struct PaginatedAdminUsers {
 }
 
 #[derive(Debug, Serialize)]
+pub struct CountryCount {
+    pub country: String,
+    pub count: usize,
+}
+
+/// Snapshot agregado de un día (una fila por día, no por usuario/evento).
+/// Se calcula una vez al día a partir de datos ya existentes — ver DailyStatsUseCases.
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct DailyStats {
+    /// Fecha UTC en formato YYYY-MM-DD.
+    pub date: String,
+    /// Usuarios con al menos una tarjeta estudiada ese día (last_study_date == date).
+    pub dau: i32,
+    pub new_signups: i32,
+    pub total_users: i32,
+    /// Usuarios registrados hace más de 7 días que igual estudiaron en los últimos 7 días.
+    /// Proxy barato de retención: "¿los usuarios viejos siguen volviendo?"
+    /// `serde(default)`: filas escritas antes de que este campo existiera no tienen el valor.
+    #[serde(default)]
+    pub retained_7d: i32,
+}
+
+#[derive(Debug, Serialize)]
 pub struct AdminUserActivity {
     pub email: String,
     pub name: String,
@@ -187,4 +210,6 @@ pub struct AdminUserActivity {
     pub browser: Option<String>,
     pub os: Option<String>,
     pub country: Option<String>,
+    /// Días entre el registro y su última actividad conocida (cuánto lleva "vivo").
+    pub retention_days: i64,
 }

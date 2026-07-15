@@ -1,12 +1,13 @@
+use crate::domain::models::srs::{CardProgressUpdate, SrsReviewCandidate};
 use crate::domain::models::story::{ProgressUpdate, StoryScreen, UserProgress};
 use crate::domain::models::subscription::Subscription;
 use crate::domain::models::user::{CatalogPreferences, User};
 use crate::domain::models::user_activity::{
-    build_learning_stats, ClientInfo, LearningStats, UserActivityStats,
+    build_learning_stats, ClientInfo, DailyStats, LearningStats, UserActivityStats,
 };
 use crate::domain::repositories::db_repository::{
-    CardProgressRepository, PronounPracticeRepository, SubscriptionRepository,
-    UserActivityRepository, UserRepository,
+    CardProgressRepository, DailyStatsRepository, PronounPracticeRepository,
+    SubscriptionRepository, UserActivityRepository, UserRepository,
 };
 use anyhow::{anyhow, Result};
 use async_trait::async_trait;
@@ -148,9 +149,19 @@ impl CardProgressRepository for NullDbRepository {
         _user_id: &str,
         _category: &str,
         _deck: &str,
-        _cards: &[(i32, bool)],
+        _cards: &[CardProgressUpdate],
     ) -> Result<()> {
         Ok(())
+    }
+
+    async fn get_srs_review_candidates(
+        &self,
+        _user_id: &str,
+        _category_prefix: &str,
+        _now: chrono::DateTime<chrono::Utc>,
+        _limit: usize,
+    ) -> Result<Vec<SrsReviewCandidate>> {
+        Ok(Vec::new())
     }
 }
 
@@ -268,6 +279,17 @@ impl UserActivityRepository for NullDbRepository {
                 .format("%Y-%m-%d")
                 .to_string(),
         ))
+    }
+}
+
+#[async_trait]
+impl DailyStatsRepository for NullDbRepository {
+    async fn upsert_daily_stats(&self, _stats: DailyStats) -> Result<()> {
+        Ok(())
+    }
+
+    async fn list_daily_stats(&self, _days: usize) -> Result<Vec<DailyStats>> {
+        Ok(vec![])
     }
 }
 

@@ -13,7 +13,8 @@
     "test:deck-session": "node scripts/test-deck-session-use-cases.mjs",
     "test:prefetch-cache": "node scripts/test-image-prefetch-cache.mjs",
     "test:bidirectional": "node scripts/test-bidirectional-study.mjs",
-    "test": "npm run test:routing && npm run test:contracts && npm run test:deck-usecases && npm run test:deck-session && npm run test:prefetch-cache && npm run test:bidirectional",
+    "test:srs": "node scripts/test-srs-engine.mjs",
+    "test": "npm run test:routing && npm run test:contracts && npm run test:deck-usecases && npm run test:deck-session && npm run test:prefetch-cache && npm run test:bidirectional && npm run test:srs",
     "lint": "eslint .",
     "preview": "vite preview"
   },

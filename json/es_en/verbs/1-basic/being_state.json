@@ -14,7 +14,8 @@
         "pronunciation_guide_es": "/shi_IS_a_STUDENT/",
         "usage_context_en": "identity/description",
         "usage_context_es": "identidad/descripción",
-        "usage_example": "She is a student."
+        "usage_example": "She is a student.",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_0_def0.avif"
       },
       {
         "alternative_example": "I am tired today.",
@@ -24,7 +25,8 @@
         "pronunciation_guide_es": "/ui_AR_at_de_PARK/",
         "usage_context_en": "location/state",
         "usage_context_es": "ubicación/estado",
-        "usage_example": "We are at the park."
+        "usage_example": "We are at the park.",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_0_def1.avif"
       }
     ],
     "force_generation": false,
@@ -43,13 +45,15 @@
             "usage_example": "I was a student ten years ago.",
             "usage_example_es": "Yo era estudiante hace diez años.",
             "pronunciation_guide_es": "/ai_UAS_a_STIUdent_ten_IERS_aGOU/",
-            "meaning": "Pasado de Ser (identidad/profesión)"
+            "meaning": "Pasado de Ser (identidad/profesión)",
+            "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_0_def0_v2.avif"
           },
           {
             "usage_example": "We were at the beach last Sunday.",
             "usage_example_es": "Estábamos en la playa el domingo pasado.",
             "pronunciation_guide_es": "/ui_UER_at_de_BICH_last_SANdei/",
-            "meaning": "Pasado de Estar (ubicación)"
+            "meaning": "Pasado de Estar (ubicación)",
+            "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_0_def1_v2.avif"
           }
         ]
       },
@@ -62,13 +66,15 @@
             "usage_example": "She has been a doctor for years.",
             "usage_example_es": "Ella ha sido doctora por años.",
             "pronunciation_guide_es": "/shi_jas_BIN_a_DOKtor_for_IERS/",
-            "meaning": "Participio de Ser"
+            "meaning": "Participio de Ser",
+            "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_0_def0_v3.avif"
           },
           {
             "usage_example": "I have been in London since May.",
             "usage_example_es": "He estado en Londres desde mayo.",
             "pronunciation_guide_es": "/ai_JAV_bin_in_LONdon_sins_MEI/",
-            "meaning": "Participio de Estar"
+            "meaning": "Participio de Estar",
+            "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_0_def1_v3.avif"
           }
         ]
       }
@@ -90,7 +96,8 @@
         "pronunciation_guide_es": "/uer_du_iu_LIV/",
         "usage_context_en": "residence/location",
         "usage_context_es": "residencia/ubicación",
-        "usage_example": "Where do you live?"
+        "usage_example": "Where do you live?",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_1_def0.avif"
       },
       {
         "alternative_example": "We only live once.",
@@ -100,7 +107,8 @@
         "usage_context_en": "existence/experience",
         "usage_context_es": "existencia/experiencia",
         "usage_example": "She lives a very quiet life.",
-        "usage_example_es": "Ella vive una vida muy tranquila."
+        "usage_example_es": "Ella vive una vida muy tranquila.",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_1_def1.avif"
       }
     ],
     "force_generation": false,
@@ -126,7 +134,8 @@
         "pronunciation_guide_es": "/STEI_jir/",
         "usage_context_en": "location/waiting",
         "usage_context_es": "ubicación/espera",
-        "usage_example": "Stay here."
+        "usage_example": "Stay here.",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_2_def0.avif"
       },
       {
         "alternative_example": "We stayed at a small hotel.",
@@ -136,7 +145,8 @@
         "pronunciation_guide_es": "/dei_STEID_kalm_al_nait/",
         "usage_context_en": "travel/state",
         "usage_context_es": "viajes/estado",
-        "usage_example": "They stayed calm all night."
+        "usage_example": "They stayed calm all night.",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_2_def1.avif"
       }
     ],
     "force_generation": false,
@@ -162,7 +172,8 @@
         "usage_context_en": "profession/change",
         "usage_context_es": "profesión/cambio",
         "usage_example": "She wants to become a doctor.",
-        "usage_example_es": "Ella quiere convertirse en doctora."
+        "usage_example_es": "Ella quiere convertirse en doctora.",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_3_def0.avif"
       },
       {
         "alternative_example": "That hat becomes you.",
@@ -172,7 +183,8 @@
         "usage_context_en": "process/suitability",
         "usage_context_es": "proceso/conveniencia",
         "usage_example": "It becomes a habit over time.",
-        "usage_example_es": "Se convierte en un hábito con el tiempo."
+        "usage_example_es": "Se convierte en un hábito con el tiempo.",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_3_def1.avif"
       }
     ],
     "force_generation": false,
@@ -189,7 +201,8 @@
         "usage_example": "He became a teacher.",
         "usage_example_es": "Él se convirtió en profesor.",
         "pronunciation_guide_es": "/ji_biKEIM_a_TICHer/",
-        "meaning": "Pasado de convertirse en"
+        "meaning": "Pasado de convertirse en",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_3_def0_v2.avif"
       },
       "participle": {
         "form": "become",
@@ -198,7 +211,8 @@
         "usage_example": "It has become very cold.",
         "usage_example_es": "Se ha vuelto muy frío.",
         "pronunciation_guide_es": "/it_jas_biKOM_veri_KOULD/",
-        "meaning": "Participio de convertirse en"
+        "meaning": "Participio de convertirse en",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_3_def0_v3.avif"
       }
     },
     "group_name": "Being & State"
@@ -218,7 +232,8 @@
         "usage_context_en": "events/accidents",
         "usage_context_es": "eventos/accidentes",
         "usage_example": "What happened to you?",
-        "usage_example_es": "¿Qué te pasó?"
+        "usage_example_es": "¿Qué te pasó?",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_4_def0.avif"
       },
       {
         "alternative_example": "If you happen to see him, tell him to call me.",
@@ -228,7 +243,8 @@
         "usage_context_en": "chance/coincidence",
         "usage_context_es": "casualidad/coincidencia",
         "usage_example": "I happened to be there when it started.",
-        "usage_example_es": "Casualmente estaba allí cuando comenzó."
+        "usage_example_es": "Casualmente estaba allí cuando comenzó.",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_4_def1.avif"
       }
     ],
     "force_generation": false,
@@ -254,7 +270,8 @@
         "pronunciation_guide_es": "/shi_SIMS_JAPI_tuDEI/",
         "usage_context_en": "appearance/impression",
         "usage_context_es": "apariencia/impresión",
-        "usage_example": "She seems happy today."
+        "usage_example": "She seems happy today.",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_5_def0.avif"
       },
       {
         "alternative_example": "He seemed to be worried.",
@@ -264,7 +281,8 @@
         "pronunciation_guide_es": "/it_SIMS_dat_NOUboDI_is_hir/",
         "usage_context_en": "evidence/state",
         "usage_context_es": "evidencia/estado",
-        "usage_example": "It seems that nobody is here."
+        "usage_example": "It seems that nobody is here.",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_5_def1.avif"
       }
     ],
     "force_generation": false,
@@ -290,7 +308,8 @@
         "pronunciation_guide_es": "/dei_LAFT_at_de_jouk/",
         "usage_context_en": "emotions/jokes",
         "usage_context_es": "emociones/bromas",
-        "usage_example": "They laughed at the joke."
+        "usage_example": "They laughed at the joke.",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_6_def0.avif"
       },
       {
         "alternative_example": "Don't laugh at him.",
@@ -300,7 +319,8 @@
         "pronunciation_guide_es": "/dont_LAF_at_mi/",
         "usage_context_en": "social reactions",
         "usage_context_es": "reacciones sociales",
-        "usage_example": "Don't laugh at me."
+        "usage_example": "Don't laugh at me.",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_6_def1.avif"
       }
     ],
     "force_generation": false,
@@ -326,7 +346,8 @@
         "pronunciation_guide_es": "/dont_CRAI/",
         "usage_context_en": "emotions/children",
         "usage_context_es": "emociones/niños",
-        "usage_example": "Don't cry."
+        "usage_example": "Don't cry.",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_7_def0.avif"
       },
       {
         "alternative_example": "She cried for help.",
@@ -336,7 +357,8 @@
         "pronunciation_guide_es": "/ji_CRAID_for_JELP/",
         "usage_context_en": "emergency/emotion",
         "usage_context_es": "emergencia/emoción",
-        "usage_example": "He cried for help."
+        "usage_example": "He cried for help.",
+        "imagePath": "/card_images/verbs/1-basic/being_state/1-basic_being_state_card_7_def1.avif"
       }
     ],
     "force_generation": false,

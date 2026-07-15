@@ -12,8 +12,10 @@
 }
 
 [data-variant='app'][data-layout='conjugation'] .imagePlaceholder {
+    aspect-ratio: 7 / 4;
+    flex: 0 0 auto;
     margin-top: 10px;
-    flex-shrink: 1;
+    align-self: end;
 }
 
 [data-variant='app'] .imageLoadingOverlay {
@@ -299,7 +301,10 @@
     }
 
     [data-variant='app'][data-layout='conjugation'] .imagePlaceholder {
+        aspect-ratio: 7 / 4;
+        flex: 0 0 auto;
         margin-top: 12px;
+        align-self: end;
     }
 
 }

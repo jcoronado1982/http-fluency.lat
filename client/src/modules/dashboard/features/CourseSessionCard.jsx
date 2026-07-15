@@ -23,12 +23,15 @@ export default function CourseSessionCard({
 }) {
     const previousCourseLabel = language === 'es' ? 'Categoría anterior' : 'Previous category';
     const nextCourseLabel = language === 'es' ? 'Siguiente categoría' : 'Next category';
+    const isDailyReview = Boolean(activeCourse?.isDailyReview);
 
     return (
         <article className="dash-course-card" style={{ '--dash-course-image': `url("${courseImage}")` }}>
             <div className="dash-course-topbar">
                 <span className="dash-course-badge">
-                    {activeCourse?.isCurrentGoal ? labels.currentGoal : categoryLabel}
+                    {isDailyReview
+                        ? labels.dailyReviewBadge
+                        : (activeCourse?.isCurrentGoal ? labels.currentGoal : categoryLabel)}
                 </span>
             </div>
             {canCycleCourses && (
@@ -59,9 +62,11 @@ export default function CourseSessionCard({
                     </div>
                 </>
             )}
-            <h2>{labels.courseTitle.replace('{category}', categoryLabel)}</h2>
+            <h2>{isDailyReview ? labels.dailyReviewTitle : labels.courseTitle.replace('{category}', categoryLabel)}</h2>
             <p>
-                {activeCourse?.resumeSession
+                {isDailyReview
+                    ? labels.dailyReviewMeta
+                    : activeCourse?.resumeSession
                     ? labels.courseMeta
                         .replace('{category}', categoryLabel)
                         .replace('{deck}', activeCourse.deckLabel || activeCourse.deckName || labels.defaultDeck)
@@ -69,9 +74,15 @@ export default function CourseSessionCard({
             </p>
             {cardsRemaining > 0 && (
                 <span className="dash-course-progress-copy">
-                    {labels.cardsRemaining.replace('{n}', String(cardsRemaining))}
-                    {' · '}
-                    {labels.minutesLeft.replace('{n}', String(minutesLeft))}
+                    {isDailyReview
+                        ? labels.dailyReviewCards.replace('{n}', String(cardsRemaining))
+                        : (
+                            <>
+                                {labels.cardsRemaining.replace('{n}', String(cardsRemaining))}
+                                {' · '}
+                                {labels.minutesLeft.replace('{n}', String(minutesLeft))}
+                            </>
+                        )}
                 </span>
             )}
             <div className="dash-course-progress" aria-hidden="true">
@@ -82,7 +93,7 @@ export default function CourseSessionCard({
                 className="dash-course-cta"
                 onClick={onOpen}
             >
-                {labels.continueButton}
+                {isDailyReview ? labels.dailyReviewButton : labels.continueButton}
             </button>
         </article>
     );

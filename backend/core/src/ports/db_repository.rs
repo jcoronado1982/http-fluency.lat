@@ -1,7 +1,10 @@
+use crate::domain::models::srs::{CardProgressUpdate, SrsReviewCandidate};
 use crate::domain::models::story::{ProgressUpdate, StoryScreen, UserProgress};
 use crate::domain::models::subscription::Subscription;
 use crate::domain::models::user::{CatalogPreferences, User};
-use crate::domain::models::user_activity::{ClientInfo, LearningStats, UserActivityStats};
+use crate::domain::models::user_activity::{
+    ClientInfo, DailyStats, LearningStats, UserActivityStats,
+};
 use anyhow::Result;
 use async_trait::async_trait;
 
@@ -44,6 +47,14 @@ pub trait UserActivityRepository: Send + Sync {
         mastered_count: i32,
         target_count: i32,
     ) -> Result<LearningStats>;
+}
+
+#[async_trait]
+pub trait DailyStatsRepository: Send + Sync {
+    /// Sobrescribe (o crea) el snapshot del día indicado en `stats.date`.
+    async fn upsert_daily_stats(&self, stats: DailyStats) -> Result<()>;
+    /// Últimos `days` snapshots, ordenados cronológicamente (más antiguo primero).
+    async fn list_daily_stats(&self, days: usize) -> Result<Vec<DailyStats>>;
 }
 
 #[async_trait]
@@ -91,8 +102,17 @@ pub trait CardProgressRepository: Send + Sync {
         user_id: &str,
         category: &str,
         deck: &str,
-        cards: &[(i32, bool)],
+        cards: &[CardProgressUpdate],
     ) -> Result<()>;
+
+    /// Devuelve solo coordenadas y estado SRS. No calcula urgencia ni arma decks.
+    async fn get_srs_review_candidates(
+        &self,
+        user_id: &str,
+        category_prefix: &str,
+        now: chrono::DateTime<chrono::Utc>,
+        limit: usize,
+    ) -> Result<Vec<SrsReviewCandidate>>;
 }
 
 #[async_trait]

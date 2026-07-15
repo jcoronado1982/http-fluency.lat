@@ -39,6 +39,10 @@ erDiagram
         int card_index
         bool learned
         datetime learned_at
+        int box_level "Opcional; 99 = dominada"
+        float ease_factor "Opcional; calculado en cliente"
+        float interval_days "Opcional; intervalo original SRS"
+        datetime next_review_at "Opcional; calculado en cliente"
     }
 
     stories {
@@ -113,7 +117,10 @@ En SurrealDB, la persistencia se organiza mediante registros orientados a docume
 *   **`subscription`** (ID: `subscription:<email>`): Almacena el estado activo, expirado o cancelado de los planes de facturación vinculados al correo electrónico del usuario.
 
 ### 2. Progreso de Flashcards
-*   **`card_progress`**: Registra qué tarjetas específicas han sido marcadas como aprendidas (`learned: true`) por cada usuario dentro de una categoría y baraja (`deck`) proveniente de los JSONs.
+*   **`card_progress`**: Registra qué tarjetas específicas han sido marcadas como aprendidas (`learned: true`) por cada usuario dentro de una categoría y baraja (`deck`) proveniente de los JSONs. La clave efectiva es `[user_id, course_direction::category, course_direction::deck, card_index]`.
+*   Los campos SRS `box_level`, `ease_factor`, `interval_days` y `next_review_at` son opcionales. El cliente React calcula sus valores; Rust únicamente valida y persiste el batch.
+*   `GET /api/srs/due` devuelve una proyección de coordenadas/estado. El cliente calcula `días de retraso / interval_days`, ordena y crea un mazo temporal de máximo 10 tarjetas.
+*   Las tarjetas aprendidas sin campos SRS se consideran candidatas nuevas y se incorporan gradualmente al repaso. `box_level = 99` las excluye permanentemente del mazo diario.
 
 ### 3. Módulo práctica de pronombres (episodios / pantallas)
 *   **`stories`**: Historias de aventuras disponibles para practicar inglés.

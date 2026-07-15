@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { deckPreviewPort } from '../composition';
-import { extractFirstPendingImage } from '../useCases/deckPreview';
+import { extractCardImage, extractFirstPendingImage } from '../useCases/deckPreview';
 
 /**
  * Orquestación React: resuelve la primera imagen de cada mazo recomendado
@@ -42,10 +42,15 @@ import { extractFirstPendingImage } from '../useCases/deckPreview';
 const FIRST_IMAGE_CACHE_TTL_MS = 2 * 60 * 1000;
 const firstImageCache = new Map(); // 'category|deck' -> { path: string|null, cachedAt: number }
 
+export const getDeckPreviewKey = (item) => {
+    const cardScope = Number.isInteger(item?.previewCardIndex) ? `card-${item.previewCardIndex}` : 'pending';
+    return `${item?.category}|${item?.deckName}|${cardScope}`;
+};
+
 export function useDeckFirstImages(items, userEmail, courseDirection = 'es_en') {
     const [images, setImages] = useState({});
     const signature = items
-        .map((item) => `${item?.category}|${item?.deckName}`)
+        .map(getDeckPreviewKey)
         .join(',');
 
     useEffect(() => {
@@ -54,7 +59,7 @@ export function useDeckFirstImages(items, userEmail, courseDirection = 'es_en') 
 
         items.forEach((item) => {
             if (!item?.category || !item?.deckName) return;
-            const key = `${item.category}|${item.deckName}`;
+            const key = getDeckPreviewKey(item);
 
             const cached = firstImageCache.get(key);
             if (cached && Date.now() - cached.cachedAt < FIRST_IMAGE_CACHE_TTL_MS) {
@@ -65,7 +70,9 @@ export function useDeckFirstImages(items, userEmail, courseDirection = 'es_en') 
             deckPreviewPort
                 .fetchDeckData(userEmail, item.category, item.deckName, courseDirection)
                 .then((data) => {
-                    const rawPath = extractFirstPendingImage(data);
+                    const rawPath = Number.isInteger(item.previewCardIndex)
+                        ? (extractCardImage(data, item.previewCardIndex) || extractFirstPendingImage(data))
+                        : extractFirstPendingImage(data);
                     const path = rawPath ? deckPreviewPort.normalizeImagePath(rawPath) : null;
                     firstImageCache.set(key, { path, cachedAt: Date.now() });
                     if (!cancelled) {

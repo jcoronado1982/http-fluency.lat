@@ -77,7 +77,7 @@ export function createImageHttpAdapter(http) {
         return data;
     },
 
-    // Ruta AVIF global predeterminada (capa compartida por todos los usuarios).
+    // Ruta AVIF global predeterminada (compartida por usuarios e idiomas).
     buildGlobalStoragePath: buildGlobalImageStoragePath,
 
     // Normaliza paths legacy: los JSON antiguos apuntaban a .jpg, pero los assets reales son AVIF.
