@@ -13,8 +13,7 @@
         "usage_context_en": "The time from sunrise to noon",
         "usage_context_es": "El tiempo desde el amanecer hasta el mediodía",
         "usage_example": "I work in the morning.",
-        "usage_example_es": "Trabajo por la mañana.",
-        "imagePath": "/card_images/nouns/1-basic/day_parts/1-basic_day_parts_card_0_def0.avif"
+        "usage_example_es": "Trabajo por la mañana."
       }
     ],
     "force_generation": false,
@@ -39,8 +38,7 @@
         "usage_context_en": "The time from noon to evening",
         "usage_context_es": "El tiempo desde el mediodía hasta el atardecer",
         "usage_example": "See you in the afternoon.",
-        "usage_example_es": "Nos vemos en la tarde.",
-        "imagePath": "/card_images/nouns/1-basic/day_parts/1-basic_day_parts_card_1_def0.avif"
+        "usage_example_es": "Nos vemos en la tarde."
       }
     ],
     "force_generation": false,
@@ -65,8 +63,7 @@
         "usage_context_en": "The time from the end of the day to night",
         "usage_context_es": "El tiempo desde el fin del día hasta la noche",
         "usage_example": "I watch TV in the evening.",
-        "usage_example_es": "Veo televisión por la tarde-noche.",
-        "imagePath": "/card_images/nouns/1-basic/day_parts/1-basic_day_parts_card_2_def0.avif"
+        "usage_example_es": "Veo televisión por la tarde-noche."
       }
     ],
     "force_generation": false,
@@ -91,8 +88,7 @@
         "usage_context_en": "The period of darkness in 24 hours",
         "usage_context_es": "El período de oscuridad en 24 horas",
         "usage_example": "I sleep at night.",
-        "usage_example_es": "Duermo por la noche.",
-        "imagePath": "/card_images/nouns/1-basic/day_parts/1-basic_day_parts_card_3_def0.avif"
+        "usage_example_es": "Duermo por la noche."
       }
     ],
     "force_generation": false,

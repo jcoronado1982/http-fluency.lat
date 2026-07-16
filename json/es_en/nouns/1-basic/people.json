@@ -13,8 +13,7 @@
         "usage_context_en": "A human being",
         "usage_context_es": "Un ser humano",
         "usage_example": "He is a nice person.",
-        "usage_example_es": "Es una buena persona.",
-        "imagePath": "/card_images/nouns/1-basic/people/1-basic_people_card_0_def0.avif"
+        "usage_example_es": "Es una buena persona."
       }
     ],
     "force_generation": false,
@@ -39,8 +38,7 @@
         "usage_context_en": "Plural of person",
         "usage_context_es": "Plural de persona",
         "usage_example": "There are many people here.",
-        "usage_example_es": "Hay mucha gente aquí.",
-        "imagePath": "/card_images/nouns/1-basic/people/1-basic_people_card_1_def0.avif"
+        "usage_example_es": "Hay mucha gente aquí."
       }
     ],
     "force_generation": false,
@@ -65,8 +63,7 @@
         "usage_context_en": "An adult male human",
         "usage_context_es": "Un humano masculino adulto",
         "usage_example": "That man is my father.",
-        "usage_example_es": "Ese hombre es mi padre.",
-        "imagePath": "/card_images/nouns/1-basic/people/1-basic_people_card_2_def0.avif"
+        "usage_example_es": "Ese hombre es mi padre."
       },
       {
         "char_count": "5",
@@ -75,8 +72,7 @@
         "usage_context_en": "Refers to human beings collectively.",
         "usage_context_es": "Se refiere a los seres humanos en conjunto.",
         "usage_example": "Man has always sought knowledge.",
-        "usage_example_es": "El ser humano siempre ha buscado el conocimiento.",
-        "imagePath": "/card_images/nouns/1-basic/people/1-basic_people_card_2_def1.avif"
+        "usage_example_es": "El ser humano siempre ha buscado el conocimiento."
       }
     ],
     "force_generation": false,
@@ -101,8 +97,7 @@
         "usage_context_en": "An adult female human",
         "usage_context_es": "Una humana femenina adulta",
         "usage_example": "She is a smart woman.",
-        "usage_example_es": "Ella es una mujer inteligente.",
-        "imagePath": "/card_images/nouns/1-basic/people/1-basic_people_card_3_def0.avif"
+        "usage_example_es": "Ella es una mujer inteligente."
       }
     ],
     "force_generation": false,
@@ -127,8 +122,7 @@
         "usage_context_en": "A young human being",
         "usage_context_es": "Un ser humano joven",
         "usage_example": "The child is playing.",
-        "usage_example_es": "El niño está jugando.",
-        "imagePath": "/card_images/nouns/1-basic/people/1-basic_people_card_4_def0.avif"
+        "usage_example_es": "El niño está jugando."
       }
     ],
     "force_generation": false,
@@ -153,8 +147,7 @@
         "usage_context_en": "A person you like and know well",
         "usage_context_es": "Una persona que te agrada y conoces bien",
         "usage_example": "She is my best friend.",
-        "usage_example_es": "Ella es mi mejor amiga.",
-        "imagePath": "/card_images/nouns/1-basic/people/1-basic_people_card_5_def0.avif"
+        "usage_example_es": "Ella es mi mejor amiga."
       }
     ],
     "force_generation": false,
@@ -179,8 +172,7 @@
         "usage_context_en": "A male child",
         "usage_context_es": "Un niño varón",
         "usage_example": "The boy is playing.",
-        "usage_example_es": "El niño está jugando.",
-        "imagePath": "/card_images/nouns/1-basic/people/1-basic_people_card_6_def0.avif"
+        "usage_example_es": "El niño está jugando."
       }
     ],
     "force_generation": false,
@@ -205,8 +197,7 @@
         "usage_context_en": "A female child",
         "usage_context_es": "Una niña mujer",
         "usage_example": "The girl is reading.",
-        "usage_example_es": "La niña está leyendo.",
-        "imagePath": "/card_images/nouns/1-basic/people/1-basic_people_card_7_def0.avif"
+        "usage_example_es": "La niña está leyendo."
       }
     ],
     "force_generation": false,
@@ -231,8 +222,7 @@
         "usage_context_en": "A person who lives near you",
         "usage_context_es": "Una persona que vive cerca de ti",
         "usage_example": "My neighbor is very friendly.",
-        "usage_example_es": "Mi vecino es muy amigable.",
-        "imagePath": "/card_images/nouns/1-basic/people/1-basic_people_card_8_def0.avif"
+        "usage_example_es": "Mi vecino es muy amigable."
       }
     ],
     "force_generation": false,
@@ -257,8 +247,7 @@
         "usage_context_en": "A number of people or things together",
         "usage_context_es": "Un número de personas o cosas juntas",
         "usage_example": "A group of people is waiting.",
-        "usage_example_es": "Un grupo de gente está esperando.",
-        "imagePath": "/card_images/nouns/1-basic/people/1-basic_people_card_9_def0.avif"
+        "usage_example_es": "Un grupo de gente está esperando."
       }
     ],
     "force_generation": false,
@@ -283,8 +272,7 @@
         "usage_context_en": "A person visiting you or staying at a hotel",
         "usage_context_es": "Una persona que te visita o se queda en un hotel",
         "usage_example": "We have a guest tonight.",
-        "usage_example_es": "Tenemos un invitado esta noche.",
-        "imagePath": "/card_images/nouns/1-basic/people/1-basic_people_card_10_def0.avif"
+        "usage_example_es": "Tenemos un invitado esta noche."
       }
     ],
     "force_generation": false,

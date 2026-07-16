@@ -13,8 +13,7 @@
         "usage_context_en": "The cause or explanation for something",
         "usage_context_es": "La causa o explicación de algo",
         "usage_example": "What is the reason?",
-        "usage_example_es": "¿Cuál es la razón?",
-        "imagePath": "/card_images/nouns/1-basic/logic_reasoning_e_measurement_quantity/1-basic_logic_reasoning_e_measurement_quantity_card_0_def0.avif"
+        "usage_example_es": "¿Cuál es la razón?"
       }
     ],
     "force_generation": false,
@@ -39,8 +38,7 @@
         "usage_context_en": "How large or small something is",
         "usage_context_es": "Qué tan grande o pequeño es algo",
         "usage_example": "What size do you wear?",
-        "usage_example_es": "¿Qué talla usas?",
-        "imagePath": "/card_images/nouns/1-basic/logic_reasoning_e_measurement_quantity/1-basic_logic_reasoning_e_measurement_quantity_card_1_def0.avif"
+        "usage_example_es": "¿Qué talla usas?"
       }
     ],
     "force_generation": false,
@@ -60,13 +58,12 @@
     "definitions": [
       {
         "char_count": "one",
-        "imagePath": "/card_images/nouns/1-basic/logic_reasoning_e_measurement_quantity/1-basic_logic_reasoning_e_measurement_quantity_card_2_def0.avif",
+        "usage_example_es": "Es un hecho conocido.",
         "meaning": "Hecho",
         "pronunciation_guide_es": "/it_is_a_NOUN_FAKT/",
         "usage_context_en": "Something that is true",
         "usage_context_es": "Algo que es verdad",
-        "usage_example": "It is a known fact.",
-        "usage_example_es": "Es un hecho conocido."
+        "usage_example": "It is a known fact."
       }
     ],
     "force_generation": false,
@@ -91,8 +88,7 @@
         "usage_context_en": "How old someone is",
         "usage_context_es": "Qué tan viejo es alguien",
         "usage_example": "What is your age?",
-        "usage_example_es": "¿Cuál es tu edad?",
-        "imagePath": "/card_images/nouns/1-basic/logic_reasoning_e_measurement_quantity/1-basic_logic_reasoning_e_measurement_quantity_card_3_def0.avif"
+        "usage_example_es": "¿Cuál es tu edad?"
       }
     ],
     "force_generation": false,
@@ -117,8 +113,7 @@
         "usage_context_en": "What is true; opposite of a lie",
         "usage_context_es": "Lo que es cierto; opuesto a una mentira",
         "usage_example": "Tell me the truth.",
-        "usage_example_es": "Dime la verdad.",
-        "imagePath": "/card_images/nouns/1-basic/logic_reasoning_e_measurement_quantity/1-basic_logic_reasoning_e_measurement_quantity_card_4_def0.avif"
+        "usage_example_es": "Dime la verdad."
       }
     ],
     "force_generation": false,
@@ -143,8 +138,7 @@
         "usage_context_en": "A position on a scale; a flat surface",
         "usage_context_es": "Una posición en una escala; una superficie plana",
         "usage_example": "The water level is high.",
-        "usage_example_es": "El nivel del agua está alto.",
-        "imagePath": "/card_images/nouns/1-basic/logic_reasoning_e_measurement_quantity/1-basic_logic_reasoning_e_measurement_quantity_card_5_def0.avif"
+        "usage_example_es": "El nivel del agua está alto."
       }
     ],
     "force_generation": false,
@@ -169,8 +163,7 @@
         "usage_context_en": "Something you say that is not true",
         "usage_context_es": "Algo que dices que no es verdad",
         "usage_example": "That is a lie.",
-        "usage_example_es": "Eso es una mentira.",
-        "imagePath": "/card_images/nouns/1-basic/logic_reasoning_e_measurement_quantity/1-basic_logic_reasoning_e_measurement_quantity_card_6_def0.avif"
+        "usage_example_es": "Eso es una mentira."
       }
     ],
     "force_generation": false,

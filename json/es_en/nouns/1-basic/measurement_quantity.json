@@ -13,8 +13,7 @@
         "usage_context_en": "How large or small something is",
         "usage_context_es": "Qué tan grande o pequeño es algo",
         "usage_example": "What size do you wear?",
-        "usage_example_es": "¿Qué talla usas?",
-        "imagePath": "/card_images/nouns/1-basic/measurement_quantity/1-basic_measurement_quantity_card_0_def0.avif"
+        "usage_example_es": "¿Qué talla usas?"
       }
     ],
     "force_generation": false,
@@ -39,8 +38,7 @@
         "usage_context_en": "How old someone is",
         "usage_context_es": "Qué tan viejo es alguien",
         "usage_example": "What is your age?",
-        "usage_example_es": "¿Cuál es tu edad?",
-        "imagePath": "/card_images/nouns/1-basic/measurement_quantity/1-basic_measurement_quantity_card_1_def0.avif"
+        "usage_example_es": "¿Cuál es tu edad?"
       }
     ],
     "force_generation": false,
@@ -65,8 +63,7 @@
         "usage_context_en": "A position on a scale; a flat surface",
         "usage_context_es": "Una posición en una escala; una superficie plana",
         "usage_example": "The water level is high.",
-        "usage_example_es": "El nivel del agua está alto.",
-        "imagePath": "/card_images/nouns/1-basic/measurement_quantity/1-basic_measurement_quantity_card_2_def0.avif"
+        "usage_example_es": "El nivel del agua está alto."
       }
     ],
     "force_generation": false,
