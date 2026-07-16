@@ -1,6 +1,11 @@
 # 📊 Inventario de Infraestructura (Multi-Cloud)
 
-Este documento detalla las capacidades y roles de todos los servidores activos en el ecosistema Flashcard AI.
+> **PRIMERA fuente para IPs, RAM, CPU, disco, proveedor, usuarios SSH y contenedores.**
+> Prohibido conectarse por SSH a consultar el SO para datos que este documento ya cubre.
+> SSH solo si este doc falla o contradice el runtime — y entonces **se actualiza aquí en el
+> mismo cambio**. Reglas de decisión y presupuesto de RAM: [`AI_OPERATIONS_CONTEXT.md`](AI_OPERATIONS_CONTEXT.md).
+
+Este documento detalla las capacidades y roles de todos los servidores activos en el ecosistema Flashcard AI (marca: Fluency).
 
 ## ☁️ Microsoft Azure
 ### **Worker Native (Alpine)**
@@ -82,6 +87,49 @@ Este documento detalla las capacidades y roles de todos los servidores activos e
 
 ---
 
+## 🖥️ Estación de compilación y generación (LocalBuild — PC dev)
+
+- **Nombre**: agente Azure DevOps del pool `LocalBuild` (PC de desarrollo, Linux).
+- **Rol**: TODA la compilación (frontend Vite/bun + `docker buildx` dual-arch del backend) y
+  TODA la generación de media por lotes. Los servidores cloud de 1 GB jamás compilan ni generan.
+- **Capacidades**:
+  - **RAM**: ~30 GB.
+  - **GPU 0**: NVIDIA RTX 5060 Ti 16 GB → **ComfyUI/Flux** (generación de imágenes), servicio
+    systemd `comfyui.service` con `CUDA_VISIBLE_DEVICES=0`, puerto `127.0.0.1:8188`, flag
+    `--cache-none`, instalado en `/home/jcoronado/Desktop/dev/ComfyUI`.
+  - **GPU 1**: NVIDIA GTX 1660 6 GB → **Ollama/Qwen** (refinado de prompts), override systemd
+    `/etc/systemd/system/ollama.service.d/override.conf` con `CUDA_VISIBLE_DEVICES=1`, puerto `127.0.0.1:11434`.
+  - ⚠️ La separación por GPU resolvió OOMs de torch (jul 2026): no volver a juntar ambos en la GPU 0.
+- **Servicios dev**: backend Rust :8081, Vite :5173, SurrealDB local :8001, Postgres :5432 (ver `start.sh`).
+- **Cachés de build**: Bun + Docker buildx (`gcr.io/launch-490115/flashcard-backend:buildcache`).
+
+---
+
+## 🔒 Red privada WireGuard (AWS ↔ Oracle)
+
+Túnel cifrado para el SCP de assets sin internet pública (~120 ms → ~25 ms).
+Doc completa: [`wireguard-aws-oracle.md`](wireguard-aws-oracle.md).
+
+| Nodo | IP pública | IP túnel |
+|---|---|---|
+| AWS `alpine-aws-01` | `34.229.229.255` | `10.10.0.1/30` |
+| Oracle `server-reverse-proxy` | `157.151.199.170` | `10.10.0.2/30` |
+
+Puerto UDP `51820`, interfaz `wg0`, keepalive 25 s. Setup: `infra/wireguard/setup-tunnel.sh`.
+
+---
+
+## 🐘 Postgres: estado real (veredicto — no reabrir sin evidencia)
+
+- **NO es la base de datos del producto.** La DB activa es SurrealDB 1.5.5 en OCI-1.
+- Postgres existe en 2 sitios: `docker-compose.yml` local (Postgres 15, contenedor
+  `flashcard-db:5432`, lo levanta `start.sh` en dev) y como capacidad prevista en la VM de Azure.
+- **Reservado para la futura capa de pagos/transacciones — aún sin desarrollar** (la dependencia
+  `sqlx` incluso se eliminó del backend en jul 2026).
+- Cualquier doc/skill que trate a Postgres como DB operativa del producto está desactualizada.
+
+---
+
 ## ☁️ Amazon Web Services (AWS)
 ### **Worker Native (Alpine)**
 - **Nombre**: `alpine-aws-01`
@@ -118,9 +166,10 @@ Este documento detalla las capacidades y roles de todos los servidores activos e
 - **dependencies**: [cloud_providers: aws, azure, gcp, oci]
 - **active_vms**:
     - **Azure**: worker-alpine-native-1 (172.202.197.64) | infraestructura auxiliar/futura | 1GB RAM
-    - **AWS**: alpine-aws-01 (34.229.229.255) | overflow worker | 1GB RAM
-    - **Oracle (Proxy)**: server-reverse-proxy (157.151.199.170 / 10.0.1.67) | Caddy + Rust | 1GB RAM
+    - **AWS**: alpine-aws-01 (34.229.229.255, túnel wg 10.10.0.1) | espejo/worker | 1GB RAM
+    - **Oracle (Proxy)**: server-reverse-proxy (157.151.199.170 / 10.0.1.67, túnel wg 10.10.0.2) | Caddy + Rust | 1GB RAM
     - **Oracle (DB)**: server-oci-1 (129.158.214.227 / 10.0.1.138) | SurrealDB :8080 800m | 1GB RAM
+    - **LocalBuild (no cloud)**: PC dev | compilación + ComfyUI/Flux (GPU0 RTX 5060 Ti) + Ollama/Qwen (GPU1 GTX 1660) | 30GB RAM
 - **architecture_doc**: docs/infrastructure/ARQUITECTURA_ORACLE_DB.md
 
 - **update_protocol**: Must be updated whenever an IP changes, a new VM is provisioned, or a VM is destroyed.

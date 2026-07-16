@@ -54,14 +54,21 @@ VITE_DEFAULT_MODULE=pronoun      # práctica o referencia en / (sin landing)
 
 ## Módulos actuales
 
-| Módulo | Backend feature | Frontend flags | Objetivo |
-|--------|-----------------|----------------|----------|
-| `landing` | — | `VITE_ENABLE_LANDING=true` (opt-in) | Página pública en `/` (marketing, sin sidebar) |
-| `pricing` | — | `VITE_ENABLE_PAYMENTS` (opt-out) | Precios y checkout público |
-| `dashboard` | — | `VITE_ENABLE_DASHBOARD` (opt-out) | Shell autenticado + **home** en `/dashboard` (sidebar, header, footer) |
-| `flashcards` | `flashcards` | `VITE_ENABLE_FLASHCARDS` (opt-out) | Flashcards con progreso, imágenes AVIF y audio Opus |
-| `pronoun` | `pronoun_practice` | `VITE_ENABLE_PRONOUN_REFERENCE` (opt-out) + `VITE_ENABLE_PRONOUN_PRACTICE` (opt-in) | Referencia y práctica guiada de pronombres |
-| `admin` | `auth` | `VITE_ENABLE_ADMIN` (opt-out) | Panel admin y presencia (perfil sparse sin módulos de estudio) |
+Cada módulo tiene su documentación propia en `docs/modules/` (paso 3 del protocolo de
+lectura de [`CLAUDE.md`](../CLAUDE.md)): propósito, mapa de archivos, endpoints, dependencias
+y cómo probar. **Lee SOLO la del módulo en que trabajas.**
+
+| Módulo | Doc | Backend feature | Frontend flags | Objetivo |
+|--------|-----|-----------------|----------------|----------|
+| `landing` | [docs/modules/landing.md](../docs/modules/landing.md) | — | `VITE_ENABLE_LANDING=true` (opt-in) | Página pública en `/` (marketing, sin sidebar) |
+| `pricing` | [docs/modules/pricing.md](../docs/modules/pricing.md) | — | `VITE_ENABLE_PAYMENTS` (opt-out) | Precios y checkout público |
+| `dashboard` | [docs/modules/dashboard.md](../docs/modules/dashboard.md) | — | `VITE_ENABLE_DASHBOARD` (opt-out) | Shell autenticado + **home** en `/dashboard` (sidebar, header, footer) |
+| `flashcards` | [docs/modules/flashcards.md](../docs/modules/flashcards.md) | `flashcards` | `VITE_ENABLE_FLASHCARDS` (opt-out) | Flashcards con progreso, imágenes AVIF y audio Opus |
+| `pronoun` | [docs/modules/pronoun.md](../docs/modules/pronoun.md) | `pronoun_practice` | `VITE_ENABLE_PRONOUN_REFERENCE` (opt-out) + `VITE_ENABLE_PRONOUN_PRACTICE` (opt-in) | Referencia y práctica guiada de pronombres |
+| `admin` | [docs/modules/admin.md](../docs/modules/admin.md) | `auth` | `VITE_ENABLE_ADMIN` (opt-out) | Panel admin y presencia (perfil sparse sin módulos de estudio) |
+
+Shell compartido (auth, tutor, registry, layout): [docs/modules/shell-auth.md](../docs/modules/shell-auth.md).
+Tooling de generación de media (no es módulo del registry): [docs/modules/media-generation.md](../docs/modules/media-generation.md).
 
 ## Sparse-checkout (aislamiento físico para IA)
 

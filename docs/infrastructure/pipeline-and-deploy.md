@@ -11,7 +11,7 @@
 - Restricciones de los dos Oracle de 1 GB y protocolo para IA:
   [`AI_OPERATIONS_CONTEXT.md`](AI_OPERATIONS_CONTEXT.md)
 - Runtime Oracle / audio / Caddy: [`oracle-local-backend-deploy.md`](oracle-local-backend-deploy.md)
-- Inventario servidores: [`INFRASTRUCTURE.md`](../../INFRASTRUCTURE.md)
+- Inventario servidores: [`server_inventory.md`](server_inventory.md)
 - Scripts de deploy: `infra/proxy/*.sh`
 
 ---

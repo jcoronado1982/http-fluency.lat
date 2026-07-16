@@ -470,6 +470,27 @@ Matiz aceptado (no es desviación de capa): `api_main/src/api/endpoints/generati
 ## 9. Módulos actuales
 
 Ver tabla actualizada en [modules/README.md](../modules/README.md).
+Plano detallado de cada módulo (contratos, mapa de archivos, invariantes): [docs/modules/](modules/).
+
+## 9b. Plano de conjunto (C4 — contenedores)
+
+```mermaid
+flowchart TB
+    U((Usuario)) --> CF[Cloudflare<br/>solo prod, media versionada]
+    CF --> CADDY[Caddy caddy-smart<br/>Oracle Proxy 157.151.199.170<br/>SPA + /card_* + /json + SSL]
+    U -.->|qa.fluency.lat DNS-only| CADDY
+    CADDY -->|/api si ORACLE_HEALTHY| BE[Backend Rust prod :8080<br/>límite 512m]
+    CADDY -.->|overflow RAM| GCP[GCP Cloud Run<br/>scale-to-zero]
+    CADDY -.->|rama qa| QA[Backend QA :8081<br/>límite 128m]
+    BE -->|VCN privada| DB[(SurrealDB 1.5.5<br/>OCI-1 10.0.1.138:8080<br/>límite 800m)]
+    BE --> DISK[/repositorio en disco<br/>json · card_audio · card_images/]
+    AWS[Espejo AWS<br/>34.229.229.255] -->|WireGuard 10.10.0.0/30<br/>SYNC_TO_ORACLE=true| DISK
+    LB[LocalBuild PC dev ~30GB<br/>compila TODO + genera media<br/>GPU0 Flux · GPU1 Qwen] -->|Azure Pipelines<br/>artefactos + imágenes GCR| CADDY
+```
+
+Cada caja de módulo del frontend/backend se detalla en su plano de [docs/modules/](modules/);
+los datos de máquina (IPs, RAM, specs) son canónicos en
+[infrastructure/server_inventory.md](infrastructure/server_inventory.md).
 
 ---
 

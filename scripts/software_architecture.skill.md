@@ -7,7 +7,7 @@ Este documento define la filosofía de diseño y los patrones arquitectónicos d
 ## 1. 🏗️ Stack Tecnológico
 - **Frontend:** React + Vite + Bun (Elegido por velocidad de build y ejecución).
 - **Backend:** Rust (Axum) - Migrado de Python para garantizar seguridad de memoria y alto rendimiento.
-- **Base de Datos:** PostgreSQL (Oracle Cloud).
+- **Base de Datos:** SurrealDB 1.5.5 (Oracle Cloud, `server-oci-1` — VCN privada). Postgres solo es infraestructura futura para pagos, sin desarrollar.
 - **IA:** Integración nativa con Gemini 3.1 y Flux 2 para generación de contenido.
 
 ---

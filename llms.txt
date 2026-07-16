@@ -1,121 +1,68 @@
 # Fluency (antes Flashcard AI)
 
-> Plataforma de aprendizaje de inglés en [fluency.lat](https://fluency.lat). Backend modular Rust + React 19.
+> Plataforma de aprendizaje de idiomas en [fluency.lat](https://fluency.lat). Monolito modular:
+> backend Rust (Axum, Clean/Hexagonal) + frontend React 19 (Vite, módulos por registry).
+> Base de datos: **SurrealDB 1.5.5** (server-oci-1, VCN privada). Auth: **Google OAuth 2.0 → JWT**.
+> Infra multi-cloud (Oracle proxy+DB, GCP overflow, AWS espejo, Azure CI/CD) en VMs de 1 GB.
+
+**Punto de entrada canónico de la documentación: [CLAUDE.md](CLAUDE.md)** (raíz del repo).
+Este archivo es su espejo mínimo para agentes que no lo cargan automáticamente.
+
+## Protocolo de lectura obligatorio (antes de desarrollar)
+
+1. Arquitectura: [docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md)
+2. Registry de módulos (estado y flags): [modules/README.md](modules/README.md)
+3. Doc del módulo en que trabajas — SOLO ese: [docs/modules/](docs/modules/)
+   (no leas docs de otros módulos salvo dependencia declarada)
+4. Al código guiado por el "Mapa de archivos" de la doc del módulo — sin exploración a ciegas.
+
+Además, [CLAUDE.md](CLAUDE.md) define **hojas de ruta por tarea** (frontend, backend, servidores,
+pipeline, DB, media, QA→prod): rutas cerradas de 3-4 documentos con paso 0 = sparse-checkout y
+lista explícita de a dónde NO entrar. Síguelas — no explorar para "orientarse".
+
+## Regla doc-first de infraestructura
+
+- IPs, RAM, CPU, proveedor, contenedores: leer PRIMERO
+  [docs/infrastructure/server_inventory.md](docs/infrastructure/server_inventory.md).
+  Prohibido SSH para consultar datos que esa doc ya cubre.
+- SSH/consola solo como fallback si la doc falta o contradice el runtime; lo descubierto se
+  guarda en la doc en el mismo cambio.
+- Antes de tocar infra/rendimiento/caché/pipeline: leer
+  [docs/infrastructure/AI_OPERATIONS_CONTEXT.md](docs/infrastructure/AI_OPERATIONS_CONTEXT.md).
+
+## Regla de cierre
+
+Un trabajo no está terminado hasta: (1) testear, (2) actualizar el plano del módulo
+(`docs/modules/<módulo>.md`) en el mismo cambio, (3) `./scripts/verify-blueprints.sh` en verde.
+Si los tests pasan pero la realidad falla: verificar en vivo, arreglar, y actualizar doc + test.
 
 ## Documentación principal
-- [**Deploy, repo y Azure DevOps**](docs/DEPLOY_Y_REPOSITORIO.md): Repo `http-fluency.lat`, pipeline `jcoronado1982.fluency`, ramas `main`/`qa`.
-- [**Pipeline y Deploy — LEER PRIMERO para CI/CD**](docs/infrastructure/pipeline-and-deploy.md): LocalBuild compila, Oracle despliega, secretos vía Azure DevOps.
-- [**Oracle Local Backend — Runtime en producción**](docs/infrastructure/oracle-local-backend-deploy.md): API → localhost:8080, SYNC_TO_ORACLE=false, audio en disco local.
-- [INFRASTRUCTURE.md](INFRASTRUCTURE.md): Inventario servidores, diagnóstico, despliegue manual.
-- [Guía de Arquitectura y Despliegue](TECHNICAL_DOCS.md): Estructura del sistema, configuración de red y procesos de CI/CD.
-- [Especificación del Módulo Sentinel](SENTINEL_SPEC.md): Referencia técnica detallada sobre el monitoreo de RAM y gating de tráfico.
-- [Reporte de Incidentes](INCIDENT_REPORT_2026_05_03.md): Historial de fallos críticos y sus resoluciones sistémicas.
-- [Mapa de Secretos e IPs](SECRETS_MAP.md): (LOCAL ONLY) Credenciales reales para acceso SSH y DB. Consultar SIEMPRE antes de operar.
-- [Skill de Conexión Cloud](scripts/cloud_connections.skill.md): Métodos de conexión (MCP y SDK) para Azure, GCP y Oracle Cloud (OCI).
-- [Guía de Recuperación SSH (GCP)](docs/infrastructure/gcp_ssh_recovery_guide.md): Procedimiento de rescate para instancias Alpine sin agente de Google.
-- [Skill de Operaciones](scripts/infrastructure_operations.skill.md): Manual de decisiones para DB, Despliegue y Sentinel.
-- [Skill de Arquitectura](scripts/software_architecture.skill.md): Filosofía Clean, SOLID y diseño del sistema Sentinel.
-- [Biblioteca de Errores](scripts/troubleshooting_library.skill.md): Registro de lecciones aprendidas e incidentes técnicos.
-- [Skill de Rutinas](scripts/routine_operations.skill.md): Comandos para limpieza, reset de DB y cambio de entorno.
 
+- [CLAUDE.md](CLAUDE.md): protocolo completo + índice maestro "si vas a X → lee Y".
+- [client/CLAUDE.md](client/CLAUDE.md): frontend (leer completo antes de tocar `client/`).
+- [backend/CLAUDE.md](backend/CLAUDE.md): backend Rust (workspace, endpoints, adapters).
+- [docs/infrastructure/pipeline-and-deploy.md](docs/infrastructure/pipeline-and-deploy.md): CI/CD canónico.
+- [docs/QA_TO_PROD_FLOW.md](docs/QA_TO_PROD_FLOW.md): promoción QA → producción.
+- [docs/DEPLOY_Y_REPOSITORIO.md](docs/DEPLOY_Y_REPOSITORIO.md): repo Git, ramas, Azure DevOps.
+- [database_schema_diagram.md](database_schema_diagram.md): esquema SurrealDB.
+- [docs/infrastructure/media-delivery-cache.md](docs/infrastructure/media-delivery-cache.md): entrega/caché de imágenes y audio.
+- [SECRETS_MAP.md](SECRETS_MAP.md): (LOCAL ONLY) credenciales SSH y DB.
+- [scripts/cloud_connections.skill.md](scripts/cloud_connections.skill.md): conexión a Azure/GCP/OCI/AWS.
+- [scripts/routine_operations.skill.md](scripts/routine_operations.skill.md): operaciones rutinarias.
+- [scripts/troubleshooting_library.skill.md](scripts/troubleshooting_library.skill.md): lecciones aprendidas.
 
-## 🧠 Protocolo de Atención Modular (Para IAs)
+## Hechos que NO deben contradecirse
 
-**REGLA ESTRICTA**: Aísla contexto por módulo de negocio usando sparse-checkout:
+- La DB activa del producto es SurrealDB 1.5.5; PostgreSQL solo existe en docker-compose local,
+  reservado para pagos futuros, sin desarrollar.
+- Hay autenticación: Google OAuth 2.0 → JWT (`backend/mod_shell/src/auth.rs`).
+- El backend primario de producción corre en el Oracle Proxy (`157.151.199.170`); GCP Cloud Run
+  es overflow y AWS es espejo.
+- El único pipeline vigente es `azure-pipelines.yml`; ramas que despliegan: `qa` y `main`.
+- `docs/archive/` es histórico: no describe el estado vigente.
 
-```bash
-./scripts/sparse-module.sh list
-./scripts/sparse-module.sh flashcards   # o pronoun, o ambos
-```
+## Estado
 
-Documentación canónica: [docs/ARQUITECTURA_MODULAR.md](docs/ARQUITECTURA_MODULAR.md), [modules/README.md](modules/README.md), [docs/MAPA_DOMINIOS.md](docs/MAPA_DOMINIOS.md).
-
-1. **Módulo activo**: Solo lee shell + archivos del módulo en disco (registry: `scripts/module_registry.sh`).
-2. **Infraestructura**: `docs/infrastructure/pipeline-and-deploy.md`, `INFRASTRUCTURE.md`.
-3. **No cargar** módulos ausentes tras sparse-checkout.
-
-## Conceptos clave
-- **Sentinel**: Sistema de monitoreo bidireccional que actúa como cortafuegos basado en recursos de hardware.
-- **Fail-Safe Gating**: Estrategia de seguridad que bloquea el tráfico por defecto si el monitor de salud falla.
-- **Smart Asset Proxying**: Backend que gestiona redirecciones seguras hacia Google Cloud Storage.
-- **SPA Rewrite**: Configuración de Caddy para redirigir rutas de React al index.html automáticamente.
-- **RAM Responder**: Script ligero en el servidor de base de datos que informa el estado de memoria vía socat.
-
-## Capabilities
-- Generar imágenes contextuales mediante Gemini y GCS.
-- Sintetizar audio de alta calidad para pronunciación de vocabulario.
-- Monitorear en tiempo real la disponibilidad de RAM en nodos remotos.
-- Bloquear tráfico entrante de forma selectiva durante picos de carga.
-- Desplegar automáticamente frontend y backend mediante Azure Pipelines.
-
-## Limitations
-- No incluye sistema de autenticación de usuarios (acceso público).
-- El progreso del módulo pronoun cae a SQLite efímero si no hay SurrealDB.
-- El despliegue de base de datos y scripts de monitoreo es manual (vía SSH).
-- Dependencia directa de la disponibilidad de la API de Gemini para generación de nuevos assets.
-
-## Stack tecnológico
-- Lenguaje: Rust (Backend), JavaScript (Frontend)
-- Framework: Axum (API), React + Vite (UI)
-- Base de datos: PostgreSQL 15
-- Infraestructura: Google Cloud Run, Google Cloud Storage, Caddy Proxy, Oracle Cloud Infrastructure (OCI)
-
-## Estado actual
-Version: 2.0.0 (arquitectura modular)
-Última actualización: 2026-06-18
-Estado: Producción en fluency.lat — repo `http-fluency.lat`, pipeline `jcoronado1982.fluency`
-
-## Pipeline y deploy (Jun 2026 — resumen para IAs)
-- **Repo:** `github.com/jcoronado1982/http-fluency.lat`
-- **Ramas dev:** `dev-flashcards`, `dev-pronoun`, `dev-admin` → integración **`dev-full`** → `qa` → `main`
-- **Compilación:** pool `LocalBuild` — front + `docker buildx` amd64/arm64 → GCR
-- **Deploy:** pool `Default` (Oracle) — serializado 3→4→5; mirrors Oracle→OCI-1→AWS
-- **Secretos:** Variable Group `Flashcard-Secrets`
-- **Docs:** `docs/DEPLOY_Y_REPOSITORIO.md`, `docs/infrastructure/pipeline-and-deploy.md`
-
-## Cambios arquitecturales — 2026-06-04 (Clean Architecture 100%)
-- **Backend primario migrado a AWS** (`34.229.229.255:8080`, t3.micro, free 24/7)
-- **Cloud Run** ahora es overflow automático (solo se usa si AWS falla)
-- **PostgreSQL** vive en Azure VM (`172.202.197.64:5432`, nativo Alpine)
-- **Oracle Proxy** gestiona routing via `/tmp/AWS_HEALTHY` + `aws-health-monitor.sh`
-- **Dockerfile** actualizado: incluye `sshpass` + `openssh-client` para leer JSON del Oracle
-- **Pipeline** Stage 4-E: despliega imagen validada a AWS tras Cloud Run OK
-- Ver `SESSION_2026_06_04.md` para detalles completos, pendientes y comandos de verificación
-
-## Optimizaciones de red y latencia — 2026-06-04 (v1.5.0)
-### Backend (Rust)
-- **gRPC binario para Gemini**: `GeminiGrpcProvider` reemplaza REST/JSON. Usa `tonic` + tipos protobuf inline (`prost::Message`), sin `protoc` del sistema. Channel HTTP/2 persistente con TLS keep-alive.
-- **gRPC binario para TTS**: `TtsGrpcProvider` reemplaza REST/JSON. Audio OGG llega como bytes directos en el proto — elimina `base64::decode()` en cada síntesis.
-- **Pool HTTP persistente en `LocalStorageRepository`**: Un `reqwest::Client` compartido para todas las llamadas a Oracle CDN. TCP keep-alive + TLS session reuse (antes: nuevo cliente por llamada).
-- **SSH ControlMaster**: Proceso maestro SSH arranca en background al iniciar el backend. Todos los SCP reutilizan el socket mux (~30 ms vs ~800 ms anteriores).
-- **moka cache**: `deck_cache` (TTL 5 min, 150 entradas máx ≈ 7.5 MB) + `list_cache` (TTL 10 min, 50 entradas) en `LocalStorageRepository`. Hit = 0 ms, no hay RTT a Oracle.
-- **Tokio runtime tuneado**: `thread_stack_size = 512 KB` (default 2 MB), `worker_threads = min(cpus,4)` configurable via `TOKIO_WORKER_THREADS`.
-- **tower-http**: `CompressionLayer` (gzip+brotli) + `TimeoutLayer(120 s)` en stack global.
-- **SSE broadcast**: Buffer aumentado de 100 a 1000 slots.
-### Infraestructura
-- **WireGuard**: Script en `infra/wireguard/setup-tunnel.sh`. Túnel privado AWS (10.10.0.1) ↔ Oracle (10.10.0.2). Ejecutar en ambos nodos para activar. Latencia SCP pasa de ~120 ms (pública) a ~25 ms (privada).
-- **Dependencias nuevas**: `tonic 0.12`, `prost 0.13`, `moka 0.12`, `http 1`, `num_cpus 1`, `tower-http` features `timeout+compression-gzip+compression-br`, `reqwest` features `stream+rustls-tls`.
-
-## Refactoring Clean Architecture + SOLID — 2026-06-04
-### Backend (Rust)
-- **Nuevo puerto `ImageCompressor`** (`domain/repositories/image_compressor.rs`): abstracción pura para compresión AVIF.
-- **Nuevo adaptador `AvifCompressor`** (`infrastructure/ai/avif_compressor.rs`): implementación concreta detrás del puerto.
-- **Nuevo caso de uso `MediaUseCases`** (`application/use_cases/media_use_cases.rs`): toda la lógica de síntesis de audio, generación/subida/borrado de imágenes extraída de los handlers HTTP.
-- **`generation.rs` convertido a adaptador delgado**: los handlers solo mapean HTTP ↔ MediaUseCases.
-- **`batch.rs` corregido**: ya no importa de `api::endpoints`; usa `MediaUseCases` directamente.
-- **`story_use_cases.rs` corregido**: ya no importa de `infrastructure::ai::compress`; usa el puerto `ImageCompressor`.
-- **URL hardcodeada eliminada**: `public_base_url` añadido a `Settings` (env var `PUBLIC_BASE_URL`).
-- **DTOs de transporte movidos**: `UpdateStatusRequest` y `ResetRequest` ahora viven en `api/endpoints/decks.rs`, no en el dominio.
-- **`AppState` adelgazado**: solo expone use cases (`deck`, `tutor`, `media`, `story`, `auth`) — ningún puerto de infraestructura crudo.
-- **`assets.rs` corregido**: URLs hardcodeadas reemplazadas con `settings.public_base_url`.
-### Frontend (React)
-- **`httpClient.js`** (`services/`): cliente HTTP unificado que inyecta `Authorization: Bearer` automáticamente.
-- **`flashcardRepository.js`** actualizado para usar `httpClient`.
-- **`tutorRepository.js`** nuevo (`repositories/`): centraliza llamadas a `/api/analyze-error` y `/api/explain-like-child`.
-- **`StoryArcadePage.jsx`**: `fetch` directos al tutor reemplazados por `tutorRepository`.
-- **Guest-admin** restringido a `import.meta.env.DEV`.
-
-## Pipeline & Compilación Optimizada ARM/AMD64 — 2026-06-06
-- **Corrección de Buildx**: Añadido `make`, `g++`, y `g++-aarch64-linux-gnu` al builder stage en `backend/Dockerfile` para solventar fallos en el build de dependencias nativas (ej. `openssl` con feature `vendored`).
-- **Optimización de Microarquitectura**: Compilación armada con `-C target-cpu=neoverse-n1` para ARM64 y `-C target-cpu=x86-64-v3` para AMD64 (Cascade Lake/GCP Cloud Run), maximizando vectorización y extensiones del set de instrucciones moderno.
-- **Perfil de Release Agresivo**: Configurado LTO fat, `codegen-units = 1`, `panic = "abort"`, y eliminación automática de símbolos (`strip = true`) en `backend/Cargo.toml` para reducir al mínimo el tamaño de la imagen Docker final y aumentar el rendimiento.
+- Marca: fluency.lat (nombre interno legado: flashcard, conservado en paths/imágenes Docker).
+- Repo: `github.com/jcoronado1982/http-fluency.lat` — pipeline Azure DevOps `jcoronado1982.fluency`.
+- Última actualización de este archivo: 2026-07-16.
