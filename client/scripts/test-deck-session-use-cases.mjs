@@ -4,6 +4,7 @@ import {
   computeFilteredAfterLearn,
   computeNextIndex,
   getGroupLearnedCards,
+  resolveResumeCardIndex,
   resetGroupInDeck,
   updateCardImageInDeck,
 } from '../src/modules/flashcards/useCases/deckSessionUseCases.js';
@@ -73,5 +74,19 @@ assert.deepEqual(partial.remaining.map((c) => c.id), [1]);
 assert.equal(computeNextIndex(1, 3), 1);
 assert.equal(computeNextIndex(2, 2), 1);  // se aprendió la última ⇒ apunta a la nueva última
 assert.equal(computeNextIndex(0, 0), 0);  // deck vacío no da índice negativo
+
+// La identidad semántica gana a un id posicional obsoleto tras reordenar el catálogo.
+const reordered = [
+  { id: 0, name: 'hand' },
+  { id: 1, name: 'eye' },
+];
+assert.equal(resolveResumeCardIndex(reordered, {
+  cardId: 1,
+  cardIndex: 1,
+  cardWord: 'hand',
+}), 0);
+// Si no hay identidad guardada, conserva compatibilidad con id e índice.
+assert.equal(resolveResumeCardIndex(reordered, { cardId: 1 }), 1);
+assert.equal(resolveResumeCardIndex(reordered, { cardIndex: 99 }), 1);
 
 console.log('✅ test-deck-session-use-cases: todos los asserts pasaron');

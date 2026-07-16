@@ -593,8 +593,10 @@ export function useImageGeneration({
             return;
         }
 
-        // Paso 3: get-or-generate (solo si no existe ninguna variante)
-        if (canGenerateImages && AI_ENABLED && (forceRegenerate || isLandingDemo)) {
+        // La generación con IA ocurre únicamente por una acción explícita del
+        // usuario (Generar/Regenerar o aplicar un prompt en la demo). Una imagen
+        // ausente durante la carga normal termina en el placeholder.
+        if (canGenerateImages && AI_ENABLED && forceRegenerate) {
             // forceGeneration queda reservado para acciones explícitas del usuario.
             // Si solo falta la ruta nueva, backend primero intenta migrar una imagen legacy.
             const shouldForceGenerate = forceRegenerate;
@@ -653,24 +655,19 @@ export function useImageGeneration({
     }, [ensureImageForDefinition]);
 
     const handleImageError = useCallback(() => {
-        if (isTransitioningRef.current) return;
-
         const defIndex = currentDefIndexRef.current;
-        const path = confirmedPathRef.current;
-        if (!path) return;
-
-        const retryKey = path.split('?')[0];
-        if (!imageAttempts.current[`retry_${retryKey}`]) {
-            imageAttempts.current[`retry_${retryKey}`] = 1;
-            setImageFromPath(path, defIndex, true, activeFormRef.current);
-            setAppMessage({ text: `Reintentando imagen (Def ${defIndex + 1})...`, isError: false });
-            return;
-        }
-
+        // Un error del <img> significa que la ruta no está disponible. La carga
+        // automática no debe convertir ese fallo en una generación con IA: al
+        // limpiar la URL, ImageViewer muestra inmediatamente /noimages.png.
         confirmedPathRef.current = null;
         imageUrlRef.current = null;
-        ensureImageForDefinition(defIndex, { forceRegenerate: true });
-    }, [setImageFromPath, ensureImageForDefinition, setAppMessage]);
+        setImageUrl(null);
+        setIsImageLoading(false);
+        setIsGeneratingImage(false);
+        isTransitioningRef.current = false;
+        clearGeneratingUiTimer();
+        setAppMessage({ text: `Imagen no disponible (Def ${defIndex + 1})`, isError: false });
+    }, [clearGeneratingUiTimer, setAppMessage, setIsImageLoading]);
 
     const prevCardIdRef = useRef(null);
 
@@ -770,28 +767,6 @@ export function useImageGeneration({
         abortImageRequest();
         clearGeneratingUiTimer();
     }, [abortImageRequest, clearGeneratingUiTimer]);
-
-    // Demo landing: reintentar si el backend aún no estaba listo al montar
-    useEffect(() => {
-        if (!isLandingDemo || authLoading || !cardData || !currentCategory) return undefined;
-        if (imageUrlRef.current || isImageLoading || isGeneratingImage) return undefined;
-
-        const timer = setTimeout(() => {
-            if (!imageUrlRef.current && !isTransitioningRef.current) {
-                ensureImageForDefinition(currentDefIndexRef.current);
-            }
-        }, 4000);
-
-        return () => clearTimeout(timer);
-    }, [
-        isLandingDemo,
-        authLoading,
-        cardData,
-        currentCategory,
-        isImageLoading,
-        isGeneratingImage,
-        ensureImageForDefinition,
-    ]);
 
     const deleteImage = useCallback(async () => {
         const activeDefs = getActiveDefinitions();

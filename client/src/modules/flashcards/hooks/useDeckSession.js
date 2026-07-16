@@ -22,6 +22,7 @@ import {
     computeFilteredAfterLearn,
     computeNextIndex,
     getGroupLearnedCards,
+    resolveResumeCardIndex,
     resetGroupInDeck,
     updateCardImageInDeck,
 } from '../useCases/deckSessionUseCases';
@@ -394,15 +395,7 @@ export function useDeckSession(resumeSession = null) {
             return;
         }
 
-        let nextIndex = 0;
-        if (typeof resumeSession.cardId === 'number') {
-            const byId = remaining.findIndex((card) => card.id === resumeSession.cardId);
-            if (byId >= 0) nextIndex = byId;
-        } else if (typeof resumeSession.cardIndex === 'number') {
-            nextIndex = Math.min(resumeSession.cardIndex, remaining.length - 1);
-        }
-
-        setCurrentIndex(nextIndex);
+        setCurrentIndex(resolveResumeCardIndex(remaining, resumeSession));
         setResumeApplied(true);
     }, [
         resumeApplied,
