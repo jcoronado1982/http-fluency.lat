@@ -97,41 +97,11 @@ pub struct SrsDueQuery {
     pub limit: usize,
 }
 
-fn default_srs_candidate_limit() -> usize {
-    5_000
-}
-
-fn default_include_counts() -> bool {
-    true
-}
-
-/// POST /api/update-batch — persiste hasta BATCH_SIZE tarjetas en una sola petición.
-pub async fn update_cards_batch(
-    State(state): State<AppState>,
-    headers: axum::http::HeaderMap,
-    Json(payload): Json<UpdateBatchRequest>,
-) -> Result<impl IntoResponse, (StatusCode, String)> {
-    use crate::api::middleware::auth::extract_claims;
-    let claims = extract_claims(&state, &headers)?;
-    if claims.role != "admin" && claims.email != payload.user_id {
-        return Err((StatusCode::FORBIDDEN, "No autorizado".to_string()));
-    }
-    if payload.cards.is_empty() {
-        return Ok((
-            StatusCode::OK,
-            Json(serde_json::json!({ "success": true, "saved": 0 })),
-        )
-            .into_response());
-    }
-    const MAX_BATCH: usize = 50;
-    if payload.cards.len() > MAX_BATCH {
-        return Err((
-            StatusCode::BAD_REQUEST,
-            format!("El lote no puede superar {} tarjetas", MAX_BATCH),
-        ));
-    }
-    let mut updates = Vec::with_capacity(payload.cards.len());
-    for card in &payload.cards {
+fn build_progress_updates(
+    cards: &[CardUpdateItem],
+) -> Result<Vec<CardProgressUpdate>, (StatusCode, String)> {
+    let mut updates = Vec::with_capacity(cards.len());
+    for card in cards {
         let has_srs = card.box_level.is_some()
             || card.ease_factor.is_some()
             || card.interval_days.is_some()
@@ -190,6 +160,43 @@ pub async fn update_cards_batch(
             srs,
         });
     }
+    Ok(updates)
+}
+
+fn default_srs_candidate_limit() -> usize {
+    5_000
+}
+
+fn default_include_counts() -> bool {
+    true
+}
+
+/// POST /api/update-batch — persiste hasta BATCH_SIZE tarjetas en una sola petición.
+pub async fn update_cards_batch(
+    State(state): State<AppState>,
+    headers: axum::http::HeaderMap,
+    Json(payload): Json<UpdateBatchRequest>,
+) -> Result<impl IntoResponse, (StatusCode, String)> {
+    use crate::api::middleware::auth::extract_claims;
+    let claims = extract_claims(&state, &headers)?;
+    if claims.role != "admin" && claims.email != payload.user_id {
+        return Err((StatusCode::FORBIDDEN, "No autorizado".to_string()));
+    }
+    if payload.cards.is_empty() {
+        return Ok((
+            StatusCode::OK,
+            Json(serde_json::json!({ "success": true, "saved": 0 })),
+        )
+            .into_response());
+    }
+    const MAX_BATCH: usize = 50;
+    if payload.cards.len() > MAX_BATCH {
+        return Err((
+            StatusCode::BAD_REQUEST,
+            format!("El lote no puede superar {} tarjetas", MAX_BATCH),
+        ));
+    }
+    let updates = build_progress_updates(&payload.cards)?;
     match state
         .deck_use_cases
         .update_cards_batch(
@@ -368,7 +375,11 @@ pub async fn reset_all_statuses(
     let reset_result = if payload.scope.as_deref() == Some("category") {
         state
             .deck_use_cases
-            .reset_category_status(&payload.user_id, &payload.category, &payload.course_direction)
+            .reset_category_status(
+                &payload.user_id,
+                &payload.category,
+                &payload.course_direction,
+            )
             .await
     } else {
         state
@@ -427,5 +438,106 @@ pub async fn touch_study_day(
     match state.deck_use_cases.touch_study_day(&claims.email).await {
         Ok(_) => Ok((StatusCode::OK, Json(serde_json::json!({ "success": true }))).into_response()),
         Err(e) => Err((StatusCode::INTERNAL_SERVER_ERROR, e.to_string())),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use proptest::prelude::*;
+
+    fn card(index: usize) -> CardUpdateItem {
+        CardUpdateItem {
+            index,
+            learned: false,
+            box_level: None,
+            ease_factor: None,
+            interval_days: None,
+            next_review_at: None,
+        }
+    }
+
+    #[test]
+    fn plain_and_mastered_updates_preserve_the_contract() {
+        let mut mastered = card(9);
+        mastered.learned = true;
+        mastered.box_level = Some(99);
+        mastered.ease_factor = Some(2.5);
+        mastered.interval_days = Some(365.0);
+
+        let updates = build_progress_updates(&[card(3), mastered]).expect("valid updates");
+        assert_eq!(updates[0].card_index, 3);
+        assert!(updates[0].srs.is_none());
+        assert_eq!(updates[1].srs.as_ref().map(|srs| srs.box_level), Some(99));
+        assert!(updates[1].srs.as_ref().unwrap().next_review_at.is_none());
+    }
+
+    #[test]
+    fn incomplete_and_out_of_range_srs_states_are_rejected() {
+        let mut incomplete = card(1);
+        incomplete.box_level = Some(1);
+        assert_eq!(
+            build_progress_updates(&[incomplete]).unwrap_err().1,
+            "ease_factor es obligatorio en una actualización SRS"
+        );
+
+        let invalid_states = [
+            (-1, 2.5, 1.0),
+            (100, 2.5, 1.0),
+            (1, 1.29, 1.0),
+            (1, 5.01, 1.0),
+            (1, 2.5, 0.99),
+            (1, 2.5, 36_501.0),
+        ];
+        for (box_level, ease_factor, interval_days) in invalid_states {
+            let mut invalid = card(1);
+            invalid.box_level = Some(box_level);
+            invalid.ease_factor = Some(ease_factor);
+            invalid.interval_days = Some(interval_days);
+            invalid.next_review_at = Some(chrono::Utc::now());
+            assert_eq!(
+                build_progress_updates(&[invalid]).unwrap_err().1,
+                "Estado SRS inválido"
+            );
+        }
+    }
+
+    #[test]
+    fn non_mastered_srs_requires_a_due_date() {
+        let mut update = card(1);
+        update.box_level = Some(2);
+        update.ease_factor = Some(2.5);
+        update.interval_days = Some(3.0);
+        assert!(build_progress_updates(&[update])
+            .unwrap_err()
+            .1
+            .contains("next_review_at"));
+    }
+
+    proptest! {
+        #[test]
+        fn every_valid_srs_state_round_trips(
+            index in 0usize..=i32::MAX as usize,
+            box_level in 0i32..99,
+            ease_factor in 1.3f64..=5.0,
+            interval_days in 1.0f64..=36_500.0,
+        ) {
+            let due = chrono::Utc::now() + chrono::Duration::days(1);
+            let update = CardUpdateItem {
+                index,
+                learned: false,
+                box_level: Some(box_level),
+                ease_factor: Some(ease_factor),
+                interval_days: Some(interval_days),
+                next_review_at: Some(due),
+            };
+            let result = build_progress_updates(&[update]).expect("generated valid state");
+            let persisted = result[0].srs.as_ref().expect("SRS schedule");
+            prop_assert_eq!(result[0].card_index, index as i32);
+            prop_assert_eq!(persisted.box_level, box_level);
+            prop_assert_eq!(persisted.ease_factor, ease_factor);
+            prop_assert_eq!(persisted.interval_days, interval_days);
+            prop_assert_eq!(persisted.next_review_at, Some(due));
+        }
     }
 }

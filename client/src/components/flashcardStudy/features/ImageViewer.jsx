@@ -7,7 +7,7 @@ import { FiCpu } from 'react-icons/fi';
  * ImageViewer — responsable ÚNICAMENTE de la visualización y controles de imagen.
  * SRP: no conoce lógica de formas verbales ni audio.
  */
-function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl, imageRef, altText, onDelete, onRegenerate, onUploadClick, onImageError, canCustomizeImages, canDeleteImages = canCustomizeImages, isDisabled, imageKey, isLandingDemo = false }) {
+function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl, imageRef, altText, onDelete, onRegenerate, onUploadClick, onImageError, canCustomizeImages, canDeleteImages = canCustomizeImages, isDisabled, imageKey }) {
     const isProcessActive = isImageLoading || isUploading;
     const [isDecoding, setIsDecoding] = useState(true);
     const activeUrlRef = useRef(imageUrl);
@@ -37,22 +37,22 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
             setIsDecoding(false);
         }
         
-        // Fallback de seguridad: si el navegador se queda "colgado" decodificando (bug de Chrome con AVIF),
-        // quitamos el loader después de 5 segundos para que no quede la pantalla bloqueada.
+        // Si el navegador queda bloqueado cargando/decodificando la imagen,
+        // se considera no disponible y el padre cambia al placeholder.
         timeout = setTimeout(() => {
-            setIsDecoding((prev) => {
-                if (prev) {
-                    console.warn('Timeout decodificando imagen, forzando visualización:', imageUrl);
-                    return false;
-                }
-                return prev;
-            });
+            if (activeUrlRef.current !== imageUrl) return;
+            const currentImage = imageRef?.current;
+            if (!currentImage?.complete || currentImage.naturalWidth === 0) {
+                console.warn('Timeout cargando imagen, mostrando placeholder:', imageUrl);
+                setIsDecoding(false);
+                onImageError?.();
+            }
         }, 5000);
         
         return () => {
             if (timeout) clearTimeout(timeout);
         };
-    }, [imageUrl, imageKey, imageRef]);
+    }, [imageUrl, imageKey, imageRef, onImageError]);
 
     const showLoader = isProcessActive || (imageUrl && isDecoding);
     const showImageControls = imageUrl && !isProcessActive;
@@ -151,7 +151,7 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
                     onError={handleImageError}
                     style={{ '--image-opacity': isDecoding ? 0 : 1 }}
                 />
-            ) : !isProcessActive && !isLandingDemo && (
+            ) : !isProcessActive && (
                 <img
                     src="/noimages.png"
                     alt="Image not available"

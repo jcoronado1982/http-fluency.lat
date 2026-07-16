@@ -54,3 +54,35 @@ export const computeFilteredAfterLearn = (masterData, cardId, selectedGroup) => 
 
 export const computeNextIndex = (currentIndex, remainingLength) =>
     currentIndex >= remainingLength ? Math.max(0, remainingLength - 1) : currentIndex;
+
+const normalizeCardIdentity = (value) => String(value || '').trim().toLocaleLowerCase();
+
+const getCardIdentity = (card) => normalizeCardIdentity(
+    card?.word || card?.name || card?.translation,
+);
+
+/**
+ * Restaura la misma tarjeta aunque el catálogo haya cambiado de orden.
+ * `cardId` es solo una coordenada posicional y puede quedar obsoleta después
+ * de una migración; `cardWord` conserva la identidad semántica del contenido.
+ */
+export const resolveResumeCardIndex = (cards, resumeSession) => {
+    if (!Array.isArray(cards) || cards.length === 0) return 0;
+
+    const savedIdentity = normalizeCardIdentity(resumeSession?.cardWord);
+    if (savedIdentity) {
+        const byIdentity = cards.findIndex((card) => getCardIdentity(card) === savedIdentity);
+        if (byIdentity >= 0) return byIdentity;
+    }
+
+    if (typeof resumeSession?.cardId === 'number') {
+        const byId = cards.findIndex((card) => card.id === resumeSession.cardId);
+        if (byId >= 0) return byId;
+    }
+
+    if (typeof resumeSession?.cardIndex === 'number') {
+        return Math.min(Math.max(0, resumeSession.cardIndex), cards.length - 1);
+    }
+
+    return 0;
+};

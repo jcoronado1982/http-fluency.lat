@@ -4,20 +4,25 @@ Este manual define los procedimientos estándar para la gestión del proyecto Fl
 
 ---
 
-## 1. 🗄️ Gestión de Base de Datos (PostgreSQL)
+## 1. 🗄️ Gestión de Base de Datos (SurrealDB)
 
-### Datos de Destino
-- **Host:** `172.202.197.64` (Azure - worker-alpine-native-1)
-- **Base de Datos:** `flashcard_db`
-- **Puerto:** `5432`
+### Datos de Destino (DB activa del producto)
+- **Motor:** SurrealDB 1.5.5 (RocksDB) — namespace `flashcard` (prod) / `qa_flashcard` (QA).
+- **Host:** `server-oci-1` — VCN privada `10.0.1.138:8080` (pública `129.158.214.227`, solo SSH).
+- **Acceso:** desde el Oracle Proxy (punto de entrada SSH); credenciales en `SECRETS_MAP.md`.
+- **Quirks 1.5.5:** funciones string en camelCase (`string::startsWith`), índices de UN solo campo,
+  transacciones multi-statement en una sola query. Detalle: `docs/infrastructure/ARQUITECTURA_ORACLE_DB.md`.
 
-### Lógica de Ejecución
-1. **Prioridad 1 (MCP):** Usar la herramienta `db_query` del servidor MCP personalizado en Rust.
-2. **Prioridad 2 (Directo):** Si el MCP falla, usar la herramienta `az_cli` u `oci_cli` para abrir túneles o usar `ssh` con las llaves de `SECRETS_MAP.md`.
+> ⚠️ **PostgreSQL NO es la DB del producto**: existe solo en `docker-compose.yml` local y como
+> capacidad futura para pagos (sin desarrollar). Veredicto completo:
+> `docs/infrastructure/server_inventory.md` §Postgres. Cualquier procedimiento que apunte a
+> `flashcard_db:5432` en Azure como DB operativa es legado.
 
 ### Reglas de Seguridad
-- **Validación de Esquema:** Antes de cualquier `ALTER` o `CREATE`, leer el archivo `schema.sql`.
-- **Sentinel Check:** Ejecutar siempre la herramienta `sentinel_health` antes de operaciones masivas. Si la RAM libre es < 10%, ABORTAR operación.
+- **Doc-first:** IPs/specs SIEMPRE de `docs/infrastructure/server_inventory.md`, no de SSH.
+- **Esquema:** antes de `DEFINE`/cambios, leer `database_schema_diagram.md`.
+- **RAM:** OCI-1 tiene 1 GB (límite Docker 800m). Antes de operaciones masivas, leer
+  `docs/infrastructure/AI_OPERATIONS_CONTEXT.md`; si la RAM libre es crítica, ABORTAR.
 
 ---
 

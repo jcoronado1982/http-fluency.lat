@@ -40,6 +40,13 @@ fluency_core = { path = "../core" }
 mod_shell = { path = "../mod_shell" }
 mod_flashcards = { path = "../mod_flashcards", optional = true }
 
+[dev-dependencies]
+# tests de handlers en memoria: router de Axum + tower::ServiceExt::oneshot (sin puerto ni proceso)
+tower = { version = "0.4", features = ["util"] }
+http-body-util = "0.1"
+insta.workspace = true
+proptest.workspace = true
+
 [features]
 default = ["flashcards", "auth"]
 flashcards = ["mod_flashcards"]

@@ -13,8 +13,7 @@
         "usage_context_en": "A device for talking to people far away",
         "usage_context_es": "Un dispositivo para hablar con gente lejana",
         "usage_example": "My phone is ringing.",
-        "usage_example_es": "Mi teléfono está sonando.",
-        "imagePath": "/card_images/nouns/1-basic/personal_items/1-basic_personal_items_card_0_def0.avif"
+        "usage_example_es": "Mi teléfono está sonando."
       }
     ],
     "force_generation": false,
@@ -39,8 +38,7 @@
         "usage_context_en": "A soft container for carrying things",
         "usage_context_es": "Un contenedor suave para llevar cosas",
         "usage_example": "My keys are in my bag.",
-        "usage_example_es": "Mis llaves están en mi bolso.",
-        "imagePath": "/card_images/nouns/1-basic/personal_items/1-basic_personal_items_card_1_def0.avif"
+        "usage_example_es": "Mis llaves están en mi bolso."
       }
     ],
     "force_generation": false,
@@ -60,13 +58,12 @@
     "definitions": [
       {
         "char_count": "one",
-        "imagePath": "/card_images/nouns/1-basic/personal_items/1-basic_personal_items_card_2_def0.avif",
+        "usage_example_es": "Un anillo de bodas.",
         "meaning": "Anillo",
         "pronunciation_guide_es": "/a_UEDing_RING/",
         "usage_context_en": "A piece of jewelry worn on the finger",
         "usage_context_es": "Una joya que se lleva en el dedo",
-        "usage_example": "A wedding ring.",
-        "usage_example_es": "Un anillo de bodas."
+        "usage_example": "A wedding ring."
       }
     ],
     "force_generation": false,
@@ -91,8 +88,7 @@
         "usage_context_en": "A small clock worn on the wrist",
         "usage_context_es": "Un pequeño reloj que se lleva en la muñeca",
         "usage_example": "I looked at my watch.",
-        "usage_example_es": "Miré mi reloj.",
-        "imagePath": "/card_images/nouns/1-basic/personal_items/1-basic_personal_items_card_3_def0.avif"
+        "usage_example_es": "Miré mi reloj."
       }
     ],
     "force_generation": false,
@@ -117,8 +113,7 @@
         "usage_context_en": "A small case for holding money and cards",
         "usage_context_es": "Un estuche pequeño para guardar dinero y tarjetas",
         "usage_example": "My wallet is empty.",
-        "usage_example_es": "Mi billetera está vacía.",
-        "imagePath": "/card_images/nouns/1-basic/personal_items/1-basic_personal_items_card_4_def0.avif"
+        "usage_example_es": "Mi billetera está vacía."
       }
     ],
     "force_generation": false,
@@ -143,8 +138,7 @@
         "usage_context_en": "A tool used for protection from rain or sun",
         "usage_context_es": "Una herramienta usada para protegerse de la lluvia o el sol",
         "usage_example": "Take an umbrella, it is raining.",
-        "usage_example_es": "Lleva un paraguas, está lloviendo.",
-        "imagePath": "/card_images/nouns/1-basic/personal_items/1-basic_personal_items_card_5_def0.avif"
+        "usage_example_es": "Lleva un paraguas, está lloviendo."
       }
     ],
     "force_generation": false,
@@ -169,8 +163,7 @@
         "usage_context_en": "A device for taking photographs",
         "usage_context_es": "Un dispositivo para tomar fotografías",
         "usage_example": "I have a new camera.",
-        "usage_example_es": "Tengo una cámara nueva.",
-        "imagePath": "/card_images/nouns/1-basic/personal_items/1-basic_personal_items_card_6_def0.avif"
+        "usage_example_es": "Tengo una cámara nueva."
       }
     ],
     "force_generation": false,

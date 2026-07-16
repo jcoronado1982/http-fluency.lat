@@ -13,8 +13,7 @@
         "usage_context_en": "A large body of salt water",
         "usage_context_es": "Un gran cuerpo de agua salada",
         "usage_example": "The sea is calm today.",
-        "usage_example_es": "El mar está en calma hoy.",
-        "imagePath": "/card_images/nouns/1-basic/oceans_seas/1-basic_oceans_seas_card_0_def0.avif"
+        "usage_example_es": "El mar está en calma hoy."
       }
     ],
     "force_generation": false,
@@ -39,8 +38,7 @@
         "usage_context_en": "A very large sea",
         "usage_context_es": "Un mar muy grande",
         "usage_example": "The Pacific Ocean is very big.",
-        "usage_example_es": "El Océano Pacífico es muy grande.",
-        "imagePath": "/card_images/nouns/1-basic/oceans_seas/1-basic_oceans_seas_card_1_def0.avif"
+        "usage_example_es": "El Océano Pacífico es muy grande."
       }
     ],
     "force_generation": false,

@@ -1,32 +1,61 @@
-# Mapa de Dominios y Archivos del Proyecto
+# Mapa de Dominios y Rutas
 
-Mapa de ruta para IA y desarrolladores. Antes de editar un dominio, consulta también [docs/ARQUITECTURA_MODULAR.md](ARQUITECTURA_MODULAR.md) y usa sparse-checkout si solo necesitas un módulo:
+> Canónico para: dominios servidos y rutas URL del frontend. Los mapas de archivos por módulo
+> viven en [`docs/modules/`](modules/) (uno por módulo); el registry canónico en
+> [`modules/README.md`](../modules/README.md). Última revisión: 2026-07-16.
+
+Antes de editar un módulo, sigue el protocolo de [`CLAUDE.md`](../CLAUDE.md) y usa sparse-checkout:
 
 ```bash
-./scripts/sparse-module.sh flashcards   # o pronoun
+./scripts/sparse-module.sh flashcards   # o landing|pricing|dashboard|pronoun|admin
 ```
+
+---
+
+## Dominios servidos por Caddy (`infra/proxy/Caddyfile`)
+
+| Dominio | Qué sirve |
+|---|---|
+| `fluency.lat`, `www.fluency.lat` | Producción Fluency (proxy naranja Cloudflare) |
+| `qa.fluency.lat` | Pre-producción (DNS-only, directo a Oracle, sin CDN) |
+| `theruby.lat` | Portfolio — **fuera del producto Fluency**, mismo Caddy |
+| `bill.theruby.lat` / `bill.fluency.lat` | Subdominio portfolio (fuera de Fluency) |
+| `talent.theruby.lat` / `talent.fluency.lat` | Subdominio portfolio (fuera de Fluency) |
+| `map.theruby.lat` / `map.fluency.lat` | Subdominio portfolio (fuera de Fluency) |
 
 ---
 
 ## Módulos de negocio (registry)
 
-| Registry ID | Sparse | Backend | Frontend |
-|-------------|--------|---------|----------|
-| `landing` | `./scripts/sparse-module.sh landing` | — (solo frontend) | `client/src/modules/landing/` |
-| `pricing` | `./scripts/sparse-module.sh pricing` | — (solo frontend) | `client/src/modules/pricing/` |
-| `dashboard` | `./scripts/sparse-module.sh dashboard` | — (solo frontend) | `client/src/modules/dashboard/` (sidebar, header, footer) |
-| `flashcards` | `./scripts/sparse-module.sh flashcards` | `backend/mod_flashcards`, rutas en `api_main/src/modules/flashcards.rs` | `client/src/modules/flashcards/` |
-| `pronoun` | `./scripts/sparse-module.sh pronoun` | `backend/mod_pronoun` (crate `pronoun_practice`), `api_main/src/modules/pronoun_practice.rs` | `client/src/modules/pronounPractice/` |
+Tabla canónica (flags, features, estado): [`modules/README.md`](../modules/README.md).
+Doc detallada por módulo (propósito, mapa de archivos, endpoints, dependencias):
 
-Shell compartido: `backend/core`, `backend/api_main`, `client/src/modules/index.js`, layout, auth.
-Casos de uso compartidos del shell: `backend/mod_shell`.
+| Módulo | Doc |
+|---|---|
+| `landing` | [modules/landing.md](modules/landing.md) |
+| `pricing` | [modules/pricing.md](modules/pricing.md) |
+| `dashboard` | [modules/dashboard.md](modules/dashboard.md) |
+| `flashcards` | [modules/flashcards.md](modules/flashcards.md) |
+| `pronoun` | [modules/pronoun.md](modules/pronoun.md) |
+| `admin` | [modules/admin.md](modules/admin.md) |
+| shell + auth | [modules/shell-auth.md](modules/shell-auth.md) |
+| media (tooling) | [modules/media-generation.md](modules/media-generation.md) |
 
 ---
 
 ## Rutas frontend (referencia rápida)
 
-Lógica pura testeable: `client/src/modules/routingPaths.js`  
+Lógica pura testeable: `client/src/modules/routingPaths.js`
 Resolución en runtime: `client/src/modules/index.js` (`getAuthenticatedHomePath`, `getDefaultAppPath`)
+
+| URL | Quién | Qué muestra |
+|-----|--------|-------------|
+| `/` | Público | Landing (o módulo default si no hay landing) |
+| `/pricing`, `/checkout` | Público | Planes y checkout |
+| `/login` | Público | Login Google |
+| `/dashboard` | Autenticado | Home del dashboard (hub) |
+| `/flashcard` | Autenticado | Módulo flashcards |
+| `/pronoun-practice` | Autenticado | Práctica de pronombres |
 
 | Función | Uso |
 |---------|-----|
@@ -37,118 +66,8 @@ Resolución en runtime: `client/src/modules/index.js` (`getAuthenticatedHomePath
 
 ---
 
-### Dashboard (módulo `dashboard`)
+## Infraestructura
 
-**Frontend**
-- `client/src/modules/dashboard/index.jsx` — manifest, ruta `/dashboard`, nav “Panel”
-- `client/src/modules/dashboard/DashboardShell.jsx` — layout con `<Outlet />` (árbol estable, sin remount)
-- `client/src/modules/dashboard/DashboardHome.jsx` — hub post-login (tarjetas a módulos)
-- `client/src/modules/dashboard/layout/` — Sidebar, Header, Footer, FloatingMenu
-- `client/src/modules/dashboard/config/translations.js` — i18n del módulo
-
-**Shell compartido (routing)**
-- `client/src/App.jsx` — rutas `bare` vs `app`, `AppFallback`
-- `client/src/components/routing/SafeRedirect.jsx`
-- `client/src/components/shell/BareLayout.jsx`, `MinimalAppShell.jsx`
-- `client/src/pages/LoginPage.jsx` — redirige a `getAuthenticatedHomePath()` tras auth
-
----
-
-### Landing (módulo `landing`)
-
-**Frontend**
-- `client/src/modules/landing/` — página pública en `/` (`layout: 'bare'`)
-- Si el usuario ya está autenticado en `/`, redirige a `/dashboard`
-
-### Pricing (módulo `pricing`)
-
-**Frontend**
-- `client/src/modules/pricing/` — precios y checkout público (`/pricing`, `/checkout`)
-- `client/src/modules/pricing/config/` — navegación pública y catálogo del módulo
-- `client/src/modules/pricing/useCases/checkoutForm.js` — formateo y validación de checkout
-
----
-
-### Flashcards (módulo `flashcards`)
-
-**Backend**
-- `backend/core/src/domain/models/flashcard.rs`
-- `backend/core/src/ports/db_repository.rs` (`CardProgressRepository`)
-- `backend/mod_flashcards/src/lib.rs` (`DeckUseCases`)
-- `backend/mod_flashcards/src/audio_use_cases.rs`
-- `backend/mod_flashcards/src/image_use_cases.rs`
-- `backend/api_main/src/api/endpoints/decks.rs`
-- `backend/api_main/src/api/endpoints/generation.rs` (feature `flashcards`)
-- `backend/api_main/src/modules/flashcards.rs`
-
-**Frontend**
-- `client/src/modules/flashcards/` — index, page, context, **ports/**, **adapters/**, **useCases/**, **composition.js**, **config/** (`catalogOrder`, `translations`), componentes UI
-- `client/src/config/api.js` — re-export shell (`API_URL`, `AI_ENABLED`)
-
----
-
-### Pronombres / práctica guiada (módulo `pronoun`)
-
-**Backend**
-- `backend/core/src/domain/models/story.rs`
-- `backend/core/src/ports/db_repository.rs` (`PronounPracticeRepository`)
-- `backend/mod_pronoun/src/lib.rs` (`StoryUseCases`)
-- `backend/api_main/src/api/endpoints/pronoun_practice.rs`
-- `backend/api_main/src/modules/pronoun_practice.rs`
-
-**Frontend**
-- `client/src/modules/pronounPractice/`
-- `client/src/modules/pronounPractice/composition.js` — wiring storyPort + tutorPort
-- `client/src/modules/pronounPractice/queries/storyQueries.js` — React Query
-- `client/src/modules/pronounPractice/domain/pronounReferenceData.js` — tabla de referencia
-- `client/src/modules/pronounPractice/CoursePage.jsx` — referencia
-- `client/src/modules/pronounPractice/PracticePage.jsx` — práctica guiada (orquestador)
-- `client/src/modules/pronounPractice/hooks/useStorySession.js` — lógica de sesión
-- `client/src/modules/pronounPractice/features/practice/` — subcomponentes UI
-
----
-
-### Tutor IA (shell)
-
-- `backend/core/src/ports/tutor.rs`
-- `backend/api_main/src/infrastructure/ai/gemini_grpc_provider.rs`
-- `backend/mod_shell/src/tutor_use_cases.rs`
-- `backend/api_main/src/api/endpoints/tutor.rs`
-- `client/src/modules/pronounPractice/adapters/tutorHttpAdapter.js` (consumido vía `tutorPort`)
-
----
-
-### Audio e imágenes (módulo flashcards)
-
-- `backend/mod_flashcards/src/audio_use_cases.rs`
-- `backend/mod_flashcards/src/image_use_cases.rs`
-- `backend/api_main/src/infrastructure/ai/routing_tts_provider.rs` — router TTS (Gemini/Cloud)
-- `backend/api_main/src/infrastructure/ai/elevenlabs_tts_provider.rs` — solo `landing-demo`
-- `client/src/modules/flashcards/adapters/audioHttpAdapter.js`
-- `client/src/modules/flashcards/adapters/imageHttpAdapter.js`
-
----
-
-### Auth y usuarios (shell, feature `auth`)
-
-- `backend/core/src/domain/models/user.rs`
-- `backend/mod_shell/src/auth.rs`
-- `backend/api_main/src/api/endpoints/auth.rs`
-- `client/src/context/AuthContext.jsx`
-- `client/src/pages/LoginPage.jsx`
-
----
-
-### Suscripciones (shell, feature `subscriptions`)
-
-- `backend/mod_shell/src/subscription_use_cases.rs`
-- `backend/api_main/src/api/endpoints/admin.rs`
-- `client/src/pages/AdminPage.jsx`
-
----
-
-### Infraestructura
-
-- `INFRASTRUCTURE.md`
-- `docs/infrastructure/pipeline-and-deploy.md`
-- `azure-pipelines.yml`, `start.sh`, `docker-compose.yml`
+- Inventario de servidores (IPs, specs): [`infrastructure/server_inventory.md`](infrastructure/server_inventory.md)
+- Pipeline CI/CD: [`infrastructure/pipeline-and-deploy.md`](infrastructure/pipeline-and-deploy.md)
+- Código ejecutable: `azure-pipelines.yml`, `start.sh`, `docker-compose.yml`, `infra/proxy/Caddyfile`

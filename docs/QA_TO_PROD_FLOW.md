@@ -1,5 +1,9 @@
 # Flujo de Despliegue: De QA a Producción
 
+> Canónico del pipeline: [`infrastructure/pipeline-and-deploy.md`](infrastructure/pipeline-and-deploy.md).
+> Este documento solo cubre el procedimiento de promoción `qa` → `main` (PR, merge, verificación).
+> Última revisión: 2026-07-16.
+
 Este documento detalla el procedimiento estándar y seguro para promover cambios que ya han sido probados y validados en el entorno de **QA** (`https://qa.fluency.lat`) hacia el entorno de **Producción** (`https://fluency.lat`).
 
 ---

@@ -69,6 +69,7 @@ case "$mode" in
     exit 0
     ;;
   full)
+    "$SCRIPT_DIR/test-sparse-safety.sh"
     git -C "$REPO_ROOT" sparse-checkout disable
     clear_sparse_state
     bash "$SCRIPT_DIR/sparse-cargo-sync.sh" full
@@ -94,6 +95,7 @@ trap 'rm -f "$tmp_patterns"' EXIT
 
 module_all_patterns "${selected_modules[@]}" > "$tmp_patterns"
 
+"$SCRIPT_DIR/test-sparse-safety.sh"
 git -C "$REPO_ROOT" sparse-checkout init --no-cone
 git -C "$REPO_ROOT" sparse-checkout set --stdin < "$tmp_patterns"
 

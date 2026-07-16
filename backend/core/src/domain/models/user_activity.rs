@@ -129,6 +129,7 @@ pub fn build_learning_stats(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use proptest::prelude::*;
 
     #[test]
     fn streak_is_active_when_studied_today() {
@@ -161,6 +162,21 @@ mod tests {
     fn computes_days_since_last_study() {
         let days = compute_days_since_last_study(Some("2026-06-20"), "2026-06-23");
         assert_eq!(days, Some(3));
+    }
+
+    proptest! {
+        #[test]
+        fn streak_display_never_returns_negative_days(stored_streak in any::<i32>()) {
+            let (days, studied_today, at_risk) = compute_streak_display(
+                Some("2026-06-23"),
+                stored_streak,
+                "2026-06-23",
+                "2026-06-22",
+            );
+            prop_assert!(days >= 0);
+            prop_assert!(studied_today);
+            prop_assert!(!at_risk);
+        }
     }
 }
 
