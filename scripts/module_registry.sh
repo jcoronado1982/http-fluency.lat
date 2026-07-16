@@ -155,7 +155,11 @@ shared_sparse_patterns() {
   cat <<'EOF'
 README.md
 CLAUDE.md
+AGENTS.md
+GEMINI.md
 llms.txt
+.cursorrules
+.github/copilot-instructions.md
 CODEBASE.md
 SECRETS_MAP.md
 database_schema_diagram.md
