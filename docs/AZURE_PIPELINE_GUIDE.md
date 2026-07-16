@@ -1,7 +1,10 @@
 # 📘 Guía de Azure Pipelines — Flashcard Project
 
-> **Lectura obligatoria para cualquier IA o desarrollador antes de modificar `azure-pipelines.yml`.**
-> Esta guía refleja lecciones aprendidas de errores reales en producción.
+> Canónico: [`infrastructure/pipeline-and-deploy.md`](infrastructure/pipeline-and-deploy.md). Este
+> documento solo profundiza en la configuración de Azure DevOps (sintaxis YAML, pools, service
+> connections, lecciones de errores reales). Ante conflicto, manda el canónico. Última revisión: 2026-07-16.
+>
+> **Lectura obligatoria antes de modificar `azure-pipelines.yml`.**
 
 ---
 

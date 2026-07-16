@@ -6,6 +6,16 @@ Este documento es una base de conocimientos dinámica de errores técnicos, bugs
 
 ## 🛑 Incidentes de Infraestructura
 
+### 0. Post-mortems completos (en `docs/archive/`)
+- [Audio mudo en modo Oracle (`ORACLE_REPOSITORY_ONLY`)](../docs/archive/INCIDENT_REPORT_AUDIO_ORACLE_MODE_2026-07.md) — 2026-07. Lección vigente: el backend del Oracle Proxy DEBE llevar `ORACLE_REPOSITORY_ONLY=false` (el default `true` del binario rompe todo lookup por prefijo).
+- [Bloqueo de IA / migración Gemini 3.1](../docs/archive/INCIDENT_REPORT_GEMINI_LEAK_2026.md) — 2026.
+- [Revisión de infra/pipeline en vivo](../docs/archive/reviews/2026-07-11-revision-infra-pipeline.md) — 2026-07-11.
+
+### 0b. Migración de pipeline a Azure (2026-05-07) — 3 lecciones
+- **SSL Mode con Postgres en Alpine**: el servidor tenía SSL deshabilitado y `sqlx` negocia SSL por defecto → `password authentication failed`. Solución: `?sslmode=disable` en `DATABASE_URL`. *(Contexto histórico: Postgres ya no es la DB del producto.)*
+- **Zombie Build por caché Docker**: la pre-compilación con `main.rs` vacío + mtimes hacía que Docker no invalidara la caché y desplegara el binario vacío (contenedor moría sin logs). Solución: `COPY . .` + `cargo build` directo, sin truco de mtimes.
+- **Errores de compilación ocultos** tras el zombie build. Protocolo: `cargo check` local SIEMPRE antes de push; si Cloud Run falla sin logs, sospechar binario corrupto/vacío por caché.
+
 ### 1. Error de Permisos en Cloud Run (Cross-Project)
 - **Fecha:** 2026-05-04
 - **Error:** `ERROR: (gcloud.run.deploy) Google Cloud Run Service Agent ... must have permission to read the image...`

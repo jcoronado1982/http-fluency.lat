@@ -1,5 +1,9 @@
 # Arquitectura Oracle + SurrealDB (Jun 2026)
 
+> Canónico de IPs/specs/hardware: [`server_inventory.md`](server_inventory.md). Este documento
+> solo cubre la arquitectura del split proxy/DB y la operación de SurrealDB. Ante discrepancia
+> de datos de máquina, manda el inventario. Última revisión: 2026-07-16.
+
 Documento de referencia para IA y desarrolladores. **Estado aplicado en producción** tras la migración de junio 2026.
 
 ---
@@ -62,7 +66,7 @@ Internet (fluency.lat)
 ┌─────────────────────────────────────────────────────────┐
 │  AZURE — worker-alpine-native-1                         │
 │  IP: 172.202.197.64:5432                                │
-│  Postgres 16 — DATABASE_URL en backends                   │
+│  Postgres — auxiliar/futuro (pagos), NO en uso hoy      │
 │  NO tocar para flashcards/progreso (eso es SurrealDB)   │
 └─────────────────────────────────────────────────────────┘
 ```

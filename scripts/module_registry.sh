@@ -154,10 +154,21 @@ module_frontend_env_lines() {
 shared_sparse_patterns() {
   cat <<'EOF'
 README.md
+CLAUDE.md
+llms.txt
 CODEBASE.md
+SECRETS_MAP.md
+database_schema_diagram.md
 docs/ARQUITECTURA_MODULAR.md
 docs/GIT_BRANCHES.md
 docs/GIT_SPARSE_WORKFLOW.md
+docs/MAPA_DOMINIOS.md
+docs/QA_TO_PROD_FLOW.md
+docs/DEPLOY_Y_REPOSITORIO.md
+docs/modules
+docs/infrastructure
+backend/CLAUDE.md
+client/CLAUDE.md
 modules
 scripts
 .branch-profile

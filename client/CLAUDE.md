@@ -1,7 +1,7 @@
 # Frontend — Fluency (client/)
 
 > **Documentación exclusiva del frontend.** Léela COMPLETA antes de modificar cualquier archivo bajo `client/`.
-> Backend/infra: ver `CODEBASE.md` e `INFRASTRUCTURE.md` en la raíz del repo.
+> Backend: `backend/CLAUDE.md`. Infra: `docs/infrastructure/`. Protocolo e índice general: `CLAUDE.md` (raíz).
 
 SPA de estudio de idiomas (flashcards con audio TTS e imágenes IA). **React 19 + Vite 8 + CSS Vanilla con CSS Modules**. Sin TypeScript, sin Redux, sin frameworks CSS (prohibido introducir Tailwind/Sass/styled-components/MUI). Estado de servidor con TanStack Query; estado de UI con Context API.
 
@@ -260,4 +260,5 @@ Desviaciones SOLID identificadas y aceptadas (jul 2026). Son el código más del
 4. ¿Estilos? → CSS Modules locales + variables existentes; tokens solo desde `app-brand.css`; cero `!important`; sin breakpoints nuevos; variantes por `data-*`.
 5. ¿Estado? → ¿es de servidor? TanStack Query. ¿UI compartida? Provider existente (§5). No crear contexts nuevos sin agotar los actuales.
 6. Verifica con el arnés (§8) y reporta el resultado (PASS/FAIL con píxeles) — la apariencia validada es un contrato.
-7. El archivo `refactor` en la raíz del repo es la especificación de calidad CSS/estructura vigente: cualquier cambio debe seguir cumpliéndola.
+7. `docs/REFACTOR_CSS_SPEC.md` (antes el archivo `refactor` en la raíz) es la especificación de calidad CSS/estructura vigente: cualquier cambio debe seguir cumpliéndola.
+8. **Regla de cierre** (`CLAUDE.md` raíz): al terminar, testear y actualizar el plano del módulo en `docs/modules/<módulo>.md` en el MISMO cambio (nuevos endpoints consumidos, archivos nuevos en el mapa, invariantes).

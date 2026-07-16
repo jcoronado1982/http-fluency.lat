@@ -10,12 +10,15 @@
 ## Orden de lectura y precedencia
 
 1. Este documento: topología vigente, presupuesto de recursos y reglas de decisión.
-2. [`media-delivery-cache.md`](media-delivery-cache.md): versionado, Cloudflare, Caddy, navegador,
+2. [`server_inventory.md`](server_inventory.md): IPs, RAM, CPU, proveedor por máquina —
+   **primera fuente; nunca SSH para datos que ya cubre** (regla doc-first de `CLAUDE.md` raíz).
+3. [`media-delivery-cache.md`](media-delivery-cache.md): versionado, Cloudflare, Caddy, navegador,
    imágenes/audio, precarga y cancelación.
-3. [`oracle-local-backend-deploy.md`](oracle-local-backend-deploy.md): runtime del proxy Oracle.
-4. [`ARQUITECTURA_ORACLE_DB.md`](ARQUITECTURA_ORACLE_DB.md): segundo Oracle y SurrealDB.
-5. [`pipeline-and-deploy.md`](pipeline-and-deploy.md): compilación, staging y despliegue.
-6. Código ejecutable: `azure-pipelines.yml`, `infra/proxy/Caddyfile` e `infra/proxy/*.sh`.
+4. [`oracle-local-backend-deploy.md`](oracle-local-backend-deploy.md): runtime del proxy Oracle.
+5. [`ARQUITECTURA_ORACLE_DB.md`](ARQUITECTURA_ORACLE_DB.md): segundo Oracle y SurrealDB.
+6. [`pipeline-and-deploy.md`](pipeline-and-deploy.md): compilación, staging y despliegue.
+7. [`wireguard-aws-oracle.md`](wireguard-aws-oracle.md): túnel privado AWS↔Oracle (10.10.0.0/30).
+8. Código ejecutable: `azure-pipelines.yml`, `infra/proxy/Caddyfile` e `infra/proxy/*.sh`.
 
 Si la documentación contradice el código ejecutable, **no se debe elegir silenciosamente uno**:
 se verifica el runtime, se corrige la documentación en el mismo cambio y se registra la fecha. Los
