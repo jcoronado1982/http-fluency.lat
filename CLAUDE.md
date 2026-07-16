@@ -189,6 +189,11 @@ el test — no otra visita a la obra. Nunca arreglar en vivo sin dejar rastro en
 
 ## Convenciones del repo
 
+- **Este protocolo es multi-asistente**: `AGENTS.md` (Codex/ChatGPT y estándar multi-vendor) y
+  `GEMINI.md` (Gemini CLI) son symlinks de este archivo — mismo contenido, cero duplicación.
+  Cursor: `.cursorrules` (resumen + puntero aquí). Copilot: `.github/copilot-instructions.md`.
+  LLMs web: `llms.txt`. Si editas este archivo, los alias se actualizan solos; los resúmenes
+  de Cursor/Copilot solo cambian si cambia el protocolo mismo.
 - **Docs en español.** Mantener el idioma al crear o editar documentación.
 - **Un canónico por tema.** Los documentos con header `> Canónico: <ruta>` son secundarios:
   ante conflicto, manda el canónico. No dupliques contenido entre docs; enlaza.
