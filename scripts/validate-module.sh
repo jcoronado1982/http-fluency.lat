@@ -34,6 +34,9 @@ done
 
 echo "==> Validando modulos: ${modules[*]}"
 
+echo "==> Seguridad sparse"
+"$SCRIPT_DIR/test-sparse-safety.sh"
+
 echo "==> cargo check ($(module_cargo_build_args_multi "${modules[@]}"))"
 cargo check --manifest-path "$REPO_ROOT/backend/Cargo.toml" -p api_main $(module_cargo_build_args_multi "${modules[@]}")
 

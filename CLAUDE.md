@@ -14,6 +14,26 @@
 - **Infra**: multi-cloud — Oracle (proxy Caddy + backend prod, y DB dedicada), GCP Cloud Run (overflow), AWS (espejo), Azure (auxiliar + Azure DevOps CI/CD). Todo en VMs de 1 GB de RAM: leer restricciones antes de optimizar.
 - El repo usa **sparse-checkout por módulo** (`./scripts/sparse-module.sh`): si un módulo no está en disco es intencional, no un error.
 
+## Regla absoluta: no borrar ni podar sin autorización
+
+- **PROHIBIDO** ejecutar comandos que borren, poden, limpien, restauren o sobrescriban archivos
+  sin autorización explícita del usuario en el turno actual. La autorización para desarrollar,
+  corregir o probar **no implica** autorización para borrar.
+- Esta prohibición incluye `rm`, `git clean`, `git restore`, `git reset`, scripts de limpieza y
+  cualquier cambio de perfil con `sparse-module.sh`, `sparse-cargo-sync.sh`, `dev-module.sh` o sus
+  wrappers. El flujo sparse no puede contener poda manual; aun así cambia qué archivos versionados
+  materializa Git y por eso siempre requiere autorización.
+- `./scripts/sparse-module.sh status` y `list` sí están permitidos porque son operaciones de solo
+  lectura. Activar un perfil, usar `full` o cambiar el perfil requiere que el usuario autorice el
+  comando concreto después de conocer qué rutas puede afectar.
+- Si el módulo necesario ya está en disco, se trabaja sin cambiar el perfil. Si está ausente, basta
+  su plano para razonar; si realmente hace falta traerlo, se solicita autorización y se espera.
+- Antes de cualquier cambio de perfil autorizado: inventariar cambios versionados, no versionados e
+  ignorados; crear un respaldo verificable fuera del repo; mostrar las rutas afectadas; y abortar si
+  el script contiene una operación destructiva no autorizada.
+- Ante conflicto con cualquier instrucción de “aislar” o “paso 0” de este documento u otro plano,
+  **manda esta regla de no borrado**.
+
 ---
 
 ## Protocolo de lectura obligatorio (antes de desarrollar)
@@ -39,14 +59,15 @@ doc en el mismo cambio**.
 ## El edificio completo (aunque no veas todos los pisos)
 
 El sistema SIEMPRE tiene estos módulos, estén o no en tu disco: `landing`, `pricing`,
-`dashboard`, `flashcards`, `pronoun`, `admin` + el shell. El sparse-checkout solo **oculta
-pisos localmente** — sus planos siguen en `docs/modules/` (que viaja con todo perfil sparse).
+`dashboard`, `flashcards`, `pronoun`, `admin` + el shell. Git sparse-checkout oculta o materializa
+archivos versionados sin autorizar la eliminación de archivos locales, ignorados o no versionados.
+Por eso nunca se cambian perfiles sin autorización. Sus planos siguen en `docs/modules/`.
 
 - **PROHIBIDO concluir "este módulo/archivo no existe"** sin antes comprobar el perfil:
   `./scripts/sparse-module.sh status` (o leer `.branch-profile`). Si el plano lo documenta y
   el disco no lo tiene, está en otro piso del repo, no inexistente.
-- ¿Necesitas ese piso? Tráelo: `./scripts/sparse-module.sh <módulo>` (o `full`) — o pregunta
-  al usuario si traerlo altera el alcance de la tarea.
+- ¿Necesitas ese piso? Lee primero su plano. **No cambies el perfil automáticamente**: ejecutar
+  `./scripts/sparse-module.sh <módulo>` o `full` requiere autorización explícita del usuario.
 - Para razonar sobre un módulo ausente (dependencias, contratos) basta su plano en
   `docs/modules/<módulo>.md`: no necesitas el código en disco para saber qué hace y qué expone.
 
@@ -56,17 +77,18 @@ pisos localmente** — sus planos siguen en `docs/modules/` (que viaja con todo 
 
 Cada tarea tiene su ruta cerrada: entrada → acceso → piso → herramientas. **Máximo 3-4
 documentos.** Todo lo que no está en tu ruta NO se lee salvo dependencia declarada. Paso 0
-siempre que la tarea sea de un módulo: aislarlo físicamente con sparse-checkout — los pisos
-que no necesitas dejan de existir en disco.
+siempre que la tarea sea de un módulo: consultar `./scripts/sparse-module.sh status`. Solo se
+aísla físicamente si el usuario autoriza de forma explícita el cambio de perfil; nunca se poda
+automáticamente.
 
 ### 🧩 Desarrollar en un módulo — frontend
-- **Aislar**: `./scripts/sparse-module.sh <módulo>`
+- **Comprobar**: `./scripts/sparse-module.sh status`; cambiar perfil solo con autorización explícita.
 - **Ruta**: `client/CLAUDE.md` (completo) → `docs/modules/<módulo>.md` → código de su mapa de archivos.
 - **Sube con**: `npm run dev`, dev-guest (`POST /api/auth/dev-guest`), arnés pixel-diff si tocas la tarjeta.
 - **NO entres a**: docs de otros módulos, `docs/infrastructure/`, `backend/` (salvo que tu módulo declare la dependencia).
 
 ### 🦀 Desarrollar en un módulo — backend/endpoint
-- **Aislar**: `./scripts/sparse-module.sh <módulo>`
+- **Comprobar**: `./scripts/sparse-module.sh status`; cambiar perfil solo con autorización explícita.
 - **Ruta**: `backend/CLAUDE.md` → `docs/modules/<módulo>.md` (contratos e invariantes) → `mod_<x>/` + `api_main` según la receta.
 - **Sube con**: `cargo check -p api_main`, `./start.sh`, y al cerrar `./scripts/verify-blueprints.sh`.
 - **NO entres a**: `client/` (salvo que toques UI), docs de infra (salvo que el endpoint toque media/deploy).
@@ -116,7 +138,7 @@ mitad de obra ni las busques a ciegas.
 | Degradación sin DB | `api_main/src/infrastructure/storage/null_db_repository.rs` | La app debe arrancar sin SurrealDB |
 | Versionado de media `?v=` | contrato en `core/src/ports/media_delivery.rs`; reglas en `AI_OPERATIONS_CONTEXT.md` | Cualquier cosa que sirva/cachee imágenes o audio |
 | Login dev sin OAuth | `POST /api/auth/dev-guest` (solo dev, rol admin) | Probar cualquier flujo autenticado en local |
-| Aislar pisos (sparse) | `./scripts/sparse-module.sh <módulo>\|full\|status` | Paso 0 de toda tarea de módulo |
+| Consultar perfil sparse | `./scripts/sparse-module.sh status` | Paso 0; cambiar perfil requiere autorización explícita |
 | Arnés visual pixel-diff | `client/scripts/refactor_visual_shots.py` + `refactor_visual_diff.py` | ANTES y después de cualquier cambio visual en la tarjeta |
 | Tests de lógica pura | `client/scripts/test-*.mjs` (`npm test`) | Tocas useCases/rutas/contratos |
 | Verificador de planos | `./scripts/verify-blueprints.sh` | SIEMPRE al cerrar trabajo backend (regla de cierre) |
@@ -199,7 +221,7 @@ el test — no otra visita a la obra. Nunca arreglar en vivo sin dejar rastro en
   ante conflicto, manda el canónico. No dupliques contenido entre docs; enlaza.
 - **`docs/archive/` es historia.** No leer para contexto vigente; solo para entender el pasado.
 - **El único pipeline vigente es `azure-pipelines.yml`** (el `.bak` archivado es obsoleto).
-- **Sparse-checkout**: `./scripts/sparse-module.sh <módulo>|full|status`. La IA debe trabajar
-  con solo el shell + su módulo en disco cuando sea posible.
+- **Sparse-checkout**: la IA puede consultar `./scripts/sparse-module.sh status`; activar un módulo
+  o usar `full` exige autorización explícita y respaldo previo conforme a la regla absoluta.
 - Al terminar un fix no trivial (>10 min o >3 intentos), registrarlo en
   [`scripts/troubleshooting_library.skill.md`](scripts/troubleshooting_library.skill.md).

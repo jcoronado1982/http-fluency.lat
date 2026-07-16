@@ -78,6 +78,9 @@ levantado, `--full` añade SurrealDB 1.5.5 y Playwright, y `--all` agrega una ca
 bloqueada a `localhost`/`127.0.0.1`.
 La integración recorre catálogo, progreso individual/lote, SRS y media contra el repositorio real,
 y restaura el deck de `guest@local.dev`; la validación SRS tiene además propiedades en Rust.
+Durante `--full`/`--all`, `.local-preprod-media.lock` bloquea con HTTP 423 toda generación,
+subida o eliminación de audio/imágenes. El runner verifica el bloqueo antes de comenzar y compara
+un inventario SHA-256 completo al salir. Nunca limpia media real automáticamente.
 
 Restricciones de producción (RAM 1 GB, prohibido cachear bytes de media, límites Docker):
 **leer `docs/infrastructure/AI_OPERATIONS_CONTEXT.md` antes de cualquier cambio de rendimiento.**
