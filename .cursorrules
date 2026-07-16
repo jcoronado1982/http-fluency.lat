@@ -16,9 +16,8 @@ doc-first de infraestructura y regla de cierre. Lo de abajo es el resumen para e
 *   Carga únicamente el shell compartido + el módulo activo para mantener la ventana de contexto limpia.
 *   **Infraestructura Oracle/DB (Jun 2026):** Antes de tocar deploy, SurrealDB, Caddy o servidores, leer `docs/infrastructure/ARQUITECTURA_ORACLE_DB.md`. SurrealDB vive en OCI-1 (`10.0.1.138:8080`), no en el proxy. Postgres está en Azure, no en OCI-1.
 
-## ⚙️ 3. Metodología del Arnés (Emulación Nativa)
-Para ahorrar los tokens de API de Google AI Studio del usuario, la IA del editor debe asumir las funciones del arnés de forma nativa utilizando sus herramientas de chat e integración:
-1.  **Edición Local:** Lee y edita los archivos utilizando las herramientas nativas del editor. No ejecutes `harness/run.py` para tareas de desarrollo cotidianas en el chat.
+## ⚙️ 3. Metodología de trabajo (validación obligatoria)
+1.  **Edición Local:** Lee y edita los archivos utilizando las herramientas nativas del editor.
 2.  **Validación Obligatoria:** Tras realizar cualquier modificación de código, ejecuta obligatoriamente en la terminal:
     *   Para Rust: `cargo check --manifest-path backend/Cargo.toml`
     *   Para validar tests: `cargo test --manifest-path backend/Cargo.toml`
