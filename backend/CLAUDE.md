@@ -68,9 +68,19 @@ cargo check -p api_main    # SIEMPRE antes de push (protocolo del pipeline)
 ```bash
 ./start.sh                    # stack completo (DB Docker + ComfyUI + backend :8081 + Vite :5173)
 cargo check -p api_main       # gate mínimo
+cargo nextest run --workspace # suite Rust local (unitarias, propiedades, mocks, handlers/snapshots)
 curl -s http://localhost:8081/api/health
 curl -X POST http://127.0.0.1:5173/api/auth/dev-guest   # JWT dev sin OAuth
 ```
+
+Gate local unificado desde la raíz: `./scripts/test-local-preprod.sh --quick`; con el stack
+levantado, `--full` añade SurrealDB 1.5.5 y Playwright, y `--all` agrega una carga k6 corta
+bloqueada a `localhost`/`127.0.0.1`.
+La integración recorre catálogo, progreso individual/lote, SRS y media contra el repositorio real,
+y restaura el deck de `guest@local.dev`; la validación SRS tiene además propiedades en Rust.
+Durante `--full`/`--all`, `.local-preprod-media.lock` bloquea con HTTP 423 toda generación,
+subida o eliminación de audio/imágenes. El runner verifica el bloqueo antes de comenzar y compara
+un inventario SHA-256 completo al salir. Nunca limpia media real automáticamente.
 
 Restricciones de producción (RAM 1 GB, prohibido cachear bytes de media, límites Docker):
 **leer `docs/infrastructure/AI_OPERATIONS_CONTEXT.md` antes de cualquier cambio de rendimiento.**

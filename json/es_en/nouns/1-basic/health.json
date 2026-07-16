@@ -13,8 +13,7 @@
         "usage_context_en": "The condition of your body",
         "usage_context_es": "La condición de tu cuerpo",
         "usage_example": "Health is very important.",
-        "usage_example_es": "La salud es muy importante.",
-        "imagePath": "/card_images/nouns/1-basic/health/1-basic_health_card_0_def0.avif"
+        "usage_example_es": "La salud es muy importante."
       }
     ],
     "force_generation": false,
@@ -39,8 +38,7 @@
         "usage_context_en": "The feeling you have when your body is hurt",
         "usage_context_es": "El sentimiento que tienes cuando tu cuerpo está herido",
         "usage_example": "I feel a pain in my leg.",
-        "usage_example_es": "Siento un dolor en la pierna.",
-        "imagePath": "/card_images/nouns/1-basic/health/1-basic_health_card_1_def0.avif"
+        "usage_example_es": "Siento un dolor en la pierna."
       }
     ],
     "force_generation": false,

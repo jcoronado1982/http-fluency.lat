@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import fc from 'fast-check';
 import {
     SRS_ACTIONS,
     buildDailyQueue,
@@ -54,5 +55,25 @@ const assembled = await assembleSrsDeck(candidates, async () => {
 assert.equal(loads, 1);
 assert.deepEqual(assembled.map((card) => card.word), ['one', 'zero']);
 assert.deepEqual(assembled.map((card) => card.id), [1, 0]);
+
+fc.assert(fc.property(
+    fc.record({
+        box_level: fc.integer({ min: 0, max: 98 }),
+        ease_factor: fc.double({ min: 1.3, max: 5, noNaN: true }),
+        interval_days: fc.double({ min: 1, max: 3650, noNaN: true }),
+    }),
+    fc.constantFrom(SRS_ACTIONS.CORRECT, SRS_ACTIONS.FAIL, SRS_ACTIONS.EXPEL),
+    (progress, action) => {
+        const result = calculateReview(progress, action, now);
+        assert.ok(result.box_level >= 0 && result.box_level <= 99);
+        assert.ok(result.ease_factor >= 1.3 && result.ease_factor <= 5);
+        assert.ok(result.interval_days >= 1);
+        if (action === SRS_ACTIONS.EXPEL) {
+            assert.equal(result.next_review_at, null);
+        } else {
+            assert.ok(Number.isFinite(Date.parse(result.next_review_at)));
+        }
+    },
+), { numRuns: 1_000 });
 
 console.log('✅ test-srs-engine: todos los asserts pasaron');

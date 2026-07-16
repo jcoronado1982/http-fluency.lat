@@ -21,6 +21,52 @@ const MAX_TTS_TEXT_LEN: usize = 500;
 const MAX_IMAGE_PROMPT_LEN: usize = 1_200;
 const MAX_SCENE_COMPLEMENT_LEN: usize = 500;
 const MAX_UPLOAD_IMAGE_BYTES: usize = 8 * 1024 * 1024;
+const LOCAL_PREPROD_MEDIA_LOCK: &str = ".local-preprod-media.lock";
+
+fn local_preprod_media_is_locked(local_storage_path: &str) -> bool {
+    std::path::Path::new(local_storage_path)
+        .join(LOCAL_PREPROD_MEDIA_LOCK)
+        .is_file()
+}
+
+fn reject_media_mutation_during_local_gate(state: &AppState) -> Result<(), (StatusCode, String)> {
+    if local_preprod_media_is_locked(&state.settings.local_storage_path) {
+        return Err((
+            StatusCode::LOCKED,
+            "Media bloqueada temporalmente por el gate local de preproducción".to_string(),
+        ));
+    }
+    Ok(())
+}
+
+#[cfg(test)]
+mod media_lock_tests {
+    use super::{local_preprod_media_is_locked, LOCAL_PREPROD_MEDIA_LOCK};
+
+    #[test]
+    fn local_gate_lock_is_detected_without_touching_media_directories() {
+        let root = std::env::temp_dir().join(format!(
+            "fluency-media-lock-{}-{}",
+            std::process::id(),
+            std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .expect("system clock before Unix epoch")
+                .as_nanos()
+        ));
+        std::fs::create_dir(&root).expect("create isolated lock test directory");
+
+        assert!(!local_preprod_media_is_locked(
+            root.to_str().expect("UTF-8 temp path")
+        ));
+        std::fs::write(root.join(LOCAL_PREPROD_MEDIA_LOCK), b"local gate\n")
+            .expect("create isolated media lock");
+        assert!(local_preprod_media_is_locked(
+            root.to_str().expect("UTF-8 temp path")
+        ));
+
+        std::fs::remove_dir_all(root).expect("remove isolated lock test directory");
+    }
+}
 
 fn require_image_customization_role(role: &str) -> Result<(), (StatusCode, String)> {
     if role == "admin" {
@@ -78,6 +124,7 @@ pub async fn synthesize_speech(
     headers: axum::http::HeaderMap,
     Json(body): Json<SynthesizeSpeechBody>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
+    reject_media_mutation_during_local_gate(&state)?;
     let claims = extract_claims_or_guest(&state, &headers);
     let role = resolve_effective_role(&state, &claims).await;
 
@@ -149,6 +196,7 @@ pub async fn generate_image(
     headers: axum::http::HeaderMap,
     Json(body): Json<GenerateImageBody>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
+    reject_media_mutation_during_local_gate(&state)?;
     let is_demo = is_landing_demo_namespace(&body.category);
     let claims = if is_demo {
         extract_claims_or_guest(&state, &headers)
@@ -188,6 +236,7 @@ pub async fn delete_audio(
     headers: axum::http::HeaderMap,
     Json(body): Json<DeleteAudioBody>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
+    reject_media_mutation_during_local_gate(&state)?;
     let claims = extract_claims(&state, &headers)?;
     let role = resolve_effective_role(&state, &claims).await;
     require_premium_role(&role)?;
@@ -219,6 +268,7 @@ pub async fn delete_image(
     headers: axum::http::HeaderMap,
     Json(body): Json<DeleteImageBody>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
+    reject_media_mutation_during_local_gate(&state)?;
     let is_demo = is_landing_demo_namespace(&body.category);
     let claims = if is_demo {
         extract_claims_or_guest(&state, &headers)
@@ -262,6 +312,7 @@ pub async fn upload_image(
     headers: axum::http::HeaderMap,
     mut multipart: Multipart,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
+    reject_media_mutation_during_local_gate(&state)?;
     let claims = extract_claims(&state, &headers)?;
     let role = resolve_effective_role(&state, &claims).await;
     require_image_customization_role(&role)?;

@@ -123,6 +123,31 @@ viven en `json/` (disco de Oracle en prod).
 curl -X POST http://127.0.0.1:5173/api/auth/dev-guest   # login sin OAuth
 # UI: http://localhost:5173/flashcard
 cd client && npm test                      # incluye test-deck-use-cases y test-deck-session-use-cases
+# Desde la raíz: matriz local completa (requiere ./start.sh activo)
+./scripts/test-local-preprod.sh --full
 ```
 
 Cambios visuales en la tarjeta: arnés pixel-diff obligatorio (`client/CLAUDE.md` §8).
+
+El gate `--quick` no requiere servicios. `--full` añade smoke HTTP, SurrealDB 1.5.5 real y E2E
+en escritorio/móvil/WebKit; `--all` agrega una carga k6 corta limitada por código a localhost.
+
+### Matriz cubierta por el gate local
+
+| Capa | Cobertura automatizada |
+|---|---|
+| Dominio JS | rutas, contratos, catálogo, sesión, SRS (1.000 propiedades), cachés de audio/imagen y armado del mazo SRS |
+| Componentes | tarjeta/dorso, controles y teclado, imagen (carga/error/timeout), idioma, viewport y puente UI |
+| Servicios frontend | todos los métodos de los adaptadores de flashcards, audio, imagen y SRS; fallback estático, IndexedDB y compresión HEIC/canvas/WASM→AVIF |
+| Backend Rust | unitarias existentes, mocks de puertos, propiedades de racha y validación SRS, handler Axum y snapshot de features |
+| API + DB local | catálogo, mazo, progreso individual y lote transaccional, SRS, reset, estadísticas, racha, fonética, resolución y descarga de media |
+| E2E | sesión dev-guest, catálogo, reset, navegación, carga real de imagen, reproducción de audio, giro y persistencia en Chrome, Pixel 7 y WebKit/iPhone |
+| Carga | k6 sobre catálogo, decks, mazo, estadísticas y escrituras de progreso; restaura el progreso al terminar |
+
+Los E2E permiten resolver y descargar media existente, pero interceptan generación, subida y
+borrado. Esos proveedores se validan con adaptadores/mocks para no consumir Gemini/ElevenLabs ni
+mutar `card_audio/`, `card_images/` o `img/`. Durante toda la integración, el runner crea
+`.local-preprod-media.lock`: el backend debe responder `423 Locked` a una mutación inocua antes de
+comenzar. Además compara un inventario SHA-256 de **todos** los archivos de esas tres rutas,
+incluidos los ignorados y no versionados. Si detecta una diferencia, falla y no intenta limpiar ni
+borrar el archivo afectado: la recuperación siempre es manual y explícita.

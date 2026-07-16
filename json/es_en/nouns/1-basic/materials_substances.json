@@ -13,8 +13,7 @@
         "usage_context_en": "A hard, shiny substance (e.g., iron, gold)",
         "usage_context_es": "Una sustancia dura y brillante (ej. hierro, oro)",
         "usage_example": "The key is made of metal.",
-        "usage_example_es": "La llave está hecha de metal.",
-        "imagePath": "/card_images/nouns/1-basic/materials_substances/1-basic_materials_substances_card_0_def0.avif"
+        "usage_example_es": "La llave está hecha de metal."
       }
     ],
     "force_generation": false,
@@ -39,8 +38,7 @@
         "usage_context_en": "A light, artificial material",
         "usage_context_es": "Un material artificial y ligero",
         "usage_example": "The bottle is made of plastic.",
-        "usage_example_es": "La botella está hecha de plástico.",
-        "imagePath": "/card_images/nouns/1-basic/materials_substances/1-basic_materials_substances_card_1_def0.avif"
+        "usage_example_es": "La botella está hecha de plástico."
       }
     ],
     "force_generation": false,
@@ -60,13 +58,12 @@
     "definitions": [
       {
         "char_count": "two",
-        "imagePath": "/card_images/nouns/1-basic/materials_substances/1-basic_materials_substances_card_2_def0.avif",
+        "usage_example_es": "Esta camisa está hecha de algodón.",
         "meaning": "Algodón",
         "pronunciation_guide_es": "/dis_SHORT_is_MEID_of_KOTon/",
         "usage_context_en": "A soft, white material from a plant",
         "usage_context_es": "Un material suave y blanco de una planta",
-        "usage_example": "This shirt is made of cotton.",
-        "usage_example_es": "Esta camisa está hecha de algodón."
+        "usage_example": "This shirt is made of cotton."
       }
     ],
     "force_generation": false,
@@ -86,13 +83,12 @@
     "definitions": [
       {
         "char_count": "two",
-        "imagePath": "/card_images/nouns/1-basic/materials_substances/1-basic_materials_substances_card_3_def0.avif",
+        "usage_example_es": "Una chaqueta de cuero.",
         "meaning": "Cuero / Piel",
         "pronunciation_guide_es": "/a_LEDer_YAKet/",
         "usage_context_en": "Material made from animal skin",
         "usage_context_es": "Material hecho de piel de animal",
-        "usage_example": "A leather jacket.",
-        "usage_example_es": "Una chaqueta de cuero."
+        "usage_example": "A leather jacket."
       }
     ],
     "force_generation": false,
@@ -117,8 +113,7 @@
         "usage_context_en": "A yellow, expensive metal",
         "usage_context_es": "Un metal amarillo y caro",
         "usage_example": "The ring is made of gold.",
-        "usage_example_es": "El anillo está hecho de oro.",
-        "imagePath": "/card_images/nouns/1-basic/materials_substances/1-basic_materials_substances_card_4_def0.avif"
+        "usage_example_es": "El anillo está hecho de oro."
       }
     ],
     "force_generation": false,
@@ -143,8 +138,7 @@
         "usage_context_en": "A gray-white, expensive metal",
         "usage_context_es": "Un metal gris-blanco y caro",
         "usage_example": "A silver spoon.",
-        "usage_example_es": "Una cuchara de plata.",
-        "imagePath": "/card_images/nouns/1-basic/materials_substances/1-basic_materials_substances_card_5_def0.avif"
+        "usage_example_es": "Una cuchara de plata."
       }
     ],
     "force_generation": false,

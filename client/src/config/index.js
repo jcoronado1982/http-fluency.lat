@@ -65,4 +65,6 @@ const config = {
 };
 
 const env = import.meta.env.MODE || 'development';
-export default config[env];
+// Vitest usa MODE=test. Comparte la configuración segura de desarrollo para
+// que los adaptadores se puedan probar sin inventar una tercera configuración.
+export default config[env] || config.development;

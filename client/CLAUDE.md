@@ -238,6 +238,17 @@ Captura 9 estados × 3 viewports (1920×1080, 1366×768, 390×844) con determini
 
 **Otros gates**: `npx eslint src/components/flashcardStudy` debe dar **0 errores / 0 warnings** (las excepciones de `exhaustive-deps` que quedan están justificadas con comentario); `npm run build` (genera además el manifiesto de catálogo); `npm test` — suite unitaria de lógica pura SIN framework (scripts Node planos con `node:assert/strict` en `client/scripts/test-*.mjs`: rutas, contratos landing-demo/media, deckUseCases, deckSessionUseCases, imagePrefetchCache; para módulos que leen `localStorage` dentro de una función se shimea `globalThis.localStorage` antes del import — ver `test-deck-use-cases.mjs`). Tests nuevos = otro `test-*.mjs` + entrada `test:*` en package.json + encadenarlo en `"test"`. Solo lógica pura importable desde Node: nada que importe React ni `import.meta.env`.
 
+**Gate local de preproducción**: `../scripts/test-local-preprod.sh --quick` ejecuta Rust/Nextest,
+la suite Node, propiedades con `fast-check`, Vitest + React Testing Library y el build. Con
+`./start.sh` activo, `--full` suma smoke HTTP, SurrealDB 1.5.5 real y Playwright en Chromium,
+Pixel 7 e iPhone 14/WebKit. `--all` agrega k6 durante 10 s; los scripts de integración y carga
+rechazan hosts distintos de `localhost` y `127.0.0.1`. También prueban adaptadores, IndexedDB,
+compresión AVIF, audio/imagen existentes, progreso individual/lote/SRS y carga autenticada.
+Playwright intercepta generación/borrado de media externa. En `--full`/`--all`, el backend debe
+confirmar el bloqueo global con HTTP 423 y el runner compara un inventario SHA-256 completo de
+`card_audio/`, `card_images/` e `img/` (también ignorados/no versionados). El gate nunca limpia
+media automáticamente: ante cualquier diferencia falla y conserva los archivos para revisión.
+
 ---
 
 ## 9. Deudas conocidas (NO "arreglar" de pasada)

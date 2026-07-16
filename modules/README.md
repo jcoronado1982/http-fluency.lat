@@ -72,6 +72,12 @@ Tooling de generación de media (no es módulo del registry): [docs/modules/medi
 
 ## Sparse-checkout (aislamiento físico para IA)
 
+> **No ejecutar automáticamente.** `status` y `list` son de solo lectura. Todos los comandos que
+> activan un perfil o usan `full` requieren autorización explícita del usuario porque la
+> operación cambia qué archivos versionados materializa Git. La poda manual está prohibida: el
+> flujo sparse no puede borrar contenido local no versionado o ignorado. Si el módulo ya está en
+> disco, no se cambia el perfil.
+
 ```bash
 ./scripts/sparse-module.sh landing             # solo shell + landing
 ./scripts/sparse-module.sh pricing             # solo shell + pricing

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-# Ajusta Cargo.toml al perfil sparse activo y poda carpetas de modulos inactivos.
+# Ajusta Cargo.toml al perfil sparse activo.
+# Seguridad: este script no elimina carpetas manualmente. La materializacion de archivos
+# versionados pertenece exclusivamente a `git sparse-checkout`; los archivos locales,
+# ignorados o no versionados nunca se podan aqui.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -51,31 +54,11 @@ sparse_patch_api_main() {
   mv "$tmp" "$api"
 }
 
-sparse_prune_inactive_modules() {
-  local active=("$@")
-  local module path
-
-  for module in flashcards pronoun; do
-    if module_selected_contains "$module" "${active[@]}"; then
-      continue
-    fi
-    while IFS= read -r path; do
-      [[ -z "$path" ]] && continue
-      local full="$REPO_ROOT/$path"
-      if [[ -e "$full" ]]; then
-        rm -rf "$full"
-        echo "Podado (fuera de perfil): $path"
-      fi
-    done < <(module_disk_paths "$module")
-  done
-}
-
 sparse_sync_for_modules() {
   local modules=("$@")
   sparse_restore_cargo_from_git
   sparse_patch_workspace_members "${modules[@]}"
   sparse_patch_api_main "${modules[@]}"
-  sparse_prune_inactive_modules "${modules[@]}"
 }
 
 sparse_restore_full() {

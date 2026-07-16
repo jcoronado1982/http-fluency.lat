@@ -29,7 +29,8 @@ flashcards con el namespace `landing-demo` (el backend enruta el proveedor TTS p
 
 - Cargo feature: — (solo frontend).
 - Vite: `VITE_ENABLE_LANDING=true` (**opt-in**). Con landing activa, flashcards vive en `/flashcard`; sin ella, el módulo default toma `/`.
-- Sparse: `./scripts/sparse-module.sh landing`.
+- Sparse: consultar con `./scripts/sparse-module.sh status`. Activar el perfil `landing` requiere
+  autorización explícita del usuario y respaldo previo; nunca ejecutarlo automáticamente.
 - Usuario ya autenticado en `/` → redirige a `/dashboard`.
 
 ## Dependencias con otros módulos
@@ -45,7 +46,8 @@ Ninguna colección propia. Feedback del demo → `/api/demo-feedback`.
 ## Cómo probar
 
 ```bash
-./scripts/sparse-module.sh landing
+# Solo lectura. Si landing no está en disco, solicitar autorización antes de cambiar el perfil.
+./scripts/sparse-module.sh status
 cd client && npm run dev        # http://localhost:5173/ sin login
 npm test                        # incluye contratos landing-demo/media
 ```

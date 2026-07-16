@@ -66,6 +66,7 @@ pub trait SubscriptionRepository: Send + Sync {
     async fn bulk_expire_subscriptions(&self) -> Result<usize>;
 }
 
+#[cfg_attr(test, mockall::automock)]
 #[async_trait]
 pub trait CardProgressRepository: Send + Sync {
     async fn upsert_card_progress(
@@ -113,6 +114,28 @@ pub trait CardProgressRepository: Send + Sync {
         now: chrono::DateTime<chrono::Utc>,
         limit: usize,
     ) -> Result<Vec<SrsReviewCandidate>>;
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn card_progress_port_supports_isolated_mocks() {
+        let mut repository = MockCardProgressRepository::new();
+        repository
+            .expect_count_learned_cards()
+            .with(mockall::predicate::eq("local-test-user"))
+            .times(1)
+            .returning(|_| Ok(7));
+
+        let learned = repository
+            .count_learned_cards("local-test-user")
+            .await
+            .expect("mocked port should return its configured value");
+
+        assert_eq!(learned, 7);
+    }
 }
 
 #[async_trait]

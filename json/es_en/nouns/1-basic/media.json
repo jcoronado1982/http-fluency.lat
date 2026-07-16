@@ -13,8 +13,7 @@
         "usage_context_en": "Sounds arranged in a pleasant way",
         "usage_context_es": "Sonidos organizados de forma placentera",
         "usage_example": "I like listening to music.",
-        "usage_example_es": "Me gusta escuchar música.",
-        "imagePath": "/card_images/nouns/1-basic/media/1-basic_media_card_0_def0.avif"
+        "usage_example_es": "Me gusta escuchar música."
       }
     ],
     "force_generation": false,
@@ -39,8 +38,7 @@
         "usage_context_en": "A description of events; a narrative",
         "usage_context_es": "Una descripción de eventos; una narrativa",
         "usage_example": "Tell me a story.",
-        "usage_example_es": "Cuéntame una historia.",
-        "imagePath": "/card_images/nouns/1-basic/media/1-basic_media_card_1_def0.avif"
+        "usage_example_es": "Cuéntame una historia."
       }
     ],
     "force_generation": false,
@@ -65,8 +63,7 @@
         "usage_context_en": "The creation of beautiful or significant things",
         "usage_context_es": "La creación de cosas bellas o significativas",
         "usage_example": "I like modern art.",
-        "usage_example_es": "Me gusta el arte moderno.",
-        "imagePath": "/card_images/nouns/1-basic/media/1-basic_media_card_2_def0.avif"
+        "usage_example_es": "Me gusta el arte moderno."
       }
     ],
     "force_generation": false,
@@ -91,8 +88,7 @@
         "usage_context_en": "A film shown in a theater or on TV",
         "usage_context_es": "Un filme mostrado en un cine o en TV",
         "usage_example": "Let's watch a movie.",
-        "usage_example_es": "Veamos una película.",
-        "imagePath": "/card_images/nouns/1-basic/media/1-basic_media_card_3_def0.avif"
+        "usage_example_es": "Veamos una película."
       }
     ],
     "force_generation": false,
@@ -112,13 +108,12 @@
     "definitions": [
       {
         "char_count": "one",
-        "imagePath": "/card_images/nouns/1-basic/media/1-basic_media_card_4_def0.avif",
+        "usage_example_es": "Me gusta esta canción.",
         "meaning": "Canción",
         "pronunciation_guide_es": "/ai_LAIK_dis_SONG/",
         "usage_context_en": "A short piece of music with words",
         "usage_context_es": "Una pieza corta de música con letra",
-        "usage_example": "I like this song.",
-        "usage_example_es": "Me gusta esta canción."
+        "usage_example": "I like this song."
       }
     ],
     "force_generation": false,
@@ -143,8 +138,7 @@
         "usage_context_en": "A photograph or drawing",
         "usage_context_es": "Una fotografía o un dibujo",
         "usage_example": "Take a picture.",
-        "usage_example_es": "Toma una foto.",
-        "imagePath": "/card_images/nouns/1-basic/media/1-basic_media_card_5_def0.avif"
+        "usage_example_es": "Toma una foto."
       }
     ],
     "force_generation": false,
@@ -169,8 +163,7 @@
         "usage_context_en": "A visual representation",
         "usage_context_es": "Una representación visual",
         "usage_example": "The image on the screen is clear.",
-        "usage_example_es": "La imagen en la pantalla es clara.",
-        "imagePath": "/card_images/nouns/1-basic/media/1-basic_media_card_6_def0.avif"
+        "usage_example_es": "La imagen en la pantalla es clara."
       }
     ],
     "force_generation": false,
@@ -190,13 +183,12 @@
     "definitions": [
       {
         "char_count": "two",
-        "imagePath": "/card_images/nouns/1-basic/media/1-basic_media_card_7_def0.avif",
+        "usage_example_es": "Esa pintura es hermosa.",
         "meaning": "Pintura (cuadro)",
         "pronunciation_guide_es": "/dat_PEINting_is_BIUtiful/",
         "usage_context_en": "A picture created with paint",
         "usage_context_es": "Una imagen creada con pintura",
-        "usage_example": "That painting is beautiful.",
-        "usage_example_es": "Esa pintura es hermosa."
+        "usage_example": "That painting is beautiful."
       }
     ],
     "force_generation": false,
@@ -221,8 +213,7 @@
         "usage_context_en": "Something that you can hear",
         "usage_context_es": "Algo que puedes oír",
         "usage_example": "I heard a strange sound.",
-        "usage_example_es": "Oí un sonido extraño.",
-        "imagePath": "/card_images/nouns/1-basic/media/1-basic_media_card_8_def0.avif"
+        "usage_example_es": "Oí un sonido extraño."
       }
     ],
     "force_generation": false,
@@ -247,8 +238,7 @@
         "usage_context_en": "A loud or unpleasant sound",
         "usage_context_es": "Un sonido fuerte o desagradable",
         "usage_example": "That's a loud noise.",
-        "usage_example_es": "Ese es un ruido fuerte.",
-        "imagePath": "/card_images/nouns/1-basic/media/1-basic_media_card_9_def0.avif"
+        "usage_example_es": "Ese es un ruido fuerte."
       }
     ],
     "force_generation": false,
@@ -268,13 +258,12 @@
     "definitions": [
       {
         "char_count": "one",
-        "imagePath": "/card_images/nouns/1-basic/media/1-basic_media_card_10_def0.avif",
+        "usage_example_es": "Solo era una broma.",
         "meaning": "Broma / Chiste",
         "pronunciation_guide_es": "/it_uas_YOST_a_YOUK/",
         "usage_context_en": "Something said or done to make you laugh",
         "usage_context_es": "Algo dicho o hecho para hacerte reír",
-        "usage_example": "It was just a joke.",
-        "usage_example_es": "Solo era una broma."
+        "usage_example": "It was just a joke."
       }
     ],
     "force_generation": false,
@@ -299,8 +288,7 @@
         "usage_context_en": "Information about recent events",
         "usage_context_es": "Información sobre eventos recientes",
         "usage_example": "I watch the news every morning.",
-        "usage_example_es": "Veo las noticias todas las mañanas.",
-        "imagePath": "/card_images/nouns/1-basic/media/1-basic_media_card_11_def0.avif"
+        "usage_example_es": "Veo las noticias todas las mañanas."
       }
     ],
     "force_generation": false,
@@ -325,8 +313,7 @@
         "usage_context_en": "A printed or digital publication with news",
         "usage_context_es": "Una publicación impresa o digital con noticias",
         "usage_example": "I read the newspaper.",
-        "usage_example_es": "Leo el periódico.",
-        "imagePath": "/card_images/nouns/1-basic/media/1-basic_media_card_12_def0.avif"
+        "usage_example_es": "Leo el periódico."
       }
     ],
     "force_generation": false,
@@ -351,8 +338,7 @@
         "usage_context_en": "A publication with articles and pictures",
         "usage_context_es": "Una publicación con artículos e imágenes",
         "usage_example": "She reads a fashion magazine.",
-        "usage_example_es": "Ella lee una revista de moda.",
-        "imagePath": "/card_images/nouns/1-basic/media/1-basic_media_card_13_def0.avif"
+        "usage_example_es": "Ella lee una revista de moda."
       }
     ],
     "force_generation": false,
