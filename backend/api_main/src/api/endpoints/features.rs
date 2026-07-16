@@ -19,3 +19,50 @@ pub async fn get_features() -> impl IntoResponse {
         subscriptions: cfg!(feature = "subscriptions"),
     })
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use axum::{
+        body::Body,
+        http::{Request, StatusCode},
+        routing::get,
+        Router,
+    };
+    use http_body_util::BodyExt;
+    use tower::ServiceExt;
+
+    #[tokio::test]
+    async fn feature_contract_is_stable_through_the_axum_router() {
+        let response = Router::new()
+            .route("/api/features", get(get_features))
+            .oneshot(
+                Request::builder()
+                    .uri("/api/features")
+                    .body(Body::empty())
+                    .expect("valid request"),
+            )
+            .await
+            .expect("in-memory router response");
+
+        assert_eq!(response.status(), StatusCode::OK);
+        let body = response
+            .into_body()
+            .collect()
+            .await
+            .expect("response body")
+            .to_bytes();
+        let payload: serde_json::Value =
+            serde_json::from_slice(&body).expect("valid JSON response");
+
+        insta::assert_json_snapshot!(payload, @r###"
+        {
+          "flashcards": true,
+          "auth": true,
+          "pronoun_practice": false,
+          "payments": false,
+          "subscriptions": false
+        }
+        "###);
+    }
+}

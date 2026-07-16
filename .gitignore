@@ -24,3 +24,6 @@ img/prenouns.png
 img/prepositions.png
 img/verbs.png
 json/catalog-manifest.json
+client/playwright-report/
+client/test-results/
+.local-preprod-media.lock
