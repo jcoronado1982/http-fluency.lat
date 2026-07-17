@@ -3,11 +3,11 @@
 
 /// Modelo Nano Banana Pro (Interactions API) — solo demo landing.
 pub const GEMINI_IMAGE_MODEL: &str = "gemini-3-pro-image";
-pub const GEMINI_IMAGE_ASPECT_RATIO: &str = "1:1";
-/// Mínimo soportado por Pro (1K); el backend normaliza a 896x512 AVIF como Flux.
+pub const GEMINI_IMAGE_ASPECT_RATIO: &str = "3:2";
+/// Mínimo soportado por Pro (1K); el backend normaliza a 768x512 AVIF como Flux.
 pub const GEMINI_IMAGE_SIZE: &str = "1K";
 /// Mismo target que Flux / tarjetas internas.
-pub const CARD_IMAGE_WIDTH: u32 = 896;
+pub const CARD_IMAGE_WIDTH: u32 = 768;
 pub const CARD_IMAGE_HEIGHT: u32 = 512;
 pub const CARD_IMAGE_AVIF_QUALITY: u8 = 80;
 

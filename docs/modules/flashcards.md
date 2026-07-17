@@ -93,6 +93,9 @@ Convención: `course_direction` (`es_en` default | `en_es`…) es query/campo op
 - **`resolve-*` jamás genera media** — un 404 en resolve termina la anticipación/precarga (regla de `AI_OPERATIONS_CONTEXT.md`).
 - **`update-batch` es UNA transacción SurrealDB** (`BEGIN…COMMIT`), no N peticiones — no descomponerla.
 - Las URLs de media devuelven query `?v=<mtime>-<tamaño>`: la identidad cambia al sobrescribir el archivo; no cachear sin la query.
+- Las imágenes web/responsive nuevas usan **768×512 (3:2) AVIF** en generación individual,
+  batch y subida manual. Los assets 896×512 existentes siguen siendo compatibles y no se
+  regeneran ni eliminan automáticamente.
 - Generación/borrado exigen rol `premium`/`admin` (hoy validado en frontend — deuda #2 de `client/CLAUDE.md` §9).
 - `category='landing-demo'` enruta a otro proveedor TTS (ElevenLabs) — contrato con el módulo landing.
 - **Piel de la app (jul 2026)**: la zona de estudio usa los tokens de profundidad de
@@ -123,6 +126,57 @@ Convención: `course_direction` (`es_en` default | `en_es`…) es query/campo op
   mientras está abierta la confirmación de nivel para no bloquear sus acciones. En móvil, el
   menú de cuenta expone el selector del idioma de interfaz; el aviso instalable PWA es no modal
   y solo sus botones capturan eventos, por lo que no puede bloquear tarjetas del catálogo.
+- **Sesión PWA instalada**: bajo `display-mode: standalone` y hasta 768 px, el frente de la
+  tarjeta adopta una composición inmersiva exclusiva: en conjugaciones, la imagen principal
+  empieza en el final calculado de la barra verbal (`58px + 48px + safe-area`) y se alinea arriba,
+  mientras los controles administrativos de imagen conservan 20 px de separación respecto a esa
+  barra y el acceso SRS/calendario suma 10 px a su desplazamiento vertical para no pegarse a ella;
+  sin hueco interno de `object-fit`, una copia desenfocada se prolonga detrás de la cabecera; la
+  palabra/fonética/frases se superponen sobre un degradado inferior que concentra su oscuridad
+  desde el 60% y alcanza su tramo fuerte al 84%, dejando visible una mayor parte de la foto. La barra de acciones se
+  monta sobre el pie del hero y cada cambio real de tarjeta conserva el gesto horizontal con
+  una transición de entrada, sin renderizar carrusel ni indicadores. Debajo se reserva la
+  sección `Continuar estudiando` con recomendaciones reales de `/api/learning-stats` (imagen,
+  categoría, nivel y deck) navegables dentro de la sesión. Sus tarjetas PWA usan composición
+  cinematográfica: imagen a sangre completa, degradado de contraste, metadatos en cristal y título
+  superpuesto. Debajo permanece un dock fijo con accesos a
+  `Dashboard`, `Study language` (selector inglés/español) y
+  `Categories`, deliberadamente sin buscador. El dock vive en el componente compartido
+  `components/pwa/PwaBottomDock.jsx` y replica el cristal cinematográfico del
+  header, con opacidad reforzada para conservar contraste sobre las recomendaciones. La vista web responsive,
+  el demo de landing y los flujos de carga/finalización conservan su composición anterior.
+  La cabecera visual PWA vive en `components/flashcardStudy/features/PwaCardHeader.jsx` y muestra
+  el isotipo blanco centrado; reemplaza dentro de esta sesión al header compartido, por lo que no
+  aparecen hamburguesa, nombre `Fluency`, avatar ni segundo menú.
+  En tarjetas de verbos irregulares, `ConjugationTable` se presenta como una cápsula de cristal
+  única con v1/v2/v3 visibles; las frases PWA aumentan de tamaño y tanto la barra de acciones
+  como el dock inferior usan superficies translúcidas con botones de contraste independiente.
+  El isotipo queda libre de contenedor visual y la cápsula irregular comparte la franja superior,
+  a su derecha. Los controles siguen el patrón de acciones flotantes tipo Tinder: no existe una
+  cápsula exterior y cada acción tiene su propio círculo, contraste y jerarquía táctil.
+  La navegación anterior/siguiente no se renderiza visualmente en PWA: el cambio se hace con
+  swipe. `PwaStudyControls.jsx` concentra únicamente reinicio, progreso y aprendida con Lucide;
+  el control web compartido permanece intacto. `PwaConjugationNav.jsx` y su CSS aíslan por
+  completo V1/V2/V3 de `ConjugationTable`: ocupan una segunda fila dentro del mismo header
+  difuminado, como navegación por pestañas de una app de streaming, sin cápsulas y con subrayado
+  activo; muestran solo la forma verbal en mayúsculas, sin pronunciación. La transparencia
+  base se controla con `--pwa-header-glass-opacity` en `PwaCardHeader.module.css`; el cristal
+  oscurece progresivamente los laterales y deja el centro más transparente sin desplazar la imagen.
+  Cuando la tarjeta no tiene conjugación, la cabecera se reduce a 64 px y la imagen comienza
+  a 58 px; palabra, frases y acciones suben los 48 px que ocuparía V1/V2/V3, sin dejar hueco.
+  Las frases de ejemplo PWA flotan sin franja de fondo, separadas 8 px; su audio usa el mismo
+  círculo oscuro translúcido del reproductor de la palabra. El hero ocupa hasta 80svh para que
+  dos ejemplos conserven aire antes de `Continuar estudiando`. `DefinitionList` publica
+  `data-count` y el título se posiciona según haya una o dos frases, siempre inmediatamente encima;
+  el bloque completo termina a 8 px de la barra flotante para aprovechar el hero sin dejar un vacío;
+  palabra, frases y acciones comparten un desplazamiento vertical para conservar esa relación.
+  El contenedor que realiza el giro PWA conserva `overflow: visible`; el recorte pertenece a cada
+  cara para no aplanar `preserve-3d` ni ocultar el reverso en WebKit/Chrome instalados.
+  El reverso PWA reutiliza la imagen y deja únicamente el isotipo en una cabecera corta, sin
+  V1/V2/V3, controles de estudio, sección `Continuar estudiando` ni dock inferior. Cada definición
+  se presenta como bloque de cristal desplazable con contraste reforzado y tipografía móvil mayor;
+  el reverso web conserva su composición tradicional. La visibilidad de la foto y del cristal se
+  ajusta con `--pwa-back-image-opacity` y `--pwa-back-glass-opacity` en `CardBack.module.css`.
 
 ## Flags y activación
 

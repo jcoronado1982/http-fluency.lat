@@ -135,3 +135,9 @@
         font-size: 1.2rem;
     }
 }
+
+@media (display-mode: standalone) and (max-width: 768px) {
+    .cardCounter {
+        display: none !important;
+    }
+}

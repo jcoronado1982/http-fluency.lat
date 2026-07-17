@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Flashcard, Controls, StudyMediaProvider } from '../../components/flashcardStudy';
 import { useRealViewportHeight } from '../../components/flashcardStudy/features/useRealViewportHeight';
 import { useNextImagePrefetch } from '../../components/flashcardStudy/features/useNextImagePrefetch';
@@ -22,6 +22,10 @@ import { navigationIntentRef, markInitialNavigation } from './navigationIntent';
 import { formatDeckCategoryName, getLevelFromDeckName, usesNestedLevelDecks } from './useCases/deckUseCases';
 import { flashcardPort, audioPort, imagePort, imageCompressionService } from './composition';
 import SrsControls from './features/SrsControls';
+import PwaStudyChrome from './features/PwaStudyChrome';
+import PwaStudyControls from './features/PwaStudyControls';
+import { usePwaStudyRecommendations } from './hooks/usePwaStudyRecommendations';
+import { LAST_DECK_KEY_PREFIX } from './config/sessionKeys';
 import {
     registerUiBridgeHandler,
     unregisterUiBridgeHandler,
@@ -168,7 +172,8 @@ const formatLoaderTime = (ms, language) => {
 export default function FlashcardPage() {
     useRealViewportHeight();
     const location = useLocation();
-    const { user } = useAuth();
+    const navigate = useNavigate();
+    const { user, updateStudyLanguage } = useAuth();
     const isOnboardingTour = new URLSearchParams(location.search).get('onboarding_tour') === 'flashcards';
     const {
         isCatalogVisible,
@@ -181,7 +186,7 @@ export default function FlashcardPage() {
     const {
         isFloatingMenuOpen, isSidebarOpen,
         language = 'en',
-        studyLanguage = 'en',
+        studyLanguage = 'en', setStudyLanguage,
         setIsHeaderSuppressed,
     } = useUIContext();
     const {
@@ -198,6 +203,16 @@ export default function FlashcardPage() {
         currentCategory: categoryFromSession, isSrsMode = false,
     } = useFlashcardContext();
     const currentCategory = categoryFromSession || categoryFromCatalog;
+    const isInstalledPwa = typeof window !== 'undefined'
+        && window.matchMedia('(display-mode: standalone) and (max-width: 768px)').matches;
+    const pwaRecommendations = usePwaStudyRecommendations({
+        enabled: isInstalledPwa && !isSrsMode,
+        currentCategory,
+        currentDeck: currentDeckName,
+        language,
+        studyLanguage,
+        userEmail: user?.email,
+    });
 
     // Precarga silenciosa de la imagen de la tarjeta SIGUIENTE: al avanzar, la
     // imagen ya está en la caché del navegador y no se paga el viaje de red.
@@ -445,6 +460,23 @@ export default function FlashcardPage() {
         changeCategory(recommendation.category);
     }, [recommendation, setIsCatalogVisible, setSelectedGroup, changeDeck, changeCategory]);
 
+    const handleStudyLanguageChange = useCallback((nextLanguage) => {
+        if (nextLanguage === studyLanguage) return;
+        setStudyLanguage(nextLanguage);
+        void updateStudyLanguage(nextLanguage);
+    }, [setStudyLanguage, studyLanguage, updateStudyLanguage]);
+
+    const handleOpenPwaRecommendation = useCallback((item) => {
+        if (!item?.category || !item?.deckName) return;
+        setSelectedGroup(null);
+        localStorage.setItem(`${LAST_DECK_KEY_PREFIX}${item.category}`, item.deckName);
+        if (item.category === currentCategory) {
+            changeDeck(item.deckName);
+            return;
+        }
+        changeCategory(item.category);
+    }, [changeCategory, changeDeck, currentCategory, setSelectedGroup]);
+
     const autoAdvancedRef = useRef(false);
     const dashboardResumeRef = useRef(false);
 
@@ -568,10 +600,25 @@ export default function FlashcardPage() {
                             <Flashcard key={`${currentCard?.srs_key || `${currentCategory}-${currentDeckName}`}-${language}-${studyLanguage}`} />
                         )}
                         {!shouldShowLoading && !shouldShowCompletionCard && (!isSrsMode || currentCard) && (
-                            isSrsMode ? <SrsControls /> : <Controls />
+                            isSrsMode ? <SrsControls /> : (
+                                <>
+                                    <Controls />
+                                    <PwaStudyControls />
+                                </>
+                            )
                         )}
                     </div>
                 </div>
+                <PwaStudyChrome
+                    language={language}
+                    studyLanguage={studyLanguage}
+                    onDashboard={() => navigate('/dashboard')}
+                    onCatalog={() => setIsCatalogVisible(true)}
+                    onStudyLanguageChange={handleStudyLanguageChange}
+                    recommendations={pwaRecommendations}
+                    onOpenRecommendation={handleOpenPwaRecommendation}
+                    hideShelf={isOverlayOpen || shouldShowLoading || shouldShowCompletionCard}
+                />
             </div>
         </StudyMediaProvider>
     );

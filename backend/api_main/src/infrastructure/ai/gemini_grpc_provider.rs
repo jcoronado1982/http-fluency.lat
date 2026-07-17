@@ -119,7 +119,7 @@ fn preview_for_log(text: &str, max_chars: usize) -> String {
     preview
 }
 
-const FLASHCARD_TARGET_WIDTH: u32 = 896;
+const FLASHCARD_TARGET_WIDTH: u32 = 768;
 const FLASHCARD_TARGET_HEIGHT: u32 = 512;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -543,7 +543,7 @@ CONTEXT_TYPE: [usage context, if present]
 SUPPORTING_EXAMPLE: [second example, if present]
 EXAMPLE: [example sentence]
 OUTPUT MEDIUM: English-learning flashcard image
-FINAL CANVAS: 896x512 pixels, wide landscape orientation
+FINAL CANVAS: 768x512 pixels, 3:2 landscape orientation
 COMPOSITION GOAL: immediately understandable at small card size
 TEACHING GOAL: the image must explain the target meaning by itself, before the learner reads the sentence
 

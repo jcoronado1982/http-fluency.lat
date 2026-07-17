@@ -688,7 +688,7 @@ impl ImageUseCases {
         );
         */
 
-        // Compresión a AVIF 896x512 (formato canónico de tarjetas).
+        // Compresión a AVIF 768x512 (formato canónico de tarjetas).
         let compressed_bytes = self
             .image_compressor
             .compress_to_avif(&raw_bytes, avif_quality)

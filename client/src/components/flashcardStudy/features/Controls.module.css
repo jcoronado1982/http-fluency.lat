@@ -260,3 +260,99 @@
         gap: 20px;
     }
 }
+
+@media (display-mode: standalone) and (max-width: 768px) {
+    .controlsWrapper[data-variant='app'] {
+        display: none;
+        z-index: 6;
+        width: calc(100% - 24px);
+        max-width: 370px;
+        margin: -72px auto 0;
+        padding: 6px 4px;
+        overflow: visible;
+        border-color: transparent;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    .controlsWrapper[data-variant='app'] .controls {
+        justify-content: center;
+        gap: 9px;
+        overflow: visible;
+    }
+
+    .controlsWrapper[data-variant='app'] .prevCardBtn,
+    .controlsWrapper[data-variant='app'] .nextCardBtn,
+    .controlsWrapper[data-variant='app'] .resetButton,
+    .controlsWrapper[data-variant='app'] .correctButton {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+        min-height: 46px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+    }
+
+    .controlsWrapper[data-variant='app'] .prevCardBtn {
+        color: #111827;
+        background: rgba(255, 255, 255, 0.92);
+    }
+
+    .controlsWrapper[data-variant='app'] .resetButton {
+        width: 54px;
+        height: 54px;
+        min-width: 54px;
+        min-height: 54px;
+        color: #f8fafc;
+        background: rgba(70, 72, 78, 0.82);
+    }
+
+    .controlsWrapper[data-variant='app'] .correctButton {
+        width: 54px;
+        height: 54px;
+        min-width: 54px;
+        min-height: 54px;
+        color: #064e3b;
+        border-color: rgba(167, 243, 208, 0.72);
+        background: rgba(167, 243, 208, 0.94);
+    }
+
+    .controlsWrapper[data-variant='app'] .nextCardBtn {
+        color: #4c1d1d;
+        border-color: rgba(251, 146, 130, 0.72);
+        background: rgba(251, 146, 130, 0.94);
+    }
+
+    .controlsWrapper[data-variant='app'] .cardCounter {
+        color: #ffffff;
+        min-width: 50px;
+        height: 36px;
+        padding: 0 8px;
+        font-size: 0.88rem;
+        line-height: 36px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 999px;
+        background: rgba(12, 14, 18, 0.48);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.24);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+
+    .controlsWrapper[data-variant='app'] .prevCardBtn svg,
+    .controlsWrapper[data-variant='app'] .nextCardBtn svg,
+    .controlsWrapper[data-variant='app'] .resetButton svg {
+        width: 26px;
+        height: 26px;
+    }
+
+    .controlsWrapper[data-variant='app'] .correctButton svg {
+        width: 30px;
+        height: 30px;
+    }
+}

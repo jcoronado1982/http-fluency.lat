@@ -315,3 +315,59 @@
     }
 
 }
+
+/* Sesión instalada: composición inmersiva tipo portada. `display-mode`
+   impide que alcance al navegador móvil normal o al demo de landing. */
+@media (display-mode: standalone) and (max-width: 768px) {
+    .app-layout:has(.flashcard-page-wrapper:not([data-landing-demo])),
+    .main-content:has(.flashcard-page-wrapper:not([data-landing-demo])) {
+        background: #05070d;
+    }
+
+    .main-content:has(.flashcard-page-wrapper:not([data-landing-demo])) .app-header {
+        display: none;
+    }
+
+    .main-content:has(.flashcard-page-wrapper:not([data-landing-demo])) .page-content,
+    .main-content:has(.flashcard-page-wrapper:not([data-landing-demo])) .app-header + .page-content,
+    .main-content:has(.flashcard-page-wrapper:not([data-landing-demo])) .app-header.manual-open + .page-content {
+        padding-top: 0;
+    }
+
+    .main-content:has(.flashcard-page-wrapper:not([data-landing-demo])) > .shell-footer--app {
+        display: none;
+    }
+
+    .flashcard-page-wrapper:not([data-landing-demo]) {
+        --fc-header-offset: 0px;
+        --fc-footer-offset: 0px;
+        --fc-controls-gap: 0px;
+        --fc-controls-offset: 0px;
+        --fc-page-padding-block: 0px;
+        --fc-page-inline-padding: 0px;
+        --fc-card-max-width: 100%;
+        --fc-card-min-height: min(520px, 72svh);
+        --fc-card-max-height: 720px;
+        --fc-card-height: clamp(540px, 80svh, var(--fc-card-max-height));
+        min-height: 100svh;
+        overflow: visible;
+        background: #05070d;
+    }
+
+    .flashcard-page-wrapper:not([data-landing-demo]) .app-container {
+        display: block;
+        width: 100%;
+        max-width: none;
+        min-height: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    .flashcard-page-wrapper:not([data-landing-demo]) .flashcard-main-area {
+        display: flex;
+        width: 100%;
+        max-width: none;
+        align-items: stretch;
+        gap: 0;
+    }
+}

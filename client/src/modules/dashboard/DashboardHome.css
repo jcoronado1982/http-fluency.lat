@@ -846,7 +846,19 @@
         aspect-ratio: 1.12 / 1;
         align-self: stretch;
         padding: 58px 12px 16px;
-        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 24px;
+        box-shadow: 0 20px 42px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .dash-course-card::before {
+        background:
+            radial-gradient(circle at 0% 108%, rgba(190, 24, 93, 0.72) 0%, rgba(190, 24, 93, 0.34) 32%, transparent 68%),
+            linear-gradient(180deg, rgba(5, 7, 13, 0.08) 0%, rgba(5, 7, 13, 0.86) 100%),
+            linear-gradient(90deg, rgba(5, 7, 13, 0.42), transparent 72%),
+            var(--dash-course-image) center / cover no-repeat,
+            linear-gradient(145deg, #111827, #0f172a);
+        filter: saturate(1.04) brightness(1.12);
     }
 
     .dash-course-card h2 {
@@ -863,6 +875,8 @@
     .dash-course-badge {
         padding: 3px 7px;
         font-size: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
     }
 
     .dash-course-topbar {
@@ -948,6 +962,10 @@
         padding: 8px 10px;
         border-radius: 14px;
         gap: 8px;
+        border-color: rgba(255, 255, 255, 0.2);
+        background:
+            linear-gradient(135deg, rgba(30, 41, 59, 0.88), rgba(10, 15, 27, 0.96));
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     .dash-mini-stat--level .dash-mini-stat-icon {
@@ -1001,6 +1019,11 @@
         height: 100%;
         padding: 8px 6px;
         border-radius: 18px;
+        border-color: rgba(255, 255, 255, 0.2);
+        background:
+            radial-gradient(circle at 50% 50%, rgba(244, 114, 182, 0.13), transparent 54%),
+            linear-gradient(135deg, rgba(30, 41, 59, 0.88), rgba(10, 15, 27, 0.96));
+        box-shadow: 0 18px 34px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     .dash-main-ring-wrap {
@@ -1037,6 +1060,11 @@
         gap: 12px;
         padding: 18px 14px 16px;
         border-radius: 18px;
+        border-color: rgba(255, 255, 255, 0.2);
+        background:
+            radial-gradient(circle at 12% 100%, rgba(190, 24, 93, 0.18), transparent 48%),
+            linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(10, 15, 27, 0.98));
+        box-shadow: 0 18px 34px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     .dash-path-header {
@@ -1071,7 +1099,7 @@
 
     .dash-bottom-grid {
         display: flex;
-        gap: 20px;
+        gap: 14px;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         padding-top: 6px;
@@ -1086,15 +1114,103 @@
     }
 
     .dash-category-card {
-        flex: 0 0 min(70vw, 210px);
-        grid-template-rows: auto minmax(72px, 3fr) auto auto auto;
-        min-height: 172px;
+        position: relative;
+        display: block;
+        flex: 0 0 min(76vw, 264px);
+        aspect-ratio: 1.48 / 1;
+        min-height: 0;
+        padding: 14px;
+        overflow: hidden;
         scroll-snap-align: start;
-        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 24px;
+        background: #111827;
+        box-shadow: 0 20px 42px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
     .dash-category-thumb {
-        min-height: 72px;
+        position: absolute;
+        inset: 0;
+        min-height: 0;
+        overflow: hidden;
+        border-radius: inherit;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .dash-category-thumb::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+            linear-gradient(180deg, rgba(5, 7, 13, 0.2) 0%, transparent 38%, rgba(5, 7, 13, 0.9) 100%),
+            radial-gradient(circle at 0% 108%, rgba(190, 24, 93, 0.9) 0%, rgba(190, 24, 93, 0.48) 32%, transparent 68%);
+    }
+
+    .dash-category-card-title {
+        position: absolute;
+        z-index: 2;
+        top: 14px;
+        left: 14px;
+        max-width: calc(100% - 82px);
+        overflow: hidden;
+        padding: 7px 11px;
+        color: #ffffff;
+        font-size: 0.78rem;
+        font-weight: 800;
+        line-height: 1;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        background: rgba(5, 7, 13, 0.46);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(14px) saturate(1.25);
+        -webkit-backdrop-filter: blur(14px) saturate(1.25);
+    }
+
+    .dash-category-thumb span {
+        z-index: 2;
+        top: 14px;
+        right: 14px;
+        bottom: auto;
+        padding: 7px 10px;
+        color: #ffffff;
+        font-size: 0.68rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(5, 7, 13, 0.5);
+        backdrop-filter: blur(14px) saturate(1.25);
+        -webkit-backdrop-filter: blur(14px) saturate(1.25);
+    }
+
+    .dash-category-card strong {
+        position: absolute;
+        z-index: 2;
+        right: 14px;
+        bottom: 15px;
+        left: 14px;
+        overflow: hidden;
+        color: #ffffff;
+        font-size: 1.12rem;
+        font-weight: 750;
+        line-height: 1.15;
+        letter-spacing: -0.015em;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.82);
+    }
+
+    .dash-category-action {
+        position: absolute;
+        z-index: 2;
+        right: 14px;
+        bottom: 43px;
+        left: 14px;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.68rem;
+        font-weight: 850;
+        letter-spacing: 0.08em;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.82);
     }
 }
 
@@ -1160,7 +1276,17 @@
     }
 
     .dash-category-card {
-        flex: 0 0 min(78vw, 200px);
-        min-height: 164px;
+        flex: 0 0 min(76vw, 264px);
+        min-height: 0;
+    }
+}
+
+@media (display-mode: standalone) and (max-width: 768px) {
+    .dashboard-home {
+        padding-bottom: calc(116px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .main-content:has(.dashboard-home) > .shell-footer--app {
+        display: none;
     }
 }

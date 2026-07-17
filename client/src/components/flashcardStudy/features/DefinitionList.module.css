@@ -498,3 +498,90 @@
 .loadingAudioBtn {
     composes: loadingAudioBtn from './Flashcard.module.css';
 }
+
+@media (display-mode: standalone) and (max-width: 768px) {
+    [data-variant='app'] .allExamplesContainer,
+    [data-variant='app'][data-layout='conjugation'] .allExamplesContainer {
+        position: absolute;
+        z-index: 3;
+        right: 18px;
+        bottom: 40px;
+        left: 18px;
+        width: auto;
+        max-height: 122px;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    [data-variant='app'][data-layout='standard'] .allExamplesContainer {
+        bottom: 88px;
+    }
+
+    [data-variant='app'] .scrollableExamples ul,
+    [data-variant='app'][data-layout='conjugation'] .scrollableExamples ul {
+        max-height: 122px;
+        padding-right: 0;
+        overflow-y: auto;
+        scrollbar-width: none;
+    }
+
+    [data-variant='app'] .scrollableExamples ul::-webkit-scrollbar {
+        display: none;
+    }
+
+    [data-variant='app'] .allExamplesContainer ul,
+    [data-variant='app'][data-layout='conjugation'] .allExamplesContainer ul {
+        gap: 8px;
+    }
+
+    [data-variant='app'] .exampleRow,
+    [data-variant='app'][data-layout='conjugation'] .exampleRow {
+        justify-content: center;
+        gap: 7px;
+        padding: 2px 4px 2px 0;
+        text-align: center;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    [data-variant='app'] .phraseContainer,
+    [data-variant='app'] .phraseContainer span {
+        color: #ffffff;
+        font-size: 1.25rem;
+        font-weight: 600;
+        line-height: 1.3;
+        text-align: center;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.82);
+    }
+
+    [data-variant='app'] .examplePlayBtn,
+    [data-variant='app'][data-layout='conjugation'] .examplePlayBtn {
+        width: 44px;
+        height: 44px;
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.2);
+        background: rgba(0, 0, 0, 0.28);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    [data-variant='app'] .examplePlayBtn:hover,
+    [data-variant='app'] .exampleRow:hover .examplePlayBtn {
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.38);
+        background: rgba(0, 0, 0, 0.44);
+        box-shadow: 0 0 18px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    [data-variant='app'] .rotateVoiceBtn {
+        color: rgba(255, 255, 255, 0.86);
+        background: transparent;
+        border-color: transparent;
+        box-shadow: none;
+    }
+}

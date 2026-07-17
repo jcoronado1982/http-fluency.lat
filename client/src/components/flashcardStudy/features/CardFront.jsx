@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import styles from './Flashcard.module.css';
 import HighlightedText from './HighlightedText';
 import ConjugationTable from './ConjugationTable';
+import PwaCardHeader from './PwaCardHeader';
 import ImageViewer from './ImageViewer';
 import DefinitionList from './DefinitionList';
 import { LuLoaderCircle } from 'react-icons/lu';
@@ -112,6 +113,14 @@ function CardFront({
             data-variant={visualVariant}
             data-layout={visualLayout}
         >
+            <PwaCardHeader
+                cardData={cardData}
+                activeForm={activeForm}
+                onConjugationSelect={onConjugationSelect}
+                currentLanguage={currentLanguage}
+                isLandingDemo={isLandingDemo}
+            />
+
             {/* Nombre + botón borrar audio */}
             <div className={styles.wordHeader}>
                 <button
@@ -173,7 +182,6 @@ function CardFront({
                 currentLanguage={currentLanguage}
                 isLandingDemo={isLandingDemo}
             />
-
             {/* Lista de definiciones (componente propio) */}
             <DefinitionList
                 definitions={displayData.definitions}

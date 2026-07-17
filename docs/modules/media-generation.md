@@ -37,9 +37,20 @@ Generar y mantener el catálogo de media de las tarjetas:
    explícito** (sin fallback silencioso).
 3. **Render**: **ComfyUI + Flux** en `http://127.0.0.1:8188` (`COMFY_URL`), instalado en
    `/home/jcoronado/Desktop/dev/ComfyUI`, servicio systemd `comfyui.service`, flag `--cache-none`.
-4. **Compresión**: AVIF vía puerto `ImageCompressor` (adapter `AvifCompressor`).
+   El render web/responsive nace en **768×512 (3:2)**.
+4. **Compresión**: AVIF vía puerto `ImageCompressor` (adapter `AvifCompressor`). El formato
+   canónico entregado es **768×512**; al coincidir con Flux evita el estiramiento intermedio que
+   existía cuando la salida se forzaba a 896×512. La carga manual del frontend usa el mismo
+   tamaño y recorte `cover` centrado.
 5. Log JSONL de generaciones: `image_generation.log` (raíz del repo).
-6. Batch: `scripts/batch-images.sh`; limpieza de legacy: `scripts/prune-legacy-512-avif.py`.
+6. Tanto la generación individual (`POST /api/generate-image`) como el batch comparten proveedor
+   y compresor, por lo que producen 768×512. Batch: `scripts/batch-images.sh`; limpieza de legacy:
+   `scripts/prune-legacy-512-avif.py`.
+7. Las salidas 896×512 creadas por el resize antiguo pueden corregirse con
+   `scripts/restore-stretched-896-images.py`. El script solo selecciona esa resolución, funciona
+   en dry-run por defecto y, al ejecutar, escribe un árbol paralelo 768×512 sin sobrescribir el
+   origen. `--exclude-top-level landing-demo` mantiene fuera el namespace del demo. No recupera
+   los bytes originales ni debe usarse sobre imágenes 896×512 legítimas.
 
 ### Hardware (estación LocalBuild — detalle en [`server_inventory.md`](../infrastructure/server_inventory.md))
 
@@ -65,7 +76,7 @@ Reglas de RAM (nunca generar/comprimir catálogos en los servidores de 1 GB):
 | Proveedores IA | `backend/api_main/src/infrastructure/ai/` (gemini_grpc, routing_tts, elevenlabs_tts, avif_compressor…) |
 | Endpoints | `backend/api_main/src/api/endpoints/generation.rs` (ver [`flashcards.md`](flashcards.md)) |
 | Frontend | `client/src/components/flashcardStudy/features/useImageGeneration.js` (hook-dios, deuda #1 de `client/CLAUDE.md` §9), `client/src/adapters/` |
-| Scripts | `scripts/batch-images.sh`, `scripts/prune-legacy-512-avif.py` |
+| Scripts | `scripts/batch-images.sh`, `scripts/prune-legacy-512-avif.py`, `scripts/restore-stretched-896-images.py` |
 | Logs | `image_generation.log`, `batch_audio_failures.log`, `ollama.log`, `backend/backend.log` |
 
 ## Dependencias

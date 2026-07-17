@@ -17,8 +17,8 @@ for file in *.png; do
     output="${file%.png}.avif"
     echo "⚡ Convirtiendo: '$file' -> '$output' (Calidad optimizada: 85)..."
     
-    # Convertir y redimensionar a exactamente 896x512 con ImageMagick (calidad 85)
-    convert "$file" -resize 896x512! -quality 85 "$output"
+    # Convertir y redimensionar a exactamente 768x512 con ImageMagick (calidad 85)
+    convert "$file" -resize 768x512! -quality 85 "$output"
     
     if [ $? -eq 0 ]; then
         echo "✅ Completado: '$output'"

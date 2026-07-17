@@ -378,6 +378,8 @@ function Flashcard() {
                     cardData={cardData}
                     activeForm={activeForm}
                     currentLanguage={cardLanguage}
+                    imageUrl={imageUrl}
+                    onConjugationSelect={handleConjugationSelect}
                 />
             </div>
         </div>

@@ -1,6 +1,7 @@
 // src/features/flashcards/CardBack.jsx
 import React from 'react';
 import styles from './CardBack.module.css';
+import PwaCardHeader from './PwaCardHeader';
 import {
     getCardTitle,
     getDefinitionStudyTerm,
@@ -36,7 +37,7 @@ function HighlightedExample({ text, term }) {
     );
 }
 
-function CardBack({ cardData, activeForm, currentLanguage }) {
+function CardBack({ cardData, activeForm, currentLanguage, imageUrl, onConjugationSelect }) {
     const getDisplayDefinitions = () => {
         if (activeForm === 'v1' || !cardData.irregular) {
             return {
@@ -76,6 +77,21 @@ function CardBack({ cardData, activeForm, currentLanguage }) {
 
     return (
         <div className={styles.cardBack}>
+            {imageUrl && (
+                <img
+                    className={styles.pwaBackImage}
+                    src={imageUrl}
+                    alt=""
+                    aria-hidden="true"
+                />
+            )}
+            <PwaCardHeader
+                cardData={cardData}
+                activeForm={activeForm}
+                onConjugationSelect={onConjugationSelect}
+                currentLanguage={currentLanguage}
+                showConjugation={false}
+            />
             {displayData.definitions?.map((def, i) => {
                 const definitionTerm = getDefinitionStudyTerm(def, title, currentLanguage);
 

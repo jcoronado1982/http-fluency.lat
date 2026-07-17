@@ -13,7 +13,7 @@ Uso:
     python3 prune-legacy-512-avif.py --root /otra/ruta --execute
 
 Solo selecciona archivos .avif cuya resolucion real sea EXACTAMENTE 512x512.
-Cualquier otra resolucion (896x512, la nueva resolucion del pipeline, etc.)
+Cualquier otra resolucion (768x512, la nueva resolucion del pipeline, etc.)
 se ignora siempre, sin importar el porcentaje pedido.
 
 Flujo diario sugerido:
@@ -39,7 +39,7 @@ import time
 
 DEFAULT_ROOT = "/root/smart-proxy/repository/flashcard/card_images"
 TARGET_RESOLUTION = (512, 512)  # legacy a podar
-NEW_RESOLUTION = (896, 512)  # resolucion nueva del pipeline: NUNCA se borra
+NEW_RESOLUTION = (768, 512)  # resolucion nueva del pipeline: NUNCA se borra
 
 assert TARGET_RESOLUTION != NEW_RESOLUTION, "TARGET_RESOLUTION no puede ser igual a NEW_RESOLUTION"
 

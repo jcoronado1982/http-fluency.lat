@@ -43,6 +43,18 @@ vía puertos (`ports/` del módulo) — nunca importando internals de otros mód
 
 Ninguna colección propia; lee progreso/stats vía API de flashcards.
 
+En móvil, las recomendaciones conservan su carrusel horizontal pero adoptan la composición
+cinematográfica de la sesión PWA: miniatura a sangre completa, degradado de contraste, categoría
+y nivel en cápsulas de cristal y nombre del deck superpuesto. La meta actual, progreso, nivel y
+ruta comparten ese acabado con cristal oscuro y acentos rosa/naranja. El escritorio conserva su grilla.
+La PWA instalada monta el dock inferior compartido `components/pwa/PwaBottomDock.jsx`; desde el
+dashboard permite entrar a la sesión de Flashcards, cambiar el idioma de estudio y abrir su catálogo. En la ruta
+del dashboard PWA móvil, este dock reemplaza visualmente al footer compartido, que permanece oculto.
+Su header usa el isotipo blanco centrado y conserva a la derecha el avatar del perfil como disparador
+del menú de cuenta; hamburguesa, nombre de marca y botón de tres puntos se ocultan solo en esa vista.
+La franja superior y el panel de cuenta emplean cristal más transparente que la cabecera de Flashcards,
+con desenfoque de fondo para sostener el contraste del contenido.
+
 ## Cómo probar
 
 ```bash

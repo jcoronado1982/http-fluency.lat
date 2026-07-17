@@ -20,7 +20,7 @@ loadWasm().catch(console.error);
 export const imageCompressionService = {
     /**
      * Comprime y optimiza un archivo de imagen en el cliente.
-     * Convierte HEIC -> JPEG si es necesario, escala a un tamaño exacto de 896x512px
+     * Convierte HEIC -> JPEG si es necesario, escala a un tamaño exacto de 768x512px
      * usando un reescalado tipo "cover" (centrado y recortando sobrantes para mantener la proporción),
      * y comprime a formato AVIF usando el motor WebAssembly (WASM).
      * 
@@ -50,7 +50,7 @@ export const imageCompressionService = {
         // Aseguramos que el WASM esté cargado
         await loadWasm();
 
-        // 2. Cargar imagen en un Canvas para reescalar a 896x512
+        // 2. Cargar imagen en un Canvas para reescalar a 768x512
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = (event) => {
@@ -59,8 +59,8 @@ export const imageCompressionService = {
                     try {
                         const canvas = document.createElement('canvas');
                         
-                        // Tamaño canónico y estándar de las flashcards: 896x512
-                        const targetWidth = 896;
+                        // Tamaño canónico y estándar de las flashcards: 768x512
+                        const targetWidth = 768;
                         const targetHeight = 512;
                         canvas.width = targetWidth;
                         canvas.height = targetHeight;
