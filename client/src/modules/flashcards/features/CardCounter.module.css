@@ -95,12 +95,12 @@
         right: auto !important;
         left: auto !important;
         transform: none !important;
-        margin: 15px 20px 10px auto !important;
+        margin: 10px 20px 10px auto !important;
         width: calc(100% - (var(--fc-page-inline-padding, 12px) * 2)) !important;
         max-width: var(--fc-card-max-width, 620px) !important;
         display: flex !important;
         justify-content: flex-end !important;
-        padding: 0 4px !important;
+        padding: 0px 10px !important;
         border-radius: 0 !important;
         box-shadow: none !important;
         background: transparent !important;

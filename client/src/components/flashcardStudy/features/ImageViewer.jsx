@@ -141,16 +141,25 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
 
             {/* Visualizador de la imagen (Oculta si está decodificando) */}
             {imageUrl ? (
-                <img
-                    key={imageKey ? `${imageKey}-${imageUrl}` : imageUrl}
-                    ref={attachRef}
-                    className={`${styles.image} ${styles.imageVisible}`}
-                    src={imageUrl}
-                    alt={altText || 'Flashcard image'}
-                    onLoad={handleImageLoad}
-                    onError={handleImageError}
-                    style={{ '--image-opacity': isDecoding ? 0 : 1 }}
-                />
+                <>
+                    <img
+                        className={styles.imageBackdrop}
+                        src={imageUrl}
+                        alt=""
+                        aria-hidden="true"
+                        style={{ '--image-opacity': isDecoding ? 0 : 1 }}
+                    />
+                    <img
+                        key={imageKey ? `${imageKey}-${imageUrl}` : imageUrl}
+                        ref={attachRef}
+                        className={`${styles.image} ${styles.imageVisible}`}
+                        src={imageUrl}
+                        alt={altText || 'Flashcard image'}
+                        onLoad={handleImageLoad}
+                        onError={handleImageError}
+                        style={{ '--image-opacity': isDecoding ? 0 : 1 }}
+                    />
+                </>
             ) : !isProcessActive && (
                 <img
                     src="/noimages.png"

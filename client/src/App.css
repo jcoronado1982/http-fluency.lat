@@ -95,13 +95,14 @@
         --fc-header-offset: calc(80px + env(safe-area-inset-top, 0px));
         --fc-footer-offset: 0px;
         --fc-controls-spacing-extra: 0px;
-        --fc-controls-gap: 8px;
+        --fc-controls-gap: 20px;
         --fc-controls-offset: calc(100px + env(safe-area-inset-bottom, 0px));
         --fc-page-padding-block: 12px;
-        --fc-page-inline-padding: 10px;
+        --fc-page-inline-padding: 15px;
         --fc-card-max-width: 100%;
         --fc-card-min-height: 200px;
-        --fc-card-height: max(
+        --fc-card-max-height: 560px;
+        --fc-card-height: clamp(
             var(--fc-card-min-height),
             calc(
                 var(--fc-real-vh, 100dvh)
@@ -109,7 +110,8 @@
                 - var(--fc-controls-offset)
                 - var(--fc-page-padding-block)
                 - 10px
-            )
+            ),
+            var(--fc-card-max-height)
         );
     }
 }
@@ -163,6 +165,10 @@
 @media (max-width: 768px) {
     .main-content:has(.flashcard-page-wrapper[data-catalog-open='true']) > .shell-footer--app {
         display: none;
+    }
+
+    .main-content:has(.flashcard-page-wrapper:not([data-landing-demo])) > .shell-footer--app {
+        flex-grow: 1;
     }
 }
 
@@ -267,7 +273,7 @@
 
 @media (max-width: 480px) {
     .flashcard-page-wrapper:not([data-landing-demo]) {
-        --fc-page-inline-padding: 8px;
+        --fc-page-inline-padding: 15px;
     }
 }
 
@@ -295,7 +301,7 @@
     }
 
     .flashcard-page-wrapper:not([data-landing-demo]) .app-container {
-        padding: 4px var(--fc-page-inline-padding, 10px) 30px;
+        padding: 4px var(--fc-page-inline-padding, 15px) 30px;
         min-height: 0;
         align-items: stretch;
     }

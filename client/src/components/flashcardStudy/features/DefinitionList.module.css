@@ -274,8 +274,8 @@
     }
 
     [data-variant='app'][data-layout='conjugation'] .exampleRow {
-        padding: 2px 4px;
-        gap: 8px;
+        padding: 3px;
+        gap: 5px;
     }
 
     [data-variant='app'][data-layout='conjugation'] .examplePlayBtn {
@@ -302,8 +302,8 @@
     }
 
     [data-variant='app'] .exampleRow {
-        gap: 10px;
-        padding: 4px 6px;
+        gap: 5px;
+        padding: 3px;
     }
 
     [data-variant='app'] .phraseContainer span {

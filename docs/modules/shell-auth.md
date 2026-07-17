@@ -3,8 +3,9 @@
 ## Propósito
 
 El shell es la base que siempre se entrega con cualquier combinación de módulos: dominio y
-puertos (`core`), autenticación Google OAuth→JWT, tutor IA, presencia, suscripciones, y el
-registry/layout del frontend. **No es un módulo de negocio**: es lo que los módulos enchufan.
+puertos (`core`), autenticación Google OAuth→JWT, tutor IA, presencia, suscripciones, experiencia
+PWA online-first y el registry/layout del frontend. **No es un módulo de negocio**: es lo que los
+módulos enchufan.
 
 ## Estado y roadmap
 
@@ -30,6 +31,7 @@ registry/layout del frontend. **No es un módulo de negocio**: es lo que los mó
 | Auth frontend | `client/src/context/AuthContext.jsx`, `client/src/pages/LoginPage.jsx`, `client/src/repositories/` | sesión JWT en localStorage |
 | HTTP | `client/src/services/httpClient.js` | único cliente HTTP (inyecta Bearer) |
 | Layout/shell UI | `client/src/App.jsx`, `client/src/components/shell/`, `client/src/context/UIContext.jsx` | árbol de rutas bare vs app |
+| PWA online-first | `client/public/manifest.webmanifest`, `client/public/sw.js`, `client/src/components/pwa/`, `client/public/pwa/` | identidad instalable, navegación network-only, instalación móvil y estado de conectividad |
 
 ## Contratos / endpoints (shell)
 
@@ -61,6 +63,12 @@ Endpoints `/api/admin/*` (incl. `/api/admin/subscriptions` + `activate`/`cancel`
 - `SUPER_ADMIN_EMAIL` obtiene rol admin automáticamente al primer login.
 - `dev-guest` debe responder 404 fuera de desarrollo (`dev_guest_token_allowed()`).
 - Sin SurrealDB, auth degrada vía `NullDbRepository`: la app arranca, no explota.
+- La PWA es **online-first**: el service worker delega las navegaciones directamente a la red y no
+  usa Cache Storage. Tampoco intercepta `/api`, `/json`, `/card_images` o `/card_audio`; abrir otro
+  mazo y obtener contenido nuevo requiere conexión.
+- `PwaExperience` registra el service worker solo en builds de producción, muestra la pérdida de
+  conectividad y permite descartar la sugerencia de instalación durante siete días. En iOS explica
+  el flujo nativo Compartir → Añadir a pantalla de inicio.
 
 ## Flags y activación
 
@@ -82,4 +90,9 @@ SurrealDB: `users`, `subscription`, presencia/actividad. Ver [`database_schema_d
 curl -X POST http://127.0.0.1:5173/api/auth/dev-guest    # JWT invitado admin en dev
 curl -s http://localhost:8081/api/health
 cd client && npm run test:routing                        # lógica pura de rutas del registry
+cd client && npm run test:pwa                            # manifest, iconos y contrato network-only
+cd client && npm run build                               # copia manifest.webmanifest + sw.js a dist
+cd client && npm run preview:pwa                         # http://localhost:4173 + proxy backend :8081
+# Google OAuth local: autorizar exactamente http://localhost:4173 como JavaScript origin.
+# Comprobar instalación, registro del SW, login y aviso offline en Android/iOS.
 ```

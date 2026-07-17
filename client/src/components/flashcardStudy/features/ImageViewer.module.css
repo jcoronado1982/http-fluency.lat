@@ -158,6 +158,10 @@
     opacity: var(--image-opacity, 1);
 }
 
+.imageBackdrop {
+    display: none;
+}
+
 .imageLoadingOverlay {
     position: absolute;
     display: flex;
@@ -301,10 +305,33 @@
     }
 
     [data-variant='app'][data-layout='conjugation'] .imagePlaceholder {
-        aspect-ratio: 7 / 4;
-        flex: 0 0 auto;
-        margin-top: 12px;
-        align-self: end;
+        aspect-ratio: auto;
+        flex: 1 1 0;
+        height: auto;
+        max-height: none;
+        margin-top: 5px;
+        align-self: stretch;
+    }
+
+    [data-variant='app'][data-layout='conjugation'] .imageBackdrop {
+        position: absolute;
+        z-index: 0;
+        inset: -18px;
+        display: block;
+        width: calc(100% + 36px);
+        height: calc(100% + 36px);
+        object-fit: cover;
+        opacity: var(--image-opacity, 0);
+        filter: blur(12px) brightness(0.64) saturate(1.05);
+        transform: scale(1.12);
+        pointer-events: none;
+    }
+
+    [data-variant='app'][data-layout='conjugation'] .image {
+        position: relative;
+        z-index: 1;
+        object-fit: contain;
+        filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.3));
     }
 
 }

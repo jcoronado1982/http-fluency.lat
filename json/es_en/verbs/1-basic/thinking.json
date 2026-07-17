@@ -759,7 +759,8 @@
         "usage_example_es": "¿Te molesta el ruido?",
         "char_count": "two",
         "usage_context_en": "bother/concern",
-        "usage_context_es": "molestia/preocupación"
+        "usage_context_es": "molestia/preocupación",
+        "imagePath": "/card_images/verbs/1-basic/thinking/1-basic_thinking_card_15_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"

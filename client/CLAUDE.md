@@ -124,6 +124,7 @@ src/
 ├── pages/                      ← páginas del shell (Login, Admin, Onboarding, Grammar, Test)
 ├── components/
 │   ├── common/                    ProtectedRoute, AdminRoute, PageLoader, LanguageSelector, FluencyDialog
+│   ├── pwa/                       experiencia PWA online-first: instalación y estado de conexión
 │   ├── routing/SafeRedirect.jsx
 │   ├── shell/                     BareLayout, MinimalAppShell, ShellFooter
 │   └── flashcardStudy/         ⭐ KIT COMPARTIDO de la tarjeta (ver §4 — recién refactorizado)
@@ -248,6 +249,14 @@ Playwright intercepta generación/borrado de media externa. En `--full`/`--all`,
 confirmar el bloqueo global con HTTP 423 y el runner compara un inventario SHA-256 completo de
 `card_audio/`, `card_images/` e `img/` (también ignorados/no versionados). El gate nunca limpia
 media automáticamente: ante cualquier diferencia falla y conserva los archivos para revisión.
+
+**PWA online-first:** `public/manifest.webmanifest` define la identidad instalable y `public/sw.js`
+delega las navegaciones directamente a la red, sin Cache Storage ni interceptar API, catálogos o
+media. `components/pwa/PwaExperience.jsx` centraliza la instalación y el estado de conectividad.
+Validar con `npm run test:pwa`, `npm run build` y `npm run preview:pwa`; este último fija
+`http://localhost:4173`, aplica el header requerido por Google Identity Services en pruebas HTTP y
+proxyfica API/media al backend local `:8081`. El OAuth client debe autorizar exactamente ese origen.
+En producción, manifest y service worker deben responder con su MIME real y no caer al HTML de la SPA.
 
 ---
 

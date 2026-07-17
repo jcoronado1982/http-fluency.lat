@@ -95,6 +95,19 @@ Convención: `course_direction` (`es_en` default | `en_es`…) es query/campo op
 - Las URLs de media devuelven query `?v=<mtime>-<tamaño>`: la identidad cambia al sobrescribir el archivo; no cachear sin la query.
 - Generación/borrado exigen rol `premium`/`admin` (hoy validado en frontend — deuda #2 de `client/CLAUDE.md` §9).
 - `category='landing-demo'` enruta a otro proveedor TTS (ElevenLabs) — contrato con el módulo landing.
+- En la app autenticada, el layout responsive (`max-width: 768px`, incluida la PWA) mantiene
+  15 px de separación lateral compartida para la tarjeta y la barra de controles; el demo de
+  landing conserva su geometría independiente. Los controles de navegación y el botón SRS
+  miden 48 × 48 px en ese layout. Las filas de ejemplos usan `gap: 5px` y `padding: 3px`
+  tanto en tarjetas estándar como de conjugación. En estas últimas, la imagen deja de imponer
+  una relación de aspecto fija y ocupa el espacio vertical libre. La imagen principal usa
+  `object-fit: contain` para mostrarse completa y una copia decorativa desenfocada cubre el
+  espacio sobrante sin deformar ni recortar el contenido relevante. La tarjeta conserva el
+  cálculo por espacio disponible, con `--fc-card-max-height: 560px` como tope móvil/PWA para
+  evitar que se estire en pantallas altas y mantener cerca la barra y el footer; la separación
+  entre tarjeta y barra de controles es de 20 px y la palabra principal usa `1.5rem`. El botón
+  SRS/calendario mantiene el círculo visual oculto hasta hover o focus. El footer absorbe el
+  remanente inferior del shell móvil para no dejar una franja oscura al final.
 
 ## Flags y activación
 

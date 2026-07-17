@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './context/AuthContext.jsx';
 import { initModules } from './modules/index.js';
+import PwaExperience from './components/pwa/PwaExperience.jsx';
 import { getInitialInterfaceLanguage } from './utils/browserLanguage.js';
 import './styles/fonts.css';
 import './styles/app-brand.css';
@@ -42,6 +43,7 @@ async function bootstrap() {
         <BrowserRouter>
           <AuthProvider>
             <App />
+            <PwaExperience />
           </AuthProvider>
         </BrowserRouter>
       </QueryClientProvider>
