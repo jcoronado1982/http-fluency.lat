@@ -48,6 +48,7 @@ Si los tests pasan pero la realidad falla: verificar en vivo, arreglar, y actual
 - [docs/infrastructure/media-delivery-cache.md](docs/infrastructure/media-delivery-cache.md): entrega/caché de imágenes y audio.
 - [SECRETS_MAP.md](SECRETS_MAP.md): (LOCAL ONLY) credenciales SSH y DB.
 - [scripts/cloud_connections.skill.md](scripts/cloud_connections.skill.md): conexión a Azure/GCP/OCI/AWS.
+- [scripts/azure_pipeline_cleanup.skill.md](scripts/azure_pipeline_cleanup.skill.md): skill portable para limpiar runs, artefactos y logs de Azure Pipelines.
 - [scripts/routine_operations.skill.md](scripts/routine_operations.skill.md): operaciones rutinarias.
 - [scripts/troubleshooting_library.skill.md](scripts/troubleshooting_library.skill.md): lecciones aprendidas.
 
@@ -65,4 +66,4 @@ Si los tests pasan pero la realidad falla: verificar en vivo, arreglar, y actual
 
 - Marca: fluency.lat (nombre interno legado: flashcard, conservado en paths/imágenes Docker).
 - Repo: `github.com/jcoronado1982/http-fluency.lat` — pipeline Azure DevOps `jcoronado1982.fluency`.
-- Última actualización de este archivo: 2026-07-16.
+- Última actualización de este archivo: 2026-07-17.

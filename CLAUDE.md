@@ -201,7 +201,7 @@ el test — no otra visita a la obra. Nunca arreglar en vivo sin dejar rastro en
 | Túnel privado AWS↔Oracle | [`docs/infrastructure/wireguard-aws-oracle.md`](docs/infrastructure/wireguard-aws-oracle.md) |
 | Dominios y rutas URL | [`docs/MAPA_DOMINIOS.md`](docs/MAPA_DOMINIOS.md) |
 | Operaciones rutinarias (limpieza, reset DB) | [`scripts/routine_operations.skill.md`](scripts/routine_operations.skill.md) |
-| Limpiar historial, artefactos y logs de Azure Pipelines | [`scripts/azure_pipeline_cleanup.skill.md`](scripts/azure_pipeline_cleanup.skill.md) |
+| Skill portable para limpiar historial, artefactos y logs de Azure Pipelines | [`scripts/azure_pipeline_cleanup.skill.md`](scripts/azure_pipeline_cleanup.skill.md) |
 | Conexión a nubes (Azure/GCP/OCI/AWS) | [`scripts/cloud_connections.skill.md`](scripts/cloud_connections.skill.md) |
 | Errores ya resueltos (no tropezar dos veces) | [`scripts/troubleshooting_library.skill.md`](scripts/troubleshooting_library.skill.md) |
 | Estructura técnica general (índice de código) | [`CODEBASE.md`](CODEBASE.md) |

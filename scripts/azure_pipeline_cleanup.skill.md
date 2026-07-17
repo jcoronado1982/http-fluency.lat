@@ -1,8 +1,20 @@
-# Skill multi-asistente: limpiar el historial de Azure Pipelines
+# Skill portable: limpiar el historial de Azure Pipelines
 
-> Canónico compartido para Codex, Claude, Gemini, Cursor, Copilot y cualquier IA que trabaje en
-> este repositorio. Usar cuando el usuario pida limpiar Azure Pipelines, borrar runs antiguos,
-> eliminar artefactos o logs, hacer mantenimiento o dejar el pipeline como nuevo.
+> Procedimiento neutral en Markdown para cualquier IA o persona con acceso a una terminal. No
+> requiere Codex, Claude, Gemini, MCP, plugins ni una aplicación concreta. Usar cuando se pida
+> limpiar Azure Pipelines, borrar runs antiguos, eliminar artefactos o logs, hacer mantenimiento o
+> dejar un pipeline como nuevo.
+
+## Requisitos portables
+
+- Bash.
+- Azure CLI con la extensión `azure-devops`.
+- Un PAT con permisos para consultar y borrar builds, suministrado mediante
+  `AZURE_DEVOPS_EXT_PAT` o el mecanismo secreto del entorno.
+- El script `scripts/cleanup-ado-builds.sh` de este repositorio.
+
+No depender de una integración propia de un proveedor de IA. Ejecutar y verificar todo mediante el
+script y Azure CLI.
 
 ## Fuente de verdad y seguridad
 
@@ -10,8 +22,9 @@
 - Leer primero `docs/infrastructure/pipeline-and-deploy.md`, sección **Limpieza de logs y
   artefactos en Azure DevOps**.
 - Ejecutar solamente `scripts/cleanup-ado-builds.sh`; no duplicar su lógica con comandos ad hoc.
-- No mostrar, copiar en comandos ni registrar el PAT. El script lo carga internamente desde
-  `SECRETS_MAP.md` o usa `AZURE_DEVOPS_EXT_PAT` si ya está definido.
+- No mostrar, copiar como literal en comandos ni registrar el PAT. Preferir
+  `AZURE_DEVOPS_EXT_PAT`; en Fluency el script también puede cargarlo internamente desde
+  `SECRETS_MAP.md`.
 - El borrado exige autorización explícita del usuario en el turno actual. Sin ella, limitarse a
   simular y reportar.
 - No cancelar runs activos o en cola. El script protege `inProgress`, `notStarted` y `postponing`.
@@ -23,6 +36,9 @@
 | Auditar o revisar qué sobra | Solo `--dry-run` |
 | Limpiar historial viejo | Conservar el último run exitoso de `main` y `qa` |
 | Dejar el pipeline como nuevo | Borrar todos los runs terminados y limpiar LocalBuild |
+
+El script acepta `ADO_ORG`, `ADO_PROJECT` y `ADO_PIPELINE_ID` para operar sobre otro pipeline sin
+modificar su código. Si no se definen, usa los valores predeterminados documentados para Fluency.
 
 ## Simular siempre antes de borrar
 
