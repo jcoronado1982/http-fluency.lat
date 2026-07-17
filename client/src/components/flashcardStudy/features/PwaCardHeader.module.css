@@ -1,0 +1,63 @@
+.pwaCardHeader {
+    display: none;
+}
+
+@media (display-mode: standalone) and (max-width: 768px) {
+    .pwaCardHeader {
+        /* Ajuste público del cristal PWA: cambia solo la opacidad, no el layout. */
+        --pwa-header-glass-opacity: 0.38;
+        --pwa-header-glass-height: var(
+            --pwa-card-header-height,
+            calc(112px + env(safe-area-inset-top, 0px))
+        );
+        position: absolute;
+        z-index: 9;
+        top: 0;
+        right: 0;
+        left: 0;
+        display: block;
+        height: var(--pwa-header-glass-height);
+        pointer-events: none;
+    }
+
+    .pwaCardHeader[data-layout='standard'] {
+        --pwa-header-glass-height: calc(64px + env(safe-area-inset-top, 0px));
+    }
+
+    .headerGlass {
+        position: absolute;
+        z-index: 0;
+        inset: 0;
+        background:
+            linear-gradient(
+                90deg,
+                rgb(5 7 13 / calc(var(--pwa-header-glass-opacity) + 0.3)) 0%,
+                rgb(7 10 17 / calc(var(--pwa-header-glass-opacity) * 0.34)) 34%,
+                rgb(7 10 17 / calc(var(--pwa-header-glass-opacity) * 0.34)) 66%,
+                rgb(5 7 13 / calc(var(--pwa-header-glass-opacity) + 0.3)) 100%
+            ),
+            linear-gradient(
+                180deg,
+                rgb(5 7 13 / calc(var(--pwa-header-glass-opacity) + 0.18)) 0%,
+                rgb(9 14 22 / calc(var(--pwa-header-glass-opacity) * 0.2)) 62%,
+                rgb(5 7 13 / calc(var(--pwa-header-glass-opacity) + 0.08)) 100%
+            );
+        backdrop-filter: blur(18px) saturate(1.2);
+        -webkit-backdrop-filter: blur(18px) saturate(1.2);
+        pointer-events: none;
+    }
+
+    .logo {
+        position: absolute;
+        z-index: 2;
+        top: calc(10px + env(safe-area-inset-top, 0px));
+        left: 50%;
+        display: block;
+        width: 44px;
+        height: 44px;
+        object-fit: contain;
+        border-radius: 8px;
+        filter: brightness(0) invert(1);
+        transform: translateX(-50%);
+    }
+}
