@@ -118,8 +118,10 @@ export default function AdminPage() {
                     />
                     {totalUsersLatest !== null && (
                         <div className="admin-stat-tile">
-                            <span className="admin-chart-title">Total users</span>
-                            <span className="admin-chart-headline">{totalUsersLatest}</span>
+                            <div className="admin-chart-header" style={{ marginBottom: 0 }}>
+                                <span className="admin-chart-title">Total users</span>
+                                <span className="admin-chart-headline">{totalUsersLatest}</span>
+                            </div>
                         </div>
                     )}
                 </section>

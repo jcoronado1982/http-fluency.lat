@@ -312,7 +312,7 @@ function Flashcard() {
             data-variant={visualVariant}
             data-state="ready"
         >
-            {!isLandingDemo && !isSrsMode && (
+            {!isLandingDemo && !isSrsMode && !isFlipped && (
                 <button
                     type="button"
                     className={styles.srsToggle}

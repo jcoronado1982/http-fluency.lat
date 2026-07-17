@@ -22,7 +22,7 @@ export default function ShellFooter({ variant = 'app', labels = DEFAULT_LABELS }
                         </div>
                     </div>
                 </div>
-                <div className="shell-footer-links">
+                {/* <div className="shell-footer-links">
                     <a href="/documentation" className="shell-footer-link">{copy.documentation}</a>
                     <span className="shell-footer-divider">|</span>
                     <a
@@ -42,7 +42,7 @@ export default function ShellFooter({ variant = 'app', labels = DEFAULT_LABELS }
                     >
                         {copy.github}
                     </a>
-                </div>
+                </div> */}
             </div>
         </footer>
     );

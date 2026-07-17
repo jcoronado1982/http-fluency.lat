@@ -275,10 +275,38 @@
         overscroll-behavior: contain;
         -webkit-overflow-scrolling: touch;
     }
+
+    .floatingOptions .fmSectionLabel {
+        font-size: 0.58rem;
+    }
+
+    .fmOptionName {
+        font-size: 0.8rem;
+    }
+
+    .fmOptionSub {
+        font-size: 0.64rem;
+    }
+
+    .userName {
+        font-size: 0.8rem;
+    }
+
+    .userRole {
+        font-size: 0.62rem;
+    }
+
+    .studyDirectionLabel {
+        font-size: 0.64rem;
+    }
+
+    .studyDirectionOption {
+        font-size: 0.76rem;
+    }
 }
 .studyDirectionControl {
     display: grid;
-    gap: 7px;
+    gap: 10px;
     margin: 8px 12px 12px;
 }
 

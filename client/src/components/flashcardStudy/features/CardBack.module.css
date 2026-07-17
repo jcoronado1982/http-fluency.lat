@@ -140,6 +140,34 @@
 }
 @media (max-width: 768px) {
 
+    .meaningSentence {
+        font-size: 1.25rem;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .usageExampleEn {
+        font-size: 1.25rem;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .alternativeExample {
+        font-size: 1.1rem;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .usageExampleEs {
+        font-size: 1.05rem;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .definitionBlockBack {
+        padding-bottom: 5px;
+    }
+
     [data-variant='demo'] .cardBack {
         overflow-x: hidden;
         overflow-y: auto;

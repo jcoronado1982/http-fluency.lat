@@ -845,7 +845,7 @@
         height: auto;
         aspect-ratio: 1.12 / 1;
         align-self: stretch;
-        padding: 58px 12px 12px;
+        padding: 58px 12px 16px;
         border-radius: 18px;
     }
 
@@ -1074,7 +1074,9 @@
         gap: 20px;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
-        padding-bottom: 4px;
+        padding-top: 6px;
+        margin-top: -6px;
+        padding-bottom: 8px;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
     }
@@ -1123,8 +1125,8 @@
         width: 100%;
         min-height: 0;
         height: auto;
-        aspect-ratio: 7 / 4;
-        padding-top: 48px;
+        aspect-ratio: 1.55 / 1;
+        padding: 48px 14px 20px;
     }
 
     .dash-ring-card {
@@ -1153,7 +1155,7 @@
     }
 
     .dash-mini-stat--level {
-        padding: 12px 14px;
+        padding: 15px 14px;
         gap: 10px;
     }
 

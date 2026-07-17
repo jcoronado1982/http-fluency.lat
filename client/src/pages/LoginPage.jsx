@@ -227,7 +227,7 @@ const LoginPage = () => {
             window.google.accounts.id.renderButton(container, {
                 theme: 'outline',
                 size: 'large',
-                shape: 'rectangular',
+                shape: 'pill',
                 width,
                 text: 'continue_with',
             });
@@ -297,7 +297,7 @@ const LoginPage = () => {
                 <div className="login-stage">
                     <div className="login-panel">
                         <h1 className="login-title">{loginCopy.welcome}</h1>
-                        <p className="login-subtitle">{loginCopy.subtitle}</p>
+                        {/* <p className="login-subtitle">{loginCopy.subtitle}</p> */}
 
                         <div className="login-auth">
                             <div className="google-btn-container" ref={googleBtnRef} />

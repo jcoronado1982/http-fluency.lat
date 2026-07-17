@@ -505,6 +505,10 @@
         min-height: 0;
     }
 
+    .cardFront {
+        padding: 15px 15px 15px 15px;
+    }
+
 }
 
 .wordHeader {
