@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './ConjugationTable.module.css';
-import { FaSpinner } from 'react-icons/fa';
+import { LuLoaderCircle } from 'react-icons/lu';
 import { FiPlay } from 'react-icons/fi';
 
 import { isLearningEnglish } from './cardLanguageUtils';
@@ -52,7 +52,7 @@ function ConjugationTable({ cardData, activeForm, onConjugationSelect, activeAud
                             aria-hidden="true"
                         >
                             {isGeneratingAudio && activeAudioText === form
-                                ? <FaSpinner className={styles.spinner} />
+                                ? <LuLoaderCircle className={styles.spinner} />
                                 : <FiPlay size={15} />}
                         </span>
                     </div>

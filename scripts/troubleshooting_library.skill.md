@@ -41,6 +41,12 @@ Este documento es una base de conocimientos dinámica de errores técnicos, bugs
 - **Causa:** El `imagePath` no estaba normalizado para las formas `past/participle`, causando un mismatch con el nombre en GCS.
 - **Solución:** Normalizar el slug del asset antes de verificar su existencia en el repositorio de datos.
 
+### 4. Estilos `composes` desincronizados en dev (Vite HMR) — falso bug visual
+- **Fecha:** 2026-07-17
+- **Error:** Tras editar `Flashcard.module.css`, los botones que otros módulos toman por `composes` (p.ej. `rotateVoiceBtn` en `DefinitionList.module.css`/`ConjugationTable.module.css`) mantenían estilos viejos (color/trazo) en el dev server y en las capturas del arnés, aunque el CSS fuente era correcto. El elemento mostraba DOS hashes distintos del mismo archivo (p.ej. `_rotateVoiceBtn_1fl7l_381` viejo + `_rotateVoiceBtn_1ap0x_383` nuevo).
+- **Causa:** El HMR de Vite no re-transforma a los consumidores de `composes` cuando cambia el archivo compuesto: la cadena queda apuntando al hash de la versión anterior, cuyas reglas con ámbito ya no matchean el DOM nuevo. **Solo ocurre en dev**; un build de producción compila todo consistente.
+- **Solución:** `touch` (o edición trivial) de los `.module.css` que componen desde el archivo editado para forzar su re-transform, y re-verificar. Diagnóstico rápido: en DevTools/Playwright, mirar `className` del elemento — si aparecen dos hashes distintos para la misma clase lógica, es este bug, no el CSS. No "arreglar" el CSS a ciegas: verificar primero con `getComputedStyle` tras sincronizar.
+
 ---
 
 ## 📜 Protocolo de Auto-Documentación para IAs

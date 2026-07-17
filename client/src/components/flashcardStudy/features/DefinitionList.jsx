@@ -1,7 +1,7 @@
 import { getAudioLang, getStudyExampleText, isLearningEnglish } from './cardLanguageUtils';
 import styles from './DefinitionList.module.css';
 import HighlightedText from './HighlightedText';
-import { FaSpinner } from 'react-icons/fa';
+import { LuLoaderCircle } from 'react-icons/lu';
 import { FiPlay, FiRefreshCw } from 'react-icons/fi';
 import { useAuth } from '../../../context/AuthContext';
 
@@ -51,7 +51,7 @@ function DefinitionList({ definitions, blurredState, toggleBlur, playDefinitionM
                             aria-label={playPhraseLabel}
                         >
                             {isGeneratingAudio && activeAudioText === exampleText
-                                ? <FaSpinner className={styles.spinner} />
+                                ? <LuLoaderCircle className={styles.spinner} />
                                 : <FiPlay size={24} strokeWidth={2.5} />}
                         </button>
 

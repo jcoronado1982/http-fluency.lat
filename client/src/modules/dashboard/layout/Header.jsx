@@ -1,7 +1,7 @@
 import React from 'react';
 import './Layout.css';
 import FloatingMenu from './FloatingMenu';
-import { FaBars } from 'react-icons/fa';
+import { LuMenu } from 'react-icons/lu';
 import LanguageSelector from '../../../components/common/LanguageSelector';
 import { useAppContext } from '../../../context/AppContext';
 import { useAuth } from '../../../context/AuthContext';
@@ -54,7 +54,7 @@ export default function Header() {
                     aria-label={language === 'es' ? 'Abrir menú lateral' : 'Open side menu'}
                     aria-expanded={isSidebarOpen}
                 >
-                    <FaBars size={24} color="#ffffff" />
+                    <LuMenu size={24} color="#ffffff" />
                 </button>
                 <AppLogo />
             </div>

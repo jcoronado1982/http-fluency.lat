@@ -4,7 +4,7 @@ import HighlightedText from './HighlightedText';
 import ConjugationTable from './ConjugationTable';
 import ImageViewer from './ImageViewer';
 import DefinitionList from './DefinitionList';
-import { FaSpinner } from 'react-icons/fa';
+import { LuLoaderCircle } from 'react-icons/lu';
 import { FiPlay, FiHeadphones, FiRefreshCw } from 'react-icons/fi';
 import { useAuth } from '../../../context/AuthContext';
 import { useFlashcardContext } from '../context/flashcardStudyContext';
@@ -123,7 +123,7 @@ function CardFront({
                     aria-label={isLearningEnglish(currentLanguage) ? 'Reproducir palabra' : 'Play word'}
                 >
                     {isGeneratingAudio && activeAudioText === title
-                        ? <FaSpinner className={styles.spinner} />
+                        ? <LuLoaderCircle className={styles.spinner} />
                         : <FiPlay size={24} strokeWidth={2.5} />}
                 </button>
 

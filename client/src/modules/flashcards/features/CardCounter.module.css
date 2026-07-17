@@ -16,12 +16,13 @@
     align-items: center;
     gap: 12px;
     padding: 12px 24px;
-    background: rgba(21, 28, 44, 0.72);
+    /* Chip silencioso (jul 2026): informa sin robar foco a la tarjeta. */
+    background: rgba(11, 17, 32, 0.6);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 20px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
     color: #f8fafc;
     font-family: var(--font-family-body);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -52,9 +53,9 @@
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: #f8fafc;
+    color: #94a3b8;
     margin-bottom: 2px;
-    font-weight: 800;
+    font-weight: 700;
 }
 
 .counterValues {
@@ -67,7 +68,7 @@
     color: #f472b6;
     font-weight: 900;
     font-size: 1.6rem;
-    text-shadow: 0 0 20px rgba(244, 114, 182, 0.45);
+    text-shadow: 0 0 12px rgba(244, 114, 182, 0.22);
     line-height: 1;
 }
 

@@ -95,6 +95,15 @@ Convención: `course_direction` (`es_en` default | `en_es`…) es query/campo op
 - Las URLs de media devuelven query `?v=<mtime>-<tamaño>`: la identidad cambia al sobrescribir el archivo; no cachear sin la query.
 - Generación/borrado exigen rol `premium`/`admin` (hoy validado en frontend — deuda #2 de `client/CLAUDE.md` §9).
 - `category='landing-demo'` enruta a otro proveedor TTS (ElevenLabs) — contrato con el módulo landing.
+- **Piel de la app (jul 2026)**: la zona de estudio usa los tokens de profundidad de
+  `client/src/styles/app-brand.css` — lienzo `--brand-canvas` (#0b1120), tarjeta sólida
+  `--brand-surface-card` (#1b2438) con borde hairline `--brand-border-subtle`. Iconos de
+  acción neutros en reposo (`--brand-icon-idle`) que pasan a rosa de marca al interactuar;
+  el verde queda reservado al check de "aprendida" y el demo de landing conserva su piel
+  propia (`--lp-demo-*`). Todo override de color de la app va con ámbito
+  `[data-variant='app']` para no tocar el demo. Iconografía: familia única Lucide
+  (`react-icons/lu`) con trazo `--brand-icon-stroke: 2`; Feather (`fi`) solo donde el kit
+  se comparte con el demo; Font Awesome prohibido (regla completa en `client/CLAUDE.md` §6).
 - En la app autenticada, el layout responsive (`max-width: 768px`, incluida la PWA) mantiene
   15 px de separación lateral compartida para la tarjeta y la barra de controles; el demo de
   landing conserva su geometría independiente. Los controles de navegación y el botón SRS
@@ -105,7 +114,10 @@ Convención: `course_direction` (`es_en` default | `en_es`…) es query/campo op
   espacio sobrante sin deformar ni recortar el contenido relevante. La tarjeta conserva el
   cálculo por espacio disponible, con `--fc-card-max-height: 560px` como tope móvil/PWA para
   evitar que se estire en pantallas altas y mantener cerca la barra y el footer; la separación
-  entre tarjeta y barra de controles es de 20 px y la palabra principal usa `1.5rem`. El botón
+  entre tarjeta y barra de controles es de 20 px y la palabra principal usa `1.7rem`
+  (jerarquía: la palabra manda sobre los ejemplos de `1.5rem`; en escritorio usa
+  `clamp(1.6rem, 5vw, 2.25rem)` y la fonética baja a `clamp(1.05rem, 2.6vw, 1.15rem)`
+  con mono moderno del sistema — solo variante app, el demo conserva sus valores). El botón
   SRS/calendario mantiene el círculo visual oculto hasta hover o focus. El footer absorbe el
   remanente inferior del shell móvil para no dejar una franja oscura al final, pero se oculta
   mientras está abierta la confirmación de nivel para no bloquear sus acciones. En móvil, el

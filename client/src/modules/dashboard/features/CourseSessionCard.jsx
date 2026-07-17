@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 
 /**
  * CourseSessionCard — tarjeta grande de "continuar sesión" con carrusel de
@@ -42,7 +42,7 @@ export default function CourseSessionCard({
                         onClick={() => onCycle(-1)}
                         aria-label={previousCourseLabel}
                     >
-                        <FiChevronLeft aria-hidden />
+                        <LuChevronLeft aria-hidden />
                     </button>
                     <button
                         type="button"
@@ -50,7 +50,7 @@ export default function CourseSessionCard({
                         onClick={() => onCycle(1)}
                         aria-label={nextCourseLabel}
                     >
-                        <FiChevronRight aria-hidden />
+                        <LuChevronRight aria-hidden />
                     </button>
                     <div className="dash-course-carousel-dots" aria-hidden>
                         {carouselItems.map((item, index) => (

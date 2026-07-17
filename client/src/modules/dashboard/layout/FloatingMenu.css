@@ -169,7 +169,7 @@
 .optionIcon svg {
     width: 17px;
     height: 17px;
-    stroke-width: 1.75px;
+    stroke-width: var(--brand-icon-stroke, 2);
 }
 
 /* Semantic color variants — icon color only, no background box */

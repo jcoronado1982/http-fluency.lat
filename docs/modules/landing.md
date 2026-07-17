@@ -43,6 +43,8 @@ acciones no se exponen como controles del visitante en la landing.
 - Sparse: consultar con `./scripts/sparse-module.sh status`. Activar el perfil `landing` requiere
   autorización explícita del usuario y respaldo previo; nunca ejecutarlo automáticamente.
 - Usuario ya autenticado en `/` → redirige a `/dashboard`.
+- El resumen de calificaciones del muro de reseñas (promedio, estrellas y total) permanece centrado
+  en móvil, tablet y escritorio.
 
 ## Dependencias con otros módulos
 

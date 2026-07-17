@@ -83,6 +83,10 @@
     --fc-face-padding-inline: 16px;
     --fc-face-padding-block-end: 14px;
     --fc-media-radius: 18px;
+    /* Borde hairline igual al de la app (la geometría del demo NO se toca:
+       tamaños de tarjeta/imagen, radios y paddings quedan como estaban).
+       El fondo sí es propio del demo: ciruela, definido en hero-demo.css. */
+    --fc-face-border: 1px solid rgba(255, 255, 255, 0.08);
     --fc-face-bg: var(--lp-demo-surface, linear-gradient(145deg, #1b0f1a 0%, #0f0911 100%));
     --fc-face-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
     --fc-card-shadow: none;
@@ -98,6 +102,12 @@
     --fc-face-radius: clamp(20px, 3vw, 32px);
     --fc-face-padding-block-start: clamp(12px, 2vw, 20px);
     --fc-face-padding-inline: clamp(12px, 2vw, 20px);
+    /* Piel app (jul 2026): superficie sólida elevada + borde hairline en vez
+       del degradado que se fundía con el lienzo. El demo conserva la suya. */
+    --fc-face-border: 1px solid var(--brand-border-subtle, rgba(255, 255, 255, 0.08));
+    --fc-face-bg: var(--brand-surface-card, #1b2438);
+    --fc-face-shadow: 0 24px 60px -16px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    --fc-card-shadow: var(--fc-face-shadow);
     width: 100%;
     max-width: var(--fc-card-max-width, 580px);
     height: var(--fc-card-height, clamp(420px, calc(var(--fc-real-vh, 100dvh) * 0.72), 720px));
@@ -229,7 +239,9 @@
 
 .name {
     font-family: var(--font-family-body);
-    font-size: clamp(1.5rem, 5vw, 2em);
+    /* Jerarquía premium (jul 2026): la palabra manda sobre los ejemplos
+       (1.5rem). El demo no se ve afectado: fija su propio 1.9rem. */
+    font-size: clamp(1.6rem, 5vw, 2.25rem);
     font-weight: 800;
     color: #ffffff;
     margin: 0;
@@ -501,7 +513,9 @@
     /* --- Móvil, solo app (la variante demo define los suyos) ------------- */
 
     .cardFront[data-variant='app'] .name {
-        font-size: 1.5rem;
+        /* 1.7rem: la palabra destaca sobre los ejemplos (1.5rem) también en
+           móvil; palabras largas parten con break-word sin descuadrar. */
+        font-size: 1.7rem;
         min-height: 0;
     }
 
@@ -721,4 +735,46 @@
         min-width: 20px;
         min-height: 20px;
     }
+}
+
+/* --- Variante app: disciplina de acentos (jul 2026) ----------------------
+   Iconos en reposo neutros (slate); el rosa de marca aparece solo al
+   interactuar. El verde queda reservado al check de "aprendida" (Controls).
+   Los hovers se re-declaran con este ámbito porque empatan en especificidad
+   con las reglas de reposo y el orden del archivo decidiría en su contra.
+   La variante demo (landing) conserva el rosa en reposo. */
+
+.cardFront[data-variant='app'] .name {
+    text-shadow: none;
+}
+
+.cardFront[data-variant='app'] .phonetic {
+    color: var(--brand-icon-idle, #94a3b8);
+}
+
+.cardFront[data-variant='app'] .soundButton,
+.cardFront[data-variant='app'] .rotateVoiceBtn,
+.cardFront[data-variant='app'] .ipaChartBtn {
+    color: var(--brand-icon-idle, #94a3b8);
+}
+
+.cardFront[data-variant='app'] .soundButton:hover,
+.cardFront[data-variant='app'] .wordHeader:hover .soundButton,
+.cardFront[data-variant='app'] .rotateVoiceBtn:hover:not(:disabled) {
+    color: #f472b6;
+}
+
+/* Grosor de trazo único de la iconografía app (familia Lucide/Feather).
+   El demo conserva los grosores originales de sus reglas base. */
+.cardFront[data-variant='app'] .soundButton svg,
+.cardFront[data-variant='app'] .rotateVoiceBtn svg {
+    stroke-width: var(--brand-icon-stroke, 2);
+}
+
+/* Fonética: un paso por debajo de la palabra (jerarquía) y mono moderno del
+   sistema en vez de Courier New. En rem (no em) para no crear cascadas.
+   El demo conserva Courier y su tamaño. */
+.cardFront[data-variant='app'] .phonetic {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'JetBrains Mono', Menlo, Consolas, monospace;
+    font-size: clamp(1.05rem, 2.6vw, 1.15rem);
 }

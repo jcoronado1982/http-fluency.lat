@@ -13,4 +13,15 @@
   --brand-gradient: linear-gradient(90deg, #be185d, #f472b6 55%, #fb923c);
   --brand-gradient-btn: linear-gradient(135deg, #be185d, #f472b6 50%, #fb923c);
   --brand-surface: #151c2c;
+  /* Profundidad de la zona de estudio (jul 2026): lienzo casi negro y
+     superficie elevada sólida para que la tarjeta se recorte del fondo.
+     La variante demo de landing NO consume estos tokens (usa --lp-demo-*). */
+  --brand-canvas: #0b1120;
+  --brand-surface-card: #1b2438;
+  --brand-border-subtle: rgba(255, 255, 255, 0.08);
+  --brand-icon-idle: #94a3b8;
+  /* Grosor único de trazo para TODA la iconografía de la app (familia
+     Lucide/Feather, unidades del viewBox de 24). Las reglas del kit lo
+     aplican con ámbito [data-variant='app'] para no alterar el demo. */
+  --brand-icon-stroke: 2;
 }

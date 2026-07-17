@@ -25,6 +25,11 @@
     padding: clamp(10px, 2vw, 12px) clamp(12px, 3vw, 20px);
     /* PC y laptop: conserva el margen existente y agrega 10px debajo. */
     margin-bottom: calc(var(--fc-controls-spacing-extra, 10px) + 10px);
+    /* Barra más silenciosa (jul 2026): no debe competir con la tarjeta como
+       una segunda superficie; el demo conserva la suya. */
+    background: rgba(11, 17, 32, 0.55);
+    border-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.5);
 }
 
 @media (min-width: 768.02px) {
@@ -120,16 +125,25 @@
 }
 
 .resetButton {
-    color: #ef4444;
+    /* Neutro en reposo (el rojo leía como "error"); rosa al interactuar.
+       Unificado app + demo (jul 2026, pedido explícito). */
+    color: var(--brand-icon-idle, #94a3b8);
 }
 
 .resetButton:hover:not(:disabled),
 .resetButton:focus-visible:not(:disabled) {
     background: rgba(244, 114, 182, 0.12);
-    color: #f87171;
+    color: #f472b6;
     box-shadow: inset 0 0 0 2px rgba(244, 114, 182, 0.35);
     transform: none;
     outline: none;
+}
+
+/* Grosor de trazo único de la iconografía de la barra (app + demo): pisa los
+   strokeWidth 2.5/3 inline de los SVG y, por especificidad, las reglas
+   por-botón de más abajo (.correctButton svg, etc.). */
+.controlsWrapper .controls svg {
+    stroke-width: var(--brand-icon-stroke, 2);
 }
 
 .correctButton {

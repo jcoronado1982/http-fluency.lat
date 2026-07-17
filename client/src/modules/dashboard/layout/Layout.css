@@ -4,7 +4,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 6px 24px;
-    background-color: #122035;
+    /* Un solo paso por encima del lienzo (igual que el sidebar): el header
+       deja de ser una banda de otro azul y se separa solo por el hairline. */
+    background-color: #0d1526;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     /* Tipografía heredada de .app-layout (index.css) */
     position: absolute;
@@ -89,7 +91,7 @@
 .hamburger-btn svg {
     width: 24px;
     height: 24px;
-    fill: #ffffff;
+    /* Icono Lucide (stroke): hereda currentColor del botón; sin fill. */
 }
 
 .app-logo {
@@ -260,12 +262,12 @@
     gap: 11px;
     padding: 9px 10px;
     border-radius: 10px;
-    border-left: 2px solid transparent;
+    position: relative;
     text-decoration: none;
     color: #64748b;
     font-weight: 500;
     font-size: 0.9rem;
-    transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+    transition: background 160ms ease, color 160ms ease;
     margin-bottom: 2px;
 }
 
@@ -274,12 +276,26 @@
     color: #cbd5e1;
 }
 
-.nav-link:hover .sidebarIcon { color: #cbd5e1; }
+.nav-link:hover .sidebarIcon { color: #f8fafc; }
 
 .nav-link.active {
     background: rgba(244, 114, 182, 0.08);
-    border-left-color: #f472b6;
     color: #f8fafc;
+}
+
+/* Barrita activa: pill vertical con el degradado de marca (sustituye al
+   antiguo border-left plano de 2px). */
+.nav-link.active::before,
+.app-sidebar .parentLink.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 22px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #f472b6, #fb923c);
 }
 
 .nav-link.active .sidebarIcon { color: #f472b6; }
@@ -292,14 +308,14 @@
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-    color: #475569;
+    color: #64748b;
     transition: color 160ms ease;
 }
 
 .sidebarIcon svg {
-    width: 18px;
-    height: 18px;
-    stroke-width: 1.75px;
+    width: 20px;
+    height: 20px;
+    stroke-width: var(--brand-icon-stroke, 2);
 }
 
 .sidebarIcon--admin { color: #f43f5e; }
@@ -337,8 +353,9 @@
 
 /* Subcategory indented links */
 .app-sidebar .parentItem    { margin-bottom: 8px; }
-.app-sidebar .parentLink    { display: flex; align-items: center; gap: 11px; padding: 9px 10px; border-radius: 10px; text-decoration: none; color: #64748b; font-weight: 500; font-size: 0.9rem; transition: background 160ms ease, color 160ms ease; border: none; cursor: pointer; }
+.app-sidebar .parentLink    { display: flex; align-items: center; gap: 11px; padding: 9px 10px; border-radius: 10px; position: relative; text-decoration: none; color: #64748b; font-weight: 500; font-size: 0.9rem; transition: background 160ms ease, color 160ms ease; border: none; cursor: pointer; }
 .app-sidebar .parentLink:hover   { background: rgba(255,255,255,0.05); color: #cbd5e1; }
+.app-sidebar .parentLink:hover .sidebarIcon { color: #f8fafc; }
 .app-sidebar .parentLink.active  { background: rgba(244, 114, 182, 0.08); color: #f8fafc; }
 .app-sidebar .subCategory        { list-style: none; padding: 0; margin: 2px 0 0 0; max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0.4,0,0.2,1); }
 .app-sidebar .subCategory.open   { max-height: 500px; }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './ImageViewer.module.css';
-import { FaTimes, FaUpload, FaSyncAlt } from 'react-icons/fa';
+import { LuX, LuUpload, LuRefreshCw } from 'react-icons/lu';
 import { FiCpu } from 'react-icons/fi';
 
 /**
@@ -81,7 +81,7 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
                                     title="Regenerar imagen con IA"
                                     disabled={isDisabled}
                                 >
-                                    <FaSyncAlt size={16} />
+                                    <LuRefreshCw size={16} />
                                 </button>
                             )}
                             {canDeleteImages && (
@@ -91,7 +91,7 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
                                     title="Eliminar imagen actual"
                                     disabled={isDisabled}
                                 >
-                                    <FaTimes size={20} />
+                                    <LuX size={20} />
                                 </button>
                             )}
                         </>
@@ -104,7 +104,7 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
                                     title="Generar imagen con IA"
                                     disabled={isDisabled}
                                 >
-                                    <FaSyncAlt size={16} />
+                                    <LuRefreshCw size={16} />
                                 </button>
                             )}
                             {canCustomizeImages && (
@@ -114,7 +114,7 @@ function ImageViewer({ isImageLoading, isGeneratingImage, isUploading, imageUrl,
                                     title="Subir imagen desde el equipo"
                                     disabled={isDisabled}
                                 >
-                                    <FaUpload size={18} />
+                                    <LuUpload size={18} />
                                 </button>
                             )}
                         </>

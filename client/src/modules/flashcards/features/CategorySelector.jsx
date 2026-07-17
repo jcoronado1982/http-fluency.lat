@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { FiHelpCircle } from 'react-icons/fi';
+import { LuCircleHelp } from 'react-icons/lu';
 import styles from './CategorySelector.module.css';
 import { useAuth } from '../../../context/AuthContext';
 import { useUIContext } from '../../../context/UIContext';
@@ -585,7 +585,7 @@ function CategorySelector() {
                                     aria-expanded={isHelpOpen}
                                     aria-controls="category-help-popover"
                                 >
-                                    <FiHelpCircle />
+                                    <LuCircleHelp />
                                 </button>
                             </div>
                             {isHelpOpen && helpContent && (

@@ -227,6 +227,9 @@
 }
 
 [data-landing-demo] .flashcard-main-area {
+    /* Superficie propia del demo (degradado ciruela): decidido jul 2026 —
+       armoniza con el fondo de la landing. La tarjeta del demo comparte con
+       la app el borde hairline y la barra de controles, pero NO el fondo. */
     --lp-demo-surface: linear-gradient(145deg, #1b0f1a 0%, #0f0911 100%);
     display: flex;
     flex-direction: column;

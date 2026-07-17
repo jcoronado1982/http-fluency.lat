@@ -2,7 +2,7 @@
 
 import React, { /* useState, */ useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { FiMoreVertical } from "react-icons/fi";
+import { LuEllipsisVertical } from "react-icons/lu";
 import "./FloatingMenu.css";
 import { useAppContext } from '../../../context/AppContext';
 import { useAuth } from '../../../context/AuthContext';
@@ -88,7 +88,7 @@ const FloatingMenu = ({ mobileTrigger = null }) => {
                 aria-expanded={isOpen}
                 data-tour="menu-estudio"
             >
-                <FiMoreVertical className="floatingMainButtonIcon" size={24} strokeWidth={2} aria-hidden="true" />
+                <LuEllipsisVertical className="floatingMainButtonIcon" size={24} strokeWidth={2} aria-hidden="true" />
             </button>
 
             <div className={`floatingOptions ${isOpen ? "show" : ""}`}>

@@ -161,6 +161,24 @@
     box-shadow: 0 0 15px rgba(244, 114, 182, 0.35);
 }
 
+/* Variante app (jul 2026): play de ejemplos neutro en reposo, rosa al
+   interactuar (disciplina de acentos — ver Flashcard.module.css). El hover
+   se re-declara con este ámbito para ganar el empate de especificidad.
+   El demo (landing) conserva el rosa en reposo. */
+[data-variant='app'] .examplePlayBtn {
+    color: var(--brand-icon-idle, #94a3b8);
+}
+
+[data-variant='app'] .examplePlayBtn:hover,
+[data-variant='app'] .exampleRow:hover .examplePlayBtn {
+    color: #f472b6;
+}
+
+/* Grosor de trazo único de la iconografía app (el demo conserva 2.5). */
+[data-variant='app'] .examplePlayBtn svg {
+    stroke-width: var(--brand-icon-stroke, 2);
+}
+
 .allExamplesContainer li div {
     line-height: 1.4;
     font-size: 1.5rem;

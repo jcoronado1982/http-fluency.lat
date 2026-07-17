@@ -198,7 +198,7 @@
 .dash-course-carousel-btn svg {
     width: 28px;
     height: 28px;
-    stroke-width: 2.5;
+    stroke-width: var(--brand-icon-stroke, 2);
     filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.72));
 }
 
