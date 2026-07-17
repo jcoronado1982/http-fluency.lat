@@ -134,8 +134,9 @@ Condición: `Deploy_Frontend` OK y `Deploy_GCP` Succeeded o Skipped (si falló c
 
 1. Prepara `GCP_CREDS_B64` (base64 de `GCP_KEY_JSON`) como variable secreta del job
 2. Sync scripts `infra/proxy` (si no llegaron en stage 3)
-3. Genera el manifiesto global del catálogo.
-4. Transfiere todo `json/` a staging y los audios de `landing-demo` en `main`.
+3. Si `DEPLOY_JSON: 'true'`, genera el manifiesto global del catálogo y transfiere todo
+   `json/` a staging. El valor predeterminado es `'false'` para omitir esa transferencia.
+4. Transfiere los audios de `landing-demo` en `main`.
 5. **`SSH@0` con `runOptions: inline`** (obligatorio — ver sección Secretos)
 
 Ejecuta `bootstrap-oracle.sh --backend-only --no-monitors`
@@ -147,6 +148,16 @@ En el run 279 tardó ~12 minutos. El paso posterior sí es incremental: `rsync -
 staging al repositorio en unos segundos y no borra decks que solo existan en Oracle. El landing demo
 transfiere 157 audios y tardó ~25 segundos. Las imágenes y audios normales no se copian completos en
 cada deploy.
+
+Por ese costo, la publicación de `json/` está desactivada normalmente. Para un despliegue que deba
+actualizar el catálogo versionado, ejecutar manualmente el pipeline y activar el parámetro booleano
+**`Publicar json/ en Oracle`** (`deployJson`). El interruptor habilita conjuntamente la generación
+del manifiesto, la copia a staging y su aplicación en Oracle. Los runs automáticos y los manuales que
+dejen la casilla desmarcada omiten las tres operaciones.
+
+Los cambios exclusivos bajo `json/**` no disparan automáticamente el pipeline: se publican con ese
+run manual y la casilla activada. Así se evita ejecutar el pipeline completo para un cambio que el
+modo predeterminado no transferiría.
 
 Esto es una ineficiencia conocida del transporte de staging, no consumo de RAM por usuario. Una
 optimización futura debe preservar el manifiesto, la ausencia de `--delete`, los decks exclusivos de
@@ -227,11 +238,15 @@ El backend Rust decodifica `GOOGLE_CREDENTIALS_JSON` (base64) y escribe `/tmp/gc
 
 ## Disparar el pipeline
 
-**Trigger automático** en push a `main` si cambia:
+**Trigger automático** en push a `main` o `qa` si cambia:
 - `azure-pipelines.yml`
 - `client/**`
 - `backend/**`
 - `infra/**`
+
+El trigger usa `batch: true`: si llegan nuevos pushes a una rama mientras su run está activo,
+Azure los agrupa y lanza una sola ejecución posterior con el cambio más reciente. Esto no evita que
+un operador encole además un run manual, por lo que se mantiene la regla de no lanzar manual + CI.
 
 **Manual:**
 ```bash

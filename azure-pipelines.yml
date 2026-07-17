@@ -1,4 +1,11 @@
+parameters:
+  - name: deployJson
+    displayName: 'Publicar json/ en Oracle'
+    type: boolean
+    default: false
+
 trigger:
+  batch: true
   branches:
     include:
       - main
@@ -9,7 +16,6 @@ trigger:
       - client/**
       - backend/**
       - infra/**
-      - json/**
 
 variables:
   - name: sshConn
@@ -24,6 +30,15 @@ variables:
     value: 'GCP-Registry-Connection'
   - name: cacheRef
     value: 'gcr.io/launch-490115/flashcard-backend:buildcache'
+  # Publicar json/ es opcional porque CopyFilesOverSSH retransfiere miles de
+  # archivos en cada run. En una ejecución manual, activar el parámetro
+  # deployJson solo cuando se quiera actualizar el catálogo en Oracle.
+  - ${{ if eq(parameters.deployJson, true) }}:
+    - name: DEPLOY_JSON
+      value: 'true'
+  - ${{ else }}:
+    - name: DEPLOY_JSON
+      value: 'false'
   # Un único switch para backend + Caddy + mirrors: oracle | cloudflare.
   # Producción entra por el proxy de Cloudflare; qa.fluency.lat permanece DNS-only.
   # En QA, el header exclusivo del CDN es ignorado y el navegador revalida siempre.
@@ -365,9 +380,11 @@ stages:
 
     - script: node scripts/generate-catalog-manifest.mjs
       displayName: 'Generar manifiesto global del catálogo'
+      condition: and(succeeded(), eq(variables['DEPLOY_JSON'], 'true'))
 
     - task: CopyFilesOverSSH@0
       displayName: 'Stage json/ del repo → Oracle'
+      condition: and(succeeded(), eq(variables['DEPLOY_JSON'], 'true'))
       inputs:
         sshEndpoint: $(sshConn)
         sourceFolder: 'json'
@@ -409,10 +426,15 @@ stages:
           export SURREAL_PASS="$(SURREAL_PASS)"
           export MEDIA_DELIVERY_MODE="$(MEDIA_DELIVERY_MODE)"
 
-          echo "Applying json/ from repo to Oracle production repository..."
-          bash /root/smart-proxy/infra-proxy/sync-json-to-oracle.sh \
-            /tmp/flashcard-json-staging \
-            /root/smart-proxy/repository/flashcard/json
+          if [ "$(DEPLOY_JSON)" = "true" ]; then
+            echo "Applying json/ from repo to Oracle production repository..."
+            test -d /tmp/flashcard-json-staging
+            bash /root/smart-proxy/infra-proxy/sync-json-to-oracle.sh \
+              /tmp/flashcard-json-staging \
+              /root/smart-proxy/repository/flashcard/json
+          else
+            echo "JSON deploy skipped (DEPLOY_JSON=$(DEPLOY_JSON))"
+          fi
 
           if [ "$(Build.SourceBranch)" = "refs/heads/main" ]; then
             AUDIO_STAGE=/tmp/flashcard-demo-audio-staging

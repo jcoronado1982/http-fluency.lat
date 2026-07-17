@@ -21,10 +21,10 @@ REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 # sin depender de `az login` ni de una sesión del navegador.
 if [[ -z "${AZURE_DEVOPS_EXT_PAT:-}" && -f "$REPO_ROOT/SECRETS_MAP.md" ]]; then
   export AZURE_DEVOPS_EXT_PAT
-  AZURE_DEVOPS_EXT_PAT=$(grep 'PAT_token' "$REPO_ROOT/SECRETS_MAP.md" | grep -oE '[A-Za-z0-9]{50,}' | head -n1 || true)
+  AZURE_DEVOPS_EXT_PAT=$(grep -iE 'PAT[ _-]*Token' "$REPO_ROOT/SECRETS_MAP.md" | grep -oE '[A-Za-z0-9]{50,}' | head -n1 || true)
 fi
 if [[ -z "${AZURE_DEVOPS_EXT_PAT:-}" ]]; then
-  echo "ERROR: falta AZURE_DEVOPS_EXT_PAT y no se encontró PAT_token en SECRETS_MAP.md" >&2
+  echo "ERROR: falta AZURE_DEVOPS_EXT_PAT y no se encontró PAT Token en SECRETS_MAP.md" >&2
   exit 1
 fi
 
