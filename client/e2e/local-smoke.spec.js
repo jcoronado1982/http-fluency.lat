@@ -59,6 +59,77 @@ test('health, features and dev-guest work through the local Vite proxy', async (
     expect(await guest.json()).toMatchObject({ success: true });
 });
 
+test('landing guest media contracts resolve real versioned assets', async ({ request }) => {
+    const image = await request.post('/api/resolve-image', {
+        data: {
+            category: 'landing-demo',
+            deck: 'verbs-essentials',
+            index: 1,
+            def_index: 0,
+            course_direction: 'es_en',
+        },
+    });
+    expect(image.ok()).toBeTruthy();
+    const imagePayload = await image.json();
+    expect(imagePayload.path).toMatch(/\/card_images\/landing-demo\/.+\.avif\?v=.+/);
+    const imageAsset = await request.get(imagePayload.path);
+    expect(imageAsset.ok()).toBeTruthy();
+    expect(imageAsset.headers()['content-type']).toMatch(/^image\//);
+
+    const audio = await request.post('/api/resolve-audio', {
+        data: {
+            category: 'landing-demo',
+            deck: 'verbs-essentials',
+            text: 'be',
+            voice_name: '',
+            verb_name: 'be',
+            tone: '',
+            lang: 'en',
+            course_direction: 'es_en',
+        },
+    });
+    expect(audio.ok()).toBeTruthy();
+    const audioPayload = await audio.json();
+    expect(audioPayload).toMatchObject({
+        voice_name: expect.any(String),
+        from_cache: expect.any(Boolean),
+    });
+    expect(audioPayload.audio_url).toMatch(/\/card_audio\/landing-demo\/.+\?v=.+/);
+    const audioAsset = await request.get(audioPayload.audio_url);
+    expect(audioAsset.ok()).toBeTruthy();
+    expect(audioAsset.headers()['content-type']).toMatch(/^audio\//);
+});
+
+test('a landing visitor can navigate the demo and preserve feedback through login', async ({ page }) => {
+    const feedbackLoaded = page.waitForResponse((response) => (
+        response.url().includes('/api/demo-feedback?limit=20')
+        && response.request().method() === 'GET'
+    ));
+    await page.goto('/');
+    expect((await feedbackLoaded).ok()).toBeTruthy();
+    await expect(page.locator('.lp-hero-title')).toBeVisible();
+
+    const counter = page.locator('[data-tour="boton-contador-tarjetas"]');
+    await expect(counter).toContainText('1 / 10');
+    await page.locator('[data-tour="boton-siguiente-tarjeta"]').click();
+    await expect(counter).toContainText('2 / 10');
+    await page.locator('[data-tour="boton-anterior-tarjeta"]').click();
+    await expect(counter).toContainText('1 / 10');
+
+    await page.locator('.lp-demo-feedback-input').fill('  The demo is clear  ');
+    await page.locator('.lp-star-btn').nth(4).click();
+    await page.locator('.lp-demo-feedback-submit').click();
+    await expect(page).toHaveURL(/\/login(?:\?|$)/);
+
+    const draft = await page.evaluate(() => JSON.parse(
+        sessionStorage.getItem('lp-demo-feedback-draft'),
+    ));
+    expect(draft).toEqual({ comment: 'The demo is clear', rating: 5 });
+    await expect.poll(() => page.evaluate(() => (
+        sessionStorage.getItem('lp-demo-feedback-return')
+    ))).toBe('1');
+});
+
 test('a dev guest restores an authenticated browser session', async ({ page, request }) => {
     const browserErrors = [];
     page.on('pageerror', (error) => browserErrors.push(error.message));
@@ -127,7 +198,13 @@ test('a user opens the catalog, flips a card and persists progress', async ({ pa
 
     const catalog = page.locator('[data-tour="catalogo-modal"]');
     await expect(catalog).toBeVisible({ timeout: 15_000 });
-    await catalog.locator('[data-tour="boton-abrir-categoria"]').first().click();
+    const verbs = catalog.locator('[data-tour="categoria-item"][data-categoria="verbos"]');
+    await verbs.click();
+    await expect(verbs).toHaveAttribute('aria-current', 'true');
+    await catalog.getByRole('button', { name: 'Basic', exact: true }).click();
+    const actionDeck = catalog.getByRole('heading', { name: 'Action', exact: true }).locator('../..');
+    await expect(actionDeck).toBeVisible({ timeout: 15_000 });
+    await actionDeck.click();
 
     // dev-guest conserva progreso entre corridas. Reiniciar el bloque elegido
     // garantiza que el smoke siempre comienza con una tarjeta disponible.

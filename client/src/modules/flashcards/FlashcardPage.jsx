@@ -500,6 +500,7 @@ export default function FlashcardPage() {
                 className="flashcard-page-wrapper"
                 data-onboarding-tour={isOnboardingTour ? 'true' : undefined}
                 data-catalog-open={isCatalogVisible ? 'true' : undefined}
+                data-completion-open={shouldShowCompletionCard ? 'true' : undefined}
             >
                 {masterData.length > 0 && !isOverlayOpen && !shouldShowLoading && !shouldShowCompletionCard && (
                     <div className={`${styles.cardCounter} ${isPronounsCategory ? styles.pronounsCounter : ''}`}>

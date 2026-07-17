@@ -83,6 +83,33 @@
     margin: 6px 4px;
 }
 
+.mobileInterfaceLanguageControl {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobileInterfaceLanguageControl {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        min-height: 48px;
+        padding: 2px 4px 8px 10px;
+        color: #cbd5e1;
+    }
+
+    .mobileInterfaceLanguageLabel {
+        font-size: 0.76rem;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .mobileInterfaceLanguageControl [role='group'] {
+        min-width: 96px;
+        height: 40px;
+    }
+}
+
 /* ─── Option row ─────────────────────────────────────────────────────────────── */
 .floatingOption {
     display: flex;

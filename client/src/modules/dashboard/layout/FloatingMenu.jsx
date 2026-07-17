@@ -9,6 +9,7 @@ import { useAuth } from '../../../context/AuthContext';
 import { translations } from '../../../config/translations';
 import config from '../../../config';
 import { getModuleFloatingMenuItems } from '../../index';
+import LanguageSelector from '../../../components/common/LanguageSelector';
 
 /* Opción "Pronunciación" oculta temporalmente del menú flotante.
 const VOWELS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=60s";
@@ -30,6 +31,7 @@ const FloatingMenu = ({ mobileTrigger = null }) => {
         isFloatingMenuOpen: isOpen,
         setIsFloatingMenuOpen: setIsOpen,
         language = 'en',
+        setLanguage,
         studyLanguage = 'en',
         setStudyLanguage,
     } = useAppContext();
@@ -150,6 +152,17 @@ const FloatingMenu = ({ mobileTrigger = null }) => {
 
                 {/* ── CUENTA ── */}
                 <span className="fmSectionLabel">{t.account}</span>
+
+                <div className="mobileInterfaceLanguageControl">
+                    <span className="mobileInterfaceLanguageLabel">
+                        {language === 'es' ? 'Idioma de la interfaz' : 'Interface language'}
+                    </span>
+                    <LanguageSelector
+                        currentLanguage={language}
+                        onLanguageChange={setLanguage}
+                        ariaLabel={language === 'es' ? 'Idioma de la interfaz' : 'Interface language'}
+                    />
+                </div>
 
                 <div className="userProfileItem">
                     {user?.picture

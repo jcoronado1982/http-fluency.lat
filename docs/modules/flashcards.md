@@ -107,7 +107,10 @@ Convención: `course_direction` (`es_en` default | `en_es`…) es query/campo op
   evitar que se estire en pantallas altas y mantener cerca la barra y el footer; la separación
   entre tarjeta y barra de controles es de 20 px y la palabra principal usa `1.5rem`. El botón
   SRS/calendario mantiene el círculo visual oculto hasta hover o focus. El footer absorbe el
-  remanente inferior del shell móvil para no dejar una franja oscura al final.
+  remanente inferior del shell móvil para no dejar una franja oscura al final, pero se oculta
+  mientras está abierta la confirmación de nivel para no bloquear sus acciones. En móvil, el
+  menú de cuenta expone el selector del idioma de interfaz; el aviso instalable PWA es no modal
+  y solo sus botones capturan eventos, por lo que no puede bloquear tarjetas del catálogo.
 
 ## Flags y activación
 
@@ -154,7 +157,7 @@ en escritorio/móvil/WebKit; `--all` agrega una carga k6 corta limitada por cód
 | Servicios frontend | todos los métodos de los adaptadores de flashcards, audio, imagen y SRS; fallback estático, IndexedDB y compresión HEIC/canvas/WASM→AVIF |
 | Backend Rust | unitarias existentes, mocks de puertos, propiedades de racha y validación SRS, handler Axum y snapshot de features |
 | API + DB local | catálogo, mazo, progreso individual y lote transaccional, SRS, reset, estadísticas, racha, fonética, resolución y descarga de media |
-| E2E | sesión dev-guest, catálogo, reset, navegación, carga real de imagen, reproducción de audio, giro y persistencia en Chrome, Pixel 7 y WebKit/iPhone |
+| E2E | sesión dev-guest; cambio español/inglés y dirección de estudio; dashboard; catálogo, ayuda, niveles, varias categorías y orden persistido; reset cancelar/confirmar; navegación por botones y gestos; giro frente/dorso; audio; checks múltiples; final de nivel y de ruta; aislamiento de progreso entre dos usuarios, en Chrome, Pixel 7 y WebKit/iPhone |
 | Carga | k6 sobre catálogo, decks, mazo, estadísticas y escrituras de progreso; restaura el progreso al terminar |
 
 Los E2E permiten resolver y descargar media existente, pero interceptan generación, subida y

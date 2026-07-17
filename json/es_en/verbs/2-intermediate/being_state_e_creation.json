@@ -20,7 +20,8 @@
         "usage_example_es": "Por favor, permanezca sentado hasta el final.",
         "char_count": "two",
         "usage_context_en": "position/state",
-        "usage_context_es": "posición/estado"
+        "usage_context_es": "posición/estado",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_0_def0.avif"
       },
       {
         "meaning": "Restar/Quedar (como sobra)",
@@ -30,7 +31,8 @@
         "usage_example_es": "Solo quedan unos pocos minutos.",
         "char_count": "two",
         "usage_context_en": "time/quantity",
-        "usage_context_es": "tiempo/cantidad"
+        "usage_context_es": "tiempo/cantidad",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_0_def1.avif"
       }
     ],
     "group_name": "Body & Movement"
@@ -56,7 +58,8 @@
         "usage_example_es": "Queremos crear un nuevo proyecto.",
         "char_count": "two",
         "usage_context_en": "projects/art",
-        "usage_context_es": "proyectos/arte"
+        "usage_context_es": "proyectos/arte",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_1_def0.avif"
       },
       {
         "meaning": "Causar (un resultado)",
@@ -66,7 +69,8 @@
         "usage_example_es": "El ruido causó una molestia.",
         "char_count": "two",
         "usage_context_en": "effect/innovation",
-        "usage_context_es": "efecto/innovación"
+        "usage_context_es": "efecto/innovación",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_1_def1.avif"
       }
     ],
     "group_name": "Building & Creating"
@@ -92,7 +96,8 @@
         "usage_example_es": "El sol apareció detrás de las nubes.",
         "char_count": "two",
         "usage_context_en": "visibility/arrival",
-        "usage_context_es": "visibilidad/llegada"
+        "usage_context_es": "visibilidad/llegada",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_2_def0.avif"
       },
       {
         "meaning": "Parecer/Dar la impresión",
@@ -102,7 +107,8 @@
         "usage_example_es": "Ella parece ser muy inteligente.",
         "char_count": "two",
         "usage_context_en": "impression/judgment",
-        "usage_context_es": "impresión/juicio"
+        "usage_context_es": "impresión/juicio",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_2_def1.avif"
       }
     ],
     "group_name": "Feelings & Reactions"
@@ -128,7 +134,8 @@
         "usage_example_es": "La planta crece muy rápido.",
         "char_count": "one",
         "usage_context_en": "biology/development",
-        "usage_context_es": "biología/desarrollo"
+        "usage_context_es": "biología/desarrollo",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_3_def0.avif"
       },
       {
         "meaning": "Cultivar/Aumentar",
@@ -138,7 +145,8 @@
         "usage_example_es": "Cultivan verduras en su jardín.",
         "char_count": "one",
         "usage_context_en": "agriculture/business",
-        "usage_context_es": "agricultura/negocios"
+        "usage_context_es": "agricultura/negocios",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_3_def1.avif"
       }
     ],
     "irregular": {
@@ -155,13 +163,15 @@
             "usage_example": "The company grew rapidly last year.",
             "usage_example_es": "La empresa creció rápidamente el año pasado.",
             "pronunciation_guide_es": "/de_KOMpani_GRU_RAPidli_last_IER/",
-            "meaning": "Pasado de Crecer"
+            "meaning": "Pasado de Crecer",
+            "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_3_def0_v2.avif"
           },
           {
             "usage_example": "They grew corn in their backyard.",
             "usage_example_es": "Cultivaron maíz en su patio trasero.",
             "pronunciation_guide_es": "/dei_GRU_KORN_in_der_BAKIard/",
-            "meaning": "Pasado de Cultivar"
+            "meaning": "Pasado de Cultivar",
+            "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_3_def1_v2.avif"
           }
         ]
       },
@@ -178,13 +188,15 @@
             "usage_example": "The company grew rapidly last year.",
             "usage_example_es": "La empresa creció rápidamente el año pasado.",
             "pronunciation_guide_es": "/de_KOMpani_GRU_RAPidli_last_IER/",
-            "meaning": "Participio de Crecer"
+            "meaning": "Participio de Crecer",
+            "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_3_def0_v3.avif"
           },
           {
             "usage_example": "They grew corn in their backyard.",
             "usage_example_es": "Cultivaron maíz en su patio trasero.",
             "pronunciation_guide_es": "/dei_GRU_KORN_in_der_BAKIard/",
-            "meaning": "Participio de Cultivar"
+            "meaning": "Participio de Cultivar",
+            "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_3_def1_v3.avif"
           }
         ]
       }
@@ -210,7 +222,8 @@
         "usage_example_es": "¿Crees que existe vida en otros planetas?",
         "char_count": "8",
         "usage_context_en": "To be real or present.",
-        "usage_context_es": "To be real or present."
+        "usage_context_es": "To be real or present.",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_4_def0.avif"
       }
     ],
     "is_verb": true,
@@ -237,7 +250,8 @@
         "usage_example_es": "Planean construir un nuevo puente.",
         "char_count": "one",
         "usage_context_en": "construction/projects",
-        "usage_context_es": "construcción/proyectos"
+        "usage_context_es": "construcción/proyectos",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_5_def0.avif"
       },
       {
         "meaning": "Crear/Desarrollar (reputación, negocio)",
@@ -247,7 +261,8 @@
         "usage_example_es": "Él construyó su reputación con honestidad.",
         "char_count": "one",
         "usage_context_en": "reputation/trust",
-        "usage_context_es": "reputación/confianza"
+        "usage_context_es": "reputación/confianza",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_5_def1.avif"
       }
     ],
     "irregular": {
@@ -264,13 +279,15 @@
             "usage_example": "They built a massive bridge in two years.",
             "usage_example_es": "Construyeron un puente masivo en dos años.",
             "pronunciation_guide_es": "/dei_BILT_a_MASiv_BRID_in_tu_IERS/",
-            "meaning": "Pasado de Construir"
+            "meaning": "Pasado de Construir",
+            "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_5_def0_v2.avif"
           },
           {
             "usage_example": "She built her business from scratch.",
             "usage_example_es": "Desarrolló su negocio desde cero.",
             "pronunciation_guide_es": "/shi_BILT_jer_BISnis_from_SKRACH/",
-            "meaning": "Pasado de Desarrollar"
+            "meaning": "Pasado de Desarrollar",
+            "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_5_def1_v2.avif"
           }
         ]
       },
@@ -287,13 +304,15 @@
             "usage_example": "They built a massive bridge in two years.",
             "usage_example_es": "Construyeron un puente masivo en dos años.",
             "pronunciation_guide_es": "/dei_BILT_a_MASiv_BRID_in_tu_IERS/",
-            "meaning": "Participio de Construir"
+            "meaning": "Participio de Construir",
+            "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_5_def0_v3.avif"
           },
           {
             "usage_example": "She built her business from scratch.",
             "usage_example_es": "Desarrolló su negocio desde cero.",
             "pronunciation_guide_es": "/shi_BILT_jer_BISnis_from_SKRACH/",
-            "meaning": "Participio de Desarrollar"
+            "meaning": "Participio de Desarrollar",
+            "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_5_def1_v3.avif"
           }
         ]
       }
@@ -319,7 +338,8 @@
         "usage_example_es": "El problema ocurrió otra vez ayer.",
         "char_count": "5",
         "usage_context_en": "To happen or take place.",
-        "usage_context_es": "To happen or take place."
+        "usage_context_es": "To happen or take place.",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_6_def0.avif"
       }
     ],
     "is_verb": true,
@@ -346,7 +366,8 @@
         "usage_example_es": "Levanta la mano si sabes la respuesta.",
         "char_count": "one",
         "usage_context_en": "gesture/increase",
-        "usage_context_es": "gesto/aumento"
+        "usage_context_es": "gesto/aumento",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_7_def0.avif"
       },
       {
         "meaning": "Criar/Educar",
@@ -356,7 +377,8 @@
         "usage_example_es": "Crían a sus hijos para que sean amables.",
         "char_count": "one",
         "usage_context_en": "family/agriculture",
-        "usage_context_es": "familia/agricultura"
+        "usage_context_es": "familia/agricultura",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_7_def1.avif"
       }
     ],
     "group_name": "Managing & Control"
@@ -380,7 +402,8 @@
         "usage_example_es": "La reunión duró dos horas.",
         "char_count": "5",
         "usage_context_en": "To continue for a period of time.",
-        "usage_context_es": "To continue for a period of time."
+        "usage_context_es": "To continue for a period of time.",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_8_def0.avif"
       }
     ],
     "is_verb": true,
@@ -407,7 +430,8 @@
         "usage_example_es": "Necesitamos desarrollar nuevas habilidades.",
         "char_count": "three",
         "usage_context_en": "skills/technology",
-        "usage_context_es": "habilidades/tecnología"
+        "usage_context_es": "habilidades/tecnología",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_9_def0.avif"
       },
       {
         "meaning": "Crecer/Evolucionar",
@@ -417,7 +441,8 @@
         "usage_example_es": "El proyecto se está desarrollando bien.",
         "char_count": "three",
         "usage_context_en": "projects/growth",
-        "usage_context_es": "proyectos/crecimiento"
+        "usage_context_es": "proyectos/crecimiento",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_9_def1.avif"
       }
     ],
     "group_name": "Building & Creating"
@@ -443,7 +468,8 @@
         "usage_example_es": "Los estudiantes formaron un grupo de estudio.",
         "char_count": "one",
         "usage_context_en": "groups/nature",
-        "usage_context_es": "grupos/naturaleza"
+        "usage_context_es": "grupos/naturaleza",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_10_def0.avif"
       },
       {
         "meaning": "Constituir/Ser parte de",
@@ -453,7 +479,8 @@
         "usage_example_es": "Estos elementos constituyen toda la estructura.",
         "char_count": "one",
         "usage_context_en": "structure/basis",
-        "usage_context_es": "estructura/base"
+        "usage_context_es": "estructura/base",
+        "imagePath": "/card_images/verbs/2-intermediate/being_state_e_creation/2-intermediate_being_state_e_creation_card_10_def1.avif"
       }
     ],
     "group_name": "Building & Creating"

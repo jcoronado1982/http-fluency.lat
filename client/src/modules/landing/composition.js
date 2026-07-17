@@ -16,14 +16,18 @@ export const demoAudioPort = createAudioPort(createAudioHttpAdapter(httpClient))
 export const demoImagePort = createImagePort(createImageHttpAdapter(httpClient));
 
 /** Puerto de reseñas del demo (contrato) — la UI no toca httpClient directo. */
-export const demoFeedbackPort = Object.freeze({
-    fetchRecent: (limit = 20) => httpClient.get(`/api/demo-feedback?limit=${limit}`),
-    submit: ({ comment, rating, language }) => httpClient.post('/api/demo-feedback', {
-        comment,
-        rating,
-        language,
-        source: 'landing-demo',
-    }),
-});
+export function createDemoFeedbackPort(http) {
+    return Object.freeze({
+        fetchRecent: (limit = 20) => http.get(`/api/demo-feedback?limit=${limit}`),
+        submit: ({ comment, rating, language }) => http.post('/api/demo-feedback', {
+            comment,
+            rating,
+            language,
+            source: 'landing-demo',
+        }),
+    });
+}
+
+export const demoFeedbackPort = createDemoFeedbackPort(httpClient);
 
 export { LANDING_DEMO_MEDIA };

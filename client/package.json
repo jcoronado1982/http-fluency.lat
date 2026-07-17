@@ -15,7 +15,7 @@
     "test:bidirectional": "node scripts/test-bidirectional-study.mjs",
     "test:srs": "node scripts/test-srs-engine.mjs",
     "test:pwa": "node scripts/test-pwa.mjs",
-    "test": "npm run test:routing && npm run test:contracts && npm run test:deck-usecases && npm run test:deck-session && npm run test:prefetch-cache && npm run test:bidirectional && npm run test:srs && npm run test:pwa",
+    "test": "npm run test:routing && npm run test:contracts && npm run test:deck-usecases && npm run test:deck-session && npm run test:prefetch-cache && npm run test:bidirectional && npm run test:srs && npm run test:pwa && npm run test:components",
     "test:components": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:chromium": "playwright test --project=desktop-chromium",
@@ -38,6 +38,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.61.1",
+    "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/react": "^19.1.16",

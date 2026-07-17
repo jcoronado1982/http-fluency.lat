@@ -18,12 +18,23 @@ flashcard** sin login. Es la puerta de conversión hacia registro/pricing.
 | Demo de tarjeta | `client/src/modules/landing/features/` (p. ej. `DemoFlashcardSession.jsx`) | usa el kit compartido `client/src/components/flashcardStudy/` con `mediaVariant='landing-demo'` |
 | Contratos demo | `client/src/contracts/landingDemoNamespace.js`, `studyMediaVariants.js` | categoría/deck/límite del demo y variante de media |
 | Backend (demo) | sin crate propio | el demo consume endpoints de flashcards con `category='landing-demo'`; TTS del demo: `backend/api_main/src/infrastructure/ai/elevenlabs_tts_provider.rs` (ElevenLabs SOLO aquí) |
-| Audio demo | `card_audio/landing-demo/` (157 audios) | copiados por el pipeline en cada deploy |
+| Audio demo | `card_audio/landing-demo/` (162 MP3 + 164 metadatos JSON) | copiados por el pipeline en cada deploy |
 
 ## Contratos / endpoints
 
-Sin endpoints propios. El demo usa `resolve-audio`/`resolve-image`/`synthesize-speech` de
-flashcards con el namespace `landing-demo` (el backend enruta el proveedor TTS por categoría).
+Sin crate backend propio. El demo usa estos contratos HTTP:
+
+| Método y ruta | Auth | Entrada/salida relevante |
+|---|---|---|
+| `GET /api/demo-feedback?limit=1..50` | pública | `{ summary: { average, count }, reviews[] }`; el backend limita el máximo a 50 |
+| `POST /api/demo-feedback` | JWT | `{ comment, rating, language, source: "landing-demo" }`; comentario 1..500 caracteres Unicode y rating 1..5 |
+| `POST /api/resolve-audio` | invitado permitido | namespace `landing-demo`; devuelve `audio_url`, `voice_name`, `from_cache` sin generar |
+| `POST /api/synthesize-speech` | invitado permitido | mismo namespace; genera o recupera audio y devuelve el mismo contrato |
+| `POST /api/resolve-image` | invitado permitido solo para `landing-demo` | identidad `category/deck/index/def_index/form`; devuelve `{ path }` sin generar |
+| `POST /api/generate-image` | invitado permitido solo para `landing-demo` | prompt y contexto visual; devuelve `{ path }` |
+
+Los adapters compartidos también implementan upload/delete para la app autenticada, pero esas
+acciones no se exponen como controles del visitante en la landing.
 
 ## Flags y activación
 
@@ -51,3 +62,18 @@ Ninguna colección propia. Feedback del demo → `/api/demo-feedback`.
 cd client && npm run dev        # http://localhost:5173/ sin login
 npm test                        # incluye contratos landing-demo/media
 ```
+
+### Matriz de cobertura automatizada
+
+- `src/modules/landing/**/*.test.{js,jsx}`: feedback autenticado/invitado, borrador de retorno,
+  idioma, navegación, prompt, carrusel, rating, sesión, swipe, completar y reiniciar el demo.
+- `src/adapters/studyAdapters.test.js`: payloads y respuestas exactas de audio/imagen, errores,
+  abortos y valores predeterminados.
+- `src/services/httpClient.test.js`: JWT, métodos, serialización, upload y errores HTTP.
+- Rust `feedback.rs`: límites Unicode, rating, orden, resumen, filtrado, fallback legacy y límite 50.
+- Rust `generation.rs` + `dto/generation.rs`: límites, roles, defaults y deserialización de los
+  payloads enviados por los adapters.
+- `e2e/local-smoke.spec.js`: visitante real, navegación del demo, borrador hacia login y resolución
+  invitada de assets versionados de audio/imagen a través del proxy local.
+- `npm test` ejecuta también Vitest; `cargo test -p api_main --no-default-features --features
+  auth,flashcards` cubre los handlers/use cases del perfil.

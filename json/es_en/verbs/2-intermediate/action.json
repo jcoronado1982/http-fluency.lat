@@ -31,7 +31,8 @@
         "usage_example_es": "La lista incluye 50 verbos.",
         "char_count": "two",
         "usage_context_en": "lists/elements",
-        "usage_context_es": "listas/elementos"
+        "usage_context_es": "listas/elementos",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_0_def1.avif"
       }
     ],
     "group_name": "Managing & Control"
@@ -57,7 +58,8 @@
         "usage_example_es": "Por favor, sigue leyendo.",
         "char_count": "three",
         "usage_context_en": "activities/duration",
-        "usage_context_es": "actividades/duración"
+        "usage_context_es": "actividades/duración",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_1_def0.avif"
       },
       {
         "meaning": "Reanudar",
@@ -67,7 +69,8 @@
         "usage_example_es": "Continuaremos la discusión mañana.",
         "char_count": "three",
         "usage_context_en": "discussion/path",
-        "usage_context_es": "discusión/camino"
+        "usage_context_es": "discusión/camino",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_1_def1.avif"
       }
     ],
     "group_name": "Social & Daily Life"
@@ -93,7 +96,8 @@
         "usage_example_es": "Fijemos una fecha para la reunión.",
         "char_count": "one",
         "usage_context_en": "time/rules",
-        "usage_context_es": "tiempo/reglas"
+        "usage_context_es": "tiempo/reglas",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_2_def0.avif"
       },
       {
         "meaning": "Colocar/Poner",
@@ -103,7 +107,8 @@
         "usage_example_es": "Pon la mesa para la cena.",
         "char_count": "one",
         "usage_context_en": "objects/position",
-        "usage_context_es": "objetos/posición"
+        "usage_context_es": "objetos/posición",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_2_def1.avif"
       }
     ],
     "irregular": {
@@ -120,13 +125,15 @@
             "usage_example": "They set the conditions for the deal.",
             "usage_example_es": "Ellos establecieron las condiciones para el trato.",
             "pronunciation_guide_es": "/dei_SET_de_konDISHons_for_de_DIL/",
-            "meaning": "Pasado de Establecer"
+            "meaning": "Pasado de Establecer",
+            "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_2_def0_v2.avif"
           },
           {
             "usage_example": "She set the vase on the shelf.",
             "usage_example_es": "Ella colocó el florero en el estante.",
             "pronunciation_guide_es": "/shi_SET_de_VEIS_on_de_SHELF/",
-            "meaning": "Pasado de Colocar"
+            "meaning": "Pasado de Colocar",
+            "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_2_def1_v2.avif"
           }
         ]
       },
@@ -143,13 +150,15 @@
             "usage_example": "They set the conditions for the deal.",
             "usage_example_es": "Ellos establecieron las condiciones para el trato.",
             "pronunciation_guide_es": "/dei_SET_de_konDISHons_for_de_DIL/",
-            "meaning": "Participio de Establecer"
+            "meaning": "Participio de Establecer",
+            "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_2_def0_v3.avif"
           },
           {
             "usage_example": "She set the vase on the shelf.",
             "usage_example_es": "Ella colocó el florero en el estante.",
             "pronunciation_guide_es": "/shi_SET_de_VEIS_on_de_SHELF/",
-            "meaning": "Participio de Colocar"
+            "meaning": "Participio de Colocar",
+            "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_2_def1_v3.avif"
           }
         ]
       }
@@ -177,7 +186,8 @@
         "usage_example_es": "Mi mamá me permite quedarme despierto hasta tarde.",
         "char_count": "two",
         "usage_context_en": "permission/rules",
-        "usage_context_es": "permiso/reglas"
+        "usage_context_es": "permiso/reglas",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_3_def0.avif"
       },
       {
         "meaning": "Dar (tiempo, dinero, etc.)",
@@ -187,7 +197,8 @@
         "usage_example_es": "Dame un momento para pensar.",
         "char_count": "two",
         "usage_context_en": "time/contingency",
-        "usage_context_es": "tiempo/contingencia"
+        "usage_context_es": "tiempo/contingencia",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_3_def1.avif"
       }
     ],
     "group_name": "Managing & Control"
@@ -213,7 +224,8 @@
         "usage_example_es": "Añade un poco de sal a la sopa.",
         "char_count": "one",
         "usage_context_en": "cooking/math",
-        "usage_context_es": "cocina/matemáticas"
+        "usage_context_es": "cocina/matemáticas",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_4_def0.avif"
       },
       {
         "meaning": "Agregar (algo más)",
@@ -223,7 +235,8 @@
         "usage_example_es": "¿Añadiste tu nombre a la lista?",
         "char_count": "one",
         "usage_context_en": "lists/speech",
-        "usage_context_es": "listas/discurso"
+        "usage_context_es": "listas/discurso",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_4_def1.avif"
       }
     ],
     "group_name": "Daily Tasks"
@@ -260,7 +273,8 @@
         "usage_example_es": "La nueva ley anuló el proyecto.",
         "char_count": "one",
         "usage_context_en": "plans/time",
-        "usage_context_es": "planes/tiempo"
+        "usage_context_es": "planes/tiempo",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_5_def1.avif"
       }
     ],
     "group_name": "Daily Tasks"
@@ -297,7 +311,8 @@
         "usage_example_es": "La ley exige que uses un cinturón de seguridad.",
         "char_count": "two",
         "usage_context_en": "laws/safety",
-        "usage_context_es": "leyes/seguridad"
+        "usage_context_es": "leyes/seguridad",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_6_def1.avif"
       }
     ],
     "group_name": "Managing & Control"
@@ -334,7 +349,8 @@
         "usage_example_es": "La alfombra está empezando a desgastarse.",
         "char_count": "one",
         "usage_context_en": "materials/time",
-        "usage_context_es": "materiales/tiempo"
+        "usage_context_es": "materiales/tiempo",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_7_def1.avif"
       }
     ],
     "group_name": "Daily Routine"
@@ -360,7 +376,8 @@
         "usage_example_es": "¿Puedes llevar esta bolsa por mí?",
         "char_count": "two",
         "usage_context_en": "objects/transport",
-        "usage_context_es": "objetos/transporte"
+        "usage_context_es": "objetos/transporte",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_8_def0.avif"
       },
       {
         "meaning": "Conllevar/Implicar",
@@ -370,7 +387,8 @@
         "usage_example_es": "Este trabajo conlleva una gran responsabilidad.",
         "char_count": "two",
         "usage_context_en": "responsibility/plans",
-        "usage_context_es": "responsabilidad/planes"
+        "usage_context_es": "responsabilidad/planes",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_8_def1.avif"
       }
     ],
     "group_name": "Daily Tasks"
@@ -472,7 +490,8 @@
         "usage_example_es": "¡Atrapa la pelota!",
         "char_count": "one",
         "usage_context_en": "sports/illness",
-        "usage_context_es": "deportes/enfermedad"
+        "usage_context_es": "deportes/enfermedad",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_11_def0.avif"
       },
       {
         "meaning": "Tomar (un transporte)/Descubrir",
@@ -482,7 +501,8 @@
         "usage_example_es": "Tenemos que tomar el autobús.",
         "char_count": "one",
         "usage_context_en": "transport/discovery",
-        "usage_context_es": "transporte/descubrimiento"
+        "usage_context_es": "transporte/descubrimiento",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_11_def1.avif"
       }
     ],
     "group_name": "Daily Tasks"
@@ -508,7 +528,8 @@
         "usage_example_es": "Lánzame las llaves.",
         "char_count": "one",
         "usage_context_en": "objects/movement",
-        "usage_context_es": "objetos/movimiento"
+        "usage_context_es": "objetos/movimiento",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_12_def0.avif"
       },
       {
         "meaning": "Hacer (una fiesta)",
@@ -518,7 +539,8 @@
         "usage_example_es": "Vamos a hacer una fiesta.",
         "char_count": "one",
         "usage_context_en": "party/idiom",
-        "usage_context_es": "fiesta/modismo"
+        "usage_context_es": "fiesta/modismo",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_12_def1.avif"
       }
     ],
     "group_name": "Daily Tasks"
@@ -544,7 +566,8 @@
         "usage_example_es": "Siempre apoyaré tus decisiones.",
         "char_count": "two",
         "usage_context_en": "emotional/teams",
-        "usage_context_es": "emocional/equipos"
+        "usage_context_es": "emocional/equipos",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_13_def0.avif"
       },
       {
         "meaning": "Sostener/Mantener (físicamente)",
@@ -554,7 +577,8 @@
         "usage_example_es": "Las columnas sostienen el techo.",
         "char_count": "two",
         "usage_context_en": "physical/structure",
-        "usage_context_es": "físico/estructura"
+        "usage_context_es": "físico/estructura",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_13_def1.avif"
       }
     ],
     "group_name": "Social & Daily Life"
@@ -580,7 +604,8 @@
         "usage_example_es": "Mis padres siempre discuten por dinero.",
         "char_count": "two",
         "usage_context_en": "disagreement/conflict",
-        "usage_context_es": "desacuerdo/conflicto"
+        "usage_context_es": "desacuerdo/conflicto",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_14_def0.avif"
       },
       {
         "meaning": "Argumentar/Sostener (una idea)",
@@ -590,7 +615,8 @@
         "usage_example_es": "Argumentó que el plan era demasiado caro.",
         "char_count": "two",
         "usage_context_en": "reasoning/debate",
-        "usage_context_es": "razonamiento/debate"
+        "usage_context_es": "razonamiento/debate",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_14_def1.avif"
       }
     ],
     "group_name": "Feelings & Reactions"
@@ -616,7 +642,8 @@
         "usage_example_es": "¿Puedes arreglar mi silla rota?",
         "char_count": "one",
         "usage_context_en": "repair/objects",
-        "usage_context_es": "reparación/objetos"
+        "usage_context_es": "reparación/objetos",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_15_def0.avif"
       },
       {
         "meaning": "Fijar/Establecer (una fecha, precio)",
@@ -626,7 +653,8 @@
         "usage_example_es": "Fijaron una fecha para la boda.",
         "char_count": "one",
         "usage_context_en": "schedule/solution",
-        "usage_context_es": "horario/solución"
+        "usage_context_es": "horario/solución",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_15_def1.avif"
       }
     ],
     "group_name": "Building & Creating"
@@ -652,7 +680,8 @@
         "usage_example_es": "Necesito limpiar mi cuarto.",
         "char_count": "one",
         "usage_context_en": "housework/hygiene",
-        "usage_context_es": "tareas del hogar/higiene"
+        "usage_context_es": "tareas del hogar/higiene",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_16_def0.avif"
       },
       {
         "meaning": "Quitar la suciedad",
@@ -662,7 +691,8 @@
         "usage_example_es": "Él limpió la suciedad de sus zapatos.",
         "char_count": "one",
         "usage_context_en": "dirt/tidiness",
-        "usage_context_es": "suciedad/orden"
+        "usage_context_es": "suciedad/orden",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_16_def1.avif"
       }
     ],
     "group_name": "Daily Routine"
@@ -688,7 +718,8 @@
         "usage_example_es": "Me gusta cocinar pasta.",
         "char_count": "one",
         "usage_context_en": "food/hobby",
-        "usage_context_es": "comida/pasatiempo"
+        "usage_context_es": "comida/pasatiempo",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_17_def0.avif"
       },
       {
         "meaning": "Preparar comida",
@@ -698,7 +729,8 @@
         "usage_example_es": "Mi padre cocina la cena todas las noches.",
         "char_count": "one",
         "usage_context_en": "meals/routine",
-        "usage_context_es": "comidas/rutina"
+        "usage_context_es": "comidas/rutina",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_17_def1.avif"
       }
     ],
     "group_name": "Daily Routine"
@@ -724,7 +756,8 @@
         "usage_example_es": "Debes lavarte las manos antes de comer.",
         "char_count": "one",
         "usage_context_en": "hygiene/cleaning",
-        "usage_context_es": "higiene/limpieza"
+        "usage_context_es": "higiene/limpieza",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_18_def0.avif"
       },
       {
         "meaning": "Lavar (ropa)",
@@ -734,7 +767,8 @@
         "usage_example_es": "Ella está lavando la ropa.",
         "char_count": "one",
         "usage_context_en": "laundry/movement",
-        "usage_context_es": "lavandería/movimiento"
+        "usage_context_es": "lavandería/movimiento",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_18_def1.avif"
       }
     ],
     "group_name": "Daily Routine"
@@ -760,7 +794,8 @@
         "usage_example_es": "Hacemos la compra los sábados.",
         "char_count": "one",
         "usage_context_en": "shopping/routine",
-        "usage_context_es": "compras/rutina"
+        "usage_context_es": "compras/rutina",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_19_def0.avif"
       },
       {
         "meaning": "Comprar en (una tienda)",
@@ -770,7 +805,8 @@
         "usage_example_es": "¿Dónde compras habitualmente?",
         "char_count": "one",
         "usage_context_en": "stores/comparison",
-        "usage_context_es": "tiendas/comparación"
+        "usage_context_es": "tiendas/comparación",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_19_def1.avif"
       }
     ],
     "group_name": "Daily Routine"
@@ -796,7 +832,8 @@
         "usage_example_es": "Estoy buscando información en línea.",
         "char_count": "one",
         "usage_context_en": "internet/investigation",
-        "usage_context_es": "internet/investigación"
+        "usage_context_es": "internet/investigación",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_20_def0.avif"
       },
       {
         "meaning": "Registrar (un lugar)",
@@ -806,7 +843,8 @@
         "usage_example_es": "Él registró sus bolsillos buscando sus llaves.",
         "char_count": "one",
         "usage_context_en": "objects/rescue",
-        "usage_context_es": "objetos/rescate"
+        "usage_context_es": "objetos/rescate",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_20_def1.avif"
       }
     ],
     "group_name": "Daily Tasks"
@@ -825,7 +863,8 @@
         "usage_context_en": "To restart an electronic device to its default state",
         "usage_context_es": "Reiniciar un dispositivo electrónico a su estado inicial",
         "usage_example": "How do I reset my phone?",
-        "usage_example_es": "¿Cómo reinicio mi teléfono?"
+        "usage_example_es": "¿Cómo reinicio mi teléfono?",
+        "imagePath": "/card_images/verbs/2-intermediate/action/2-intermediate_action_card_21_def0.avif"
       }
     ],
     "force_generation": false,

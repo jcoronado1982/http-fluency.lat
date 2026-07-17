@@ -41,7 +41,11 @@ fn reject_media_mutation_during_local_gate(state: &AppState) -> Result<(), (Stat
 
 #[cfg(test)]
 mod media_lock_tests {
-    use super::{local_preprod_media_is_locked, LOCAL_PREPROD_MEDIA_LOCK};
+    use super::{
+        local_preprod_media_is_locked, require_image_customization_role, validate_len,
+        LOCAL_PREPROD_MEDIA_LOCK,
+    };
+    use axum::http::StatusCode;
 
     #[test]
     fn local_gate_lock_is_detected_without_touching_media_directories() {
@@ -66,6 +70,39 @@ mod media_lock_tests {
 
         std::fs::remove_dir_all(root).expect("remove isolated lock test directory");
     }
+
+    #[test]
+    fn text_validation_uses_unicode_characters_not_utf8_bytes() {
+        assert!(validate_len(&"á".repeat(500), 500, "text").is_ok());
+
+        let err = validate_len(&"á".repeat(501), 500, "text").unwrap_err();
+        assert_eq!(err.0, StatusCode::BAD_REQUEST);
+        assert!(err.1.contains("500 caracteres"));
+    }
+
+    #[test]
+    fn text_validation_rejects_blank_and_accepts_exact_boundary() {
+        assert_eq!(
+            validate_len(" \n\t ", 500, "text").unwrap_err().0,
+            StatusCode::BAD_REQUEST
+        );
+        assert!(validate_len(&"x".repeat(500), 500, "text").is_ok());
+        assert_eq!(
+            validate_len(&"x".repeat(501), 500, "text").unwrap_err().0,
+            StatusCode::BAD_REQUEST
+        );
+    }
+
+    #[test]
+    fn image_customization_is_admin_only() {
+        assert!(require_image_customization_role("admin").is_ok());
+        for role in ["guest", "free", "premium", ""] {
+            assert_eq!(
+                require_image_customization_role(role).unwrap_err().0,
+                StatusCode::FORBIDDEN
+            );
+        }
+    }
 }
 
 fn require_image_customization_role(role: &str) -> Result<(), (StatusCode, String)> {
@@ -84,7 +121,7 @@ fn validate_len(value: &str, max: usize, field: &str) -> Result<(), (StatusCode,
     if value.trim().is_empty() {
         return Err((StatusCode::BAD_REQUEST, format!("{field} está vacío")));
     }
-    if value.len() > max {
+    if value.chars().count() > max {
         return Err((
             StatusCode::BAD_REQUEST,
             format!("{field} supera el límite de {max} caracteres"),
@@ -206,7 +243,7 @@ pub async fn generate_image(
     let role = resolve_effective_role(&state, &claims).await;
     validate_len(&body.prompt, MAX_IMAGE_PROMPT_LEN, "prompt")?;
     if let Some(scene) = body.scene_complement.as_deref() {
-        if scene.len() > MAX_SCENE_COMPLEMENT_LEN {
+        if scene.chars().count() > MAX_SCENE_COMPLEMENT_LEN {
             return Err((
                 StatusCode::BAD_REQUEST,
                 format!(

@@ -167,6 +167,10 @@
         display: none;
     }
 
+    .main-content:has(.flashcard-page-wrapper[data-completion-open='true']) > .shell-footer--app {
+        display: none;
+    }
+
     .main-content:has(.flashcard-page-wrapper:not([data-landing-demo])) > .shell-footer--app {
         flex-grow: 1;
     }
