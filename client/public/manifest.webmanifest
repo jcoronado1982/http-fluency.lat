@@ -6,8 +6,8 @@
   "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#EBF4FF",
-  "theme_color": "#EBF4FF",
+  "background_color": "#05070d",
+  "theme_color": "#05070d",
   "categories": ["education"],
   "prefer_related_applications": false,
   "icons": [

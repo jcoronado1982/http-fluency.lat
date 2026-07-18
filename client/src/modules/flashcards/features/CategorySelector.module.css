@@ -1031,6 +1031,24 @@
     background: rgba(5, 7, 13, 0.58);
     backdrop-filter: blur(8px) saturate(0.9);
     -webkit-backdrop-filter: blur(8px) saturate(0.9);
+    animation: pwaCatalogBackdropIn 260ms ease-out;
+  }
+
+  /* Salida animada del cierre nativo (el JSX marca data-dismissing y
+     desmonta el componente al terminar el deslizamiento). */
+  .categorySelectorOverlay[data-dismissing] {
+    background: rgba(5, 7, 13, 0);
+    backdrop-filter: blur(0px) saturate(1);
+    -webkit-backdrop-filter: blur(0px) saturate(1);
+    transition: background 240ms ease, backdrop-filter 240ms ease, -webkit-backdrop-filter 240ms ease;
+  }
+
+  @keyframes pwaCatalogBackdropIn {
+    from {
+      background: rgba(5, 7, 13, 0);
+      backdrop-filter: blur(0px) saturate(1);
+      -webkit-backdrop-filter: blur(0px) saturate(1);
+    }
   }
 
   .dashboardContainer {
@@ -1047,7 +1065,8 @@
     border-radius: 28px 28px 0 0;
     background: var(--pwa-canvas, #05070d);
     box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    animation: pwaCatalogSheetIn 300ms cubic-bezier(0.22, 0.75, 0.3, 1);
+    /* Curva de hoja modal iOS: entra desde fuera de pantalla, desacelerando. */
+    animation: pwaCatalogSheetIn 380ms cubic-bezier(0.32, 0.72, 0, 1);
   }
 
   .dashboardContainer::before {
@@ -1065,36 +1084,15 @@
 
   @keyframes pwaCatalogSheetIn {
     from {
-      opacity: 0;
-      transform: translateY(34px);
+      transform: translateY(100%);
     }
     to {
-      opacity: 1;
       transform: translateY(0);
     }
   }
 
   .closeBtn {
-    top: 18px;
-    right: max(14px, env(safe-area-inset-right, 0px));
-    width: 38px;
-    height: 38px;
-    border-color: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.07);
-    color: var(--pwa-text-secondary, #e2e8f0);
-  }
-
-  .closeBtn svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  .closeBtn:hover {
-    border-color: rgba(255, 255, 255, 0.16);
-    background: rgba(255, 255, 255, 0.11);
-    color: var(--pwa-text-primary, #f8fafc);
-    transform: none;
+    display: none;
   }
 
   .sidebar {
@@ -1102,15 +1100,15 @@
     min-width: 0;
     min-height: 0;
     max-height: none;
-    padding: 14px 14px 12px;
+    padding: 0px 14px 12px;
     overflow: hidden;
     border: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    background: linear-gradient(180deg, rgba(17, 22, 34, 0.98), rgba(11, 15, 25, 0.98));
+    border-bottom: 1px solid var(--pwa-border, rgba(255, 255, 255, 0.22));
+    background: var(--pwa-canvas, #05070d);
   }
 
   .sidebarTitle {
-    margin: 0 52px 10px 4px;
+    margin: 0 4px 10px;
     color: var(--pwa-text-muted, #cbd5e1);
     font-size: 0.69rem;
     letter-spacing: 0.14em;
@@ -1189,14 +1187,23 @@
     display: grid;
     gap: 10px;
     margin: 0 0 12px;
-    padding: 14px 0 12px;
+    padding: 5px 8px 10px;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: stretch;
+    justify-items: stretch;
+    align-items: stretch;
     background: linear-gradient(180deg, var(--pwa-canvas, #05070d) 0%, var(--pwa-canvas, #05070d) 82%, rgba(5, 7, 13, 0) 100%);
   }
 
   .levelSelector {
     display: grid;
-    width: 100%;
+    width: calc(100% + 12px);
+    min-width: 0;
+    margin-inline: -6px;
+    grid-template-columns: minmax(0, 1fr);
     gap: 8px;
+    justify-self: stretch;
   }
 
   .selectorLabelRow {
@@ -1210,16 +1217,21 @@
 
   .levelControlsRow {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 42px;
+    grid-template-columns: minmax(0, 1fr) 50px;
     width: 100%;
+    min-width: 0;
     gap: 8px;
+    box-sizing: border-box;
   }
 
   .levelButtons {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     width: 100%;
-    padding: 4px;
+    min-width: 0;
+    padding: 5px;
+    gap: 5px;
+    box-sizing: border-box;
     border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: 14px;
     background: rgba(255, 255, 255, 0.04);
@@ -1234,10 +1246,13 @@
   }
 
   .helpIconBtn {
-    width: 42px;
-    height: 42px;
-    border-color: rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.05);
+    width: 50px;
+    height: 50px;
+    border-color: var(--pwa-nav-border, rgba(255, 255, 255, 0.1));
+    background: var(--pwa-nav-surface, rgba(18, 22, 30, 0.62));
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(28px) saturate(1.4);
+    -webkit-backdrop-filter: blur(28px) saturate(1.4);
   }
 
   .stats {
@@ -1249,7 +1264,7 @@
 
   .groupsGrid {
     grid-template-columns: minmax(0, 1fr);
-    gap: 10px;
+    gap: 15px;
   }
 
   .groupCard {

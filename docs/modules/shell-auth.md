@@ -66,9 +66,16 @@ Endpoints `/api/admin/*` (incl. `/api/admin/subscriptions` + `activate`/`cancel`
 - La PWA es **online-first**: el service worker delega las navegaciones directamente a la red y no
   usa Cache Storage. Tampoco intercepta `/api`, `/json`, `/card_images` o `/card_audio`; abrir otro
   mazo y obtener contenido nuevo requiere conexión.
-- `PwaExperience` registra el service worker solo en builds de producción, muestra la pérdida de
-  conectividad y permite descartar la sugerencia de instalación durante siete días. En iOS explica
-  el flujo nativo Compartir → Añadir a pantalla de inicio.
+- `components/pwa/` está separado por responsabilidad única: `registerServiceWorker.js` registra
+  el SW solo en builds de producción; `useOnlineStatus.js` sigue la conectividad; `useInstallPrompt.js`
+  gobierna `beforeinstallprompt`, el caso iOS (Compartir → Añadir a pantalla de inicio) y el descarte
+  de siete días; `PwaNotice`/`OfflineNotice`/`InstallPrompt` son los avisos visuales y
+  `PwaExperience.jsx` solo orquesta. La navegación inferior de la app instalada es
+  `PwaShellNavigation.jsx` (container montado UNA sola vez en `App.jsx`) + `PwaBottomDock.jsx`
+  (presentacional): píldora flotante de cristal translúcido estilo WhatsApp iOS (referencia
+  `menu.jpg` en la raíz) con pestañas constantes (Inicio, Estudiar, Categorías, Idioma), pastilla
+  clara en la pestaña activa y estado activo por ruta. `manifest.webmanifest` e `index.html` usan
+  `theme_color`/fondo `#05070d` para que barra de estado y splash coincidan con el lienzo oscuro.
 
 ## Flags y activación
 

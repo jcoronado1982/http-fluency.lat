@@ -1283,7 +1283,14 @@
 
 @media (display-mode: standalone) and (max-width: 768px) {
     .dashboard-home {
-        padding-bottom: calc(116px + env(safe-area-inset-bottom, 0px));
+        /* Despeje de la barra flotante (~62px + 12px de margen) + aire. */
+        padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* En la app instalada el carrusel del curso se navega con swipe;
+       las flechas son un affordance de escritorio y se retiran. */
+    .dash-course-carousel-btn {
+        display: none;
     }
 
     .dash-top-grid {

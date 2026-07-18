@@ -11,7 +11,13 @@
     }
 
     .continueSection {
-        padding: 30px max(18px, env(safe-area-inset-right, 0px)) calc(112px + env(safe-area-inset-bottom, 0px)) max(18px, env(safe-area-inset-left, 0px));
+        /* El padding inferior despeja la barra flotante del shell para que
+           la última fila del carrusel scrollee por completo a la vista.
+           El solape elimina la costura subpíxel del hero 3D sobre la foto. */
+        position: relative;
+        z-index: 2;
+        margin-top: -2px;
+        padding: 30px max(18px, env(safe-area-inset-right, 0px)) calc(96px + env(safe-area-inset-bottom, 0px)) max(18px, env(safe-area-inset-left, 0px));
         background: #05070d;
     }
 

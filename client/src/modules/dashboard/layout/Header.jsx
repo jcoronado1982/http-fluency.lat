@@ -31,8 +31,27 @@ function UserAvatar({ user, onClick, language }) {
     );
 }
 
+/** Saludo de la cabecera PWA (patrón "título grande" nativo). Solo se
+ *  muestra en modo standalone vía CSS (.pwa-header-greeting). */
+function PwaGreeting({ user, language }) {
+    const firstName = (user?.name?.split(' ')[0] || user?.email?.split('@')[0] || '').trim();
+    const rawDate = new Date().toLocaleDateString(language === 'es' ? 'es' : 'en', {
+        weekday: 'long', day: 'numeric', month: 'long',
+    });
+    const dateLabel = rawDate.charAt(0).toUpperCase() + rawDate.slice(1);
+    const title = language === 'es'
+        ? (firstName ? `Hola, ${firstName}` : 'Hola')
+        : (firstName ? `Hi, ${firstName}` : 'Hi');
+    return (
+        <div className="pwa-header-greeting">
+            <span className="pwa-greeting-title">{title}</span>
+            <span className="pwa-greeting-sub">{dateLabel}</span>
+        </div>
+    );
+}
+
 export default function Header() {
-    const { 
+    const {
         isSidebarOpen, setIsSidebarOpen,
         language, setLanguage,
         isHeaderManualOpen,
@@ -57,6 +76,7 @@ export default function Header() {
                     <LuMenu size={24} color="#ffffff" />
                 </button>
                 <AppLogo />
+                <PwaGreeting user={user} language={language} />
             </div>
 
             <div className="header-controls">

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Flashcard, Controls, StudyMediaProvider } from '../../components/flashcardStudy';
 import { useRealViewportHeight } from '../../components/flashcardStudy/features/useRealViewportHeight';
 import { useNextImagePrefetch } from '../../components/flashcardStudy/features/useNextImagePrefetch';
@@ -172,8 +172,7 @@ const formatLoaderTime = (ms, language) => {
 export default function FlashcardPage() {
     useRealViewportHeight();
     const location = useLocation();
-    const navigate = useNavigate();
-    const { user, updateStudyLanguage } = useAuth();
+    const { user } = useAuth();
     const isOnboardingTour = new URLSearchParams(location.search).get('onboarding_tour') === 'flashcards';
     const {
         isCatalogVisible,
@@ -186,7 +185,7 @@ export default function FlashcardPage() {
     const {
         isFloatingMenuOpen, isSidebarOpen,
         language = 'en',
-        studyLanguage = 'en', setStudyLanguage,
+        studyLanguage = 'en',
         setIsHeaderSuppressed,
     } = useUIContext();
     const {
@@ -460,12 +459,6 @@ export default function FlashcardPage() {
         changeCategory(recommendation.category);
     }, [recommendation, setIsCatalogVisible, setSelectedGroup, changeDeck, changeCategory]);
 
-    const handleStudyLanguageChange = useCallback((nextLanguage) => {
-        if (nextLanguage === studyLanguage) return;
-        setStudyLanguage(nextLanguage);
-        void updateStudyLanguage(nextLanguage);
-    }, [setStudyLanguage, studyLanguage, updateStudyLanguage]);
-
     const handleOpenPwaRecommendation = useCallback((item) => {
         if (!item?.category || !item?.deckName) return;
         setSelectedGroup(null);
@@ -589,6 +582,7 @@ export default function FlashcardPage() {
                                 recommendation={recommendation}
                                 onContinue={handleContinueRecommendation}
                                 onOpenCatalog={() => setIsCatalogVisible(true)}
+                                onRestart={resetDeck}
                             />
                         ) : !currentCard ? (
                             !currentCategory ? (
@@ -611,10 +605,6 @@ export default function FlashcardPage() {
                 </div>
                 <PwaStudyChrome
                     language={language}
-                    studyLanguage={studyLanguage}
-                    onDashboard={() => navigate('/dashboard')}
-                    onCatalog={() => setIsCatalogVisible(true)}
-                    onStudyLanguageChange={handleStudyLanguageChange}
                     recommendations={pwaRecommendations}
                     onOpenRecommendation={handleOpenPwaRecommendation}
                     hideShelf={isOverlayOpen || shouldShowLoading || shouldShowCompletionCard}

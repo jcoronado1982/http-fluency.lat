@@ -686,6 +686,55 @@ export function useDeckSession(resumeSession = null) {
         }
     };
 
+    const resetDeckByName = async (deckName) => {
+        if (!user?.email || !currentCategory || !deckName) return false;
+        resetFlashcardPreload(user.email);
+
+        if (deckName === currentDeckName) {
+            pendingBatchRef.current = new Map();
+        }
+        removeStoredProgressBatch({
+            category: currentCategory,
+            deck: deckName,
+            userId: user.email,
+            courseDirection,
+        });
+
+        setIsDeckLoading(true);
+        setLoadingStage('loading_cards');
+
+        try {
+            await flashcardPort.resetDeckStatus(
+                user.email,
+                currentCategory,
+                deckName,
+                courseDirection,
+            );
+            resetFlashcardPreload(user.email);
+
+            if (deckName === currentDeckName) {
+                const resetCards = masterData.map((card) => ({ ...card, learned: false }));
+                setMasterData(resetCards);
+                setFilteredData(filterUnlearned(resetCards, selectedGroup));
+                setJustCompletedInSession(false);
+                setResetKey((k) => k + 1);
+                await loadFlashcards(currentCategory, deckName);
+            }
+
+            setDeckSummaries((prev) => ({
+                ...prev,
+                [deckName]: { total: prev[deckName]?.total ?? 0, learned: 0 },
+            }));
+            return true;
+        } catch {
+            setAppMessage({ text: 'Error al resetear', isError: true });
+            return false;
+        } finally {
+            setLoadingStage(null);
+            setIsDeckLoading(false);
+        }
+    };
+
     const resetGroup = async (groupName) => {
         if (!user?.email || !currentCategory || !currentDeckName) return false;
         resetFlashcardPreload(user.email);
@@ -774,6 +823,7 @@ export function useDeckSession(resumeSession = null) {
         markAsLearned,
         addToReview,
         resetDeck,
+        resetDeckByName,
         resetGroup,
         nextCard,
         prevCard,

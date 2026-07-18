@@ -1,5 +1,4 @@
 import React from 'react';
-import PwaBottomDock from '../../../components/pwa/PwaBottomDock';
 import nounsImage from '../../../assets/Nouns.png';
 import verbsImage from '../../../assets/Verbs.png';
 import adjectivesImage from '../../../assets/Adjectives.png';
@@ -25,35 +24,22 @@ const CATEGORY_IMAGES = {
 
 const COPY = {
     es: {
-        continue: 'Continuar estudiando',
-        dashboard: 'Dashboard',
-        studyLanguage: 'Idioma de estudio',
-        categories: 'Categorías',
-        english: 'Inglés',
-        spanish: 'Español',
+        suggestedDecks: 'Otros mazos para ti',
         open: 'ABRIR',
     },
     en: {
-        continue: 'Continue studying',
-        dashboard: 'Dashboard',
-        studyLanguage: 'Study language',
-        categories: 'Categories',
-        english: 'English',
-        spanish: 'Spanish',
+        suggestedDecks: 'More decks for you',
         open: 'OPEN',
     },
 };
 
 /**
- * Chrome exclusivo de la sesión instalada como PWA.
+ * Estante de acceso rápido a otros mazos exclusivo de la sesión instalada como PWA.
+ * La barra de navegación inferior vive en el shell (PwaShellNavigation).
  * CSS mantiene este bloque fuera del layout en navegador normal.
  */
 export default function PwaStudyChrome({
     language = 'en',
-    studyLanguage = 'en',
-    onDashboard,
-    onCatalog,
-    onStudyLanguageChange,
     recommendations = [],
     onOpenRecommendation,
     hideShelf = false,
@@ -63,10 +49,10 @@ export default function PwaStudyChrome({
         <div className={styles.pwaOnly}>
             <section
                 className={styles.continueSection}
-                aria-labelledby="pwa-continue-title"
+                aria-labelledby="pwa-suggested-decks-title"
                 hidden={hideShelf}
             >
-                <h2 id="pwa-continue-title">{t.continue}</h2>
+                <h2 id="pwa-suggested-decks-title">{t.suggestedDecks}</h2>
                 <div className={styles.recommendationRail}>
                     {recommendations.map((item) => (
                         <button
@@ -90,14 +76,6 @@ export default function PwaStudyChrome({
                     ))}
                 </div>
             </section>
-
-            <PwaBottomDock
-                language={language}
-                studyLanguage={studyLanguage}
-                onDashboard={onDashboard}
-                onCatalog={onCatalog}
-                onStudyLanguageChange={onStudyLanguageChange}
-            />
         </div>
     );
 }

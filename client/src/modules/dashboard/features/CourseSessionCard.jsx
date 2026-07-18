@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
+
+const MIN_SWIPE_DISTANCE = 48;
 
 /**
  * CourseSessionCard — tarjeta grande de "continuar sesión" con carrusel de
@@ -24,9 +26,31 @@ export default function CourseSessionCard({
     const previousCourseLabel = language === 'es' ? 'Categoría anterior' : 'Previous category';
     const nextCourseLabel = language === 'es' ? 'Siguiente categoría' : 'Next category';
     const isDailyReview = Boolean(activeCourse?.isDailyReview);
+    const touchStartRef = useRef(null);
+
+    // En móvil (PWA) el carrusel se cambia con swipe horizontal; las flechas
+    // se ocultan por CSS en standalone. El gesto vertical sigue scrolleando.
+    const handleTouchStart = (event) => {
+        const touch = event.targetTouches[0];
+        touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+    };
+    const handleTouchEnd = (event) => {
+        if (!canCycleCourses || !touchStartRef.current) return;
+        const touch = event.changedTouches[0];
+        const deltaX = touchStartRef.current.x - touch.clientX;
+        const deltaY = touchStartRef.current.y - touch.clientY;
+        touchStartRef.current = null;
+        if (Math.abs(deltaX) < MIN_SWIPE_DISTANCE || Math.abs(deltaX) < Math.abs(deltaY)) return;
+        onCycle(deltaX > 0 ? 1 : -1);
+    };
 
     return (
-        <article className="dash-course-card" style={{ '--dash-course-image': `url("${courseImage}")` }}>
+        <article
+            className="dash-course-card"
+            style={{ '--dash-course-image': `url("${courseImage}")` }}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+        >
             <div className="dash-course-topbar">
                 <span className="dash-course-badge">
                     {isDailyReview

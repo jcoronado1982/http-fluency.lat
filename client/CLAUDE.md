@@ -124,7 +124,10 @@ src/
 ├── pages/                      ← páginas del shell (Login, Admin, Onboarding, Grammar, Test)
 ├── components/
 │   ├── common/                    ProtectedRoute, AdminRoute, PageLoader, LanguageSelector, FluencyDialog
-│   ├── pwa/                       experiencia PWA online-first: instalación y estado de conexión
+│   ├── pwa/                       experiencia PWA online-first, separada por SRP: registerServiceWorker,
+│   │                              useOnlineStatus, useInstallPrompt, PwaNotice/OfflineNotice/InstallPrompt,
+│   │                              PwaExperience (orquestador) y la barra inferior PwaShellNavigation
+│   │                              (container, montado 1 vez en App.jsx) + PwaBottomDock (presentacional)
 │   ├── routing/SafeRedirect.jsx
 │   ├── shell/                     BareLayout, MinimalAppShell, ShellFooter
 │   └── flashcardStudy/         ⭐ KIT COMPARTIDO de la tarjeta (ver §4 — recién refactorizado)
@@ -253,7 +256,16 @@ media automáticamente: ante cualquier diferencia falla y conserva los archivos 
 
 **PWA online-first:** `public/manifest.webmanifest` define la identidad instalable y `public/sw.js`
 delega las navegaciones directamente a la red, sin Cache Storage ni interceptar API, catálogos o
-media. `components/pwa/PwaExperience.jsx` centraliza la instalación y el estado de conectividad.
+media. `components/pwa/` está partida por responsabilidad única: `registerServiceWorker.js`,
+`useOnlineStatus.js`, `useInstallPrompt.js` y los avisos `PwaNotice`/`OfflineNotice`/`InstallPrompt`,
+orquestados por `PwaExperience.jsx`. La navegación inferior de la app instalada sigue el patrón
+WhatsApp iOS (referencia: `menu.jpg` en la raíz): píldora FLOTANTE de cristal translúcido con
+márgenes, pestañas constantes Inicio/Estudiar/Categorías/Idioma, iconos pequeños y pestaña activa
+con pastilla clara envolviendo icono+etiqueta (tokens `--pwa-nav-*`): `PwaShellNavigation.jsx`
+(container, montado UNA vez en `App.jsx`) + `PwaBottomDock.jsx` (presentacional). Las páginas NO
+montan navegación PWA propia; `Categorías` usa el uiBridge (`openCatalog`) sobre la sesión de
+estudio activa. ⚠️ En standalone `overscroll-behavior-y` debe ser `contain` (html), nunca `none`
+en html+body: con `none` Chrome descarta el gesto táctil y la página deja de scrollear.
 Validar con `npm run test:pwa`, `npm run build` y `npm run preview:pwa`; este último fija
 `http://localhost:4173`, aplica el header requerido por Google Identity Services en pruebas HTTP y
 proxyfica API/media al backend local `:8081`. El OAuth client debe autorizar exactamente ese origen.

@@ -1,87 +1,130 @@
 import React, { useState } from 'react';
-import { LuBookOpen, LuLanguages, LuLayers, LuLayoutDashboard } from 'react-icons/lu';
+import { LuBookOpen, LuCheck, LuLanguages, LuLayers, LuLayoutDashboard } from 'react-icons/lu';
 import styles from './PwaBottomDock.module.css';
 
 const COPY = {
     es: {
-        dashboard: 'Dashboard',
-        flashcards: 'Flashcards',
-        studyLanguage: 'Idioma de estudio',
+        dashboard: 'Inicio',
+        study: 'Estudiar',
         categories: 'Categorías',
+        language: 'Idioma',
+        studyLanguage: 'Idioma de estudio',
         english: 'Inglés',
         spanish: 'Español',
         navigation: 'Navegación de la aplicación',
+        close: 'Cerrar',
     },
     en: {
-        dashboard: 'Dashboard',
-        flashcards: 'Flashcards',
-        studyLanguage: 'Study language',
+        dashboard: 'Home',
+        study: 'Study',
         categories: 'Categories',
+        language: 'Language',
+        studyLanguage: 'Study language',
         english: 'English',
         spanish: 'Spanish',
         navigation: 'App navigation',
+        close: 'Close',
     },
 };
 
+/**
+ * Barra de navegación inferior de la PWA instalada (patrón app nativa:
+ * pestañas fijas de ancho completo, superficie sólida, estado activo por
+ * ruta). Presentacional: recibe destino activo y callbacks, sin conocer
+ * rutas ni contextos.
+ */
 export default function PwaBottomDock({
     language = 'en',
     studyLanguage = 'en',
-    onPrimary,
+    activeTab = null,
+    showDashboard = true,
     onDashboard,
+    onStudy,
     onCatalog,
     onStudyLanguageChange,
-    primaryDestination = 'dashboard',
 }) {
     const t = COPY[language] ?? COPY.en;
-    const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
-    const PrimaryIcon = primaryDestination === 'flashcards' ? LuBookOpen : LuLayoutDashboard;
-    const primaryLabel = primaryDestination === 'flashcards' ? t.flashcards : t.dashboard;
+    const [isLanguageSheetOpen, setIsLanguageSheetOpen] = useState(false);
 
     const selectStudyLanguage = (nextLanguage) => {
         onStudyLanguageChange?.(nextLanguage);
-        setIsLanguageMenuOpen(false);
+        setIsLanguageSheetOpen(false);
     };
 
+    const languageOptions = [
+        { id: 'en', label: t.english },
+        { id: 'es', label: t.spanish },
+    ];
+
     return (
-        <div className={styles.pwaDockRoot}>
-            {isLanguageMenuOpen && (
-                <div className={styles.languagePopover} role="group" aria-label={t.studyLanguage}>
+        <div className={styles.navRoot}>
+            {isLanguageSheetOpen && (
+                <>
                     <button
                         type="button"
-                        className={studyLanguage === 'en' ? styles.selectedLanguage : ''}
-                        onClick={() => selectStudyLanguage('en')}
-                        aria-pressed={studyLanguage === 'en'}
-                    >
-                        {t.english}
-                    </button>
-                    <button
-                        type="button"
-                        className={studyLanguage === 'es' ? styles.selectedLanguage : ''}
-                        onClick={() => selectStudyLanguage('es')}
-                        aria-pressed={studyLanguage === 'es'}
-                    >
-                        {t.spanish}
-                    </button>
-                </div>
+                        className={styles.sheetBackdrop}
+                        aria-label={t.close}
+                        onClick={() => setIsLanguageSheetOpen(false)}
+                    />
+                    <div className={styles.languageSheet} role="group" aria-label={t.studyLanguage}>
+                        <p className={styles.sheetTitle}>{t.studyLanguage}</p>
+                        {languageOptions.map((option) => (
+                            <button
+                                key={option.id}
+                                type="button"
+                                className={`${styles.sheetOption} ${studyLanguage === option.id ? styles.selectedOption : ''}`}
+                                onClick={() => selectStudyLanguage(option.id)}
+                                aria-pressed={studyLanguage === option.id}
+                            >
+                                <span>{option.label}</span>
+                                {studyLanguage === option.id && <LuCheck aria-hidden="true" />}
+                            </button>
+                        ))}
+                    </div>
+                </>
             )}
 
-            <nav className={styles.studyDock} aria-label={t.navigation}>
-                <button type="button" className={styles.dockItem} onClick={onPrimary ?? onDashboard}>
-                    <PrimaryIcon aria-hidden="true" />
-                    <span>{primaryLabel}</span>
+            <nav className={styles.navBar} aria-label={t.navigation}>
+                {showDashboard && (
+                    <button
+                        type="button"
+                        className={`${styles.navItem} ${activeTab === 'dashboard' ? styles.active : ''}`}
+                        onClick={onDashboard}
+                        aria-current={activeTab === 'dashboard' ? 'page' : undefined}
+                    >
+                        <span className={styles.navIconWrap}>
+                            <LuLayoutDashboard aria-hidden="true" />
+                        </span>
+                        <span>{t.dashboard}</span>
+                    </button>
+                )}
+                <button
+                    type="button"
+                    className={`${styles.navItem} ${activeTab === 'study' ? styles.active : ''}`}
+                    onClick={onStudy}
+                    aria-current={activeTab === 'study' ? 'page' : undefined}
+                >
+                    <span className={styles.navIconWrap}>
+                        <LuBookOpen aria-hidden="true" />
+                    </span>
+                    <span>{t.study}</span>
+                </button>
+                <button type="button" className={styles.navItem} onClick={onCatalog}>
+                    <span className={styles.navIconWrap}>
+                        <LuLayers aria-hidden="true" />
+                    </span>
+                    <span>{t.categories}</span>
                 </button>
                 <button
                     type="button"
-                    className={`${styles.dockItem} ${isLanguageMenuOpen ? styles.active : ''}`}
-                    onClick={() => setIsLanguageMenuOpen((isOpen) => !isOpen)}
-                    aria-expanded={isLanguageMenuOpen}
+                    className={`${styles.navItem} ${isLanguageSheetOpen ? styles.active : ''}`}
+                    onClick={() => setIsLanguageSheetOpen((isOpen) => !isOpen)}
+                    aria-expanded={isLanguageSheetOpen}
                 >
-                    <LuLanguages aria-hidden="true" />
-                    <span>{t.studyLanguage}</span>
-                </button>
-                <button type="button" className={styles.dockItem} onClick={onCatalog}>
-                    <LuLayers aria-hidden="true" />
-                    <span>{t.categories}</span>
+                    <span className={styles.navIconWrap}>
+                        <LuLanguages aria-hidden="true" />
+                    </span>
+                    <span>{t.language}</span>
                 </button>
             </nav>
         </div>

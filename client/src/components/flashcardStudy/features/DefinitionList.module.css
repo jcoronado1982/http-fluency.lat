@@ -514,7 +514,7 @@
     }
 
     [data-variant='app'][data-layout='standard'] .allExamplesContainer {
-        bottom: 88px;
+        bottom: 78px;
     }
 
     [data-variant='app'] .scrollableExamples ul,
@@ -541,7 +541,7 @@
         padding: 2px 4px 2px 0;
         text-align: center;
         border: 0;
-        border-radius: 0;
+        border-radius: 14px;
         background: transparent;
         box-shadow: none;
         backdrop-filter: none;
@@ -563,18 +563,26 @@
         width: 44px;
         height: 44px;
         color: #ffffff;
-        border-color: rgba(255, 255, 255, 0.26);
-        background: rgba(0, 0, 0, 0.46);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        border-color: var(--pwa-border, rgba(255, 255, 255, 0.22));
+        background: var(--pwa-nav-surface, rgba(18, 22, 30, 0.62));
+        box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(28px) saturate(1.4);
+        -webkit-backdrop-filter: blur(28px) saturate(1.4);
+    }
+
+    [data-variant='app'] .examplePlayBtn svg,
+    [data-variant='app'][data-layout='conjugation'] .examplePlayBtn svg {
+        width: 16px;
+        height: 16px;
+        min-width: 16px;
+        min-height: 16px;
     }
 
     [data-variant='app'] .examplePlayBtn:hover,
     [data-variant='app'] .exampleRow:hover .examplePlayBtn {
         color: #ffffff;
-        border-color: rgba(255, 255, 255, 0.38);
-        background: rgba(0, 0, 0, 0.44);
+        border-color: rgba(255, 255, 255, 0.32);
+        background: var(--pwa-nav-surface, rgba(18, 22, 30, 0.62));
         box-shadow: 0 0 18px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 

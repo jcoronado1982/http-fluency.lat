@@ -457,7 +457,8 @@ export const flashcardTranslations = {
             nextStepLabel: "Siguiente paso sugerido",
             noRecommendation: "Ya recorriste toda la ruta disponible. Puedes repetir una categoría o explorar otra.",
             continueButton: "Continuar ruta",
-            catalogButton: "Ver categorías"
+            catalogButton: "Ver categorías",
+            restartButton: "Repetir este mazo"
         }
     },
     en: {
@@ -797,7 +798,8 @@ export const flashcardTranslations = {
             nextStepLabel: "Recommended next step",
             noRecommendation: "You already completed the available route. You can review a category or explore another one.",
             continueButton: "Continue path",
-            catalogButton: "View categories"
+            catalogButton: "View categories",
+            restartButton: "Study this deck again"
         }
     }
 };

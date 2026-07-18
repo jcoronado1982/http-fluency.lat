@@ -34,24 +34,22 @@
         min-height: 52px;
         place-items: center;
         padding: 0;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid var(--pwa-nav-border, rgba(255, 255, 255, 0.1));
         border-radius: 50%;
+        background: var(--pwa-nav-surface, rgba(18, 22, 30, 0.62));
         cursor: pointer;
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(20px) saturate(1.35);
-        -webkit-backdrop-filter: blur(20px) saturate(1.35);
+        box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(28px) saturate(1.4);
+        -webkit-backdrop-filter: blur(28px) saturate(1.4);
         -webkit-tap-highlight-color: transparent;
     }
 
     .secondaryAction {
-        color: rgba(255, 255, 255, 0.92);
-        background: rgba(35, 38, 44, 0.5);
+        color: #e11d48;
     }
 
     .primaryAction {
-        color: #052e26;
-        border-color: rgba(209, 250, 229, 0.78);
-        background: rgba(209, 250, 229, 0.94);
+        color: #6ee7b7;
     }
 
     .secondaryAction svg,
@@ -82,11 +80,11 @@
         font-weight: 700;
         line-height: 1;
         text-align: center;
-        border: 1px solid rgba(255, 255, 255, 0.14);
+        border: 1px solid var(--pwa-nav-border, rgba(255, 255, 255, 0.1));
         border-radius: 999px;
-        background: rgba(12, 14, 18, 0.42);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.24);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
+        background: var(--pwa-nav-surface, rgba(18, 22, 30, 0.62));
+        box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(28px) saturate(1.4);
+        -webkit-backdrop-filter: blur(28px) saturate(1.4);
     }
 }

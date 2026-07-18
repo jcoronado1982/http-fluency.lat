@@ -215,7 +215,7 @@ function CategorySelector() {
     const [isHelpOpen, setIsHelpOpen] = useState(false);
 
     const {
-        deckNames, deckSummaries, currentDeckName, changeDeck, masterData, setSelectedGroup, resetGroup
+        deckNames, deckSummaries, currentDeckName, changeDeck, masterData, setSelectedGroup, resetDeckByName, resetGroup
     } = useFlashcardContext();
 
     const isNestedCatalog = usesNestedLevelDecks(currentCategory);
@@ -438,6 +438,24 @@ function CategorySelector() {
         }
     };
 
+    const handleNestedDeckReset = async (event, deckName) => {
+        event.stopPropagation();
+
+        const deckLabel = formatDeckCategoryName(deckName, language);
+        const shouldReset = await confirm({
+            title: t.restartGroupConfirm.replace('{group}', deckLabel),
+            tone: 'danger',
+            confirmLabel: t.restartGroup,
+        });
+
+        if (!shouldReset) return;
+
+        const resetOk = await resetDeckByName(deckName);
+        if (resetOk) {
+            handleVerbDeckClick(deckName);
+        }
+    };
+
     useEffect(() => {
         const previousBodyOverflow = document.body.style.overflow;
         const previousHtmlOverflow = document.documentElement.style.overflow;
@@ -476,11 +494,83 @@ function CategorySelector() {
         };
     }, [isHelpOpen]);
 
+    // Mecánica de bottom sheet nativa (solo PWA standalone): arrastre desde
+    // la franja superior (asa) con seguimiento del dedo y cierre animado
+    // deslizando hacia abajo; el componente se desmonta al terminar la salida.
+    const sheetRef = useRef(null);
+    const sheetDragStartYRef = useRef(null);
+    const [sheetDragY, setSheetDragY] = useState(0);
+    const [isSheetDismissing, setIsSheetDismissing] = useState(false);
+    const [isSheetSnapping, setIsSheetSnapping] = useState(false);
+    const isStandaloneSheet = () => window.matchMedia?.('(display-mode: standalone)').matches;
+
+    const dismissSheet = () => {
+        if (!isStandaloneSheet()) {
+            setIsCatalogVisible(false);
+            return;
+        }
+        setIsSheetDismissing(true);
+    };
+
+    useEffect(() => {
+        if (!isSheetDismissing) return undefined;
+        const timer = setTimeout(() => setIsCatalogVisible(false), 260);
+        return () => clearTimeout(timer);
+    }, [isSheetDismissing, setIsCatalogVisible]);
+
+    useEffect(() => {
+        if (!isSheetSnapping) return undefined;
+        const timer = setTimeout(() => setIsSheetSnapping(false), 300);
+        return () => clearTimeout(timer);
+    }, [isSheetSnapping]);
+
+    const handleSheetTouchStart = (event) => {
+        if (!isStandaloneSheet() || isSheetDismissing) return;
+        const sheetTop = sheetRef.current?.getBoundingClientRect().top ?? 0;
+        const touchY = event.targetTouches[0].clientY;
+        if (touchY - sheetTop <= 56) {
+            sheetDragStartYRef.current = touchY;
+        }
+    };
+
+    const handleSheetTouchMove = (event) => {
+        if (sheetDragStartYRef.current == null) return;
+        const delta = event.targetTouches[0].clientY - sheetDragStartYRef.current;
+        setSheetDragY(Math.max(0, delta));
+    };
+
+    const handleSheetTouchEnd = () => {
+        if (sheetDragStartYRef.current == null) return;
+        sheetDragStartYRef.current = null;
+        if (sheetDragY > 110) {
+            dismissSheet();
+        } else {
+            setSheetDragY(0);
+            setIsSheetSnapping(true);
+        }
+    };
+
+    const isSheetDragging = sheetDragStartYRef.current != null;
+    const sheetMotionStyle = (sheetDragY > 0 || isSheetDismissing || isSheetSnapping)
+        ? {
+            transform: isSheetDismissing ? 'translateY(110%)' : `translateY(${sheetDragY}px)`,
+            transition: isSheetDragging ? 'none' : 'transform 260ms cubic-bezier(0.32, 0.72, 0, 1)',
+        }
+        : undefined;
+
     return (
-        <div className={styles.categorySelectorOverlay}>
-            <div className={styles.dashboardContainer} data-tour="catalogo-modal">
+        <div className={styles.categorySelectorOverlay} data-dismissing={isSheetDismissing || undefined}>
+            <div
+                className={styles.dashboardContainer}
+                data-tour="catalogo-modal"
+                ref={sheetRef}
+                style={sheetMotionStyle}
+                onTouchStart={handleSheetTouchStart}
+                onTouchMove={handleSheetTouchMove}
+                onTouchEnd={handleSheetTouchEnd}
+            >
                 {/* Botón de cerrar */}
-                <button className={styles.closeBtn} onClick={() => setIsCatalogVisible(false)}>
+                <button className={styles.closeBtn} onClick={dismissSheet}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
 
@@ -703,7 +793,17 @@ function CategorySelector() {
                                     <div className={styles.groupHeader}>
                                         <h4 className={styles.groupName}>{formatDeckCategoryName(deckName, language)}</h4>
                                         <div className={styles.groupActions}>
-                                            <span className={styles.groupCountBadge}>{summary ? total : '…'}</span>
+                                            {isComplete ? (
+                                                <button
+                                                    type="button"
+                                                    className={styles.resetGroupBtn}
+                                                    onClick={(event) => handleNestedDeckReset(event, deckName)}
+                                                >
+                                                    {t.restartGroup}
+                                                </button>
+                                            ) : (
+                                                <span className={styles.groupCountBadge}>{summary ? total : '…'}</span>
+                                            )}
                                         </div>
                                     </div>
 

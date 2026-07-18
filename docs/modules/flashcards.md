@@ -96,6 +96,9 @@ Convención: `course_direction` (`es_en` default | `en_es`…) es query/campo op
 - Las imágenes web/responsive nuevas usan **768×512 (3:2) AVIF** en generación individual,
   batch y subida manual. Los assets 896×512 existentes siguen siendo compatibles y no se
   regeneran ni eliminan automáticamente.
+- El catálogo permite repetir contenido completado: los grupos completos y las subcategorías
+  anidadas muestran `Reiniciar`, con confirmación antes de borrar progreso; la tarjeta de
+  finalización expone `Repetir este mazo` y reutiliza el reset del deck activo.
 - Generación/borrado exigen rol `premium`/`admin` (hoy validado en frontend — deuda #2 de `client/CLAUDE.md` §9).
 - `category='landing-demo'` enruta a otro proveedor TTS (ElevenLabs) — contrato con el módulo landing.
 - **Piel de la app (jul 2026)**: la zona de estudio usa los tokens de profundidad de
@@ -134,59 +137,93 @@ Convención: `course_direction` (`es_en` default | `en_es`…) es query/campo op
   sin hueco interno de `object-fit`, una copia desenfocada se prolonga detrás de la cabecera; la
   palabra/fonética/frases se superponen sobre un degradado inferior que concentra su oscuridad
   desde el 56%, alcanza su tramo fuerte entre el 72% y el 86% y deja visible la parte superior de la
-  foto. Los reproductores sobre la imagen usan una superficie oscura al 46% y borde claro para no
-  competir con ella. La barra de acciones se
+  foto. Los reproductores de palabra y ejemplos, el acceso SRS y los controles de imagen comparten
+  la superficie translúcida y blur de la navegación PWA; los reproductores de las frases usan el
+  borde PWA reforzado para recortarse sobre la foto. Los iconos de reproducción y el
+  calendario SRS y los controles de imagen miden 16 px dentro de sus áreas táctiles, con trazo
+  Lucide uniforme. En los controles de imagen, regenerar usa blanco intenso y eliminar comparte
+  el rojo vinotinto del reinicio. La barra de acciones se
   monta sobre el pie del hero y cada cambio real de tarjeta conserva el gesto horizontal con
   una transición de entrada, sin renderizar carrusel ni indicadores. Debajo se reserva la
-  sección `Continuar estudiando` con recomendaciones reales de `/api/learning-stats` (imagen,
+  sección `Otros mazos para ti` con recomendaciones reales de `/api/learning-stats` (imagen,
   categoría, nivel y deck) navegables dentro de la sesión. Sus tarjetas PWA usan composición
   cinematográfica: imagen a sangre completa, degradado de contraste, metadatos en cristal y título
-  superpuesto. Debajo permanece un dock fijo con accesos a
-  `Dashboard`, `Study language` (selector inglés/español) y
-  `Categories`, deliberadamente sin buscador. El dock vive en el componente compartido
-  `components/pwa/PwaBottomDock.jsx` y replica el cristal cinematográfico del
-  header, con opacidad reforzada para conservar contraste sobre las recomendaciones. La vista web responsive,
-  el demo de landing y los flujos de carga/finalización conservan su composición anterior.
-  Dock y recomendaciones consumen los tokens PWA compartidos de `styles/app-brand.css`; las tarjetas
+  superpuesto. La navegación inferior ya no se monta desde este módulo: es la píldora flotante de
+  cristal del shell (`components/pwa/PwaShellNavigation.jsx` + `PwaBottomDock.jsx`, patrón WhatsApp
+  iOS — ver `menu.jpg` en la raíz) con pestañas constantes (Inicio, Estudiar, Categorías, Idioma —
+  sin buscador, deliberado), tokens `--pwa-nav-*` y estado activo por ruta; el carrusel
+  `Otros mazos para ti` scrollea por detrás del cristal, su padding inferior la despeja y solapa
+  2 px el hero para evitar una costura subpíxel visible al terminar la foto.
+  `Categorías` abre el catálogo vía uiBridge (`openCatalog`) cuando la sesión de estudio está activa. La vista web
+  responsive, el demo de landing y los flujos de carga/finalización conservan su composición anterior.
+  Barra y recomendaciones consumen los tokens PWA compartidos de `styles/app-brand.css`; las tarjetas
   de recomendaciones usan el mismo radio y borde que el dashboard y reducen el halo rosa decorativo.
   La cabecera visual PWA vive en `components/flashcardStudy/features/PwaCardHeader.jsx` y muestra
   el isotipo blanco centrado; reemplaza dentro de esta sesión al header compartido, por lo que no
   aparecen hamburguesa, nombre `Fluency`, avatar ni segundo menú.
   En tarjetas de verbos irregulares, `ConjugationTable` se presenta como una cápsula de cristal
-  única con v1/v2/v3 visibles; las frases PWA aumentan de tamaño y tanto la barra de acciones
-  como el dock inferior usan superficies translúcidas con botones de contraste independiente.
+  única con v1/v2/v3 visibles; las frases PWA aumentan de tamaño y la barra de acciones usa
+  superficies translúcidas con botones de contraste independiente, igual que la píldora de
+  navegación del shell.
   El isotipo queda libre de contenedor visual y la cápsula irregular comparte la franja superior,
   a su derecha. Los controles siguen el patrón de acciones flotantes tipo Tinder: no existe una
   cápsula exterior y cada acción tiene su propio círculo, contraste y jerarquía táctil.
   La navegación anterior/siguiente no se renderiza visualmente en PWA: el cambio se hace con
   swipe. `PwaStudyControls.jsx` concentra únicamente reinicio, progreso y aprendida con Lucide;
+  sus tres superficies comparten el cristal translúcido, borde neutro y blur de la navegación
+  inferior; solo los iconos expresan estado: check verde y reinicio rojo vinotinto;
   el control web compartido permanece intacto. `PwaConjugationNav.jsx` y su CSS aíslan por
   completo V1/V2/V3 de `ConjugationTable`: ocupan una segunda fila dentro del mismo header
   difuminado como navegación móvil minimalista, sin subrayado, fondo ni cápsula: las formas se
-  muestran con solo la inicial de cada palabra en mayúscula; la activa usa mayor peso y rosa claro,
+  muestran con solo la inicial de cada palabra en mayúscula; la activa usa mayor peso y blanco intenso
+  sin fondo, cápsula ni halo,
   mientras las demás bajan su contraste. Al presionar, el texto reduce brevemente su escala y cambia
-  a blanco. No muestran pronunciación. La transparencia
-  base se controla con `--pwa-header-glass-opacity` en `PwaCardHeader.module.css`; el cristal
-  oscurece progresivamente los laterales y deja el centro más transparente sin desplazar la imagen.
+  a blanco. No muestran pronunciación. La densidad negra superior se controla con
+  `--pwa-header-black-opacity` en `PwaCardHeader.module.css`; una luz radial muy contenida evita un
+  negro plano y la cabecera se desvanece verticalmente sobre la imagen con un difuminado amplio,
+  sin desplazarla.
   Cuando la tarjeta no tiene conjugación, la cabecera se reduce a 64 px y la imagen comienza
   a 58 px; palabra, frases y acciones suben los 48 px que ocuparía V1/V2/V3, sin dejar hueco.
-  Las frases de ejemplo PWA flotan sin franja de fondo, separadas 8 px; su audio usa el mismo
-  círculo oscuro translúcido del reproductor de la palabra. El hero ocupa hasta 80svh para que
-  dos ejemplos conserven aire antes de `Continuar estudiando`. `DefinitionList` publica
-  `data-count` y el título se posiciona según haya una o dos frases, siempre inmediatamente encima;
+  Las frases de ejemplo PWA conservan su estilo flotante original, sin franja ni borde, y únicamente
+  redondean sus esquinas a 14 px; mantienen 8 px de separación y su audio usa el mismo círculo
+  translúcido del reproductor de la
+  palabra. El hero ocupa hasta 80svh para que
+  dos ejemplos conserven aire antes de `Otros mazos para ti`. `DefinitionList` publica
+  `data-count` y el título se posiciona según haya una o dos frases; en verbos irregulares con dos
+  ejemplos reserva 14 px adicionales entre la palabra/fonética y la primera frase para que los
+  bloques no se amontonen. En tarjetas estándar, palabra, fonética y frases bajan juntas 10 px sin
+  modificar la posición ni el tamaño de la imagen;
+  cuando no existe imagen, el contenedor conserva exactamente esa geometría y solo el asset cuadrado
+  `noimages.png` reduce su contenido al 82% y lo desplaza 9% hacia arriba dentro del mismo recorte;
   el bloque completo termina a 8 px de la barra flotante para aprovechar el hero sin dejar un vacío;
   palabra, frases y acciones comparten un desplazamiento vertical para conservar esa relación.
   El contenedor que realiza el giro PWA conserva `overflow: visible`; el recorte pertenece a cada
   cara para no aplanar `preserve-3d` ni ocultar el reverso en WebKit/Chrome instalados.
   El reverso PWA reutiliza la imagen y deja únicamente el isotipo en una cabecera corta, sin
-  V1/V2/V3, controles de estudio, sección `Continuar estudiando` ni dock inferior. Cada definición
+  V1/V2/V3, controles de estudio, sección `Otros mazos para ti` ni barra de navegación. Cada definición
   se presenta como bloque de cristal desplazable con contraste reforzado y tipografía móvil mayor;
   el reverso web conserva su composición tradicional. La visibilidad de la foto y del cristal se
   ajusta con `--pwa-back-image-opacity` y `--pwa-back-glass-opacity` en `CardBack.module.css`.
-  El catálogo abierto desde el dock se presenta como una bottom sheet PWA: mantiene la sesión
-  atenuada detrás, muestra las categorías en un carrusel horizontal de chips, fija el selector
-  segmentado de nivel y concentra los mazos en un único scroll vertical. La ayuda de categoría
+  El catálogo abierto desde la barra de navegación se presenta como una bottom sheet PWA con
+  mecánica nativa iOS (referencia `img2.png` en la raíz): entra deslizándose desde fuera de
+  pantalla (curva `cubic-bezier(0.32, 0.72, 0, 1)`), el scrim hace fade y la sesión retrocede con
+  efecto card-stack (escala 0.92 + esquinas redondeadas, regla en `App.css` sobre
+  `[data-catalog-open]`). Se cierra arrastrando hacia abajo desde la franja del asa (56px
+  superiores, con seguimiento del dedo, umbral 110px y snap-back animado); la X se oculta en PWA
+  móvil y la salida por gesto anima el deslizamiento antes de desmontar (estado `isSheetDismissing` en
+  `CategorySelector.jsx`). Mantiene la sesión atenuada detrás, muestra las categorías en un
+  carrusel horizontal de chips, fija el selector segmentado de nivel y concentra los mazos en un
+  único scroll vertical. Categorías y contenido comparten el mismo fondo negro PWA y se distinguen
+  únicamente mediante una línea horizontal con el borde canónico. La fila de nivel aprovecha el
+  100% del ancho y se extiende 6 px hacia cada margen: Basic/Intermediate/Advanced se expanden en
+  el espacio disponible y la ayuda queda en la esquina derecha con 50 px, el mismo cristal e icono
+  de 16 px del estándar PWA. La ayuda de categoría
   se abre como una segunda hoja inferior; el catálogo web conserva su modal de dos paneles.
+  La finalización de nivel/grupo también tiene composición PWA propia: lienzo negro sin tarjeta
+  azul exterior, estadísticas y recomendación en cristal neutro, acciones translúcidas y navegación
+  inferior oculta para no cubrir los botones. Conserva la felicitación animada completa —halo,
+  barrido de luz, confeti, destellos y anillos— con intensidad adaptada al fondo negro; la versión
+  web mantiene su diseño original.
 
 ## Flags y activación
 

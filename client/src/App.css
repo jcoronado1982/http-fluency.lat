@@ -361,6 +361,17 @@
         min-height: 0;
         margin: 0;
         padding: 0;
+        /* Efecto card-stack de iOS al abrir la hoja del catálogo: la sesión
+           retrocede (escala + esquinas redondeadas) tras el scrim. Misma
+           curva que la entrada de la hoja (CategorySelector.module.css). */
+        transform-origin: 50% 0;
+        transition: transform 380ms cubic-bezier(0.32, 0.72, 0, 1), border-radius 380ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    .flashcard-page-wrapper:not([data-landing-demo])[data-catalog-open='true'] .app-container {
+        overflow: hidden;
+        border-radius: 24px;
+        transform: scale(0.92) translateY(10px);
     }
 
     .flashcard-page-wrapper:not([data-landing-demo]) .flashcard-main-area {

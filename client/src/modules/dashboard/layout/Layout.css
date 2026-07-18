@@ -426,9 +426,19 @@
     }
 }
 
-/* Cabecera propia del dashboard instalado: marca centrada y cuenta a la derecha. */
+/* El saludo grande solo existe en la cabecera del dashboard instalado. */
+.pwa-header-greeting {
+    display: none;
+}
+
+/* Cabecera propia del dashboard instalado (patrón nativo tipo WhatsApp):
+   saludo grande a la izquierda, avatar en cápsula de cristal a la derecha.
+   Fija: el contenido scrollea por detrás; arranca transparente y gana
+   cristal al scrollear (scroll-edge effect) cuando el navegador soporta
+   animaciones scroll-driven; si no, conserva el cristal constante. */
 @media (display-mode: standalone) and (max-width: 768px) {
     body:has(.dashboard-home) .app-header {
+        position: fixed;
         background:
             linear-gradient(90deg, rgba(5, 7, 13, 0.52), rgba(7, 10, 17, 0.12) 50%, rgba(5, 7, 13, 0.52)),
             linear-gradient(180deg, rgba(5, 7, 13, 0.34), rgba(9, 14, 22, 0.08));
@@ -436,27 +446,84 @@
         -webkit-backdrop-filter: blur(18px) saturate(1.2);
     }
 
+    @supports (animation-timeline: scroll()) {
+        body:has(.dashboard-home) .app-header {
+            background: transparent;
+            border-bottom-color: transparent;
+            box-shadow: none;
+            backdrop-filter: blur(0px) saturate(1);
+            -webkit-backdrop-filter: blur(0px) saturate(1);
+            animation: pwa-header-scroll-edge linear both;
+            animation-timeline: scroll(root);
+            animation-range: 8px 64px;
+        }
+
+        /* Al scrollear, el título grande se condensa y la fecha se retira
+           (patrón large-title nativo). Comparten timeline con el cristal. */
+        body:has(.dashboard-home) .app-header .pwa-greeting-title {
+            animation: pwa-greeting-condense linear both;
+            animation-timeline: scroll(root);
+            animation-range: 8px 64px;
+        }
+
+        body:has(.dashboard-home) .app-header .pwa-greeting-sub {
+            animation: pwa-greeting-sub-fade linear both;
+            animation-timeline: scroll(root);
+            animation-range: 8px 48px;
+        }
+    }
+
     body:has(.dashboard-home) .app-header .hamburger-btn,
     body:has(.dashboard-home) .app-header .app-brand-name,
+    body:has(.dashboard-home) .app-header .app-logo,
     body:has(.dashboard-home) .app-header .floatingMainButton {
         display: none;
     }
 
-    body:has(.dashboard-home) .app-header .app-logo {
-        position: absolute;
-        top: calc(10px + env(safe-area-inset-top, 0px));
-        left: 50%;
-        transform: translateX(-50%);
+    body:has(.dashboard-home) .app-header .pwa-header-greeting {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        gap: 1px;
+        padding: 6px 0;
     }
 
-    body:has(.dashboard-home) .app-header .app-logo-img {
-        width: 44px;
-        height: 44px;
-        filter: brightness(0) invert(1);
+    body:has(.dashboard-home) .app-header .pwa-greeting-title {
+        overflow: hidden;
+        color: #f8fafc;
+        font-size: 1.45rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    body:has(.dashboard-home) .app-header .pwa-greeting-sub {
+        overflow: hidden;
+        color: var(--pwa-text-muted, #cbd5e1);
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        opacity: 0.85;
     }
 
     body:has(.dashboard-home) .app-header .header-controls {
         margin-left: auto;
+    }
+
+    /* Avatar como botón de cristal (mismo material que la barra inferior). */
+    body:has(.dashboard-home) .app-header .header-user-avatar {
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--pwa-nav-border, rgba(255, 255, 255, 0.1));
+        border-radius: 50%;
+        background: var(--pwa-nav-surface, rgba(18, 22, 30, 0.62));
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(20px) saturate(1.35);
+        -webkit-backdrop-filter: blur(20px) saturate(1.35);
     }
 
     body:has(.dashboard-home) .app-header .floatingOptions {
@@ -467,5 +534,30 @@
         box-shadow: 0 24px 48px rgba(0, 0, 0, 0.46), inset 0 1px 0 rgba(255, 255, 255, 0.08);
         backdrop-filter: blur(26px) saturate(1.35);
         -webkit-backdrop-filter: blur(26px) saturate(1.35);
+    }
+}
+
+/* Estado "scrolleado" de la cabecera PWA: solo valores interpolables
+   (color de fondo plano, no gradientes) para que la transición sea suave. */
+@keyframes pwa-header-scroll-edge {
+    to {
+        background-color: rgba(9, 12, 20, 0.68);
+        border-bottom-color: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 8px 26px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(20px) saturate(1.35);
+        -webkit-backdrop-filter: blur(20px) saturate(1.35);
+    }
+}
+
+@keyframes pwa-greeting-condense {
+    to {
+        font-size: 1.08rem;
+    }
+}
+
+@keyframes pwa-greeting-sub-fade {
+    to {
+        opacity: 0;
+        transform: translateY(-4px);
     }
 }

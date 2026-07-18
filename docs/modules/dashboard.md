@@ -47,9 +47,22 @@ En móvil, las recomendaciones conservan su carrusel horizontal pero adoptan la 
 cinematográfica de la sesión PWA: miniatura a sangre completa, degradado de contraste, categoría
 y nivel en cápsulas de cristal y nombre del deck superpuesto. La meta actual, progreso, nivel y
 ruta comparten ese acabado con cristal oscuro y acentos rosa/naranja. El escritorio conserva su grilla.
-La PWA instalada monta el dock inferior compartido `components/pwa/PwaBottomDock.jsx`; desde el
-dashboard permite entrar a la sesión de Flashcards, cambiar el idioma de estudio y abrir su catálogo. En la ruta
-del dashboard PWA móvil, este dock reemplaza visualmente al footer compartido, que permanece oculto.
+La PWA instalada ya NO monta navegación propia desde este módulo: la barra inferior vive en el
+shell (`components/pwa/PwaShellNavigation.jsx`, montada una vez en `App.jsx`) y es una píldora
+flotante de cristal translúcido estilo WhatsApp iOS (referencia `menu.jpg` en la raíz) con
+pestañas constantes (Inicio, Estudiar, Categorías, Idioma) y estado activo por ruta. En la ruta
+del dashboard PWA móvil esa barra reemplaza visualmente al footer compartido, que permanece
+oculto, y el contenido scrollea por detrás del cristal. En standalone el carrusel del curso
+(`CourseSessionCard`) se navega con swipe horizontal táctil y sus flechas quedan ocultas por CSS
+(los puntos indicadores permanecen).
+
+La cabecera del dashboard instalado sigue el patrón nativo de título grande: `PwaGreeting`
+(en `layout/Header.jsx`, oculto fuera de standalone) muestra "Hola, {nombre}" + fecha a la
+izquierda y el avatar como cápsula de cristal a la derecha; el logo/hamburguesa/nombre de marca se
+ocultan. El header es fijo y arranca transparente; con animaciones scroll-driven
+(`animation-timeline: scroll(root)`, keyframes `pwa-header-scroll-edge`/`pwa-greeting-condense` en
+`layout/Layout.css`) gana cristal, condensa el título y desvanece la fecha al scrollear; sin
+soporte, conserva el cristal constante como fallback.
 Las tarjetas del dashboard instalado comparten `--pwa-card-radius` y `--pwa-border`, definidos en
 `styles/app-brand.css`, para mantener idénticos radio y grosor de línea entre meta, progreso, nivel,
 ruta y recomendaciones. El anillo usa texto primario claro con cuerpo móvil reforzado; el CTA y los

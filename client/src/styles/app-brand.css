@@ -32,6 +32,12 @@
   --pwa-text-muted: #cbd5e1;
   --pwa-glass-surface: rgba(7, 10, 17, 0.72);
   --pwa-glass-surface-strong: rgba(5, 7, 13, 0.88);
+  /* Barra de navegación inferior (patrón WhatsApp iOS, ver menu.jpg):
+     píldora flotante de cristal translúcido; la pestaña activa lleva una
+     pastilla clara neutra que envuelve icono + etiqueta. */
+  --pwa-nav-surface: rgba(18, 22, 30, 0.62);
+  --pwa-nav-border: rgba(255, 255, 255, 0.1);
+  --pwa-nav-active-bg: rgba(255, 255, 255, 0.15);
   /* Grosor único de trazo para TODA la iconografía de la app (familia
      Lucide/Feather, unidades del viewBox de 24). Las reglas del kit lo
      aplican con ámbito [data-variant='app'] para no alterar el demo. */

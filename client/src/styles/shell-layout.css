@@ -36,3 +36,18 @@
     padding-inline: var(--shell-content-inline-padding);
     box-sizing: border-box;
 }
+
+/* App instalada: tacto de app nativa. `contain` evita el pull-to-refresh
+   accidental SIN bloquear el scroll táctil de la página (con `none` en
+   html+body Chrome descarta el gesto por completo — bug ya sufrido aquí);
+   `manipulation` elimina la espera del doble-tap para hacer zoom. */
+@media (display-mode: standalone) {
+    html {
+        overscroll-behavior-y: contain;
+    }
+
+    body {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+    }
+}

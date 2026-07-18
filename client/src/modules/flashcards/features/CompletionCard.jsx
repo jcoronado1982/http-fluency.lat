@@ -34,6 +34,7 @@ export default function CompletionCard({
     recommendation,
     onContinue,
     onOpenCatalog,
+    onRestart,
 }) {
     const locale = language === 'es' ? 'es' : 'en';
     const t = getFlashcardTranslations(locale).completionCard;
@@ -94,6 +95,9 @@ export default function CompletionCard({
                             {t.catalogButton}
                         </button>
                     )}
+                    <button className={styles.restartButton} onClick={onRestart}>
+                        {t.restartButton}
+                    </button>
                 </div>
             </div>
         </div>

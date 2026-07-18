@@ -13,6 +13,7 @@ import AdminRoute from './components/common/AdminRoute';
 import BareLayout from './components/shell/BareLayout';
 import MinimalAppShell from './components/shell/MinimalAppShell';
 import SafeRedirect from './components/routing/SafeRedirect';
+import PwaShellNavigation from './components/pwa/PwaShellNavigation';
 import config from './config';
 import {
   getAppRoutes,
@@ -109,6 +110,7 @@ function App() {
   let content = (
     <AppProvider>
       <AppContent />
+      <PwaShellNavigation barePaths={bareRoutes.map((route) => route.path)} />
     </AppProvider>
   );
 
