@@ -333,6 +333,12 @@
         filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.3));
     }
 
+    /* Recortar los marcos difuminados en responsive móvil normal */
+    [data-variant='app']:not([data-layout='conjugation']) .image,
+    [data-variant='demo'] .image {
+        transform: scale(1.28);
+    }
+
 }
 
 [data-variant='demo'] .imagePlaceholder {
