@@ -50,6 +50,12 @@ ruta comparten ese acabado con cristal oscuro y acentos rosa/naranja. El escrito
 La PWA instalada monta el dock inferior compartido `components/pwa/PwaBottomDock.jsx`; desde el
 dashboard permite entrar a la sesión de Flashcards, cambiar el idioma de estudio y abrir su catálogo. En la ruta
 del dashboard PWA móvil, este dock reemplaza visualmente al footer compartido, que permanece oculto.
+Las tarjetas del dashboard instalado comparten `--pwa-card-radius` y `--pwa-border`, definidos en
+`styles/app-brand.css`, para mantener idénticos radio y grosor de línea entre meta, progreso, nivel,
+ruta y recomendaciones. El anillo usa texto primario claro con cuerpo móvil reforzado; el CTA y los
+halos fotográficos reducen su saturación para que la jerarquía dependa del contenido y no de varios
+acentos compitiendo. Hasta 768 px, la grilla superior PWA fluye en una columna y su bloque de
+estadísticas usa `auto-fit`, evitando que el anillo se superponga con la meta en tablet u horizontal.
 Su header usa el isotipo blanco centrado y conserva a la derecha el avatar del perfil como disparador
 del menú de cuenta; hamburguesa, nombre de marca y botón de tres puntos se ocultan solo en esa vista.
 La franja superior y el panel de cuenta emplean cristal más transparente que la cabecera de Flashcards,

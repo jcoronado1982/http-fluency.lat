@@ -1286,6 +1286,88 @@
         padding-bottom: calc(116px + env(safe-area-inset-bottom, 0px));
     }
 
+    .dash-top-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .dash-course-card {
+        aspect-ratio: 1.55 / 1;
+    }
+
+    .dash-side-stack {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+        grid-template-rows: none;
+        height: auto;
+    }
+
+    .dash-course-card,
+    .dash-ring-card,
+    .dash-mini-stat--level,
+    .dash-path-card,
+    .dash-category-card {
+        border: 1px solid var(--pwa-border, rgba(255, 255, 255, 0.22));
+        border-radius: var(--pwa-card-radius, 20px);
+    }
+
+    .dash-course-card::before {
+        background:
+            radial-gradient(circle at 0% 108%, rgba(190, 24, 93, 0.52) 0%, rgba(190, 24, 93, 0.2) 32%, transparent 68%),
+            linear-gradient(180deg, rgba(5, 7, 13, 0.1) 0%, rgba(5, 7, 13, 0.9) 100%),
+            linear-gradient(90deg, rgba(5, 7, 13, 0.46), transparent 72%),
+            var(--dash-course-image) center / cover no-repeat,
+            linear-gradient(145deg, #111827, #0f172a);
+        filter: saturate(0.92) brightness(1.06);
+    }
+
+    .dash-course-cta {
+        background: linear-gradient(
+            90deg,
+            color-mix(in srgb, var(--brand-rose-dark, #be185d) 78%, #94a3b8),
+            color-mix(in srgb, var(--brand-rose, #f472b6) 84%, #cbd5e1) 58%,
+            color-mix(in srgb, var(--brand-orange, #fb923c) 80%, #cbd5e1)
+        );
+        box-shadow: 0 10px 22px rgba(190, 24, 93, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    }
+
+    .dash-ring-card {
+        background:
+            radial-gradient(circle at 50% 50%, rgba(244, 114, 182, 0.06), transparent 54%),
+            linear-gradient(135deg, rgba(30, 41, 59, 0.88), rgba(10, 15, 27, 0.96));
+    }
+
+    .dash-main-ring-track {
+        stroke: rgba(226, 232, 240, 0.18);
+    }
+
+    .dash-main-ring-copy strong {
+        color: var(--pwa-text-primary, #f8fafc);
+        font-size: 1.45rem;
+    }
+
+    .dash-main-ring-copy small {
+        color: var(--pwa-text-muted, #cbd5e1);
+        font-size: 0.6rem;
+        font-weight: 700;
+    }
+
+    .dash-main-ring-copy span {
+        color: var(--pwa-text-primary, #f8fafc);
+        font-size: 0.64rem;
+        text-shadow: 0 0 14px rgba(244, 114, 182, 0.34);
+    }
+
+    .dash-path-card {
+        background:
+            radial-gradient(circle at 12% 100%, rgba(190, 24, 93, 0.1), transparent 48%),
+            linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(10, 15, 27, 0.98));
+    }
+
+    .dash-category-thumb::after {
+        background:
+            linear-gradient(180deg, rgba(5, 7, 13, 0.2) 0%, transparent 38%, rgba(5, 7, 13, 0.92) 100%),
+            radial-gradient(circle at 0% 108%, rgba(190, 24, 93, 0.54) 0%, rgba(190, 24, 93, 0.22) 32%, transparent 68%);
+    }
+
     .main-content:has(.dashboard-home) > .shell-footer--app {
         display: none;
     }

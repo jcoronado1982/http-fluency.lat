@@ -20,6 +20,18 @@
   --brand-surface-card: #1b2438;
   --brand-border-subtle: rgba(255, 255, 255, 0.08);
   --brand-icon-idle: #94a3b8;
+  /* Lenguaje visual de la app instalada. Estos tokens se consumen solo
+     dentro de media queries `display-mode: standalone`; declararlos aquí
+     evita que dashboard, estudio y dock reinterpreten la misma superficie. */
+  --pwa-canvas: #05070d;
+  --pwa-card-radius: 20px;
+  --pwa-dock-radius: 24px;
+  --pwa-border: rgba(255, 255, 255, 0.22);
+  --pwa-text-primary: #f8fafc;
+  --pwa-text-secondary: #e2e8f0;
+  --pwa-text-muted: #cbd5e1;
+  --pwa-glass-surface: rgba(7, 10, 17, 0.72);
+  --pwa-glass-surface-strong: rgba(5, 7, 13, 0.88);
   /* Grosor único de trazo para TODA la iconografía de la app (familia
      Lucide/Feather, unidades del viewBox de 24). Las reglas del kit lo
      aplican con ámbito [data-variant='app'] para no alterar el demo. */

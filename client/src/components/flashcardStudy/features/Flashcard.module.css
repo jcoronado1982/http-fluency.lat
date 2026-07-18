@@ -833,10 +833,11 @@
         pointer-events: none;
         background: linear-gradient(
             180deg,
-            rgba(5, 7, 13, 0.05) 25%,
-            rgba(5, 7, 13, 0.2) 60%,
-            rgba(5, 7, 13, 0.86) 84%,
-            #05070d 100%
+            rgba(5, 7, 13, 0.06) 28%,
+            rgba(5, 7, 13, 0.28) 56%,
+            rgba(5, 7, 13, 0.66) 72%,
+            rgba(5, 7, 13, 0.94) 86%,
+            var(--pwa-canvas, #05070d) 100%
         );
     }
 
@@ -894,8 +895,8 @@
 
     .cardFront[data-variant='app'] .soundButton {
         color: #ffffff;
-        background: rgba(0, 0, 0, 0.28);
-        border-color: rgba(255, 255, 255, 0.18);
+        background: rgba(0, 0, 0, 0.46);
+        border-color: rgba(255, 255, 255, 0.26);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
     }

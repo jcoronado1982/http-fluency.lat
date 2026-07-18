@@ -133,7 +133,9 @@ Convención: `course_direction` (`es_en` default | `en_es`…) es query/campo op
   barra y el acceso SRS/calendario suma 10 px a su desplazamiento vertical para no pegarse a ella;
   sin hueco interno de `object-fit`, una copia desenfocada se prolonga detrás de la cabecera; la
   palabra/fonética/frases se superponen sobre un degradado inferior que concentra su oscuridad
-  desde el 60% y alcanza su tramo fuerte al 84%, dejando visible una mayor parte de la foto. La barra de acciones se
+  desde el 56%, alcanza su tramo fuerte entre el 72% y el 86% y deja visible la parte superior de la
+  foto. Los reproductores sobre la imagen usan una superficie oscura al 46% y borde claro para no
+  competir con ella. La barra de acciones se
   monta sobre el pie del hero y cada cambio real de tarjeta conserva el gesto horizontal con
   una transición de entrada, sin renderizar carrusel ni indicadores. Debajo se reserva la
   sección `Continuar estudiando` con recomendaciones reales de `/api/learning-stats` (imagen,
@@ -145,6 +147,8 @@ Convención: `course_direction` (`es_en` default | `en_es`…) es query/campo op
   `components/pwa/PwaBottomDock.jsx` y replica el cristal cinematográfico del
   header, con opacidad reforzada para conservar contraste sobre las recomendaciones. La vista web responsive,
   el demo de landing y los flujos de carga/finalización conservan su composición anterior.
+  Dock y recomendaciones consumen los tokens PWA compartidos de `styles/app-brand.css`; las tarjetas
+  de recomendaciones usan el mismo radio y borde que el dashboard y reducen el halo rosa decorativo.
   La cabecera visual PWA vive en `components/flashcardStudy/features/PwaCardHeader.jsx` y muestra
   el isotipo blanco centrado; reemplaza dentro de esta sesión al header compartido, por lo que no
   aparecen hamburguesa, nombre `Fluency`, avatar ni segundo menú.
@@ -158,8 +162,10 @@ Convención: `course_direction` (`es_en` default | `en_es`…) es query/campo op
   swipe. `PwaStudyControls.jsx` concentra únicamente reinicio, progreso y aprendida con Lucide;
   el control web compartido permanece intacto. `PwaConjugationNav.jsx` y su CSS aíslan por
   completo V1/V2/V3 de `ConjugationTable`: ocupan una segunda fila dentro del mismo header
-  difuminado, como navegación por pestañas de una app de streaming, sin cápsulas y con subrayado
-  activo; muestran solo la forma verbal en mayúsculas, sin pronunciación. La transparencia
+  difuminado como navegación móvil minimalista, sin subrayado, fondo ni cápsula: las formas se
+  muestran con solo la inicial de cada palabra en mayúscula; la activa usa mayor peso y rosa claro,
+  mientras las demás bajan su contraste. Al presionar, el texto reduce brevemente su escala y cambia
+  a blanco. No muestran pronunciación. La transparencia
   base se controla con `--pwa-header-glass-opacity` en `PwaCardHeader.module.css`; el cristal
   oscurece progresivamente los laterales y deja el centro más transparente sin desplazar la imagen.
   Cuando la tarjeta no tiene conjugación, la cabecera se reduce a 64 px y la imagen comienza
@@ -177,6 +183,10 @@ Convención: `course_direction` (`es_en` default | `en_es`…) es query/campo op
   se presenta como bloque de cristal desplazable con contraste reforzado y tipografía móvil mayor;
   el reverso web conserva su composición tradicional. La visibilidad de la foto y del cristal se
   ajusta con `--pwa-back-image-opacity` y `--pwa-back-glass-opacity` en `CardBack.module.css`.
+  El catálogo abierto desde el dock se presenta como una bottom sheet PWA: mantiene la sesión
+  atenuada detrás, muestra las categorías en un carrusel horizontal de chips, fija el selector
+  segmentado de nivel y concentra los mazos en un único scroll vertical. La ayuda de categoría
+  se abre como una segunda hoja inferior; el catálogo web conserva su modal de dos paneles.
 
 ## Flags y activación
 

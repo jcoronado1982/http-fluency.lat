@@ -56,8 +56,8 @@
         color: #f8fafc;
         font: inherit;
         text-align: left;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 24px;
+        border: 1px solid var(--pwa-border, rgba(255, 255, 255, 0.22));
+        border-radius: var(--pwa-card-radius, 20px);
         background: #111827;
         box-shadow: 0 20px 42px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         scroll-snap-align: start;
@@ -102,8 +102,8 @@
         position: absolute;
         inset: 0;
         background:
-            linear-gradient(180deg, rgba(5, 7, 13, 0.2) 0%, transparent 38%, rgba(5, 7, 13, 0.9) 100%),
-            radial-gradient(circle at 0% 108%, rgba(190, 24, 93, 0.9) 0%, rgba(190, 24, 93, 0.48) 32%, transparent 68%);
+            linear-gradient(180deg, rgba(5, 7, 13, 0.2) 0%, transparent 38%, rgba(5, 7, 13, 0.92) 100%),
+            radial-gradient(circle at 0% 108%, rgba(190, 24, 93, 0.54) 0%, rgba(190, 24, 93, 0.22) 32%, transparent 68%);
         pointer-events: none;
     }
 

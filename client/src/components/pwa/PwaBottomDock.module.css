@@ -21,23 +21,23 @@
         margin: 0 auto;
         padding: 6px;
         box-sizing: border-box;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border-radius: 24px;
+        border: 1px solid var(--pwa-border, rgba(255, 255, 255, 0.22));
+        border-radius: var(--pwa-dock-radius, 24px);
         background:
             linear-gradient(
                 90deg,
-                rgba(5, 7, 13, 0.88) 0%,
-                rgba(7, 10, 17, 0.56) 34%,
-                rgba(7, 10, 17, 0.56) 66%,
-                rgba(5, 7, 13, 0.88) 100%
+                var(--pwa-glass-surface-strong, rgba(5, 7, 13, 0.88)) 0%,
+                rgba(7, 10, 17, 0.58) 34%,
+                rgba(7, 10, 17, 0.58) 66%,
+                var(--pwa-glass-surface-strong, rgba(5, 7, 13, 0.88)) 100%
             ),
             linear-gradient(
                 180deg,
-                rgba(5, 7, 13, 0.78) 0%,
-                rgba(9, 14, 22, 0.46) 62%,
-                rgba(5, 7, 13, 0.7) 100%
+                var(--pwa-glass-surface, rgba(7, 10, 17, 0.72)) 0%,
+                rgba(9, 14, 22, 0.48) 62%,
+                rgba(5, 7, 13, 0.72) 100%
             );
-        box-shadow: 0 16px 38px rgba(0, 0, 0, 0.54), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+        box-shadow: 0 16px 38px rgba(0, 0, 0, 0.54), inset 0 1px 0 rgba(255, 255, 255, 0.16);
         backdrop-filter: blur(28px) saturate(1.45);
         -webkit-backdrop-filter: blur(28px) saturate(1.45);
     }
@@ -56,7 +56,7 @@
         flex-direction: column;
         gap: 4px;
         padding: 5px 4px;
-        color: rgba(255, 255, 255, 0.88);
+        color: var(--pwa-text-secondary, #e2e8f0);
         font: inherit;
         font-size: 0.61rem;
         font-weight: 650;
