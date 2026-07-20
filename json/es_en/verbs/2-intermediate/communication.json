@@ -14,7 +14,8 @@
         "usage_context_en": "social/appointment",
         "usage_context_es": "social/cita",
         "usage_example": "Let's meet at the cafe.",
-        "usage_example_es": "Encontrémonos en el café."
+        "usage_example_es": "Encontrémonos en el café.",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_0_def0.avif"
       },
       {
         "alternative_example": "Where did you meet your husband?",
@@ -24,7 +25,8 @@
         "usage_context_en": "introduction/acquaintance",
         "usage_context_es": "presentación/conocido",
         "usage_example": "Nice to meet you.",
-        "usage_example_es": "Encantado de conocerte."
+        "usage_example_es": "Encantado de conocerte.",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_0_def1.avif"
       }
     ],
     "force_generation": false,
@@ -41,7 +43,8 @@
         "usage_example": "I met him at a party.",
         "usage_example_es": "Lo conocí en una fiesta.",
         "pronunciation_guide_es": "/ai_MET_jim_at_a_PARTI/",
-        "meaning": "Pasado de conocer/reunirse"
+        "meaning": "Pasado de conocer/reunirse",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_0_def0_v2.avif"
       },
       "participle": {
         "form": "met",
@@ -50,7 +53,8 @@
         "usage_example": "We have met before.",
         "usage_example_es": "Nos hemos conocido antes.",
         "pronunciation_guide_es": "/ui_JAV_MET_biFOR/",
-        "meaning": "Participio de conocer/reunirse"
+        "meaning": "Participio de conocer/reunirse",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_0_def0_v3.avif"
       }
     },
     "group_name": "Social & Exchange"
@@ -76,7 +80,8 @@
         "usage_example_es": "Sugiero que tomemos un descanso.",
         "char_count": "two",
         "usage_context_en": "breaks/recommendations",
-        "usage_context_es": "descansos/recomendaciones"
+        "usage_context_es": "descansos/recomendaciones",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_1_def0.avif"
       },
       {
         "meaning": "Indicar/Insinuar",
@@ -86,7 +91,8 @@
         "usage_example_es": "La evidencia sugiere que es culpable.",
         "char_count": "two",
         "usage_context_en": "clues/implication",
-        "usage_context_es": "pistas/implicación"
+        "usage_context_es": "pistas/implicación",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_1_def1.avif"
       }
     ],
     "group_name": "Communication"
@@ -112,7 +118,8 @@
         "usage_example_es": "Por favor, informe cualquier problema al gerente.",
         "char_count": "two",
         "usage_context_en": "problems/news",
-        "usage_context_es": "problemas/noticias"
+        "usage_context_es": "problemas/noticias",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_2_def0.avif"
       },
       {
         "meaning": "Presentarse/Acudir",
@@ -122,7 +129,8 @@
         "usage_example_es": "Preséntese en la oficina a las 9 AM.",
         "char_count": "two",
         "usage_context_en": "attendance/duty",
-        "usage_context_es": "asistencia/deber"
+        "usage_context_es": "asistencia/deber",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_2_def1.avif"
       }
     ],
     "group_name": "Social & Daily Life"
@@ -148,7 +156,8 @@
         "usage_example_es": "¿Puedes explicarme las reglas?",
         "char_count": "two",
         "usage_context_en": "rules/reasons",
-        "usage_context_es": "reglas/razones"
+        "usage_context_es": "reglas/razones",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_3_def0.avif"
       },
       {
         "meaning": "Aclarar/Justificar",
@@ -158,7 +167,8 @@
         "usage_example_es": "Déjame explicar mi punto de vista.",
         "char_count": "two",
         "usage_context_en": "opinion/description",
-        "usage_context_es": "opinión/descripción"
+        "usage_context_es": "opinión/descripción",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_3_def1.avif"
       }
     ],
     "group_name": "Communication"
@@ -184,7 +194,8 @@
         "usage_example_es": "¿Hablas inglés?",
         "char_count": "one",
         "usage_context_en": "language/formal",
-        "usage_context_es": "idioma/formal"
+        "usage_context_es": "idioma/formal",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_4_def0.avif"
       },
       {
         "meaning": "Dar un discurso/Expresar",
@@ -194,7 +205,8 @@
         "usage_example_es": "Ella habló sobre sus experiencias.",
         "char_count": "one",
         "usage_context_en": "public speaking/expression",
-        "usage_context_es": "discurso público/expresión"
+        "usage_context_es": "discurso público/expresión",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_4_def1.avif"
       }
     ],
     "irregular": {
@@ -211,13 +223,15 @@
             "usage_example": "He spoke to the manager about the issue.",
             "usage_example_es": "Él habló con el gerente sobre el asunto.",
             "pronunciation_guide_es": "/ji_SPOUK_tu_de_MANayer_aBAUT_de_ISHU/",
-            "meaning": "Pasado de Hablar"
+            "meaning": "Pasado de Hablar",
+            "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_4_def0_v2.avif"
           },
           {
             "usage_example": "She spoke several languages fluently.",
             "usage_example_es": "Ella hablaba varios idiomas con fluidez.",
             "pronunciation_guide_es": "/shi_SPOUK_SEVeral_LANGUayes_FLUentli/",
-            "meaning": "Pasado de Expresarse"
+            "meaning": "Pasado de Expresarse",
+            "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_4_def1_v2.avif"
           }
         ]
       },
@@ -234,13 +248,15 @@
             "usage_example": "He spoke to the manager about the issue.",
             "usage_example_es": "Él habló con el gerente sobre el asunto.",
             "pronunciation_guide_es": "/ji_SPOUK_tu_de_MANayer_aBAUT_de_ISHU/",
-            "meaning": "Participio de Hablar"
+            "meaning": "Participio de Hablar",
+            "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_4_def0_v3.avif"
           },
           {
             "usage_example": "She spoke several languages fluently.",
             "usage_example_es": "Ella hablaba varios idiomas con fluidez.",
             "pronunciation_guide_es": "/shi_SPOUK_SEVeral_LANGUayes_FLUentli/",
-            "meaning": "Participio de Expresarse"
+            "meaning": "Participio de Expresarse",
+            "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_4_def1_v3.avif"
           }
         ]
       }
@@ -268,7 +284,8 @@
         "usage_example_es": "Necesitamos discutir el nuevo plan.",
         "char_count": "two",
         "usage_context_en": "topics/meetings",
-        "usage_context_es": "temas/reuniones"
+        "usage_context_es": "temas/reuniones",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_5_def0.avif"
       },
       {
         "meaning": "Hablar sobre algo",
@@ -278,7 +295,8 @@
         "usage_example_es": "Hablemos sobre dónde ir a cenar.",
         "char_count": "two",
         "usage_context_en": "conversation/decisions",
-        "usage_context_es": "conversación/decisiones"
+        "usage_context_es": "conversación/decisiones",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_5_def1.avif"
       }
     ],
     "group_name": "Social & Daily Life"
@@ -304,7 +322,8 @@
         "usage_example_es": "¿Puedes describir al hombre que viste?",
         "char_count": "two",
         "usage_context_en": "appearance/details",
-        "usage_context_es": "apariencia/detalles"
+        "usage_context_es": "apariencia/detalles",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_6_def0.avif"
       },
       {
         "meaning": "Relatar",
@@ -314,7 +333,8 @@
         "usage_example_es": "El libro relata la historia de la ciudad.",
         "char_count": "two",
         "usage_context_en": "information/narration",
-        "usage_context_es": "información/narración"
+        "usage_context_es": "información/narración",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_6_def1.avif"
       }
     ],
     "group_name": "Communication"
@@ -340,7 +360,8 @@
         "usage_example_es": "Prometo que te llamaré más tarde.",
         "char_count": "two",
         "usage_context_en": "assurance/commitment",
-        "usage_context_es": "garantía/compromiso"
+        "usage_context_es": "garantía/compromiso",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_7_def0.avif"
       },
       {
         "meaning": "Dar indicios de",
@@ -350,7 +371,8 @@
         "usage_example_es": "El cielo despejado promete un buen día.",
         "char_count": "two",
         "usage_context_en": "future/potential",
-        "usage_context_es": "futuro/potencial"
+        "usage_context_es": "futuro/potencial",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_7_def1.avif"
       }
     ],
     "group_name": "Feelings & Reactions"
@@ -376,7 +398,8 @@
         "usage_example_es": "¿Mencionó mi nombre?",
         "char_count": "two",
         "usage_context_en": "conversation/information",
-        "usage_context_es": "conversación/información"
+        "usage_context_es": "conversación/información",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_8_def0.avif"
       },
       {
         "meaning": "Hacer alusión a",
@@ -386,7 +409,8 @@
         "usage_example_es": "No hay de qué (expresión).",
         "char_count": "two",
         "usage_context_en": "politeness/reference",
-        "usage_context_es": "cortesía/referencia"
+        "usage_context_es": "cortesía/referencia",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_8_def1.avif"
       }
     ],
     "group_name": "Social & Daily Life"
@@ -412,7 +436,8 @@
         "usage_example_es": "¿Estás listo para pedir?",
         "char_count": "two",
         "usage_context_en": "restaurant/commerce",
-        "usage_context_es": "restaurante/comercio"
+        "usage_context_es": "restaurante/comercio",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_9_def0.avif"
       },
       {
         "meaning": "Ordenar/Mandar (dar una orden)",
@@ -422,7 +447,8 @@
         "usage_example_es": "El capitán ordenó a los soldados atacar.",
         "char_count": "two",
         "usage_context_en": "command/sequence",
-        "usage_context_es": "comando/secuencia"
+        "usage_context_es": "comando/secuencia",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_9_def1.avif"
       }
     ],
     "group_name": "Communication"
@@ -448,7 +474,8 @@
         "usage_example_es": "Necesitas practicar todos los días.",
         "char_count": "two",
         "usage_context_en": "skill/repetition",
-        "usage_context_es": "habilidad/repetición"
+        "usage_context_es": "habilidad/repetición",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_10_def0.avif"
       },
       {
         "meaning": "Ejercer (una profesión)",
@@ -458,7 +485,8 @@
         "usage_example_es": "Él ejerce la abogacía en Nueva York.",
         "char_count": "two",
         "usage_context_en": "profession/habit",
-        "usage_context_es": "profesión/hábito"
+        "usage_context_es": "profesión/hábito",
+        "imagePath": "/card_images/verbs/2-intermediate/communication/2-intermediate_communication_card_10_def1.avif"
       }
     ],
     "group_name": "Communication"

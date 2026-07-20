@@ -13,7 +13,8 @@
         "usage_context_en": "An object or idea (very general)",
         "usage_context_es": "Un objeto o idea (muy general)",
         "usage_example": "What is that thing?",
-        "usage_example_es": "¿Qué es esa cosa?"
+        "usage_example_es": "¿Qué es esa cosa?",
+        "imagePath": "/card_images/nouns/1-basic/classification/1-basic_classification_card_0_def0.avif"
       }
     ],
     "force_generation": false,
@@ -38,7 +39,8 @@
         "usage_context_en": "A thing that shows what others are like",
         "usage_context_es": "Una cosa que muestra cómo son otras",
         "usage_example": "Can you give me an example?",
-        "usage_example_es": "¿Puedes darme un ejemplo?"
+        "usage_example_es": "¿Puedes darme un ejemplo?",
+        "imagePath": "/card_images/nouns/1-basic/classification/1-basic_classification_card_1_def0.avif"
       }
     ],
     "force_generation": false,
@@ -63,7 +65,8 @@
         "usage_context_en": "A group of things with similar characteristics",
         "usage_context_es": "Un grupo de cosas con características similares",
         "usage_example": "What kind of music do you like?",
-        "usage_example_es": "¿Qué tipo de música te gusta?"
+        "usage_example_es": "¿Qué tipo de música te gusta?",
+        "imagePath": "/card_images/nouns/1-basic/classification/1-basic_classification_card_2_def0.avif"
       }
     ],
     "force_generation": false,
@@ -88,7 +91,8 @@
         "usage_context_en": "A part of something that has been separated",
         "usage_context_es": "Una parte de algo que ha sido separada",
         "usage_example": "I need a piece of paper.",
-        "usage_example_es": "Necesito un pedazo de papel."
+        "usage_example_es": "Necesito un pedazo de papel.",
+        "imagePath": "/card_images/nouns/1-basic/classification/1-basic_classification_card_3_def0.avif"
       }
     ],
     "force_generation": false,

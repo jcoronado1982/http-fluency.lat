@@ -20,7 +20,8 @@
         "usage_example_es": "Te deseo un feliz cumpleaños.",
         "char_count": "one",
         "usage_context_en": "celebrations/hypotheticals",
-        "usage_context_es": "celebraciones/hipotéticos"
+        "usage_context_es": "celebraciones/hipotéticos",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings_e_modal_auxiliaries/2-intermediate_feelings_e_modal_auxiliaries_card_0_def0.avif"
       },
       {
         "meaning": "Anhelar/Querer",
@@ -30,7 +31,8 @@
         "usage_example_es": "Ella anhelaba la paz.",
         "char_count": "one",
         "usage_context_en": "longing/formal request",
-        "usage_context_es": "anhelo/petición formal"
+        "usage_context_es": "anhelo/petición formal",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings_e_modal_auxiliaries/2-intermediate_feelings_e_modal_auxiliaries_card_0_def1.avif"
       }
     ],
     "group_name": "Feelings & Reactions"
@@ -49,7 +51,8 @@
         "usage_context_en": "uncertain possibility",
         "usage_context_es": "posibilidad incierta",
         "usage_example": "We might go alone.",
-        "usage_example_es": "Puede que vayamos solos."
+        "usage_example_es": "Puede que vayamos solos.",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings_e_modal_auxiliaries/2-intermediate_feelings_e_modal_auxiliaries_card_1_def0.avif"
       }
     ],
     "force_generation": false,
@@ -81,7 +84,8 @@
         "usage_example_es": "Estoy de acuerdo con tu opinión.",
         "char_count": "two",
         "usage_context_en": "opinion/plans",
-        "usage_context_es": "opinión/planes"
+        "usage_context_es": "opinión/planes",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings_e_modal_auxiliaries/2-intermediate_feelings_e_modal_auxiliaries_card_2_def0.avif"
       },
       {
         "meaning": "Concordar (gramática)",
@@ -91,7 +95,8 @@
         "usage_example_es": "El verbo debe concordar con el sujeto.",
         "char_count": "two",
         "usage_context_en": "grammar/negotiation",
-        "usage_context_es": "gramática/negociación"
+        "usage_context_es": "gramática/negociación",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings_e_modal_auxiliaries/2-intermediate_feelings_e_modal_auxiliaries_card_2_def1.avif"
       }
     ],
     "group_name": "Feelings & Reactions"
@@ -110,7 +115,8 @@
         "usage_context_en": "formal suggestion/future",
         "usage_context_es": "sugerencia formal/futuro",
         "usage_example": "Shall we begin?",
-        "usage_example_es": "¿Comenzamos?"
+        "usage_example_es": "¿Comenzamos?",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings_e_modal_auxiliaries/2-intermediate_feelings_e_modal_auxiliaries_card_3_def0.avif"
       }
     ],
     "force_generation": false,
@@ -142,7 +148,8 @@
         "usage_example_es": "Disfruto jugando al fútbol.",
         "char_count": "two",
         "usage_context_en": "hobby/pleasure",
-        "usage_context_es": "pasatiempo/placer"
+        "usage_context_es": "pasatiempo/placer",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings_e_modal_auxiliaries/2-intermediate_feelings_e_modal_auxiliaries_card_4_def0.avif"
       },
       {
         "meaning": "Gozar de/Tener",
@@ -152,7 +159,8 @@
         "usage_example_es": "La ciudad goza de una buena reputación.",
         "char_count": "two",
         "usage_context_en": "advantage/possession",
-        "usage_context_es": "ventaja/posesión"
+        "usage_context_es": "ventaja/posesión",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings_e_modal_auxiliaries/2-intermediate_feelings_e_modal_auxiliaries_card_4_def1.avif"
       }
     ],
     "group_name": "Feelings & Reactions"
@@ -171,7 +179,8 @@
         "usage_context_en": "necessity",
         "usage_context_es": "necesidad",
         "usage_example": "You need to rest.",
-        "usage_example_es": "Necesitas descansar."
+        "usage_example_es": "Necesitas descansar.",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings_e_modal_auxiliaries/2-intermediate_feelings_e_modal_auxiliaries_card_5_def0.avif"
       }
     ],
     "force_generation": false,
@@ -203,7 +212,8 @@
         "usage_example_es": "¿Prefieres té o café?",
         "char_count": "two",
         "usage_context_en": "choice/comparison",
-        "usage_context_es": "elección/comparación"
+        "usage_context_es": "elección/comparación",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings_e_modal_auxiliaries/2-intermediate_feelings_e_modal_auxiliaries_card_6_def0.avif"
       },
       {
         "meaning": "Elegir (una opción sobre otra)",
@@ -213,7 +223,8 @@
         "usage_example_es": "Ella prefirió guardar silencio.",
         "char_count": "two",
         "usage_context_en": "decision/action",
-        "usage_context_es": "decisión/acción"
+        "usage_context_es": "decisión/acción",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings_e_modal_auxiliaries/2-intermediate_feelings_e_modal_auxiliaries_card_6_def1.avif"
       }
     ],
     "group_name": "Feelings & Reactions"
@@ -232,7 +243,8 @@
         "usage_context_en": "moral advice",
         "usage_context_es": "consejo moral",
         "usage_example": "We ought to respect them.",
-        "usage_example_es": "Deberíamos respetarlos."
+        "usage_example_es": "Deberíamos respetarlos.",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings_e_modal_auxiliaries/2-intermediate_feelings_e_modal_auxiliaries_card_7_def0.avif"
       }
     ],
     "force_generation": false,
@@ -262,7 +274,8 @@
         "usage_example_es": "No estoy de acuerdo con esa decisión.",
         "char_count": "5",
         "usage_context_en": "To have a different opinion.",
-        "usage_context_es": "To have a different opinion."
+        "usage_context_es": "To have a different opinion.",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings_e_modal_auxiliaries/2-intermediate_feelings_e_modal_auxiliaries_card_8_def0.avif"
       }
     ],
     "is_verb": true,
@@ -282,7 +295,8 @@
         "usage_context_en": "past habit/state",
         "usage_context_es": "hábito/estado pasado",
         "usage_example": "I used to live there.",
-        "usage_example_es": "Yo solía vivir allí."
+        "usage_example_es": "Yo solía vivir allí.",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings_e_modal_auxiliaries/2-intermediate_feelings_e_modal_auxiliaries_card_9_def0.avif"
       }
     ],
     "force_generation": false,

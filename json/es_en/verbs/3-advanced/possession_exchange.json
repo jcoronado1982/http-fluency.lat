@@ -20,7 +20,8 @@
         "usage_example_es": "La compañía adquirió un nuevo edificio.",
         "char_count": "two",
         "usage_context_en": "purchase/gain",
-        "usage_context_es": "compra/obtención"
+        "usage_context_es": "compra/obtención",
+        "imagePath": "/card_images/verbs/3-advanced/possession_exchange/3-advanced_possession_exchange_card_0_def0.avif"
       }
     ],
     "group_name": "Social Dynamics"
@@ -44,7 +45,8 @@
         "usage_example_es": "Ella heredó la casa de su tía.",
         "char_count": "7",
         "usage_context_en": "To receive money or property from someone after death.",
-        "usage_context_es": "To receive money or property from someone after death."
+        "usage_context_es": "To receive money or property from someone after death.",
+        "imagePath": "/card_images/verbs/3-advanced/possession_exchange/3-advanced_possession_exchange_card_1_def0.avif"
       }
     ],
     "is_verb": true,
@@ -69,7 +71,8 @@
         "usage_example_es": "Él posee gran paciencia.",
         "char_count": "4",
         "usage_context_en": "To own or have something.",
-        "usage_context_es": "To own or have something."
+        "usage_context_es": "To own or have something.",
+        "imagePath": "/card_images/verbs/3-advanced/possession_exchange/3-advanced_possession_exchange_card_2_def0.avif"
       }
     ],
     "is_verb": true,
@@ -94,7 +97,8 @@
         "usage_example_es": "El material conserva bien el calor.",
         "char_count": "5",
         "usage_context_en": "To keep or continue to have something.",
-        "usage_context_es": "To keep or continue to have something."
+        "usage_context_es": "To keep or continue to have something.",
+        "imagePath": "/card_images/verbs/3-advanced/possession_exchange/3-advanced_possession_exchange_card_3_def0.avif"
       }
     ],
     "is_verb": true,
@@ -119,7 +123,8 @@
         "usage_example_es": "Necesitas un permiso para obtener acceso.",
         "char_count": "7",
         "usage_context_en": "To get something.",
-        "usage_context_es": "To get something."
+        "usage_context_es": "To get something.",
+        "imagePath": "/card_images/verbs/3-advanced/possession_exchange/3-advanced_possession_exchange_card_4_def0.avif"
       }
     ],
     "is_verb": true,

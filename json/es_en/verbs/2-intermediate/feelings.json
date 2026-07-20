@@ -20,7 +20,8 @@
         "usage_example_es": "Te deseo un feliz cumpleaños.",
         "char_count": "one",
         "usage_context_en": "celebrations/hypotheticals",
-        "usage_context_es": "celebraciones/hipotéticos"
+        "usage_context_es": "celebraciones/hipotéticos",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings/2-intermediate_feelings_card_0_def0.avif"
       },
       {
         "meaning": "Anhelar/Querer",
@@ -30,7 +31,8 @@
         "usage_example_es": "Ella anhelaba la paz.",
         "char_count": "one",
         "usage_context_en": "longing/formal request",
-        "usage_context_es": "anhelo/petición formal"
+        "usage_context_es": "anhelo/petición formal",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings/2-intermediate_feelings_card_0_def1.avif"
       }
     ],
     "group_name": "Feelings & Reactions"
@@ -56,7 +58,8 @@
         "usage_example_es": "Estoy de acuerdo con tu opinión.",
         "char_count": "two",
         "usage_context_en": "opinion/plans",
-        "usage_context_es": "opinión/planes"
+        "usage_context_es": "opinión/planes",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings/2-intermediate_feelings_card_1_def0.avif"
       },
       {
         "meaning": "Concordar (gramática)",
@@ -66,7 +69,8 @@
         "usage_example_es": "El verbo debe concordar con el sujeto.",
         "char_count": "two",
         "usage_context_en": "grammar/negotiation",
-        "usage_context_es": "gramática/negociación"
+        "usage_context_es": "gramática/negociación",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings/2-intermediate_feelings_card_1_def1.avif"
       }
     ],
     "group_name": "Feelings & Reactions"
@@ -92,7 +96,8 @@
         "usage_example_es": "Disfruto jugando al fútbol.",
         "char_count": "two",
         "usage_context_en": "hobby/pleasure",
-        "usage_context_es": "pasatiempo/placer"
+        "usage_context_es": "pasatiempo/placer",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings/2-intermediate_feelings_card_2_def0.avif"
       },
       {
         "meaning": "Gozar de/Tener",
@@ -102,7 +107,8 @@
         "usage_example_es": "La ciudad goza de una buena reputación.",
         "char_count": "two",
         "usage_context_en": "advantage/possession",
-        "usage_context_es": "ventaja/posesión"
+        "usage_context_es": "ventaja/posesión",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings/2-intermediate_feelings_card_2_def1.avif"
       }
     ],
     "group_name": "Feelings & Reactions"
@@ -128,7 +134,8 @@
         "usage_example_es": "¿Prefieres té o café?",
         "char_count": "two",
         "usage_context_en": "choice/comparison",
-        "usage_context_es": "elección/comparación"
+        "usage_context_es": "elección/comparación",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings/2-intermediate_feelings_card_3_def0.avif"
       },
       {
         "meaning": "Elegir (una opción sobre otra)",
@@ -138,7 +145,8 @@
         "usage_example_es": "Ella prefirió guardar silencio.",
         "char_count": "two",
         "usage_context_en": "decision/action",
-        "usage_context_es": "decisión/acción"
+        "usage_context_es": "decisión/acción",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings/2-intermediate_feelings_card_3_def1.avif"
       }
     ],
     "group_name": "Feelings & Reactions"
@@ -162,7 +170,8 @@
         "usage_example_es": "No estoy de acuerdo con esa decisión.",
         "char_count": "5",
         "usage_context_en": "To have a different opinion.",
-        "usage_context_es": "To have a different opinion."
+        "usage_context_es": "To have a different opinion.",
+        "imagePath": "/card_images/verbs/2-intermediate/feelings/2-intermediate_feelings_card_4_def0.avif"
       }
     ],
     "is_verb": true,

@@ -47,7 +47,8 @@
         "usage_example_es": "Mi trabajo es facilitar la discusión.",
         "char_count": "five",
         "usage_context_en": "process/help",
-        "usage_context_es": "proceso/ayuda"
+        "usage_context_es": "proceso/ayuda",
+        "imagePath": "/card_images/verbs/3-advanced/action/3-advanced_action_card_1_def0.avif"
       }
     ],
     "group_name": "Professional Action"
@@ -73,7 +74,8 @@
         "usage_example_es": "Esta salsa realzará el sabor de la carne.",
         "char_count": "two",
         "usage_context_en": "quality/improvement",
-        "usage_context_es": "calidad/mejora"
+        "usage_context_es": "calidad/mejora",
+        "imagePath": "/card_images/verbs/3-advanced/action/3-advanced_action_card_2_def0.avif"
       }
     ],
     "group_name": "Professional Action"

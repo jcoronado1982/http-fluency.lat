@@ -20,7 +20,8 @@
         "usage_example_es": "Quiero enfatizar la importancia de esta reunión.",
         "char_count": "three",
         "usage_context_en": "importance/stress",
-        "usage_context_es": "importancia/recalcar"
+        "usage_context_es": "importancia/recalcar",
+        "imagePath": "/card_images/verbs/3-advanced/communication/3-advanced_communication_card_0_def0.avif"
       }
     ],
     "group_name": "Academic Communication"
@@ -46,7 +47,8 @@
         "usage_example_es": "¿Podrías explicar ese punto en más detalle?",
         "char_count": "four",
         "usage_context_en": "details/explanation",
-        "usage_context_es": "detalles/explicación"
+        "usage_context_es": "detalles/explicación",
+        "imagePath": "/card_images/verbs/3-advanced/communication/3-advanced_communication_card_1_def0.avif"
       }
     ],
     "group_name": "Academic Communication"
@@ -72,7 +74,8 @@
         "usage_example_es": "Por favor, aclara lo que quieres decir.",
         "char_count": "three",
         "usage_context_en": "understanding/explanation",
-        "usage_context_es": "comprensión/explicación"
+        "usage_context_es": "comprensión/explicación",
+        "imagePath": "/card_images/verbs/3-advanced/communication/3-advanced_communication_card_2_def0.avif"
       }
     ],
     "group_name": "Academic Communication"
@@ -98,7 +101,8 @@
         "usage_example_es": "Él afirmó que era inocente.",
         "char_count": "two",
         "usage_context_en": "statement/confidence",
-        "usage_context_es": "declaración/confianza"
+        "usage_context_es": "declaración/confianza",
+        "imagePath": "/card_images/verbs/3-advanced/communication/3-advanced_communication_card_3_def0.avif"
       }
     ],
     "group_name": "Academic Communication"
@@ -124,7 +128,8 @@
         "usage_example_es": "¿Qué estás tratando de insinuar?",
         "char_count": "two",
         "usage_context_en": "indirect/suggestion",
-        "usage_context_es": "indirecto/sugerencia"
+        "usage_context_es": "indirecto/sugerencia",
+        "imagePath": "/card_images/verbs/3-advanced/communication/3-advanced_communication_card_4_def0.avif"
       }
     ],
     "group_name": "Academic Communication"
@@ -150,7 +155,8 @@
         "usage_example_es": "La película transmite un mensaje poderoso.",
         "char_count": "two",
         "usage_context_en": "message/feeling",
-        "usage_context_es": "mensaje/sentimiento"
+        "usage_context_es": "mensaje/sentimiento",
+        "imagePath": "/card_images/verbs/3-advanced/communication/3-advanced_communication_card_5_def0.avif"
       }
     ],
     "group_name": "Academic Communication"
@@ -176,7 +182,8 @@
         "usage_example_es": "Lo persuadí de que viniera con nosotros.",
         "char_count": "two",
         "usage_context_en": "convince/argument",
-        "usage_context_es": "convencer/argumento"
+        "usage_context_es": "convencer/argumento",
+        "imagePath": "/card_images/verbs/3-advanced/communication/3-advanced_communication_card_6_def0.avif"
       }
     ],
     "group_name": "Social Dynamics"
@@ -202,7 +209,8 @@
         "usage_example_es": "Déjame demostrarte cómo usar el software.",
         "char_count": "three",
         "usage_context_en": "show/explain",
-        "usage_context_es": "mostrar/explicar"
+        "usage_context_es": "mostrar/explicar",
+        "imagePath": "/card_images/verbs/3-advanced/communication/3-advanced_communication_card_7_def0.avif"
       }
     ],
     "group_name": "Social Dynamics"
@@ -228,7 +236,8 @@
         "usage_example_es": "¿Cómo puedes justificar tus acciones?",
         "char_count": "three",
         "usage_context_en": "reason/excuse",
-        "usage_context_es": "razón/excusa"
+        "usage_context_es": "razón/excusa",
+        "imagePath": "/card_images/verbs/3-advanced/communication/3-advanced_communication_card_8_def0.avif"
       }
     ],
     "group_name": "Academic Communication"
@@ -254,7 +263,8 @@
         "usage_example_es": "Ella aboga por los derechos de las mujeres.",
         "char_count": "three",
         "usage_context_en": "support/cause",
-        "usage_context_es": "apoyo/causa"
+        "usage_context_es": "apoyo/causa",
+        "imagePath": "/card_images/verbs/3-advanced/communication/3-advanced_communication_card_9_def0.avif"
       }
     ],
     "group_name": "Social Dynamics"
@@ -280,7 +290,8 @@
         "usage_example_es": "Propongo una nueva solución al problema.",
         "char_count": "two",
         "usage_context_en": "suggest/plan",
-        "usage_context_es": "sugerir/plan"
+        "usage_context_es": "sugerir/plan",
+        "imagePath": "/card_images/verbs/3-advanced/communication/3-advanced_communication_card_10_def0.avif"
       }
     ],
     "group_name": "Academic Communication"
@@ -306,7 +317,8 @@
         "usage_example_es": "Él siempre critica mi trabajo.",
         "char_count": "three",
         "usage_context_en": "judgment/negative",
-        "usage_context_es": "juicio/negativo"
+        "usage_context_es": "juicio/negativo",
+        "imagePath": "/card_images/verbs/3-advanced/communication/3-advanced_communication_card_11_def0.avif"
       }
     ],
     "group_name": "Academic Communication"

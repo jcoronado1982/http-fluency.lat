@@ -14,7 +14,8 @@
         "pronunciation_guide_es": "/dei_JAIERD_mai_broder/",
         "usage_context_en": "jobs/work",
         "usage_context_es": "empleos/trabajo",
-        "usage_example": "They hired my brother."
+        "usage_example": "They hired my brother.",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_0_def0.avif"
       },
       {
         "alternative_example": "We need to hire a driver for the trip.",
@@ -24,7 +25,8 @@
         "pronunciation_guide_es": "/ui_can_JAIER_a_GAID/",
         "usage_context_en": "services/help",
         "usage_context_es": "servicios/ayuda",
-        "usage_example": "We can hire a guide."
+        "usage_example": "We can hire a guide.",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_0_def1.avif"
       }
     ],
     "force_generation": false,
@@ -50,7 +52,8 @@
         "pronunciation_guide_es": "/dei_FAIERD_jim/",
         "usage_context_en": "jobs/work",
         "usage_context_es": "empleos/trabajo",
-        "usage_example": "They fired him."
+        "usage_example": "They fired him.",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_1_def0.avif"
       },
       {
         "alternative_example": "The officer fired into the air.",
@@ -60,7 +63,8 @@
         "pronunciation_guide_es": "/ji_FAIERD_de_gan/",
         "usage_context_en": "weapons/action",
         "usage_context_es": "armas/acción",
-        "usage_example": "He fired the gun."
+        "usage_example": "He fired the gun.",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_1_def1.avif"
       }
     ],
     "force_generation": false,
@@ -92,7 +96,8 @@
         "usage_example_es": "Sirven la cena a las 7 PM.",
         "char_count": "one",
         "usage_context_en": "food/restaurants",
-        "usage_context_es": "comida/restaurantes"
+        "usage_context_es": "comida/restaurantes",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_2_def0.avif"
       },
       {
         "meaning": "Servir/Ser útil",
@@ -102,7 +107,8 @@
         "usage_example_es": "Esta herramienta sirve para muchos propósitos.",
         "char_count": "one",
         "usage_context_en": "utility/duty",
-        "usage_context_es": "utilidad/deber"
+        "usage_context_es": "utilidad/deber",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_2_def1.avif"
       }
     ],
     "group_name": "Social & Daily Life"
@@ -128,7 +134,8 @@
         "usage_example_es": "El hotel proporciona Wi-Fi gratuito.",
         "char_count": "two",
         "usage_context_en": "services/necessities",
-        "usage_context_es": "servicios/necesidades"
+        "usage_context_es": "servicios/necesidades",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_3_def0.avif"
       },
       {
         "meaning": "Estipular/Establecer (formal)",
@@ -138,7 +145,8 @@
         "usage_example_es": "El contrato estipula una multa.",
         "char_count": "two",
         "usage_context_en": "law/agreements",
-        "usage_context_es": "ley/acuerdos"
+        "usage_context_es": "ley/acuerdos",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_3_def1.avif"
       }
     ],
     "group_name": "Social & Daily Life"
@@ -164,7 +172,8 @@
         "usage_example_es": "El símbolo representa la paz.",
         "char_count": "three",
         "usage_context_en": "symbols/role",
-        "usage_context_es": "símbolos/rol"
+        "usage_context_es": "símbolos/rol",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_4_def0.avif"
       },
       {
         "meaning": "Mostrar/Describir",
@@ -174,7 +183,8 @@
         "usage_example_es": "La pintura representa una escena de batalla.",
         "char_count": "three",
         "usage_context_en": "art/description",
-        "usage_context_es": "arte/descripción"
+        "usage_context_es": "arte/descripción",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_4_def1.avif"
       }
     ],
     "group_name": "Social & Daily Life"
@@ -200,7 +210,8 @@
         "usage_example_es": "¿Cuánto cuesta esto?",
         "char_count": "one",
         "usage_context_en": "price/money",
-        "usage_context_es": "precio/dinero"
+        "usage_context_es": "precio/dinero",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_5_def0.avif"
       },
       {
         "meaning": "Causar una pérdida",
@@ -210,7 +221,8 @@
         "usage_example_es": "El error le costó el trabajo.",
         "char_count": "one",
         "usage_context_en": "loss/consequence",
-        "usage_context_es": "pérdida/consecuencia"
+        "usage_context_es": "pérdida/consecuencia",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_5_def1.avif"
       }
     ],
     "group_name": "Managing & Control"
@@ -236,7 +248,8 @@
         "usage_example_es": "Por favor, revisa tu trabajo en busca de errores.",
         "char_count": "one",
         "usage_context_en": "verification/errors",
-        "usage_context_es": "verificación/errores"
+        "usage_context_es": "verificación/errores",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_6_def0.avif"
       },
       {
         "meaning": "Facturar (equipaje)/Pagar (la cuenta)",
@@ -246,7 +259,8 @@
         "usage_example_es": "Necesitamos facturar nuestras maletas.",
         "char_count": "one",
         "usage_context_en": "travel/hotel",
-        "usage_context_es": "viaje/hotel"
+        "usage_context_es": "viaje/hotel",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_6_def1.avif"
       }
     ],
     "group_name": "Managing & Control"
@@ -272,7 +286,8 @@
         "usage_example_es": "Ella gestiona un equipo de 10 personas.",
         "char_count": "two",
         "usage_context_en": "business/control",
-        "usage_context_es": "negocios/control"
+        "usage_context_es": "negocios/control",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_7_def0.avif"
       },
       {
         "meaning": "Arreglárselas/Lograr (con dificultad)",
@@ -282,7 +297,8 @@
         "usage_example_es": "¿Cómo te las arreglaste para terminar a tiempo?",
         "char_count": "two",
         "usage_context_en": "succeed/difficulty",
-        "usage_context_es": "lograr/dificultad"
+        "usage_context_es": "lograr/dificultad",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_7_def1.avif"
       }
     ],
     "group_name": "Managing & Control"
@@ -308,7 +324,8 @@
         "usage_example_es": "Necesitas controlar a tu perro.",
         "char_count": "two",
         "usage_context_en": "command/emotions",
-        "usage_context_es": "comando/emociones"
+        "usage_context_es": "comando/emociones",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_8_def0.avif"
       },
       {
         "meaning": "Manejar/Regular (una máquina)",
@@ -318,7 +335,8 @@
         "usage_example_es": "Este interruptor controla las luces.",
         "char_count": "two",
         "usage_context_en": "function/regulation",
-        "usage_context_es": "función/regulación"
+        "usage_context_es": "función/regulación",
+        "imagePath": "/card_images/verbs/2-intermediate/work/2-intermediate_work_card_8_def1.avif"
       }
     ],
     "group_name": "Managing & Control"

@@ -20,7 +20,8 @@
         "usage_example_es": "Necesitamos analizar los datos con cuidado.",
         "char_count": "three",
         "usage_context_en": "data/examination",
-        "usage_context_es": "datos/examinación"
+        "usage_context_es": "datos/examinación",
+        "imagePath": "/card_images/verbs/3-advanced/thinking/3-advanced_thinking_card_0_def0.avif"
       }
     ],
     "group_name": "Critical Thinking"
@@ -46,7 +47,8 @@
         "usage_example_es": "Necesitamos evaluar el desempeño del equipo.",
         "char_count": "four",
         "usage_context_en": "performance/judgment",
-        "usage_context_es": "desempeño/juicio"
+        "usage_context_es": "desempeño/juicio",
+        "imagePath": "/card_images/verbs/3-advanced/thinking/3-advanced_thinking_card_1_def0.avif"
       }
     ],
     "group_name": "Critical Thinking"
@@ -72,7 +74,8 @@
         "usage_example_es": "¿Cómo interpretas estos resultados?",
         "char_count": "three",
         "usage_context_en": "meaning/understanding",
-        "usage_context_es": "significado/comprensión"
+        "usage_context_es": "significado/comprensión",
+        "imagePath": "/card_images/verbs/3-advanced/thinking/3-advanced_thinking_card_2_def0.avif"
       }
     ],
     "group_name": "Critical Thinking"
@@ -98,7 +101,8 @@
         "usage_example_es": "Asumo que ya sabes la noticia.",
         "char_count": "two",
         "usage_context_en": "supposition/belief",
-        "usage_context_es": "suposición/creencia"
+        "usage_context_es": "suposición/creencia",
+        "imagePath": "/card_images/verbs/3-advanced/thinking/3-advanced_thinking_card_3_def0.avif"
       }
     ],
     "group_name": "Critical Thinking"
@@ -124,7 +128,8 @@
         "usage_example_es": "No puedo comprender sus motivaciones.",
         "char_count": "three",
         "usage_context_en": "understanding/depth",
-        "usage_context_es": "comprensión/profundidad"
+        "usage_context_es": "comprensión/profundidad",
+        "imagePath": "/card_images/verbs/3-advanced/thinking/3-advanced_thinking_card_4_def0.avif"
       }
     ],
     "group_name": "Critical Thinking"
@@ -150,7 +155,8 @@
         "usage_example_es": "Me encontré con un viejo amigo en la tienda.",
         "char_count": "three",
         "usage_context_en": "unexpected/meeting",
-        "usage_context_es": "inesperado/encuentro"
+        "usage_context_es": "inesperado/encuentro",
+        "imagePath": "/card_images/verbs/3-advanced/thinking/3-advanced_thinking_card_5_def0.avif"
       }
     ],
     "group_name": "Social Dynamics"
@@ -176,7 +182,8 @@
         "usage_example_es": "Percibí un cambio en su actitud.",
         "char_count": "two",
         "usage_context_en": "awareness/senses",
-        "usage_context_es": "conciencia/sentidos"
+        "usage_context_es": "conciencia/sentidos",
+        "imagePath": "/card_images/verbs/3-advanced/thinking/3-advanced_thinking_card_6_def0.avif"
       }
     ],
     "group_name": "Critical Thinking"
@@ -202,7 +209,8 @@
         "usage_example_es": "Anticipamos una gran multitud en el evento.",
         "char_count": "five",
         "usage_context_en": "expectation/future",
-        "usage_context_es": "expectativa/futuro"
+        "usage_context_es": "expectativa/futuro",
+        "imagePath": "/card_images/verbs/3-advanced/thinking/3-advanced_thinking_card_7_def0.avif"
       }
     ],
     "group_name": "Critical Thinking"
@@ -228,7 +236,8 @@
         "usage_example_es": "La policía está investigando el crimen.",
         "char_count": "five",
         "usage_context_en": "crime/examination",
-        "usage_context_es": "crimen/examinación"
+        "usage_context_es": "crimen/examinación",
+        "imagePath": "/card_images/verbs/3-advanced/thinking/3-advanced_thinking_card_8_def0.avif"
       }
     ],
     "group_name": "Critical Thinking"
@@ -254,7 +263,8 @@
         "usage_example_es": "¿Qué puedes inferir de estos datos?",
         "char_count": "two",
         "usage_context_en": "conclusion/deduction",
-        "usage_context_es": "conclusión/deducción"
+        "usage_context_es": "conclusión/deducción",
+        "imagePath": "/card_images/verbs/3-advanced/thinking/3-advanced_thinking_card_9_def0.avif"
       }
     ],
     "group_name": "Critical Thinking"
@@ -280,7 +290,8 @@
         "usage_example_es": "Lo considero un amigo cercano.",
         "char_count": "two",
         "usage_context_en": "opinion/judgment",
-        "usage_context_es": "opinión/juicio"
+        "usage_context_es": "opinión/juicio",
+        "imagePath": "/card_images/verbs/3-advanced/thinking/3-advanced_thinking_card_10_def0.avif"
       }
     ],
     "group_name": "Social Dynamics"

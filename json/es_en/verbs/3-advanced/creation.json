@@ -20,7 +20,8 @@
         "usage_example_es": "Puede que necesitemos modificar el diseño.",
         "char_count": "three",
         "usage_context_en": "change/adjustment",
-        "usage_context_es": "cambio/ajuste"
+        "usage_context_es": "cambio/ajuste",
+        "imagePath": "/card_images/verbs/3-advanced/creation/3-advanced_creation_card_0_def0.avif"
       }
     ],
     "group_name": "Influence & Change"
@@ -46,7 +47,8 @@
         "usage_example_es": "La compañía fue fundada en 1990.",
         "char_count": "four",
         "usage_context_en": "founding/creation",
-        "usage_context_es": "fundación/creación"
+        "usage_context_es": "fundación/creación",
+        "imagePath": "/card_images/verbs/3-advanced/creation/3-advanced_creation_card_1_def0.avif"
       }
     ],
     "group_name": "Goals & Results"
@@ -72,7 +74,8 @@
         "usage_example_es": "Necesitas adaptarte al nuevo sistema.",
         "char_count": "two",
         "usage_context_en": "change/adjustment",
-        "usage_context_es": "cambio/ajuste"
+        "usage_context_es": "cambio/ajuste",
+        "imagePath": "/card_images/verbs/3-advanced/creation/3-advanced_creation_card_2_def0.avif"
       }
     ],
     "group_name": "Influence & Change"
@@ -98,7 +101,8 @@
         "usage_example_es": "Tuvimos que alterar nuestros planes.",
         "char_count": "two",
         "usage_context_en": "change/modification",
-        "usage_context_es": "cambio/modificación"
+        "usage_context_es": "cambio/modificación",
+        "imagePath": "/card_images/verbs/3-advanced/creation/3-advanced_creation_card_3_def0.avif"
       }
     ],
     "group_name": "Influence & Change"
@@ -124,7 +128,8 @@
         "usage_example_es": "Lanzarán el nuevo producto el próximo mes.",
         "char_count": "one",
         "usage_context_en": "business/start",
-        "usage_context_es": "negocios/inicio"
+        "usage_context_es": "negocios/inicio",
+        "imagePath": "/card_images/verbs/3-advanced/creation/3-advanced_creation_card_4_def0.avif"
       }
     ],
     "group_name": "Goals & Results"
@@ -150,7 +155,8 @@
         "usage_example_es": "Internet ha transformado la forma en que vivimos.",
         "char_count": "two",
         "usage_context_en": "change/major",
-        "usage_context_es": "cambio/mayor"
+        "usage_context_es": "cambio/mayor",
+        "imagePath": "/card_images/verbs/3-advanced/creation/3-advanced_creation_card_5_def0.avif"
       }
     ],
     "group_name": "Goals & Results"
@@ -176,7 +182,8 @@
         "usage_example_es": "Los precios fluctúan dependiendo de la temporada.",
         "char_count": "three",
         "usage_context_en": "vary/change",
-        "usage_context_es": "variar/cambiar"
+        "usage_context_es": "variar/cambiar",
+        "imagePath": "/card_images/verbs/3-advanced/creation/3-advanced_creation_card_6_def0.avif"
       }
     ],
     "group_name": "Influence & Change"

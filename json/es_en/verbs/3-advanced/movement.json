@@ -20,7 +20,8 @@
         "usage_example_es": "Su opinión influyó en mi decisión.",
         "char_count": "three",
         "usage_context_en": "effect/decision",
-        "usage_context_es": "efecto/decisión"
+        "usage_context_es": "efecto/decisión",
+        "imagePath": "/card_images/verbs/3-advanced/movement/3-advanced_movement_card_0_def0.avif"
       }
     ],
     "group_name": "Influence & Change"
@@ -44,7 +45,8 @@
         "usage_example_es": "Muchas aves migran en invierno.",
         "char_count": "5",
         "usage_context_en": "To move from one region to another, often seasonally or permanently.",
-        "usage_context_es": "To move from one region to another, often seasonally or permanently."
+        "usage_context_es": "To move from one region to another, often seasonally or permanently.",
+        "imagePath": "/card_images/verbs/3-advanced/movement/3-advanced_movement_card_1_def0.avif"
       }
     ],
     "is_verb": true,
@@ -69,7 +71,8 @@
         "usage_example_es": "La empresa se trasladará el próximo año.",
         "char_count": "6",
         "usage_context_en": "To move to a new place.",
-        "usage_context_es": "To move to a new place."
+        "usage_context_es": "To move to a new place.",
+        "imagePath": "/card_images/verbs/3-advanced/movement/3-advanced_movement_card_2_def0.avif"
       }
     ],
     "is_verb": true,
@@ -94,7 +97,8 @@
         "usage_example_es": "Ella aprendió a navegar el río con seguridad.",
         "char_count": "7",
         "usage_context_en": "To find or direct a route.",
-        "usage_context_es": "To find or direct a route."
+        "usage_context_es": "To find or direct a route.",
+        "imagePath": "/card_images/verbs/3-advanced/movement/3-advanced_movement_card_3_def0.avif"
       }
     ],
     "is_verb": true,
@@ -119,7 +123,8 @@
         "usage_example_es": "Atravesaron el desierto a pie.",
         "char_count": "6",
         "usage_context_en": "To travel across something.",
-        "usage_context_es": "To travel across something."
+        "usage_context_es": "To travel across something.",
+        "imagePath": "/card_images/verbs/3-advanced/movement/3-advanced_movement_card_4_def0.avif"
       }
     ],
     "is_verb": true,

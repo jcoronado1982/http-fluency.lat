@@ -13,7 +13,8 @@
         "usage_context_en": "A common pet animal",
         "usage_context_es": "Un animal doméstico común",
         "usage_example": "The dog is barking.",
-        "usage_example_es": "El perro está ladrando."
+        "usage_example_es": "El perro está ladrando.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_0_def0.avif"
       }
     ],
     "force_generation": false,
@@ -38,7 +39,8 @@
         "usage_context_en": "A small pet animal",
         "usage_context_es": "Un animal doméstico pequeño",
         "usage_example": "My cat is sleeping.",
-        "usage_example_es": "Mi gato está durmiendo."
+        "usage_example_es": "Mi gato está durmiendo.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_1_def0.avif"
       }
     ],
     "force_generation": false,
@@ -63,7 +65,8 @@
         "usage_context_en": "An animal that can fly",
         "usage_context_es": "Un animal que puede volar",
         "usage_example": "A bird is singing.",
-        "usage_example_es": "Un pájaro está cantando."
+        "usage_example_es": "Un pájaro está cantando.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_2_def0.avif"
       }
     ],
     "force_generation": false,
@@ -88,7 +91,8 @@
         "usage_context_en": "An animal that lives in water / Its meat",
         "usage_context_es": "Un animal que vive en el agua / Su carne",
         "usage_example": "I see a fish in the water.",
-        "usage_example_es": "Veo un pez en el agua."
+        "usage_example_es": "Veo un pez en el agua.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_3_def0.avif"
       }
     ],
     "force_generation": false,
@@ -113,7 +117,8 @@
         "usage_context_en": "A large animal used for riding",
         "usage_context_es": "Un animal grande usado para montar",
         "usage_example": "He is riding a horse.",
-        "usage_example_es": "Él está montando a caballo."
+        "usage_example_es": "Él está montando a caballo.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_4_def0.avif"
       }
     ],
     "force_generation": false,
@@ -138,7 +143,8 @@
         "usage_context_en": "A large farm animal kept for milk or meat",
         "usage_context_es": "Un animal grande de granja mantenido por leche o carne",
         "usage_example": "The cow gives milk.",
-        "usage_example_es": "La vaca da leche."
+        "usage_example_es": "La vaca da leche.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_5_def0.avif"
       }
     ],
     "force_generation": false,
@@ -163,7 +169,8 @@
         "usage_context_en": "A farm animal with pink skin and a curly tail",
         "usage_context_es": "Un animal de granja con piel rosa y cola rizada",
         "usage_example": "A pig likes mud.",
-        "usage_example_es": "A un cerdo le gusta el lodo."
+        "usage_example_es": "A un cerdo le gusta el lodo.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_6_def0.avif"
       }
     ],
     "force_generation": false,
@@ -188,7 +195,8 @@
         "pronunciation_guide_es": "/UAN_SHIP_TU_SHIP/",
         "usage_context_en": "A farm animal with white, woolly fur",
         "usage_context_es": "Un animal de granja con pelaje blanco y lanoso",
-        "usage_example": "One sheep, two sheep."
+        "usage_example": "One sheep, two sheep.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_7_def0.avif"
       }
     ],
     "force_generation": false,
@@ -213,7 +221,8 @@
         "usage_context_en": "A bird that lives on water",
         "usage_context_es": "Un ave que vive en el agua",
         "usage_example": "The duck is swimming.",
-        "usage_example_es": "El pato está nadando."
+        "usage_example_es": "El pato está nadando.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_8_def0.avif"
       }
     ],
     "force_generation": false,
@@ -238,7 +247,8 @@
         "usage_context_en": "A large, strong wild animal with thick fur",
         "usage_context_es": "Un animal salvaje grande y fuerte con pelaje grueso",
         "usage_example": "I saw a bear in the forest.",
-        "usage_example_es": "Vi un oso en el bosque."
+        "usage_example_es": "Vi un oso en el bosque.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_9_def0.avif"
       }
     ],
     "force_generation": false,
@@ -263,7 +273,8 @@
         "usage_context_en": "A large, wild cat from Africa",
         "usage_context_es": "Un gato salvaje grande de África",
         "usage_example": "The lion is the king of the jungle.",
-        "usage_example_es": "El león es el rey de la selva."
+        "usage_example_es": "El león es el rey de la selva.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_10_def0.avif"
       }
     ],
     "force_generation": false,
@@ -288,7 +299,8 @@
         "usage_context_en": "A large, wild cat with stripes",
         "usage_context_es": "Un gato salvaje grande con rayas",
         "usage_example": "A tiger has orange and black stripes.",
-        "usage_example_es": "Un tigre tiene rayas naranjas y negras."
+        "usage_example_es": "Un tigre tiene rayas naranjas y negras.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_11_def0.avif"
       }
     ],
     "force_generation": false,
@@ -313,7 +325,8 @@
         "usage_context_en": "An animal that lives in trees",
         "usage_context_es": "Un animal que vive en los árboles",
         "usage_example": "The monkey is eating a banana.",
-        "usage_example_es": "El mono está comiendo una banana."
+        "usage_example_es": "El mono está comiendo una banana.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_12_def0.avif"
       }
     ],
     "force_generation": false,
@@ -338,7 +351,8 @@
         "usage_context_en": "A very large, gray animal with a long nose (trunk)",
         "usage_context_es": "Un animal gris muy grande con una nariz larga (trompa)",
         "usage_example": "An elephant is a very big animal.",
-        "usage_example_es": "Un elefante es un animal muy grande."
+        "usage_example_es": "Un elefante es un animal muy grande.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_13_def0.avif"
       }
     ],
     "force_generation": false,
@@ -363,7 +377,8 @@
         "usage_context_en": "A long, thin animal with no legs",
         "usage_context_es": "Un animal largo y delgado sin piernas",
         "usage_example": "I am afraid of snakes.",
-        "usage_example_es": "Tengo miedo de las serpientes."
+        "usage_example_es": "Tengo miedo de las serpientes.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_14_def0.avif"
       }
     ],
     "force_generation": false,
@@ -388,7 +403,8 @@
         "usage_context_en": "A living thing that is not a plant or human",
         "usage_context_es": "Un ser vivo que no es una planta o un humano",
         "usage_example": "A dog is an animal.",
-        "usage_example_es": "Un perro es un animal."
+        "usage_example_es": "Un perro es un animal.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_15_def0.avif"
       }
     ],
     "force_generation": false,
@@ -413,7 +429,8 @@
         "usage_context_en": "A small furry animal with long ears",
         "usage_context_es": "Un animal pequeño y peludo con orejas largas",
         "usage_example": "The rabbit is fast.",
-        "usage_example_es": "El conejo es rápido."
+        "usage_example_es": "El conejo es rápido.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_16_def0.avif"
       }
     ],
     "force_generation": false,
@@ -438,7 +455,8 @@
         "usage_context_en": "A small animal with a long tail",
         "usage_context_es": "Un animal pequeño con una cola larga",
         "usage_example": "The mouse is small.",
-        "usage_example_es": "El ratón es pequeño."
+        "usage_example_es": "El ratón es pequeño.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_17_def0.avif"
       }
     ],
     "force_generation": false,
@@ -463,7 +481,8 @@
         "usage_context_en": "A large animal with antlers that lives in forests",
         "usage_context_es": "Un animal grande con cuernos que vive en bosques",
         "usage_example": "The deer runs fast.",
-        "usage_example_es": "El venado corre rápido."
+        "usage_example_es": "El venado corre rápido.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_18_def0.avif"
       }
     ],
     "force_generation": false,
@@ -488,7 +507,8 @@
         "usage_context_en": "A wild animal similar to a large dog",
         "usage_context_es": "Un animal salvaje parecido a un perro grande",
         "usage_example": "The wolf howls at night.",
-        "usage_example_es": "El lobo aúlla por la noche."
+        "usage_example_es": "El lobo aúlla por la noche.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_19_def0.avif"
       }
     ],
     "force_generation": false,
@@ -513,7 +533,8 @@
         "usage_context_en": "A clever wild animal with a bushy tail",
         "usage_context_es": "Un animal salvaje inteligente con una cola esponjosa",
         "usage_example": "The fox is clever.",
-        "usage_example_es": "El zorro es inteligente."
+        "usage_example_es": "El zorro es inteligente.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_20_def0.avif"
       }
     ],
     "force_generation": false,
@@ -538,7 +559,8 @@
         "usage_context_en": "A small green animal that lives near water",
         "usage_context_es": "Un animal verde pequeño que vive cerca del agua",
         "usage_example": "The frog jumps high.",
-        "usage_example_es": "La rana salta alto."
+        "usage_example_es": "La rana salta alto.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_21_def0.avif"
       }
     ],
     "force_generation": false,
@@ -563,7 +585,8 @@
         "usage_context_en": "An insect with colorful wings",
         "usage_context_es": "Un insecto con alas coloridas",
         "usage_example": "The butterfly is colorful.",
-        "usage_example_es": "La mariposa es colorida."
+        "usage_example_es": "La mariposa es colorida.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_22_def0.avif"
       }
     ],
     "force_generation": false,
@@ -588,7 +611,8 @@
         "usage_context_en": "An insect that makes honey",
         "usage_context_es": "Un insecto que hace miel",
         "usage_example": "The bee makes honey.",
-        "usage_example_es": "La abeja hace miel."
+        "usage_example_es": "La abeja hace miel.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_23_def0.avif"
       }
     ],
     "force_generation": false,
@@ -613,7 +637,8 @@
         "usage_context_en": "A small animal with six legs",
         "usage_context_es": "Un animal pequeño con seis patas",
         "usage_example": "There is an insect here.",
-        "usage_example_es": "Hay un insecto aquí."
+        "usage_example_es": "Hay un insecto aquí.",
+        "imagePath": "/card_images/nouns/1-basic/animals/1-basic_animals_card_24_def0.avif"
       }
     ],
     "force_generation": false,

@@ -31,7 +31,8 @@
         "usage_example_es": "Pasamos el fin de semana en la playa.",
         "char_count": "one",
         "usage_context_en": "time/leisure",
-        "usage_context_es": "tiempo/ocio"
+        "usage_context_es": "tiempo/ocio",
+        "imagePath": "/card_images/verbs/2-intermediate/possession_exchange/2-intermediate_possession_exchange_card_0_def1.avif"
       }
     ],
     "irregular": {
@@ -48,13 +49,15 @@
             "usage_example": "I spent too much money on clothes.",
             "usage_example_es": "Gasté demasiado dinero en ropa.",
             "pronunciation_guide_es": "/ai_SPENT_tu_MACH_MANi_on_KLOUDS/",
-            "meaning": "Pasado de Gastar"
+            "meaning": "Pasado de Gastar",
+            "imagePath": "/card_images/verbs/2-intermediate/possession_exchange/2-intermediate_possession_exchange_card_0_def0_v2.avif"
           },
           {
             "usage_example": "We spent the weekend in the mountains.",
             "usage_example_es": "Pasamos el fin de semana en las montañas.",
             "pronunciation_guide_es": "/ui_SPENT_de_UIKend_in_de_MAUNTins/",
-            "meaning": "Pasado de Pasar tiempo"
+            "meaning": "Pasado de Pasar tiempo",
+            "imagePath": "/card_images/verbs/2-intermediate/possession_exchange/2-intermediate_possession_exchange_card_0_def1_v2.avif"
           }
         ]
       },
@@ -71,13 +74,15 @@
             "usage_example": "I spent too much money on clothes.",
             "usage_example_es": "Gasté demasiado dinero en ropa.",
             "pronunciation_guide_es": "/ai_SPENT_tu_MACH_MANi_on_KLOUDS/",
-            "meaning": "Participio de Gastar"
+            "meaning": "Participio de Gastar",
+            "imagePath": "/card_images/verbs/2-intermediate/possession_exchange/2-intermediate_possession_exchange_card_0_def0_v3.avif"
           },
           {
             "usage_example": "We spent the weekend in the mountains.",
             "usage_example_es": "Pasamos el fin de semana en las montañas.",
             "pronunciation_guide_es": "/ui_SPENT_de_UIKend_in_de_MAUNTins/",
-            "meaning": "Participio de Pasar tiempo"
+            "meaning": "Participio de Pasar tiempo",
+            "imagePath": "/card_images/verbs/2-intermediate/possession_exchange/2-intermediate_possession_exchange_card_0_def1_v3.avif"
           }
         ]
       }
@@ -105,7 +110,8 @@
         "usage_example_es": "Quiero ofrecerte una bebida.",
         "char_count": "two",
         "usage_context_en": "hospitality/jobs",
-        "usage_context_es": "hospitalidad/empleos"
+        "usage_context_es": "hospitalidad/empleos",
+        "imagePath": "/card_images/verbs/2-intermediate/possession_exchange/2-intermediate_possession_exchange_card_1_def0.avif"
       },
       {
         "meaning": "Proponer/Sugerir",
@@ -115,7 +121,8 @@
         "usage_example_es": "¿Qué solución ofrecieron?",
         "char_count": "two",
         "usage_context_en": "suggestions/aid",
-        "usage_context_es": "sugerencias/ayuda"
+        "usage_context_es": "sugerencias/ayuda",
+        "imagePath": "/card_images/verbs/2-intermediate/possession_exchange/2-intermediate_possession_exchange_card_1_def1.avif"
       }
     ],
     "group_name": "Social & Daily Life"
@@ -141,7 +148,8 @@
         "usage_example_es": "¿Quieres compartir mi pizza?",
         "char_count": "one",
         "usage_context_en": "food/information",
-        "usage_context_es": "comida/información"
+        "usage_context_es": "comida/información",
+        "imagePath": "/card_images/verbs/2-intermediate/possession_exchange/2-intermediate_possession_exchange_card_2_def0.avif"
       },
       {
         "meaning": "Tener en común",
@@ -151,7 +159,8 @@
         "usage_example_es": "Compartimos los mismos intereses.",
         "char_count": "one",
         "usage_context_en": "commonality/collaboration",
-        "usage_context_es": "comunalidad/colaboración"
+        "usage_context_es": "comunalidad/colaboración",
+        "imagePath": "/card_images/verbs/2-intermediate/possession_exchange/2-intermediate_possession_exchange_card_2_def1.avif"
       }
     ],
     "group_name": "Social & Daily Life"
@@ -175,7 +184,8 @@
         "usage_example_es": "Muchas personas donan ropa cada año.",
         "char_count": "6",
         "usage_context_en": "To give something for a good purpose.",
-        "usage_context_es": "To give something for a good purpose."
+        "usage_context_es": "To give something for a good purpose.",
+        "imagePath": "/card_images/verbs/2-intermediate/possession_exchange/2-intermediate_possession_exchange_card_3_def0.avif"
       }
     ],
     "is_verb": true,
@@ -200,7 +210,8 @@
         "usage_example_es": "Intercambiamos ideas después de la clase.",
         "char_count": "6",
         "usage_context_en": "To give one thing and receive another.",
-        "usage_context_es": "To give one thing and receive another."
+        "usage_context_es": "To give one thing and receive another.",
+        "imagePath": "/card_images/verbs/2-intermediate/possession_exchange/2-intermediate_possession_exchange_card_4_def0.avif"
       }
     ],
     "is_verb": true,

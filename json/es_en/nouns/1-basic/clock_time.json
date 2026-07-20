@@ -13,7 +13,8 @@
         "usage_context_en": "The concept of duration, a specific moment",
         "usage_context_es": "El concepto de duración, un momento específico",
         "usage_example": "What time is it?",
-        "usage_example_es": "¿Qué hora es?"
+        "usage_example_es": "¿Qué hora es?",
+        "imagePath": "/card_images/nouns/1-basic/clock_time/1-basic_clock_time_card_0_def0.avif"
       },
       {
         "char_count": "2",
@@ -22,7 +23,8 @@
         "usage_context_en": "An instance or occasion when something happens.",
         "usage_context_es": "Una ocasión o vez en la que algo ocurre.",
         "usage_example": "He called me three times.",
-        "usage_example_es": "Me llamó tres veces."
+        "usage_example_es": "Me llamó tres veces.",
+        "imagePath": "/card_images/nouns/1-basic/clock_time/1-basic_clock_time_card_0_def1.avif"
       }
     ],
     "force_generation": false,
@@ -47,7 +49,8 @@
         "usage_context_en": "A period of 60 minutes",
         "usage_context_es": "Un período de 60 minutos",
         "usage_example": "I will be back in an hour.",
-        "usage_example_es": "Volveré en una hora."
+        "usage_example_es": "Volveré en una hora.",
+        "imagePath": "/card_images/nouns/1-basic/clock_time/1-basic_clock_time_card_1_def0.avif"
       }
     ],
     "force_generation": false,
@@ -72,7 +75,8 @@
         "usage_context_en": "A period of 60 seconds",
         "usage_context_es": "Un período de 60 segundos",
         "usage_example": "Wait a minute.",
-        "usage_example_es": "Espera un minuto."
+        "usage_example_es": "Espera un minuto.",
+        "imagePath": "/card_images/nouns/1-basic/clock_time/1-basic_clock_time_card_2_def0.avif"
       }
     ],
     "force_generation": false,
@@ -97,7 +101,8 @@
         "usage_context_en": "A very short unit of time",
         "usage_context_es": "Una unidad de tiempo muy corta",
         "usage_example": "Just a second, please.",
-        "usage_example_es": "Solo un segundo, por favor."
+        "usage_example_es": "Solo un segundo, por favor.",
+        "imagePath": "/card_images/nouns/1-basic/clock_time/1-basic_clock_time_card_3_def0.avif"
       }
     ],
     "force_generation": false,
@@ -122,7 +127,8 @@
         "usage_context_en": "A device that shows time (not worn)",
         "usage_context_es": "Un dispositivo que muestra la hora (no se lleva puesto)",
         "usage_example": "The clock is on the wall.",
-        "usage_example_es": "El reloj está en la pared."
+        "usage_example_es": "El reloj está en la pared.",
+        "imagePath": "/card_images/nouns/1-basic/clock_time/1-basic_clock_time_card_4_def0.avif"
       }
     ],
     "force_generation": false,

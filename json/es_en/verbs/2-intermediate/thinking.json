@@ -14,7 +14,8 @@
         "usage_context_en": "truth/faith",
         "usage_context_es": "verdad/fe",
         "usage_example": "Do you believe his story?",
-        "usage_example_es": "¿Crees su historia?"
+        "usage_example_es": "¿Crees su historia?",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_0_def0.avif"
       },
       {
         "alternative_example": "She believes in a better future.",
@@ -24,7 +25,8 @@
         "usage_context_en": "trust/optimism",
         "usage_context_es": "confianza/optimismo",
         "usage_example": "I believe in you.",
-        "usage_example_es": "Creo en ti."
+        "usage_example_es": "Creo en ti.",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_0_def1.avif"
       }
     ],
     "force_generation": false,
@@ -50,7 +52,8 @@
         "pronunciation_guide_es": "/ai_UANT_tu_LORN_INGlish/",
         "usage_context_en": "study/skills",
         "usage_context_es": "estudio/habilidades",
-        "usage_example": "I want to learn English."
+        "usage_example": "I want to learn English.",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_1_def0.avif"
       },
       {
         "alternative_example": "He learned his lesson.",
@@ -60,7 +63,8 @@
         "pronunciation_guide_es": "/ai_LORNt_aBAUT_de_NIUS_dis_MORning/",
         "usage_context_en": "information/experience",
         "usage_context_es": "información/experiencia",
-        "usage_example": "I learned about the news this morning."
+        "usage_example": "I learned about the news this morning.",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_1_def1.avif"
       }
     ],
     "force_generation": false,
@@ -77,7 +81,8 @@
         "usage_example": "",
         "usage_example_es": "",
         "pronunciation_guide_es": "",
-        "meaning": "Past of learn"
+        "meaning": "Past of learn",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_1_def0_v2.avif"
       },
       "participle": {
         "form": "learned / learnt",
@@ -86,7 +91,8 @@
         "usage_example": "",
         "usage_example_es": "",
         "pronunciation_guide_es": "",
-        "meaning": "Participle of learn"
+        "meaning": "Participle of learn",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_1_def0_v3.avif"
       }
     },
     "group_name": "Mind & Senses"
@@ -112,7 +118,8 @@
         "usage_example_es": "Deberíamos considerar todas las opciones.",
         "char_count": "three",
         "usage_context_en": "options/decisions",
-        "usage_context_es": "opciones/decisiones"
+        "usage_context_es": "opciones/decisiones",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_2_def0.avif"
       },
       {
         "meaning": "Creer/Juzgar",
@@ -122,7 +129,8 @@
         "usage_example_es": "Lo considero un buen amigo.",
         "char_count": "three",
         "usage_context_en": "judgment/reputation",
-        "usage_context_es": "juicio/reputación"
+        "usage_context_es": "juicio/reputación",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_2_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"
@@ -148,7 +156,8 @@
         "usage_example_es": "Espero una llamada de él pronto.",
         "char_count": "two",
         "usage_context_en": "anticipation/punctuality",
-        "usage_context_es": "anticipación/puntualidad"
+        "usage_context_es": "anticipación/puntualidad",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_3_def0.avif"
       },
       {
         "meaning": "Exigir (formal)",
@@ -158,7 +167,8 @@
         "usage_example_es": "¿Qué esperas de mí?",
         "char_count": "two",
         "usage_context_en": "demand/refund",
-        "usage_context_es": "demanda/reembolso"
+        "usage_context_es": "demanda/reembolso",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_3_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"
@@ -184,7 +194,8 @@
         "usage_example_es": "Necesitamos decidirnos rápido.",
         "char_count": "two",
         "usage_context_en": "time/choice",
-        "usage_context_es": "tiempo/elección"
+        "usage_context_es": "tiempo/elección",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_4_def0.avif"
       },
       {
         "meaning": "Determinar/Fallar (legal)",
@@ -194,7 +205,8 @@
         "usage_example_es": "El juez decidirá el caso.",
         "char_count": "two",
         "usage_context_en": "law/plans",
-        "usage_context_es": "ley/planes"
+        "usage_context_es": "ley/planes",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_4_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"
@@ -220,7 +232,8 @@
         "usage_example_es": "Tienes que elegir una opción.",
         "char_count": "one",
         "usage_context_en": "decision/selection",
-        "usage_context_es": "decisión/selección"
+        "usage_context_es": "decisión/selección",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_5_def0.avif"
       },
       {
         "meaning": "Decidir/Preferir",
@@ -230,7 +243,8 @@
         "usage_example_es": "Ella eligió quedarse en casa.",
         "char_count": "one",
         "usage_context_en": "action/preference",
-        "usage_context_es": "acción/preferencia"
+        "usage_context_es": "acción/preferencia",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_5_def1.avif"
       }
     ],
     "irregular": {
@@ -247,13 +261,15 @@
             "usage_example": "She chose the blue dress for the party.",
             "usage_example_es": "Ella eligió el vestido azul para la fiesta.",
             "pronunciation_guide_es": "/shi_CHOUS_de_BLU_DRES_for_de_PARTI/",
-            "meaning": "Pasado de Elegir"
+            "meaning": "Pasado de Elegir",
+            "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_5_def0_v2.avif"
           },
           {
             "usage_example": "They chose to stay home instead.",
             "usage_example_es": "Escogieron quedarse en casa en su lugar.",
             "pronunciation_guide_es": "/dei_CHOUS_tu_STEI_JOUM_inSTED/",
-            "meaning": "Pasado de Escoger"
+            "meaning": "Pasado de Escoger",
+            "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_5_def1_v2.avif"
           }
         ]
       },
@@ -270,13 +286,15 @@
             "usage_example": "She chose the blue dress for the party.",
             "usage_example_es": "Ella eligió el vestido azul para la fiesta.",
             "pronunciation_guide_es": "/shi_CHOUS_de_BLU_DRES_for_de_PARTI/",
-            "meaning": "Participio de Elegir"
+            "meaning": "Participio de Elegir",
+            "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_5_def0_v3.avif"
           },
           {
             "usage_example": "They chose to stay home instead.",
             "usage_example_es": "Escogieron quedarse en casa en su lugar.",
             "pronunciation_guide_es": "/dei_CHOUS_tu_STEI_JOUM_inSTED/",
-            "meaning": "Participio de Escoger"
+            "meaning": "Participio de Escoger",
+            "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_5_def1_v3.avif"
           }
         ]
       }
@@ -304,7 +322,8 @@
         "usage_example_es": "De repente me di cuenta de que olvidé mis llaves.",
         "char_count": "three",
         "usage_context_en": "awareness/understanding",
-        "usage_context_es": "conciencia/comprensión"
+        "usage_context_es": "conciencia/comprensión",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_6_def0.avif"
       },
       {
         "meaning": "Cumplir/Hacer realidad (un sueño)",
@@ -314,7 +333,8 @@
         "usage_example_es": "Finalmente hizo realidad su sueño de viajar.",
         "char_count": "three",
         "usage_context_en": "achievement/dreams",
-        "usage_context_es": "logro/sueños"
+        "usage_context_es": "logro/sueños",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_6_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"
@@ -340,7 +360,8 @@
         "usage_example_es": "¿Puedes adivinar mi edad?",
         "char_count": "one",
         "usage_context_en": "questions/answers",
-        "usage_context_es": "preguntas/respuestas"
+        "usage_context_es": "preguntas/respuestas",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_7_def0.avif"
       },
       {
         "meaning": "Suponer/Creer (informal)",
@@ -350,7 +371,8 @@
         "usage_example_es": "Supongo que lloverá mañana.",
         "char_count": "one",
         "usage_context_en": "opinion/supposition",
-        "usage_context_es": "opinión/suposición"
+        "usage_context_es": "opinión/suposición",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_7_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"
@@ -376,7 +398,8 @@
         "usage_example_es": "Me pregunto por qué llega tarde.",
         "char_count": "two",
         "usage_context_en": "curiosity/doubt",
-        "usage_context_es": "curiosidad/duda"
+        "usage_context_es": "curiosidad/duda",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_8_def0.avif"
       },
       {
         "meaning": "Maravillarse/Asombrarse",
@@ -386,7 +409,8 @@
         "usage_example_es": "Me maravilla su habilidad para mantener la calma.",
         "char_count": "two",
         "usage_context_en": "admiration/awe",
-        "usage_context_es": "admiración/asombro"
+        "usage_context_es": "admiración/asombro",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_8_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"
@@ -412,7 +436,8 @@
         "usage_example_es": "No te reconocí con el nuevo corte de pelo.",
         "char_count": "three",
         "usage_context_en": "identity/memory",
-        "usage_context_es": "identidad/memoria"
+        "usage_context_es": "identidad/memoria",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_9_def0.avif"
       },
       {
         "meaning": "Reconocer (aceptar, admitir)",
@@ -422,7 +447,8 @@
         "usage_example_es": "Debemos reconocer el problema.",
         "char_count": "three",
         "usage_context_en": "acceptance/official",
-        "usage_context_es": "aceptación/oficial"
+        "usage_context_es": "aceptación/oficial",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_9_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"
@@ -448,7 +474,8 @@
         "usage_example_es": "Dudo que venga.",
         "char_count": "one",
         "usage_context_en": "uncertainty/belief",
-        "usage_context_es": "incertidumbre/creencia"
+        "usage_context_es": "incertidumbre/creencia",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_10_def0.avif"
       },
       {
         "meaning": "Cuestionar",
@@ -458,7 +485,8 @@
         "usage_example_es": "Nunca dudes de tus habilidades.",
         "char_count": "one",
         "usage_context_en": "confidence/trust",
-        "usage_context_es": "confianza/confianza"
+        "usage_context_es": "confianza/confianza",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_10_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"
@@ -484,7 +512,8 @@
         "usage_example_es": "Estamos planeando un viaje a la costa.",
         "char_count": "one",
         "usage_context_en": "future/travel",
-        "usage_context_es": "futuro/viaje"
+        "usage_context_es": "futuro/viaje",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_11_def0.avif"
       },
       {
         "meaning": "Tener la intención de",
@@ -494,7 +523,8 @@
         "usage_example_es": "Tengo la intención de estudiar más este año.",
         "char_count": "one",
         "usage_context_en": "intention/strategy",
-        "usage_context_es": "intención/estrategia"
+        "usage_context_es": "intención/estrategia",
+        "imagePath": "/card_images/verbs/2-intermediate/thinking/2-intermediate_thinking_card_11_def1.avif"
       }
     ],
     "group_name": "Thinking & Deciding"

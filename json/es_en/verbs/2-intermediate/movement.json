@@ -20,7 +20,8 @@
         "usage_example_es": "¿Puedes alcanzar el estante de arriba?",
         "char_count": "one",
         "usage_context_en": "physical reach/goals",
-        "usage_context_es": "alcance físico/metas"
+        "usage_context_es": "alcance físico/metas",
+        "imagePath": "/card_images/verbs/2-intermediate/movement/2-intermediate_movement_card_0_def0.avif"
       },
       {
         "meaning": "Llegar a (un lugar, acuerdo)",
@@ -30,7 +31,8 @@
         "usage_example_es": "Llegamos a la ciudad después de un largo viaje.",
         "char_count": "one",
         "usage_context_en": "arrival/agreements",
-        "usage_context_es": "llegada/acuerdos"
+        "usage_context_es": "llegada/acuerdos",
+        "imagePath": "/card_images/verbs/2-intermediate/movement/2-intermediate_movement_card_0_def1.avif"
       }
     ],
     "group_name": "Body & Movement"
@@ -56,7 +58,8 @@
         "usage_example_es": "Aprendí a conducir el año pasado.",
         "char_count": "one",
         "usage_context_en": "vehicle/skill",
-        "usage_context_es": "vehículo/habilidad"
+        "usage_context_es": "vehículo/habilidad",
+        "imagePath": "/card_images/verbs/2-intermediate/movement/2-intermediate_movement_card_1_def0.avif"
       },
       {
         "meaning": "Impulsar/Llevar (a un estado)",
@@ -66,7 +69,8 @@
         "usage_example_es": "El hambre lo llevó a robar.",
         "char_count": "one",
         "usage_context_en": "motivation/emotion",
-        "usage_context_es": "motivación/emoción"
+        "usage_context_es": "motivación/emoción",
+        "imagePath": "/card_images/verbs/2-intermediate/movement/2-intermediate_movement_card_1_def1.avif"
       }
     ],
     "group_name": "Daily Routine"
@@ -92,7 +96,8 @@
         "usage_example_es": "¿Puedes nadar en el océano?",
         "char_count": "one",
         "usage_context_en": "water/sport",
-        "usage_context_es": "agua/deporte"
+        "usage_context_es": "agua/deporte",
+        "imagePath": "/card_images/verbs/2-intermediate/movement/2-intermediate_movement_card_2_def0.avif"
       },
       {
         "meaning": "Marearse/Girar (la cabeza)",
@@ -102,7 +107,8 @@
         "usage_example_es": "Me da vueltas la cabeza.",
         "char_count": "one",
         "usage_context_en": "dizziness/sensation",
-        "usage_context_es": "mareo/sensación"
+        "usage_context_es": "mareo/sensación",
+        "imagePath": "/card_images/verbs/2-intermediate/movement/2-intermediate_movement_card_2_def1.avif"
       }
     ],
     "group_name": "Daily Tasks"
@@ -128,7 +134,8 @@
         "usage_example_es": "Los pájaros pueden volar muy alto.",
         "char_count": "one",
         "usage_context_en": "air/travel",
-        "usage_context_es": "aire/viaje"
+        "usage_context_es": "aire/viaje",
+        "imagePath": "/card_images/verbs/2-intermediate/movement/2-intermediate_movement_card_3_def0.avif"
       },
       {
         "meaning": "Pasar rápidamente (el tiempo)",
@@ -138,7 +145,8 @@
         "usage_example_es": "El tiempo vuela cuando te diviertes.",
         "char_count": "one",
         "usage_context_en": "time/speed",
-        "usage_context_es": "tiempo/velocidad"
+        "usage_context_es": "tiempo/velocidad",
+        "imagePath": "/card_images/verbs/2-intermediate/movement/2-intermediate_movement_card_3_def1.avif"
       }
     ],
     "group_name": "Daily Tasks"
@@ -164,7 +172,8 @@
         "usage_example_es": "Me encanta viajar a nuevos países.",
         "char_count": "two",
         "usage_context_en": "journey/hobby",
-        "usage_context_es": "viaje/pasatiempo"
+        "usage_context_es": "viaje/pasatiempo",
+        "imagePath": "/card_images/verbs/2-intermediate/movement/2-intermediate_movement_card_4_def0.avif"
       },
       {
         "meaning": "Desplazarse",
@@ -174,7 +183,8 @@
         "usage_example_es": "La luz viaja más rápido que el sonido.",
         "char_count": "two",
         "usage_context_en": "physics/movement",
-        "usage_context_es": "física/movimiento"
+        "usage_context_es": "física/movimiento",
+        "imagePath": "/card_images/verbs/2-intermediate/movement/2-intermediate_movement_card_4_def1.avif"
       }
     ],
     "group_name": "Daily Tasks"
@@ -200,7 +210,8 @@
         "usage_example_es": "¿A qué hora llega el tren?",
         "char_count": "two",
         "usage_context_en": "destination/travel",
-        "usage_context_es": "destino/viaje"
+        "usage_context_es": "destino/viaje",
+        "imagePath": "/card_images/verbs/2-intermediate/movement/2-intermediate_movement_card_5_def0.avif"
       },
       {
         "meaning": "Llegar (el momento)",
@@ -210,7 +221,8 @@
         "usage_example_es": "El momento finalmente ha llegado.",
         "char_count": "two",
         "usage_context_en": "time/occurrence",
-        "usage_context_es": "tiempo/ocurrencia"
+        "usage_context_es": "tiempo/ocurrencia",
+        "imagePath": "/card_images/verbs/2-intermediate/movement/2-intermediate_movement_card_5_def1.avif"
       }
     ],
     "group_name": "Body & Movement"
@@ -236,7 +248,8 @@
         "usage_example_es": "¿Cuándo regresarás de tu viaje?",
         "char_count": "two",
         "usage_context_en": "go back/travel",
-        "usage_context_es": "volver/viaje"
+        "usage_context_es": "volver/viaje",
+        "imagePath": "/card_images/verbs/2-intermediate/movement/2-intermediate_movement_card_6_def0.avif"
       },
       {
         "meaning": "Devolver (un objeto)",
@@ -246,7 +259,8 @@
         "usage_example_es": "Tengo que devolver este libro a la biblioteca.",
         "char_count": "two",
         "usage_context_en": "give back/objects",
-        "usage_context_es": "devolver/objetos"
+        "usage_context_es": "devolver/objetos",
+        "imagePath": "/card_images/verbs/2-intermediate/movement/2-intermediate_movement_card_6_def1.avif"
       }
     ],
     "group_name": "Body & Movement"
@@ -272,7 +286,8 @@
         "usage_example_es": "Deberías evitar comer comida chatarra.",
         "char_count": "two",
         "usage_context_en": "prevention/habits",
-        "usage_context_es": "prevención/hábitos"
+        "usage_context_es": "prevención/hábitos",
+        "imagePath": "/card_images/verbs/2-intermediate/movement/2-intermediate_movement_card_7_def0.avif"
       },
       {
         "meaning": "Eludir/Esquivar",
@@ -282,7 +297,8 @@
         "usage_example_es": "Él me está evitando.",
         "char_count": "two",
         "usage_context_en": "people/danger",
-        "usage_context_es": "personas/peligro"
+        "usage_context_es": "personas/peligro",
+        "imagePath": "/card_images/verbs/2-intermediate/movement/2-intermediate_movement_card_7_def1.avif"
       }
     ],
     "group_name": "Body & Movement"
