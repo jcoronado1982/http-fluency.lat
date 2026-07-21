@@ -148,6 +148,7 @@ echo "🔥 [BACKEND] Iniciando Rust Backend..."
 cd "$REPO_ROOT/backend" || exit
 
 # Resolver features modulares a partir de la config local del frontend
+unset BACKEND_FEATURES
 AUTO_BACKEND_FEATURES=""
 if [ -d "$REPO_ROOT/backend/mod_pronoun" ]; then
     if [ -f "$CLIENT_ENV_LOCAL" ] && profile_has_pronoun "$CLIENT_ENV_LOCAL"; then
