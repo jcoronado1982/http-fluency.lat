@@ -74,6 +74,10 @@ seed_pronoun_practice() {
         return 0
     fi
 
+    if [ ! -f "$REPO_ROOT/backend/mod_pronoun/Cargo.toml" ]; then
+        return 0
+    fi
+
     if [ ! -f "$REPO_ROOT/infra/seed/pronoun_practice_seed.surql" ]; then
         echo "⚠️  Seed de pronoun no encontrado; se omite el precargado."
         return 0
@@ -150,7 +154,7 @@ cd "$REPO_ROOT/backend" || exit
 # Resolver features modulares a partir de la config local del frontend
 unset BACKEND_FEATURES
 AUTO_BACKEND_FEATURES=""
-if [ -d "$REPO_ROOT/backend/mod_pronoun" ]; then
+if [ -f "$REPO_ROOT/backend/mod_pronoun/Cargo.toml" ]; then
     if [ -f "$CLIENT_ENV_LOCAL" ] && profile_has_pronoun "$CLIENT_ENV_LOCAL"; then
         AUTO_BACKEND_FEATURES="pronoun_practice"
     elif [ -f "$CLIENT_ENV_FILE" ] && profile_has_pronoun "$CLIENT_ENV_FILE"; then
