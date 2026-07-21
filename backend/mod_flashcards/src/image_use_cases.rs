@@ -78,6 +78,7 @@ fn personal_image_base(
     )
 }
 
+#[allow(dead_code)]
 fn preview_for_log(text: &str, max_chars: usize) -> String {
     let compact = text.split_whitespace().collect::<Vec<_>>().join(" ");
     let mut preview = String::new();
@@ -513,7 +514,7 @@ impl ImageUseCases {
             ));
         }
 
-        let prompt_context_started_at = Instant::now();
+        let _prompt_context_started_at = Instant::now();
         let prompt_meaning_context = build_prompt_meaning_context(req);
         /*
         tracing::info!(
@@ -521,7 +522,7 @@ impl ImageUseCases {
             prompt_meaning_context = ?prompt_meaning_context,
             prompt_usage_example = ?req.usage_example,
             prompt_scene_complement = ?req.scene_complement,
-            prompt_context_elapsed_ms = prompt_context_started_at.elapsed().as_millis() as u64,
+            prompt_context_elapsed_ms = _prompt_context_started_at.elapsed().as_millis() as u64,
             elapsed_ms = request_started_at.elapsed().as_millis() as u64,
             "img-gen:prompt-context"
         );

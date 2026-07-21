@@ -6,8 +6,9 @@ use reqwest::Client;
 use serde_json::json;
 use std::time::Instant;
 use tokio::time::{sleep, Duration};
-use tracing::{debug, info, warn};
+use tracing::{debug, warn};
 
+#[allow(dead_code)]
 fn preview_for_log(text: &str, max_chars: usize) -> String {
     let compact = text.split_whitespace().collect::<Vec<_>>().join(" ");
     let mut preview = String::new();
