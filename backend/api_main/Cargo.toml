@@ -49,9 +49,9 @@ insta.workspace = true
 proptest.workspace = true
 
 [features]
-default = ["flashcards", "auth", "pronoun_practice"]
+default = ["flashcards", "auth"]
 flashcards = ["mod_flashcards"]
-pronoun_practice = ["dep:pronoun_practice"]
+pronoun_practice = ["mod_pronoun"]
 auth = []
 payments = []
 subscriptions = ["payments"]
