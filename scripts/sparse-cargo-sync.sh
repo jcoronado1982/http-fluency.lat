@@ -39,6 +39,7 @@ sparse_patch_api_main() {
   fi
 
   if ! module_selected_contains pronoun "${modules[@]}"; then
+    sed -i '/^mod_pronoun = /d' "$tmp"
     sed -i '/^pronoun_practice = /d' "$tmp"
     sed -i '/^pronoun_practice = \[/d' "$tmp"
   fi
