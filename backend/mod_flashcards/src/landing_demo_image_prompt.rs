@@ -258,8 +258,9 @@ mod tests {
         let p = build_comfy_prompt("A person at a door.");
         assert!(p.starts_with("Candid photorealistic DSLR photograph"));
         assert!(p.contains("A person at a door."));
-        assert!(p.contains("aspect_ratio 1:1"));
-        assert!(p.contains("image_size 1K"));
+        assert!(p.contains(&format!("aspect_ratio {}", GEMINI_IMAGE_ASPECT_RATIO)));
+        assert!(p.contains("aspect_ratio 3:2"));
+        assert!(p.contains(&format!("image_size {}", GEMINI_IMAGE_SIZE)));
         assert!(p.contains("no watermarks"));
     }
 }

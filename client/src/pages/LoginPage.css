@@ -48,7 +48,7 @@
 }
 
 .login-stage {
-    width: min(100%, 440px);
+    width: min(100%, 480px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,7 +57,7 @@
 
 .login-panel {
     width: 100%;
-    padding: 36px 32px 30px;
+    padding: 46px 32px 40px;
     border-radius: 40px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     background: linear-gradient(
@@ -74,7 +74,7 @@
 }
 
 .login-title {
-    margin: 0 0 10px 0;
+    margin: 0 0 20px 0;
     background: linear-gradient(105deg, var(--c-text) 6%, var(--c-pink) 66%, var(--c-orange) 100%);
     background-clip: text;
     -webkit-background-clip: text;
@@ -113,7 +113,7 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 1rem;
+    gap: 20px;
 }
 
 .login-or {

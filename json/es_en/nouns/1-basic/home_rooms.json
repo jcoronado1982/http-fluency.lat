@@ -13,7 +13,8 @@
         "usage_context_en": "The place where you live",
         "usage_context_es": "El lugar donde vives",
         "usage_example": "I am going home.",
-        "usage_example_es": "Voy a casa."
+        "usage_example_es": "Voy a casa.",
+        "imagePath": "/card_images/nouns/1-basic/home_rooms/1-basic_home_rooms_card_0_def0.avif"
       },
       {
         "char_count": "5",
@@ -22,7 +23,8 @@
         "usage_context_en": "A place where people live and are cared for, such as a nursing home.",
         "usage_context_es": "Un lugar donde las personas viven y reciben cuidado, como un hogar de ancianos.",
         "usage_example": "She lives in a nursing home.",
-        "usage_example_es": "Ella vive en un hogar de ancianos."
+        "usage_example_es": "Ella vive en un hogar de ancianos.",
+        "imagePath": "/card_images/nouns/1-basic/home_rooms/1-basic_home_rooms_card_0_def1.avif"
       }
     ],
     "force_generation": false,
@@ -47,7 +49,8 @@
         "usage_context_en": "A building for living in",
         "usage_context_es": "Un edificio para vivir",
         "usage_example": "That is a big house.",
-        "usage_example_es": "Esa es una casa grande."
+        "usage_example_es": "Esa es una casa grande.",
+        "imagePath": "/card_images/nouns/1-basic/home_rooms/1-basic_home_rooms_card_1_def0.avif"
       },
       {
         "char_count": "5",
@@ -56,7 +59,8 @@
         "usage_context_en": "A legislative or deliberative body.",
         "usage_context_es": "Un cuerpo legislativo o deliberativo.",
         "usage_example": "The House passed the bill.",
-        "usage_example_es": "La cámara aprobó el proyecto de ley."
+        "usage_example_es": "La cámara aprobó el proyecto de ley.",
+        "imagePath": "/card_images/nouns/1-basic/home_rooms/1-basic_home_rooms_card_1_def1.avif"
       },
       {
         "char_count": "5",
@@ -65,7 +69,8 @@
         "usage_context_en": "A royal or noble family line.",
         "usage_context_es": "Una familia real o noble.",
         "usage_example": "The House of Windsor is famous.",
-        "usage_example_es": "La Casa de Windsor es famosa."
+        "usage_example_es": "La Casa de Windsor es famosa.",
+        "imagePath": "/card_images/nouns/1-basic/home_rooms/1-basic_home_rooms_card_1_def2.avif"
       }
     ],
     "force_generation": false,
@@ -90,7 +95,8 @@
         "usage_context_en": "A part of the inside of a building",
         "usage_context_es": "Una parte del interior de un edificio",
         "usage_example": "My room is small.",
-        "usage_example_es": "Mi habitación es pequeña."
+        "usage_example_es": "Mi habitación es pequeña.",
+        "imagePath": "/card_images/nouns/1-basic/home_rooms/1-basic_home_rooms_card_2_def0.avif"
       }
     ],
     "force_generation": false,
@@ -115,7 +121,8 @@
         "usage_context_en": "A room for cooking",
         "usage_context_es": "Un cuarto para cocinar",
         "usage_example": "I am in the kitchen.",
-        "usage_example_es": "Estoy en la cocina."
+        "usage_example_es": "Estoy en la cocina.",
+        "imagePath": "/card_images/nouns/1-basic/home_rooms/1-basic_home_rooms_card_3_def0.avif"
       }
     ],
     "force_generation": false,
@@ -140,7 +147,8 @@
         "usage_context_en": "A room with a toilet and sink",
         "usage_context_es": "Un cuarto con un inodoro y un lavamanos",
         "usage_example": "Where is the bathroom?",
-        "usage_example_es": "¿Dónde está el baño?"
+        "usage_example_es": "¿Dónde está el baño?",
+        "imagePath": "/card_images/nouns/1-basic/home_rooms/1-basic_home_rooms_card_4_def0.avif"
       }
     ],
     "force_generation": false,
@@ -165,7 +173,8 @@
         "pronunciation_guide_es": "/mai_BEDrum_is_LARY/",
         "usage_context_en": "A room for sleeping",
         "usage_context_es": "Un cuarto para dormir",
-        "usage_example": "My bedroom is large."
+        "usage_example": "My bedroom is large.",
+        "imagePath": "/card_images/nouns/1-basic/home_rooms/1-basic_home_rooms_card_5_def0.avif"
       }
     ],
     "force_generation": false,
@@ -190,7 +199,8 @@
         "usage_context_en": "The surface of a room you walk on",
         "usage_context_es": "La superficie de un cuarto sobre la que caminas",
         "usage_example": "The keys are on the floor.",
-        "usage_example_es": "Las llaves están en el piso."
+        "usage_example_es": "Las llaves están en el piso.",
+        "imagePath": "/card_images/nouns/1-basic/home_rooms/1-basic_home_rooms_card_6_def0.avif"
       }
     ],
     "force_generation": false,
@@ -215,7 +225,8 @@
         "usage_context_en": "The side of a room or building",
         "usage_context_es": "El lado de un cuarto o edificio",
         "usage_example": "The picture is on the wall.",
-        "usage_example_es": "El cuadro está en la pared."
+        "usage_example_es": "El cuadro está en la pared.",
+        "imagePath": "/card_images/nouns/1-basic/home_rooms/1-basic_home_rooms_card_7_def0.avif"
       }
     ],
     "force_generation": false,
@@ -240,7 +251,8 @@
         "usage_context_en": "The cover on top of a building",
         "usage_context_es": "La cubierta en la cima de un edificio",
         "usage_example": "The cat is on the roof.",
-        "usage_example_es": "El gato está en el techo."
+        "usage_example_es": "El gato está en el techo.",
+        "imagePath": "/card_images/nouns/1-basic/home_rooms/1-basic_home_rooms_card_8_def0.avif"
       }
     ],
     "force_generation": false,
@@ -265,7 +277,8 @@
         "pronunciation_guide_es": "/de_LAMP_JANGS_from_de_SILing/",
         "usage_context_en": "The inside top surface of a room",
         "usage_context_es": "La superficie superior interna de un cuarto",
-        "usage_example": "The lamp hangs from the ceiling."
+        "usage_example": "The lamp hangs from the ceiling.",
+        "imagePath": "/card_images/nouns/1-basic/home_rooms/1-basic_home_rooms_card_9_def0.avif"
       }
     ],
     "force_generation": false,

@@ -13,7 +13,8 @@
         "usage_context_en": "A female parent",
         "usage_context_es": "Un pariente femenino",
         "usage_example": "My mother is a doctor.",
-        "usage_example_es": "Mi madre es doctora."
+        "usage_example_es": "Mi madre es doctora.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_0_def0.avif"
       }
     ],
     "force_generation": false,
@@ -38,7 +39,8 @@
         "usage_context_en": "A male parent",
         "usage_context_es": "Un pariente masculino",
         "usage_example": "My father works hard.",
-        "usage_example_es": "Mi padre trabaja duro."
+        "usage_example_es": "Mi padre trabaja duro.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_1_def0.avif"
       }
     ],
     "force_generation": false,
@@ -63,7 +65,8 @@
         "usage_context_en": "A male sibling",
         "usage_context_es": "Un hermano varón",
         "usage_example": "He is my older brother.",
-        "usage_example_es": "Él es mi hermano mayor."
+        "usage_example_es": "Él es mi hermano mayor.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_2_def0.avif"
       }
     ],
     "force_generation": false,
@@ -88,7 +91,8 @@
         "usage_context_en": "A female sibling",
         "usage_context_es": "Una hermana mujer",
         "usage_example": "My sister is very tall.",
-        "usage_example_es": "Mi hermana es muy alta."
+        "usage_example_es": "Mi hermana es muy alta.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_3_def0.avif"
       }
     ],
     "force_generation": false,
@@ -113,7 +117,8 @@
         "usage_context_en": "A male child",
         "usage_context_es": "Un hijo varón",
         "usage_example": "That is my son.",
-        "usage_example_es": "Ese es mi hijo."
+        "usage_example_es": "Ese es mi hijo.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_4_def0.avif"
       }
     ],
     "force_generation": false,
@@ -138,7 +143,8 @@
         "usage_context_en": "A female child",
         "usage_context_es": "Una hija mujer",
         "usage_example": "His daughter is five years old.",
-        "usage_example_es": "Su hija tiene cinco años."
+        "usage_example_es": "Su hija tiene cinco años.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_5_def0.avif"
       }
     ],
     "force_generation": false,
@@ -163,7 +169,8 @@
         "usage_context_en": "A very young child",
         "usage_context_es": "Un niño muy pequeño",
         "usage_example": "The baby is sleeping.",
-        "usage_example_es": "El bebé está durmiendo."
+        "usage_example_es": "El bebé está durmiendo.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_6_def0.avif"
       }
     ],
     "force_generation": false,
@@ -188,7 +195,8 @@
         "usage_context_en": "A group of parents and children",
         "usage_context_es": "Un grupo de padres e hijos",
         "usage_example": "I love my family.",
-        "usage_example_es": "Amo a mi familia."
+        "usage_example_es": "Amo a mi familia.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_7_def0.avif"
       }
     ],
     "force_generation": false,
@@ -213,7 +221,8 @@
         "usage_context_en": "A mother or father",
         "usage_context_es": "Una madre o un padre",
         "usage_example": "My parents are from Colombia.",
-        "usage_example_es": "Mis padres (ambos) son de Colombia."
+        "usage_example_es": "Mis padres (ambos) son de Colombia.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_8_def0.avif"
       }
     ],
     "force_generation": false,
@@ -238,7 +247,8 @@
         "usage_context_en": "A married man",
         "usage_context_es": "Un hombre casado",
         "usage_example": "He is my husband.",
-        "usage_example_es": "Él es mi esposo."
+        "usage_example_es": "Él es mi esposo.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_9_def0.avif"
       }
     ],
     "force_generation": false,
@@ -263,7 +273,8 @@
         "usage_context_en": "A married woman",
         "usage_context_es": "Una mujer casada",
         "usage_example": "She is my wife.",
-        "usage_example_es": "Ella es mi esposa."
+        "usage_example_es": "Ella es mi esposa.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_10_def0.avif"
       }
     ],
     "force_generation": false,
@@ -288,7 +299,8 @@
         "usage_context_en": "The brother of your mother or father",
         "usage_context_es": "El hermano de tu madre o padre",
         "usage_example": "He is my uncle.",
-        "usage_example_es": "Él es mi tío."
+        "usage_example_es": "Él es mi tío.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_11_def0.avif"
       }
     ],
     "force_generation": false,
@@ -313,7 +325,8 @@
         "usage_context_en": "The sister of your mother or father",
         "usage_context_es": "La hermana de tu madre o padre",
         "usage_example": "She is my aunt.",
-        "usage_example_es": "Ella es mi tía."
+        "usage_example_es": "Ella es mi tía.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_12_def0.avif"
       }
     ],
     "force_generation": false,
@@ -338,7 +351,8 @@
         "usage_context_en": "The father of your mother or father",
         "usage_context_es": "El padre de tu madre o padre",
         "usage_example": "My grandfather is old.",
-        "usage_example_es": "Mi abuelo es viejo."
+        "usage_example_es": "Mi abuelo es viejo.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_13_def0.avif"
       }
     ],
     "force_generation": false,
@@ -363,7 +377,8 @@
         "usage_context_en": "The mother of your mother or father",
         "usage_context_es": "La madre de tu madre o padre",
         "usage_example": "My grandmother cooks well.",
-        "usage_example_es": "Mi abuela cocina bien."
+        "usage_example_es": "Mi abuela cocina bien.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_14_def0.avif"
       }
     ],
     "force_generation": false,
@@ -388,7 +403,8 @@
         "usage_context_en": "The child of your aunt or uncle",
         "usage_context_es": "El hijo o hija de tu tío o tía",
         "usage_example": "She is my cousin.",
-        "usage_example_es": "Ella es mi prima."
+        "usage_example_es": "Ella es mi prima.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_15_def0.avif"
       }
     ],
     "force_generation": false,
@@ -413,7 +429,8 @@
         "usage_context_en": "The son of your brother or sister",
         "usage_context_es": "El hijo de tu hermano o hermana",
         "usage_example": "He is my nephew.",
-        "usage_example_es": "Él es mi sobrino."
+        "usage_example_es": "Él es mi sobrino.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_16_def0.avif"
       }
     ],
     "force_generation": false,
@@ -438,7 +455,8 @@
         "usage_context_en": "The daughter of your brother or sister",
         "usage_context_es": "La hija de tu hermano o hermana",
         "usage_example": "She is my niece.",
-        "usage_example_es": "Ella es mi sobrina."
+        "usage_example_es": "Ella es mi sobrina.",
+        "imagePath": "/card_images/nouns/1-basic/family/1-basic_family_card_17_def0.avif"
       }
     ],
     "force_generation": false,

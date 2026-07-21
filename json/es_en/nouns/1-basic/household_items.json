@@ -13,7 +13,8 @@
         "usage_context_en": "A piece of furniture with a flat top",
         "usage_context_es": "Un mueble con una superficie plana",
         "usage_example": "The book is on the table.",
-        "usage_example_es": "El libro está sobre la mesa."
+        "usage_example_es": "El libro está sobre la mesa.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_0_def0.avif"
       },
       {
         "char_count": "6",
@@ -22,7 +23,8 @@
         "usage_context_en": "A set of data arranged in rows and columns.",
         "usage_context_es": "Un conjunto de datos dispuestos en filas y columnas.",
         "usage_example": "The results are shown in the table below.",
-        "usage_example_es": "Los resultados se muestran en la tabla de abajo."
+        "usage_example_es": "Los resultados se muestran en la tabla de abajo.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_0_def1.avif"
       }
     ],
     "force_generation": false,
@@ -47,7 +49,8 @@
         "usage_context_en": "A seat for one person",
         "usage_context_es": "Un asiento para una persona",
         "usage_example": "Sit on the chair.",
-        "usage_example_es": "Siéntate en la silla."
+        "usage_example_es": "Siéntate en la silla.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_1_def0.avif"
       }
     ],
     "force_generation": false,
@@ -72,7 +75,8 @@
         "usage_context_en": "You use this to enter or leave a room",
         "usage_context_es": "Usas esto para entrar o salir de un cuarto",
         "usage_example": "Close the door, please.",
-        "usage_example_es": "Cierra la puerta, por favor."
+        "usage_example_es": "Cierra la puerta, por favor.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_2_def0.avif"
       }
     ],
     "force_generation": false,
@@ -97,7 +101,8 @@
         "usage_context_en": "An opening in a wall with glass",
         "usage_context_es": "Una abertura en una pared con vidrio",
         "usage_example": "Open the window.",
-        "usage_example_es": "Abre la ventana."
+        "usage_example_es": "Abre la ventana.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_3_def0.avif"
       }
     ],
     "force_generation": false,
@@ -122,7 +127,8 @@
         "usage_context_en": "A piece of furniture for sleeping",
         "usage_context_es": "Un mueble para dormir",
         "usage_example": "I am going to bed.",
-        "usage_example_es": "Me voy a la cama."
+        "usage_example_es": "Me voy a la cama.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_4_def0.avif"
       }
     ],
     "force_generation": false,
@@ -147,7 +153,8 @@
         "usage_context_en": "A small metal tool to open a lock",
         "usage_context_es": "Una pequeña herramienta de metal para abrir una cerradura",
         "usage_example": "I lost my key.",
-        "usage_example_es": "Perdí mi llave."
+        "usage_example_es": "Perdí mi llave.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_5_def0.avif"
       },
       {
         "char_count": "3",
@@ -156,7 +163,8 @@
         "usage_context_en": "A button you press on a keyboard or piano.",
         "usage_context_es": "Un botón que presionas en un teclado o piano.",
         "usage_example": "Press the key to play the note.",
-        "usage_example_es": "Presiona la tecla para tocar la nota."
+        "usage_example_es": "Presiona la tecla para tocar la nota.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_5_def1.avif"
       },
       {
         "char_count": "5",
@@ -165,7 +173,8 @@
         "usage_context_en": "Something important or essential for understanding.",
         "usage_context_es": "Algo importante o esencial para comprender.",
         "usage_example": "This is the key to success.",
-        "usage_example_es": "Esta es la clave del éxito."
+        "usage_example_es": "Esta es la clave del éxito.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_5_def2.avif"
       }
     ],
     "force_generation": false,
@@ -190,7 +199,8 @@
         "usage_context_en": "The brightness from the sun or a lamp",
         "usage_context_es": "El brillo del sol o una lámpara",
         "usage_example": "Turn on the light.",
-        "usage_example_es": "Enciende la luz."
+        "usage_example_es": "Enciende la luz.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_6_def0.avif"
       },
       {
         "char_count": "4",
@@ -199,7 +209,8 @@
         "usage_context_en": "Visible energy that makes things seen.",
         "usage_context_es": "Energía visible que permite ver las cosas.",
         "usage_example": "Turn on the light.",
-        "usage_example_es": "Enciende la luz."
+        "usage_example_es": "Enciende la luz.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_6_def1.avif"
       },
       {
         "char_count": "4",
@@ -208,7 +219,8 @@
         "usage_context_en": "Having little weight; not heavy.",
         "usage_context_es": "Que tiene poco peso; no es pesado.",
         "usage_example": "This bag is very light.",
-        "usage_example_es": "Esta bolsa es muy liviana."
+        "usage_example_es": "Esta bolsa es muy liviana.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_6_def2.avif"
       }
     ],
     "force_generation": false,
@@ -233,7 +245,8 @@
         "usage_context_en": "A container with square sides",
         "usage_context_es": "Un contenedor con lados cuadrados",
         "usage_example": "Put it in the box.",
-        "usage_example_es": "Ponlo en la caja."
+        "usage_example_es": "Ponlo en la caja.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_7_def0.avif"
       }
     ],
     "force_generation": false,
@@ -258,7 +271,8 @@
         "usage_context_en": "A container for liquids, usually glass or plastic",
         "usage_context_es": "Un contenedor para líquidos, usualmente de vidrio o plástico",
         "usage_example": "A bottle of water.",
-        "usage_example_es": "Una botella de agua."
+        "usage_example_es": "Una botella de agua.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_8_def0.avif"
       }
     ],
     "force_generation": false,
@@ -283,7 +297,8 @@
         "usage_context_en": "A small container for drinking",
         "usage_context_es": "Un contenedor pequeño para beber",
         "usage_example": "A cup of tea.",
-        "usage_example_es": "Una taza de té."
+        "usage_example_es": "Una taza de té.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_9_def0.avif"
       }
     ],
     "force_generation": false,
@@ -308,7 +323,8 @@
         "usage_context_en": "A container for drinking / The hard, clear material",
         "usage_context_es": "Un contenedor para beber / El material duro y transparente",
         "usage_example": "A glass of water.",
-        "usage_example_es": "Un vaso de agua."
+        "usage_example_es": "Un vaso de agua.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_10_def0.avif"
       }
     ],
     "force_generation": false,
@@ -333,7 +349,8 @@
         "pronunciation_guide_es": "/PUT_de_FUD_on_de_PLEIT/",
         "usage_context_en": "A flat dish for eating food",
         "usage_context_es": "Un recipiente plano para comer",
-        "usage_example": "Put the food on the plate."
+        "usage_example": "Put the food on the plate.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_11_def0.avif"
       }
     ],
     "force_generation": false,
@@ -358,7 +375,8 @@
         "pronunciation_guide_es": "/ai_IT_SALad_uith_a_FORK/",
         "usage_context_en": "A tool with points for lifting food",
         "usage_context_es": "Una herramienta con puntas para levantar comida",
-        "usage_example": "I eat salad with a fork."
+        "usage_example": "I eat salad with a fork.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_12_def0.avif"
       }
     ],
     "force_generation": false,
@@ -383,7 +401,8 @@
         "pronunciation_guide_es": "/ai_IT_SUP_uith_a_SPUN/",
         "usage_context_en": "A tool with a small bowl for liquid food",
         "usage_context_es": "Una herramienta con un cuenco pequeño para comida líquida",
-        "usage_example": "I eat soup with a spoon."
+        "usage_example": "I eat soup with a spoon.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_13_def0.avif"
       }
     ],
     "force_generation": false,
@@ -408,7 +427,8 @@
         "pronunciation_guide_es": "/bi_KERful_uith_de_NAIF/",
         "usage_context_en": "A tool with a blade for cutting",
         "usage_context_es": "Una herramienta con una hoja para cortar",
-        "usage_example": "Be careful with the knife."
+        "usage_example": "Be careful with the knife.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_14_def0.avif"
       }
     ],
     "force_generation": false,
@@ -433,7 +453,8 @@
         "usage_context_en": "A device that shows moving pictures (TV)",
         "usage_context_es": "Un dispositivo que muestra imágenes en movimiento (TV)",
         "usage_example": "I am watching television.",
-        "usage_example_es": "Estoy viendo la televisión."
+        "usage_example_es": "Estoy viendo la televisión.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_15_def0.avif"
       }
     ],
     "force_generation": false,
@@ -458,7 +479,8 @@
         "usage_context_en": "A long soft seat for more than one person",
         "usage_context_es": "Un asiento largo y suave para más de una persona",
         "usage_example": "Sit on the sofa.",
-        "usage_example_es": "Siéntate en el sofá."
+        "usage_example_es": "Siéntate en el sofá.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_16_def0.avif"
       }
     ],
     "force_generation": false,
@@ -483,7 +505,8 @@
         "usage_context_en": "A device that produces light",
         "usage_context_es": "Un dispositivo que produce luz",
         "usage_example": "Turn on the lamp.",
-        "usage_example_es": "Enciende la lámpara."
+        "usage_example_es": "Enciende la lámpara.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_17_def0.avif"
       }
     ],
     "force_generation": false,
@@ -508,7 +531,8 @@
         "usage_context_en": "A flat surface that reflects your image",
         "usage_context_es": "Una superficie plana que refleja tu imagen",
         "usage_example": "Look in the mirror.",
-        "usage_example_es": "Mírate en el espejo."
+        "usage_example_es": "Mírate en el espejo.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_18_def0.avif"
       }
     ],
     "force_generation": false,
@@ -533,7 +557,8 @@
         "usage_context_en": "A piece of cloth used to dry yourself",
         "usage_context_es": "Un trozo de tela usado para secarte",
         "usage_example": "Grab the towel.",
-        "usage_example_es": "Agarra la toalla."
+        "usage_example_es": "Agarra la toalla.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_19_def0.avif"
       }
     ],
     "force_generation": false,
@@ -558,7 +583,8 @@
         "usage_context_en": "A substance used for washing",
         "usage_context_es": "Una sustancia usada para lavar",
         "usage_example": "Use the soap.",
-        "usage_example_es": "Usa el jabón."
+        "usage_example_es": "Usa el jabón.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_20_def0.avif"
       }
     ],
     "force_generation": false,
@@ -583,7 +609,8 @@
         "usage_context_en": "A soft bag used to rest your head",
         "usage_context_es": "Una bolsa suave usada para reposar la cabeza",
         "usage_example": "The pillow is soft.",
-        "usage_example_es": "La almohada es suave."
+        "usage_example_es": "La almohada es suave.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_21_def0.avif"
       }
     ],
     "force_generation": false,
@@ -608,7 +635,8 @@
         "usage_context_en": "A large piece of cloth used to keep warm",
         "usage_context_es": "Una pieza grande de tela usada para mantenerse abrigado",
         "usage_example": "The blanket is warm.",
-        "usage_example_es": "La cobija está caliente."
+        "usage_example_es": "La cobija está caliente.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_22_def0.avif"
       }
     ],
     "force_generation": false,
@@ -633,7 +661,8 @@
         "usage_context_en": "A flat board fixed to a wall to put things on",
         "usage_context_es": "Una tabla plana fijada a la pared para poner cosas",
         "usage_example": "The books are on the shelf.",
-        "usage_example_es": "Los libros están en el estante."
+        "usage_example_es": "Los libros están en el estante.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_23_def0.avif"
       }
     ],
     "force_generation": false,
@@ -658,7 +687,8 @@
         "usage_context_en": "A sliding box used to store things",
         "usage_context_es": "Una caja deslizante usada para guardar cosas",
         "usage_example": "Open the drawer.",
-        "usage_example_es": "Abre el cajón."
+        "usage_example_es": "Abre el cajón.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_24_def0.avif"
       }
     ],
     "force_generation": false,
@@ -683,7 +713,8 @@
         "usage_context_en": "A machine used to keep food and drinks cold",
         "usage_context_es": "Una máquina usada para mantener fríos los alimentos y bebidas",
         "usage_example": "Put the milk in the fridge.",
-        "usage_example_es": "Pon la leche en la nevera."
+        "usage_example_es": "Pon la leche en la nevera.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_25_def0.avif"
       }
     ],
     "force_generation": false,
@@ -708,7 +739,8 @@
         "usage_context_en": "A piece of equipment used for cooking food",
         "usage_context_es": "Un equipo usado para cocinar alimentos",
         "usage_example": "The soup is on the stove.",
-        "usage_example_es": "La sopa está en la estufa."
+        "usage_example_es": "La sopa está en la estufa.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_26_def0.avif"
       }
     ],
     "force_generation": false,
@@ -733,7 +765,8 @@
         "usage_context_en": "A bowl used for urination and defecation",
         "usage_context_es": "Una taza usada para la micción y defecación",
         "usage_example": "Flush the toilet, please.",
-        "usage_example_es": "Tira de la cadena del inodoro, por favor."
+        "usage_example_es": "Tira de la cadena del inodoro, por favor.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_27_def0.avif"
       }
     ],
     "force_generation": false,
@@ -758,7 +791,8 @@
         "usage_context_en": "A place where you stand to wash your body",
         "usage_context_es": "Un lugar donde te pones de pie para lavar tu cuerpo",
         "usage_example": "I take a shower in the morning.",
-        "usage_example_es": "Tomo una ducha en la mañana."
+        "usage_example_es": "Tomo una ducha en la mañana.",
+        "imagePath": "/card_images/nouns/1-basic/household_items/1-basic_household_items_card_28_def0.avif"
       }
     ],
     "force_generation": false,

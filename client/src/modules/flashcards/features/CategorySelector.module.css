@@ -112,7 +112,7 @@
 .categoryNav {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   overflow-y: auto;
   flex-grow: 1;
 }
@@ -788,24 +788,15 @@
   .categorySelectorOverlay {
     --catalog-laptop-top: var(--app-header-height, 76px);
     top: var(--catalog-laptop-top);
-    height: calc(var(--fc-real-vh, 100dvh) - var(--catalog-laptop-top));
-    min-height: calc(var(--fc-real-vh, 100dvh) - var(--catalog-laptop-top));
+    height: calc(var(--fc-real-vh, 100dvh) - var(--catalog-laptop-top) - 20px);
+    min-height: calc(var(--fc-real-vh, 100dvh) - var(--catalog-laptop-top) - 20px);
     padding-block: 0;
     align-items: center;
   }
 
-  .sidebarTitle {
-    margin-bottom: 10px;
-  }
-
   .dashboardContainer {
-    max-height: 650px;
+    max-height: 680px;
   }
-
-  .categoryNav {
-    overflow-y: auto;
-  }
-
 }
 
 /* Mobile Responsive */

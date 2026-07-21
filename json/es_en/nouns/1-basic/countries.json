@@ -13,7 +13,8 @@
         "usage_context_en": "A nation / Land outside of cities",
         "usage_context_es": "Una nación / Terreno fuera de las ciudades",
         "usage_example": "Brazil is a large country.",
-        "usage_example_es": "Brasil es un país grande."
+        "usage_example_es": "Brasil es un país grande.",
+        "imagePath": "/card_images/nouns/1-basic/countries/1-basic_countries_card_0_def0.avif"
       },
       {
         "char_count": "3",
@@ -22,7 +23,8 @@
         "usage_context_en": "A style of popular music from the southern United States.",
         "usage_context_es": "Un estilo de música popular del sur de Estados Unidos.",
         "usage_example": "I like country music.",
-        "usage_example_es": "Me gusta la música country."
+        "usage_example_es": "Me gusta la música country.",
+        "imagePath": "/card_images/nouns/1-basic/countries/1-basic_countries_card_0_def1.avif"
       }
     ],
     "force_generation": false,

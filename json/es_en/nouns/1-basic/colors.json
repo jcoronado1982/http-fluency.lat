@@ -13,7 +13,8 @@
         "usage_context_en": "The color of blood",
         "usage_context_es": "El color de la sangre",
         "usage_example": "The apple is red.",
-        "usage_example_es": "La manzana es roja."
+        "usage_example_es": "La manzana es roja.",
+        "imagePath": "/card_images/nouns/1-basic/colors/1-basic_colors_card_0_def0.avif"
       }
     ],
     "force_generation": false,
@@ -38,7 +39,8 @@
         "usage_context_en": "The color of the sky",
         "usage_context_es": "El color del cielo",
         "usage_example": "The sky is blue.",
-        "usage_example_es": "El cielo es azul."
+        "usage_example_es": "El cielo es azul.",
+        "imagePath": "/card_images/nouns/1-basic/colors/1-basic_colors_card_1_def0.avif"
       }
     ],
     "force_generation": false,
@@ -63,7 +65,8 @@
         "usage_context_en": "The color of grass",
         "usage_context_es": "El color del pasto",
         "usage_example": "The grass is green.",
-        "usage_example_es": "El pasto es verde."
+        "usage_example_es": "El pasto es verde.",
+        "imagePath": "/card_images/nouns/1-basic/colors/1-basic_colors_card_2_def0.avif"
       }
     ],
     "force_generation": false,
@@ -88,7 +91,8 @@
         "usage_context_en": "The color of the sun",
         "usage_context_es": "El color del sol",
         "usage_example": "The sun is yellow.",
-        "usage_example_es": "El sol es amarillo."
+        "usage_example_es": "El sol es amarillo.",
+        "imagePath": "/card_images/nouns/1-basic/colors/1-basic_colors_card_3_def0.avif"
       }
     ],
     "force_generation": false,
@@ -113,7 +117,8 @@
         "usage_context_en": "The darkest color, like night",
         "usage_context_es": "El color más oscuro, como la noche",
         "usage_example": "The cat is black.",
-        "usage_example_es": "El gato es negro."
+        "usage_example_es": "El gato es negro.",
+        "imagePath": "/card_images/nouns/1-basic/colors/1-basic_colors_card_4_def0.avif"
       }
     ],
     "force_generation": false,
@@ -138,7 +143,8 @@
         "usage_context_en": "The color of milk or snow",
         "usage_context_es": "El color de la leche o la nieve",
         "usage_example": "The snow is white.",
-        "usage_example_es": "La nieve es blanca."
+        "usage_example_es": "La nieve es blanca.",
+        "imagePath": "/card_images/nouns/1-basic/colors/1-basic_colors_card_5_def0.avif"
       }
     ],
     "force_generation": false,
@@ -163,7 +169,8 @@
         "usage_context_en": "Red, blue, green, yellow, etc.",
         "usage_context_es": "Rojo, azul, verde, amarillo, etc.",
         "usage_example": "What is your favorite color?",
-        "usage_example_es": "¿Cuál es tu color favorito?"
+        "usage_example_es": "¿Cuál es tu color favorito?",
+        "imagePath": "/card_images/nouns/1-basic/colors/1-basic_colors_card_6_def0.avif"
       }
     ],
     "force_generation": false,
@@ -188,7 +195,8 @@
         "usage_context_en": "The color of wood or earth",
         "usage_context_es": "El color de la madera o la tierra",
         "usage_example": "His shoes are brown.",
-        "usage_example_es": "Sus zapatos son marrones."
+        "usage_example_es": "Sus zapatos son marrones.",
+        "imagePath": "/card_images/nouns/1-basic/colors/1-basic_colors_card_7_def0.avif"
       }
     ],
     "force_generation": false,
@@ -213,7 +221,8 @@
         "usage_context_en": "A color between black and white (AmE)",
         "usage_context_es": "Un color entre negro y blanco (AmE)",
         "usage_example": "The sky is gray.",
-        "usage_example_es": "El cielo está gris."
+        "usage_example_es": "El cielo está gris.",
+        "imagePath": "/card_images/nouns/1-basic/colors/1-basic_colors_card_8_def0.avif"
       }
     ],
     "force_generation": false,
@@ -238,7 +247,8 @@
         "usage_context_en": "A light red color",
         "usage_context_es": "Un color rojo claro",
         "usage_example": "A pink flower.",
-        "usage_example_es": "Una flor rosada."
+        "usage_example_es": "Una flor rosada.",
+        "imagePath": "/card_images/nouns/1-basic/colors/1-basic_colors_card_9_def0.avif"
       }
     ],
     "force_generation": false,
@@ -263,7 +273,8 @@
         "usage_context_en": "A color between red and blue",
         "usage_context_es": "Un color entre rojo y azul",
         "usage_example": "Grapes are purple.",
-        "usage_example_es": "Las uvas son moradas."
+        "usage_example_es": "Las uvas son moradas.",
+        "imagePath": "/card_images/nouns/1-basic/colors/1-basic_colors_card_10_def0.avif"
       }
     ],
     "force_generation": false,
