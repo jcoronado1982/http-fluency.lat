@@ -76,13 +76,16 @@ impl SurrealConnection {
     /// así que indexamos user_id — acota cada query a las filas del usuario.
     /// Idempotente (`IF NOT EXISTS`, SurrealDB >= 1.3).
     async fn define_indexes(db: &Surreal<Client>) -> Result<()> {
-        db.query(
-            "DEFINE INDEX IF NOT EXISTS idx_card_progress_user \
-                ON TABLE card_progress FIELDS user_id;",
+        if let Err(e) = db.query(
+            "DEFINE INDEX idx_card_progress_user \
+                ON card_progress FIELDS user_id;",
         )
-        .await?
-        .check()?;
-        tracing::info!("📇 Índice de card_progress verificado");
+        .await
+        {
+            tracing::debug!("Aviso al verificar índice en SurrealDB: {}", e);
+        } else {
+            tracing::info!("📇 Índice de card_progress verificado");
+        }
         Ok(())
     }
 

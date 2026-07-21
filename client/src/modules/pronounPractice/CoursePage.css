@@ -1,0 +1,313 @@
+/* src/pages/CoursePage.css */
+
+.courseContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
+    background-color: #0f172a;
+    padding: 40px 20px;
+    min-height: auto;
+}
+
+.courseMain {
+    width: auto;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.courseHeader {
+    width: 100%;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.courseTitle {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: -1px;
+    background: linear-gradient(to right, #ffffff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.courseBadge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(244, 114, 182, 0.1);
+    border: 1px solid rgba(244, 114, 182, 0.2);
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-top: 8px;
+}
+
+.courseBadgeNum {
+    font-size: 0.75em;
+    font-weight: 800;
+    color: #f472b6;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.courseBadgeDivider {
+    color: rgba(244, 114, 182, 0.3);
+}
+
+.courseBadgeName {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #94a3b8;
+}
+
+.courseCard {
+    width: 100%;
+    min-width: 0;
+    max-width: 900px;
+    background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 32px;
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #333;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+}
+
+.courseContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 🌟 ¡AQUÍ EMPIEZAN LAS NUEVAS REGLAS DE LA TABLA MAGICA! 🌟 */
+
+.tableWrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.codexTable {
+    width: 100%;
+    border-collapse: collapse;
+    /* Quita las rayitas dobles feas */
+    text-align: left;
+}
+
+/* Los títulos de arriba (Subject, Object...) */
+.codexTable th {
+    padding: 16px;
+    /* ¡Mucho espacio para respirar! */
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.codexTable th:first-child {
+    color: #64748b;
+}
+
+.codexTable th:not(:first-child) {
+    color: rgba(244, 114, 182, 0.7);
+}
+
+/* Las celdas de adentrito */
+.codexTable td {
+    padding: 16px;
+    /* Más espacio para que no se choquen */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    transition: background-color 0.3s ease;
+}
+
+/* Un brillo especial cuando pasas el ratoncito por encima */
+.codexTable tbody tr:hover td {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* La cajita donde dice "1st Sing." y "Yo" */
+.personCell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    /* ¡Un muro invisible entre el inglés y el español! */
+}
+
+.personName {
+    font-weight: bold;
+    font-size: 14px;
+    color: #94a3b8;
+    white-space: nowrap;
+}
+
+.personTranslation {
+    color: #64748b;
+    font-size: 11px;
+    font-style: italic;
+}
+
+/* Las palabras grandotas como "I", "You", "He" */
+.pronounValue {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    font-family: var(--font-family-app, 'Plus Jakarta Sans', system-ui, sans-serif);
+    transition: color 0.3s ease;
+}
+
+.codexTable tbody tr:hover .pronounValue {
+    color: #f472b6;
+    /* Se pintan de azulito al tocarlas */
+}
+
+/* El texto para las que están vacías (n/a) */
+.nullValue {
+    color: #1e293b;
+    font-size: 12px;
+    font-style: italic;
+}
+
+/* La parte de hasta abajo (el footer de la cajita) */
+.courseFooter {
+    width: 100%;
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    color: #475569;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.footerLeft,
+.footerRight {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cpuIcon {
+    color: rgba(244, 114, 182, 0.5);
+    font-size: 14px;
+}
+
+/* ¡El puntito verde brillante! */
+.statusDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #10b981;
+    box-shadow: 0 0 8px #10b981;
+}
+
+@media (max-width: 768px) {
+    .courseContainer {
+        padding: 16px 12px;
+    }
+
+    .courseHeader {
+        margin-top: 20px;
+        margin-bottom: 16px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .courseTitle {
+        font-size: 1.8rem;
+    }
+
+    .courseCard {
+        min-width: 0;
+        width: 100%;
+        padding: 16px 12px;
+        background: rgba(30, 41, 59, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: none;
+        border-radius: 16px;
+    }
+
+    .tableWrapper {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 8px;
+    }
+
+    /* Estilo para la barra de desplazamiento horizontal en móvil */
+    .tableWrapper::-webkit-scrollbar {
+        height: 4px;
+    }
+    .tableWrapper::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 2px;
+    }
+    .tableWrapper::-webkit-scrollbar-thumb {
+        background: rgba(244, 114, 182, 0.2);
+        border-radius: 2px;
+    }
+
+    .codexTable th {
+        padding: 10px 8px;
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
+
+    .codexTable td {
+        padding: 10px 8px;
+    }
+
+    .personCell {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+    }
+
+    .personName {
+        font-size: 12px;
+    }
+
+    .personTranslation {
+        font-size: 10px;
+    }
+
+    .pronounValue {
+        font-size: 14px;
+    }
+
+    .nullValue {
+        font-size: 11px;
+    }
+}

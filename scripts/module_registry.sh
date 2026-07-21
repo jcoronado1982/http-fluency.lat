@@ -193,6 +193,7 @@ client/src/assets
 client/src/components/common
 client/src/components/routing
 client/src/components/flashcardStudy
+client/src/components/pwa
 client/src/components/shell
 client/src/adapters
 client/src/config

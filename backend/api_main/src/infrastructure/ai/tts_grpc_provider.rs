@@ -1,3 +1,5 @@
+#![allow(dead_code, unused_variables, unused_imports)]
+
 use anyhow::{anyhow, Context, Result};
 /// Proveedor Google TTS via gRPC binario.
 ///
