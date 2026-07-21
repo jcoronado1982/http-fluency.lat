@@ -73,6 +73,10 @@ case "$mode" in
     git -C "$REPO_ROOT" sparse-checkout disable
     clear_sparse_state
     bash "$SCRIPT_DIR/sparse-cargo-sync.sh" full
+    if [ -f "$REPO_ROOT/client/env-profiles/full.profile" ]; then
+      cp "$REPO_ROOT/client/env-profiles/full.profile" "$REPO_ROOT/client/.env.development"
+      cp "$REPO_ROOT/client/env-profiles/full.profile" "$REPO_ROOT/client/.env.development.local"
+    fi
     echo "Sparse checkout desactivado. Workspace completo restaurado."
     exit 0
     ;;
@@ -102,6 +106,11 @@ git -C "$REPO_ROOT" sparse-checkout set --stdin < "$tmp_patterns"
 write_sparse_state "${selected_modules[@]}"
 
 bash "$SCRIPT_DIR/sparse-cargo-sync.sh" "${selected_modules[@]}"
+
+if [[ "${#selected_modules[@]}" -eq 1 ]] && [ -f "$REPO_ROOT/client/env-profiles/${selected_modules[0]}.profile" ]; then
+  cp "$REPO_ROOT/client/env-profiles/${selected_modules[0]}.profile" "$REPO_ROOT/client/.env.development"
+  cp "$REPO_ROOT/client/env-profiles/${selected_modules[0]}.profile" "$REPO_ROOT/client/.env.development.local"
+fi
 
 echo "Sparse checkout activo para modulos: ${selected_modules[*]}"
 echo "Rama Git actual: $(git -C "$REPO_ROOT" branch --show-current)"
