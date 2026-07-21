@@ -39,6 +39,7 @@ ogg = "0.9.2"
 fluency_core = { path = "../core" }
 mod_shell = { path = "../mod_shell" }
 mod_flashcards = { path = "../mod_flashcards", optional = true }
+mod_pronoun = { path = "../mod_pronoun", optional = true }
 
 [dev-dependencies]
 # tests de handlers en memoria: router de Axum + tower::ServiceExt::oneshot (sin puerto ni proceso)
@@ -50,6 +51,7 @@ proptest.workspace = true
 [features]
 default = ["flashcards", "auth"]
 flashcards = ["mod_flashcards"]
+pronoun_practice = ["mod_pronoun"]
 auth = []
 payments = []
 subscriptions = ["payments"]

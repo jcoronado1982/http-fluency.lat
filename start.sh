@@ -149,10 +149,12 @@ cd "$REPO_ROOT/backend" || exit
 
 # Resolver features modulares a partir de la config local del frontend
 AUTO_BACKEND_FEATURES=""
-if [ -f "$CLIENT_ENV_LOCAL" ] && profile_has_pronoun "$CLIENT_ENV_LOCAL"; then
-    AUTO_BACKEND_FEATURES="pronoun_practice"
-elif [ -f "$CLIENT_ENV_FILE" ] && profile_has_pronoun "$CLIENT_ENV_FILE"; then
-    AUTO_BACKEND_FEATURES="pronoun_practice"
+if [ -d "$REPO_ROOT/backend/mod_pronoun" ]; then
+    if [ -f "$CLIENT_ENV_LOCAL" ] && profile_has_pronoun "$CLIENT_ENV_LOCAL"; then
+        AUTO_BACKEND_FEATURES="pronoun_practice"
+    elif [ -f "$CLIENT_ENV_FILE" ] && profile_has_pronoun "$CLIENT_ENV_FILE"; then
+        AUTO_BACKEND_FEATURES="pronoun_practice"
+    fi
 fi
 
 if [ -z "$BACKEND_FEATURES" ] && [ -n "$AUTO_BACKEND_FEATURES" ]; then
