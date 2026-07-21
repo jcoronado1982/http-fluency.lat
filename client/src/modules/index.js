@@ -25,7 +25,7 @@ if (import.meta.env.VITE_ENABLE_FLASHCARDS !== 'false') {
 }
 
 if (
-  import.meta.env.VITE_ENABLE_PRONOUN_REFERENCE !== 'false'
+  import.meta.env.VITE_ENABLE_PRONOUN_REFERENCE === 'true'
   || import.meta.env.VITE_ENABLE_PRONOUN_PRACTICE === 'true'
   || import.meta.env.VITE_ENABLE_PRONOUN === 'true'
 ) {
